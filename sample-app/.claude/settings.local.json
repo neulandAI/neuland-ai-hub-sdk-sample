@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(/Users/moiz/Documents/00_Development/00_Repos/sample-app/.venv/bin/pip list:*)"
-    ]
-  }
-}
