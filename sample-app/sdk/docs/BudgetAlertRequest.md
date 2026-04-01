@@ -1,0 +1,31 @@
+# BudgetAlertRequest
+
+Alert request model
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** | Name for the alert to be created. Max 100 characters. | 
+**threshold_amount** | **float** | Threshold amount | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of BudgetAlertRequest from a JSON string
+budget_alert_request_instance = BudgetAlertRequest.from_json(json)
+# print the JSON string representation of the object
+print(BudgetAlertRequest.to_json())
+
+# convert the object into a dict
+budget_alert_request_dict = budget_alert_request_instance.to_dict()
+# create an instance of BudgetAlertRequest from a dict
+budget_alert_request_from_dict = BudgetAlertRequest.from_dict(budget_alert_request_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
