@@ -1,0 +1,30 @@
+# LibraryIn
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** |  | 
+**description** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.library_in import LibraryIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of LibraryIn from a JSON string
+library_in_instance = LibraryIn.from_json(json)
+# print the JSON string representation of the object
+print(LibraryIn.to_json())
+
+# convert the object into a dict
+library_in_dict = library_in_instance.to_dict()
+# create an instance of LibraryIn from a dict
+library_in_from_dict = LibraryIn.from_dict(library_in_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

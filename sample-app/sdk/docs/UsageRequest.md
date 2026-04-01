@@ -1,0 +1,32 @@
+# UsageRequest
+
+Generic usage request model for both token and cost queries.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**granularity** | **str** |  | 
+**date_start** | **datetime** |  | [optional] 
+**date_end** | **datetime** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.usage_request import UsageRequest
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UsageRequest from a JSON string
+usage_request_instance = UsageRequest.from_json(json)
+# print the JSON string representation of the object
+print(UsageRequest.to_json())
+
+# convert the object into a dict
+usage_request_dict = usage_request_instance.to_dict()
+# create an instance of UsageRequest from a dict
+usage_request_from_dict = UsageRequest.from_dict(usage_request_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

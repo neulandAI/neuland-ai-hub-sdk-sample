@@ -1,0 +1,19 @@
+annotated-doc==0.0.4
+annotated-types==0.7.0
+anyio==4.13.0
+cffi==2.0.0
+cryptography==46.0.6
+fastapi==0.135.2
+idna==3.11
+# Editable install with no version control (neuland_hub_sdk==1.0.0)
+-e /Users/moiz/Documents/00_Development/00_Repos/sample-app/sdk
+pycparser==3.0
+pydantic==2.12.5
+pydantic_core==2.41.5
+PyJWT==2.12.1
+python-dateutil==2.9.0.post0
+six==1.17.0
+starlette==1.0.0
+typing-inspection==0.4.2
+typing_extensions==4.15.0
+urllib3==2.6.3
