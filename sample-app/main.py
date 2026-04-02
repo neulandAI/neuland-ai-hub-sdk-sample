@@ -1,3 +1,6 @@
+""" sample app using neuland hub sdk """
+
+
 import base64
 from typing import List, Dict, Any
 from fastapi import FastAPI, Depends, HTTPException, status
@@ -39,6 +42,14 @@ class LlmModelsResponse(BaseModel):
     gdpr_compliant: bool | None = None
 
 
+class AssistantModel(BaseModel):
+    """ Assistant model """
+    name: str
+    description: str | None = None
+    provider: str
+    model: str
+    
+    
 def public_key_pem_from_env(public_key) -> bytes:
     """Read RSA public key from env and normalize \\n into real newlines."""
     if not public_key:
@@ -147,5 +158,21 @@ async def get_llm_models(api_key: str = Depends(get_api_key)) -> List[LlmModelsR
                     default=m.default,
                     multi_modal=m.multi_modal,
                     gdpr_compliant=m.gdpr_compliant) for m in models]
+        except ApiException as e:
+            raise HTTPException(status_code=e.status, detail=f"API error: {e.reason}")
+        
+        
+@app.post("/assistants", status_code=status.HTTP_201_CREATED)
+async def create_assistant(payload: AssistantModel, api_key: str = Depends(get_api_key)) -> AssistantModel:
+    """ create assistant """
+    sdk_config.api_key["APIKeyHeader"] = api_key
+    with neuland_hub_sdk.ApiClient(sdk_config) as api_client:
+        api = DefaultApi(api_client)
+        try:
+            assitant = api.create_assistant_assistants_post(payload.model_dump(exclude_unset=True))
+            return AssistantModel(name=assitant.name,
+                    description=assitant.description,
+                    provider=assitant.provider,
+                    model=assitant.model)
         except ApiException as e:
             raise HTTPException(status_code=e.status, detail=f"API error: {e.reason}")
