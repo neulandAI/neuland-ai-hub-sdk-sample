@@ -1,0 +1,4 @@
+{
+    "welcome": "Willkommen bei deiner AI-Anwendung!",
+    "description": "Du kannst diese Seite anpassen, indem du die <code>src/app/[locale]/(dashboard)/page.tsx</code>-Datei bearbeitest."
+}
