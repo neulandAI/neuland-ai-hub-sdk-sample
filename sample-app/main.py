@@ -14,7 +14,7 @@ import config
 bearer_scheme = HTTPBearer()
 
 import neuland_hub_sdk
-from neuland_hub_sdk import DefaultApi, Configuration
+from neuland_hub_sdk import UsersApi, AssistantsApi, SettingsApi, Configuration
 from neuland_hub_sdk.rest import ApiException
 
 
@@ -131,7 +131,7 @@ async def get_user_info(api_key: str = Depends(get_api_key)) -> UserInfoResponse
     """ get user info """
     sdk_config.api_key["APIKeyHeader"] = api_key
     with neuland_hub_sdk.ApiClient(sdk_config) as api_client:
-        api = DefaultApi(api_client)
+        api = UsersApi(api_client)
         try:
             user = api.get_myself_users_me_get()
             return UserInfoResponse(name=user.name,
@@ -149,7 +149,7 @@ async def get_llm_models(api_key: str = Depends(get_api_key)) -> List[LlmModelsR
     """ get llm models """
     sdk_config.api_key["APIKeyHeader"] = api_key
     with neuland_hub_sdk.ApiClient(sdk_config) as api_client:
-        api = DefaultApi(api_client)
+        api = SettingsApi(api_client)
         try:
             models = api.list_available_models_settings_models_get()
             return [LlmModelsResponse(name=m.name,
@@ -167,7 +167,7 @@ async def create_assistant(payload: AssistantModel, api_key: str = Depends(get_a
     """ create assistant """
     sdk_config.api_key["APIKeyHeader"] = api_key
     with neuland_hub_sdk.ApiClient(sdk_config) as api_client:
-        api = DefaultApi(api_client)
+        api = AssistantsApi(api_client)
         try:
             assitant = api.create_assistant_assistants_post(payload.model_dump(exclude_unset=True))
             return AssistantModel(name=assitant.name,
