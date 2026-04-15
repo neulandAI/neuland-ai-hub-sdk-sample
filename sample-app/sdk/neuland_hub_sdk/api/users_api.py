@@ -1854,7 +1854,7 @@ class UsersApi:
 
 
     @validate_call
-    def get_current_user(
+    def get_myself_users_me_get(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1897,7 +1897,7 @@ class UsersApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_current_user_serialize(
+        _param = self._get_myself_users_me_get_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1907,7 +1907,6 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserOut",
-            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1922,7 +1921,7 @@ class UsersApi:
 
 
     @validate_call
-    def get_current_user_with_http_info(
+    def get_myself_users_me_get_with_http_info(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1965,7 +1964,7 @@ class UsersApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_current_user_serialize(
+        _param = self._get_myself_users_me_get_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1975,7 +1974,6 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserOut",
-            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1990,7 +1988,7 @@ class UsersApi:
 
 
     @validate_call
-    def get_current_user_without_preload_content(
+    def get_myself_users_me_get_without_preload_content(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2033,7 +2031,7 @@ class UsersApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_current_user_serialize(
+        _param = self._get_myself_users_me_get_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2043,7 +2041,6 @@ class UsersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserOut",
-            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2053,7 +2050,7 @@ class UsersApi:
         return response_data.response
 
 
-    def _get_current_user_serialize(
+    def _get_myself_users_me_get_serialize(
         self,
         cookie_name,
         _request_auth,

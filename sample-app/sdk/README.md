@@ -250,7 +250,7 @@ Class | Method | HTTP request | Description
 *UsersApi* | [**deactivate_user_users_user_id_deactivate_post**](docs/UsersApi.md#deactivate_user_users_user_id_deactivate_post) | **POST** /users/{user_id}/deactivate | Deactivate User
 *UsersApi* | [**delete_group_users_groups_group_id_delete**](docs/UsersApi.md#delete_group_users_groups_group_id_delete) | **DELETE** /users/groups/{group_id} | Delete Group
 *UsersApi* | [**delete_user_users_user_id_delete**](docs/UsersApi.md#delete_user_users_user_id_delete) | **DELETE** /users/{user_id} | Delete User
-*UsersApi* | [**get_current_user**](docs/UsersApi.md#get_current_user) | **GET** /users/me | Get Myself
+*UsersApi* | [**get_myself_users_me_get**](docs/UsersApi.md#get_myself_users_me_get) | **GET** /users/me | Get Myself
 *UsersApi* | [**reset_password_users_passwd_post**](docs/UsersApi.md#reset_password_users_passwd_post) | **POST** /users/passwd | Reset Password
 *UsersApi* | [**update_group_users_groups_group_id_patch**](docs/UsersApi.md#update_group_users_groups_group_id_patch) | **PATCH** /users/groups/{group_id} | Update Group
 *UsersApi* | [**update_user_users_user_id_patch**](docs/UsersApi.md#update_user_users_user_id_patch) | **PATCH** /users/{user_id} | Update User

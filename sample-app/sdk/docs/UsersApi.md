@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**deactivate_user_users_user_id_deactivate_post**](UsersApi.md#deactivate_user_users_user_id_deactivate_post) | **POST** /users/{user_id}/deactivate | Deactivate User
 [**delete_group_users_groups_group_id_delete**](UsersApi.md#delete_group_users_groups_group_id_delete) | **DELETE** /users/groups/{group_id} | Delete Group
 [**delete_user_users_user_id_delete**](UsersApi.md#delete_user_users_user_id_delete) | **DELETE** /users/{user_id} | Delete User
-[**get_current_user**](UsersApi.md#get_current_user) | **GET** /users/me | Get Myself
+[**get_myself_users_me_get**](UsersApi.md#get_myself_users_me_get) | **GET** /users/me | Get Myself
 [**reset_password_users_passwd_post**](UsersApi.md#reset_password_users_passwd_post) | **POST** /users/passwd | Reset Password
 [**update_group_users_groups_group_id_patch**](UsersApi.md#update_group_users_groups_group_id_patch) | **PATCH** /users/groups/{group_id} | Update Group
 [**update_user_users_user_id_patch**](UsersApi.md#update_user_users_user_id_patch) | **PATCH** /users/{user_id} | Update User
@@ -528,8 +528,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_current_user**
-> UserOut get_current_user(cookie_name=cookie_name)
+# **get_myself_users_me_get**
+> UserOut get_myself_users_me_get(cookie_name=cookie_name)
 
 Get Myself
 
@@ -571,11 +571,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get Myself
-        api_response = api_instance.get_current_user(cookie_name=cookie_name)
-        print("The response of UsersApi->get_current_user:\n")
+        api_response = api_instance.get_myself_users_me_get(cookie_name=cookie_name)
+        print("The response of UsersApi->get_myself_users_me_get:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling UsersApi->get_current_user: %s\n" % e)
+        print("Exception when calling UsersApi->get_myself_users_me_get: %s\n" % e)
 ```
 
 
@@ -604,8 +604,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Current user |  -  |
-**404** | User not found |  -  |
+**200** | Successful Response |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
