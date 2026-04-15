@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **storage_limit_gb** | **int** |  | [optional] 
 **api_rate_limit** | **int** |  | [optional] 
 **upstream_tenant_id** | **str** |  | [optional] 
+**upstream_oidc_issuer** | **str** |  | [optional] 
 
 ## Example
 

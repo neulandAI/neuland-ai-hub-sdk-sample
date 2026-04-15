@@ -25,6 +25,7 @@ from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.models.assistant_in import AssistantIn
 from neuland_hub_sdk.models.assistant_library import AssistantLibrary
 from neuland_hub_sdk.models.assistant_member import AssistantMember
+from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn
 from neuland_hub_sdk.models.assistant_tool import AssistantTool
 from neuland_hub_sdk.models.budget_alert import BudgetAlert
 from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest
@@ -61,6 +62,8 @@ from neuland_hub_sdk.models.llm_settings_update import LLMSettingsUpdate
 from neuland_hub_sdk.models.library import Library
 from neuland_hub_sdk.models.library_in import LibraryIn
 from neuland_hub_sdk.models.library_member import LibraryMember
+from neuland_hub_sdk.models.library_member_bulk_delete import LibraryMemberBulkDelete
+from neuland_hub_sdk.models.library_member_bulk_in import LibraryMemberBulkIn
 from neuland_hub_sdk.models.library_member_in import LibraryMemberIn
 from neuland_hub_sdk.models.library_update_in import LibraryUpdateIn
 from neuland_hub_sdk.models.location_inner import LocationInner
@@ -76,6 +79,8 @@ from neuland_hub_sdk.models.project import Project
 from neuland_hub_sdk.models.project_in import ProjectIn
 from neuland_hub_sdk.models.project_library import ProjectLibrary
 from neuland_hub_sdk.models.project_member import ProjectMember
+from neuland_hub_sdk.models.project_member_bulk_delete import ProjectMemberBulkDelete
+from neuland_hub_sdk.models.project_member_bulk_in import ProjectMemberBulkIn
 from neuland_hub_sdk.models.project_member_in import ProjectMemberIn
 from neuland_hub_sdk.models.prompt import Prompt
 from neuland_hub_sdk.models.prompt_in import PromptIn

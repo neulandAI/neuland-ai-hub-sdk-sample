@@ -66,16 +66,16 @@ configuration = neuland_hub_sdk.Configuration(
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.DefaultApi(api_client)
-    token = 'token_example' # str | Invitation JWT token
+    api_instance = neuland_hub_sdk.AdminApi(api_client)
+    document_id = 56 # int | 
 
     try:
-        # Accept Invitation Complete
-        api_response = api_instance.accept_invitation_complete_invitations_accept_post(token)
-        print("The response of DefaultApi->accept_invitation_complete_invitations_accept_post:\n")
+        # Admin Document Detail
+        api_response = api_instance.admin_document_detail_admin_documents_document_id_get(document_id)
+        print("The response of AdminApi->admin_document_detail_admin_documents_document_id_get:\n")
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling DefaultApi->accept_invitation_complete_invitations_accept_post: %s\n" % e)
+        print("Exception when calling AdminApi->admin_document_detail_admin_documents_document_id_get: %s\n" % e)
 
 ```
 
@@ -85,176 +85,181 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**accept_invitation_complete_invitations_accept_post**](docs/DefaultApi.md#accept_invitation_complete_invitations_accept_post) | **POST** /invitations/accept | Accept Invitation Complete
-*DefaultApi* | [**accept_invitation_form_invitations_accept_get**](docs/DefaultApi.md#accept_invitation_form_invitations_accept_get) | **GET** /invitations/accept | Accept Invitation Form
-*DefaultApi* | [**activate_user_users_user_id_activate_post**](docs/DefaultApi.md#activate_user_users_user_id_activate_post) | **POST** /users/{user_id}/activate | Activate User
-*DefaultApi* | [**add_library_member_libraries_library_id_members_post**](docs/DefaultApi.md#add_library_member_libraries_library_id_members_post) | **POST** /libraries/{library_id}/members | Add Library Member
-*DefaultApi* | [**add_library_to_assistant_assistants_assistant_id_libraries_library_id_post**](docs/DefaultApi.md#add_library_to_assistant_assistants_assistant_id_libraries_library_id_post) | **POST** /assistants/{assistant_id}/libraries/{library_id} | Add Library To Assistant
-*DefaultApi* | [**add_library_to_chat_chats_chat_id_libraries_library_id_post**](docs/DefaultApi.md#add_library_to_chat_chats_chat_id_libraries_library_id_post) | **POST** /chats/{chat_id}/libraries/{library_id} | Add Library To Chat
-*DefaultApi* | [**add_library_to_project_projects_project_id_libraries_library_id_post**](docs/DefaultApi.md#add_library_to_project_projects_project_id_libraries_library_id_post) | **POST** /projects/{project_id}/libraries/{library_id} | Add Library To Project
-*DefaultApi* | [**add_library_to_tenants_tenants_tenant_id_libraries_library_id_post**](docs/DefaultApi.md#add_library_to_tenants_tenants_tenant_id_libraries_library_id_post) | **POST** /tenants/{tenant_id}/libraries/{library_id} | Add Library To Tenants
-*DefaultApi* | [**add_tool_to_assistant_assistants_assistant_id_tools_tool_id_post**](docs/DefaultApi.md#add_tool_to_assistant_assistants_assistant_id_tools_tool_id_post) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add Tool To Assistant
-*DefaultApi* | [**admin_document_detail_admin_documents_document_id_get**](docs/DefaultApi.md#admin_document_detail_admin_documents_document_id_get) | **GET** /admin/documents/{document_id} | Admin Document Detail
-*DefaultApi* | [**admin_embedding_admin_embedding_get**](docs/DefaultApi.md#admin_embedding_admin_embedding_get) | **GET** /admin/embedding | Admin Embedding
-*DefaultApi* | [**admin_files_admin_files_get**](docs/DefaultApi.md#admin_files_admin_files_get) | **GET** /admin/files | Admin Files
-*DefaultApi* | [**admin_health_live_admin_health_live_get**](docs/DefaultApi.md#admin_health_live_admin_health_live_get) | **GET** /admin/health-live | Admin Health Live
-*DefaultApi* | [**admin_llm_admin_llm_get**](docs/DefaultApi.md#admin_llm_admin_llm_get) | **GET** /admin/llm | Admin Llm
-*DefaultApi* | [**admin_login_admin_login_post**](docs/DefaultApi.md#admin_login_admin_login_post) | **POST** /admin/login | Admin Login
-*DefaultApi* | [**admin_login_page_admin_login_get**](docs/DefaultApi.md#admin_login_page_admin_login_get) | **GET** /admin/login | Admin Login Page
-*DefaultApi* | [**admin_logout_get**](docs/DefaultApi.md#admin_logout_get) | **GET** /admin/logout | Admin Logout
-*DefaultApi* | [**admin_logout_post**](docs/DefaultApi.md#admin_logout_post) | **POST** /admin/logout | Admin Logout
-*DefaultApi* | [**admin_maintenance_admin_maintenance_get**](docs/DefaultApi.md#admin_maintenance_admin_maintenance_get) | **GET** /admin/maintenance | Admin Maintenance
-*DefaultApi* | [**admin_overview_admin_overview_get**](docs/DefaultApi.md#admin_overview_admin_overview_get) | **GET** /admin/overview | Admin Overview
-*DefaultApi* | [**admin_pipeline_documents_admin_pipeline_documents_get**](docs/DefaultApi.md#admin_pipeline_documents_admin_pipeline_documents_get) | **GET** /admin/pipeline/documents | Admin Pipeline Documents
-*DefaultApi* | [**admin_pipeline_stages_admin_pipeline_stages_get**](docs/DefaultApi.md#admin_pipeline_stages_admin_pipeline_stages_get) | **GET** /admin/pipeline/stages | Admin Pipeline Stages
-*DefaultApi* | [**admin_post_admin_post_get**](docs/DefaultApi.md#admin_post_admin_post_get) | **GET** /admin/post | Admin Post
-*DefaultApi* | [**admin_postgres_admin_postgres_get**](docs/DefaultApi.md#admin_postgres_admin_postgres_get) | **GET** /admin/postgres | Admin Postgres
-*DefaultApi* | [**admin_queues_admin_queues_get**](docs/DefaultApi.md#admin_queues_admin_queues_get) | **GET** /admin/queues | Admin Queues
-*DefaultApi* | [**admin_report_detail_admin_reports_report_id_get**](docs/DefaultApi.md#admin_report_detail_admin_reports_report_id_get) | **GET** /admin/reports/{report_id} | Admin Report Detail
-*DefaultApi* | [**admin_reports_admin_reports_get**](docs/DefaultApi.md#admin_reports_admin_reports_get) | **GET** /admin/reports | Admin Reports
-*DefaultApi* | [**admin_root_admin_get**](docs/DefaultApi.md#admin_root_admin_get) | **GET** /admin | Admin Root
-*DefaultApi* | [**admin_security_admin_security_get**](docs/DefaultApi.md#admin_security_admin_security_get) | **GET** /admin/security | Admin Security
-*DefaultApi* | [**admin_tasks_metrics_admin_metrics_get**](docs/DefaultApi.md#admin_tasks_metrics_admin_metrics_get) | **GET** /admin/metrics | Admin Tasks Metrics
-*DefaultApi* | [**admin_tool_call_detail_admin_tool_calls_tool_call_id_get**](docs/DefaultApi.md#admin_tool_call_detail_admin_tool_calls_tool_call_id_get) | **GET** /admin/tool-calls/{tool_call_id} | Admin Tool Call Detail
-*DefaultApi* | [**admin_tool_detail_admin_tools_tool_id_get**](docs/DefaultApi.md#admin_tool_detail_admin_tools_tool_id_get) | **GET** /admin/tools/{tool_id} | Admin Tool Detail
-*DefaultApi* | [**admin_trace_detail_admin_traces_trace_id_get**](docs/DefaultApi.md#admin_trace_detail_admin_traces_trace_id_get) | **GET** /admin/traces/{trace_id} | Admin Trace Detail
-*DefaultApi* | [**admin_trace_lookup_admin_trace_get**](docs/DefaultApi.md#admin_trace_lookup_admin_trace_get) | **GET** /admin/trace | Admin Trace Lookup
-*DefaultApi* | [**admin_traces_admin_traces_get**](docs/DefaultApi.md#admin_traces_admin_traces_get) | **GET** /admin/traces | Admin Traces
-*DefaultApi* | [**admin_worker_detail_admin_workers_worker_name_get**](docs/DefaultApi.md#admin_worker_detail_admin_workers_worker_name_get) | **GET** /admin/workers/{worker_name} | Admin Worker Detail
-*DefaultApi* | [**admin_workers_admin_workers_get**](docs/DefaultApi.md#admin_workers_admin_workers_get) | **GET** /admin/workers | Admin Workers
-*DefaultApi* | [**azure_entra_callback_auth_callback_azure_entra_get**](docs/DefaultApi.md#azure_entra_callback_auth_callback_azure_entra_get) | **GET** /auth/callback/azure-entra | Azure Entra Callback
-*DefaultApi* | [**cancel_message_chats_chat_id_cancel_post**](docs/DefaultApi.md#cancel_message_chats_chat_id_cancel_post) | **POST** /chats/{chat_id}/cancel | Cancel Message
-*DefaultApi* | [**chat_trace_admin_chat_chat_id_get**](docs/DefaultApi.md#chat_trace_admin_chat_chat_id_get) | **GET** /admin/chat/{chat_id} | Chat Trace
-*DefaultApi* | [**confirm_email_auth_confirm_email_get**](docs/DefaultApi.md#confirm_email_auth_confirm_email_get) | **GET** /auth/confirm-email | Confirm Email
-*DefaultApi* | [**convert_message_messages_message_id_convert_get**](docs/DefaultApi.md#convert_message_messages_message_id_convert_get) | **GET** /messages/{message_id}/convert | Convert Message
-*DefaultApi* | [**create_alert_alerts_post**](docs/DefaultApi.md#create_alert_alerts_post) | **POST** /alerts/ | Create Alert
-*DefaultApi* | [**create_app_applications_post**](docs/DefaultApi.md#create_app_applications_post) | **POST** /applications/ | Create App
-*DefaultApi* | [**create_assistant_assistants_post**](docs/DefaultApi.md#create_assistant_assistants_post) | **POST** /assistants/ | Create Assistant
-*DefaultApi* | [**create_group_users_groups_post**](docs/DefaultApi.md#create_group_users_groups_post) | **POST** /users/groups | Create Group
-*DefaultApi* | [**create_invitations_invitations_post**](docs/DefaultApi.md#create_invitations_invitations_post) | **POST** /invitations/ | Create Invitations
-*DefaultApi* | [**create_key_api_key_post**](docs/DefaultApi.md#create_key_api_key_post) | **POST** /api/key/ | Create Key
-*DefaultApi* | [**create_llm_model_llm_admin_models_post**](docs/DefaultApi.md#create_llm_model_llm_admin_models_post) | **POST** /llm-admin/models | Create Llm Model
-*DefaultApi* | [**create_member_assistants_assistant_id_members_user_id_post**](docs/DefaultApi.md#create_member_assistants_assistant_id_members_user_id_post) | **POST** /assistants/{assistant_id}/members/{user_id} | Create Member
-*DefaultApi* | [**create_member_projects_project_id_members_post**](docs/DefaultApi.md#create_member_projects_project_id_members_post) | **POST** /projects/{project_id}/members | Create Member
-*DefaultApi* | [**create_message_messages_post**](docs/DefaultApi.md#create_message_messages_post) | **POST** /messages/ | Create Message
-*DefaultApi* | [**create_project_projects_post**](docs/DefaultApi.md#create_project_projects_post) | **POST** /projects/ | Create Project
-*DefaultApi* | [**create_prompt_prompts_post**](docs/DefaultApi.md#create_prompt_prompts_post) | **POST** /prompts/ | Create Prompt
-*DefaultApi* | [**create_tarif_tarifs_post**](docs/DefaultApi.md#create_tarif_tarifs_post) | **POST** /tarifs/ | Create Tarif
-*DefaultApi* | [**create_templates_post**](docs/DefaultApi.md#create_templates_post) | **POST** /templates/ | Create
-*DefaultApi* | [**create_tenant_connector_tenants_tenant_id_connectors_connector_id_post**](docs/DefaultApi.md#create_tenant_connector_tenants_tenant_id_connectors_connector_id_post) | **POST** /tenants/{tenant_id}/connectors/{connector_id} | Create Tenant Connector
-*DefaultApi* | [**create_tenant_tenants_post**](docs/DefaultApi.md#create_tenant_tenants_post) | **POST** /tenants/ | Create Tenant
-*DefaultApi* | [**create_tenant_tool_tenants_tenant_id_tools_tool_id_post**](docs/DefaultApi.md#create_tenant_tool_tenants_tenant_id_tools_tool_id_post) | **POST** /tenants/{tenant_id}/tools/{tool_id} | Create Tenant Tool
-*DefaultApi* | [**create_user_users_post**](docs/DefaultApi.md#create_user_users_post) | **POST** /users/ | Create User
-*DefaultApi* | [**current_settings_current_get**](docs/DefaultApi.md#current_settings_current_get) | **GET** /settings/current | Current
-*DefaultApi* | [**deactivate_documents_chats_chat_id_inactive_documents_post**](docs/DefaultApi.md#deactivate_documents_chats_chat_id_inactive_documents_post) | **POST** /chats/{chat_id}/inactive-documents | Deactivate Documents
-*DefaultApi* | [**deactivate_user_users_user_id_deactivate_post**](docs/DefaultApi.md#deactivate_user_users_user_id_deactivate_post) | **POST** /users/{user_id}/deactivate | Deactivate User
-*DefaultApi* | [**delete_alert_alerts_alert_id_delete**](docs/DefaultApi.md#delete_alert_alerts_alert_id_delete) | **DELETE** /alerts/{alert_id} | Delete Alert
-*DefaultApi* | [**delete_app_applications_app_id_delete**](docs/DefaultApi.md#delete_app_applications_app_id_delete) | **DELETE** /applications/{app_id} | Delete App
-*DefaultApi* | [**delete_assistant_assistants_assistant_id_delete**](docs/DefaultApi.md#delete_assistant_assistants_assistant_id_delete) | **DELETE** /assistants/{assistant_id} | Delete Assistant
-*DefaultApi* | [**delete_chat_document_documents_document_id_delete**](docs/DefaultApi.md#delete_chat_document_documents_document_id_delete) | **DELETE** /documents/{document_id} | Delete Chat Document
-*DefaultApi* | [**delete_group_users_groups_group_id_delete**](docs/DefaultApi.md#delete_group_users_groups_group_id_delete) | **DELETE** /users/groups/{group_id} | Delete Group
-*DefaultApi* | [**delete_library_libraries_library_id_delete**](docs/DefaultApi.md#delete_library_libraries_library_id_delete) | **DELETE** /libraries/{library_id} | Delete Library
-*DefaultApi* | [**delete_llm_model_llm_admin_models_model_id_delete**](docs/DefaultApi.md#delete_llm_model_llm_admin_models_model_id_delete) | **DELETE** /llm-admin/models/{model_id} | Delete Llm Model
-*DefaultApi* | [**delete_member_assistants_assistant_id_members_user_id_delete**](docs/DefaultApi.md#delete_member_assistants_assistant_id_members_user_id_delete) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Delete Member
-*DefaultApi* | [**delete_member_projects_project_id_members_user_id_delete**](docs/DefaultApi.md#delete_member_projects_project_id_members_user_id_delete) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member
-*DefaultApi* | [**delete_project_projects_project_id_delete**](docs/DefaultApi.md#delete_project_projects_project_id_delete) | **DELETE** /projects/{project_id} | Delete Project
-*DefaultApi* | [**delete_prompt_prompts_prompt_id_delete**](docs/DefaultApi.md#delete_prompt_prompts_prompt_id_delete) | **DELETE** /prompts/{prompt_id} | Delete Prompt
-*DefaultApi* | [**delete_tarif_tarifs_tarif_id_delete**](docs/DefaultApi.md#delete_tarif_tarifs_tarif_id_delete) | **DELETE** /tarifs/{tarif_id} | Delete Tarif
-*DefaultApi* | [**delete_templates_template_id_delete**](docs/DefaultApi.md#delete_templates_template_id_delete) | **DELETE** /templates/{template_id} | Delete
-*DefaultApi* | [**delete_tenant_connector_tenants_tenant_id_connectors_connector_id_delete**](docs/DefaultApi.md#delete_tenant_connector_tenants_tenant_id_connectors_connector_id_delete) | **DELETE** /tenants/{tenant_id}/connectors/{connector_id} | Delete Tenant Connector
-*DefaultApi* | [**delete_tenant_tenants_tenant_id_delete**](docs/DefaultApi.md#delete_tenant_tenants_tenant_id_delete) | **DELETE** /tenants/{tenant_id} | Delete Tenant
-*DefaultApi* | [**delete_tenant_tool_tenants_tenant_id_tools_tool_id_delete**](docs/DefaultApi.md#delete_tenant_tool_tenants_tenant_id_tools_tool_id_delete) | **DELETE** /tenants/{tenant_id}/tools/{tool_id} | Delete Tenant Tool
-*DefaultApi* | [**delete_user_users_user_id_delete**](docs/DefaultApi.md#delete_user_users_user_id_delete) | **DELETE** /users/{user_id} | Delete User
-*DefaultApi* | [**download_file_files_file_id_get**](docs/DefaultApi.md#download_file_files_file_id_get) | **GET** /files/{file_id} | Download File
-*DefaultApi* | [**download_file_storage_path_get**](docs/DefaultApi.md#download_file_storage_path_get) | **GET** /storage/{path} | Download File
-*DefaultApi* | [**exchange_token_auth_exchange_token_post**](docs/DefaultApi.md#exchange_token_auth_exchange_token_post) | **POST** /auth/exchange/token | Exchange Token
-*DefaultApi* | [**get_cost_llm_cost_post**](docs/DefaultApi.md#get_cost_llm_cost_post) | **POST** /llm/cost | Get Cost
-*DefaultApi* | [**get_current_tenant_tenants_current_get**](docs/DefaultApi.md#get_current_tenant_tenants_current_get) | **GET** /tenants/current | Get Current Tenant
-*DefaultApi* | [**get_entra_groups_auth_entra_groups_get**](docs/DefaultApi.md#get_entra_groups_auth_entra_groups_get) | **GET** /auth/entra/groups | Get Entra Groups
-*DefaultApi* | [**get_entra_scopes_auth_entra_scopes_get**](docs/DefaultApi.md#get_entra_scopes_auth_entra_scopes_get) | **GET** /auth/entra/scopes | Get Entra Scopes
-*DefaultApi* | [**get_file_documents_document_id_get**](docs/DefaultApi.md#get_file_documents_document_id_get) | **GET** /documents/{document_id} | Get File
-*DefaultApi* | [**get_item_info_integrations_sharepoint_drives_drive_id_items_drive_item_id_get**](docs/DefaultApi.md#get_item_info_integrations_sharepoint_drives_drive_id_items_drive_item_id_get) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get Item Info
-*DefaultApi* | [**get_myself_users_me_get**](docs/DefaultApi.md#get_myself_users_me_get) | **GET** /users/me | Get Myself
-*DefaultApi* | [**get_supported_languages_simple_chat_languages_get**](docs/DefaultApi.md#get_supported_languages_simple_chat_languages_get) | **GET** /simple_chat/languages | Get Supported Languages
+*AdminApi* | [**admin_document_detail_admin_documents_document_id_get**](docs/AdminApi.md#admin_document_detail_admin_documents_document_id_get) | **GET** /admin/documents/{document_id} | Admin Document Detail
+*AdminApi* | [**admin_embedding_admin_embedding_get**](docs/AdminApi.md#admin_embedding_admin_embedding_get) | **GET** /admin/embedding | Admin Embedding
+*AdminApi* | [**admin_files_admin_files_get**](docs/AdminApi.md#admin_files_admin_files_get) | **GET** /admin/files | Admin Files
+*AdminApi* | [**admin_health_live_admin_health_live_get**](docs/AdminApi.md#admin_health_live_admin_health_live_get) | **GET** /admin/health-live | Admin Health Live
+*AdminApi* | [**admin_llm_admin_llm_get**](docs/AdminApi.md#admin_llm_admin_llm_get) | **GET** /admin/llm | Admin Llm
+*AdminApi* | [**admin_login_admin_login_post**](docs/AdminApi.md#admin_login_admin_login_post) | **POST** /admin/login | Admin Login
+*AdminApi* | [**admin_login_page_admin_login_get**](docs/AdminApi.md#admin_login_page_admin_login_get) | **GET** /admin/login | Admin Login Page
+*AdminApi* | [**admin_logout_get**](docs/AdminApi.md#admin_logout_get) | **GET** /admin/logout | Admin Logout
+*AdminApi* | [**admin_logout_post**](docs/AdminApi.md#admin_logout_post) | **POST** /admin/logout | Admin Logout
+*AdminApi* | [**admin_maintenance_admin_maintenance_get**](docs/AdminApi.md#admin_maintenance_admin_maintenance_get) | **GET** /admin/maintenance | Admin Maintenance
+*AdminApi* | [**admin_overview_admin_overview_get**](docs/AdminApi.md#admin_overview_admin_overview_get) | **GET** /admin/overview | Admin Overview
+*AdminApi* | [**admin_pipeline_documents_admin_pipeline_documents_get**](docs/AdminApi.md#admin_pipeline_documents_admin_pipeline_documents_get) | **GET** /admin/pipeline/documents | Admin Pipeline Documents
+*AdminApi* | [**admin_pipeline_stages_admin_pipeline_stages_get**](docs/AdminApi.md#admin_pipeline_stages_admin_pipeline_stages_get) | **GET** /admin/pipeline/stages | Admin Pipeline Stages
+*AdminApi* | [**admin_post_admin_post_get**](docs/AdminApi.md#admin_post_admin_post_get) | **GET** /admin/post | Admin Post
+*AdminApi* | [**admin_postgres_admin_postgres_get**](docs/AdminApi.md#admin_postgres_admin_postgres_get) | **GET** /admin/postgres | Admin Postgres
+*AdminApi* | [**admin_queues_admin_queues_get**](docs/AdminApi.md#admin_queues_admin_queues_get) | **GET** /admin/queues | Admin Queues
+*AdminApi* | [**admin_report_detail_admin_reports_report_id_get**](docs/AdminApi.md#admin_report_detail_admin_reports_report_id_get) | **GET** /admin/reports/{report_id} | Admin Report Detail
+*AdminApi* | [**admin_reports_admin_reports_get**](docs/AdminApi.md#admin_reports_admin_reports_get) | **GET** /admin/reports | Admin Reports
+*AdminApi* | [**admin_root_admin_get**](docs/AdminApi.md#admin_root_admin_get) | **GET** /admin | Admin Root
+*AdminApi* | [**admin_security_admin_security_get**](docs/AdminApi.md#admin_security_admin_security_get) | **GET** /admin/security | Admin Security
+*AdminApi* | [**admin_tasks_metrics_admin_metrics_get**](docs/AdminApi.md#admin_tasks_metrics_admin_metrics_get) | **GET** /admin/metrics | Admin Tasks Metrics
+*AdminApi* | [**admin_tool_call_detail_admin_tool_calls_tool_call_id_get**](docs/AdminApi.md#admin_tool_call_detail_admin_tool_calls_tool_call_id_get) | **GET** /admin/tool-calls/{tool_call_id} | Admin Tool Call Detail
+*AdminApi* | [**admin_tool_detail_admin_tools_tool_id_get**](docs/AdminApi.md#admin_tool_detail_admin_tools_tool_id_get) | **GET** /admin/tools/{tool_id} | Admin Tool Detail
+*AdminApi* | [**admin_trace_detail_admin_traces_trace_id_get**](docs/AdminApi.md#admin_trace_detail_admin_traces_trace_id_get) | **GET** /admin/traces/{trace_id} | Admin Trace Detail
+*AdminApi* | [**admin_trace_lookup_admin_trace_get**](docs/AdminApi.md#admin_trace_lookup_admin_trace_get) | **GET** /admin/trace | Admin Trace Lookup
+*AdminApi* | [**admin_traces_admin_traces_get**](docs/AdminApi.md#admin_traces_admin_traces_get) | **GET** /admin/traces | Admin Traces
+*AdminApi* | [**admin_worker_detail_admin_workers_worker_name_get**](docs/AdminApi.md#admin_worker_detail_admin_workers_worker_name_get) | **GET** /admin/workers/{worker_name} | Admin Worker Detail
+*AdminApi* | [**admin_workers_admin_workers_get**](docs/AdminApi.md#admin_workers_admin_workers_get) | **GET** /admin/workers | Admin Workers
+*AdminApi* | [**chat_trace_admin_chat_chat_id_get**](docs/AdminApi.md#chat_trace_admin_chat_chat_id_get) | **GET** /admin/chat/{chat_id} | Chat Trace
+*AdminApi* | [**message_trace_admin_message_message_id_get**](docs/AdminApi.md#message_trace_admin_message_message_id_get) | **GET** /admin/message/{message_id} | Message Trace
+*AdminApi* | [**reports_bulk_action_admin_reports_bulk_post**](docs/AdminApi.md#reports_bulk_action_admin_reports_bulk_post) | **POST** /admin/reports/bulk | Reports Bulk Action
+*AdminApi* | [**update_system_settings_admin_system_settings_update_post**](docs/AdminApi.md#update_system_settings_admin_system_settings_update_post) | **POST** /admin/system-settings/update | Update System Settings
+*AlertsApi* | [**create_alert_alerts_post**](docs/AlertsApi.md#create_alert_alerts_post) | **POST** /alerts/ | Create Alert
+*AlertsApi* | [**delete_alert_alerts_alert_id_delete**](docs/AlertsApi.md#delete_alert_alerts_alert_id_delete) | **DELETE** /alerts/{alert_id} | Delete Alert
+*AlertsApi* | [**update_alert_alerts_alert_id_patch**](docs/AlertsApi.md#update_alert_alerts_alert_id_patch) | **PATCH** /alerts/{alert_id} | Update Alert
+*ApiKeyApi* | [**create_key_api_key_post**](docs/ApiKeyApi.md#create_key_api_key_post) | **POST** /api/key/ | Create Key
+*ApiKeyApi* | [**revoke_api_key_api_key_revoke_api_key_id_patch**](docs/ApiKeyApi.md#revoke_api_key_api_key_revoke_api_key_id_patch) | **PATCH** /api/key/revoke/{api_key_id} | Revoke Api Key
+*ApplicationsApi* | [**create_app_applications_post**](docs/ApplicationsApi.md#create_app_applications_post) | **POST** /applications/ | Create App
+*ApplicationsApi* | [**delete_app_applications_app_id_delete**](docs/ApplicationsApi.md#delete_app_applications_app_id_delete) | **DELETE** /applications/{app_id} | Delete App
+*ApplicationsApi* | [**update_app_applications_app_id_patch**](docs/ApplicationsApi.md#update_app_applications_app_id_patch) | **PATCH** /applications/{app_id} | Update App
+*ApplicationsApi* | [**update_group_membership_applications_group_access_put**](docs/ApplicationsApi.md#update_group_membership_applications_group_access_put) | **PUT** /applications/group/access | Update Group Membership
+*ApplicationsApi* | [**update_user_membership_applications_user_access_put**](docs/ApplicationsApi.md#update_user_membership_applications_user_access_put) | **PUT** /applications/user/access | Update User Membership
+*AssistantsApi* | [**add_library_to_assistant_assistants_assistant_id_libraries_library_id_post**](docs/AssistantsApi.md#add_library_to_assistant_assistants_assistant_id_libraries_library_id_post) | **POST** /assistants/{assistant_id}/libraries/{library_id} | Add Library To Assistant
+*AssistantsApi* | [**add_members_assistants_assistant_id_members_post**](docs/AssistantsApi.md#add_members_assistants_assistant_id_members_post) | **POST** /assistants/{assistant_id}/members | Add Members
+*AssistantsApi* | [**add_tool_to_assistant_assistants_assistant_id_tools_tool_id_post**](docs/AssistantsApi.md#add_tool_to_assistant_assistants_assistant_id_tools_tool_id_post) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add Tool To Assistant
+*AssistantsApi* | [**create_assistant_assistants_post**](docs/AssistantsApi.md#create_assistant_assistants_post) | **POST** /assistants/ | Create Assistant
+*AssistantsApi* | [**delete_assistant_assistants_assistant_id_delete**](docs/AssistantsApi.md#delete_assistant_assistants_assistant_id_delete) | **DELETE** /assistants/{assistant_id} | Delete Assistant
+*AssistantsApi* | [**delete_members_assistants_assistant_id_members_delete**](docs/AssistantsApi.md#delete_members_assistants_assistant_id_members_delete) | **DELETE** /assistants/{assistant_id}/members | Delete Members
+*AssistantsApi* | [**leave_assitant_assistants_assistant_id_remove_me_delete**](docs/AssistantsApi.md#leave_assitant_assistants_assistant_id_remove_me_delete) | **DELETE** /assistants/{assistant_id}/remove/me | Leave Assitant
+*AssistantsApi* | [**remove_library_from_assistant_assistants_assistant_id_libraries_library_id_delete**](docs/AssistantsApi.md#remove_library_from_assistant_assistants_assistant_id_libraries_library_id_delete) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove Library From Assistant
+*AssistantsApi* | [**remove_member_assistants_assistant_id_members_user_id_delete**](docs/AssistantsApi.md#remove_member_assistants_assistant_id_members_user_id_delete) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove Member
+*AssistantsApi* | [**remove_tool_from_assistant_assistants_assistant_id_tools_tool_id_delete**](docs/AssistantsApi.md#remove_tool_from_assistant_assistants_assistant_id_tools_tool_id_delete) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove Tool From Assistant
+*AssistantsApi* | [**submit_assistant_assistants_submit_post**](docs/AssistantsApi.md#submit_assistant_assistants_submit_post) | **POST** /assistants/submit | Submit Assistant
+*AssistantsApi* | [**update_assistant_assistants_assistant_id_patch**](docs/AssistantsApi.md#update_assistant_assistants_assistant_id_patch) | **PATCH** /assistants/{assistant_id} | Update Assistant
+*AuthApi* | [**azure_entra_callback_auth_callback_azure_entra_get**](docs/AuthApi.md#azure_entra_callback_auth_callback_azure_entra_get) | **GET** /auth/callback/azure-entra | Azure Entra Callback
+*AuthApi* | [**confirm_email_auth_confirm_email_get**](docs/AuthApi.md#confirm_email_auth_confirm_email_get) | **GET** /auth/confirm-email | Confirm Email
+*AuthApi* | [**exchange_token_auth_exchange_token_post**](docs/AuthApi.md#exchange_token_auth_exchange_token_post) | **POST** /auth/exchange/token | Exchange Token
+*AuthApi* | [**get_entra_groups_auth_entra_groups_get**](docs/AuthApi.md#get_entra_groups_auth_entra_groups_get) | **GET** /auth/entra/groups | Get Entra Groups
+*AuthApi* | [**get_entra_scopes_auth_entra_scopes_get**](docs/AuthApi.md#get_entra_scopes_auth_entra_scopes_get) | **GET** /auth/entra/scopes | Get Entra Scopes
+*AuthApi* | [**login_auth_token_post**](docs/AuthApi.md#login_auth_token_post) | **POST** /auth/token | Login
+*AuthApi* | [**logout_auth_logout_post**](docs/AuthApi.md#logout_auth_logout_post) | **POST** /auth/logout | Logout
+*AuthApi* | [**oidc_callback_auth_callback_oidc_get**](docs/AuthApi.md#oidc_callback_auth_callback_oidc_get) | **GET** /auth/callback/oidc | Oidc Callback
+*AuthApi* | [**request_password_reset_auth_request_password_reset_post**](docs/AuthApi.md#request_password_reset_auth_request_password_reset_post) | **POST** /auth/request-password-reset | Request Password Reset
+*AuthApi* | [**reset_password_auth_reset_password_post**](docs/AuthApi.md#reset_password_auth_reset_password_post) | **POST** /auth/reset-password | Reset Password
+*AuthApi* | [**reset_password_form_auth_reset_password_get**](docs/AuthApi.md#reset_password_form_auth_reset_password_get) | **GET** /auth/reset-password | Reset Password Form
+*AuthApi* | [**send_email_confirmation_auth_send_email_confirmation_post**](docs/AuthApi.md#send_email_confirmation_auth_send_email_confirmation_post) | **POST** /auth/send-email-confirmation | Send Email Confirmation
+*AuthConnectorsApi* | [**initiate_consent_auth_connectors_connector_id_consent_get**](docs/AuthConnectorsApi.md#initiate_consent_auth_connectors_connector_id_consent_get) | **GET** /auth/connectors/{connector_id}/consent | Initiate Consent
+*AuthConnectorsApi* | [**list_connector_status_auth_connectors_status_get**](docs/AuthConnectorsApi.md#list_connector_status_auth_connectors_status_get) | **GET** /auth/connectors/status | List Connector Status
+*AuthConnectorsApi* | [**oauth_callback_auth_connectors_callback_get**](docs/AuthConnectorsApi.md#oauth_callback_auth_connectors_callback_get) | **GET** /auth/connectors/callback | Oauth Callback
+*AuthConnectorsApi* | [**revoke_consent_auth_connectors_connector_id_consent_delete**](docs/AuthConnectorsApi.md#revoke_consent_auth_connectors_connector_id_consent_delete) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke Consent
+*AuthConnectorsApi* | [**update_connector_auth_connectors_connector_id_patch**](docs/AuthConnectorsApi.md#update_connector_auth_connectors_connector_id_patch) | **PATCH** /auth/connectors/{connector_id} | Update Connector
+*AuthConnectorsApi* | [**update_oauth_client_auth_connectors_oauth_clients_oauth_client_id_patch**](docs/AuthConnectorsApi.md#update_oauth_client_auth_connectors_oauth_clients_oauth_client_id_patch) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update Oauth Client
+*ChatsApi* | [**add_library_to_chat_chats_chat_id_libraries_library_id_post**](docs/ChatsApi.md#add_library_to_chat_chats_chat_id_libraries_library_id_post) | **POST** /chats/{chat_id}/libraries/{library_id} | Add Library To Chat
+*ChatsApi* | [**cancel_message_chats_chat_id_cancel_post**](docs/ChatsApi.md#cancel_message_chats_chat_id_cancel_post) | **POST** /chats/{chat_id}/cancel | Cancel Message
+*ChatsApi* | [**deactivate_documents_chats_chat_id_inactive_documents_post**](docs/ChatsApi.md#deactivate_documents_chats_chat_id_inactive_documents_post) | **POST** /chats/{chat_id}/inactive-documents | Deactivate Documents
+*ChatsApi* | [**remove_chat_chats_chat_id_delete**](docs/ChatsApi.md#remove_chat_chats_chat_id_delete) | **DELETE** /chats/{chat_id} | Remove Chat
+*ChatsApi* | [**remove_inactive_documents_chats_chat_id_inactive_documents_delete**](docs/ChatsApi.md#remove_inactive_documents_chats_chat_id_inactive_documents_delete) | **DELETE** /chats/{chat_id}/inactive-documents | Remove Inactive Documents
+*ChatsApi* | [**remove_library_from_chat_chats_chat_id_libraries_library_id_delete**](docs/ChatsApi.md#remove_library_from_chat_chats_chat_id_libraries_library_id_delete) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove Library From Chat
+*ChatsApi* | [**summerize_chat_chats_chat_id_summary_get**](docs/ChatsApi.md#summerize_chat_chats_chat_id_summary_get) | **GET** /chats/{chat_id}/summary | Summerize Chat
+*ChatsApi* | [**update_chat_chats_chat_id_patch**](docs/ChatsApi.md#update_chat_chats_chat_id_patch) | **PATCH** /chats/{chat_id} | Update Chat
+*ChatsApi* | [**update_chat_tool_settings_chats_chat_id_tools_tool_id_put**](docs/ChatsApi.md#update_chat_tool_settings_chats_chat_id_tools_tool_id_put) | **PUT** /chats/{chat_id}/tools/{tool_id} | Update Chat Tool Settings
+*DocumentsApi* | [**delete_chat_document_documents_document_id_delete**](docs/DocumentsApi.md#delete_chat_document_documents_document_id_delete) | **DELETE** /documents/{document_id} | Delete Chat Document
+*DocumentsApi* | [**get_file_documents_document_id_get**](docs/DocumentsApi.md#get_file_documents_document_id_get) | **GET** /documents/{document_id} | Get File
+*DocumentsApi* | [**import_documents_documents_import_post**](docs/DocumentsApi.md#import_documents_documents_import_post) | **POST** /documents/import | Import Documents
+*DocumentsApi* | [**retry_document_documents_document_id_retry_post**](docs/DocumentsApi.md#retry_document_documents_document_id_retry_post) | **POST** /documents/{document_id}/retry | Retry Document
+*DocumentsApi* | [**unimport_documents_documents_import_delete**](docs/DocumentsApi.md#unimport_documents_documents_import_delete) | **DELETE** /documents/import | Unimport Documents
+*DocumentsApi* | [**upload_documents_documents_post**](docs/DocumentsApi.md#upload_documents_documents_post) | **POST** /documents/ | Upload Documents
+*FilesApi* | [**download_file_files_file_id_get**](docs/FilesApi.md#download_file_files_file_id_get) | **GET** /files/{file_id} | Download File
+*IntegrationsApi* | [**get_item_info_integrations_sharepoint_drives_drive_id_items_drive_item_id_get**](docs/IntegrationsApi.md#get_item_info_integrations_sharepoint_drives_drive_id_items_drive_item_id_get) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get Item Info
+*IntegrationsApi* | [**get_user_info_integrations_sharepoint_me_get**](docs/IntegrationsApi.md#get_user_info_integrations_sharepoint_me_get) | **GET** /integrations/sharepoint/me | Get User Info
+*IntegrationsApi* | [**is_connected_integrations_sharepoint_connected_get**](docs/IntegrationsApi.md#is_connected_integrations_sharepoint_connected_get) | **GET** /integrations/sharepoint/connected | Is Connected
+*IntegrationsApi* | [**list_all_sites_integrations_sharepoint_sites_get**](docs/IntegrationsApi.md#list_all_sites_integrations_sharepoint_sites_get) | **GET** /integrations/sharepoint/sites | List All Sites
+*IntegrationsApi* | [**list_children_integrations_sharepoint_drives_drive_id_items_drive_item_id_children_get**](docs/IntegrationsApi.md#list_children_integrations_sharepoint_drives_drive_id_items_drive_item_id_children_get) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List Children
+*IntegrationsApi* | [**list_drives_integrations_sharepoint_sites_site_id_drives_get**](docs/IntegrationsApi.md#list_drives_integrations_sharepoint_sites_site_id_drives_get) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List Drives
+*InvitationsApi* | [**accept_invitation_complete_invitations_accept_post**](docs/InvitationsApi.md#accept_invitation_complete_invitations_accept_post) | **POST** /invitations/accept | Accept Invitation Complete
+*InvitationsApi* | [**accept_invitation_form_invitations_accept_get**](docs/InvitationsApi.md#accept_invitation_form_invitations_accept_get) | **GET** /invitations/accept | Accept Invitation Form
+*InvitationsApi* | [**create_invitations_invitations_post**](docs/InvitationsApi.md#create_invitations_invitations_post) | **POST** /invitations/ | Create Invitations
+*InvitationsApi* | [**resend_invitation_invitations_invitation_id_resend_post**](docs/InvitationsApi.md#resend_invitation_invitations_invitation_id_resend_post) | **POST** /invitations/{invitation_id}/resend | Resend Invitation
+*InvitationsApi* | [**revoke_invitation_invitations_invitation_id_revoke_post**](docs/InvitationsApi.md#revoke_invitation_invitations_invitation_id_revoke_post) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation
+*LLMApi* | [**get_cost_llm_cost_post**](docs/LLMApi.md#get_cost_llm_cost_post) | **POST** /llm/cost | Get Cost
+*LLMApi* | [**get_usage_costs_llm_services_cost_post**](docs/LLMApi.md#get_usage_costs_llm_services_cost_post) | **POST** /llm/services/cost | Get Usage Costs
+*LLMApi* | [**llm_total_tokens_llm_tokens_post**](docs/LLMApi.md#llm_total_tokens_llm_tokens_post) | **POST** /llm/tokens | Llm Total Tokens
+*LLMAdminApi* | [**create_llm_model_llm_admin_models_post**](docs/LLMAdminApi.md#create_llm_model_llm_admin_models_post) | **POST** /llm-admin/models | Create Llm Model
+*LLMAdminApi* | [**delete_llm_model_llm_admin_models_model_id_delete**](docs/LLMAdminApi.md#delete_llm_model_llm_admin_models_model_id_delete) | **DELETE** /llm-admin/models/{model_id} | Delete Llm Model
+*LLMAdminApi* | [**grant_tenant_model_access_llm_admin_tenants_tenant_id_models_model_id_post**](docs/LLMAdminApi.md#grant_tenant_model_access_llm_admin_tenants_tenant_id_models_model_id_post) | **POST** /llm-admin/tenants/{tenant_id}/models/{model_id} | Grant Tenant Model Access
+*LLMAdminApi* | [**revoke_tenant_model_access_llm_admin_tenants_tenant_id_models_model_id_delete**](docs/LLMAdminApi.md#revoke_tenant_model_access_llm_admin_tenants_tenant_id_models_model_id_delete) | **DELETE** /llm-admin/tenants/{tenant_id}/models/{model_id} | Revoke Tenant Model Access
+*LLMAdminApi* | [**update_llm_model_llm_admin_models_model_id_patch**](docs/LLMAdminApi.md#update_llm_model_llm_admin_models_model_id_patch) | **PATCH** /llm-admin/models/{model_id} | Update Llm Model
+*LibrariesApi* | [**add_library_members_libraries_library_id_members_post**](docs/LibrariesApi.md#add_library_members_libraries_library_id_members_post) | **POST** /libraries/{library_id}/members | Add Library Members
+*LibrariesApi* | [**delete_library_libraries_library_id_delete**](docs/LibrariesApi.md#delete_library_libraries_library_id_delete) | **DELETE** /libraries/{library_id} | Delete Library
+*LibrariesApi* | [**leave_library_libraries_library_id_remove_me_delete**](docs/LibrariesApi.md#leave_library_libraries_library_id_remove_me_delete) | **DELETE** /libraries/{library_id}/remove/me | Leave Library
+*LibrariesApi* | [**new_library_libraries_post**](docs/LibrariesApi.md#new_library_libraries_post) | **POST** /libraries/ | New Library
+*LibrariesApi* | [**remove_library_members_libraries_library_id_members_delete**](docs/LibrariesApi.md#remove_library_members_libraries_library_id_members_delete) | **DELETE** /libraries/{library_id}/members | Remove Library Members
+*LibrariesApi* | [**remove_single_member_libraries_library_id_members_user_id_delete**](docs/LibrariesApi.md#remove_single_member_libraries_library_id_members_user_id_delete) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove Single Member
+*LibrariesApi* | [**update_library_libraries_library_id_patch**](docs/LibrariesApi.md#update_library_libraries_library_id_patch) | **PATCH** /libraries/{library_id} | Update Library
+*MessagesApi* | [**convert_message_messages_message_id_convert_get**](docs/MessagesApi.md#convert_message_messages_message_id_convert_get) | **GET** /messages/{message_id}/convert | Convert Message
+*MessagesApi* | [**create_message_messages_post**](docs/MessagesApi.md#create_message_messages_post) | **POST** /messages/ | Create Message
+*MessagesApi* | [**rephrase_message_messages_message_id_rephrase_get**](docs/MessagesApi.md#rephrase_message_messages_message_id_rephrase_get) | **GET** /messages/{message_id}/rephrase | Rephrase Message
+*MessagesApi* | [**submit_message_messages_submit_post**](docs/MessagesApi.md#submit_message_messages_submit_post) | **POST** /messages/submit | Submit Message
+*MessagesApi* | [**translate_message_messages_message_id_translate_get**](docs/MessagesApi.md#translate_message_messages_message_id_translate_get) | **GET** /messages/{message_id}/translate | Translate Message
+*ProjectsApi* | [**add_library_to_project_projects_project_id_libraries_library_id_post**](docs/ProjectsApi.md#add_library_to_project_projects_project_id_libraries_library_id_post) | **POST** /projects/{project_id}/libraries/{library_id} | Add Library To Project
+*ProjectsApi* | [**add_members_projects_project_id_members_post**](docs/ProjectsApi.md#add_members_projects_project_id_members_post) | **POST** /projects/{project_id}/members | Add Members
+*ProjectsApi* | [**create_project_projects_post**](docs/ProjectsApi.md#create_project_projects_post) | **POST** /projects/ | Create Project
+*ProjectsApi* | [**delete_member_projects_project_id_members_user_id_delete**](docs/ProjectsApi.md#delete_member_projects_project_id_members_user_id_delete) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member
+*ProjectsApi* | [**delete_members_projects_project_id_members_delete**](docs/ProjectsApi.md#delete_members_projects_project_id_members_delete) | **DELETE** /projects/{project_id}/members | Delete Members
+*ProjectsApi* | [**delete_project_projects_project_id_delete**](docs/ProjectsApi.md#delete_project_projects_project_id_delete) | **DELETE** /projects/{project_id} | Delete Project
+*ProjectsApi* | [**is_project_name_free_projects_available_get**](docs/ProjectsApi.md#is_project_name_free_projects_available_get) | **GET** /projects/available | Is Project Name Free
+*ProjectsApi* | [**leave_project_projects_project_id_remove_me_delete**](docs/ProjectsApi.md#leave_project_projects_project_id_remove_me_delete) | **DELETE** /projects/{project_id}/remove/me | Leave Project
+*ProjectsApi* | [**remove_library_from_project_projects_project_id_libraries_library_id_delete**](docs/ProjectsApi.md#remove_library_from_project_projects_project_id_libraries_library_id_delete) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project
+*ProjectsApi* | [**update_project_projects_project_id_patch**](docs/ProjectsApi.md#update_project_projects_project_id_patch) | **PATCH** /projects/{project_id} | Update Project
+*PromptsApi* | [**create_prompt_prompts_post**](docs/PromptsApi.md#create_prompt_prompts_post) | **POST** /prompts/ | Create Prompt
+*PromptsApi* | [**delete_prompt_prompts_prompt_id_delete**](docs/PromptsApi.md#delete_prompt_prompts_prompt_id_delete) | **DELETE** /prompts/{prompt_id} | Delete Prompt
+*PromptsApi* | [**update_prompt_prompts_prompt_id_patch**](docs/PromptsApi.md#update_prompt_prompts_prompt_id_patch) | **PATCH** /prompts/{prompt_id} | Update Prompt
+*QueryApi* | [**query_query_path_get**](docs/QueryApi.md#query_query_path_get) | **GET** /query/{path} | Query
+*QueryApi* | [**query_rpc_query_rpc_path_get**](docs/QueryApi.md#query_rpc_query_rpc_path_get) | **GET** /query/rpc/{path} | Query Rpc
+*SettingsApi* | [**current_settings_current_get**](docs/SettingsApi.md#current_settings_current_get) | **GET** /settings/current | Current
+*SettingsApi* | [**list_available_models_settings_models_get**](docs/SettingsApi.md#list_available_models_settings_models_get) | **GET** /settings/models | List Available Models
+*SettingsApi* | [**update_current_settings_settings_current_patch**](docs/SettingsApi.md#update_current_settings_settings_current_patch) | **PATCH** /settings/current | Update Current Settings
+*SettingsApi* | [**update_settings_settings_settings_id_patch**](docs/SettingsApi.md#update_settings_settings_settings_id_patch) | **PATCH** /settings/{settings_id} | Update Settings
+*SimpleChatApi* | [**get_supported_languages_simple_chat_languages_get**](docs/SimpleChatApi.md#get_supported_languages_simple_chat_languages_get) | **GET** /simple_chat/languages | Get Supported Languages
+*SimpleChatApi* | [**simple_chat_simple_chat_post**](docs/SimpleChatApi.md#simple_chat_simple_chat_post) | **POST** /simple_chat/ | Simple Chat
+*StorageApi* | [**download_file_storage_path_get**](docs/StorageApi.md#download_file_storage_path_get) | **GET** /storage/{path} | Download File
+*TarifsApi* | [**create_tarif_tarifs_post**](docs/TarifsApi.md#create_tarif_tarifs_post) | **POST** /tarifs/ | Create Tarif
+*TarifsApi* | [**delete_tarif_tarifs_tarif_id_delete**](docs/TarifsApi.md#delete_tarif_tarifs_tarif_id_delete) | **DELETE** /tarifs/{tarif_id} | Delete Tarif
+*TarifsApi* | [**update_tarif_tarifs_tarif_id_patch**](docs/TarifsApi.md#update_tarif_tarifs_tarif_id_patch) | **PATCH** /tarifs/{tarif_id} | Update Tarif
+*TemplatesApi* | [**create_templates_post**](docs/TemplatesApi.md#create_templates_post) | **POST** /templates/ | Create
+*TemplatesApi* | [**delete_templates_template_id_delete**](docs/TemplatesApi.md#delete_templates_template_id_delete) | **DELETE** /templates/{template_id} | Delete
+*TemplatesApi* | [**update_templates_template_id_patch**](docs/TemplatesApi.md#update_templates_template_id_patch) | **PATCH** /templates/{template_id} | Update
+*TenantsApi* | [**add_library_to_tenants_tenants_tenant_id_libraries_library_id_post**](docs/TenantsApi.md#add_library_to_tenants_tenants_tenant_id_libraries_library_id_post) | **POST** /tenants/{tenant_id}/libraries/{library_id} | Add Library To Tenants
+*TenantsApi* | [**create_tenant_connector_tenants_tenant_id_connectors_connector_id_post**](docs/TenantsApi.md#create_tenant_connector_tenants_tenant_id_connectors_connector_id_post) | **POST** /tenants/{tenant_id}/connectors/{connector_id} | Create Tenant Connector
+*TenantsApi* | [**create_tenant_tenants_post**](docs/TenantsApi.md#create_tenant_tenants_post) | **POST** /tenants/ | Create Tenant
+*TenantsApi* | [**create_tenant_tool_tenants_tenant_id_tools_tool_id_post**](docs/TenantsApi.md#create_tenant_tool_tenants_tenant_id_tools_tool_id_post) | **POST** /tenants/{tenant_id}/tools/{tool_id} | Create Tenant Tool
+*TenantsApi* | [**delete_tenant_connector_tenants_tenant_id_connectors_connector_id_delete**](docs/TenantsApi.md#delete_tenant_connector_tenants_tenant_id_connectors_connector_id_delete) | **DELETE** /tenants/{tenant_id}/connectors/{connector_id} | Delete Tenant Connector
+*TenantsApi* | [**delete_tenant_tenants_tenant_id_delete**](docs/TenantsApi.md#delete_tenant_tenants_tenant_id_delete) | **DELETE** /tenants/{tenant_id} | Delete Tenant
+*TenantsApi* | [**delete_tenant_tool_tenants_tenant_id_tools_tool_id_delete**](docs/TenantsApi.md#delete_tenant_tool_tenants_tenant_id_tools_tool_id_delete) | **DELETE** /tenants/{tenant_id}/tools/{tool_id} | Delete Tenant Tool
+*TenantsApi* | [**get_current_tenant_tenants_current_get**](docs/TenantsApi.md#get_current_tenant_tenants_current_get) | **GET** /tenants/current | Get Current Tenant
+*TenantsApi* | [**remove_tenant_library_member_tenants_tenant_id_libraries_library_id_delete**](docs/TenantsApi.md#remove_tenant_library_member_tenants_tenant_id_libraries_library_id_delete) | **DELETE** /tenants/{tenant_id}/libraries/{library_id} | Remove Tenant Library Member
+*TenantsApi* | [**update_current_tenant_tenants_current_patch**](docs/TenantsApi.md#update_current_tenant_tenants_current_patch) | **PATCH** /tenants/current | Update Current Tenant
+*TenantsApi* | [**update_tenant_tenants_tenant_id_patch**](docs/TenantsApi.md#update_tenant_tenants_tenant_id_patch) | **PATCH** /tenants/{tenant_id} | Update Tenant
+*ToolsApi* | [**update_tool_tools_tool_id_patch**](docs/ToolsApi.md#update_tool_tools_tool_id_patch) | **PATCH** /tools/{tool_id} | Update Tool
+*UsersApi* | [**activate_user_users_user_id_activate_post**](docs/UsersApi.md#activate_user_users_user_id_activate_post) | **POST** /users/{user_id}/activate | Activate User
+*UsersApi* | [**create_group_users_groups_post**](docs/UsersApi.md#create_group_users_groups_post) | **POST** /users/groups | Create Group
+*UsersApi* | [**create_user_users_post**](docs/UsersApi.md#create_user_users_post) | **POST** /users/ | Create User
+*UsersApi* | [**deactivate_user_users_user_id_deactivate_post**](docs/UsersApi.md#deactivate_user_users_user_id_deactivate_post) | **POST** /users/{user_id}/deactivate | Deactivate User
+*UsersApi* | [**delete_group_users_groups_group_id_delete**](docs/UsersApi.md#delete_group_users_groups_group_id_delete) | **DELETE** /users/groups/{group_id} | Delete Group
+*UsersApi* | [**delete_user_users_user_id_delete**](docs/UsersApi.md#delete_user_users_user_id_delete) | **DELETE** /users/{user_id} | Delete User
+*UsersApi* | [**get_current_user**](docs/UsersApi.md#get_current_user) | **GET** /users/me | Get Myself
+*UsersApi* | [**reset_password_users_passwd_post**](docs/UsersApi.md#reset_password_users_passwd_post) | **POST** /users/passwd | Reset Password
+*UsersApi* | [**update_group_users_groups_group_id_patch**](docs/UsersApi.md#update_group_users_groups_group_id_patch) | **PATCH** /users/groups/{group_id} | Update Group
+*UsersApi* | [**update_user_users_user_id_patch**](docs/UsersApi.md#update_user_users_user_id_patch) | **PATCH** /users/{user_id} | Update User
+*UsersApi* | [**upsert_members_users_members_group_id_put**](docs/UsersApi.md#upsert_members_users_members_group_id_put) | **PUT** /users/members/{group_id} | Upsert Members
+*UsersApi* | [**upsert_my_preferences_users_me_preferences_patch**](docs/UsersApi.md#upsert_my_preferences_users_me_preferences_patch) | **PATCH** /users/me/preferences | Upsert My Preferences
 *DefaultApi* | [**get_theme_theme_get**](docs/DefaultApi.md#get_theme_theme_get) | **GET** /theme | Get Theme
-*DefaultApi* | [**get_usage_costs_llm_services_cost_post**](docs/DefaultApi.md#get_usage_costs_llm_services_cost_post) | **POST** /llm/services/cost | Get Usage Costs
-*DefaultApi* | [**get_user_info_integrations_sharepoint_me_get**](docs/DefaultApi.md#get_user_info_integrations_sharepoint_me_get) | **GET** /integrations/sharepoint/me | Get User Info
-*DefaultApi* | [**grant_tenant_model_access_llm_admin_tenants_tenant_id_models_model_id_post**](docs/DefaultApi.md#grant_tenant_model_access_llm_admin_tenants_tenant_id_models_model_id_post) | **POST** /llm-admin/tenants/{tenant_id}/models/{model_id} | Grant Tenant Model Access
-*DefaultApi* | [**import_documents_documents_import_post**](docs/DefaultApi.md#import_documents_documents_import_post) | **POST** /documents/import | Import Documents
-*DefaultApi* | [**initiate_consent_auth_connectors_connector_id_consent_get**](docs/DefaultApi.md#initiate_consent_auth_connectors_connector_id_consent_get) | **GET** /auth/connectors/{connector_id}/consent | Initiate Consent
-*DefaultApi* | [**is_connected_integrations_sharepoint_connected_get**](docs/DefaultApi.md#is_connected_integrations_sharepoint_connected_get) | **GET** /integrations/sharepoint/connected | Is Connected
-*DefaultApi* | [**is_project_name_free_projects_available_get**](docs/DefaultApi.md#is_project_name_free_projects_available_get) | **GET** /projects/available | Is Project Name Free
-*DefaultApi* | [**leave_assitant_assistants_assistant_id_remove_me_delete**](docs/DefaultApi.md#leave_assitant_assistants_assistant_id_remove_me_delete) | **DELETE** /assistants/{assistant_id}/remove/me | Leave Assitant
-*DefaultApi* | [**leave_project_projects_project_id_remove_me_delete**](docs/DefaultApi.md#leave_project_projects_project_id_remove_me_delete) | **DELETE** /projects/{project_id}/remove/me | Leave Project
-*DefaultApi* | [**list_all_sites_integrations_sharepoint_sites_get**](docs/DefaultApi.md#list_all_sites_integrations_sharepoint_sites_get) | **GET** /integrations/sharepoint/sites | List All Sites
-*DefaultApi* | [**list_available_models_settings_models_get**](docs/DefaultApi.md#list_available_models_settings_models_get) | **GET** /settings/models | List Available Models
-*DefaultApi* | [**list_children_integrations_sharepoint_drives_drive_id_items_drive_item_id_children_get**](docs/DefaultApi.md#list_children_integrations_sharepoint_drives_drive_id_items_drive_item_id_children_get) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List Children
-*DefaultApi* | [**list_connector_status_auth_connectors_status_get**](docs/DefaultApi.md#list_connector_status_auth_connectors_status_get) | **GET** /auth/connectors/status | List Connector Status
-*DefaultApi* | [**list_drives_integrations_sharepoint_sites_site_id_drives_get**](docs/DefaultApi.md#list_drives_integrations_sharepoint_sites_site_id_drives_get) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List Drives
-*DefaultApi* | [**llm_total_tokens_llm_tokens_post**](docs/DefaultApi.md#llm_total_tokens_llm_tokens_post) | **POST** /llm/tokens | Llm Total Tokens
-*DefaultApi* | [**login_auth_token_post**](docs/DefaultApi.md#login_auth_token_post) | **POST** /auth/token | Login
-*DefaultApi* | [**logout_auth_logout_post**](docs/DefaultApi.md#logout_auth_logout_post) | **POST** /auth/logout | Logout
-*DefaultApi* | [**message_trace_admin_message_message_id_get**](docs/DefaultApi.md#message_trace_admin_message_message_id_get) | **GET** /admin/message/{message_id} | Message Trace
-*DefaultApi* | [**new_library_libraries_post**](docs/DefaultApi.md#new_library_libraries_post) | **POST** /libraries/ | New Library
-*DefaultApi* | [**oauth_callback_auth_connectors_callback_get**](docs/DefaultApi.md#oauth_callback_auth_connectors_callback_get) | **GET** /auth/connectors/callback | Oauth Callback
 *DefaultApi* | [**post_check_post_post**](docs/DefaultApi.md#post_check_post_post) | **POST** /post | Post Check
-*DefaultApi* | [**query_query_path_get**](docs/DefaultApi.md#query_query_path_get) | **GET** /query/{path} | Query
-*DefaultApi* | [**query_rpc_query_rpc_path_get**](docs/DefaultApi.md#query_rpc_query_rpc_path_get) | **GET** /query/rpc/{path} | Query Rpc
-*DefaultApi* | [**remove_chat_chats_chat_id_delete**](docs/DefaultApi.md#remove_chat_chats_chat_id_delete) | **DELETE** /chats/{chat_id} | Remove Chat
-*DefaultApi* | [**remove_inactive_documents_chats_chat_id_inactive_documents_delete**](docs/DefaultApi.md#remove_inactive_documents_chats_chat_id_inactive_documents_delete) | **DELETE** /chats/{chat_id}/inactive-documents | Remove Inactive Documents
-*DefaultApi* | [**remove_library_from_assistant_assistants_assistant_id_libraries_library_id_delete**](docs/DefaultApi.md#remove_library_from_assistant_assistants_assistant_id_libraries_library_id_delete) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove Library From Assistant
-*DefaultApi* | [**remove_library_from_chat_chats_chat_id_libraries_library_id_delete**](docs/DefaultApi.md#remove_library_from_chat_chats_chat_id_libraries_library_id_delete) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove Library From Chat
-*DefaultApi* | [**remove_library_from_project_projects_project_id_libraries_library_id_delete**](docs/DefaultApi.md#remove_library_from_project_projects_project_id_libraries_library_id_delete) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project
-*DefaultApi* | [**remove_library_member_libraries_library_id_members_member_id_delete**](docs/DefaultApi.md#remove_library_member_libraries_library_id_members_member_id_delete) | **DELETE** /libraries/{library_id}/members/{member_id} | Remove Library Member
-*DefaultApi* | [**remove_tenant_library_member_tenants_tenant_id_libraries_library_id_delete**](docs/DefaultApi.md#remove_tenant_library_member_tenants_tenant_id_libraries_library_id_delete) | **DELETE** /tenants/{tenant_id}/libraries/{library_id} | Remove Tenant Library Member
-*DefaultApi* | [**remove_tool_from_assistant_assistants_assistant_id_tools_tool_id_delete**](docs/DefaultApi.md#remove_tool_from_assistant_assistants_assistant_id_tools_tool_id_delete) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove Tool From Assistant
-*DefaultApi* | [**rephrase_message_messages_message_id_rephrase_get**](docs/DefaultApi.md#rephrase_message_messages_message_id_rephrase_get) | **GET** /messages/{message_id}/rephrase | Rephrase Message
-*DefaultApi* | [**reports_bulk_action_admin_reports_bulk_post**](docs/DefaultApi.md#reports_bulk_action_admin_reports_bulk_post) | **POST** /admin/reports/bulk | Reports Bulk Action
-*DefaultApi* | [**request_password_reset_auth_request_password_reset_post**](docs/DefaultApi.md#request_password_reset_auth_request_password_reset_post) | **POST** /auth/request-password-reset | Request Password Reset
-*DefaultApi* | [**resend_invitation_invitations_invitation_id_resend_post**](docs/DefaultApi.md#resend_invitation_invitations_invitation_id_resend_post) | **POST** /invitations/{invitation_id}/resend | Resend Invitation
-*DefaultApi* | [**reset_password_auth_reset_password_post**](docs/DefaultApi.md#reset_password_auth_reset_password_post) | **POST** /auth/reset-password | Reset Password
-*DefaultApi* | [**reset_password_form_auth_reset_password_get**](docs/DefaultApi.md#reset_password_form_auth_reset_password_get) | **GET** /auth/reset-password | Reset Password Form
-*DefaultApi* | [**reset_password_users_passwd_post**](docs/DefaultApi.md#reset_password_users_passwd_post) | **POST** /users/passwd | Reset Password
-*DefaultApi* | [**retry_document_documents_document_id_retry_post**](docs/DefaultApi.md#retry_document_documents_document_id_retry_post) | **POST** /documents/{document_id}/retry | Retry Document
-*DefaultApi* | [**revoke_api_key_api_key_revoke_api_key_id_patch**](docs/DefaultApi.md#revoke_api_key_api_key_revoke_api_key_id_patch) | **PATCH** /api/key/revoke/{api_key_id} | Revoke Api Key
-*DefaultApi* | [**revoke_consent_auth_connectors_connector_id_consent_delete**](docs/DefaultApi.md#revoke_consent_auth_connectors_connector_id_consent_delete) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke Consent
-*DefaultApi* | [**revoke_invitation_invitations_invitation_id_revoke_post**](docs/DefaultApi.md#revoke_invitation_invitations_invitation_id_revoke_post) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation
-*DefaultApi* | [**revoke_tenant_model_access_llm_admin_tenants_tenant_id_models_model_id_delete**](docs/DefaultApi.md#revoke_tenant_model_access_llm_admin_tenants_tenant_id_models_model_id_delete) | **DELETE** /llm-admin/tenants/{tenant_id}/models/{model_id} | Revoke Tenant Model Access
 *DefaultApi* | [**root_get**](docs/DefaultApi.md#root_get) | **GET** / | Root
-*DefaultApi* | [**send_email_confirmation_auth_send_email_confirmation_post**](docs/DefaultApi.md#send_email_confirmation_auth_send_email_confirmation_post) | **POST** /auth/send-email-confirmation | Send Email Confirmation
-*DefaultApi* | [**simple_chat_simple_chat_post**](docs/DefaultApi.md#simple_chat_simple_chat_post) | **POST** /simple_chat/ | Simple Chat
 *DefaultApi* | [**stat_stat_get**](docs/DefaultApi.md#stat_stat_get) | **GET** /stat | Stat
-*DefaultApi* | [**submit_assistant_assistants_submit_post**](docs/DefaultApi.md#submit_assistant_assistants_submit_post) | **POST** /assistants/submit | Submit Assistant
-*DefaultApi* | [**submit_message_messages_submit_post**](docs/DefaultApi.md#submit_message_messages_submit_post) | **POST** /messages/submit | Submit Message
-*DefaultApi* | [**summerize_chat_chats_chat_id_summary_get**](docs/DefaultApi.md#summerize_chat_chats_chat_id_summary_get) | **GET** /chats/{chat_id}/summary | Summerize Chat
-*DefaultApi* | [**translate_message_messages_message_id_translate_get**](docs/DefaultApi.md#translate_message_messages_message_id_translate_get) | **GET** /messages/{message_id}/translate | Translate Message
-*DefaultApi* | [**unimport_documents_documents_import_delete**](docs/DefaultApi.md#unimport_documents_documents_import_delete) | **DELETE** /documents/import | Unimport Documents
-*DefaultApi* | [**update_alert_alerts_alert_id_patch**](docs/DefaultApi.md#update_alert_alerts_alert_id_patch) | **PATCH** /alerts/{alert_id} | Update Alert
-*DefaultApi* | [**update_app_applications_app_id_patch**](docs/DefaultApi.md#update_app_applications_app_id_patch) | **PATCH** /applications/{app_id} | Update App
-*DefaultApi* | [**update_assistant_assistants_assistant_id_patch**](docs/DefaultApi.md#update_assistant_assistants_assistant_id_patch) | **PATCH** /assistants/{assistant_id} | Update Assistant
-*DefaultApi* | [**update_chat_chats_chat_id_patch**](docs/DefaultApi.md#update_chat_chats_chat_id_patch) | **PATCH** /chats/{chat_id} | Update Chat
-*DefaultApi* | [**update_chat_tool_settings_chats_chat_id_tools_tool_id_put**](docs/DefaultApi.md#update_chat_tool_settings_chats_chat_id_tools_tool_id_put) | **PUT** /chats/{chat_id}/tools/{tool_id} | Update Chat Tool Settings
-*DefaultApi* | [**update_connector_auth_connectors_connector_id_patch**](docs/DefaultApi.md#update_connector_auth_connectors_connector_id_patch) | **PATCH** /auth/connectors/{connector_id} | Update Connector
-*DefaultApi* | [**update_current_settings_settings_current_patch**](docs/DefaultApi.md#update_current_settings_settings_current_patch) | **PATCH** /settings/current | Update Current Settings
-*DefaultApi* | [**update_current_tenant_tenants_current_patch**](docs/DefaultApi.md#update_current_tenant_tenants_current_patch) | **PATCH** /tenants/current | Update Current Tenant
-*DefaultApi* | [**update_group_membership_applications_group_access_put**](docs/DefaultApi.md#update_group_membership_applications_group_access_put) | **PUT** /applications/group/access | Update Group Membership
-*DefaultApi* | [**update_group_users_groups_group_id_patch**](docs/DefaultApi.md#update_group_users_groups_group_id_patch) | **PATCH** /users/groups/{group_id} | Update Group
-*DefaultApi* | [**update_library_libraries_library_id_patch**](docs/DefaultApi.md#update_library_libraries_library_id_patch) | **PATCH** /libraries/{library_id} | Update Library
-*DefaultApi* | [**update_llm_model_llm_admin_models_model_id_patch**](docs/DefaultApi.md#update_llm_model_llm_admin_models_model_id_patch) | **PATCH** /llm-admin/models/{model_id} | Update Llm Model
-*DefaultApi* | [**update_oauth_client_auth_connectors_oauth_clients_oauth_client_id_patch**](docs/DefaultApi.md#update_oauth_client_auth_connectors_oauth_clients_oauth_client_id_patch) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update Oauth Client
-*DefaultApi* | [**update_project_projects_project_id_patch**](docs/DefaultApi.md#update_project_projects_project_id_patch) | **PATCH** /projects/{project_id} | Update Project
-*DefaultApi* | [**update_prompt_prompts_prompt_id_patch**](docs/DefaultApi.md#update_prompt_prompts_prompt_id_patch) | **PATCH** /prompts/{prompt_id} | Update Prompt
-*DefaultApi* | [**update_settings_settings_settings_id_patch**](docs/DefaultApi.md#update_settings_settings_settings_id_patch) | **PATCH** /settings/{settings_id} | Update Settings
-*DefaultApi* | [**update_system_settings_admin_system_settings_update_post**](docs/DefaultApi.md#update_system_settings_admin_system_settings_update_post) | **POST** /admin/system-settings/update | Update System Settings
-*DefaultApi* | [**update_tarif_tarifs_tarif_id_patch**](docs/DefaultApi.md#update_tarif_tarifs_tarif_id_patch) | **PATCH** /tarifs/{tarif_id} | Update Tarif
-*DefaultApi* | [**update_templates_template_id_patch**](docs/DefaultApi.md#update_templates_template_id_patch) | **PATCH** /templates/{template_id} | Update
-*DefaultApi* | [**update_tenant_tenants_tenant_id_patch**](docs/DefaultApi.md#update_tenant_tenants_tenant_id_patch) | **PATCH** /tenants/{tenant_id} | Update Tenant
-*DefaultApi* | [**update_tool_tools_tool_id_patch**](docs/DefaultApi.md#update_tool_tools_tool_id_patch) | **PATCH** /tools/{tool_id} | Update Tool
-*DefaultApi* | [**update_user_membership_applications_user_access_put**](docs/DefaultApi.md#update_user_membership_applications_user_access_put) | **PUT** /applications/user/access | Update User Membership
-*DefaultApi* | [**update_user_users_user_id_patch**](docs/DefaultApi.md#update_user_users_user_id_patch) | **PATCH** /users/{user_id} | Update User
-*DefaultApi* | [**upload_documents_documents_post**](docs/DefaultApi.md#upload_documents_documents_post) | **POST** /documents/ | Upload Documents
-*DefaultApi* | [**upsert_members_users_members_group_id_put**](docs/DefaultApi.md#upsert_members_users_members_group_id_put) | **PUT** /users/members/{group_id} | Upsert Members
-*DefaultApi* | [**upsert_my_preferences_users_me_preferences_patch**](docs/DefaultApi.md#upsert_my_preferences_users_me_preferences_patch) | **PATCH** /users/me/preferences | Upsert My Preferences
 *DefaultApi* | [**version_version_get**](docs/DefaultApi.md#version_version_get) | **GET** /version | Version
 
 
@@ -272,6 +277,7 @@ Class | Method | HTTP request | Description
  - [AssistantIn](docs/AssistantIn.md)
  - [AssistantLibrary](docs/AssistantLibrary.md)
  - [AssistantMember](docs/AssistantMember.md)
+ - [AssistantMembersIn](docs/AssistantMembersIn.md)
  - [AssistantTool](docs/AssistantTool.md)
  - [BudgetAlert](docs/BudgetAlert.md)
  - [BudgetAlertRequest](docs/BudgetAlertRequest.md)
@@ -308,6 +314,8 @@ Class | Method | HTTP request | Description
  - [Library](docs/Library.md)
  - [LibraryIn](docs/LibraryIn.md)
  - [LibraryMember](docs/LibraryMember.md)
+ - [LibraryMemberBulkDelete](docs/LibraryMemberBulkDelete.md)
+ - [LibraryMemberBulkIn](docs/LibraryMemberBulkIn.md)
  - [LibraryMemberIn](docs/LibraryMemberIn.md)
  - [LibraryUpdateIn](docs/LibraryUpdateIn.md)
  - [LocationInner](docs/LocationInner.md)
@@ -323,6 +331,8 @@ Class | Method | HTTP request | Description
  - [ProjectIn](docs/ProjectIn.md)
  - [ProjectLibrary](docs/ProjectLibrary.md)
  - [ProjectMember](docs/ProjectMember.md)
+ - [ProjectMemberBulkDelete](docs/ProjectMemberBulkDelete.md)
+ - [ProjectMemberBulkIn](docs/ProjectMemberBulkIn.md)
  - [ProjectMemberIn](docs/ProjectMemberIn.md)
  - [Prompt](docs/Prompt.md)
  - [PromptIn](docs/PromptIn.md)

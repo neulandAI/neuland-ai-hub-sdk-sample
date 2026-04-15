@@ -52,7 +52,8 @@ class TenantOut(BaseModel):
     api_rate_limit: Optional[StrictInt] = None
     state: Optional[StrictStr] = None
     upstream_tenant_id: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "created_at", "creator_user_id", "name", "slug", "domain", "timezone", "locale", "tarif_id", "max_users", "max_projects", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "state", "upstream_tenant_id"]
+    upstream_oidc_issuer: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "created_at", "creator_user_id", "name", "slug", "domain", "timezone", "locale", "tarif_id", "max_users", "max_projects", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "state", "upstream_tenant_id", "upstream_oidc_issuer"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -183,6 +184,11 @@ class TenantOut(BaseModel):
         if self.upstream_tenant_id is None and "upstream_tenant_id" in self.model_fields_set:
             _dict['upstream_tenant_id'] = None
 
+        # set to None if upstream_oidc_issuer (nullable) is None
+        # and model_fields_set contains the field
+        if self.upstream_oidc_issuer is None and "upstream_oidc_issuer" in self.model_fields_set:
+            _dict['upstream_oidc_issuer'] = None
+
         return _dict
 
     @classmethod
@@ -218,7 +224,8 @@ class TenantOut(BaseModel):
             "storage_limit_gb": obj.get("storage_limit_gb"),
             "api_rate_limit": obj.get("api_rate_limit"),
             "state": obj.get("state"),
-            "upstream_tenant_id": obj.get("upstream_tenant_id")
+            "upstream_tenant_id": obj.get("upstream_tenant_id"),
+            "upstream_oidc_issuer": obj.get("upstream_oidc_issuer")
         })
         return _obj
 

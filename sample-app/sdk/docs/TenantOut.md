@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **api_rate_limit** | **int** |  | [optional] 
 **state** | **str** |  | [optional] 
 **upstream_tenant_id** | **str** |  | [optional] 
+**upstream_oidc_issuer** | **str** |  | [optional] 
 
 ## Example
 

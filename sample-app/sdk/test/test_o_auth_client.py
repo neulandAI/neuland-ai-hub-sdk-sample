@@ -47,6 +47,7 @@ class TestOAuthClient(unittest.TestCase):
                 icon_url = '',
                 authorize_url = '',
                 token_url = '',
+                logout_url = '',
                 redirect_uri = ''
             )
         else:

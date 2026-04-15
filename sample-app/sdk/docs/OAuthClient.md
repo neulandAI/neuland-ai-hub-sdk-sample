@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **icon_url** | **str** |  | [optional] 
 **authorize_url** | **str** |  | 
 **token_url** | **str** |  | 
+**logout_url** | **str** |  | [optional] 
 **redirect_uri** | **str** |  | [optional] 
 
 ## Example

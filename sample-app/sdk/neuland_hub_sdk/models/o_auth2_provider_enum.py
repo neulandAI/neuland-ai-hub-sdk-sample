@@ -28,6 +28,7 @@ class OAuth2ProviderEnum(str, Enum):
     """
     AZURE_MINUS_ENTRA = 'azure-entra'
     MICROSOFT = 'microsoft'
+    OIDC = 'oidc'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

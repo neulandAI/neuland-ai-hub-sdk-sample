@@ -58,7 +58,8 @@ class TestTenantOut(unittest.TestCase):
                 storage_limit_gb = 56,
                 api_rate_limit = 56,
                 state = '',
-                upstream_tenant_id = ''
+                upstream_tenant_id = '',
+                upstream_oidc_issuer = ''
             )
         else:
             return TenantOut(
