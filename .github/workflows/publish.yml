@@ -1,8 +1,6 @@
-name: Publish SDK to GitHub Release
+name: Release SDK
 
 on:
-    release:
-        types: [created]
     workflow_dispatch:
         inputs:
             version:
@@ -16,7 +14,7 @@ on:
                     - major
 
 jobs:
-    publish:
+    release:
         runs-on: ubuntu-latest
         permissions:
             contents: write
@@ -33,13 +31,7 @@ jobs:
               with:
                   python-version: "3.13"
 
-            - name: Install build tools
-              run: |
-                  python -m pip install --upgrade pip
-                  pip install build
-
             - name: Bump version
-              if: github.event_name == 'workflow_dispatch'
               id: bump
               working-directory: sample-app/sdk
               run: |
@@ -53,32 +45,20 @@ jobs:
                   NEW="$MAJ.$MIN.$PATCH"
                   sed -i "s/^version = \".*\"/version = \"$NEW\"/" pyproject.toml
                   sed -i "s/^VERSION = \".*\"/VERSION = \"$NEW\"/" setup.py
+                  sed -i "s/^__version__ = \".*\"/__version__ = \"$NEW\"/" neuland_hub_sdk/__init__.py
+                  sed -i "s|OpenAPI-Generator/[0-9][0-9.]*\/python|OpenAPI-Generator/$NEW/python|" neuland_hub_sdk/api_client.py
+                  sed -i "s|SDK Package Version: [0-9][0-9.]*|SDK Package Version: $NEW|" neuland_hub_sdk/configuration.py
                   echo "new_version=$NEW" >> "$GITHUB_OUTPUT"
 
             - name: Commit, tag, push
-              if: github.event_name == 'workflow_dispatch'
               run: |
                   git config user.name "GitHub Actions"
                   git config user.email "actions@github.com"
-                  git add sample-app/sdk/pyproject.toml sample-app/sdk/setup.py
-                  git commit -m "Release SDK v${{ steps.bump.outputs.new_version }}"
+                  git add sample-app/sdk/pyproject.toml \
+                          sample-app/sdk/setup.py \
+                          sample-app/sdk/neuland_hub_sdk/__init__.py \
+                          sample-app/sdk/neuland_hub_sdk/api_client.py \
+                          sample-app/sdk/neuland_hub_sdk/configuration.py
+                  git commit --no-gpg-sign -m "Release SDK v${{ steps.bump.outputs.new_version }}"
                   git tag "sdk-v${{ steps.bump.outputs.new_version }}"
                   git push && git push --tags
-
-            - name: Build sdist and wheel
-              working-directory: sample-app/sdk
-              run: python -m build
-
-            - name: Create release with artifacts (workflow_dispatch)
-              if: github.event_name == 'workflow_dispatch'
-              uses: softprops/action-gh-release@v2
-              with:
-                  tag_name: sdk-v${{ steps.bump.outputs.new_version }}
-                  name: SDK v${{ steps.bump.outputs.new_version }}
-                  files: sample-app/sdk/dist/*
-
-            - name: Attach artifacts to release (release trigger)
-              if: github.event_name == 'release'
-              uses: softprops/action-gh-release@v2
-              with:
-                  files: sample-app/sdk/dist/*
