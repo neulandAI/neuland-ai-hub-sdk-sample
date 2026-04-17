@@ -1,0 +1,84 @@
+name: Publish SDK to GitHub Release
+
+on:
+    release:
+        types: [created]
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Version type (patch, minor, major)"
+                required: true
+                default: "patch"
+                type: choice
+                options:
+                    - patch
+                    - minor
+                    - major
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  fetch-depth: 0
+
+            - name: Setup Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.13"
+
+            - name: Install build tools
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install build
+
+            - name: Bump version
+              if: github.event_name == 'workflow_dispatch'
+              id: bump
+              working-directory: sample-app/sdk
+              run: |
+                  CURRENT=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+                  IFS='.' read -r MAJ MIN PATCH <<< "$CURRENT"
+                  case "${{ github.event.inputs.version }}" in
+                      patch) PATCH=$((PATCH+1)) ;;
+                      minor) MIN=$((MIN+1)); PATCH=0 ;;
+                      major) MAJ=$((MAJ+1)); MIN=0; PATCH=0 ;;
+                  esac
+                  NEW="$MAJ.$MIN.$PATCH"
+                  sed -i "s/^version = \".*\"/version = \"$NEW\"/" pyproject.toml
+                  sed -i "s/^VERSION = \".*\"/VERSION = \"$NEW\"/" setup.py
+                  echo "new_version=$NEW" >> "$GITHUB_OUTPUT"
+
+            - name: Commit, tag, push
+              if: github.event_name == 'workflow_dispatch'
+              run: |
+                  git config user.name "GitHub Actions"
+                  git config user.email "actions@github.com"
+                  git add sample-app/sdk/pyproject.toml sample-app/sdk/setup.py
+                  git commit -m "Release SDK v${{ steps.bump.outputs.new_version }}"
+                  git tag "sdk-v${{ steps.bump.outputs.new_version }}"
+                  git push && git push --tags
+
+            - name: Build sdist and wheel
+              working-directory: sample-app/sdk
+              run: python -m build
+
+            - name: Create release with artifacts (workflow_dispatch)
+              if: github.event_name == 'workflow_dispatch'
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: sdk-v${{ steps.bump.outputs.new_version }}
+                  name: SDK v${{ steps.bump.outputs.new_version }}
+                  files: sample-app/sdk/dist/*
+
+            - name: Attach artifacts to release (release trigger)
+              if: github.event_name == 'release'
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: sample-app/sdk/dist/*
