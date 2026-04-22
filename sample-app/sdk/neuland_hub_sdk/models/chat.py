@@ -41,12 +41,12 @@ class Chat(BaseModel):
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
-    provider: Optional[StrictStr] = None
-    model: Optional[StrictStr] = None
+    llm_catalog_id: Optional[StrictInt] = None
+    llm_settings_id: Optional[StrictInt] = None
     assistant_id: Optional[StrictInt] = None
     private: Optional[StrictBool] = False
     consumed_tokens: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "created_at", "updated_at", "creator_user_id", "project_id", "name", "busy", "temperature", "similarity_top_k", "system_prompt", "provider", "model", "assistant_id", "private", "consumed_tokens"]
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "created_at", "updated_at", "creator_user_id", "project_id", "name", "busy", "temperature", "similarity_top_k", "system_prompt", "llm_catalog_id", "llm_settings_id", "assistant_id", "private", "consumed_tokens"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -127,15 +127,15 @@ class Chat(BaseModel):
         if self.system_prompt is None and "system_prompt" in self.model_fields_set:
             _dict['system_prompt'] = None
 
-        # set to None if provider (nullable) is None
+        # set to None if llm_catalog_id (nullable) is None
         # and model_fields_set contains the field
-        if self.provider is None and "provider" in self.model_fields_set:
-            _dict['provider'] = None
+        if self.llm_catalog_id is None and "llm_catalog_id" in self.model_fields_set:
+            _dict['llm_catalog_id'] = None
 
-        # set to None if model (nullable) is None
+        # set to None if llm_settings_id (nullable) is None
         # and model_fields_set contains the field
-        if self.model is None and "model" in self.model_fields_set:
-            _dict['model'] = None
+        if self.llm_settings_id is None and "llm_settings_id" in self.model_fields_set:
+            _dict['llm_settings_id'] = None
 
         # set to None if assistant_id (nullable) is None
         # and model_fields_set contains the field
@@ -172,8 +172,8 @@ class Chat(BaseModel):
             "temperature": obj.get("temperature"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "system_prompt": obj.get("system_prompt"),
-            "provider": obj.get("provider"),
-            "model": obj.get("model"),
+            "llm_catalog_id": obj.get("llm_catalog_id"),
+            "llm_settings_id": obj.get("llm_settings_id"),
             "assistant_id": obj.get("assistant_id"),
             "private": obj.get("private") if obj.get("private") is not None else False,
             "consumed_tokens": obj.get("consumed_tokens")

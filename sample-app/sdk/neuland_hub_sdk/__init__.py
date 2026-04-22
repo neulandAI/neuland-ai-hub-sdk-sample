@@ -14,38 +14,37 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.0"
+__version__ = "0.1.0a1"
 
 # Define package exports
 __all__ = [
-    "AdminApi",
-    "AlertsApi",
-    "ApiKeyApi",
-    "ApplicationsApi",
-    "AssistantsApi",
-    "AuthApi",
-    "AuthConnectorsApi",
-    "ChatsApi",
-    "DocumentsApi",
-    "FilesApi",
-    "IntegrationsApi",
-    "InvitationsApi",
-    "LLMApi",
-    "LLMAdminApi",
-    "LibrariesApi",
-    "MessagesApi",
-    "ProjectsApi",
-    "PromptsApi",
-    "QueryApi",
-    "SettingsApi",
-    "SimpleChatApi",
-    "StorageApi",
-    "TarifsApi",
-    "TemplatesApi",
-    "TenantsApi",
-    "ToolsApi",
-    "UsersApi",
-    "DefaultApi",
+    "Application",
+    "Assistant",
+    "Auth",
+    "AuthApiKey",
+    "AuthConnector",
+    "AuthInvitation",
+    "BudgetAlert",
+    "Chat",
+    "Document",
+    "File",
+    "Library",
+    "Llm",
+    "LlmCatalog",
+    "LlmSetting",
+    "Message",
+    "Project",
+    "Prompt",
+    "Query",
+    "Settings",
+    "Sharepoint",
+    "Storage",
+    "Tariff",
+    "Template",
+    "Tool",
+    "User",
+    "UserMailSend",
+    "Default",
     "ApiResponse",
     "ApiClient",
     "Configuration",
@@ -69,10 +68,16 @@ __all__ = [
     "AssistantMember",
     "AssistantMembersIn",
     "AssistantTool",
+    "Bcc",
+    "BodyAdminLogin",
+    "BodyReportsBulkAction",
     "BudgetAlert",
     "BudgetAlertRequest",
     "BudgetAlertUpdate",
     "BulkResult",
+    "CatalogIn",
+    "CatalogUpdate",
+    "Cc",
     "Chat",
     "ChatIn",
     "ChatInactiveDocument",
@@ -97,9 +102,7 @@ __all__ = [
     "HTTPValidationError",
     "InvitationIn",
     "InvitationOut",
-    "LLMModel",
     "LLMSettingsIn",
-    "LLMSettingsOut",
     "LLMSettingsUpdate",
     "Library",
     "LibraryIn",
@@ -127,7 +130,9 @@ __all__ = [
     "Prompt",
     "PromptIn",
     "RephraseStyleEnum",
-    "ResponseGetEntraGroupsAuthEntraGroupsGetValue",
+    "ResponseGetEntraGroupsValue",
+    "SendEmailRequest",
+    "SendEmailResponse",
     "Settings",
     "SettingsIn",
     "SharepointDriveModel",
@@ -135,21 +140,21 @@ __all__ = [
     "SharepointItemModel",
     "SharepointSiteModel",
     "SharepointUserModel",
-    "SimpleMessageIn",
-    "SimpleMessageOut",
-    "Tarif",
-    "TarifIn",
-    "TarifStatusEnum",
+    "Tariff",
+    "TariffIn",
+    "TariffStatusEnum",
     "TemplateIn",
     "TemplateOut",
     "TenantIn",
-    "TenantLLMOut",
+    "TenantLLM",
+    "TenantModelBulkIn",
     "TenantOut",
     "TenantThemeOut",
     "TenantUpdateIn",
     "ThemeModeEnum",
     "TimeseriesPoint",
     "TimeseriesResponse",
+    "To",
     "TokenOut",
     "TokenTimeseriesPerModel",
     "TokenTimeseriesPoint",
@@ -172,34 +177,33 @@ __all__ = [
 ]
 
 # import apis into sdk package
-from neuland_hub_sdk.api.admin_api import AdminApi as AdminApi
-from neuland_hub_sdk.api.alerts_api import AlertsApi as AlertsApi
-from neuland_hub_sdk.api.api_key_api import ApiKeyApi as ApiKeyApi
-from neuland_hub_sdk.api.applications_api import ApplicationsApi as ApplicationsApi
-from neuland_hub_sdk.api.assistants_api import AssistantsApi as AssistantsApi
-from neuland_hub_sdk.api.auth_api import AuthApi as AuthApi
-from neuland_hub_sdk.api.auth_connectors_api import AuthConnectorsApi as AuthConnectorsApi
-from neuland_hub_sdk.api.chats_api import ChatsApi as ChatsApi
-from neuland_hub_sdk.api.documents_api import DocumentsApi as DocumentsApi
-from neuland_hub_sdk.api.files_api import FilesApi as FilesApi
-from neuland_hub_sdk.api.integrations_api import IntegrationsApi as IntegrationsApi
-from neuland_hub_sdk.api.invitations_api import InvitationsApi as InvitationsApi
-from neuland_hub_sdk.api.llm_api import LLMApi as LLMApi
-from neuland_hub_sdk.api.llm_admin_api import LLMAdminApi as LLMAdminApi
-from neuland_hub_sdk.api.libraries_api import LibrariesApi as LibrariesApi
-from neuland_hub_sdk.api.messages_api import MessagesApi as MessagesApi
-from neuland_hub_sdk.api.projects_api import ProjectsApi as ProjectsApi
-from neuland_hub_sdk.api.prompts_api import PromptsApi as PromptsApi
-from neuland_hub_sdk.api.query_api import QueryApi as QueryApi
-from neuland_hub_sdk.api.settings_api import SettingsApi as SettingsApi
-from neuland_hub_sdk.api.simple_chat_api import SimpleChatApi as SimpleChatApi
-from neuland_hub_sdk.api.storage_api import StorageApi as StorageApi
-from neuland_hub_sdk.api.tarifs_api import TarifsApi as TarifsApi
-from neuland_hub_sdk.api.templates_api import TemplatesApi as TemplatesApi
-from neuland_hub_sdk.api.tenants_api import TenantsApi as TenantsApi
-from neuland_hub_sdk.api.tools_api import ToolsApi as ToolsApi
-from neuland_hub_sdk.api.users_api import UsersApi as UsersApi
-from neuland_hub_sdk.api.default_api import DefaultApi as DefaultApi
+from neuland_hub_sdk.api.application import Application as Application
+from neuland_hub_sdk.api.assistant import Assistant as Assistant
+from neuland_hub_sdk.api.auth import Auth as Auth
+from neuland_hub_sdk.api.auth_api_key import AuthApiKey as AuthApiKey
+from neuland_hub_sdk.api.auth_connector import AuthConnector as AuthConnector
+from neuland_hub_sdk.api.auth_invitation import AuthInvitation as AuthInvitation
+from neuland_hub_sdk.api.budget_alert import BudgetAlert as BudgetAlert
+from neuland_hub_sdk.api.chat import Chat as Chat
+from neuland_hub_sdk.api.document import Document as Document
+from neuland_hub_sdk.api.file import File as File
+from neuland_hub_sdk.api.library import Library as Library
+from neuland_hub_sdk.api.llm import Llm as Llm
+from neuland_hub_sdk.api.llm_catalog import LlmCatalog as LlmCatalog
+from neuland_hub_sdk.api.llm_setting import LlmSetting as LlmSetting
+from neuland_hub_sdk.api.message import Message as Message
+from neuland_hub_sdk.api.project import Project as Project
+from neuland_hub_sdk.api.prompt import Prompt as Prompt
+from neuland_hub_sdk.api.query import Query as Query
+from neuland_hub_sdk.api.settings import Settings as Settings
+from neuland_hub_sdk.api.sharepoint import Sharepoint as Sharepoint
+from neuland_hub_sdk.api.storage import Storage as Storage
+from neuland_hub_sdk.api.tariff import Tariff as Tariff
+from neuland_hub_sdk.api.template import Template as Template
+from neuland_hub_sdk.api.tool import Tool as Tool
+from neuland_hub_sdk.api.user import User as User
+from neuland_hub_sdk.api.user_mail_send import UserMailSend as UserMailSend
+from neuland_hub_sdk.api.default import Default as Default
 
 # import ApiClient
 from neuland_hub_sdk.api_response import ApiResponse as ApiResponse
@@ -227,10 +231,16 @@ from neuland_hub_sdk.models.assistant_library import AssistantLibrary as Assista
 from neuland_hub_sdk.models.assistant_member import AssistantMember as AssistantMember
 from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn as AssistantMembersIn
 from neuland_hub_sdk.models.assistant_tool import AssistantTool as AssistantTool
+from neuland_hub_sdk.models.bcc import Bcc as Bcc
+from neuland_hub_sdk.models.body_admin_login import BodyAdminLogin as BodyAdminLogin
+from neuland_hub_sdk.models.body_reports_bulk_action import BodyReportsBulkAction as BodyReportsBulkAction
 from neuland_hub_sdk.models.budget_alert import BudgetAlert as BudgetAlert
 from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest as BudgetAlertRequest
 from neuland_hub_sdk.models.budget_alert_update import BudgetAlertUpdate as BudgetAlertUpdate
 from neuland_hub_sdk.models.bulk_result import BulkResult as BulkResult
+from neuland_hub_sdk.models.catalog_in import CatalogIn as CatalogIn
+from neuland_hub_sdk.models.catalog_update import CatalogUpdate as CatalogUpdate
+from neuland_hub_sdk.models.cc import Cc as Cc
 from neuland_hub_sdk.models.chat import Chat as Chat
 from neuland_hub_sdk.models.chat_in import ChatIn as ChatIn
 from neuland_hub_sdk.models.chat_inactive_document import ChatInactiveDocument as ChatInactiveDocument
@@ -255,9 +265,7 @@ from neuland_hub_sdk.models.group_in import GroupIn as GroupIn
 from neuland_hub_sdk.models.http_validation_error import HTTPValidationError as HTTPValidationError
 from neuland_hub_sdk.models.invitation_in import InvitationIn as InvitationIn
 from neuland_hub_sdk.models.invitation_out import InvitationOut as InvitationOut
-from neuland_hub_sdk.models.llm_model import LLMModel as LLMModel
 from neuland_hub_sdk.models.llm_settings_in import LLMSettingsIn as LLMSettingsIn
-from neuland_hub_sdk.models.llm_settings_out import LLMSettingsOut as LLMSettingsOut
 from neuland_hub_sdk.models.llm_settings_update import LLMSettingsUpdate as LLMSettingsUpdate
 from neuland_hub_sdk.models.library import Library as Library
 from neuland_hub_sdk.models.library_in import LibraryIn as LibraryIn
@@ -285,7 +293,9 @@ from neuland_hub_sdk.models.project_member_in import ProjectMemberIn as ProjectM
 from neuland_hub_sdk.models.prompt import Prompt as Prompt
 from neuland_hub_sdk.models.prompt_in import PromptIn as PromptIn
 from neuland_hub_sdk.models.rephrase_style_enum import RephraseStyleEnum as RephraseStyleEnum
-from neuland_hub_sdk.models.response_get_entra_groups_auth_entra_groups_get_value import ResponseGetEntraGroupsAuthEntraGroupsGetValue as ResponseGetEntraGroupsAuthEntraGroupsGetValue
+from neuland_hub_sdk.models.response_get_entra_groups_value import ResponseGetEntraGroupsValue as ResponseGetEntraGroupsValue
+from neuland_hub_sdk.models.send_email_request import SendEmailRequest as SendEmailRequest
+from neuland_hub_sdk.models.send_email_response import SendEmailResponse as SendEmailResponse
 from neuland_hub_sdk.models.settings import Settings as Settings
 from neuland_hub_sdk.models.settings_in import SettingsIn as SettingsIn
 from neuland_hub_sdk.models.sharepoint_drive_model import SharepointDriveModel as SharepointDriveModel
@@ -293,21 +303,21 @@ from neuland_hub_sdk.models.sharepoint_folder_model import SharepointFolderModel
 from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel as SharepointItemModel
 from neuland_hub_sdk.models.sharepoint_site_model import SharepointSiteModel as SharepointSiteModel
 from neuland_hub_sdk.models.sharepoint_user_model import SharepointUserModel as SharepointUserModel
-from neuland_hub_sdk.models.simple_message_in import SimpleMessageIn as SimpleMessageIn
-from neuland_hub_sdk.models.simple_message_out import SimpleMessageOut as SimpleMessageOut
-from neuland_hub_sdk.models.tarif import Tarif as Tarif
-from neuland_hub_sdk.models.tarif_in import TarifIn as TarifIn
-from neuland_hub_sdk.models.tarif_status_enum import TarifStatusEnum as TarifStatusEnum
+from neuland_hub_sdk.models.tariff import Tariff as Tariff
+from neuland_hub_sdk.models.tariff_in import TariffIn as TariffIn
+from neuland_hub_sdk.models.tariff_status_enum import TariffStatusEnum as TariffStatusEnum
 from neuland_hub_sdk.models.template_in import TemplateIn as TemplateIn
 from neuland_hub_sdk.models.template_out import TemplateOut as TemplateOut
 from neuland_hub_sdk.models.tenant_in import TenantIn as TenantIn
-from neuland_hub_sdk.models.tenant_llm_out import TenantLLMOut as TenantLLMOut
+from neuland_hub_sdk.models.tenant_llm import TenantLLM as TenantLLM
+from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn as TenantModelBulkIn
 from neuland_hub_sdk.models.tenant_out import TenantOut as TenantOut
 from neuland_hub_sdk.models.tenant_theme_out import TenantThemeOut as TenantThemeOut
 from neuland_hub_sdk.models.tenant_update_in import TenantUpdateIn as TenantUpdateIn
 from neuland_hub_sdk.models.theme_mode_enum import ThemeModeEnum as ThemeModeEnum
 from neuland_hub_sdk.models.timeseries_point import TimeseriesPoint as TimeseriesPoint
 from neuland_hub_sdk.models.timeseries_response import TimeseriesResponse as TimeseriesResponse
+from neuland_hub_sdk.models.to import To as To
 from neuland_hub_sdk.models.token_out import TokenOut as TokenOut
 from neuland_hub_sdk.models.token_timeseries_per_model import TokenTimeseriesPerModel as TokenTimeseriesPerModel
 from neuland_hub_sdk.models.token_timeseries_point import TokenTimeseriesPoint as TokenTimeseriesPoint

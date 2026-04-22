@@ -1,19 +1,22 @@
 # LLMSettingsUpdate
 
-Update schema - critical fields (provider, model, library) are NOT updatable.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **str** |  | [optional] 
+**llm_catalog_id** | **int** |  | [optional] 
+**provider** | **str** |  | [optional] 
+**library** | **str** |  | [optional] 
 **max_tokens** | **int** |  | [optional] 
-**multi_modal** | **bool** |  | [optional] 
-**gdpr_compliant** | **bool** |  | [optional] 
 **cost_prompt_tokens** | [**CostPromptTokens1**](CostPromptTokens1.md) |  | [optional] 
 **cost_completion_tokens** | [**CostCompletionTokens1**](CostCompletionTokens1.md) |  | [optional] 
 **args** | **Dict[str, object]** |  | [optional] 
 **openai_resource** | **str** |  | [optional] 
+**api_version** | **str** |  | [optional] 
+**deployment_name** | **str** |  | [optional] 
+**endpoint** | **str** |  | [optional] 
+**api_key** | **str** |  | [optional] 
 
 ## Example
 

@@ -35,14 +35,18 @@ class TestLLMSettingsUpdate(unittest.TestCase):
         model = LLMSettingsUpdate()
         if include_optional:
             return LLMSettingsUpdate(
-                description = '',
+                llm_catalog_id = 56,
+                provider = '',
+                library = '',
                 max_tokens = 56,
-                multi_modal = True,
-                gdpr_compliant = True,
                 cost_prompt_tokens = None,
                 cost_completion_tokens = None,
                 args = { },
-                openai_resource = ''
+                openai_resource = '',
+                api_version = '',
+                deployment_name = '',
+                endpoint = '',
+                api_key = ''
             )
         else:
             return LLMSettingsUpdate(

@@ -36,7 +36,6 @@ class TestAssistantIn(unittest.TestCase):
         if include_optional:
             return AssistantIn(
                 name = '',
-                provider = '',
                 model = '',
                 avatar = '',
                 description = '',

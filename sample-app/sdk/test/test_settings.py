@@ -37,6 +37,7 @@ class TestSettings(unittest.TestCase):
             return Settings(
                 id = 56,
                 tenant_id = 56,
+                default_llm_catalog_id = 56,
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 guardrails_enabled = True,
                 sharepoint_enabled = True,

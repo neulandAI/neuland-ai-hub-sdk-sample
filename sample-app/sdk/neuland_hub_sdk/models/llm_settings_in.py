@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from neuland_hub_sdk.models.cost_completion_tokens import CostCompletionTokens
 from neuland_hub_sdk.models.cost_prompt_tokens import CostPromptTokens
@@ -27,20 +27,21 @@ from pydantic_core import to_jsonable_python
 
 class LLMSettingsIn(BaseModel):
     """
-    Create schema - all fields required, no defaults (validation only).
+    LLMSettingsIn
     """ # noqa: E501
+    llm_catalog_id: StrictInt
     provider: StrictStr
-    model: StrictStr
     library: StrictStr
-    description: Optional[StrictStr]
     max_tokens: StrictInt
-    multi_modal: StrictBool
-    gdpr_compliant: StrictBool
     cost_prompt_tokens: CostPromptTokens
     cost_completion_tokens: CostCompletionTokens
     args: Optional[Dict[str, Any]] = None
     openai_resource: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["provider", "model", "library", "description", "max_tokens", "multi_modal", "gdpr_compliant", "cost_prompt_tokens", "cost_completion_tokens", "args", "openai_resource"]
+    api_version: Optional[StrictStr] = None
+    deployment_name: Optional[StrictStr] = None
+    endpoint: Optional[StrictStr] = None
+    api_key: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["llm_catalog_id", "provider", "library", "max_tokens", "cost_prompt_tokens", "cost_completion_tokens", "args", "openai_resource", "api_version", "deployment_name", "endpoint", "api_key"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,11 +88,6 @@ class LLMSettingsIn(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of cost_completion_tokens
         if self.cost_completion_tokens:
             _dict['cost_completion_tokens'] = self.cost_completion_tokens.to_dict()
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
-
         # set to None if args (nullable) is None
         # and model_fields_set contains the field
         if self.args is None and "args" in self.model_fields_set:
@@ -101,6 +97,26 @@ class LLMSettingsIn(BaseModel):
         # and model_fields_set contains the field
         if self.openai_resource is None and "openai_resource" in self.model_fields_set:
             _dict['openai_resource'] = None
+
+        # set to None if api_version (nullable) is None
+        # and model_fields_set contains the field
+        if self.api_version is None and "api_version" in self.model_fields_set:
+            _dict['api_version'] = None
+
+        # set to None if deployment_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.deployment_name is None and "deployment_name" in self.model_fields_set:
+            _dict['deployment_name'] = None
+
+        # set to None if endpoint (nullable) is None
+        # and model_fields_set contains the field
+        if self.endpoint is None and "endpoint" in self.model_fields_set:
+            _dict['endpoint'] = None
+
+        # set to None if api_key (nullable) is None
+        # and model_fields_set contains the field
+        if self.api_key is None and "api_key" in self.model_fields_set:
+            _dict['api_key'] = None
 
         return _dict
 
@@ -114,17 +130,18 @@ class LLMSettingsIn(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "llm_catalog_id": obj.get("llm_catalog_id"),
             "provider": obj.get("provider"),
-            "model": obj.get("model"),
             "library": obj.get("library"),
-            "description": obj.get("description"),
             "max_tokens": obj.get("max_tokens"),
-            "multi_modal": obj.get("multi_modal"),
-            "gdpr_compliant": obj.get("gdpr_compliant"),
             "cost_prompt_tokens": CostPromptTokens.from_dict(obj["cost_prompt_tokens"]) if obj.get("cost_prompt_tokens") is not None else None,
             "cost_completion_tokens": CostCompletionTokens.from_dict(obj["cost_completion_tokens"]) if obj.get("cost_completion_tokens") is not None else None,
             "args": obj.get("args"),
-            "openai_resource": obj.get("openai_resource")
+            "openai_resource": obj.get("openai_resource"),
+            "api_version": obj.get("api_version"),
+            "deployment_name": obj.get("deployment_name"),
+            "endpoint": obj.get("endpoint"),
+            "api_key": obj.get("api_key")
         })
         return _obj
 

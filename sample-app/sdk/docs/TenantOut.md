@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **name** | **str** |  | 
 **slug** | **str** |  | 
 **domain** | **str** |  | [optional] 
+**parent_tenant_id** | **int** |  | [optional] 
+**subtenants_enabled** | **bool** |  | 
 **timezone** | **str** |  | 
 **locale** | **str** |  | 
 **tarif_id** | **int** |  | [optional] 

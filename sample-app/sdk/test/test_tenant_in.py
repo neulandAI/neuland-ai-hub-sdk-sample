@@ -38,6 +38,8 @@ class TestTenantIn(unittest.TestCase):
                 name = '',
                 slug = '',
                 domain = '',
+                parent_tenant_id = 56,
+                subtenants_enabled = True,
                 timezone = '',
                 locale = '',
                 tarif_id = 56,

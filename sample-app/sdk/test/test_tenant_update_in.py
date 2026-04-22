@@ -37,6 +37,8 @@ class TestTenantUpdateIn(unittest.TestCase):
             return TenantUpdateIn(
                 name = '',
                 domain = '',
+                parent_tenant_id = 56,
+                subtenants_enabled = True,
                 timezone = '',
                 locale = '',
                 tarif_id = 56,

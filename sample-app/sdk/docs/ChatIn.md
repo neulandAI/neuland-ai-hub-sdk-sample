@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **temperature** | **float** |  | [optional] 
 **similarity_top_k** | **int** |  | [optional] 
 **system_prompt** | **str** |  | [optional] 
-**provider** | **str** |  | [optional] 
 **model** | **str** |  | [optional] 
 **private** | **bool** |  | [optional] 
 

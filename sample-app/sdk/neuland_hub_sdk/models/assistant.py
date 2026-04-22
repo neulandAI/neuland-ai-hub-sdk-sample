@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -39,11 +39,11 @@ class Assistant(BaseModel):
     avatar: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     instructions: Optional[StrictStr] = None
-    provider: Optional[StrictStr] = None
-    model: Optional[StrictStr] = None
+    llm_catalog_id: Optional[StrictInt] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     similarity_top_k: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "tenant_id", "created_at", "creator_user_id", "name", "avatar", "description", "instructions", "provider", "model", "temperature", "similarity_top_k"]
+    pre_defined: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "tenant_id", "created_at", "creator_user_id", "name", "avatar", "description", "instructions", "llm_catalog_id", "temperature", "similarity_top_k", "pre_defined"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -119,15 +119,10 @@ class Assistant(BaseModel):
         if self.instructions is None and "instructions" in self.model_fields_set:
             _dict['instructions'] = None
 
-        # set to None if provider (nullable) is None
+        # set to None if llm_catalog_id (nullable) is None
         # and model_fields_set contains the field
-        if self.provider is None and "provider" in self.model_fields_set:
-            _dict['provider'] = None
-
-        # set to None if model (nullable) is None
-        # and model_fields_set contains the field
-        if self.model is None and "model" in self.model_fields_set:
-            _dict['model'] = None
+        if self.llm_catalog_id is None and "llm_catalog_id" in self.model_fields_set:
+            _dict['llm_catalog_id'] = None
 
         # set to None if temperature (nullable) is None
         # and model_fields_set contains the field
@@ -138,6 +133,11 @@ class Assistant(BaseModel):
         # and model_fields_set contains the field
         if self.similarity_top_k is None and "similarity_top_k" in self.model_fields_set:
             _dict['similarity_top_k'] = None
+
+        # set to None if pre_defined (nullable) is None
+        # and model_fields_set contains the field
+        if self.pre_defined is None and "pre_defined" in self.model_fields_set:
+            _dict['pre_defined'] = None
 
         return _dict
 
@@ -162,10 +162,10 @@ class Assistant(BaseModel):
             "avatar": obj.get("avatar"),
             "description": obj.get("description"),
             "instructions": obj.get("instructions"),
-            "provider": obj.get("provider"),
-            "model": obj.get("model"),
+            "llm_catalog_id": obj.get("llm_catalog_id"),
             "temperature": obj.get("temperature"),
-            "similarity_top_k": obj.get("similarity_top_k")
+            "similarity_top_k": obj.get("similarity_top_k"),
+            "pre_defined": obj.get("pre_defined")
         })
         return _obj
 

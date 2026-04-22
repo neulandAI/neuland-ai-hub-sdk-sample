@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,6 +30,8 @@ class TenantUpdateIn(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = None
     domain: Optional[StrictStr] = None
+    parent_tenant_id: Optional[StrictInt] = None
+    subtenants_enabled: Optional[StrictBool] = None
     timezone: Optional[StrictStr] = None
     locale: Optional[StrictStr] = None
     tarif_id: Optional[StrictInt] = None
@@ -49,7 +51,7 @@ class TenantUpdateIn(BaseModel):
     api_rate_limit: Optional[StrictInt] = None
     upstream_tenant_id: Optional[StrictStr] = None
     upstream_oidc_issuer: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["name", "domain", "timezone", "locale", "tarif_id", "tarif_expires_at", "max_users", "max_projects", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "upstream_tenant_id", "upstream_oidc_issuer"]
+    __properties: ClassVar[List[str]] = ["name", "domain", "parent_tenant_id", "subtenants_enabled", "timezone", "locale", "tarif_id", "tarif_expires_at", "max_users", "max_projects", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "upstream_tenant_id", "upstream_oidc_issuer"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -99,6 +101,16 @@ class TenantUpdateIn(BaseModel):
         # and model_fields_set contains the field
         if self.domain is None and "domain" in self.model_fields_set:
             _dict['domain'] = None
+
+        # set to None if parent_tenant_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.parent_tenant_id is None and "parent_tenant_id" in self.model_fields_set:
+            _dict['parent_tenant_id'] = None
+
+        # set to None if subtenants_enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.subtenants_enabled is None and "subtenants_enabled" in self.model_fields_set:
+            _dict['subtenants_enabled'] = None
 
         # set to None if timezone (nullable) is None
         # and model_fields_set contains the field
@@ -209,6 +221,8 @@ class TenantUpdateIn(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "domain": obj.get("domain"),
+            "parent_tenant_id": obj.get("parent_tenant_id"),
+            "subtenants_enabled": obj.get("subtenants_enabled"),
             "timezone": obj.get("timezone"),
             "locale": obj.get("locale"),
             "tarif_id": obj.get("tarif_id"),

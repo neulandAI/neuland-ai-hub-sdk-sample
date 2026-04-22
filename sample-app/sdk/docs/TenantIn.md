@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **name** | **str** |  | 
 **slug** | **str** |  | 
 **domain** | **str** |  | [optional] 
+**parent_tenant_id** | **int** |  | [optional] 
+**subtenants_enabled** | **bool** |  | [optional] 
 **timezone** | **str** |  | [optional] 
 **locale** | **str** |  | [optional] 
 **tarif_id** | **int** |  | [optional] 

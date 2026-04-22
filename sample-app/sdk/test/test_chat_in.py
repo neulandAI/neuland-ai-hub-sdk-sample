@@ -39,7 +39,6 @@ class TestChatIn(unittest.TestCase):
                 temperature = 1.337,
                 similarity_top_k = 56,
                 system_prompt = '',
-                provider = '',
                 model = '',
                 private = True
             )
