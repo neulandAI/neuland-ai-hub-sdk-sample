@@ -59,17 +59,36 @@ sample-app/
 └── sdk/           # Auto-generated SDK (domain-specific API classes)
 ```
 
-## SDK Regeneration
+---
 
-The SDK is auto-generated from the Hub API's OpenAPI spec. To regenerate after Hub API changes:
+## SDK Regeneration (Maintainers)
+
+> This section is only relevant when the Hub API changes and the SDK needs to be regenerated. Regular users can skip it — the committed SDK is ready to use.
+
+The SDK is auto-generated from the Hub API's OpenAPI spec. Requires [OpenAPI Generator](https://openapi-generator.tech/) v7.21.0+ and a reachable Hub backend.
 
 ```bash
 cd sample-app
 rm -rf sdk
-curl $NLND_HUB_API_URL/openapi.json -o openapi.json
-openapi-generator generate -i openapi.json -g python -o sdk/ --package-name neuland_hub_sdk
-rm openapi.json
+curl $NLND_HUB_API_URL/openapi.json -o /tmp/openapi.json
+
+openapi-generator generate \
+  -i /tmp/openapi.json \
+  -g python \
+  -o sdk \
+  --package-name neuland_hub_sdk \
+  --additional-properties=apiNameSuffix="",packageVersion=0.1.0a1 \
+  --remove-operation-id-prefix
+
+rm /tmp/openapi.json
 pip3 install -e sdk
 ```
 
-Requires [OpenAPI Generator](https://openapi-generator.tech/) v7.21.0+.
+### Flags explained
+
+| Flag | Purpose |
+|---|---|
+| `--package-name neuland_hub_sdk` | Python import name |
+| `apiNameSuffix=""` | Generate class names without the `Api` suffix (e.g. `Chat` instead of `ChatApi`) |
+| `packageVersion=0.1.0a1` | SDK version stamped into the generated package |
+| `--remove-operation-id-prefix` | Strip tag prefixes from operationIds so method names stay clean |
