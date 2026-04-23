@@ -27,7 +27,16 @@ Sample application demonstrating how to use the Neuland AI Hub SDK.
 
 ## Configuration
 
-Set the following environment variables (or rely on the defaults in `sample-app/config.py`):
+Copy the example env file and fill in the values:
+
+```bash
+cd sample-app
+cp .env.example .env
+```
+
+The app loads `.env` automatically on startup (via `python-dotenv`). `NLND_HUB_API_URL` can point at a local backend, a self-hosted deployment, or a managed Hub — it's up to you.
+
+Available variables:
 
 | Variable | Default | Description |
 |---|---|---|
