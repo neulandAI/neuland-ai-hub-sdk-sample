@@ -26,43 +26,43 @@ class TestSharepoint(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_get_item_info(self) -> None:
-        """Test case for get_item_info
+    def test_integrations_get_item_info(self) -> None:
+        """Test case for integrations_get_item_info
 
         Get Item Info
         """
         pass
 
-    def test_get_user_info(self) -> None:
-        """Test case for get_user_info
+    def test_integrations_get_user_info(self) -> None:
+        """Test case for integrations_get_user_info
 
         Get User Info
         """
         pass
 
-    def test_is_connected(self) -> None:
-        """Test case for is_connected
+    def test_integrations_is_connected(self) -> None:
+        """Test case for integrations_is_connected
 
         Is Connected
         """
         pass
 
-    def test_list_all_sites(self) -> None:
-        """Test case for list_all_sites
+    def test_integrations_list_all_sites(self) -> None:
+        """Test case for integrations_list_all_sites
 
         List All Sites
         """
         pass
 
-    def test_list_children(self) -> None:
-        """Test case for list_children
+    def test_integrations_list_children(self) -> None:
+        """Test case for integrations_list_children
 
         List Children
         """
         pass
 
-    def test_list_drives(self) -> None:
-        """Test case for list_drives
+    def test_integrations_list_drives(self) -> None:
+        """Test case for integrations_list_drives
 
         List Drives
         """

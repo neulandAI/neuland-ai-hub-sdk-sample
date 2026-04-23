@@ -37,7 +37,7 @@ class Query:
 
 
     @validate_call
-    def query(
+    def query_query(
         self,
         path: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -83,7 +83,7 @@ class Query:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_serialize(
+        _param = self._query_query_serialize(
             path=path,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -94,10 +94,7 @@ class Query:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -111,7 +108,7 @@ class Query:
 
 
     @validate_call
-    def query_with_http_info(
+    def query_query_with_http_info(
         self,
         path: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -157,7 +154,7 @@ class Query:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_serialize(
+        _param = self._query_query_serialize(
             path=path,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -168,10 +165,7 @@ class Query:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -185,7 +179,7 @@ class Query:
 
 
     @validate_call
-    def query_without_preload_content(
+    def query_query_without_preload_content(
         self,
         path: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -231,7 +225,7 @@ class Query:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_serialize(
+        _param = self._query_query_serialize(
             path=path,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -242,10 +236,7 @@ class Query:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -254,7 +245,7 @@ class Query:
         return response_data.response
 
 
-    def _query_serialize(
+    def _query_query_serialize(
         self,
         path,
         cookie_name,
@@ -325,7 +316,7 @@ class Query:
 
 
     @validate_call
-    def query_rpc(
+    def query_query_rpc(
         self,
         path: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -371,7 +362,7 @@ class Query:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_rpc_serialize(
+        _param = self._query_query_rpc_serialize(
             path=path,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -382,10 +373,7 @@ class Query:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -399,7 +387,7 @@ class Query:
 
 
     @validate_call
-    def query_rpc_with_http_info(
+    def query_query_rpc_with_http_info(
         self,
         path: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -445,7 +433,7 @@ class Query:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_rpc_serialize(
+        _param = self._query_query_rpc_serialize(
             path=path,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -456,10 +444,7 @@ class Query:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -473,7 +458,7 @@ class Query:
 
 
     @validate_call
-    def query_rpc_without_preload_content(
+    def query_query_rpc_without_preload_content(
         self,
         path: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -519,7 +504,7 @@ class Query:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._query_rpc_serialize(
+        _param = self._query_query_rpc_serialize(
             path=path,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -530,10 +515,7 @@ class Query:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -542,7 +524,7 @@ class Query:
         return response_data.response
 
 
-    def _query_rpc_serialize(
+    def _query_query_rpc_serialize(
         self,
         path,
         cookie_name,

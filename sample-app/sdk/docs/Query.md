@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**query**](Query.md#query) | **GET** /query/{path} | Query
-[**query_rpc**](Query.md#query_rpc) | **GET** /query/rpc/{path} | Query Rpc
+[**query_query**](Query.md#query_query) | **GET** /query/{path} | Query
+[**query_query_rpc**](Query.md#query_query_rpc) | **GET** /query/rpc/{path} | Query Rpc
 
 
-# **query**
-> object query(path, cookie_name=cookie_name)
+# **query_query**
+> object query_query(path, cookie_name=cookie_name)
 
 Query
 
@@ -51,11 +51,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Query
-        api_response = api_instance.query(path, cookie_name=cookie_name)
-        print("The response of Query->query:\n")
+        api_response = api_instance.query_query(path, cookie_name=cookie_name)
+        print("The response of Query->query_query:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Query->query: %s\n" % e)
+        print("Exception when calling Query->query_query: %s\n" % e)
 ```
 
 
@@ -86,15 +86,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **query_rpc**
-> object query_rpc(path, cookie_name=cookie_name)
+# **query_query_rpc**
+> object query_query_rpc(path, cookie_name=cookie_name)
 
 Query Rpc
 
@@ -136,11 +133,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Query Rpc
-        api_response = api_instance.query_rpc(path, cookie_name=cookie_name)
-        print("The response of Query->query_rpc:\n")
+        api_response = api_instance.query_query_rpc(path, cookie_name=cookie_name)
+        print("The response of Query->query_query_rpc:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Query->query_rpc: %s\n" % e)
+        print("Exception when calling Query->query_query_rpc: %s\n" % e)
 ```
 
 
@@ -171,10 +168,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

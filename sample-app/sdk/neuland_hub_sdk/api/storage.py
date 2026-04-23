@@ -38,7 +38,7 @@ class Storage:
 
 
     @validate_call
-    def download_shared_file(
+    def storage_download_file(
         self,
         path: Annotated[StrictStr, Field(description="File path")],
         token: Annotated[StrictStr, Field(description="Download token")],
@@ -55,7 +55,7 @@ class Storage:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> object:
-        """Download Shared File
+        """Download File
 
 
         :param path: File path (required)
@@ -84,7 +84,7 @@ class Storage:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._download_shared_file_serialize(
+        _param = self._storage_download_file_serialize(
             path=path,
             token=token,
             _request_auth=_request_auth,
@@ -95,10 +95,7 @@ class Storage:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -112,7 +109,7 @@ class Storage:
 
 
     @validate_call
-    def download_shared_file_with_http_info(
+    def storage_download_file_with_http_info(
         self,
         path: Annotated[StrictStr, Field(description="File path")],
         token: Annotated[StrictStr, Field(description="Download token")],
@@ -129,7 +126,7 @@ class Storage:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[object]:
-        """Download Shared File
+        """Download File
 
 
         :param path: File path (required)
@@ -158,7 +155,7 @@ class Storage:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._download_shared_file_serialize(
+        _param = self._storage_download_file_serialize(
             path=path,
             token=token,
             _request_auth=_request_auth,
@@ -169,10 +166,7 @@ class Storage:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -186,7 +180,7 @@ class Storage:
 
 
     @validate_call
-    def download_shared_file_without_preload_content(
+    def storage_download_file_without_preload_content(
         self,
         path: Annotated[StrictStr, Field(description="File path")],
         token: Annotated[StrictStr, Field(description="Download token")],
@@ -203,7 +197,7 @@ class Storage:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Download Shared File
+        """Download File
 
 
         :param path: File path (required)
@@ -232,7 +226,7 @@ class Storage:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._download_shared_file_serialize(
+        _param = self._storage_download_file_serialize(
             path=path,
             token=token,
             _request_auth=_request_auth,
@@ -243,10 +237,7 @@ class Storage:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -255,7 +246,7 @@ class Storage:
         return response_data.response
 
 
-    def _download_shared_file_serialize(
+    def _storage_download_file_serialize(
         self,
         path,
         token,

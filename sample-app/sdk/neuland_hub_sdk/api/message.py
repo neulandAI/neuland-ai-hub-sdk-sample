@@ -42,7 +42,7 @@ class Message:
 
 
     @validate_call
-    def convert_message(
+    def messages_convert_message(
         self,
         message_id: StrictInt,
         format: Annotated[Any, Field(description="Output format")],
@@ -92,7 +92,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._convert_message_serialize(
+        _param = self._messages_convert_message_serialize(
             message_id=message_id,
             format=format,
             cookie_name=cookie_name,
@@ -104,10 +104,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -121,7 +118,7 @@ class Message:
 
 
     @validate_call
-    def convert_message_with_http_info(
+    def messages_convert_message_with_http_info(
         self,
         message_id: StrictInt,
         format: Annotated[Any, Field(description="Output format")],
@@ -171,7 +168,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._convert_message_serialize(
+        _param = self._messages_convert_message_serialize(
             message_id=message_id,
             format=format,
             cookie_name=cookie_name,
@@ -183,10 +180,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -200,7 +194,7 @@ class Message:
 
 
     @validate_call
-    def convert_message_without_preload_content(
+    def messages_convert_message_without_preload_content(
         self,
         message_id: StrictInt,
         format: Annotated[Any, Field(description="Output format")],
@@ -250,7 +244,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._convert_message_serialize(
+        _param = self._messages_convert_message_serialize(
             message_id=message_id,
             format=format,
             cookie_name=cookie_name,
@@ -262,10 +256,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -274,7 +265,7 @@ class Message:
         return response_data.response
 
 
-    def _convert_message_serialize(
+    def _messages_convert_message_serialize(
         self,
         message_id,
         format,
@@ -350,7 +341,7 @@ class Message:
 
 
     @validate_call
-    def create_message(
+    def messages_create_message(
         self,
         message_in: MessageIn,
         cookie_name: Optional[StrictStr] = None,
@@ -396,7 +387,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_message_serialize(
+        _param = self._messages_create_message_serialize(
             message_in=message_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -407,10 +398,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Message",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -424,7 +412,7 @@ class Message:
 
 
     @validate_call
-    def create_message_with_http_info(
+    def messages_create_message_with_http_info(
         self,
         message_in: MessageIn,
         cookie_name: Optional[StrictStr] = None,
@@ -470,7 +458,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_message_serialize(
+        _param = self._messages_create_message_serialize(
             message_in=message_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -481,10 +469,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Message",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -498,7 +483,7 @@ class Message:
 
 
     @validate_call
-    def create_message_without_preload_content(
+    def messages_create_message_without_preload_content(
         self,
         message_in: MessageIn,
         cookie_name: Optional[StrictStr] = None,
@@ -544,7 +529,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_message_serialize(
+        _param = self._messages_create_message_serialize(
             message_in=message_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -555,10 +540,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Message",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -567,7 +549,7 @@ class Message:
         return response_data.response
 
 
-    def _create_message_serialize(
+    def _messages_create_message_serialize(
         self,
         message_in,
         cookie_name,
@@ -651,7 +633,7 @@ class Message:
 
 
     @validate_call
-    def rephrase_message(
+    def messages_rephrase_message(
         self,
         message_id: StrictInt,
         style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
@@ -700,7 +682,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._rephrase_message_serialize(
+        _param = self._messages_rephrase_message_serialize(
             message_id=message_id,
             style=style,
             cookie_name=cookie_name,
@@ -712,10 +694,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Translation",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -729,7 +708,7 @@ class Message:
 
 
     @validate_call
-    def rephrase_message_with_http_info(
+    def messages_rephrase_message_with_http_info(
         self,
         message_id: StrictInt,
         style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
@@ -778,7 +757,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._rephrase_message_serialize(
+        _param = self._messages_rephrase_message_serialize(
             message_id=message_id,
             style=style,
             cookie_name=cookie_name,
@@ -790,10 +769,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Translation",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -807,7 +783,7 @@ class Message:
 
 
     @validate_call
-    def rephrase_message_without_preload_content(
+    def messages_rephrase_message_without_preload_content(
         self,
         message_id: StrictInt,
         style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
@@ -856,7 +832,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._rephrase_message_serialize(
+        _param = self._messages_rephrase_message_serialize(
             message_id=message_id,
             style=style,
             cookie_name=cookie_name,
@@ -868,10 +844,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Translation",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -880,7 +853,7 @@ class Message:
         return response_data.response
 
 
-    def _rephrase_message_serialize(
+    def _messages_rephrase_message_serialize(
         self,
         message_id,
         style,
@@ -956,7 +929,7 @@ class Message:
 
 
     @validate_call
-    def submit_message(
+    def messages_submit_message(
         self,
         cookie_name: Optional[StrictStr] = None,
         content: Optional[StrictStr] = None,
@@ -1041,7 +1014,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._submit_message_serialize(
+        _param = self._messages_submit_message_serialize(
             cookie_name=cookie_name,
             content=content,
             project_id=project_id,
@@ -1065,10 +1038,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Message",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1082,7 +1052,7 @@ class Message:
 
 
     @validate_call
-    def submit_message_with_http_info(
+    def messages_submit_message_with_http_info(
         self,
         cookie_name: Optional[StrictStr] = None,
         content: Optional[StrictStr] = None,
@@ -1167,7 +1137,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._submit_message_serialize(
+        _param = self._messages_submit_message_serialize(
             cookie_name=cookie_name,
             content=content,
             project_id=project_id,
@@ -1191,10 +1161,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Message",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1208,7 +1175,7 @@ class Message:
 
 
     @validate_call
-    def submit_message_without_preload_content(
+    def messages_submit_message_without_preload_content(
         self,
         cookie_name: Optional[StrictStr] = None,
         content: Optional[StrictStr] = None,
@@ -1293,7 +1260,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._submit_message_serialize(
+        _param = self._messages_submit_message_serialize(
             cookie_name=cookie_name,
             content=content,
             project_id=project_id,
@@ -1317,10 +1284,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Message",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1329,7 +1293,7 @@ class Message:
         return response_data.response
 
 
-    def _submit_message_serialize(
+    def _messages_submit_message_serialize(
         self,
         cookie_name,
         content,
@@ -1455,7 +1419,7 @@ class Message:
 
 
     @validate_call
-    def translate_message(
+    def messages_translate_message(
         self,
         message_id: StrictInt,
         lang: Annotated[StrictStr, Field(description="Target language. Preferably RFC 5646 format.")],
@@ -1504,7 +1468,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._translate_message_serialize(
+        _param = self._messages_translate_message_serialize(
             message_id=message_id,
             lang=lang,
             cookie_name=cookie_name,
@@ -1516,10 +1480,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Translation",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1533,7 +1494,7 @@ class Message:
 
 
     @validate_call
-    def translate_message_with_http_info(
+    def messages_translate_message_with_http_info(
         self,
         message_id: StrictInt,
         lang: Annotated[StrictStr, Field(description="Target language. Preferably RFC 5646 format.")],
@@ -1582,7 +1543,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._translate_message_serialize(
+        _param = self._messages_translate_message_serialize(
             message_id=message_id,
             lang=lang,
             cookie_name=cookie_name,
@@ -1594,10 +1555,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Translation",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1611,7 +1569,7 @@ class Message:
 
 
     @validate_call
-    def translate_message_without_preload_content(
+    def messages_translate_message_without_preload_content(
         self,
         message_id: StrictInt,
         lang: Annotated[StrictStr, Field(description="Target language. Preferably RFC 5646 format.")],
@@ -1660,7 +1618,7 @@ class Message:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._translate_message_serialize(
+        _param = self._messages_translate_message_serialize(
             message_id=message_id,
             lang=lang,
             cookie_name=cookie_name,
@@ -1672,10 +1630,7 @@ class Message:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Translation",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1684,7 +1639,7 @@ class Message:
         return response_data.response
 
 
-    def _translate_message_serialize(
+    def _messages_translate_message_serialize(
         self,
         message_id,
         lang,

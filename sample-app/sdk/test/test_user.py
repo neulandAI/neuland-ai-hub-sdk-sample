@@ -26,85 +26,85 @@ class TestUser(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_activate_user(self) -> None:
-        """Test case for activate_user
+    def test_users_activate_user(self) -> None:
+        """Test case for users_activate_user
 
         Activate User
         """
         pass
 
-    def test_change_password(self) -> None:
-        """Test case for change_password
-
-        Change Password
-        """
-        pass
-
-    def test_create_group(self) -> None:
-        """Test case for create_group
+    def test_users_create_group(self) -> None:
+        """Test case for users_create_group
 
         Create Group
         """
         pass
 
-    def test_create_user(self) -> None:
-        """Test case for create_user
+    def test_users_create_user(self) -> None:
+        """Test case for users_create_user
 
         Create User
         """
         pass
 
-    def test_deactivate_user(self) -> None:
-        """Test case for deactivate_user
+    def test_users_deactivate_user(self) -> None:
+        """Test case for users_deactivate_user
 
         Deactivate User
         """
         pass
 
-    def test_delete_group(self) -> None:
-        """Test case for delete_group
+    def test_users_delete_group(self) -> None:
+        """Test case for users_delete_group
 
         Delete Group
         """
         pass
 
-    def test_delete_user(self) -> None:
-        """Test case for delete_user
+    def test_users_delete_user(self) -> None:
+        """Test case for users_delete_user
 
         Delete User
         """
         pass
 
-    def test_get_myself(self) -> None:
-        """Test case for get_myself
+    def test_users_get_myself(self) -> None:
+        """Test case for users_get_myself
 
         Get Myself
         """
         pass
 
-    def test_update_group(self) -> None:
-        """Test case for update_group
+    def test_users_reset_password(self) -> None:
+        """Test case for users_reset_password
+
+        Reset Password
+        """
+        pass
+
+    def test_users_update_group(self) -> None:
+        """Test case for users_update_group
 
         Update Group
         """
         pass
 
-    def test_update_user(self) -> None:
-        """Test case for update_user
+    def test_users_update_user(self) -> None:
+        """Test case for users_update_user
 
         Update User
         """
         pass
 
-    def test_upsert_members(self) -> None:
-        """Test case for upsert_members
+    def test_users_upsert_members(self) -> None:
+        """Test case for users_upsert_members
 
         Upsert Members
         """
         pass
 
-    def test_upsert_my_preferences(self) -> None:
-        """Test case for upsert_my_preferences
+    def test_users_upsert_my_preferences(self) -> None:
+        """Test case for users_upsert_my_preferences
 
         Upsert My Preferences
         """

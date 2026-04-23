@@ -23,11 +23,11 @@ from typing import Union, Any, List, Set, TYPE_CHECKING, Optional, Dict
 from typing_extensions import Literal, Self
 from pydantic import Field
 
-RESPONSEGETENTRAGROUPSVALUE_ANY_OF_SCHEMAS = ["str"]
+RESPONSEAUTHGETENTRAGROUPSVALUE_ANY_OF_SCHEMAS = ["str"]
 
-class ResponseGetEntraGroupsValue(BaseModel):
+class ResponseAuthGetEntraGroupsValue(BaseModel):
     """
-    ResponseGetEntraGroupsValue
+    ResponseAuthGetEntraGroupsValue
     """
 
     # data type: str
@@ -58,7 +58,7 @@ class ResponseGetEntraGroupsValue(BaseModel):
         if v is None:
             return v
 
-        instance = ResponseGetEntraGroupsValue.model_construct()
+        instance = ResponseAuthGetEntraGroupsValue.model_construct()
         error_messages = []
         # validate data type: str
         try:
@@ -68,7 +68,7 @@ class ResponseGetEntraGroupsValue(BaseModel):
             error_messages.append(str(e))
         if error_messages:
             # no match
-            raise ValueError("No match found when setting the actual_instance in ResponseGetEntraGroupsValue with anyOf schemas: str. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting the actual_instance in ResponseAuthGetEntraGroupsValue with anyOf schemas: str. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -96,7 +96,7 @@ class ResponseGetEntraGroupsValue(BaseModel):
 
         if error_messages:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into ResponseGetEntraGroupsValue with anyOf schemas: str. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into ResponseAuthGetEntraGroupsValue with anyOf schemas: str. Details: " + ", ".join(error_messages))
         else:
             return instance
 

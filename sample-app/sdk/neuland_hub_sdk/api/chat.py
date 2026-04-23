@@ -44,7 +44,7 @@ class Chat:
 
 
     @validate_call
-    def add_library_to_chat(
+    def chats_add_library_to_chat(
         self,
         chat_id: StrictInt,
         library_id: StrictInt,
@@ -94,7 +94,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_to_chat_serialize(
+        _param = self._chats_add_library_to_chat_serialize(
             chat_id=chat_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -106,10 +106,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ChatLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -123,7 +120,7 @@ class Chat:
 
 
     @validate_call
-    def add_library_to_chat_with_http_info(
+    def chats_add_library_to_chat_with_http_info(
         self,
         chat_id: StrictInt,
         library_id: StrictInt,
@@ -173,7 +170,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_to_chat_serialize(
+        _param = self._chats_add_library_to_chat_serialize(
             chat_id=chat_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -185,10 +182,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ChatLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -202,7 +196,7 @@ class Chat:
 
 
     @validate_call
-    def add_library_to_chat_without_preload_content(
+    def chats_add_library_to_chat_without_preload_content(
         self,
         chat_id: StrictInt,
         library_id: StrictInt,
@@ -252,7 +246,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_to_chat_serialize(
+        _param = self._chats_add_library_to_chat_serialize(
             chat_id=chat_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -264,10 +258,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ChatLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -276,7 +267,7 @@ class Chat:
         return response_data.response
 
 
-    def _add_library_to_chat_serialize(
+    def _chats_add_library_to_chat_serialize(
         self,
         chat_id,
         library_id,
@@ -350,7 +341,7 @@ class Chat:
 
 
     @validate_call
-    def cancel_message(
+    def chats_cancel_message(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -396,7 +387,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._cancel_message_serialize(
+        _param = self._chats_cancel_message_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -407,10 +398,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -424,7 +412,7 @@ class Chat:
 
 
     @validate_call
-    def cancel_message_with_http_info(
+    def chats_cancel_message_with_http_info(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -470,7 +458,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._cancel_message_serialize(
+        _param = self._chats_cancel_message_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -481,10 +469,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -498,7 +483,7 @@ class Chat:
 
 
     @validate_call
-    def cancel_message_without_preload_content(
+    def chats_cancel_message_without_preload_content(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -544,7 +529,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._cancel_message_serialize(
+        _param = self._chats_cancel_message_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -555,10 +540,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -567,7 +549,7 @@ class Chat:
         return response_data.response
 
 
-    def _cancel_message_serialize(
+    def _chats_cancel_message_serialize(
         self,
         chat_id,
         cookie_name,
@@ -638,7 +620,7 @@ class Chat:
 
 
     @validate_call
-    def deactivate_documents(
+    def chats_deactivate_documents(
         self,
         chat_id: StrictInt,
         document_ids: List[StrictInt],
@@ -687,7 +669,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._deactivate_documents_serialize(
+        _param = self._chats_deactivate_documents_serialize(
             chat_id=chat_id,
             document_ids=document_ids,
             cookie_name=cookie_name,
@@ -699,10 +681,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[ChatInactiveDocument]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -716,7 +695,7 @@ class Chat:
 
 
     @validate_call
-    def deactivate_documents_with_http_info(
+    def chats_deactivate_documents_with_http_info(
         self,
         chat_id: StrictInt,
         document_ids: List[StrictInt],
@@ -765,7 +744,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._deactivate_documents_serialize(
+        _param = self._chats_deactivate_documents_serialize(
             chat_id=chat_id,
             document_ids=document_ids,
             cookie_name=cookie_name,
@@ -777,10 +756,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[ChatInactiveDocument]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -794,7 +770,7 @@ class Chat:
 
 
     @validate_call
-    def deactivate_documents_without_preload_content(
+    def chats_deactivate_documents_without_preload_content(
         self,
         chat_id: StrictInt,
         document_ids: List[StrictInt],
@@ -843,7 +819,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._deactivate_documents_serialize(
+        _param = self._chats_deactivate_documents_serialize(
             chat_id=chat_id,
             document_ids=document_ids,
             cookie_name=cookie_name,
@@ -855,10 +831,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[ChatInactiveDocument]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -867,7 +840,7 @@ class Chat:
         return response_data.response
 
 
-    def _deactivate_documents_serialize(
+    def _chats_deactivate_documents_serialize(
         self,
         chat_id,
         document_ids,
@@ -955,7 +928,7 @@ class Chat:
 
 
     @validate_call
-    def remove_chat(
+    def chats_remove_chat(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1001,7 +974,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_chat_serialize(
+        _param = self._chats_remove_chat_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1012,10 +985,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1029,7 +999,7 @@ class Chat:
 
 
     @validate_call
-    def remove_chat_with_http_info(
+    def chats_remove_chat_with_http_info(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1075,7 +1045,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_chat_serialize(
+        _param = self._chats_remove_chat_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1086,10 +1056,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1103,7 +1070,7 @@ class Chat:
 
 
     @validate_call
-    def remove_chat_without_preload_content(
+    def chats_remove_chat_without_preload_content(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1149,7 +1116,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_chat_serialize(
+        _param = self._chats_remove_chat_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1160,10 +1127,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1172,7 +1136,7 @@ class Chat:
         return response_data.response
 
 
-    def _remove_chat_serialize(
+    def _chats_remove_chat_serialize(
         self,
         chat_id,
         cookie_name,
@@ -1209,6 +1173,13 @@ class Chat:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1236,7 +1207,7 @@ class Chat:
 
 
     @validate_call
-    def remove_inactive_documents(
+    def chats_remove_inactive_documents(
         self,
         chat_id: StrictInt,
         document_ids: List[StrictInt],
@@ -1285,7 +1256,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_inactive_documents_serialize(
+        _param = self._chats_remove_inactive_documents_serialize(
             chat_id=chat_id,
             document_ids=document_ids,
             cookie_name=cookie_name,
@@ -1297,10 +1268,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkResult",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1314,7 +1282,7 @@ class Chat:
 
 
     @validate_call
-    def remove_inactive_documents_with_http_info(
+    def chats_remove_inactive_documents_with_http_info(
         self,
         chat_id: StrictInt,
         document_ids: List[StrictInt],
@@ -1363,7 +1331,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_inactive_documents_serialize(
+        _param = self._chats_remove_inactive_documents_serialize(
             chat_id=chat_id,
             document_ids=document_ids,
             cookie_name=cookie_name,
@@ -1375,10 +1343,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkResult",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1392,7 +1357,7 @@ class Chat:
 
 
     @validate_call
-    def remove_inactive_documents_without_preload_content(
+    def chats_remove_inactive_documents_without_preload_content(
         self,
         chat_id: StrictInt,
         document_ids: List[StrictInt],
@@ -1441,7 +1406,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_inactive_documents_serialize(
+        _param = self._chats_remove_inactive_documents_serialize(
             chat_id=chat_id,
             document_ids=document_ids,
             cookie_name=cookie_name,
@@ -1453,10 +1418,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkResult",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1465,7 +1427,7 @@ class Chat:
         return response_data.response
 
 
-    def _remove_inactive_documents_serialize(
+    def _chats_remove_inactive_documents_serialize(
         self,
         chat_id,
         document_ids,
@@ -1553,7 +1515,7 @@ class Chat:
 
 
     @validate_call
-    def remove_library_from_chat(
+    def chats_remove_library_from_chat(
         self,
         chat_id: StrictInt,
         library_id: StrictInt,
@@ -1603,7 +1565,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_chat_serialize(
+        _param = self._chats_remove_library_from_chat_serialize(
             chat_id=chat_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -1615,10 +1577,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1632,7 +1591,7 @@ class Chat:
 
 
     @validate_call
-    def remove_library_from_chat_with_http_info(
+    def chats_remove_library_from_chat_with_http_info(
         self,
         chat_id: StrictInt,
         library_id: StrictInt,
@@ -1682,7 +1641,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_chat_serialize(
+        _param = self._chats_remove_library_from_chat_serialize(
             chat_id=chat_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -1694,10 +1653,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1711,7 +1667,7 @@ class Chat:
 
 
     @validate_call
-    def remove_library_from_chat_without_preload_content(
+    def chats_remove_library_from_chat_without_preload_content(
         self,
         chat_id: StrictInt,
         library_id: StrictInt,
@@ -1761,7 +1717,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_chat_serialize(
+        _param = self._chats_remove_library_from_chat_serialize(
             chat_id=chat_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -1773,10 +1729,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1785,7 +1738,7 @@ class Chat:
         return response_data.response
 
 
-    def _remove_library_from_chat_serialize(
+    def _chats_remove_library_from_chat_serialize(
         self,
         chat_id,
         library_id,
@@ -1825,6 +1778,13 @@ class Chat:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1852,7 +1812,7 @@ class Chat:
 
 
     @validate_call
-    def summerize_chat(
+    def chats_summerize_chat(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1898,7 +1858,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._summerize_chat_serialize(
+        _param = self._chats_summerize_chat_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1909,10 +1869,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1926,7 +1883,7 @@ class Chat:
 
 
     @validate_call
-    def summerize_chat_with_http_info(
+    def chats_summerize_chat_with_http_info(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1972,7 +1929,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._summerize_chat_serialize(
+        _param = self._chats_summerize_chat_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1983,10 +1940,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2000,7 +1954,7 @@ class Chat:
 
 
     @validate_call
-    def summerize_chat_without_preload_content(
+    def chats_summerize_chat_without_preload_content(
         self,
         chat_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -2046,7 +2000,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._summerize_chat_serialize(
+        _param = self._chats_summerize_chat_serialize(
             chat_id=chat_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -2057,10 +2011,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2069,7 +2020,7 @@ class Chat:
         return response_data.response
 
 
-    def _summerize_chat_serialize(
+    def _chats_summerize_chat_serialize(
         self,
         chat_id,
         cookie_name,
@@ -2140,7 +2091,7 @@ class Chat:
 
 
     @validate_call
-    def update_chat(
+    def chats_update_chat(
         self,
         chat_id: StrictInt,
         chat_in: ChatIn,
@@ -2189,7 +2140,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_chat_serialize(
+        _param = self._chats_update_chat_serialize(
             chat_id=chat_id,
             chat_in=chat_in,
             cookie_name=cookie_name,
@@ -2201,10 +2152,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Chat",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2218,7 +2166,7 @@ class Chat:
 
 
     @validate_call
-    def update_chat_with_http_info(
+    def chats_update_chat_with_http_info(
         self,
         chat_id: StrictInt,
         chat_in: ChatIn,
@@ -2267,7 +2215,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_chat_serialize(
+        _param = self._chats_update_chat_serialize(
             chat_id=chat_id,
             chat_in=chat_in,
             cookie_name=cookie_name,
@@ -2279,10 +2227,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Chat",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2296,7 +2241,7 @@ class Chat:
 
 
     @validate_call
-    def update_chat_without_preload_content(
+    def chats_update_chat_without_preload_content(
         self,
         chat_id: StrictInt,
         chat_in: ChatIn,
@@ -2345,7 +2290,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_chat_serialize(
+        _param = self._chats_update_chat_serialize(
             chat_id=chat_id,
             chat_in=chat_in,
             cookie_name=cookie_name,
@@ -2357,10 +2302,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Chat",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2369,7 +2311,7 @@ class Chat:
         return response_data.response
 
 
-    def _update_chat_serialize(
+    def _chats_update_chat_serialize(
         self,
         chat_id,
         chat_in,
@@ -2456,7 +2398,7 @@ class Chat:
 
 
     @validate_call
-    def update_chat_tool_settings(
+    def chats_update_chat_tool_settings(
         self,
         chat_id: StrictInt,
         tool_id: StrictInt,
@@ -2509,7 +2451,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_chat_tool_settings_serialize(
+        _param = self._chats_update_chat_tool_settings_serialize(
             chat_id=chat_id,
             tool_id=tool_id,
             chat_tool_settings_update=chat_tool_settings_update,
@@ -2522,10 +2464,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ChatToolSettingsOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2539,7 +2478,7 @@ class Chat:
 
 
     @validate_call
-    def update_chat_tool_settings_with_http_info(
+    def chats_update_chat_tool_settings_with_http_info(
         self,
         chat_id: StrictInt,
         tool_id: StrictInt,
@@ -2592,7 +2531,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_chat_tool_settings_serialize(
+        _param = self._chats_update_chat_tool_settings_serialize(
             chat_id=chat_id,
             tool_id=tool_id,
             chat_tool_settings_update=chat_tool_settings_update,
@@ -2605,10 +2544,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ChatToolSettingsOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2622,7 +2558,7 @@ class Chat:
 
 
     @validate_call
-    def update_chat_tool_settings_without_preload_content(
+    def chats_update_chat_tool_settings_without_preload_content(
         self,
         chat_id: StrictInt,
         tool_id: StrictInt,
@@ -2675,7 +2611,7 @@ class Chat:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_chat_tool_settings_serialize(
+        _param = self._chats_update_chat_tool_settings_serialize(
             chat_id=chat_id,
             tool_id=tool_id,
             chat_tool_settings_update=chat_tool_settings_update,
@@ -2688,10 +2624,7 @@ class Chat:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ChatToolSettingsOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2700,7 +2633,7 @@ class Chat:
         return response_data.response
 
 
-    def _update_chat_tool_settings_serialize(
+    def _chats_update_chat_tool_settings_serialize(
         self,
         chat_id,
         tool_id,

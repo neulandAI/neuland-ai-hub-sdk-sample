@@ -4,17 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_library_members**](Library.md#add_library_members) | **POST** /libraries/{library_id}/members | Add Library Members
-[**delete_library**](Library.md#delete_library) | **DELETE** /libraries/{library_id} | Delete Library
-[**leave_library**](Library.md#leave_library) | **DELETE** /libraries/{library_id}/remove/me | Leave Library
-[**new_library**](Library.md#new_library) | **POST** /libraries/ | New Library
-[**remove_library_members**](Library.md#remove_library_members) | **DELETE** /libraries/{library_id}/members | Remove Library Members
-[**remove_single_member**](Library.md#remove_single_member) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove Single Member
-[**update_library**](Library.md#update_library) | **PATCH** /libraries/{library_id} | Update Library
+[**libraries_add_library_members**](Library.md#libraries_add_library_members) | **POST** /libraries/{library_id}/members | Add Library Members
+[**libraries_delete_library**](Library.md#libraries_delete_library) | **DELETE** /libraries/{library_id} | Delete Library
+[**libraries_leave_library**](Library.md#libraries_leave_library) | **DELETE** /libraries/{library_id}/remove/me | Leave Library
+[**libraries_new_library**](Library.md#libraries_new_library) | **POST** /libraries/ | New Library
+[**libraries_remove_library_members**](Library.md#libraries_remove_library_members) | **DELETE** /libraries/{library_id}/members | Remove Library Members
+[**libraries_remove_single_member**](Library.md#libraries_remove_single_member) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove Single Member
+[**libraries_update_library**](Library.md#libraries_update_library) | **PATCH** /libraries/{library_id} | Update Library
 
 
-# **add_library_members**
-> List[LibraryMember] add_library_members(library_id, library_member_bulk_in, cookie_name=cookie_name)
+# **libraries_add_library_members**
+> List[LibraryMember] libraries_add_library_members(library_id, library_member_bulk_in, cookie_name=cookie_name)
 
 Add Library Members
 
@@ -61,11 +61,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Add Library Members
-        api_response = api_instance.add_library_members(library_id, library_member_bulk_in, cookie_name=cookie_name)
-        print("The response of Library->add_library_members:\n")
+        api_response = api_instance.libraries_add_library_members(library_id, library_member_bulk_in, cookie_name=cookie_name)
+        print("The response of Library->libraries_add_library_members:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Library->add_library_members: %s\n" % e)
+        print("Exception when calling Library->libraries_add_library_members: %s\n" % e)
 ```
 
 
@@ -97,15 +97,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_library**
-> delete_library(library_id, cookie_name=cookie_name)
+# **libraries_delete_library**
+> libraries_delete_library(library_id, cookie_name=cookie_name)
 
 Delete Library
 
@@ -149,9 +146,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Delete Library
-        api_instance.delete_library(library_id, cookie_name=cookie_name)
+        api_instance.libraries_delete_library(library_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Library->delete_library: %s\n" % e)
+        print("Exception when calling Library->libraries_delete_library: %s\n" % e)
 ```
 
 
@@ -175,22 +172,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **leave_library**
-> leave_library(library_id, cookie_name=cookie_name)
+# **libraries_leave_library**
+> libraries_leave_library(library_id, cookie_name=cookie_name)
 
 Leave Library
 
@@ -232,9 +226,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Leave Library
-        api_instance.leave_library(library_id, cookie_name=cookie_name)
+        api_instance.libraries_leave_library(library_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Library->leave_library: %s\n" % e)
+        print("Exception when calling Library->libraries_leave_library: %s\n" % e)
 ```
 
 
@@ -258,22 +252,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **new_library**
-> Library new_library(library_in, cookie_name=cookie_name)
+# **libraries_new_library**
+> Library libraries_new_library(library_in, cookie_name=cookie_name)
 
 New Library
 
@@ -319,11 +310,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # New Library
-        api_response = api_instance.new_library(library_in, cookie_name=cookie_name)
-        print("The response of Library->new_library:\n")
+        api_response = api_instance.libraries_new_library(library_in, cookie_name=cookie_name)
+        print("The response of Library->libraries_new_library:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Library->new_library: %s\n" % e)
+        print("Exception when calling Library->libraries_new_library: %s\n" % e)
 ```
 
 
@@ -354,15 +345,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **remove_library_members**
-> remove_library_members(library_id, library_member_bulk_delete, cookie_name=cookie_name)
+# **libraries_remove_library_members**
+> libraries_remove_library_members(library_id, library_member_bulk_delete, cookie_name=cookie_name)
 
 Remove Library Members
 
@@ -408,9 +396,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Remove Library Members
-        api_instance.remove_library_members(library_id, library_member_bulk_delete, cookie_name=cookie_name)
+        api_instance.libraries_remove_library_members(library_id, library_member_bulk_delete, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Library->remove_library_members: %s\n" % e)
+        print("Exception when calling Library->libraries_remove_library_members: %s\n" % e)
 ```
 
 
@@ -435,22 +423,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **remove_single_member**
-> remove_single_member(library_id, user_id, cookie_name=cookie_name)
+# **libraries_remove_single_member**
+> libraries_remove_single_member(library_id, user_id, cookie_name=cookie_name)
 
 Remove Single Member
 
@@ -493,9 +478,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Remove Single Member
-        api_instance.remove_single_member(library_id, user_id, cookie_name=cookie_name)
+        api_instance.libraries_remove_single_member(library_id, user_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Library->remove_single_member: %s\n" % e)
+        print("Exception when calling Library->libraries_remove_single_member: %s\n" % e)
 ```
 
 
@@ -520,22 +505,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_library**
-> Library update_library(library_id, library_update_in, cookie_name=cookie_name)
+# **libraries_update_library**
+> Library libraries_update_library(library_id, library_update_in, cookie_name=cookie_name)
 
 Update Library
 
@@ -582,11 +564,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Library
-        api_response = api_instance.update_library(library_id, library_update_in, cookie_name=cookie_name)
-        print("The response of Library->update_library:\n")
+        api_response = api_instance.libraries_update_library(library_id, library_update_in, cookie_name=cookie_name)
+        print("The response of Library->libraries_update_library:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Library->update_library: %s\n" % e)
+        print("Exception when calling Library->libraries_update_library: %s\n" % e)
 ```
 
 
@@ -618,10 +600,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -14,10 +14,10 @@
 
 import unittest
 
-from neuland_hub_sdk.models.response_get_entra_groups_value import ResponseGetEntraGroupsValue
+from neuland_hub_sdk.models.tarif_in import TarifIn
 
-class TestResponseGetEntraGroupsValue(unittest.TestCase):
-    """ResponseGetEntraGroupsValue unit test stubs"""
+class TestTarifIn(unittest.TestCase):
+    """TarifIn unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,24 +25,34 @@ class TestResponseGetEntraGroupsValue(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ResponseGetEntraGroupsValue:
-        """Test ResponseGetEntraGroupsValue
+    def make_instance(self, include_optional) -> TarifIn:
+        """Test TarifIn
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ResponseGetEntraGroupsValue`
+        # uncomment below to create an instance of `TarifIn`
         """
-        model = ResponseGetEntraGroupsValue()
+        model = TarifIn()
         if include_optional:
-            return ResponseGetEntraGroupsValue(
+            return TarifIn(
+                name = '',
+                price = 1.337,
+                hard_limit = 1.337,
+                status = 'ACTIVE',
+                expires_at = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(),
+                description = '',
+                is_unlimited = True
             )
         else:
-            return ResponseGetEntraGroupsValue(
+            return TarifIn(
+                name = '',
+                price = 1.337,
+                hard_limit = 1.337,
         )
         """
 
-    def testResponseGetEntraGroupsValue(self):
-        """Test ResponseGetEntraGroupsValue"""
+    def testTarifIn(self):
+        """Test TarifIn"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

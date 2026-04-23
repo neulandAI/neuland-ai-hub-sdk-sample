@@ -44,7 +44,7 @@ class AuthConnector:
 
 
     @validate_call
-    def initiate_admin_consent(
+    def auth_initiate_admin_consent(
         self,
         connector_id: StrictInt,
         tenant_id: Optional[StrictInt] = None,
@@ -94,7 +94,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._initiate_admin_consent_serialize(
+        _param = self._auth_initiate_admin_consent_serialize(
             connector_id=connector_id,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -106,10 +106,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -123,7 +120,7 @@ class AuthConnector:
 
 
     @validate_call
-    def initiate_admin_consent_with_http_info(
+    def auth_initiate_admin_consent_with_http_info(
         self,
         connector_id: StrictInt,
         tenant_id: Optional[StrictInt] = None,
@@ -173,7 +170,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._initiate_admin_consent_serialize(
+        _param = self._auth_initiate_admin_consent_serialize(
             connector_id=connector_id,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -185,10 +182,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -202,7 +196,7 @@ class AuthConnector:
 
 
     @validate_call
-    def initiate_admin_consent_without_preload_content(
+    def auth_initiate_admin_consent_without_preload_content(
         self,
         connector_id: StrictInt,
         tenant_id: Optional[StrictInt] = None,
@@ -252,7 +246,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._initiate_admin_consent_serialize(
+        _param = self._auth_initiate_admin_consent_serialize(
             connector_id=connector_id,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -264,10 +258,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -276,7 +267,7 @@ class AuthConnector:
         return response_data.response
 
 
-    def _initiate_admin_consent_serialize(
+    def _auth_initiate_admin_consent_serialize(
         self,
         connector_id,
         tenant_id,
@@ -352,7 +343,7 @@ class AuthConnector:
 
 
     @validate_call
-    def initiate_consent(
+    def auth_initiate_consent(
         self,
         connector_id: StrictInt,
         return_url: Optional[StrictStr] = None,
@@ -405,7 +396,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._initiate_consent_serialize(
+        _param = self._auth_initiate_consent_serialize(
             connector_id=connector_id,
             return_url=return_url,
             redirect=redirect,
@@ -418,10 +409,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -435,7 +423,7 @@ class AuthConnector:
 
 
     @validate_call
-    def initiate_consent_with_http_info(
+    def auth_initiate_consent_with_http_info(
         self,
         connector_id: StrictInt,
         return_url: Optional[StrictStr] = None,
@@ -488,7 +476,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._initiate_consent_serialize(
+        _param = self._auth_initiate_consent_serialize(
             connector_id=connector_id,
             return_url=return_url,
             redirect=redirect,
@@ -501,10 +489,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -518,7 +503,7 @@ class AuthConnector:
 
 
     @validate_call
-    def initiate_consent_without_preload_content(
+    def auth_initiate_consent_without_preload_content(
         self,
         connector_id: StrictInt,
         return_url: Optional[StrictStr] = None,
@@ -571,7 +556,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._initiate_consent_serialize(
+        _param = self._auth_initiate_consent_serialize(
             connector_id=connector_id,
             return_url=return_url,
             redirect=redirect,
@@ -584,10 +569,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -596,7 +578,7 @@ class AuthConnector:
         return response_data.response
 
 
-    def _initiate_consent_serialize(
+    def _auth_initiate_consent_serialize(
         self,
         connector_id,
         return_url,
@@ -677,7 +659,7 @@ class AuthConnector:
 
 
     @validate_call
-    def list_connector_status(
+    def auth_list_connector_status(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -720,7 +702,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_connector_status_serialize(
+        _param = self._auth_list_connector_status_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -730,10 +712,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConnectorStatusOut]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -747,7 +726,7 @@ class AuthConnector:
 
 
     @validate_call
-    def list_connector_status_with_http_info(
+    def auth_list_connector_status_with_http_info(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -790,7 +769,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_connector_status_serialize(
+        _param = self._auth_list_connector_status_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -800,10 +779,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConnectorStatusOut]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -817,7 +793,7 @@ class AuthConnector:
 
 
     @validate_call
-    def list_connector_status_without_preload_content(
+    def auth_list_connector_status_without_preload_content(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -860,7 +836,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_connector_status_serialize(
+        _param = self._auth_list_connector_status_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -870,10 +846,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConnectorStatusOut]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -882,7 +855,7 @@ class AuthConnector:
         return response_data.response
 
 
-    def _list_connector_status_serialize(
+    def _auth_list_connector_status_serialize(
         self,
         cookie_name,
         _request_auth,
@@ -950,7 +923,7 @@ class AuthConnector:
 
 
     @validate_call
-    def oauth_callback(
+    def auth_oauth_callback(
         self,
         state: StrictStr,
         code: Optional[StrictStr] = None,
@@ -1006,7 +979,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._oauth_callback_serialize(
+        _param = self._auth_oauth_callback_serialize(
             state=state,
             code=code,
             error=error,
@@ -1020,10 +993,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1037,7 +1007,7 @@ class AuthConnector:
 
 
     @validate_call
-    def oauth_callback_with_http_info(
+    def auth_oauth_callback_with_http_info(
         self,
         state: StrictStr,
         code: Optional[StrictStr] = None,
@@ -1093,7 +1063,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._oauth_callback_serialize(
+        _param = self._auth_oauth_callback_serialize(
             state=state,
             code=code,
             error=error,
@@ -1107,10 +1077,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1124,7 +1091,7 @@ class AuthConnector:
 
 
     @validate_call
-    def oauth_callback_without_preload_content(
+    def auth_oauth_callback_without_preload_content(
         self,
         state: StrictStr,
         code: Optional[StrictStr] = None,
@@ -1180,7 +1147,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._oauth_callback_serialize(
+        _param = self._auth_oauth_callback_serialize(
             state=state,
             code=code,
             error=error,
@@ -1194,10 +1161,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1206,7 +1170,7 @@ class AuthConnector:
         return response_data.response
 
 
-    def _oauth_callback_serialize(
+    def _auth_oauth_callback_serialize(
         self,
         state,
         code,
@@ -1292,7 +1256,7 @@ class AuthConnector:
 
 
     @validate_call
-    def revoke_consent(
+    def auth_revoke_consent(
         self,
         connector_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1338,7 +1302,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._revoke_consent_serialize(
+        _param = self._auth_revoke_consent_serialize(
             connector_id=connector_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1349,10 +1313,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1366,7 +1327,7 @@ class AuthConnector:
 
 
     @validate_call
-    def revoke_consent_with_http_info(
+    def auth_revoke_consent_with_http_info(
         self,
         connector_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1412,7 +1373,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._revoke_consent_serialize(
+        _param = self._auth_revoke_consent_serialize(
             connector_id=connector_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1423,10 +1384,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1440,7 +1398,7 @@ class AuthConnector:
 
 
     @validate_call
-    def revoke_consent_without_preload_content(
+    def auth_revoke_consent_without_preload_content(
         self,
         connector_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1486,7 +1444,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._revoke_consent_serialize(
+        _param = self._auth_revoke_consent_serialize(
             connector_id=connector_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1497,10 +1455,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1509,7 +1464,7 @@ class AuthConnector:
         return response_data.response
 
 
-    def _revoke_consent_serialize(
+    def _auth_revoke_consent_serialize(
         self,
         connector_id,
         cookie_name,
@@ -1546,6 +1501,13 @@ class AuthConnector:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1573,7 +1535,7 @@ class AuthConnector:
 
 
     @validate_call
-    def update_connector(
+    def auth_update_connector(
         self,
         connector_id: StrictInt,
         connector_update: ConnectorUpdate,
@@ -1623,7 +1585,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_connector_serialize(
+        _param = self._auth_update_connector_serialize(
             connector_id=connector_id,
             connector_update=connector_update,
             cookie_name=cookie_name,
@@ -1635,10 +1597,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Connector",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1652,7 +1611,7 @@ class AuthConnector:
 
 
     @validate_call
-    def update_connector_with_http_info(
+    def auth_update_connector_with_http_info(
         self,
         connector_id: StrictInt,
         connector_update: ConnectorUpdate,
@@ -1702,7 +1661,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_connector_serialize(
+        _param = self._auth_update_connector_serialize(
             connector_id=connector_id,
             connector_update=connector_update,
             cookie_name=cookie_name,
@@ -1714,10 +1673,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Connector",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1731,7 +1687,7 @@ class AuthConnector:
 
 
     @validate_call
-    def update_connector_without_preload_content(
+    def auth_update_connector_without_preload_content(
         self,
         connector_id: StrictInt,
         connector_update: ConnectorUpdate,
@@ -1781,7 +1737,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_connector_serialize(
+        _param = self._auth_update_connector_serialize(
             connector_id=connector_id,
             connector_update=connector_update,
             cookie_name=cookie_name,
@@ -1793,10 +1749,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Connector",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1805,7 +1758,7 @@ class AuthConnector:
         return response_data.response
 
 
-    def _update_connector_serialize(
+    def _auth_update_connector_serialize(
         self,
         connector_id,
         connector_update,
@@ -1892,7 +1845,7 @@ class AuthConnector:
 
 
     @validate_call
-    def update_oauth_client(
+    def auth_update_oauth_client(
         self,
         oauth_client_id: StrictInt,
         o_auth_client_update: OAuthClientUpdate,
@@ -1942,7 +1895,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_oauth_client_serialize(
+        _param = self._auth_update_oauth_client_serialize(
             oauth_client_id=oauth_client_id,
             o_auth_client_update=o_auth_client_update,
             cookie_name=cookie_name,
@@ -1954,10 +1907,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthClient",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1971,7 +1921,7 @@ class AuthConnector:
 
 
     @validate_call
-    def update_oauth_client_with_http_info(
+    def auth_update_oauth_client_with_http_info(
         self,
         oauth_client_id: StrictInt,
         o_auth_client_update: OAuthClientUpdate,
@@ -2021,7 +1971,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_oauth_client_serialize(
+        _param = self._auth_update_oauth_client_serialize(
             oauth_client_id=oauth_client_id,
             o_auth_client_update=o_auth_client_update,
             cookie_name=cookie_name,
@@ -2033,10 +1983,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthClient",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2050,7 +1997,7 @@ class AuthConnector:
 
 
     @validate_call
-    def update_oauth_client_without_preload_content(
+    def auth_update_oauth_client_without_preload_content(
         self,
         oauth_client_id: StrictInt,
         o_auth_client_update: OAuthClientUpdate,
@@ -2100,7 +2047,7 @@ class AuthConnector:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_oauth_client_serialize(
+        _param = self._auth_update_oauth_client_serialize(
             oauth_client_id=oauth_client_id,
             o_auth_client_update=o_auth_client_update,
             cookie_name=cookie_name,
@@ -2112,10 +2059,7 @@ class AuthConnector:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuthClient",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2124,7 +2068,7 @@ class AuthConnector:
         return response_data.response
 
 
-    def _update_oauth_client_serialize(
+    def _auth_update_oauth_client_serialize(
         self,
         oauth_client_id,
         o_auth_client_update,

@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**convert_message**](Message.md#convert_message) | **GET** /messages/{message_id}/convert | Convert Message
-[**create_message**](Message.md#create_message) | **POST** /messages/ | Create Message
-[**rephrase_message**](Message.md#rephrase_message) | **GET** /messages/{message_id}/rephrase | Rephrase Message
-[**submit_message**](Message.md#submit_message) | **POST** /messages/submit | Submit Message
-[**translate_message**](Message.md#translate_message) | **GET** /messages/{message_id}/translate | Translate Message
+[**messages_convert_message**](Message.md#messages_convert_message) | **GET** /messages/{message_id}/convert | Convert Message
+[**messages_create_message**](Message.md#messages_create_message) | **POST** /messages/ | Create Message
+[**messages_rephrase_message**](Message.md#messages_rephrase_message) | **GET** /messages/{message_id}/rephrase | Rephrase Message
+[**messages_submit_message**](Message.md#messages_submit_message) | **POST** /messages/submit | Submit Message
+[**messages_translate_message**](Message.md#messages_translate_message) | **GET** /messages/{message_id}/translate | Translate Message
 
 
-# **convert_message**
-> object convert_message(message_id, format, cookie_name=cookie_name)
+# **messages_convert_message**
+> object messages_convert_message(message_id, format, cookie_name=cookie_name)
 
 Convert Message
 
@@ -57,11 +57,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Convert Message
-        api_response = api_instance.convert_message(message_id, format, cookie_name=cookie_name)
-        print("The response of Message->convert_message:\n")
+        api_response = api_instance.messages_convert_message(message_id, format, cookie_name=cookie_name)
+        print("The response of Message->messages_convert_message:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Message->convert_message: %s\n" % e)
+        print("Exception when calling Message->messages_convert_message: %s\n" % e)
 ```
 
 
@@ -93,15 +93,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_message**
-> Message create_message(message_in, cookie_name=cookie_name)
+# **messages_create_message**
+> Message messages_create_message(message_in, cookie_name=cookie_name)
 
 Create Message
 
@@ -145,11 +142,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Message
-        api_response = api_instance.create_message(message_in, cookie_name=cookie_name)
-        print("The response of Message->create_message:\n")
+        api_response = api_instance.messages_create_message(message_in, cookie_name=cookie_name)
+        print("The response of Message->messages_create_message:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Message->create_message: %s\n" % e)
+        print("Exception when calling Message->messages_create_message: %s\n" % e)
 ```
 
 
@@ -180,15 +177,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **rephrase_message**
-> Translation rephrase_message(message_id, style, cookie_name=cookie_name)
+# **messages_rephrase_message**
+> Translation messages_rephrase_message(message_id, style, cookie_name=cookie_name)
 
 Rephrase Message
 
@@ -232,11 +226,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Rephrase Message
-        api_response = api_instance.rephrase_message(message_id, style, cookie_name=cookie_name)
-        print("The response of Message->rephrase_message:\n")
+        api_response = api_instance.messages_rephrase_message(message_id, style, cookie_name=cookie_name)
+        print("The response of Message->messages_rephrase_message:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Message->rephrase_message: %s\n" % e)
+        print("Exception when calling Message->messages_rephrase_message: %s\n" % e)
 ```
 
 
@@ -268,15 +262,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **submit_message**
-> Message submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, updated_at=updated_at, files=files, chat_temperature=chat_temperature, chat_similarity_top_k=chat_similarity_top_k, chat_system_prompt=chat_system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id)
+# **messages_submit_message**
+> Message messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, updated_at=updated_at, files=files, chat_temperature=chat_temperature, chat_similarity_top_k=chat_similarity_top_k, chat_system_prompt=chat_system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id)
 
 Submit Message
 
@@ -332,11 +323,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Submit Message
-        api_response = api_instance.submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, updated_at=updated_at, files=files, chat_temperature=chat_temperature, chat_similarity_top_k=chat_similarity_top_k, chat_system_prompt=chat_system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id)
-        print("The response of Message->submit_message:\n")
+        api_response = api_instance.messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, updated_at=updated_at, files=files, chat_temperature=chat_temperature, chat_similarity_top_k=chat_similarity_top_k, chat_system_prompt=chat_system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id)
+        print("The response of Message->messages_submit_message:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Message->submit_message: %s\n" % e)
+        print("Exception when calling Message->messages_submit_message: %s\n" % e)
 ```
 
 
@@ -380,15 +371,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **translate_message**
-> Translation translate_message(message_id, lang, cookie_name=cookie_name)
+# **messages_translate_message**
+> Translation messages_translate_message(message_id, lang, cookie_name=cookie_name)
 
 Translate Message
 
@@ -432,11 +420,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Translate Message
-        api_response = api_instance.translate_message(message_id, lang, cookie_name=cookie_name)
-        print("The response of Message->translate_message:\n")
+        api_response = api_instance.messages_translate_message(message_id, lang, cookie_name=cookie_name)
+        print("The response of Message->messages_translate_message:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Message->translate_message: %s\n" % e)
+        print("Exception when calling Message->messages_translate_message: %s\n" % e)
 ```
 
 
@@ -468,10 +456,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

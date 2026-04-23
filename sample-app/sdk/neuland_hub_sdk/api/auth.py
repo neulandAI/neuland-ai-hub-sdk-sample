@@ -19,7 +19,7 @@ from pydantic import Field, StrictInt, StrictStr, field_validator
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
 from neuland_hub_sdk.models.password_reset_request_in import PasswordResetRequestIn
-from neuland_hub_sdk.models.response_get_entra_groups_value import ResponseGetEntraGroupsValue
+from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue
 from neuland_hub_sdk.models.token_out import TokenOut
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
@@ -41,7 +41,7 @@ class Auth:
 
 
     @validate_call
-    def azure_entra_callback(
+    def auth_azure_entra_callback(
         self,
         code: Annotated[StrictStr, Field(description="Authorization code from Azure Entra ID")],
         user_agent: Optional[StrictStr] = None,
@@ -96,7 +96,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._azure_entra_callback_serialize(
+        _param = self._auth_azure_entra_callback_serialize(
             code=code,
             user_agent=user_agent,
             x_real_ip=x_real_ip,
@@ -110,10 +110,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -127,7 +124,7 @@ class Auth:
 
 
     @validate_call
-    def azure_entra_callback_with_http_info(
+    def auth_azure_entra_callback_with_http_info(
         self,
         code: Annotated[StrictStr, Field(description="Authorization code from Azure Entra ID")],
         user_agent: Optional[StrictStr] = None,
@@ -182,7 +179,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._azure_entra_callback_serialize(
+        _param = self._auth_azure_entra_callback_serialize(
             code=code,
             user_agent=user_agent,
             x_real_ip=x_real_ip,
@@ -196,10 +193,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -213,7 +207,7 @@ class Auth:
 
 
     @validate_call
-    def azure_entra_callback_without_preload_content(
+    def auth_azure_entra_callback_without_preload_content(
         self,
         code: Annotated[StrictStr, Field(description="Authorization code from Azure Entra ID")],
         user_agent: Optional[StrictStr] = None,
@@ -268,7 +262,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._azure_entra_callback_serialize(
+        _param = self._auth_azure_entra_callback_serialize(
             code=code,
             user_agent=user_agent,
             x_real_ip=x_real_ip,
@@ -282,10 +276,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -294,7 +285,7 @@ class Auth:
         return response_data.response
 
 
-    def _azure_entra_callback_serialize(
+    def _auth_azure_entra_callback_serialize(
         self,
         code,
         user_agent,
@@ -372,7 +363,7 @@ class Auth:
 
 
     @validate_call
-    def confirm_email(
+    def auth_confirm_email(
         self,
         token: Annotated[StrictStr, Field(description="JWT token from confirmation email")],
         accept: Optional[StrictStr] = None,
@@ -418,7 +409,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._confirm_email_serialize(
+        _param = self._auth_confirm_email_serialize(
             token=token,
             accept=accept,
             _request_auth=_request_auth,
@@ -429,10 +420,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -446,7 +434,7 @@ class Auth:
 
 
     @validate_call
-    def confirm_email_with_http_info(
+    def auth_confirm_email_with_http_info(
         self,
         token: Annotated[StrictStr, Field(description="JWT token from confirmation email")],
         accept: Optional[StrictStr] = None,
@@ -492,7 +480,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._confirm_email_serialize(
+        _param = self._auth_confirm_email_serialize(
             token=token,
             accept=accept,
             _request_auth=_request_auth,
@@ -503,10 +491,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -520,7 +505,7 @@ class Auth:
 
 
     @validate_call
-    def confirm_email_without_preload_content(
+    def auth_confirm_email_without_preload_content(
         self,
         token: Annotated[StrictStr, Field(description="JWT token from confirmation email")],
         accept: Optional[StrictStr] = None,
@@ -566,7 +551,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._confirm_email_serialize(
+        _param = self._auth_confirm_email_serialize(
             token=token,
             accept=accept,
             _request_auth=_request_auth,
@@ -577,10 +562,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -589,7 +571,7 @@ class Auth:
         return response_data.response
 
 
-    def _confirm_email_serialize(
+    def _auth_confirm_email_serialize(
         self,
         token,
         accept,
@@ -658,7 +640,7 @@ class Auth:
 
 
     @validate_call
-    def exchange_token(
+    def auth_exchange_token(
         self,
         app_id: StrictInt,
         _request_timeout: Union[
@@ -702,7 +684,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._exchange_token_serialize(
+        _param = self._auth_exchange_token_serialize(
             app_id=app_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -712,10 +694,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -729,7 +708,7 @@ class Auth:
 
 
     @validate_call
-    def exchange_token_with_http_info(
+    def auth_exchange_token_with_http_info(
         self,
         app_id: StrictInt,
         _request_timeout: Union[
@@ -773,7 +752,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._exchange_token_serialize(
+        _param = self._auth_exchange_token_serialize(
             app_id=app_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -783,10 +762,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -800,7 +776,7 @@ class Auth:
 
 
     @validate_call
-    def exchange_token_without_preload_content(
+    def auth_exchange_token_without_preload_content(
         self,
         app_id: StrictInt,
         _request_timeout: Union[
@@ -844,7 +820,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._exchange_token_serialize(
+        _param = self._auth_exchange_token_serialize(
             app_id=app_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -854,10 +830,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -866,7 +839,7 @@ class Auth:
         return response_data.response
 
 
-    def _exchange_token_serialize(
+    def _auth_exchange_token_serialize(
         self,
         app_id,
         _request_auth,
@@ -933,7 +906,7 @@ class Auth:
 
 
     @validate_call
-    def get_entra_groups(
+    def auth_get_entra_groups(
         self,
         _request_timeout: Union[
             None,
@@ -947,7 +920,7 @@ class Auth:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Dict[str, ResponseGetEntraGroupsValue]:
+    ) -> Dict[str, ResponseAuthGetEntraGroupsValue]:
         """Get Entra Groups
 
         Get Azure Entra group names for current user's groups
@@ -974,7 +947,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_entra_groups_serialize(
+        _param = self._auth_get_entra_groups_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -982,11 +955,7 @@ class Auth:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, ResponseGetEntraGroupsValue]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '200': "Dict[str, ResponseAuthGetEntraGroupsValue]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1000,7 +969,7 @@ class Auth:
 
 
     @validate_call
-    def get_entra_groups_with_http_info(
+    def auth_get_entra_groups_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -1014,7 +983,7 @@ class Auth:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Dict[str, ResponseGetEntraGroupsValue]]:
+    ) -> ApiResponse[Dict[str, ResponseAuthGetEntraGroupsValue]]:
         """Get Entra Groups
 
         Get Azure Entra group names for current user's groups
@@ -1041,7 +1010,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_entra_groups_serialize(
+        _param = self._auth_get_entra_groups_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1049,11 +1018,7 @@ class Auth:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, ResponseGetEntraGroupsValue]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '200': "Dict[str, ResponseAuthGetEntraGroupsValue]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1067,7 +1032,7 @@ class Auth:
 
 
     @validate_call
-    def get_entra_groups_without_preload_content(
+    def auth_get_entra_groups_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -1108,7 +1073,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_entra_groups_serialize(
+        _param = self._auth_get_entra_groups_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1116,11 +1081,7 @@ class Auth:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, ResponseGetEntraGroupsValue]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '200': "Dict[str, ResponseAuthGetEntraGroupsValue]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1129,7 +1090,7 @@ class Auth:
         return response_data.response
 
 
-    def _get_entra_groups_serialize(
+    def _auth_get_entra_groups_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1191,7 +1152,7 @@ class Auth:
 
 
     @validate_call
-    def get_entra_scopes(
+    def auth_get_entra_scopes(
         self,
         _request_timeout: Union[
             None,
@@ -1231,7 +1192,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_entra_scopes_serialize(
+        _param = self._auth_get_entra_scopes_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1240,10 +1201,6 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Optional[str]]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1257,7 +1214,7 @@ class Auth:
 
 
     @validate_call
-    def get_entra_scopes_with_http_info(
+    def auth_get_entra_scopes_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -1297,7 +1254,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_entra_scopes_serialize(
+        _param = self._auth_get_entra_scopes_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1306,10 +1263,6 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Optional[str]]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1323,7 +1276,7 @@ class Auth:
 
 
     @validate_call
-    def get_entra_scopes_without_preload_content(
+    def auth_get_entra_scopes_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -1363,7 +1316,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_entra_scopes_serialize(
+        _param = self._auth_get_entra_scopes_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1372,10 +1325,6 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Optional[str]]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1384,7 +1333,7 @@ class Auth:
         return response_data.response
 
 
-    def _get_entra_scopes_serialize(
+    def _auth_get_entra_scopes_serialize(
         self,
         _request_auth,
         _content_type,
@@ -1445,7 +1394,7 @@ class Auth:
 
 
     @validate_call
-    def login(
+    def auth_login(
         self,
         username: StrictStr,
         password: StrictStr,
@@ -1518,7 +1467,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._login_serialize(
+        _param = self._auth_login_serialize(
             username=username,
             password=password,
             user_agent=user_agent,
@@ -1538,10 +1487,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokenOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1555,7 +1501,7 @@ class Auth:
 
 
     @validate_call
-    def login_with_http_info(
+    def auth_login_with_http_info(
         self,
         username: StrictStr,
         password: StrictStr,
@@ -1628,7 +1574,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._login_serialize(
+        _param = self._auth_login_serialize(
             username=username,
             password=password,
             user_agent=user_agent,
@@ -1648,10 +1594,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokenOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1665,7 +1608,7 @@ class Auth:
 
 
     @validate_call
-    def login_without_preload_content(
+    def auth_login_without_preload_content(
         self,
         username: StrictStr,
         password: StrictStr,
@@ -1738,7 +1681,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._login_serialize(
+        _param = self._auth_login_serialize(
             username=username,
             password=password,
             user_agent=user_agent,
@@ -1758,10 +1701,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokenOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1770,7 +1710,7 @@ class Auth:
         return response_data.response
 
 
-    def _login_serialize(
+    def _auth_login_serialize(
         self,
         username,
         password,
@@ -1875,7 +1815,7 @@ class Auth:
 
 
     @validate_call
-    def logout(
+    def auth_logout(
         self,
         _request_timeout: Union[
             None,
@@ -1915,7 +1855,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._logout_serialize(
+        _param = self._auth_logout_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1924,10 +1864,6 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1941,7 +1877,7 @@ class Auth:
 
 
     @validate_call
-    def logout_with_http_info(
+    def auth_logout_with_http_info(
         self,
         _request_timeout: Union[
             None,
@@ -1981,7 +1917,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._logout_serialize(
+        _param = self._auth_logout_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1990,10 +1926,6 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2007,7 +1939,7 @@ class Auth:
 
 
     @validate_call
-    def logout_without_preload_content(
+    def auth_logout_without_preload_content(
         self,
         _request_timeout: Union[
             None,
@@ -2047,7 +1979,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._logout_serialize(
+        _param = self._auth_logout_serialize(
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2056,10 +1988,6 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2068,7 +1996,7 @@ class Auth:
         return response_data.response
 
 
-    def _logout_serialize(
+    def _auth_logout_serialize(
         self,
         _request_auth,
         _content_type,
@@ -2130,7 +2058,7 @@ class Auth:
 
 
     @validate_call
-    def oidc_callback(
+    def auth_oidc_callback(
         self,
         code: Annotated[StrictStr, Field(description="Authorization code from OIDC provider")],
         user_agent: Optional[StrictStr] = None,
@@ -2185,7 +2113,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._oidc_callback_serialize(
+        _param = self._auth_oidc_callback_serialize(
             code=code,
             user_agent=user_agent,
             x_real_ip=x_real_ip,
@@ -2199,10 +2127,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2216,7 +2141,7 @@ class Auth:
 
 
     @validate_call
-    def oidc_callback_with_http_info(
+    def auth_oidc_callback_with_http_info(
         self,
         code: Annotated[StrictStr, Field(description="Authorization code from OIDC provider")],
         user_agent: Optional[StrictStr] = None,
@@ -2271,7 +2196,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._oidc_callback_serialize(
+        _param = self._auth_oidc_callback_serialize(
             code=code,
             user_agent=user_agent,
             x_real_ip=x_real_ip,
@@ -2285,10 +2210,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2302,7 +2224,7 @@ class Auth:
 
 
     @validate_call
-    def oidc_callback_without_preload_content(
+    def auth_oidc_callback_without_preload_content(
         self,
         code: Annotated[StrictStr, Field(description="Authorization code from OIDC provider")],
         user_agent: Optional[StrictStr] = None,
@@ -2357,7 +2279,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._oidc_callback_serialize(
+        _param = self._auth_oidc_callback_serialize(
             code=code,
             user_agent=user_agent,
             x_real_ip=x_real_ip,
@@ -2371,10 +2293,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2383,7 +2302,7 @@ class Auth:
         return response_data.response
 
 
-    def _oidc_callback_serialize(
+    def _auth_oidc_callback_serialize(
         self,
         code,
         user_agent,
@@ -2461,7 +2380,7 @@ class Auth:
 
 
     @validate_call
-    def request_password_reset(
+    def auth_request_password_reset(
         self,
         password_reset_request_in: PasswordResetRequestIn,
         origin: Optional[StrictStr] = None,
@@ -2508,7 +2427,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._request_password_reset_serialize(
+        _param = self._auth_request_password_reset_serialize(
             password_reset_request_in=password_reset_request_in,
             origin=origin,
             _request_auth=_request_auth,
@@ -2519,10 +2438,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2536,7 +2452,7 @@ class Auth:
 
 
     @validate_call
-    def request_password_reset_with_http_info(
+    def auth_request_password_reset_with_http_info(
         self,
         password_reset_request_in: PasswordResetRequestIn,
         origin: Optional[StrictStr] = None,
@@ -2583,7 +2499,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._request_password_reset_serialize(
+        _param = self._auth_request_password_reset_serialize(
             password_reset_request_in=password_reset_request_in,
             origin=origin,
             _request_auth=_request_auth,
@@ -2594,10 +2510,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2611,7 +2524,7 @@ class Auth:
 
 
     @validate_call
-    def request_password_reset_without_preload_content(
+    def auth_request_password_reset_without_preload_content(
         self,
         password_reset_request_in: PasswordResetRequestIn,
         origin: Optional[StrictStr] = None,
@@ -2658,7 +2571,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._request_password_reset_serialize(
+        _param = self._auth_request_password_reset_serialize(
             password_reset_request_in=password_reset_request_in,
             origin=origin,
             _request_auth=_request_auth,
@@ -2669,10 +2582,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2681,7 +2591,7 @@ class Auth:
         return response_data.response
 
 
-    def _request_password_reset_serialize(
+    def _auth_request_password_reset_serialize(
         self,
         password_reset_request_in,
         origin,
@@ -2716,6 +2626,13 @@ class Auth:
             _body_params = password_reset_request_in
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2754,7 +2671,7 @@ class Auth:
 
 
     @validate_call
-    def reset_password(
+    def auth_reset_password(
         self,
         token: Annotated[StrictStr, Field(description="Password reset JWT token")],
         _request_timeout: Union[
@@ -2798,7 +2715,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_password_serialize(
+        _param = self._auth_reset_password_serialize(
             token=token,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2808,10 +2725,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2825,7 +2739,7 @@ class Auth:
 
 
     @validate_call
-    def reset_password_with_http_info(
+    def auth_reset_password_with_http_info(
         self,
         token: Annotated[StrictStr, Field(description="Password reset JWT token")],
         _request_timeout: Union[
@@ -2869,7 +2783,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_password_serialize(
+        _param = self._auth_reset_password_serialize(
             token=token,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2879,10 +2793,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2896,7 +2807,7 @@ class Auth:
 
 
     @validate_call
-    def reset_password_without_preload_content(
+    def auth_reset_password_without_preload_content(
         self,
         token: Annotated[StrictStr, Field(description="Password reset JWT token")],
         _request_timeout: Union[
@@ -2940,7 +2851,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_password_serialize(
+        _param = self._auth_reset_password_serialize(
             token=token,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2950,10 +2861,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2962,7 +2870,7 @@ class Auth:
         return response_data.response
 
 
-    def _reset_password_serialize(
+    def _auth_reset_password_serialize(
         self,
         token,
         _request_auth,
@@ -2996,6 +2904,13 @@ class Auth:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -3021,7 +2936,7 @@ class Auth:
 
 
     @validate_call
-    def reset_password_form(
+    def auth_reset_password_form(
         self,
         token: Annotated[StrictStr, Field(description="Password reset JWT token")],
         _request_timeout: Union[
@@ -3065,7 +2980,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_password_form_serialize(
+        _param = self._auth_reset_password_form_serialize(
             token=token,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3075,10 +2990,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3092,7 +3004,7 @@ class Auth:
 
 
     @validate_call
-    def reset_password_form_with_http_info(
+    def auth_reset_password_form_with_http_info(
         self,
         token: Annotated[StrictStr, Field(description="Password reset JWT token")],
         _request_timeout: Union[
@@ -3136,7 +3048,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_password_form_serialize(
+        _param = self._auth_reset_password_form_serialize(
             token=token,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3146,10 +3058,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3163,7 +3072,7 @@ class Auth:
 
 
     @validate_call
-    def reset_password_form_without_preload_content(
+    def auth_reset_password_form_without_preload_content(
         self,
         token: Annotated[StrictStr, Field(description="Password reset JWT token")],
         _request_timeout: Union[
@@ -3207,7 +3116,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._reset_password_form_serialize(
+        _param = self._auth_reset_password_form_serialize(
             token=token,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3217,10 +3126,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3229,7 +3135,7 @@ class Auth:
         return response_data.response
 
 
-    def _reset_password_form_serialize(
+    def _auth_reset_password_form_serialize(
         self,
         token,
         _request_auth,
@@ -3267,7 +3173,8 @@ class Auth:
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'text/html'
+                    'text/html', 
+                    'application/json'
                 ]
             )
 
@@ -3295,7 +3202,7 @@ class Auth:
 
 
     @validate_call
-    def send_email_confirmation(
+    def auth_send_email_confirmation(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -3338,7 +3245,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._send_email_confirmation_serialize(
+        _param = self._auth_send_email_confirmation_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3348,10 +3255,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3365,7 +3269,7 @@ class Auth:
 
 
     @validate_call
-    def send_email_confirmation_with_http_info(
+    def auth_send_email_confirmation_with_http_info(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -3408,7 +3312,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._send_email_confirmation_serialize(
+        _param = self._auth_send_email_confirmation_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3418,10 +3322,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3435,7 +3336,7 @@ class Auth:
 
 
     @validate_call
-    def send_email_confirmation_without_preload_content(
+    def auth_send_email_confirmation_without_preload_content(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -3478,7 +3379,7 @@ class Auth:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._send_email_confirmation_serialize(
+        _param = self._auth_send_email_confirmation_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -3488,10 +3389,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3500,7 +3398,7 @@ class Auth:
         return response_data.response
 
 
-    def _send_email_confirmation_serialize(
+    def _auth_send_email_confirmation_serialize(
         self,
         cookie_name,
         _request_auth,
@@ -3534,6 +3432,13 @@ class Auth:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting

@@ -26,22 +26,22 @@ class TestLlm(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_get_cost(self) -> None:
-        """Test case for get_cost
+    def test_llm_get_cost(self) -> None:
+        """Test case for llm_get_cost
 
         Get Cost
         """
         pass
 
-    def test_get_usage_costs(self) -> None:
-        """Test case for get_usage_costs
+    def test_llm_get_usage_costs(self) -> None:
+        """Test case for llm_get_usage_costs
 
         Get Usage Costs
         """
         pass
 
-    def test_llm_total_tokens(self) -> None:
-        """Test case for llm_total_tokens
+    def test_llm_llm_total_tokens(self) -> None:
+        """Test case for llm_llm_total_tokens
 
         Llm Total Tokens
         """

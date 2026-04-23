@@ -28,8 +28,6 @@ from neuland_hub_sdk.models.assistant_member import AssistantMember
 from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn
 from neuland_hub_sdk.models.assistant_tool import AssistantTool
 from neuland_hub_sdk.models.bcc import Bcc
-from neuland_hub_sdk.models.body_admin_login import BodyAdminLogin
-from neuland_hub_sdk.models.body_reports_bulk_action import BodyReportsBulkAction
 from neuland_hub_sdk.models.budget_alert import BudgetAlert
 from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest
 from neuland_hub_sdk.models.budget_alert_update import BudgetAlertUpdate
@@ -89,7 +87,7 @@ from neuland_hub_sdk.models.project_member_in import ProjectMemberIn
 from neuland_hub_sdk.models.prompt import Prompt
 from neuland_hub_sdk.models.prompt_in import PromptIn
 from neuland_hub_sdk.models.rephrase_style_enum import RephraseStyleEnum
-from neuland_hub_sdk.models.response_get_entra_groups_value import ResponseGetEntraGroupsValue
+from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue
 from neuland_hub_sdk.models.send_email_request import SendEmailRequest
 from neuland_hub_sdk.models.send_email_response import SendEmailResponse
 from neuland_hub_sdk.models.settings import Settings
@@ -99,9 +97,9 @@ from neuland_hub_sdk.models.sharepoint_folder_model import SharepointFolderModel
 from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel
 from neuland_hub_sdk.models.sharepoint_site_model import SharepointSiteModel
 from neuland_hub_sdk.models.sharepoint_user_model import SharepointUserModel
-from neuland_hub_sdk.models.tariff import Tariff
-from neuland_hub_sdk.models.tariff_in import TariffIn
-from neuland_hub_sdk.models.tariff_status_enum import TariffStatusEnum
+from neuland_hub_sdk.models.tarif import Tarif
+from neuland_hub_sdk.models.tarif_in import TarifIn
+from neuland_hub_sdk.models.tarif_status_enum import TarifStatusEnum
 from neuland_hub_sdk.models.template_in import TemplateIn
 from neuland_hub_sdk.models.template_out import TemplateOut
 from neuland_hub_sdk.models.tenant_in import TenantIn

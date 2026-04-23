@@ -40,7 +40,7 @@ class Document:
 
 
     @validate_call
-    def delete_chat_document(
+    def documents_delete_chat_document(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -86,7 +86,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_chat_document_serialize(
+        _param = self._documents_delete_chat_document_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -97,10 +97,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -114,7 +111,7 @@ class Document:
 
 
     @validate_call
-    def delete_chat_document_with_http_info(
+    def documents_delete_chat_document_with_http_info(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -160,7 +157,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_chat_document_serialize(
+        _param = self._documents_delete_chat_document_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -171,10 +168,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -188,7 +182,7 @@ class Document:
 
 
     @validate_call
-    def delete_chat_document_without_preload_content(
+    def documents_delete_chat_document_without_preload_content(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -234,7 +228,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_chat_document_serialize(
+        _param = self._documents_delete_chat_document_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -245,10 +239,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -257,7 +248,7 @@ class Document:
         return response_data.response
 
 
-    def _delete_chat_document_serialize(
+    def _documents_delete_chat_document_serialize(
         self,
         document_id,
         cookie_name,
@@ -294,6 +285,13 @@ class Document:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -321,7 +319,7 @@ class Document:
 
 
     @validate_call
-    def get_file(
+    def documents_get_file(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -367,7 +365,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_file_serialize(
+        _param = self._documents_get_file_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -378,10 +376,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -395,7 +390,7 @@ class Document:
 
 
     @validate_call
-    def get_file_with_http_info(
+    def documents_get_file_with_http_info(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -441,7 +436,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_file_serialize(
+        _param = self._documents_get_file_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -452,10 +447,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -469,7 +461,7 @@ class Document:
 
 
     @validate_call
-    def get_file_without_preload_content(
+    def documents_get_file_without_preload_content(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -515,7 +507,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_file_serialize(
+        _param = self._documents_get_file_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -526,10 +518,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -538,7 +527,7 @@ class Document:
         return response_data.response
 
 
-    def _get_file_serialize(
+    def _documents_get_file_serialize(
         self,
         document_id,
         cookie_name,
@@ -609,7 +598,7 @@ class Document:
 
 
     @validate_call
-    def import_documents(
+    def documents_import_documents(
         self,
         src: Annotated[StrictStr, Field(description="Source type which the documents will be imported from")],
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
@@ -676,7 +665,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._import_documents_serialize(
+        _param = self._documents_import_documents_serialize(
             src=src,
             drive_id=drive_id,
             drive_item_ids=drive_item_ids,
@@ -694,10 +683,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "UUID",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -711,7 +697,7 @@ class Document:
 
 
     @validate_call
-    def import_documents_with_http_info(
+    def documents_import_documents_with_http_info(
         self,
         src: Annotated[StrictStr, Field(description="Source type which the documents will be imported from")],
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
@@ -778,7 +764,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._import_documents_serialize(
+        _param = self._documents_import_documents_serialize(
             src=src,
             drive_id=drive_id,
             drive_item_ids=drive_item_ids,
@@ -796,10 +782,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "UUID",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -813,7 +796,7 @@ class Document:
 
 
     @validate_call
-    def import_documents_without_preload_content(
+    def documents_import_documents_without_preload_content(
         self,
         src: Annotated[StrictStr, Field(description="Source type which the documents will be imported from")],
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
@@ -880,7 +863,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._import_documents_serialize(
+        _param = self._documents_import_documents_serialize(
             src=src,
             drive_id=drive_id,
             drive_item_ids=drive_item_ids,
@@ -898,10 +881,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "UUID",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -910,7 +890,7 @@ class Document:
         return response_data.response
 
 
-    def _import_documents_serialize(
+    def _documents_import_documents_serialize(
         self,
         src,
         drive_id,
@@ -1016,7 +996,7 @@ class Document:
 
 
     @validate_call
-    def retry_document(
+    def documents_retry_document(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1062,7 +1042,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._retry_document_serialize(
+        _param = self._documents_retry_document_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1073,10 +1053,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1090,7 +1067,7 @@ class Document:
 
 
     @validate_call
-    def retry_document_with_http_info(
+    def documents_retry_document_with_http_info(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1136,7 +1113,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._retry_document_serialize(
+        _param = self._documents_retry_document_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1147,10 +1124,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1164,7 +1138,7 @@ class Document:
 
 
     @validate_call
-    def retry_document_without_preload_content(
+    def documents_retry_document_without_preload_content(
         self,
         document_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1210,7 +1184,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._retry_document_serialize(
+        _param = self._documents_retry_document_serialize(
             document_id=document_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1221,10 +1195,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1233,7 +1204,7 @@ class Document:
         return response_data.response
 
 
-    def _retry_document_serialize(
+    def _documents_retry_document_serialize(
         self,
         document_id,
         cookie_name,
@@ -1270,6 +1241,13 @@ class Document:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1297,7 +1275,7 @@ class Document:
 
 
     @validate_call
-    def unimport_documents(
+    def documents_unimport_documents(
         self,
         src: Annotated[StrictStr, Field(description="Source type which the documents will be imported from")],
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
@@ -1358,7 +1336,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._unimport_documents_serialize(
+        _param = self._documents_unimport_documents_serialize(
             src=src,
             drive_id=drive_id,
             drive_item_ids=drive_item_ids,
@@ -1374,10 +1352,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1391,7 +1366,7 @@ class Document:
 
 
     @validate_call
-    def unimport_documents_with_http_info(
+    def documents_unimport_documents_with_http_info(
         self,
         src: Annotated[StrictStr, Field(description="Source type which the documents will be imported from")],
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
@@ -1452,7 +1427,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._unimport_documents_serialize(
+        _param = self._documents_unimport_documents_serialize(
             src=src,
             drive_id=drive_id,
             drive_item_ids=drive_item_ids,
@@ -1468,10 +1443,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1485,7 +1457,7 @@ class Document:
 
 
     @validate_call
-    def unimport_documents_without_preload_content(
+    def documents_unimport_documents_without_preload_content(
         self,
         src: Annotated[StrictStr, Field(description="Source type which the documents will be imported from")],
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
@@ -1546,7 +1518,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._unimport_documents_serialize(
+        _param = self._documents_unimport_documents_serialize(
             src=src,
             drive_id=drive_id,
             drive_item_ids=drive_item_ids,
@@ -1562,10 +1534,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1574,7 +1543,7 @@ class Document:
         return response_data.response
 
 
-    def _unimport_documents_serialize(
+    def _documents_unimport_documents_serialize(
         self,
         src,
         drive_id,
@@ -1627,6 +1596,13 @@ class Document:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1667,7 +1643,7 @@ class Document:
 
 
     @validate_call
-    def upload_documents(
+    def documents_upload_documents(
         self,
         files: List[StrictStr],
         cookie_name: Optional[StrictStr] = None,
@@ -1728,7 +1704,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upload_documents_serialize(
+        _param = self._documents_upload_documents_serialize(
             files=files,
             cookie_name=cookie_name,
             project_id=project_id,
@@ -1744,10 +1720,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[Document]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1761,7 +1734,7 @@ class Document:
 
 
     @validate_call
-    def upload_documents_with_http_info(
+    def documents_upload_documents_with_http_info(
         self,
         files: List[StrictStr],
         cookie_name: Optional[StrictStr] = None,
@@ -1822,7 +1795,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upload_documents_serialize(
+        _param = self._documents_upload_documents_serialize(
             files=files,
             cookie_name=cookie_name,
             project_id=project_id,
@@ -1838,10 +1811,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[Document]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1855,7 +1825,7 @@ class Document:
 
 
     @validate_call
-    def upload_documents_without_preload_content(
+    def documents_upload_documents_without_preload_content(
         self,
         files: List[StrictStr],
         cookie_name: Optional[StrictStr] = None,
@@ -1916,7 +1886,7 @@ class Document:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._upload_documents_serialize(
+        _param = self._documents_upload_documents_serialize(
             files=files,
             cookie_name=cookie_name,
             project_id=project_id,
@@ -1932,10 +1902,7 @@ class Document:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[Document]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1944,7 +1911,7 @@ class Document:
         return response_data.response
 
 
-    def _upload_documents_serialize(
+    def _documents_upload_documents_serialize(
         self,
         files,
         cookie_name,

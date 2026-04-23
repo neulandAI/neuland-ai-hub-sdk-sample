@@ -39,7 +39,7 @@ class LlmSetting:
 
 
     @validate_call
-    def create_llm_settings(
+    def llm_create_llm_settings(
         self,
         llm_settings_in: LLMSettingsIn,
         cookie_name: Optional[StrictStr] = None,
@@ -85,7 +85,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_llm_settings_serialize(
+        _param = self._llm_create_llm_settings_serialize(
             llm_settings_in=llm_settings_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -96,10 +96,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -113,7 +110,7 @@ class LlmSetting:
 
 
     @validate_call
-    def create_llm_settings_with_http_info(
+    def llm_create_llm_settings_with_http_info(
         self,
         llm_settings_in: LLMSettingsIn,
         cookie_name: Optional[StrictStr] = None,
@@ -159,7 +156,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_llm_settings_serialize(
+        _param = self._llm_create_llm_settings_serialize(
             llm_settings_in=llm_settings_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -170,10 +167,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -187,7 +181,7 @@ class LlmSetting:
 
 
     @validate_call
-    def create_llm_settings_without_preload_content(
+    def llm_create_llm_settings_without_preload_content(
         self,
         llm_settings_in: LLMSettingsIn,
         cookie_name: Optional[StrictStr] = None,
@@ -233,7 +227,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_llm_settings_serialize(
+        _param = self._llm_create_llm_settings_serialize(
             llm_settings_in=llm_settings_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -244,10 +238,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -256,7 +247,7 @@ class LlmSetting:
         return response_data.response
 
 
-    def _create_llm_settings_serialize(
+    def _llm_create_llm_settings_serialize(
         self,
         llm_settings_in,
         cookie_name,
@@ -340,7 +331,7 @@ class LlmSetting:
 
 
     @validate_call
-    def delete_llm_settings(
+    def llm_delete_llm_settings(
         self,
         settings_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -386,7 +377,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_llm_settings_serialize(
+        _param = self._llm_delete_llm_settings_serialize(
             settings_id=settings_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -397,10 +388,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -414,7 +402,7 @@ class LlmSetting:
 
 
     @validate_call
-    def delete_llm_settings_with_http_info(
+    def llm_delete_llm_settings_with_http_info(
         self,
         settings_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -460,7 +448,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_llm_settings_serialize(
+        _param = self._llm_delete_llm_settings_serialize(
             settings_id=settings_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -471,10 +459,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -488,7 +473,7 @@ class LlmSetting:
 
 
     @validate_call
-    def delete_llm_settings_without_preload_content(
+    def llm_delete_llm_settings_without_preload_content(
         self,
         settings_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -534,7 +519,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_llm_settings_serialize(
+        _param = self._llm_delete_llm_settings_serialize(
             settings_id=settings_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -545,10 +530,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -557,7 +539,7 @@ class LlmSetting:
         return response_data.response
 
 
-    def _delete_llm_settings_serialize(
+    def _llm_delete_llm_settings_serialize(
         self,
         settings_id,
         cookie_name,
@@ -594,6 +576,13 @@ class LlmSetting:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -621,7 +610,7 @@ class LlmSetting:
 
 
     @validate_call
-    def update_llm_settings(
+    def llm_update_llm_settings(
         self,
         settings_id: StrictInt,
         llm_settings_update: LLMSettingsUpdate,
@@ -670,7 +659,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_llm_settings_serialize(
+        _param = self._llm_update_llm_settings_serialize(
             settings_id=settings_id,
             llm_settings_update=llm_settings_update,
             cookie_name=cookie_name,
@@ -682,10 +671,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -699,7 +685,7 @@ class LlmSetting:
 
 
     @validate_call
-    def update_llm_settings_with_http_info(
+    def llm_update_llm_settings_with_http_info(
         self,
         settings_id: StrictInt,
         llm_settings_update: LLMSettingsUpdate,
@@ -748,7 +734,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_llm_settings_serialize(
+        _param = self._llm_update_llm_settings_serialize(
             settings_id=settings_id,
             llm_settings_update=llm_settings_update,
             cookie_name=cookie_name,
@@ -760,10 +746,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -777,7 +760,7 @@ class LlmSetting:
 
 
     @validate_call
-    def update_llm_settings_without_preload_content(
+    def llm_update_llm_settings_without_preload_content(
         self,
         settings_id: StrictInt,
         llm_settings_update: LLMSettingsUpdate,
@@ -826,7 +809,7 @@ class LlmSetting:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_llm_settings_serialize(
+        _param = self._llm_update_llm_settings_serialize(
             settings_id=settings_id,
             llm_settings_update=llm_settings_update,
             cookie_name=cookie_name,
@@ -838,10 +821,7 @@ class LlmSetting:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -850,7 +830,7 @@ class LlmSetting:
         return response_data.response
 
 
-    def _update_llm_settings_serialize(
+    def _llm_update_llm_settings_serialize(
         self,
         settings_id,
         llm_settings_update,

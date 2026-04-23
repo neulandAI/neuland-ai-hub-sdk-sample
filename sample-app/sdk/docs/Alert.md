@@ -1,18 +1,21 @@
-# neuland_hub_sdk.LlmCatalog
+# neuland_hub_sdk.Alert
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**llm_create_catalog**](LlmCatalog.md#llm_create_catalog) | **POST** /llm/catalog | Create Catalog
-[**llm_delete_catalog**](LlmCatalog.md#llm_delete_catalog) | **DELETE** /llm/catalog/{catalog_id} | Delete Catalog
-[**llm_update_catalog**](LlmCatalog.md#llm_update_catalog) | **PATCH** /llm/catalog/{catalog_id} | Update Catalog
+[**alerts_create_alert**](Alert.md#alerts_create_alert) | **POST** /alerts/ | Create Alert
+[**alerts_delete_alert**](Alert.md#alerts_delete_alert) | **DELETE** /alerts/{alert_id} | Delete Alert
+[**alerts_update_alert**](Alert.md#alerts_update_alert) | **PATCH** /alerts/{alert_id} | Update Alert
 
 
-# **llm_create_catalog**
-> object llm_create_catalog(catalog_in, cookie_name=cookie_name)
+# **alerts_create_alert**
+> BudgetAlert alerts_create_alert(budget_alert_request, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Create Catalog
+Create Alert
+
+Create a new budget alert with threshold and current spend.
+Only Admins can do it.
 
 ### Example
 
@@ -21,7 +24,8 @@ Create Catalog
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.catalog_in import CatalogIn
+from neuland_hub_sdk.models.budget_alert import BudgetAlert
+from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -47,17 +51,18 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmCatalog(api_client)
-    catalog_in = neuland_hub_sdk.CatalogIn() # CatalogIn | 
+    api_instance = neuland_hub_sdk.Alert(api_client)
+    budget_alert_request = neuland_hub_sdk.BudgetAlertRequest() # BudgetAlertRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
 
     try:
-        # Create Catalog
-        api_response = api_instance.llm_create_catalog(catalog_in, cookie_name=cookie_name)
-        print("The response of LlmCatalog->llm_create_catalog:\n")
+        # Create Alert
+        api_response = api_instance.alerts_create_alert(budget_alert_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Alert->alerts_create_alert:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling LlmCatalog->llm_create_catalog: %s\n" % e)
+        print("Exception when calling Alert->alerts_create_alert: %s\n" % e)
 ```
 
 
@@ -67,12 +72,13 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **catalog_in** | [**CatalogIn**](CatalogIn.md)|  | 
+ **budget_alert_request** | [**BudgetAlertRequest**](BudgetAlertRequest.md)|  | 
  **cookie_name** | **str**|  | [optional] 
+ **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
-**object**
+[**BudgetAlert**](BudgetAlert.md)
 
 ### Authorization
 
@@ -92,10 +98,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **llm_delete_catalog**
-> llm_delete_catalog(catalog_id, cookie_name=cookie_name)
+# **alerts_delete_alert**
+> alerts_delete_alert(alert_id, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Delete Catalog
+Delete Alert
+
+Delete exisiting budget alert
 
 ### Example
 
@@ -129,15 +137,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmCatalog(api_client)
-    catalog_id = 56 # int | 
+    api_instance = neuland_hub_sdk.Alert(api_client)
+    alert_id = 56 # int | 
     cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
 
     try:
-        # Delete Catalog
-        api_instance.llm_delete_catalog(catalog_id, cookie_name=cookie_name)
+        # Delete Alert
+        api_instance.alerts_delete_alert(alert_id, cookie_name=cookie_name, tenant_id=tenant_id)
     except Exception as e:
-        print("Exception when calling LlmCatalog->llm_delete_catalog: %s\n" % e)
+        print("Exception when calling Alert->alerts_delete_alert: %s\n" % e)
 ```
 
 
@@ -147,8 +156,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **catalog_id** | **int**|  | 
+ **alert_id** | **int**|  | 
  **cookie_name** | **str**|  | [optional] 
+ **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -172,10 +182,13 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **llm_update_catalog**
-> object llm_update_catalog(catalog_id, catalog_update, cookie_name=cookie_name)
+# **alerts_update_alert**
+> BudgetAlert alerts_update_alert(alert_id, budget_alert_update, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Update Catalog
+Update Alert
+
+Updates a existing budget alert.
+Only Admins can do it.
 
 ### Example
 
@@ -184,7 +197,8 @@ Update Catalog
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.catalog_update import CatalogUpdate
+from neuland_hub_sdk.models.budget_alert import BudgetAlert
+from neuland_hub_sdk.models.budget_alert_update import BudgetAlertUpdate
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -210,18 +224,19 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmCatalog(api_client)
-    catalog_id = 56 # int | 
-    catalog_update = neuland_hub_sdk.CatalogUpdate() # CatalogUpdate | 
+    api_instance = neuland_hub_sdk.Alert(api_client)
+    alert_id = 56 # int | 
+    budget_alert_update = neuland_hub_sdk.BudgetAlertUpdate() # BudgetAlertUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
 
     try:
-        # Update Catalog
-        api_response = api_instance.llm_update_catalog(catalog_id, catalog_update, cookie_name=cookie_name)
-        print("The response of LlmCatalog->llm_update_catalog:\n")
+        # Update Alert
+        api_response = api_instance.alerts_update_alert(alert_id, budget_alert_update, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Alert->alerts_update_alert:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling LlmCatalog->llm_update_catalog: %s\n" % e)
+        print("Exception when calling Alert->alerts_update_alert: %s\n" % e)
 ```
 
 
@@ -231,13 +246,14 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **catalog_id** | **int**|  | 
- **catalog_update** | [**CatalogUpdate**](CatalogUpdate.md)|  | 
+ **alert_id** | **int**|  | 
+ **budget_alert_update** | [**BudgetAlertUpdate**](BudgetAlertUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
+ **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
-**object**
+[**BudgetAlert**](BudgetAlert.md)
 
 ### Authorization
 

@@ -4,16 +4,16 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_chat_document**](Document.md#delete_chat_document) | **DELETE** /documents/{document_id} | Delete Chat Document
-[**get_file**](Document.md#get_file) | **GET** /documents/{document_id} | Get File
-[**import_documents**](Document.md#import_documents) | **POST** /documents/import | Import Documents
-[**retry_document**](Document.md#retry_document) | **POST** /documents/{document_id}/retry | Retry Document
-[**unimport_documents**](Document.md#unimport_documents) | **DELETE** /documents/import | Unimport Documents
-[**upload_documents**](Document.md#upload_documents) | **POST** /documents/ | Upload Documents
+[**documents_delete_chat_document**](Document.md#documents_delete_chat_document) | **DELETE** /documents/{document_id} | Delete Chat Document
+[**documents_get_file**](Document.md#documents_get_file) | **GET** /documents/{document_id} | Get File
+[**documents_import_documents**](Document.md#documents_import_documents) | **POST** /documents/import | Import Documents
+[**documents_retry_document**](Document.md#documents_retry_document) | **POST** /documents/{document_id}/retry | Retry Document
+[**documents_unimport_documents**](Document.md#documents_unimport_documents) | **DELETE** /documents/import | Unimport Documents
+[**documents_upload_documents**](Document.md#documents_upload_documents) | **POST** /documents/ | Upload Documents
 
 
-# **delete_chat_document**
-> delete_chat_document(document_id, cookie_name=cookie_name)
+# **documents_delete_chat_document**
+> documents_delete_chat_document(document_id, cookie_name=cookie_name)
 
 Delete Chat Document
 
@@ -55,9 +55,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Delete Chat Document
-        api_instance.delete_chat_document(document_id, cookie_name=cookie_name)
+        api_instance.documents_delete_chat_document(document_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Document->delete_chat_document: %s\n" % e)
+        print("Exception when calling Document->documents_delete_chat_document: %s\n" % e)
 ```
 
 
@@ -81,22 +81,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_file**
-> object get_file(document_id, cookie_name=cookie_name)
+# **documents_get_file**
+> object documents_get_file(document_id, cookie_name=cookie_name)
 
 Get File
 
@@ -138,11 +135,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get File
-        api_response = api_instance.get_file(document_id, cookie_name=cookie_name)
-        print("The response of Document->get_file:\n")
+        api_response = api_instance.documents_get_file(document_id, cookie_name=cookie_name)
+        print("The response of Document->documents_get_file:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Document->get_file: %s\n" % e)
+        print("Exception when calling Document->documents_get_file: %s\n" % e)
 ```
 
 
@@ -173,15 +170,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **import_documents**
-> UUID import_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
+# **documents_import_documents**
+> UUID documents_import_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
 
 Import Documents
 
@@ -230,11 +224,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Import Documents
-        api_response = api_instance.import_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
-        print("The response of Document->import_documents:\n")
+        api_response = api_instance.documents_import_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
+        print("The response of Document->documents_import_documents:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Document->import_documents: %s\n" % e)
+        print("Exception when calling Document->documents_import_documents: %s\n" % e)
 ```
 
 
@@ -272,15 +266,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **retry_document**
-> retry_document(document_id, cookie_name=cookie_name)
+# **documents_retry_document**
+> documents_retry_document(document_id, cookie_name=cookie_name)
 
 Retry Document
 
@@ -322,9 +313,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Retry Document
-        api_instance.retry_document(document_id, cookie_name=cookie_name)
+        api_instance.documents_retry_document(document_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Document->retry_document: %s\n" % e)
+        print("Exception when calling Document->documents_retry_document: %s\n" % e)
 ```
 
 
@@ -348,22 +339,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **unimport_documents**
-> unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id)
+# **documents_unimport_documents**
+> documents_unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id)
 
 Unimport Documents
 
@@ -410,9 +398,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Unimport Documents
-        api_instance.unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id)
+        api_instance.documents_unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id)
     except Exception as e:
-        print("Exception when calling Document->unimport_documents: %s\n" % e)
+        print("Exception when calling Document->documents_unimport_documents: %s\n" % e)
 ```
 
 
@@ -441,22 +429,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upload_documents**
-> List[Document] upload_documents(files, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
+# **documents_upload_documents**
+> List[Document] documents_upload_documents(files, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
 
 Upload Documents
 
@@ -504,11 +489,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Upload Documents
-        api_response = api_instance.upload_documents(files, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
-        print("The response of Document->upload_documents:\n")
+        api_response = api_instance.documents_upload_documents(files, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
+        print("The response of Document->documents_upload_documents:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Document->upload_documents: %s\n" % e)
+        print("Exception when calling Document->documents_upload_documents: %s\n" % e)
 ```
 
 
@@ -544,10 +529,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,18 +1,18 @@
-# neuland_hub_sdk.Tariff
+# neuland_hub_sdk.Tarif
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_tariff**](Tariff.md#create_tariff) | **POST** /tarifs/ | Create Tariff
-[**delete_tariff**](Tariff.md#delete_tariff) | **DELETE** /tarifs/{tarif_id} | Delete Tariff
-[**update_tariff**](Tariff.md#update_tariff) | **PATCH** /tarifs/{tarif_id} | Update Tariff
+[**tarifs_create_tarif**](Tarif.md#tarifs_create_tarif) | **POST** /tarifs/ | Create Tarif
+[**tarifs_delete_tarif**](Tarif.md#tarifs_delete_tarif) | **DELETE** /tarifs/{tarif_id} | Delete Tarif
+[**tarifs_update_tarif**](Tarif.md#tarifs_update_tarif) | **PATCH** /tarifs/{tarif_id} | Update Tarif
 
 
-# **create_tariff**
-> Tariff create_tariff(tariff_in, cookie_name=cookie_name)
+# **tarifs_create_tarif**
+> Tarif tarifs_create_tarif(tarif_in, cookie_name=cookie_name)
 
-Create Tariff
+Create Tarif
 
 Create a new tarif plan.
 
@@ -23,8 +23,8 @@ Create a new tarif plan.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.tariff import Tariff
-from neuland_hub_sdk.models.tariff_in import TariffIn
+from neuland_hub_sdk.models.tarif import Tarif
+from neuland_hub_sdk.models.tarif_in import TarifIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -50,17 +50,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tariff(api_client)
-    tariff_in = neuland_hub_sdk.TariffIn() # TariffIn | 
+    api_instance = neuland_hub_sdk.Tarif(api_client)
+    tarif_in = neuland_hub_sdk.TarifIn() # TarifIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create Tariff
-        api_response = api_instance.create_tariff(tariff_in, cookie_name=cookie_name)
-        print("The response of Tariff->create_tariff:\n")
+        # Create Tarif
+        api_response = api_instance.tarifs_create_tarif(tarif_in, cookie_name=cookie_name)
+        print("The response of Tarif->tarifs_create_tarif:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Tariff->create_tariff: %s\n" % e)
+        print("Exception when calling Tarif->tarifs_create_tarif: %s\n" % e)
 ```
 
 
@@ -70,12 +70,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tariff_in** | [**TariffIn**](TariffIn.md)|  | 
+ **tarif_in** | [**TarifIn**](TarifIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**Tariff**](Tariff.md)
+[**Tarif**](Tarif.md)
 
 ### Authorization
 
@@ -91,17 +91,14 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_tariff**
-> delete_tariff(tarif_id, cookie_name=cookie_name)
+# **tarifs_delete_tarif**
+> tarifs_delete_tarif(tarif_id, cookie_name=cookie_name)
 
-Delete Tariff
+Delete Tarif
 
 Delete a tarif plan.
 
@@ -137,15 +134,15 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tariff(api_client)
+    api_instance = neuland_hub_sdk.Tarif(api_client)
     tarif_id = 56 # int | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Tariff
-        api_instance.delete_tariff(tarif_id, cookie_name=cookie_name)
+        # Delete Tarif
+        api_instance.tarifs_delete_tarif(tarif_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Tariff->delete_tariff: %s\n" % e)
+        print("Exception when calling Tarif->tarifs_delete_tarif: %s\n" % e)
 ```
 
 
@@ -169,24 +166,21 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_tariff**
-> Tariff update_tariff(tarif_id, tariff_in, cookie_name=cookie_name)
+# **tarifs_update_tarif**
+> Tarif tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name)
 
-Update Tariff
+Update Tarif
 
 Update an existing tarif plan.
 
@@ -197,8 +191,8 @@ Update an existing tarif plan.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.tariff import Tariff
-from neuland_hub_sdk.models.tariff_in import TariffIn
+from neuland_hub_sdk.models.tarif import Tarif
+from neuland_hub_sdk.models.tarif_in import TarifIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -224,18 +218,18 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tariff(api_client)
+    api_instance = neuland_hub_sdk.Tarif(api_client)
     tarif_id = 56 # int | 
-    tariff_in = neuland_hub_sdk.TariffIn() # TariffIn | 
+    tarif_in = neuland_hub_sdk.TarifIn() # TarifIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Tariff
-        api_response = api_instance.update_tariff(tarif_id, tariff_in, cookie_name=cookie_name)
-        print("The response of Tariff->update_tariff:\n")
+        # Update Tarif
+        api_response = api_instance.tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name)
+        print("The response of Tarif->tarifs_update_tarif:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Tariff->update_tariff: %s\n" % e)
+        print("Exception when calling Tarif->tarifs_update_tarif: %s\n" % e)
 ```
 
 
@@ -246,12 +240,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tarif_id** | **int**|  | 
- **tariff_in** | [**TariffIn**](TariffIn.md)|  | 
+ **tarif_in** | [**TarifIn**](TarifIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**Tariff**](Tariff.md)
+[**Tarif**](Tarif.md)
 
 ### Authorization
 
@@ -267,10 +261,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

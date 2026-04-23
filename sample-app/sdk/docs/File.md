@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**download_file**](File.md#download_file) | **GET** /files/{file_id} | Download File
+[**files_download_file**](File.md#files_download_file) | **GET** /files/{file_id} | Download File
 
 
-# **download_file**
-> object download_file(file_id, cookie_name=cookie_name)
+# **files_download_file**
+> object files_download_file(file_id, cookie_name=cookie_name)
 
 Download File
 
@@ -50,11 +50,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Download File
-        api_response = api_instance.download_file(file_id, cookie_name=cookie_name)
-        print("The response of File->download_file:\n")
+        api_response = api_instance.files_download_file(file_id, cookie_name=cookie_name)
+        print("The response of File->files_download_file:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling File->download_file: %s\n" % e)
+        print("Exception when calling File->files_download_file: %s\n" % e)
 ```
 
 
@@ -85,10 +85,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

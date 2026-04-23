@@ -39,7 +39,7 @@ class Settings:
 
 
     @validate_call
-    def current(
+    def settings_current(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -83,7 +83,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._current_serialize(
+        _param = self._settings_current_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -93,10 +93,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -110,7 +107,7 @@ class Settings:
 
 
     @validate_call
-    def current_with_http_info(
+    def settings_current_with_http_info(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -154,7 +151,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._current_serialize(
+        _param = self._settings_current_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -164,10 +161,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -181,7 +175,7 @@ class Settings:
 
 
     @validate_call
-    def current_without_preload_content(
+    def settings_current_without_preload_content(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -225,7 +219,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._current_serialize(
+        _param = self._settings_current_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -235,10 +229,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -247,7 +238,7 @@ class Settings:
         return response_data.response
 
 
-    def _current_serialize(
+    def _settings_current_serialize(
         self,
         cookie_name,
         _request_auth,
@@ -315,7 +306,7 @@ class Settings:
 
 
     @validate_call
-    def update_current_settings(
+    def settings_update_current_settings(
         self,
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
@@ -365,7 +356,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_current_settings_serialize(
+        _param = self._settings_update_current_settings_serialize(
             settings_in=settings_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -377,10 +368,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -394,7 +382,7 @@ class Settings:
 
 
     @validate_call
-    def update_current_settings_with_http_info(
+    def settings_update_current_settings_with_http_info(
         self,
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
@@ -444,7 +432,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_current_settings_serialize(
+        _param = self._settings_update_current_settings_serialize(
             settings_in=settings_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -456,10 +444,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -473,7 +458,7 @@ class Settings:
 
 
     @validate_call
-    def update_current_settings_without_preload_content(
+    def settings_update_current_settings_without_preload_content(
         self,
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
@@ -523,7 +508,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_current_settings_serialize(
+        _param = self._settings_update_current_settings_serialize(
             settings_in=settings_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -535,10 +520,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -547,7 +529,7 @@ class Settings:
         return response_data.response
 
 
-    def _update_current_settings_serialize(
+    def _settings_update_current_settings_serialize(
         self,
         settings_in,
         cookie_name,
@@ -636,7 +618,7 @@ class Settings:
 
 
     @validate_call
-    def update_settings(
+    def settings_update_settings(
         self,
         settings_id: StrictInt,
         settings_in: SettingsIn,
@@ -688,7 +670,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_settings_serialize(
+        _param = self._settings_update_settings_serialize(
             settings_id=settings_id,
             settings_in=settings_in,
             cookie_name=cookie_name,
@@ -701,10 +683,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -718,7 +697,7 @@ class Settings:
 
 
     @validate_call
-    def update_settings_with_http_info(
+    def settings_update_settings_with_http_info(
         self,
         settings_id: StrictInt,
         settings_in: SettingsIn,
@@ -770,7 +749,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_settings_serialize(
+        _param = self._settings_update_settings_serialize(
             settings_id=settings_id,
             settings_in=settings_in,
             cookie_name=cookie_name,
@@ -783,10 +762,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -800,7 +776,7 @@ class Settings:
 
 
     @validate_call
-    def update_settings_without_preload_content(
+    def settings_update_settings_without_preload_content(
         self,
         settings_id: StrictInt,
         settings_in: SettingsIn,
@@ -852,7 +828,7 @@ class Settings:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_settings_serialize(
+        _param = self._settings_update_settings_serialize(
             settings_id=settings_id,
             settings_in=settings_in,
             cookie_name=cookie_name,
@@ -865,10 +841,7 @@ class Settings:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Settings",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -877,7 +850,7 @@ class Settings:
         return response_data.response
 
 
-    def _update_settings_serialize(
+    def _settings_update_settings_serialize(
         self,
         settings_id,
         settings_in,

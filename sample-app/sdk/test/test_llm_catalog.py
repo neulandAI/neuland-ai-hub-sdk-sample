@@ -26,22 +26,22 @@ class TestLlmCatalog(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_create_catalog(self) -> None:
-        """Test case for create_catalog
+    def test_llm_create_catalog(self) -> None:
+        """Test case for llm_create_catalog
 
         Create Catalog
         """
         pass
 
-    def test_delete_catalog(self) -> None:
-        """Test case for delete_catalog
+    def test_llm_delete_catalog(self) -> None:
+        """Test case for llm_delete_catalog
 
         Delete Catalog
         """
         pass
 
-    def test_update_catalog(self) -> None:
-        """Test case for update_catalog
+    def test_llm_update_catalog(self) -> None:
+        """Test case for llm_update_catalog
 
         Update Catalog
         """

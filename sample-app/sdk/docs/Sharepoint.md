@@ -4,16 +4,16 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_item_info**](Sharepoint.md#get_item_info) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get Item Info
-[**get_user_info**](Sharepoint.md#get_user_info) | **GET** /integrations/sharepoint/me | Get User Info
-[**is_connected**](Sharepoint.md#is_connected) | **GET** /integrations/sharepoint/connected | Is Connected
-[**list_all_sites**](Sharepoint.md#list_all_sites) | **GET** /integrations/sharepoint/sites | List All Sites
-[**list_children**](Sharepoint.md#list_children) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List Children
-[**list_drives**](Sharepoint.md#list_drives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List Drives
+[**integrations_get_item_info**](Sharepoint.md#integrations_get_item_info) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get Item Info
+[**integrations_get_user_info**](Sharepoint.md#integrations_get_user_info) | **GET** /integrations/sharepoint/me | Get User Info
+[**integrations_is_connected**](Sharepoint.md#integrations_is_connected) | **GET** /integrations/sharepoint/connected | Is Connected
+[**integrations_list_all_sites**](Sharepoint.md#integrations_list_all_sites) | **GET** /integrations/sharepoint/sites | List All Sites
+[**integrations_list_children**](Sharepoint.md#integrations_list_children) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List Children
+[**integrations_list_drives**](Sharepoint.md#integrations_list_drives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List Drives
 
 
-# **get_item_info**
-> SharepointItemModel get_item_info(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+# **integrations_get_item_info**
+> SharepointItemModel integrations_get_item_info(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
 
 Get Item Info
 
@@ -61,11 +61,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get Item Info
-        api_response = api_instance.get_item_info(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
-        print("The response of Sharepoint->get_item_info:\n")
+        api_response = api_instance.integrations_get_item_info(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_get_item_info:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Sharepoint->get_item_info: %s\n" % e)
+        print("Exception when calling Sharepoint->integrations_get_item_info: %s\n" % e)
 ```
 
 
@@ -101,15 +101,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_user_info**
-> SharepointUserModel get_user_info(cookie_name=cookie_name)
+# **integrations_get_user_info**
+> SharepointUserModel integrations_get_user_info(cookie_name=cookie_name)
 
 Get User Info
 
@@ -151,11 +148,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get User Info
-        api_response = api_instance.get_user_info(cookie_name=cookie_name)
-        print("The response of Sharepoint->get_user_info:\n")
+        api_response = api_instance.integrations_get_user_info(cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_get_user_info:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Sharepoint->get_user_info: %s\n" % e)
+        print("Exception when calling Sharepoint->integrations_get_user_info: %s\n" % e)
 ```
 
 
@@ -185,15 +182,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **is_connected**
-> bool is_connected(cookie_name=cookie_name)
+# **integrations_is_connected**
+> bool integrations_is_connected(cookie_name=cookie_name)
 
 Is Connected
 
@@ -234,11 +228,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Is Connected
-        api_response = api_instance.is_connected(cookie_name=cookie_name)
-        print("The response of Sharepoint->is_connected:\n")
+        api_response = api_instance.integrations_is_connected(cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_is_connected:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Sharepoint->is_connected: %s\n" % e)
+        print("Exception when calling Sharepoint->integrations_is_connected: %s\n" % e)
 ```
 
 
@@ -268,15 +262,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_all_sites**
-> List[SharepointSiteModel] list_all_sites(chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+# **integrations_list_all_sites**
+> List[SharepointSiteModel] integrations_list_all_sites(chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
 
 List All Sites
 
@@ -322,11 +313,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # List All Sites
-        api_response = api_instance.list_all_sites(chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
-        print("The response of Sharepoint->list_all_sites:\n")
+        api_response = api_instance.integrations_list_all_sites(chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_list_all_sites:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Sharepoint->list_all_sites: %s\n" % e)
+        print("Exception when calling Sharepoint->integrations_list_all_sites: %s\n" % e)
 ```
 
 
@@ -360,15 +351,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_children**
-> List[SharepointItemModel] list_children(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, recursive=recursive, cookie_name=cookie_name)
+# **integrations_list_children**
+> List[SharepointItemModel] integrations_list_children(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, recursive=recursive, cookie_name=cookie_name)
 
 List Children
 
@@ -417,11 +405,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # List Children
-        api_response = api_instance.list_children(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, recursive=recursive, cookie_name=cookie_name)
-        print("The response of Sharepoint->list_children:\n")
+        api_response = api_instance.integrations_list_children(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, recursive=recursive, cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_list_children:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Sharepoint->list_children: %s\n" % e)
+        print("Exception when calling Sharepoint->integrations_list_children: %s\n" % e)
 ```
 
 
@@ -458,15 +446,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_drives**
-> List[SharepointDriveModel] list_drives(site_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+# **integrations_list_drives**
+> List[SharepointDriveModel] integrations_list_drives(site_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
 
 List Drives
 
@@ -513,11 +498,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # List Drives
-        api_response = api_instance.list_drives(site_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
-        print("The response of Sharepoint->list_drives:\n")
+        api_response = api_instance.integrations_list_drives(site_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_list_drives:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Sharepoint->list_drives: %s\n" % e)
+        print("Exception when calling Sharepoint->integrations_list_drives: %s\n" % e)
 ```
 
 
@@ -552,10 +537,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -1,6 +1,6 @@
-# TariffStatusEnum
+# TarifStatusEnum
 
-Enum for Tariff status in Tariff
+Enum for Tarif status in Tarif
 
 ## Enum
 

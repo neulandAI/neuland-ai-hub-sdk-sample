@@ -26,85 +26,85 @@ class TestAuth(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_azure_entra_callback(self) -> None:
-        """Test case for azure_entra_callback
+    def test_auth_azure_entra_callback(self) -> None:
+        """Test case for auth_azure_entra_callback
 
         Azure Entra Callback
         """
         pass
 
-    def test_confirm_email(self) -> None:
-        """Test case for confirm_email
+    def test_auth_confirm_email(self) -> None:
+        """Test case for auth_confirm_email
 
         Confirm Email
         """
         pass
 
-    def test_exchange_token(self) -> None:
-        """Test case for exchange_token
+    def test_auth_exchange_token(self) -> None:
+        """Test case for auth_exchange_token
 
         Exchange Token
         """
         pass
 
-    def test_get_entra_groups(self) -> None:
-        """Test case for get_entra_groups
+    def test_auth_get_entra_groups(self) -> None:
+        """Test case for auth_get_entra_groups
 
         Get Entra Groups
         """
         pass
 
-    def test_get_entra_scopes(self) -> None:
-        """Test case for get_entra_scopes
+    def test_auth_get_entra_scopes(self) -> None:
+        """Test case for auth_get_entra_scopes
 
         Get Entra Scopes
         """
         pass
 
-    def test_login(self) -> None:
-        """Test case for login
+    def test_auth_login(self) -> None:
+        """Test case for auth_login
 
         Login
         """
         pass
 
-    def test_logout(self) -> None:
-        """Test case for logout
+    def test_auth_logout(self) -> None:
+        """Test case for auth_logout
 
         Logout
         """
         pass
 
-    def test_oidc_callback(self) -> None:
-        """Test case for oidc_callback
+    def test_auth_oidc_callback(self) -> None:
+        """Test case for auth_oidc_callback
 
         Oidc Callback
         """
         pass
 
-    def test_request_password_reset(self) -> None:
-        """Test case for request_password_reset
+    def test_auth_request_password_reset(self) -> None:
+        """Test case for auth_request_password_reset
 
         Request Password Reset
         """
         pass
 
-    def test_reset_password(self) -> None:
-        """Test case for reset_password
+    def test_auth_reset_password(self) -> None:
+        """Test case for auth_reset_password
 
         Reset Password
         """
         pass
 
-    def test_reset_password_form(self) -> None:
-        """Test case for reset_password_form
+    def test_auth_reset_password_form(self) -> None:
+        """Test case for auth_reset_password_form
 
         Reset Password Form
         """
         pass
 
-    def test_send_email_confirmation(self) -> None:
-        """Test case for send_email_confirmation
+    def test_auth_send_email_confirmation(self) -> None:
+        """Test case for auth_send_email_confirmation
 
         Send Email Confirmation
         """

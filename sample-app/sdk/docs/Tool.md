@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**update_tool**](Tool.md#update_tool) | **PATCH** /tools/{tool_id} | Update Tool
+[**tools_update_tool**](Tool.md#tools_update_tool) | **PATCH** /tools/{tool_id} | Update Tool
 
 
-# **update_tool**
-> ToolOut update_tool(tool_id, tool_update, cookie_name=cookie_name)
+# **tools_update_tool**
+> ToolOut tools_update_tool(tool_id, tool_update, cookie_name=cookie_name)
 
 Update Tool
 
@@ -55,11 +55,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Tool
-        api_response = api_instance.update_tool(tool_id, tool_update, cookie_name=cookie_name)
-        print("The response of Tool->update_tool:\n")
+        api_response = api_instance.tools_update_tool(tool_id, tool_update, cookie_name=cookie_name)
+        print("The response of Tool->tools_update_tool:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Tool->update_tool: %s\n" % e)
+        print("Exception when calling Tool->tools_update_tool: %s\n" % e)
 ```
 
 
@@ -91,10 +91,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

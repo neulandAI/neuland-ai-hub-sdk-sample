@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_app**](Application.md#create_app) | **POST** /applications/ | Create App
-[**delete_app**](Application.md#delete_app) | **DELETE** /applications/{app_id} | Delete App
-[**update_app**](Application.md#update_app) | **PATCH** /applications/{app_id} | Update App
-[**update_group_membership**](Application.md#update_group_membership) | **PUT** /applications/group/access | Update Group Membership
-[**update_user_membership**](Application.md#update_user_membership) | **PUT** /applications/user/access | Update User Membership
+[**applications_create_app**](Application.md#applications_create_app) | **POST** /applications/ | Create App
+[**applications_delete_app**](Application.md#applications_delete_app) | **DELETE** /applications/{app_id} | Delete App
+[**applications_update_app**](Application.md#applications_update_app) | **PATCH** /applications/{app_id} | Update App
+[**applications_update_group_membership**](Application.md#applications_update_group_membership) | **PUT** /applications/group/access | Update Group Membership
+[**applications_update_user_membership**](Application.md#applications_update_user_membership) | **PUT** /applications/user/access | Update User Membership
 
 
-# **create_app**
-> object create_app(application_in, cookie_name=cookie_name)
+# **applications_create_app**
+> object applications_create_app(application_in, cookie_name=cookie_name)
 
 Create App
 
@@ -57,11 +57,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create App
-        api_response = api_instance.create_app(application_in, cookie_name=cookie_name)
-        print("The response of Application->create_app:\n")
+        api_response = api_instance.applications_create_app(application_in, cookie_name=cookie_name)
+        print("The response of Application->applications_create_app:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Application->create_app: %s\n" % e)
+        print("Exception when calling Application->applications_create_app: %s\n" % e)
 ```
 
 
@@ -92,15 +92,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_app**
-> delete_app(app_id, cookie_name=cookie_name)
+# **applications_delete_app**
+> applications_delete_app(app_id, cookie_name=cookie_name)
 
 Delete App
 
@@ -144,9 +141,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Delete App
-        api_instance.delete_app(app_id, cookie_name=cookie_name)
+        api_instance.applications_delete_app(app_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Application->delete_app: %s\n" % e)
+        print("Exception when calling Application->applications_delete_app: %s\n" % e)
 ```
 
 
@@ -170,22 +167,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_app**
-> Application update_app(app_id, application_in, cookie_name=cookie_name)
+# **applications_update_app**
+> Application applications_update_app(app_id, application_in, cookie_name=cookie_name)
 
 Update App
 
@@ -232,11 +226,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update App
-        api_response = api_instance.update_app(app_id, application_in, cookie_name=cookie_name)
-        print("The response of Application->update_app:\n")
+        api_response = api_instance.applications_update_app(app_id, application_in, cookie_name=cookie_name)
+        print("The response of Application->applications_update_app:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Application->update_app: %s\n" % e)
+        print("Exception when calling Application->applications_update_app: %s\n" % e)
 ```
 
 
@@ -268,15 +262,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_group_membership**
-> List[ApplicationGroup] update_group_membership(group_app_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
+# **applications_update_group_membership**
+> List[ApplicationGroup] applications_update_group_membership(group_app_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
 
 Update Group Membership
 
@@ -323,11 +314,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Group Membership
-        api_response = api_instance.update_group_membership(group_app_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
-        print("The response of Application->update_group_membership:\n")
+        api_response = api_instance.applications_update_group_membership(group_app_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Application->applications_update_group_membership:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Application->update_group_membership: %s\n" % e)
+        print("Exception when calling Application->applications_update_group_membership: %s\n" % e)
 ```
 
 
@@ -359,15 +350,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_user_membership**
-> List[ApplicationMember] update_user_membership(application_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
+# **applications_update_user_membership**
+> List[ApplicationMember] applications_update_user_membership(application_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
 
 Update User Membership
 
@@ -414,11 +402,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update User Membership
-        api_response = api_instance.update_user_membership(application_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
-        print("The response of Application->update_user_membership:\n")
+        api_response = api_instance.applications_update_user_membership(application_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Application->applications_update_user_membership:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Application->update_user_membership: %s\n" % e)
+        print("Exception when calling Application->applications_update_user_membership: %s\n" % e)
 ```
 
 
@@ -450,10 +438,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

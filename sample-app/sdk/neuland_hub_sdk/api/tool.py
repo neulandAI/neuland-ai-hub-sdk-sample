@@ -39,7 +39,7 @@ class Tool:
 
 
     @validate_call
-    def update_tool(
+    def tools_update_tool(
         self,
         tool_id: StrictInt,
         tool_update: ToolUpdate,
@@ -89,7 +89,7 @@ class Tool:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_tool_serialize(
+        _param = self._tools_update_tool_serialize(
             tool_id=tool_id,
             tool_update=tool_update,
             cookie_name=cookie_name,
@@ -101,10 +101,7 @@ class Tool:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ToolOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -118,7 +115,7 @@ class Tool:
 
 
     @validate_call
-    def update_tool_with_http_info(
+    def tools_update_tool_with_http_info(
         self,
         tool_id: StrictInt,
         tool_update: ToolUpdate,
@@ -168,7 +165,7 @@ class Tool:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_tool_serialize(
+        _param = self._tools_update_tool_serialize(
             tool_id=tool_id,
             tool_update=tool_update,
             cookie_name=cookie_name,
@@ -180,10 +177,7 @@ class Tool:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ToolOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -197,7 +191,7 @@ class Tool:
 
 
     @validate_call
-    def update_tool_without_preload_content(
+    def tools_update_tool_without_preload_content(
         self,
         tool_id: StrictInt,
         tool_update: ToolUpdate,
@@ -247,7 +241,7 @@ class Tool:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_tool_serialize(
+        _param = self._tools_update_tool_serialize(
             tool_id=tool_id,
             tool_update=tool_update,
             cookie_name=cookie_name,
@@ -259,10 +253,7 @@ class Tool:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ToolOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -271,7 +262,7 @@ class Tool:
         return response_data.response
 
 
-    def _update_tool_serialize(
+    def _tools_update_tool_serialize(
         self,
         tool_id,
         tool_update,

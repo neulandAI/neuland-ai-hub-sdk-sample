@@ -41,7 +41,7 @@ class Sharepoint:
 
 
     @validate_call
-    def get_item_info(
+    def integrations_get_item_info(
         self,
         drive_id: StrictStr,
         drive_item_id: StrictStr,
@@ -102,7 +102,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_item_info_serialize(
+        _param = self._integrations_get_item_info_serialize(
             drive_id=drive_id,
             drive_item_id=drive_item_id,
             chat_id=chat_id,
@@ -118,10 +118,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SharepointItemModel",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -135,7 +132,7 @@ class Sharepoint:
 
 
     @validate_call
-    def get_item_info_with_http_info(
+    def integrations_get_item_info_with_http_info(
         self,
         drive_id: StrictStr,
         drive_item_id: StrictStr,
@@ -196,7 +193,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_item_info_serialize(
+        _param = self._integrations_get_item_info_serialize(
             drive_id=drive_id,
             drive_item_id=drive_item_id,
             chat_id=chat_id,
@@ -212,10 +209,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SharepointItemModel",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -229,7 +223,7 @@ class Sharepoint:
 
 
     @validate_call
-    def get_item_info_without_preload_content(
+    def integrations_get_item_info_without_preload_content(
         self,
         drive_id: StrictStr,
         drive_item_id: StrictStr,
@@ -290,7 +284,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_item_info_serialize(
+        _param = self._integrations_get_item_info_serialize(
             drive_id=drive_id,
             drive_item_id=drive_item_id,
             chat_id=chat_id,
@@ -306,10 +300,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SharepointItemModel",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -318,7 +309,7 @@ class Sharepoint:
         return response_data.response
 
 
-    def _get_item_info_serialize(
+    def _integrations_get_item_info_serialize(
         self,
         drive_id,
         drive_item_id,
@@ -412,7 +403,7 @@ class Sharepoint:
 
 
     @validate_call
-    def get_user_info(
+    def integrations_get_user_info(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -455,7 +446,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_info_serialize(
+        _param = self._integrations_get_user_info_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -465,10 +456,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SharepointUserModel",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -482,7 +470,7 @@ class Sharepoint:
 
 
     @validate_call
-    def get_user_info_with_http_info(
+    def integrations_get_user_info_with_http_info(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -525,7 +513,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_info_serialize(
+        _param = self._integrations_get_user_info_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -535,10 +523,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SharepointUserModel",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -552,7 +537,7 @@ class Sharepoint:
 
 
     @validate_call
-    def get_user_info_without_preload_content(
+    def integrations_get_user_info_without_preload_content(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -595,7 +580,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_user_info_serialize(
+        _param = self._integrations_get_user_info_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -605,10 +590,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SharepointUserModel",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -617,7 +599,7 @@ class Sharepoint:
         return response_data.response
 
 
-    def _get_user_info_serialize(
+    def _integrations_get_user_info_serialize(
         self,
         cookie_name,
         _request_auth,
@@ -685,7 +667,7 @@ class Sharepoint:
 
 
     @validate_call
-    def is_connected(
+    def integrations_is_connected(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -728,7 +710,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._is_connected_serialize(
+        _param = self._integrations_is_connected_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -738,10 +720,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -755,7 +734,7 @@ class Sharepoint:
 
 
     @validate_call
-    def is_connected_with_http_info(
+    def integrations_is_connected_with_http_info(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -798,7 +777,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._is_connected_serialize(
+        _param = self._integrations_is_connected_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -808,10 +787,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -825,7 +801,7 @@ class Sharepoint:
 
 
     @validate_call
-    def is_connected_without_preload_content(
+    def integrations_is_connected_without_preload_content(
         self,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -868,7 +844,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._is_connected_serialize(
+        _param = self._integrations_is_connected_serialize(
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -878,10 +854,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -890,7 +863,7 @@ class Sharepoint:
         return response_data.response
 
 
-    def _is_connected_serialize(
+    def _integrations_is_connected_serialize(
         self,
         cookie_name,
         _request_auth,
@@ -958,7 +931,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_all_sites(
+    def integrations_list_all_sites(
         self,
         chat_id: Optional[StrictInt] = None,
         library_id: Optional[StrictInt] = None,
@@ -1013,7 +986,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_all_sites_serialize(
+        _param = self._integrations_list_all_sites_serialize(
             chat_id=chat_id,
             library_id=library_id,
             assistant_id=assistant_id,
@@ -1027,10 +1000,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointSiteModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1044,7 +1014,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_all_sites_with_http_info(
+    def integrations_list_all_sites_with_http_info(
         self,
         chat_id: Optional[StrictInt] = None,
         library_id: Optional[StrictInt] = None,
@@ -1099,7 +1069,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_all_sites_serialize(
+        _param = self._integrations_list_all_sites_serialize(
             chat_id=chat_id,
             library_id=library_id,
             assistant_id=assistant_id,
@@ -1113,10 +1083,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointSiteModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1130,7 +1097,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_all_sites_without_preload_content(
+    def integrations_list_all_sites_without_preload_content(
         self,
         chat_id: Optional[StrictInt] = None,
         library_id: Optional[StrictInt] = None,
@@ -1185,7 +1152,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_all_sites_serialize(
+        _param = self._integrations_list_all_sites_serialize(
             chat_id=chat_id,
             library_id=library_id,
             assistant_id=assistant_id,
@@ -1199,10 +1166,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointSiteModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1211,7 +1175,7 @@ class Sharepoint:
         return response_data.response
 
 
-    def _list_all_sites_serialize(
+    def _integrations_list_all_sites_serialize(
         self,
         chat_id,
         library_id,
@@ -1299,7 +1263,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_children(
+    def integrations_list_children(
         self,
         drive_id: StrictStr,
         drive_item_id: StrictStr,
@@ -1363,7 +1327,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_children_serialize(
+        _param = self._integrations_list_children_serialize(
             drive_id=drive_id,
             drive_item_id=drive_item_id,
             chat_id=chat_id,
@@ -1380,10 +1344,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointItemModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1397,7 +1358,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_children_with_http_info(
+    def integrations_list_children_with_http_info(
         self,
         drive_id: StrictStr,
         drive_item_id: StrictStr,
@@ -1461,7 +1422,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_children_serialize(
+        _param = self._integrations_list_children_serialize(
             drive_id=drive_id,
             drive_item_id=drive_item_id,
             chat_id=chat_id,
@@ -1478,10 +1439,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointItemModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1495,7 +1453,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_children_without_preload_content(
+    def integrations_list_children_without_preload_content(
         self,
         drive_id: StrictStr,
         drive_item_id: StrictStr,
@@ -1559,7 +1517,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_children_serialize(
+        _param = self._integrations_list_children_serialize(
             drive_id=drive_id,
             drive_item_id=drive_item_id,
             chat_id=chat_id,
@@ -1576,10 +1534,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointItemModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1588,7 +1543,7 @@ class Sharepoint:
         return response_data.response
 
 
-    def _list_children_serialize(
+    def _integrations_list_children_serialize(
         self,
         drive_id,
         drive_item_id,
@@ -1687,7 +1642,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_drives(
+    def integrations_list_drives(
         self,
         site_id: StrictStr,
         chat_id: Optional[StrictInt] = None,
@@ -1745,7 +1700,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_drives_serialize(
+        _param = self._integrations_list_drives_serialize(
             site_id=site_id,
             chat_id=chat_id,
             library_id=library_id,
@@ -1760,10 +1715,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointDriveModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1777,7 +1729,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_drives_with_http_info(
+    def integrations_list_drives_with_http_info(
         self,
         site_id: StrictStr,
         chat_id: Optional[StrictInt] = None,
@@ -1835,7 +1787,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_drives_serialize(
+        _param = self._integrations_list_drives_serialize(
             site_id=site_id,
             chat_id=chat_id,
             library_id=library_id,
@@ -1850,10 +1802,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointDriveModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1867,7 +1816,7 @@ class Sharepoint:
 
 
     @validate_call
-    def list_drives_without_preload_content(
+    def integrations_list_drives_without_preload_content(
         self,
         site_id: StrictStr,
         chat_id: Optional[StrictInt] = None,
@@ -1925,7 +1874,7 @@ class Sharepoint:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._list_drives_serialize(
+        _param = self._integrations_list_drives_serialize(
             site_id=site_id,
             chat_id=chat_id,
             library_id=library_id,
@@ -1940,10 +1889,7 @@ class Sharepoint:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SharepointDriveModel]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1952,7 +1898,7 @@ class Sharepoint:
         return response_data.response
 
 
-    def _list_drives_serialize(
+    def _integrations_list_drives_serialize(
         self,
         site_id,
         chat_id,

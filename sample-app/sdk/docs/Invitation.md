@@ -1,18 +1,18 @@
-# neuland_hub_sdk.AuthInvitation
+# neuland_hub_sdk.Invitation
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**accept_invitation_complete**](AuthInvitation.md#accept_invitation_complete) | **POST** /invitations/accept | Accept Invitation Complete
-[**accept_invitation_form**](AuthInvitation.md#accept_invitation_form) | **GET** /invitations/accept | Accept Invitation Form
-[**create_invitations**](AuthInvitation.md#create_invitations) | **POST** /invitations/ | Create Invitations
-[**resend_invitation**](AuthInvitation.md#resend_invitation) | **POST** /invitations/{invitation_id}/resend | Resend Invitation
-[**revoke_invitation**](AuthInvitation.md#revoke_invitation) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation
+[**invitations_accept_invitation_complete**](Invitation.md#invitations_accept_invitation_complete) | **POST** /invitations/accept | Accept Invitation Complete
+[**invitations_accept_invitation_form**](Invitation.md#invitations_accept_invitation_form) | **GET** /invitations/accept | Accept Invitation Form
+[**invitations_create_invitations**](Invitation.md#invitations_create_invitations) | **POST** /invitations/ | Create Invitations
+[**invitations_resend_invitation**](Invitation.md#invitations_resend_invitation) | **POST** /invitations/{invitation_id}/resend | Resend Invitation
+[**invitations_revoke_invitation**](Invitation.md#invitations_revoke_invitation) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation
 
 
-# **accept_invitation_complete**
-> object accept_invitation_complete(token)
+# **invitations_accept_invitation_complete**
+> object invitations_accept_invitation_complete(token)
 
 Accept Invitation Complete
 
@@ -36,16 +36,16 @@ configuration = neuland_hub_sdk.Configuration(
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthInvitation(api_client)
+    api_instance = neuland_hub_sdk.Invitation(api_client)
     token = 'token_example' # str | Invitation JWT token
 
     try:
         # Accept Invitation Complete
-        api_response = api_instance.accept_invitation_complete(token)
-        print("The response of AuthInvitation->accept_invitation_complete:\n")
+        api_response = api_instance.invitations_accept_invitation_complete(token)
+        print("The response of Invitation->invitations_accept_invitation_complete:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthInvitation->accept_invitation_complete: %s\n" % e)
+        print("Exception when calling Invitation->invitations_accept_invitation_complete: %s\n" % e)
 ```
 
 
@@ -75,15 +75,12 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **accept_invitation_form**
-> str accept_invitation_form(token)
+# **invitations_accept_invitation_form**
+> str invitations_accept_invitation_form(token)
 
 Accept Invitation Form
 
@@ -107,16 +104,16 @@ configuration = neuland_hub_sdk.Configuration(
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthInvitation(api_client)
+    api_instance = neuland_hub_sdk.Invitation(api_client)
     token = 'token_example' # str | Invitation JWT token
 
     try:
         # Accept Invitation Form
-        api_response = api_instance.accept_invitation_form(token)
-        print("The response of AuthInvitation->accept_invitation_form:\n")
+        api_response = api_instance.invitations_accept_invitation_form(token)
+        print("The response of Invitation->invitations_accept_invitation_form:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthInvitation->accept_invitation_form: %s\n" % e)
+        print("Exception when calling Invitation->invitations_accept_invitation_form: %s\n" % e)
 ```
 
 
@@ -139,22 +136,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/html
+ - **Accept**: text/html, application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_invitations**
-> List[InvitationOut] create_invitations(invitation_in, cookie_name=cookie_name)
+# **invitations_create_invitations**
+> List[InvitationOut] invitations_create_invitations(invitation_in, cookie_name=cookie_name)
 
 Create Invitations
 
@@ -192,17 +186,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthInvitation(api_client)
+    api_instance = neuland_hub_sdk.Invitation(api_client)
     invitation_in = neuland_hub_sdk.InvitationIn() # InvitationIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Create Invitations
-        api_response = api_instance.create_invitations(invitation_in, cookie_name=cookie_name)
-        print("The response of AuthInvitation->create_invitations:\n")
+        api_response = api_instance.invitations_create_invitations(invitation_in, cookie_name=cookie_name)
+        print("The response of Invitation->invitations_create_invitations:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthInvitation->create_invitations: %s\n" % e)
+        print("Exception when calling Invitation->invitations_create_invitations: %s\n" % e)
 ```
 
 
@@ -233,15 +227,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **resend_invitation**
-> InvitationOut resend_invitation(invitation_id, cookie_name=cookie_name)
+# **invitations_resend_invitation**
+> InvitationOut invitations_resend_invitation(invitation_id, cookie_name=cookie_name)
 
 Resend Invitation
 
@@ -280,17 +271,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthInvitation(api_client)
+    api_instance = neuland_hub_sdk.Invitation(api_client)
     invitation_id = 56 # int | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Resend Invitation
-        api_response = api_instance.resend_invitation(invitation_id, cookie_name=cookie_name)
-        print("The response of AuthInvitation->resend_invitation:\n")
+        api_response = api_instance.invitations_resend_invitation(invitation_id, cookie_name=cookie_name)
+        print("The response of Invitation->invitations_resend_invitation:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthInvitation->resend_invitation: %s\n" % e)
+        print("Exception when calling Invitation->invitations_resend_invitation: %s\n" % e)
 ```
 
 
@@ -321,15 +312,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **revoke_invitation**
-> revoke_invitation(invitation_id, cookie_name=cookie_name)
+# **invitations_revoke_invitation**
+> invitations_revoke_invitation(invitation_id, cookie_name=cookie_name)
 
 Revoke Invitation
 
@@ -365,15 +353,15 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthInvitation(api_client)
+    api_instance = neuland_hub_sdk.Invitation(api_client)
     invitation_id = 56 # int | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Revoke Invitation
-        api_instance.revoke_invitation(invitation_id, cookie_name=cookie_name)
+        api_instance.invitations_revoke_invitation(invitation_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling AuthInvitation->revoke_invitation: %s\n" % e)
+        print("Exception when calling Invitation->invitations_revoke_invitation: %s\n" % e)
 ```
 
 
@@ -397,17 +385,14 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -42,7 +42,7 @@ class Llm:
 
 
     @validate_call
-    def get_cost(
+    def llm_get_cost(
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -92,7 +92,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_cost_serialize(
+        _param = self._llm_get_cost_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -104,10 +104,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TimeseriesResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -121,7 +118,7 @@ class Llm:
 
 
     @validate_call
-    def get_cost_with_http_info(
+    def llm_get_cost_with_http_info(
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -171,7 +168,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_cost_serialize(
+        _param = self._llm_get_cost_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -183,10 +180,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TimeseriesResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -200,7 +194,7 @@ class Llm:
 
 
     @validate_call
-    def get_cost_without_preload_content(
+    def llm_get_cost_without_preload_content(
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -250,7 +244,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_cost_serialize(
+        _param = self._llm_get_cost_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -262,10 +256,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TimeseriesResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -274,7 +265,7 @@ class Llm:
         return response_data.response
 
 
-    def _get_cost_serialize(
+    def _llm_get_cost_serialize(
         self,
         usage_request,
         cookie_name,
@@ -363,7 +354,7 @@ class Llm:
 
 
     @validate_call
-    def get_usage_costs(
+    def llm_get_usage_costs(
         self,
         usage_cost_request: UsageCostRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -413,7 +404,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_usage_costs_serialize(
+        _param = self._llm_get_usage_costs_serialize(
             usage_cost_request=usage_cost_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -425,10 +416,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UsageCostResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -442,7 +430,7 @@ class Llm:
 
 
     @validate_call
-    def get_usage_costs_with_http_info(
+    def llm_get_usage_costs_with_http_info(
         self,
         usage_cost_request: UsageCostRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -492,7 +480,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_usage_costs_serialize(
+        _param = self._llm_get_usage_costs_serialize(
             usage_cost_request=usage_cost_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -504,10 +492,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UsageCostResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -521,7 +506,7 @@ class Llm:
 
 
     @validate_call
-    def get_usage_costs_without_preload_content(
+    def llm_get_usage_costs_without_preload_content(
         self,
         usage_cost_request: UsageCostRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -571,7 +556,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_usage_costs_serialize(
+        _param = self._llm_get_usage_costs_serialize(
             usage_cost_request=usage_cost_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -583,10 +568,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UsageCostResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -595,7 +577,7 @@ class Llm:
         return response_data.response
 
 
-    def _get_usage_costs_serialize(
+    def _llm_get_usage_costs_serialize(
         self,
         usage_cost_request,
         cookie_name,
@@ -684,7 +666,7 @@ class Llm:
 
 
     @validate_call
-    def llm_total_tokens(
+    def llm_llm_total_tokens(
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -734,7 +716,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._llm_total_tokens_serialize(
+        _param = self._llm_llm_total_tokens_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -746,10 +728,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokensTimeseriesResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -763,7 +742,7 @@ class Llm:
 
 
     @validate_call
-    def llm_total_tokens_with_http_info(
+    def llm_llm_total_tokens_with_http_info(
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -813,7 +792,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._llm_total_tokens_serialize(
+        _param = self._llm_llm_total_tokens_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -825,10 +804,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokensTimeseriesResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -842,7 +818,7 @@ class Llm:
 
 
     @validate_call
-    def llm_total_tokens_without_preload_content(
+    def llm_llm_total_tokens_without_preload_content(
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
@@ -892,7 +868,7 @@ class Llm:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._llm_total_tokens_serialize(
+        _param = self._llm_llm_total_tokens_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -904,10 +880,7 @@ class Llm:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokensTimeseriesResponse",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -916,7 +889,7 @@ class Llm:
         return response_data.response
 
 
-    def _llm_total_tokens_serialize(
+    def _llm_llm_total_tokens_serialize(
         self,
         usage_request,
         cookie_name,

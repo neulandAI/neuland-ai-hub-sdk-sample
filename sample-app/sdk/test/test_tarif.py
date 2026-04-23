@@ -14,10 +14,10 @@
 
 import unittest
 
-from neuland_hub_sdk.models.tariff_in import TariffIn
+from neuland_hub_sdk.models.tarif import Tarif
 
-class TestTariffIn(unittest.TestCase):
-    """TariffIn unit test stubs"""
+class TestTarif(unittest.TestCase):
+    """Tarif unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,34 +25,38 @@ class TestTariffIn(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> TariffIn:
-        """Test TariffIn
+    def make_instance(self, include_optional) -> Tarif:
+        """Test Tarif
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `TariffIn`
+        # uncomment below to create an instance of `Tarif`
         """
-        model = TariffIn()
+        model = Tarif()
         if include_optional:
-            return TariffIn(
+            return Tarif(
+                id = 56,
                 name = '',
                 price = 1.337,
-                hard_limit = 1.337,
-                status = 'ACTIVE',
-                expires_at = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(),
+                hard_limit = 0.0,
+                is_unlimited = True,
                 description = '',
-                is_unlimited = True
+                status = 'ACTIVE',
+                is_default = True,
+                creator_user_id = 56,
+                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else:
-            return TariffIn(
+            return Tarif(
                 name = '',
                 price = 1.337,
-                hard_limit = 1.337,
+                creator_user_id = 56,
         )
         """
 
-    def testTariffIn(self):
-        """Test TariffIn"""
+    def testTarif(self):
+        """Test Tarif"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

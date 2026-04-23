@@ -26,10 +26,10 @@ class TestStorage(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_download_shared_file(self) -> None:
-        """Test case for download_shared_file
+    def test_storage_download_file(self) -> None:
+        """Test case for storage_download_file
 
-        Download Shared File
+        Download File
         """
         pass
 

@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_template**](Template.md#create_template) | **POST** /templates/ | Create Template
-[**delete_template**](Template.md#delete_template) | **DELETE** /templates/{template_id} | Delete Template
-[**update_template**](Template.md#update_template) | **PATCH** /templates/{template_id} | Update Template
+[**templates_create**](Template.md#templates_create) | **POST** /templates/ | Create
+[**templates_delete**](Template.md#templates_delete) | **DELETE** /templates/{template_id} | Delete
+[**templates_update**](Template.md#templates_update) | **PATCH** /templates/{template_id} | Update
 
 
-# **create_template**
-> TemplateOut create_template(template_in, tenant_id=tenant_id, cookie_name=cookie_name)
+# **templates_create**
+> TemplateOut templates_create(template_in, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Create Template
+Create
 
 ### Example
 
@@ -54,12 +54,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create Template
-        api_response = api_instance.create_template(template_in, tenant_id=tenant_id, cookie_name=cookie_name)
-        print("The response of Template->create_template:\n")
+        # Create
+        api_response = api_instance.templates_create(template_in, tenant_id=tenant_id, cookie_name=cookie_name)
+        print("The response of Template->templates_create:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Template->create_template: %s\n" % e)
+        print("Exception when calling Template->templates_create: %s\n" % e)
 ```
 
 
@@ -91,17 +91,14 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_template**
-> delete_template(template_id, tenant_id=tenant_id, cookie_name=cookie_name)
+# **templates_delete**
+> templates_delete(template_id, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Delete Template
+Delete
 
 ### Example
 
@@ -141,10 +138,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Template
-        api_instance.delete_template(template_id, tenant_id=tenant_id, cookie_name=cookie_name)
+        # Delete
+        api_instance.templates_delete(template_id, tenant_id=tenant_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Template->delete_template: %s\n" % e)
+        print("Exception when calling Template->templates_delete: %s\n" % e)
 ```
 
 
@@ -169,24 +166,21 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_template**
-> TemplateOut update_template(template_id, template_in, tenant_id=tenant_id, cookie_name=cookie_name)
+# **templates_update**
+> TemplateOut templates_update(template_id, template_in, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Update Template
+Update
 
 ### Example
 
@@ -229,12 +223,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Template
-        api_response = api_instance.update_template(template_id, template_in, tenant_id=tenant_id, cookie_name=cookie_name)
-        print("The response of Template->update_template:\n")
+        # Update
+        api_response = api_instance.templates_update(template_id, template_in, tenant_id=tenant_id, cookie_name=cookie_name)
+        print("The response of Template->templates_update:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Template->update_template: %s\n" % e)
+        print("Exception when calling Template->templates_update: %s\n" % e)
 ```
 
 
@@ -267,10 +261,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

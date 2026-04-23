@@ -26,22 +26,22 @@ class TestLlmSetting(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_create_llm_settings(self) -> None:
-        """Test case for create_llm_settings
+    def test_llm_create_llm_settings(self) -> None:
+        """Test case for llm_create_llm_settings
 
         Create Llm Settings
         """
         pass
 
-    def test_delete_llm_settings(self) -> None:
-        """Test case for delete_llm_settings
+    def test_llm_delete_llm_settings(self) -> None:
+        """Test case for llm_delete_llm_settings
 
         Delete Llm Settings
         """
         pass
 
-    def test_update_llm_settings(self) -> None:
-        """Test case for update_llm_settings
+    def test_llm_update_llm_settings(self) -> None:
+        """Test case for llm_update_llm_settings
 
         Update Llm Settings
         """

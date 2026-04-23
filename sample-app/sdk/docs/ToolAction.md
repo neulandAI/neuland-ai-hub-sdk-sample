@@ -1,14 +1,14 @@
-# neuland_hub_sdk.UserMailSend
+# neuland_hub_sdk.ToolAction
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**send_email_from_draft**](UserMailSend.md#send_email_from_draft) | **POST** /tool-actions/email/send | Send Email From Draft
+[**toolactions_send_email_from_draft**](ToolAction.md#toolactions_send_email_from_draft) | **POST** /tool-actions/email/send | Send Email From Draft
 
 
-# **send_email_from_draft**
-> SendEmailResponse send_email_from_draft(send_email_request, cookie_name=cookie_name)
+# **toolactions_send_email_from_draft**
+> SendEmailResponse toolactions_send_email_from_draft(send_email_request, cookie_name=cookie_name)
 
 Send Email From Draft
 
@@ -52,17 +52,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.UserMailSend(api_client)
+    api_instance = neuland_hub_sdk.ToolAction(api_client)
     send_email_request = neuland_hub_sdk.SendEmailRequest() # SendEmailRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Send Email From Draft
-        api_response = api_instance.send_email_from_draft(send_email_request, cookie_name=cookie_name)
-        print("The response of UserMailSend->send_email_from_draft:\n")
+        api_response = api_instance.toolactions_send_email_from_draft(send_email_request, cookie_name=cookie_name)
+        print("The response of ToolAction->toolactions_send_email_from_draft:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling UserMailSend->send_email_from_draft: %s\n" % e)
+        print("Exception when calling ToolAction->toolactions_send_email_from_draft: %s\n" % e)
 ```
 
 
@@ -93,10 +93,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -26,24 +26,24 @@ class TestTemplate(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_create_template(self) -> None:
-        """Test case for create_template
+    def test_templates_create(self) -> None:
+        """Test case for templates_create
 
-        Create Template
+        Create
         """
         pass
 
-    def test_delete_template(self) -> None:
-        """Test case for delete_template
+    def test_templates_delete(self) -> None:
+        """Test case for templates_delete
 
-        Delete Template
+        Delete
         """
         pass
 
-    def test_update_template(self) -> None:
-        """Test case for update_template
+    def test_templates_update(self) -> None:
+        """Test case for templates_update
 
-        Update Template
+        Update
         """
         pass
 

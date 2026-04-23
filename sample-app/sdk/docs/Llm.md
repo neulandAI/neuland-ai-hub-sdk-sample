@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_cost**](Llm.md#get_cost) | **POST** /llm/cost | Get Cost
-[**get_usage_costs**](Llm.md#get_usage_costs) | **POST** /llm/services/cost | Get Usage Costs
-[**llm_total_tokens**](Llm.md#llm_total_tokens) | **POST** /llm/tokens | Llm Total Tokens
+[**llm_get_cost**](Llm.md#llm_get_cost) | **POST** /llm/cost | Get Cost
+[**llm_get_usage_costs**](Llm.md#llm_get_usage_costs) | **POST** /llm/services/cost | Get Usage Costs
+[**llm_llm_total_tokens**](Llm.md#llm_llm_total_tokens) | **POST** /llm/tokens | Llm Total Tokens
 
 
-# **get_cost**
-> TimeseriesResponse get_cost(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
+# **llm_get_cost**
+> TimeseriesResponse llm_get_cost(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
 
 Get Cost
 
@@ -59,11 +59,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get Cost
-        api_response = api_instance.get_cost(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
-        print("The response of Llm->get_cost:\n")
+        api_response = api_instance.llm_get_cost(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Llm->llm_get_cost:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Llm->get_cost: %s\n" % e)
+        print("Exception when calling Llm->llm_get_cost: %s\n" % e)
 ```
 
 
@@ -95,15 +95,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_usage_costs**
-> UsageCostResponse get_usage_costs(usage_cost_request, cookie_name=cookie_name, tenant_id=tenant_id)
+# **llm_get_usage_costs**
+> UsageCostResponse llm_get_usage_costs(usage_cost_request, cookie_name=cookie_name, tenant_id=tenant_id)
 
 Get Usage Costs
 
@@ -153,11 +150,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get Usage Costs
-        api_response = api_instance.get_usage_costs(usage_cost_request, cookie_name=cookie_name, tenant_id=tenant_id)
-        print("The response of Llm->get_usage_costs:\n")
+        api_response = api_instance.llm_get_usage_costs(usage_cost_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Llm->llm_get_usage_costs:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Llm->get_usage_costs: %s\n" % e)
+        print("Exception when calling Llm->llm_get_usage_costs: %s\n" % e)
 ```
 
 
@@ -189,15 +186,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **llm_total_tokens**
-> TokensTimeseriesResponse llm_total_tokens(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
+# **llm_llm_total_tokens**
+> TokensTimeseriesResponse llm_llm_total_tokens(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
 
 Llm Total Tokens
 
@@ -244,11 +238,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Llm Total Tokens
-        api_response = api_instance.llm_total_tokens(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
-        print("The response of Llm->llm_total_tokens:\n")
+        api_response = api_instance.llm_llm_total_tokens(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Llm->llm_llm_total_tokens:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Llm->llm_total_tokens: %s\n" % e)
+        print("Exception when calling Llm->llm_llm_total_tokens: %s\n" % e)
 ```
 
 
@@ -280,10 +274,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

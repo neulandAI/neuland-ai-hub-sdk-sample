@@ -43,7 +43,7 @@ class Application:
 
 
     @validate_call
-    def create_app(
+    def applications_create_app(
         self,
         application_in: ApplicationIn,
         cookie_name: Optional[StrictStr] = None,
@@ -90,7 +90,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_app_serialize(
+        _param = self._applications_create_app_serialize(
             application_in=application_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -101,10 +101,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -118,7 +115,7 @@ class Application:
 
 
     @validate_call
-    def create_app_with_http_info(
+    def applications_create_app_with_http_info(
         self,
         application_in: ApplicationIn,
         cookie_name: Optional[StrictStr] = None,
@@ -165,7 +162,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_app_serialize(
+        _param = self._applications_create_app_serialize(
             application_in=application_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -176,10 +173,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -193,7 +187,7 @@ class Application:
 
 
     @validate_call
-    def create_app_without_preload_content(
+    def applications_create_app_without_preload_content(
         self,
         application_in: ApplicationIn,
         cookie_name: Optional[StrictStr] = None,
@@ -240,7 +234,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_app_serialize(
+        _param = self._applications_create_app_serialize(
             application_in=application_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -251,10 +245,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -263,7 +254,7 @@ class Application:
         return response_data.response
 
 
-    def _create_app_serialize(
+    def _applications_create_app_serialize(
         self,
         application_in,
         cookie_name,
@@ -347,7 +338,7 @@ class Application:
 
 
     @validate_call
-    def delete_app(
+    def applications_delete_app(
         self,
         app_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -394,7 +385,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_app_serialize(
+        _param = self._applications_delete_app_serialize(
             app_id=app_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -405,10 +396,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -422,7 +410,7 @@ class Application:
 
 
     @validate_call
-    def delete_app_with_http_info(
+    def applications_delete_app_with_http_info(
         self,
         app_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -469,7 +457,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_app_serialize(
+        _param = self._applications_delete_app_serialize(
             app_id=app_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -480,10 +468,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -497,7 +482,7 @@ class Application:
 
 
     @validate_call
-    def delete_app_without_preload_content(
+    def applications_delete_app_without_preload_content(
         self,
         app_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -544,7 +529,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_app_serialize(
+        _param = self._applications_delete_app_serialize(
             app_id=app_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -555,10 +540,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -567,7 +549,7 @@ class Application:
         return response_data.response
 
 
-    def _delete_app_serialize(
+    def _applications_delete_app_serialize(
         self,
         app_id,
         cookie_name,
@@ -604,6 +586,13 @@ class Application:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -631,7 +620,7 @@ class Application:
 
 
     @validate_call
-    def update_app(
+    def applications_update_app(
         self,
         app_id: StrictInt,
         application_in: ApplicationIn,
@@ -681,7 +670,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_app_serialize(
+        _param = self._applications_update_app_serialize(
             app_id=app_id,
             application_in=application_in,
             cookie_name=cookie_name,
@@ -693,10 +682,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Application",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -710,7 +696,7 @@ class Application:
 
 
     @validate_call
-    def update_app_with_http_info(
+    def applications_update_app_with_http_info(
         self,
         app_id: StrictInt,
         application_in: ApplicationIn,
@@ -760,7 +746,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_app_serialize(
+        _param = self._applications_update_app_serialize(
             app_id=app_id,
             application_in=application_in,
             cookie_name=cookie_name,
@@ -772,10 +758,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Application",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -789,7 +772,7 @@ class Application:
 
 
     @validate_call
-    def update_app_without_preload_content(
+    def applications_update_app_without_preload_content(
         self,
         app_id: StrictInt,
         application_in: ApplicationIn,
@@ -839,7 +822,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_app_serialize(
+        _param = self._applications_update_app_serialize(
             app_id=app_id,
             application_in=application_in,
             cookie_name=cookie_name,
@@ -851,10 +834,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Application",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -863,7 +843,7 @@ class Application:
         return response_data.response
 
 
-    def _update_app_serialize(
+    def _applications_update_app_serialize(
         self,
         app_id,
         application_in,
@@ -950,7 +930,7 @@ class Application:
 
 
     @validate_call
-    def update_group_membership(
+    def applications_update_group_membership(
         self,
         group_app_access_in: GroupAppAccessIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1000,7 +980,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_group_membership_serialize(
+        _param = self._applications_update_group_membership_serialize(
             group_app_access_in=group_app_access_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -1012,10 +992,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationGroup]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1029,7 +1006,7 @@ class Application:
 
 
     @validate_call
-    def update_group_membership_with_http_info(
+    def applications_update_group_membership_with_http_info(
         self,
         group_app_access_in: GroupAppAccessIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1079,7 +1056,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_group_membership_serialize(
+        _param = self._applications_update_group_membership_serialize(
             group_app_access_in=group_app_access_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -1091,10 +1068,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationGroup]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1108,7 +1082,7 @@ class Application:
 
 
     @validate_call
-    def update_group_membership_without_preload_content(
+    def applications_update_group_membership_without_preload_content(
         self,
         group_app_access_in: GroupAppAccessIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1158,7 +1132,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_group_membership_serialize(
+        _param = self._applications_update_group_membership_serialize(
             group_app_access_in=group_app_access_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -1170,10 +1144,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationGroup]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1182,7 +1153,7 @@ class Application:
         return response_data.response
 
 
-    def _update_group_membership_serialize(
+    def _applications_update_group_membership_serialize(
         self,
         group_app_access_in,
         cookie_name,
@@ -1271,7 +1242,7 @@ class Application:
 
 
     @validate_call
-    def update_user_membership(
+    def applications_update_user_membership(
         self,
         application_access_in: ApplicationAccessIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1321,7 +1292,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_user_membership_serialize(
+        _param = self._applications_update_user_membership_serialize(
             application_access_in=application_access_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -1333,10 +1304,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1350,7 +1318,7 @@ class Application:
 
 
     @validate_call
-    def update_user_membership_with_http_info(
+    def applications_update_user_membership_with_http_info(
         self,
         application_access_in: ApplicationAccessIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1400,7 +1368,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_user_membership_serialize(
+        _param = self._applications_update_user_membership_serialize(
             application_access_in=application_access_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -1412,10 +1380,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1429,7 +1394,7 @@ class Application:
 
 
     @validate_call
-    def update_user_membership_without_preload_content(
+    def applications_update_user_membership_without_preload_content(
         self,
         application_access_in: ApplicationAccessIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1479,7 +1444,7 @@ class Application:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_user_membership_serialize(
+        _param = self._applications_update_user_membership_serialize(
             application_access_in=application_access_in,
             cookie_name=cookie_name,
             tenant_id=tenant_id,
@@ -1491,10 +1456,7 @@ class Application:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1503,7 +1465,7 @@ class Application:
         return response_data.response
 
 
-    def _update_user_membership_serialize(
+    def _applications_update_user_membership_serialize(
         self,
         application_access_in,
         cookie_name,

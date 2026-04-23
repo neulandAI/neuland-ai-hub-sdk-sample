@@ -39,7 +39,7 @@ class Template:
 
 
     @validate_call
-    def create_template(
+    def templates_create(
         self,
         template_in: TemplateIn,
         tenant_id: Optional[StrictInt] = None,
@@ -57,7 +57,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> TemplateOut:
-        """Create Template
+        """Create
 
 
         :param template_in: (required)
@@ -88,7 +88,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_template_serialize(
+        _param = self._templates_create_serialize(
             template_in=template_in,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -100,10 +100,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "TemplateOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -117,7 +114,7 @@ class Template:
 
 
     @validate_call
-    def create_template_with_http_info(
+    def templates_create_with_http_info(
         self,
         template_in: TemplateIn,
         tenant_id: Optional[StrictInt] = None,
@@ -135,7 +132,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[TemplateOut]:
-        """Create Template
+        """Create
 
 
         :param template_in: (required)
@@ -166,7 +163,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_template_serialize(
+        _param = self._templates_create_serialize(
             template_in=template_in,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -178,10 +175,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "TemplateOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -195,7 +189,7 @@ class Template:
 
 
     @validate_call
-    def create_template_without_preload_content(
+    def templates_create_without_preload_content(
         self,
         template_in: TemplateIn,
         tenant_id: Optional[StrictInt] = None,
@@ -213,7 +207,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create Template
+        """Create
 
 
         :param template_in: (required)
@@ -244,7 +238,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_template_serialize(
+        _param = self._templates_create_serialize(
             template_in=template_in,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -256,10 +250,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "TemplateOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -268,7 +259,7 @@ class Template:
         return response_data.response
 
 
-    def _create_template_serialize(
+    def _templates_create_serialize(
         self,
         template_in,
         tenant_id,
@@ -357,7 +348,7 @@ class Template:
 
 
     @validate_call
-    def delete_template(
+    def templates_delete(
         self,
         template_id: StrictInt,
         tenant_id: Optional[StrictInt] = None,
@@ -375,7 +366,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Delete Template
+        """Delete
 
 
         :param template_id: (required)
@@ -406,7 +397,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_template_serialize(
+        _param = self._templates_delete_serialize(
             template_id=template_id,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -418,10 +409,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -435,7 +423,7 @@ class Template:
 
 
     @validate_call
-    def delete_template_with_http_info(
+    def templates_delete_with_http_info(
         self,
         template_id: StrictInt,
         tenant_id: Optional[StrictInt] = None,
@@ -453,7 +441,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Delete Template
+        """Delete
 
 
         :param template_id: (required)
@@ -484,7 +472,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_template_serialize(
+        _param = self._templates_delete_serialize(
             template_id=template_id,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -496,10 +484,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -513,7 +498,7 @@ class Template:
 
 
     @validate_call
-    def delete_template_without_preload_content(
+    def templates_delete_without_preload_content(
         self,
         template_id: StrictInt,
         tenant_id: Optional[StrictInt] = None,
@@ -531,7 +516,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Delete Template
+        """Delete
 
 
         :param template_id: (required)
@@ -562,7 +547,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_template_serialize(
+        _param = self._templates_delete_serialize(
             template_id=template_id,
             tenant_id=tenant_id,
             cookie_name=cookie_name,
@@ -574,10 +559,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -586,7 +568,7 @@ class Template:
         return response_data.response
 
 
-    def _delete_template_serialize(
+    def _templates_delete_serialize(
         self,
         template_id,
         tenant_id,
@@ -628,6 +610,13 @@ class Template:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -655,7 +644,7 @@ class Template:
 
 
     @validate_call
-    def update_template(
+    def templates_update(
         self,
         template_id: StrictInt,
         template_in: TemplateIn,
@@ -674,7 +663,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> TemplateOut:
-        """Update Template
+        """Update
 
 
         :param template_id: (required)
@@ -707,7 +696,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_template_serialize(
+        _param = self._templates_update_serialize(
             template_id=template_id,
             template_in=template_in,
             tenant_id=tenant_id,
@@ -720,10 +709,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TemplateOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -737,7 +723,7 @@ class Template:
 
 
     @validate_call
-    def update_template_with_http_info(
+    def templates_update_with_http_info(
         self,
         template_id: StrictInt,
         template_in: TemplateIn,
@@ -756,7 +742,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[TemplateOut]:
-        """Update Template
+        """Update
 
 
         :param template_id: (required)
@@ -789,7 +775,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_template_serialize(
+        _param = self._templates_update_serialize(
             template_id=template_id,
             template_in=template_in,
             tenant_id=tenant_id,
@@ -802,10 +788,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TemplateOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -819,7 +802,7 @@ class Template:
 
 
     @validate_call
-    def update_template_without_preload_content(
+    def templates_update_without_preload_content(
         self,
         template_id: StrictInt,
         template_in: TemplateIn,
@@ -838,7 +821,7 @@ class Template:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update Template
+        """Update
 
 
         :param template_id: (required)
@@ -871,7 +854,7 @@ class Template:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_template_serialize(
+        _param = self._templates_update_serialize(
             template_id=template_id,
             template_in=template_in,
             tenant_id=tenant_id,
@@ -884,10 +867,7 @@ class Template:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TemplateOut",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -896,7 +876,7 @@ class Template:
         return response_data.response
 
 
-    def _update_template_serialize(
+    def _templates_update_serialize(
         self,
         template_id,
         template_in,

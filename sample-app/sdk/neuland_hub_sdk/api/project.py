@@ -43,7 +43,7 @@ class Project:
 
 
     @validate_call
-    def add_library_to_project(
+    def projects_add_library_to_project(
         self,
         project_id: StrictInt,
         library_id: StrictInt,
@@ -93,7 +93,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_to_project_serialize(
+        _param = self._projects_add_library_to_project_serialize(
             project_id=project_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -105,10 +105,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ProjectLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -122,7 +119,7 @@ class Project:
 
 
     @validate_call
-    def add_library_to_project_with_http_info(
+    def projects_add_library_to_project_with_http_info(
         self,
         project_id: StrictInt,
         library_id: StrictInt,
@@ -172,7 +169,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_to_project_serialize(
+        _param = self._projects_add_library_to_project_serialize(
             project_id=project_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -184,10 +181,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ProjectLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -201,7 +195,7 @@ class Project:
 
 
     @validate_call
-    def add_library_to_project_without_preload_content(
+    def projects_add_library_to_project_without_preload_content(
         self,
         project_id: StrictInt,
         library_id: StrictInt,
@@ -251,7 +245,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_to_project_serialize(
+        _param = self._projects_add_library_to_project_serialize(
             project_id=project_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -263,10 +257,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ProjectLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -275,7 +266,7 @@ class Project:
         return response_data.response
 
 
-    def _add_library_to_project_serialize(
+    def _projects_add_library_to_project_serialize(
         self,
         project_id,
         library_id,
@@ -349,7 +340,7 @@ class Project:
 
 
     @validate_call
-    def add_project_members(
+    def projects_add_members(
         self,
         project_id: StrictInt,
         project_member_bulk_in: ProjectMemberBulkIn,
@@ -367,7 +358,7 @@ class Project:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[ProjectMember]:
-        """Add Project Members
+        """Add Members
 
 
         :param project_id: (required)
@@ -398,7 +389,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_project_members_serialize(
+        _param = self._projects_add_members_serialize(
             project_id=project_id,
             project_member_bulk_in=project_member_bulk_in,
             cookie_name=cookie_name,
@@ -410,10 +401,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[ProjectMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -427,7 +415,7 @@ class Project:
 
 
     @validate_call
-    def add_project_members_with_http_info(
+    def projects_add_members_with_http_info(
         self,
         project_id: StrictInt,
         project_member_bulk_in: ProjectMemberBulkIn,
@@ -445,7 +433,7 @@ class Project:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[ProjectMember]]:
-        """Add Project Members
+        """Add Members
 
 
         :param project_id: (required)
@@ -476,7 +464,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_project_members_serialize(
+        _param = self._projects_add_members_serialize(
             project_id=project_id,
             project_member_bulk_in=project_member_bulk_in,
             cookie_name=cookie_name,
@@ -488,10 +476,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[ProjectMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -505,7 +490,7 @@ class Project:
 
 
     @validate_call
-    def add_project_members_without_preload_content(
+    def projects_add_members_without_preload_content(
         self,
         project_id: StrictInt,
         project_member_bulk_in: ProjectMemberBulkIn,
@@ -523,7 +508,7 @@ class Project:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add Project Members
+        """Add Members
 
 
         :param project_id: (required)
@@ -554,7 +539,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_project_members_serialize(
+        _param = self._projects_add_members_serialize(
             project_id=project_id,
             project_member_bulk_in=project_member_bulk_in,
             cookie_name=cookie_name,
@@ -566,10 +551,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[ProjectMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -578,7 +560,7 @@ class Project:
         return response_data.response
 
 
-    def _add_project_members_serialize(
+    def _projects_add_members_serialize(
         self,
         project_id,
         project_member_bulk_in,
@@ -665,7 +647,7 @@ class Project:
 
 
     @validate_call
-    def create_project(
+    def projects_create_project(
         self,
         project_in: ProjectIn,
         cookie_name: Optional[StrictStr] = None,
@@ -711,7 +693,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_project_serialize(
+        _param = self._projects_create_project_serialize(
             project_in=project_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -722,10 +704,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Project",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -739,7 +718,7 @@ class Project:
 
 
     @validate_call
-    def create_project_with_http_info(
+    def projects_create_project_with_http_info(
         self,
         project_in: ProjectIn,
         cookie_name: Optional[StrictStr] = None,
@@ -785,7 +764,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_project_serialize(
+        _param = self._projects_create_project_serialize(
             project_in=project_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -796,10 +775,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Project",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -813,7 +789,7 @@ class Project:
 
 
     @validate_call
-    def create_project_without_preload_content(
+    def projects_create_project_without_preload_content(
         self,
         project_in: ProjectIn,
         cookie_name: Optional[StrictStr] = None,
@@ -859,7 +835,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_project_serialize(
+        _param = self._projects_create_project_serialize(
             project_in=project_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -870,10 +846,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Project",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -882,7 +855,7 @@ class Project:
         return response_data.response
 
 
-    def _create_project_serialize(
+    def _projects_create_project_serialize(
         self,
         project_in,
         cookie_name,
@@ -966,7 +939,7 @@ class Project:
 
 
     @validate_call
-    def delete_member(
+    def projects_delete_member(
         self,
         project_id: StrictInt,
         user_id: StrictInt,
@@ -1015,7 +988,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_member_serialize(
+        _param = self._projects_delete_member_serialize(
             project_id=project_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -1027,10 +1000,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1044,7 +1014,7 @@ class Project:
 
 
     @validate_call
-    def delete_member_with_http_info(
+    def projects_delete_member_with_http_info(
         self,
         project_id: StrictInt,
         user_id: StrictInt,
@@ -1093,7 +1063,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_member_serialize(
+        _param = self._projects_delete_member_serialize(
             project_id=project_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -1105,10 +1075,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1122,7 +1089,7 @@ class Project:
 
 
     @validate_call
-    def delete_member_without_preload_content(
+    def projects_delete_member_without_preload_content(
         self,
         project_id: StrictInt,
         user_id: StrictInt,
@@ -1171,7 +1138,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_member_serialize(
+        _param = self._projects_delete_member_serialize(
             project_id=project_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -1183,10 +1150,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1195,7 +1159,7 @@ class Project:
         return response_data.response
 
 
-    def _delete_member_serialize(
+    def _projects_delete_member_serialize(
         self,
         project_id,
         user_id,
@@ -1235,6 +1199,13 @@ class Project:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1262,7 +1233,314 @@ class Project:
 
 
     @validate_call
-    def delete_project(
+    def projects_delete_members(
+        self,
+        project_id: StrictInt,
+        project_member_bulk_delete: ProjectMemberBulkDelete,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> None:
+        """Delete Members
+
+
+        :param project_id: (required)
+        :type project_id: int
+        :param project_member_bulk_delete: (required)
+        :type project_member_bulk_delete: ProjectMemberBulkDelete
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._projects_delete_members_serialize(
+            project_id=project_id,
+            project_member_bulk_delete=project_member_bulk_delete,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def projects_delete_members_with_http_info(
+        self,
+        project_id: StrictInt,
+        project_member_bulk_delete: ProjectMemberBulkDelete,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[None]:
+        """Delete Members
+
+
+        :param project_id: (required)
+        :type project_id: int
+        :param project_member_bulk_delete: (required)
+        :type project_member_bulk_delete: ProjectMemberBulkDelete
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._projects_delete_members_serialize(
+            project_id=project_id,
+            project_member_bulk_delete=project_member_bulk_delete,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def projects_delete_members_without_preload_content(
+        self,
+        project_id: StrictInt,
+        project_member_bulk_delete: ProjectMemberBulkDelete,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Delete Members
+
+
+        :param project_id: (required)
+        :type project_id: int
+        :param project_member_bulk_delete: (required)
+        :type project_member_bulk_delete: ProjectMemberBulkDelete
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._projects_delete_members_serialize(
+            project_id=project_id,
+            project_member_bulk_delete=project_member_bulk_delete,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _projects_delete_members_serialize(
+        self,
+        project_id,
+        project_member_bulk_delete,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if project_id is not None:
+            _path_params['project_id'] = project_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if project_member_bulk_delete is not None:
+            _body_params = project_member_bulk_delete
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/projects/{project_id}/members',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def projects_delete_project(
         self,
         project_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1308,7 +1586,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_project_serialize(
+        _param = self._projects_delete_project_serialize(
             project_id=project_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1319,10 +1597,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1336,7 +1611,7 @@ class Project:
 
 
     @validate_call
-    def delete_project_with_http_info(
+    def projects_delete_project_with_http_info(
         self,
         project_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1382,7 +1657,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_project_serialize(
+        _param = self._projects_delete_project_serialize(
             project_id=project_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1393,10 +1668,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1410,7 +1682,7 @@ class Project:
 
 
     @validate_call
-    def delete_project_without_preload_content(
+    def projects_delete_project_without_preload_content(
         self,
         project_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1456,7 +1728,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_project_serialize(
+        _param = self._projects_delete_project_serialize(
             project_id=project_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1467,10 +1739,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1479,7 +1748,7 @@ class Project:
         return response_data.response
 
 
-    def _delete_project_serialize(
+    def _projects_delete_project_serialize(
         self,
         project_id,
         cookie_name,
@@ -1516,6 +1785,13 @@ class Project:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1543,7 +1819,7 @@ class Project:
 
 
     @validate_call
-    def is_project_name_free(
+    def projects_is_project_name_free(
         self,
         name: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -1589,7 +1865,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._is_project_name_free_serialize(
+        _param = self._projects_is_project_name_free_serialize(
             name=name,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1600,10 +1876,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1617,7 +1890,7 @@ class Project:
 
 
     @validate_call
-    def is_project_name_free_with_http_info(
+    def projects_is_project_name_free_with_http_info(
         self,
         name: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -1663,7 +1936,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._is_project_name_free_serialize(
+        _param = self._projects_is_project_name_free_serialize(
             name=name,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1674,10 +1947,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1691,7 +1961,7 @@ class Project:
 
 
     @validate_call
-    def is_project_name_free_without_preload_content(
+    def projects_is_project_name_free_without_preload_content(
         self,
         name: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -1737,7 +2007,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._is_project_name_free_serialize(
+        _param = self._projects_is_project_name_free_serialize(
             name=name,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1748,10 +2018,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "bool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1760,7 +2027,7 @@ class Project:
         return response_data.response
 
 
-    def _is_project_name_free_serialize(
+    def _projects_is_project_name_free_serialize(
         self,
         name,
         cookie_name,
@@ -1833,7 +2100,7 @@ class Project:
 
 
     @validate_call
-    def leave_project(
+    def projects_leave_project(
         self,
         project_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1880,7 +2147,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._leave_project_serialize(
+        _param = self._projects_leave_project_serialize(
             project_id=project_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1891,10 +2158,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1908,7 +2172,7 @@ class Project:
 
 
     @validate_call
-    def leave_project_with_http_info(
+    def projects_leave_project_with_http_info(
         self,
         project_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1955,7 +2219,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._leave_project_serialize(
+        _param = self._projects_leave_project_serialize(
             project_id=project_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1966,10 +2230,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1983,7 +2244,7 @@ class Project:
 
 
     @validate_call
-    def leave_project_without_preload_content(
+    def projects_leave_project_without_preload_content(
         self,
         project_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -2030,7 +2291,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._leave_project_serialize(
+        _param = self._projects_leave_project_serialize(
             project_id=project_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -2041,10 +2302,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2053,7 +2311,7 @@ class Project:
         return response_data.response
 
 
-    def _leave_project_serialize(
+    def _projects_leave_project_serialize(
         self,
         project_id,
         cookie_name,
@@ -2090,6 +2348,13 @@ class Project:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2117,7 +2382,7 @@ class Project:
 
 
     @validate_call
-    def remove_library_from_project(
+    def projects_remove_library_from_project(
         self,
         project_id: StrictInt,
         library_id: StrictInt,
@@ -2167,7 +2432,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_project_serialize(
+        _param = self._projects_remove_library_from_project_serialize(
             project_id=project_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -2179,10 +2444,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2196,7 +2458,7 @@ class Project:
 
 
     @validate_call
-    def remove_library_from_project_with_http_info(
+    def projects_remove_library_from_project_with_http_info(
         self,
         project_id: StrictInt,
         library_id: StrictInt,
@@ -2246,7 +2508,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_project_serialize(
+        _param = self._projects_remove_library_from_project_serialize(
             project_id=project_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -2258,10 +2520,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2275,7 +2534,7 @@ class Project:
 
 
     @validate_call
-    def remove_library_from_project_without_preload_content(
+    def projects_remove_library_from_project_without_preload_content(
         self,
         project_id: StrictInt,
         library_id: StrictInt,
@@ -2325,7 +2584,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_project_serialize(
+        _param = self._projects_remove_library_from_project_serialize(
             project_id=project_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -2337,10 +2596,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2349,7 +2605,7 @@ class Project:
         return response_data.response
 
 
-    def _remove_library_from_project_serialize(
+    def _projects_remove_library_from_project_serialize(
         self,
         project_id,
         library_id,
@@ -2389,6 +2645,13 @@ class Project:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2416,316 +2679,7 @@ class Project:
 
 
     @validate_call
-    def remove_project_members(
-        self,
-        project_id: StrictInt,
-        project_member_bulk_delete: ProjectMemberBulkDelete,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """Remove Project Members
-
-
-        :param project_id: (required)
-        :type project_id: int
-        :param project_member_bulk_delete: (required)
-        :type project_member_bulk_delete: ProjectMemberBulkDelete
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._remove_project_members_serialize(
-            project_id=project_id,
-            project_member_bulk_delete=project_member_bulk_delete,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def remove_project_members_with_http_info(
-        self,
-        project_id: StrictInt,
-        project_member_bulk_delete: ProjectMemberBulkDelete,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """Remove Project Members
-
-
-        :param project_id: (required)
-        :type project_id: int
-        :param project_member_bulk_delete: (required)
-        :type project_member_bulk_delete: ProjectMemberBulkDelete
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._remove_project_members_serialize(
-            project_id=project_id,
-            project_member_bulk_delete=project_member_bulk_delete,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def remove_project_members_without_preload_content(
-        self,
-        project_id: StrictInt,
-        project_member_bulk_delete: ProjectMemberBulkDelete,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Remove Project Members
-
-
-        :param project_id: (required)
-        :type project_id: int
-        :param project_member_bulk_delete: (required)
-        :type project_member_bulk_delete: ProjectMemberBulkDelete
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._remove_project_members_serialize(
-            project_id=project_id,
-            project_member_bulk_delete=project_member_bulk_delete,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _remove_project_members_serialize(
-        self,
-        project_id,
-        project_member_bulk_delete,
-        cookie_name,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        # process the query parameters
-        if cookie_name is not None:
-            
-            _query_params.append(('cookie_name', cookie_name))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-        if project_member_bulk_delete is not None:
-            _body_params = project_member_bulk_delete
-
-
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
-        ]
-
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/projects/{project_id}/members',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def update_project(
+    def projects_update_project(
         self,
         project_id: StrictInt,
         project_in: ProjectIn,
@@ -2774,7 +2728,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_project_serialize(
+        _param = self._projects_update_project_serialize(
             project_id=project_id,
             project_in=project_in,
             cookie_name=cookie_name,
@@ -2786,10 +2740,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Project",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2803,7 +2754,7 @@ class Project:
 
 
     @validate_call
-    def update_project_with_http_info(
+    def projects_update_project_with_http_info(
         self,
         project_id: StrictInt,
         project_in: ProjectIn,
@@ -2852,7 +2803,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_project_serialize(
+        _param = self._projects_update_project_serialize(
             project_id=project_id,
             project_in=project_in,
             cookie_name=cookie_name,
@@ -2864,10 +2815,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Project",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2881,7 +2829,7 @@ class Project:
 
 
     @validate_call
-    def update_project_without_preload_content(
+    def projects_update_project_without_preload_content(
         self,
         project_id: StrictInt,
         project_in: ProjectIn,
@@ -2930,7 +2878,7 @@ class Project:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_project_serialize(
+        _param = self._projects_update_project_serialize(
             project_id=project_id,
             project_in=project_in,
             cookie_name=cookie_name,
@@ -2942,10 +2890,7 @@ class Project:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Project",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2954,7 +2899,7 @@ class Project:
         return response_data.response
 
 
-    def _update_project_serialize(
+    def _projects_update_project_serialize(
         self,
         project_id,
         project_in,

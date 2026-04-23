@@ -18,9 +18,9 @@ from enum import Enum
 from typing_extensions import Self
 
 
-class TariffStatusEnum(str, Enum):
+class TarifStatusEnum(str, Enum):
     """
-    Enum for Tariff status in Tariff
+    Enum for Tarif status in Tarif
     """
 
     """
@@ -31,7 +31,7 @@ class TariffStatusEnum(str, Enum):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of TariffStatusEnum from a JSON string"""
+        """Create an instance of TarifStatusEnum from a JSON string"""
         return cls(json.loads(json_str))
 
 

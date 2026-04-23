@@ -4,22 +4,22 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**azure_entra_callback**](Auth.md#azure_entra_callback) | **GET** /auth/callback/azure-entra | Azure Entra Callback
-[**confirm_email**](Auth.md#confirm_email) | **GET** /auth/confirm-email | Confirm Email
-[**exchange_token**](Auth.md#exchange_token) | **POST** /auth/exchange/token | Exchange Token
-[**get_entra_groups**](Auth.md#get_entra_groups) | **GET** /auth/entra/groups | Get Entra Groups
-[**get_entra_scopes**](Auth.md#get_entra_scopes) | **GET** /auth/entra/scopes | Get Entra Scopes
-[**login**](Auth.md#login) | **POST** /auth/token | Login
-[**logout**](Auth.md#logout) | **POST** /auth/logout | Logout
-[**oidc_callback**](Auth.md#oidc_callback) | **GET** /auth/callback/oidc | Oidc Callback
-[**request_password_reset**](Auth.md#request_password_reset) | **POST** /auth/request-password-reset | Request Password Reset
-[**reset_password**](Auth.md#reset_password) | **POST** /auth/reset-password | Reset Password
-[**reset_password_form**](Auth.md#reset_password_form) | **GET** /auth/reset-password | Reset Password Form
-[**send_email_confirmation**](Auth.md#send_email_confirmation) | **POST** /auth/send-email-confirmation | Send Email Confirmation
+[**auth_azure_entra_callback**](Auth.md#auth_azure_entra_callback) | **GET** /auth/callback/azure-entra | Azure Entra Callback
+[**auth_confirm_email**](Auth.md#auth_confirm_email) | **GET** /auth/confirm-email | Confirm Email
+[**auth_exchange_token**](Auth.md#auth_exchange_token) | **POST** /auth/exchange/token | Exchange Token
+[**auth_get_entra_groups**](Auth.md#auth_get_entra_groups) | **GET** /auth/entra/groups | Get Entra Groups
+[**auth_get_entra_scopes**](Auth.md#auth_get_entra_scopes) | **GET** /auth/entra/scopes | Get Entra Scopes
+[**auth_login**](Auth.md#auth_login) | **POST** /auth/token | Login
+[**auth_logout**](Auth.md#auth_logout) | **POST** /auth/logout | Logout
+[**auth_oidc_callback**](Auth.md#auth_oidc_callback) | **GET** /auth/callback/oidc | Oidc Callback
+[**auth_request_password_reset**](Auth.md#auth_request_password_reset) | **POST** /auth/request-password-reset | Request Password Reset
+[**auth_reset_password**](Auth.md#auth_reset_password) | **POST** /auth/reset-password | Reset Password
+[**auth_reset_password_form**](Auth.md#auth_reset_password_form) | **GET** /auth/reset-password | Reset Password Form
+[**auth_send_email_confirmation**](Auth.md#auth_send_email_confirmation) | **POST** /auth/send-email-confirmation | Send Email Confirmation
 
 
-# **azure_entra_callback**
-> Dict[str, object] azure_entra_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
+# **auth_azure_entra_callback**
+> Dict[str, object] auth_azure_entra_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
 
 Azure Entra Callback
 
@@ -50,11 +50,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Azure Entra Callback
-        api_response = api_instance.azure_entra_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
-        print("The response of Auth->azure_entra_callback:\n")
+        api_response = api_instance.auth_azure_entra_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
+        print("The response of Auth->auth_azure_entra_callback:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->azure_entra_callback: %s\n" % e)
+        print("Exception when calling Auth->auth_azure_entra_callback: %s\n" % e)
 ```
 
 
@@ -88,15 +88,12 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **confirm_email**
-> object confirm_email(token, accept=accept)
+# **auth_confirm_email**
+> object auth_confirm_email(token, accept=accept)
 
 Confirm Email
 
@@ -124,11 +121,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Confirm Email
-        api_response = api_instance.confirm_email(token, accept=accept)
-        print("The response of Auth->confirm_email:\n")
+        api_response = api_instance.auth_confirm_email(token, accept=accept)
+        print("The response of Auth->auth_confirm_email:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->confirm_email: %s\n" % e)
+        print("Exception when calling Auth->auth_confirm_email: %s\n" % e)
 ```
 
 
@@ -159,15 +156,12 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **exchange_token**
-> str exchange_token(app_id)
+# **auth_exchange_token**
+> str auth_exchange_token(app_id)
 
 Exchange Token
 
@@ -203,11 +197,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Exchange Token
-        api_response = api_instance.exchange_token(app_id)
-        print("The response of Auth->exchange_token:\n")
+        api_response = api_instance.auth_exchange_token(app_id)
+        print("The response of Auth->auth_exchange_token:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->exchange_token: %s\n" % e)
+        print("Exception when calling Auth->auth_exchange_token: %s\n" % e)
 ```
 
 
@@ -237,15 +231,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_entra_groups**
-> Dict[str, ResponseGetEntraGroupsValue] get_entra_groups()
+# **auth_get_entra_groups**
+> Dict[str, ResponseAuthGetEntraGroupsValue] auth_get_entra_groups()
 
 Get Entra Groups
 
@@ -257,7 +248,7 @@ Get Azure Entra group names for current user's groups
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.response_get_entra_groups_value import ResponseGetEntraGroupsValue
+from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -281,11 +272,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get Entra Groups
-        api_response = api_instance.get_entra_groups()
-        print("The response of Auth->get_entra_groups:\n")
+        api_response = api_instance.auth_get_entra_groups()
+        print("The response of Auth->auth_get_entra_groups:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->get_entra_groups: %s\n" % e)
+        print("Exception when calling Auth->auth_get_entra_groups: %s\n" % e)
 ```
 
 
@@ -296,7 +287,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Dict[str, ResponseGetEntraGroupsValue]**](ResponseGetEntraGroupsValue.md)
+[**Dict[str, ResponseAuthGetEntraGroupsValue]**](ResponseAuthGetEntraGroupsValue.md)
 
 ### Authorization
 
@@ -312,15 +303,11 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_entra_scopes**
-> List[Optional[str]] get_entra_scopes()
+# **auth_get_entra_scopes**
+> List[Optional[str]] auth_get_entra_scopes()
 
 Get Entra Scopes
 
@@ -346,11 +333,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Get Entra Scopes
-        api_response = api_instance.get_entra_scopes()
-        print("The response of Auth->get_entra_scopes:\n")
+        api_response = api_instance.auth_get_entra_scopes()
+        print("The response of Auth->auth_get_entra_scopes:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->get_entra_scopes: %s\n" % e)
+        print("Exception when calling Auth->auth_get_entra_scopes: %s\n" % e)
 ```
 
 
@@ -377,15 +364,11 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **login**
-> TokenOut login(username, password, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip, session_id=session_id, grant_type=grant_type, scope=scope, client_id=client_id, client_secret=client_secret)
+# **auth_login**
+> TokenOut auth_login(username, password, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip, session_id=session_id, grant_type=grant_type, scope=scope, client_id=client_id, client_secret=client_secret)
 
 Login
 
@@ -423,11 +406,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Login
-        api_response = api_instance.login(username, password, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip, session_id=session_id, grant_type=grant_type, scope=scope, client_id=client_id, client_secret=client_secret)
-        print("The response of Auth->login:\n")
+        api_response = api_instance.auth_login(username, password, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip, session_id=session_id, grant_type=grant_type, scope=scope, client_id=client_id, client_secret=client_secret)
+        print("The response of Auth->auth_login:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->login: %s\n" % e)
+        print("Exception when calling Auth->auth_login: %s\n" % e)
 ```
 
 
@@ -467,15 +450,12 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **logout**
-> object logout()
+# **auth_logout**
+> object auth_logout()
 
 Logout
 
@@ -508,11 +488,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Logout
-        api_response = api_instance.logout()
-        print("The response of Auth->logout:\n")
+        api_response = api_instance.auth_logout()
+        print("The response of Auth->auth_logout:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->logout: %s\n" % e)
+        print("Exception when calling Auth->auth_logout: %s\n" % e)
 ```
 
 
@@ -539,15 +519,11 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **oidc_callback**
-> Dict[str, object] oidc_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
+# **auth_oidc_callback**
+> Dict[str, object] auth_oidc_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
 
 Oidc Callback
 
@@ -578,11 +554,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Oidc Callback
-        api_response = api_instance.oidc_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
-        print("The response of Auth->oidc_callback:\n")
+        api_response = api_instance.auth_oidc_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
+        print("The response of Auth->auth_oidc_callback:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->oidc_callback: %s\n" % e)
+        print("Exception when calling Auth->auth_oidc_callback: %s\n" % e)
 ```
 
 
@@ -616,15 +592,12 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **request_password_reset**
-> request_password_reset(password_reset_request_in, origin=origin)
+# **auth_request_password_reset**
+> auth_request_password_reset(password_reset_request_in, origin=origin)
 
 Request Password Reset
 
@@ -656,9 +629,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Request Password Reset
-        api_instance.request_password_reset(password_reset_request_in, origin=origin)
+        api_instance.auth_request_password_reset(password_reset_request_in, origin=origin)
     except Exception as e:
-        print("Exception when calling Auth->request_password_reset: %s\n" % e)
+        print("Exception when calling Auth->auth_request_password_reset: %s\n" % e)
 ```
 
 
@@ -682,22 +655,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **reset_password**
-> reset_password(token)
+# **auth_reset_password**
+> auth_reset_password(token)
 
 Reset Password
 
@@ -728,9 +698,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Reset Password
-        api_instance.reset_password(token)
+        api_instance.auth_reset_password(token)
     except Exception as e:
-        print("Exception when calling Auth->reset_password: %s\n" % e)
+        print("Exception when calling Auth->auth_reset_password: %s\n" % e)
 ```
 
 
@@ -753,22 +723,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **reset_password_form**
-> str reset_password_form(token)
+# **auth_reset_password_form**
+> str auth_reset_password_form(token)
 
 Reset Password Form
 
@@ -799,11 +766,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Reset Password Form
-        api_response = api_instance.reset_password_form(token)
-        print("The response of Auth->reset_password_form:\n")
+        api_response = api_instance.auth_reset_password_form(token)
+        print("The response of Auth->auth_reset_password_form:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Auth->reset_password_form: %s\n" % e)
+        print("Exception when calling Auth->auth_reset_password_form: %s\n" % e)
 ```
 
 
@@ -826,22 +793,19 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/html
+ - **Accept**: text/html, application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **send_email_confirmation**
-> send_email_confirmation(cookie_name=cookie_name)
+# **auth_send_email_confirmation**
+> auth_send_email_confirmation(cookie_name=cookie_name)
 
 Send Email Confirmation
 
@@ -882,9 +846,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Send Email Confirmation
-        api_instance.send_email_confirmation(cookie_name=cookie_name)
+        api_instance.auth_send_email_confirmation(cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Auth->send_email_confirmation: %s\n" % e)
+        print("Exception when calling Auth->auth_send_email_confirmation: %s\n" % e)
 ```
 
 
@@ -907,17 +871,14 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

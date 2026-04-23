@@ -26,50 +26,50 @@ class TestAuthConnector(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_initiate_admin_consent(self) -> None:
-        """Test case for initiate_admin_consent
+    def test_auth_initiate_admin_consent(self) -> None:
+        """Test case for auth_initiate_admin_consent
 
         Initiate Admin Consent
         """
         pass
 
-    def test_initiate_consent(self) -> None:
-        """Test case for initiate_consent
+    def test_auth_initiate_consent(self) -> None:
+        """Test case for auth_initiate_consent
 
         Initiate Consent
         """
         pass
 
-    def test_list_connector_status(self) -> None:
-        """Test case for list_connector_status
+    def test_auth_list_connector_status(self) -> None:
+        """Test case for auth_list_connector_status
 
         List Connector Status
         """
         pass
 
-    def test_oauth_callback(self) -> None:
-        """Test case for oauth_callback
+    def test_auth_oauth_callback(self) -> None:
+        """Test case for auth_oauth_callback
 
         Oauth Callback
         """
         pass
 
-    def test_revoke_consent(self) -> None:
-        """Test case for revoke_consent
+    def test_auth_revoke_consent(self) -> None:
+        """Test case for auth_revoke_consent
 
         Revoke Consent
         """
         pass
 
-    def test_update_connector(self) -> None:
-        """Test case for update_connector
+    def test_auth_update_connector(self) -> None:
+        """Test case for auth_update_connector
 
         Update Connector
         """
         pass
 
-    def test_update_oauth_client(self) -> None:
-        """Test case for update_oauth_client
+    def test_auth_update_oauth_client(self) -> None:
+        """Test case for auth_update_oauth_client
 
         Update Oauth Client
         """

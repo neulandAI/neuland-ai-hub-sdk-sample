@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_llm_settings**](LlmSetting.md#create_llm_settings) | **POST** /llm/settings | Create Llm Settings
-[**delete_llm_settings**](LlmSetting.md#delete_llm_settings) | **DELETE** /llm/settings/{settings_id} | Delete Llm Settings
-[**update_llm_settings**](LlmSetting.md#update_llm_settings) | **PATCH** /llm/settings/{settings_id} | Update Llm Settings
+[**llm_create_llm_settings**](LlmSetting.md#llm_create_llm_settings) | **POST** /llm/settings | Create Llm Settings
+[**llm_delete_llm_settings**](LlmSetting.md#llm_delete_llm_settings) | **DELETE** /llm/settings/{settings_id} | Delete Llm Settings
+[**llm_update_llm_settings**](LlmSetting.md#llm_update_llm_settings) | **PATCH** /llm/settings/{settings_id} | Update Llm Settings
 
 
-# **create_llm_settings**
-> object create_llm_settings(llm_settings_in, cookie_name=cookie_name)
+# **llm_create_llm_settings**
+> object llm_create_llm_settings(llm_settings_in, cookie_name=cookie_name)
 
 Create Llm Settings
 
@@ -53,11 +53,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Llm Settings
-        api_response = api_instance.create_llm_settings(llm_settings_in, cookie_name=cookie_name)
-        print("The response of LlmSetting->create_llm_settings:\n")
+        api_response = api_instance.llm_create_llm_settings(llm_settings_in, cookie_name=cookie_name)
+        print("The response of LlmSetting->llm_create_llm_settings:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling LlmSetting->create_llm_settings: %s\n" % e)
+        print("Exception when calling LlmSetting->llm_create_llm_settings: %s\n" % e)
 ```
 
 
@@ -88,15 +88,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_llm_settings**
-> delete_llm_settings(settings_id, cookie_name=cookie_name)
+# **llm_delete_llm_settings**
+> llm_delete_llm_settings(settings_id, cookie_name=cookie_name)
 
 Delete Llm Settings
 
@@ -138,9 +135,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Delete Llm Settings
-        api_instance.delete_llm_settings(settings_id, cookie_name=cookie_name)
+        api_instance.llm_delete_llm_settings(settings_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling LlmSetting->delete_llm_settings: %s\n" % e)
+        print("Exception when calling LlmSetting->llm_delete_llm_settings: %s\n" % e)
 ```
 
 
@@ -164,22 +161,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_llm_settings**
-> object update_llm_settings(settings_id, llm_settings_update, cookie_name=cookie_name)
+# **llm_update_llm_settings**
+> object llm_update_llm_settings(settings_id, llm_settings_update, cookie_name=cookie_name)
 
 Update Llm Settings
 
@@ -223,11 +217,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Llm Settings
-        api_response = api_instance.update_llm_settings(settings_id, llm_settings_update, cookie_name=cookie_name)
-        print("The response of LlmSetting->update_llm_settings:\n")
+        api_response = api_instance.llm_update_llm_settings(settings_id, llm_settings_update, cookie_name=cookie_name)
+        print("The response of LlmSetting->llm_update_llm_settings:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling LlmSetting->update_llm_settings: %s\n" % e)
+        print("Exception when calling LlmSetting->llm_update_llm_settings: %s\n" % e)
 ```
 
 
@@ -259,10 +253,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

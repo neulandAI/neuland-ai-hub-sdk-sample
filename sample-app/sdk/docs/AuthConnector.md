@@ -4,17 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**initiate_admin_consent**](AuthConnector.md#initiate_admin_consent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate Admin Consent
-[**initiate_consent**](AuthConnector.md#initiate_consent) | **GET** /auth/connectors/{connector_id}/consent | Initiate Consent
-[**list_connector_status**](AuthConnector.md#list_connector_status) | **GET** /auth/connectors/status | List Connector Status
-[**oauth_callback**](AuthConnector.md#oauth_callback) | **GET** /auth/connectors/callback | Oauth Callback
-[**revoke_consent**](AuthConnector.md#revoke_consent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke Consent
-[**update_connector**](AuthConnector.md#update_connector) | **PATCH** /auth/connectors/{connector_id} | Update Connector
-[**update_oauth_client**](AuthConnector.md#update_oauth_client) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update Oauth Client
+[**auth_initiate_admin_consent**](AuthConnector.md#auth_initiate_admin_consent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate Admin Consent
+[**auth_initiate_consent**](AuthConnector.md#auth_initiate_consent) | **GET** /auth/connectors/{connector_id}/consent | Initiate Consent
+[**auth_list_connector_status**](AuthConnector.md#auth_list_connector_status) | **GET** /auth/connectors/status | List Connector Status
+[**auth_oauth_callback**](AuthConnector.md#auth_oauth_callback) | **GET** /auth/connectors/callback | Oauth Callback
+[**auth_revoke_consent**](AuthConnector.md#auth_revoke_consent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke Consent
+[**auth_update_connector**](AuthConnector.md#auth_update_connector) | **PATCH** /auth/connectors/{connector_id} | Update Connector
+[**auth_update_oauth_client**](AuthConnector.md#auth_update_oauth_client) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update Oauth Client
 
 
-# **initiate_admin_consent**
-> ConnectorConsentOut initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
+# **auth_initiate_admin_consent**
+> ConnectorConsentOut auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
 
 Initiate Admin Consent
 
@@ -61,11 +61,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Initiate Admin Consent
-        api_response = api_instance.initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
-        print("The response of AuthConnector->initiate_admin_consent:\n")
+        api_response = api_instance.auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_initiate_admin_consent:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthConnector->initiate_admin_consent: %s\n" % e)
+        print("Exception when calling AuthConnector->auth_initiate_admin_consent: %s\n" % e)
 ```
 
 
@@ -97,15 +97,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **initiate_consent**
-> ConnectorConsentOut initiate_consent(connector_id, return_url=return_url, redirect=redirect, cookie_name=cookie_name)
+# **auth_initiate_consent**
+> ConnectorConsentOut auth_initiate_consent(connector_id, return_url=return_url, redirect=redirect, cookie_name=cookie_name)
 
 Initiate Consent
 
@@ -155,11 +152,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Initiate Consent
-        api_response = api_instance.initiate_consent(connector_id, return_url=return_url, redirect=redirect, cookie_name=cookie_name)
-        print("The response of AuthConnector->initiate_consent:\n")
+        api_response = api_instance.auth_initiate_consent(connector_id, return_url=return_url, redirect=redirect, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_initiate_consent:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthConnector->initiate_consent: %s\n" % e)
+        print("Exception when calling AuthConnector->auth_initiate_consent: %s\n" % e)
 ```
 
 
@@ -192,15 +189,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **list_connector_status**
-> List[ConnectorStatusOut] list_connector_status(cookie_name=cookie_name)
+# **auth_list_connector_status**
+> List[ConnectorStatusOut] auth_list_connector_status(cookie_name=cookie_name)
 
 List Connector Status
 
@@ -242,11 +236,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # List Connector Status
-        api_response = api_instance.list_connector_status(cookie_name=cookie_name)
-        print("The response of AuthConnector->list_connector_status:\n")
+        api_response = api_instance.auth_list_connector_status(cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_list_connector_status:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthConnector->list_connector_status: %s\n" % e)
+        print("Exception when calling AuthConnector->auth_list_connector_status: %s\n" % e)
 ```
 
 
@@ -276,15 +270,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **oauth_callback**
-> object oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
+# **auth_oauth_callback**
+> object auth_oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
 
 Oauth Callback
 
@@ -317,11 +308,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Oauth Callback
-        api_response = api_instance.oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
-        print("The response of AuthConnector->oauth_callback:\n")
+        api_response = api_instance.auth_oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
+        print("The response of AuthConnector->auth_oauth_callback:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthConnector->oauth_callback: %s\n" % e)
+        print("Exception when calling AuthConnector->auth_oauth_callback: %s\n" % e)
 ```
 
 
@@ -355,15 +346,12 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **revoke_consent**
-> revoke_consent(connector_id, cookie_name=cookie_name)
+# **auth_revoke_consent**
+> auth_revoke_consent(connector_id, cookie_name=cookie_name)
 
 Revoke Consent
 
@@ -405,9 +393,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Revoke Consent
-        api_instance.revoke_consent(connector_id, cookie_name=cookie_name)
+        api_instance.auth_revoke_consent(connector_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling AuthConnector->revoke_consent: %s\n" % e)
+        print("Exception when calling AuthConnector->auth_revoke_consent: %s\n" % e)
 ```
 
 
@@ -431,22 +419,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_connector**
-> Connector update_connector(connector_id, connector_update, cookie_name=cookie_name)
+# **auth_update_connector**
+> Connector auth_update_connector(connector_id, connector_update, cookie_name=cookie_name)
 
 Update Connector
 
@@ -493,11 +478,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Connector
-        api_response = api_instance.update_connector(connector_id, connector_update, cookie_name=cookie_name)
-        print("The response of AuthConnector->update_connector:\n")
+        api_response = api_instance.auth_update_connector(connector_id, connector_update, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_update_connector:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthConnector->update_connector: %s\n" % e)
+        print("Exception when calling AuthConnector->auth_update_connector: %s\n" % e)
 ```
 
 
@@ -529,15 +514,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_oauth_client**
-> OAuthClient update_oauth_client(oauth_client_id, o_auth_client_update, cookie_name=cookie_name)
+# **auth_update_oauth_client**
+> OAuthClient auth_update_oauth_client(oauth_client_id, o_auth_client_update, cookie_name=cookie_name)
 
 Update Oauth Client
 
@@ -584,11 +566,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Oauth Client
-        api_response = api_instance.update_oauth_client(oauth_client_id, o_auth_client_update, cookie_name=cookie_name)
-        print("The response of AuthConnector->update_oauth_client:\n")
+        api_response = api_instance.auth_update_oauth_client(oauth_client_id, o_auth_client_update, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_update_oauth_client:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AuthConnector->update_oauth_client: %s\n" % e)
+        print("Exception when calling AuthConnector->auth_update_oauth_client: %s\n" % e)
 ```
 
 
@@ -620,10 +602,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

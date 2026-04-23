@@ -37,7 +37,7 @@ class File:
 
 
     @validate_call
-    def download_file(
+    def files_download_file(
         self,
         file_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -83,7 +83,7 @@ class File:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._download_file_serialize(
+        _param = self._files_download_file_serialize(
             file_id=file_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -94,10 +94,7 @@ class File:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -111,7 +108,7 @@ class File:
 
 
     @validate_call
-    def download_file_with_http_info(
+    def files_download_file_with_http_info(
         self,
         file_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -157,7 +154,7 @@ class File:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._download_file_serialize(
+        _param = self._files_download_file_serialize(
             file_id=file_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -168,10 +165,7 @@ class File:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -185,7 +179,7 @@ class File:
 
 
     @validate_call
-    def download_file_without_preload_content(
+    def files_download_file_without_preload_content(
         self,
         file_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -231,7 +225,7 @@ class File:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._download_file_serialize(
+        _param = self._files_download_file_serialize(
             file_id=file_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -242,10 +236,7 @@ class File:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -254,7 +245,7 @@ class File:
         return response_data.response
 
 
-    def _download_file_serialize(
+    def _files_download_file_serialize(
         self,
         file_id,
         cookie_name,

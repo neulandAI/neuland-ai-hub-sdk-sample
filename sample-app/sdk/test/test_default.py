@@ -26,36 +26,36 @@ class TestDefault(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_get_theme(self) -> None:
-        """Test case for get_theme
-
-        Get Theme
-        """
-        pass
-
-    def test_post_check(self) -> None:
-        """Test case for post_check
+    def test_post_post_check(self) -> None:
+        """Test case for post_post_check
 
         Post Check
         """
         pass
 
-    def test_root(self) -> None:
-        """Test case for root
+    def test_root_root(self) -> None:
+        """Test case for root_root
 
         Root
         """
         pass
 
-    def test_stat(self) -> None:
-        """Test case for stat
+    def test_stat_stat(self) -> None:
+        """Test case for stat_stat
 
         Stat
         """
         pass
 
-    def test_version(self) -> None:
-        """Test case for version
+    def test_theme_get_theme(self) -> None:
+        """Test case for theme_get_theme
+
+        Get Theme
+        """
+        pass
+
+    def test_version_version(self) -> None:
+        """Test case for version_version
 
         Version
         """

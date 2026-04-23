@@ -14,10 +14,10 @@
 
 import unittest
 
-from neuland_hub_sdk.models.body_admin_login import BodyAdminLogin
+from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue
 
-class TestBodyAdminLogin(unittest.TestCase):
-    """BodyAdminLogin unit test stubs"""
+class TestResponseAuthGetEntraGroupsValue(unittest.TestCase):
+    """ResponseAuthGetEntraGroupsValue unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,28 +25,24 @@ class TestBodyAdminLogin(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> BodyAdminLogin:
-        """Test BodyAdminLogin
+    def make_instance(self, include_optional) -> ResponseAuthGetEntraGroupsValue:
+        """Test ResponseAuthGetEntraGroupsValue
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `BodyAdminLogin`
+        # uncomment below to create an instance of `ResponseAuthGetEntraGroupsValue`
         """
-        model = BodyAdminLogin()
+        model = ResponseAuthGetEntraGroupsValue()
         if include_optional:
-            return BodyAdminLogin(
-                username = '',
-                password = ''
+            return ResponseAuthGetEntraGroupsValue(
             )
         else:
-            return BodyAdminLogin(
-                username = '',
-                password = '',
+            return ResponseAuthGetEntraGroupsValue(
         )
         """
 
-    def testBodyAdminLogin(self):
-        """Test BodyAdminLogin"""
+    def testResponseAuthGetEntraGroupsValue(self):
+        """Test ResponseAuthGetEntraGroupsValue"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

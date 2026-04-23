@@ -26,8 +26,8 @@ class TestFile(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_download_file(self) -> None:
-        """Test case for download_file
+    def test_files_download_file(self) -> None:
+        """Test case for files_download_file
 
         Download File
         """

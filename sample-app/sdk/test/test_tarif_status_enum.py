@@ -14,10 +14,10 @@
 
 import unittest
 
-from neuland_hub_sdk.models.tariff_status_enum import TariffStatusEnum
+from neuland_hub_sdk.models.tarif_status_enum import TarifStatusEnum
 
-class TestTariffStatusEnum(unittest.TestCase):
-    """TariffStatusEnum unit test stubs"""
+class TestTarifStatusEnum(unittest.TestCase):
+    """TarifStatusEnum unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,9 +25,9 @@ class TestTariffStatusEnum(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testTariffStatusEnum(self):
-        """Test TariffStatusEnum"""
-        # inst = TariffStatusEnum()
+    def testTarifStatusEnum(self):
+        """Test TarifStatusEnum"""
+        # inst = TarifStatusEnum()
 
 if __name__ == '__main__':
     unittest.main()

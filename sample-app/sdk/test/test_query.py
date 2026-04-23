@@ -26,15 +26,15 @@ class TestQuery(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_query(self) -> None:
-        """Test case for query
+    def test_query_query(self) -> None:
+        """Test case for query_query
 
         Query
         """
         pass
 
-    def test_query_rpc(self) -> None:
-        """Test case for query_rpc
+    def test_query_query_rpc(self) -> None:
+        """Test case for query_query_rpc
 
         Query Rpc
         """

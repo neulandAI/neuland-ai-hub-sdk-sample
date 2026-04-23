@@ -17,31 +17,27 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
+from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
-from neuland_hub_sdk.models.tariff_status_enum import TariffStatusEnum
+from neuland_hub_sdk.models.tarif_status_enum import TarifStatusEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class Tariff(BaseModel):
+class TarifIn(BaseModel):
     """
     Model for creating or updating a tarif.
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="Primary key for the tarif record.")
     name: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Name for the tarif to be created. Max 100 characters.")
     price: Union[StrictFloat, StrictInt] = Field(description="The price of the tarif. This field is required.")
-    hard_limit: Optional[Union[Annotated[float, Field(strict=True, ge=0.0)], Annotated[int, Field(strict=True, ge=0)]]] = None
-    is_unlimited: Optional[StrictBool] = Field(default=False, description="Bypass usage checks if True.")
+    hard_limit: Union[StrictFloat, StrictInt] = Field(description="The hard limit to restrict the user.")
+    status: Optional[TarifStatusEnum] = None
+    expires_at: Optional[date] = None
     description: Optional[StrictStr] = None
-    status: Optional[TariffStatusEnum] = Field(default=None, description="active = offered; retired = not for new signups.")
-    is_default: Optional[StrictBool] = False
-    creator_user_id: Optional[StrictInt]
-    created_at: Optional[datetime] = Field(default=None, description="Timestamp when the tarif was created.")
-    updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the tarif was last updated.")
-    __properties: ClassVar[List[str]] = ["id", "name", "price", "hard_limit", "is_unlimited", "description", "status", "is_default", "creator_user_id", "created_at", "updated_at"]
+    is_unlimited: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["name", "price", "hard_limit", "status", "expires_at", "description", "is_unlimited"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -61,7 +57,7 @@ class Tariff(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Tariff from a JSON string"""
+        """Create an instance of TarifIn from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -82,26 +78,31 @@ class Tariff(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if hard_limit (nullable) is None
+        # set to None if status (nullable) is None
         # and model_fields_set contains the field
-        if self.hard_limit is None and "hard_limit" in self.model_fields_set:
-            _dict['hard_limit'] = None
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['status'] = None
+
+        # set to None if expires_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.expires_at is None and "expires_at" in self.model_fields_set:
+            _dict['expires_at'] = None
 
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
-        # set to None if creator_user_id (nullable) is None
+        # set to None if is_unlimited (nullable) is None
         # and model_fields_set contains the field
-        if self.creator_user_id is None and "creator_user_id" in self.model_fields_set:
-            _dict['creator_user_id'] = None
+        if self.is_unlimited is None and "is_unlimited" in self.model_fields_set:
+            _dict['is_unlimited'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Tariff from a dict"""
+        """Create an instance of TarifIn from a dict"""
         if obj is None:
             return None
 
@@ -109,17 +110,13 @@ class Tariff(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
             "name": obj.get("name"),
             "price": obj.get("price"),
             "hard_limit": obj.get("hard_limit"),
-            "is_unlimited": obj.get("is_unlimited") if obj.get("is_unlimited") is not None else False,
-            "description": obj.get("description"),
             "status": obj.get("status"),
-            "is_default": obj.get("is_default") if obj.get("is_default") is not None else False,
-            "creator_user_id": obj.get("creator_user_id"),
-            "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at")
+            "expires_at": obj.get("expires_at"),
+            "description": obj.get("description"),
+            "is_unlimited": obj.get("is_unlimited")
         })
         return _obj
 

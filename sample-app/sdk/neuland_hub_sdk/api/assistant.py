@@ -43,7 +43,304 @@ class Assistant:
 
 
     @validate_call
-    def add_assistant_members(
+    def assistants_add_library_to_assistant(
+        self,
+        assistant_id: StrictInt,
+        library_id: StrictInt,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AssistantLibrary:
+        """Add Library To Assistant
+
+        Enables a library for a assistant by creating a new association
+
+        :param assistant_id: (required)
+        :type assistant_id: int
+        :param library_id: (required)
+        :type library_id: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_add_library_to_assistant_serialize(
+            assistant_id=assistant_id,
+            library_id=library_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "AssistantLibrary",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def assistants_add_library_to_assistant_with_http_info(
+        self,
+        assistant_id: StrictInt,
+        library_id: StrictInt,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AssistantLibrary]:
+        """Add Library To Assistant
+
+        Enables a library for a assistant by creating a new association
+
+        :param assistant_id: (required)
+        :type assistant_id: int
+        :param library_id: (required)
+        :type library_id: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_add_library_to_assistant_serialize(
+            assistant_id=assistant_id,
+            library_id=library_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "AssistantLibrary",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def assistants_add_library_to_assistant_without_preload_content(
+        self,
+        assistant_id: StrictInt,
+        library_id: StrictInt,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Add Library To Assistant
+
+        Enables a library for a assistant by creating a new association
+
+        :param assistant_id: (required)
+        :type assistant_id: int
+        :param library_id: (required)
+        :type library_id: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_add_library_to_assistant_serialize(
+            assistant_id=assistant_id,
+            library_id=library_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "AssistantLibrary",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _assistants_add_library_to_assistant_serialize(
+        self,
+        assistant_id,
+        library_id,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if assistant_id is not None:
+            _path_params['assistant_id'] = assistant_id
+        if library_id is not None:
+            _path_params['library_id'] = library_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/assistants/{assistant_id}/libraries/{library_id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def assistants_add_members(
         self,
         assistant_id: StrictInt,
         assistant_members_in: AssistantMembersIn,
@@ -61,7 +358,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[AssistantMember]:
-        """Add Assistant Members
+        """Add Members
 
 
         :param assistant_id: (required)
@@ -92,7 +389,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_assistant_members_serialize(
+        _param = self._assistants_add_members_serialize(
             assistant_id=assistant_id,
             assistant_members_in=assistant_members_in,
             cookie_name=cookie_name,
@@ -104,10 +401,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[AssistantMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -121,7 +415,7 @@ class Assistant:
 
 
     @validate_call
-    def add_assistant_members_with_http_info(
+    def assistants_add_members_with_http_info(
         self,
         assistant_id: StrictInt,
         assistant_members_in: AssistantMembersIn,
@@ -139,7 +433,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[AssistantMember]]:
-        """Add Assistant Members
+        """Add Members
 
 
         :param assistant_id: (required)
@@ -170,7 +464,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_assistant_members_serialize(
+        _param = self._assistants_add_members_serialize(
             assistant_id=assistant_id,
             assistant_members_in=assistant_members_in,
             cookie_name=cookie_name,
@@ -182,10 +476,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[AssistantMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -199,7 +490,7 @@ class Assistant:
 
 
     @validate_call
-    def add_assistant_members_without_preload_content(
+    def assistants_add_members_without_preload_content(
         self,
         assistant_id: StrictInt,
         assistant_members_in: AssistantMembersIn,
@@ -217,7 +508,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add Assistant Members
+        """Add Members
 
 
         :param assistant_id: (required)
@@ -248,7 +539,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_assistant_members_serialize(
+        _param = self._assistants_add_members_serialize(
             assistant_id=assistant_id,
             assistant_members_in=assistant_members_in,
             cookie_name=cookie_name,
@@ -260,10 +551,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "List[AssistantMember]",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -272,7 +560,7 @@ class Assistant:
         return response_data.response
 
 
-    def _add_assistant_members_serialize(
+    def _assistants_add_members_serialize(
         self,
         assistant_id,
         assistant_members_in,
@@ -359,313 +647,7 @@ class Assistant:
 
 
     @validate_call
-    def add_library_to_assistant(
-        self,
-        assistant_id: StrictInt,
-        library_id: StrictInt,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AssistantLibrary:
-        """Add Library To Assistant
-
-        Enables a library for a assistant by creating a new association
-
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: (required)
-        :type library_id: int
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_library_to_assistant_serialize(
-            assistant_id=assistant_id,
-            library_id=library_id,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AssistantLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def add_library_to_assistant_with_http_info(
-        self,
-        assistant_id: StrictInt,
-        library_id: StrictInt,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AssistantLibrary]:
-        """Add Library To Assistant
-
-        Enables a library for a assistant by creating a new association
-
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: (required)
-        :type library_id: int
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_library_to_assistant_serialize(
-            assistant_id=assistant_id,
-            library_id=library_id,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AssistantLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def add_library_to_assistant_without_preload_content(
-        self,
-        assistant_id: StrictInt,
-        library_id: StrictInt,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Add Library To Assistant
-
-        Enables a library for a assistant by creating a new association
-
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: (required)
-        :type library_id: int
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_library_to_assistant_serialize(
-            assistant_id=assistant_id,
-            library_id=library_id,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AssistantLibrary",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _add_library_to_assistant_serialize(
-        self,
-        assistant_id,
-        library_id,
-        cookie_name,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if assistant_id is not None:
-            _path_params['assistant_id'] = assistant_id
-        if library_id is not None:
-            _path_params['library_id'] = library_id
-        # process the query parameters
-        if cookie_name is not None:
-            
-            _query_params.append(('cookie_name', cookie_name))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                [
-                    'application/json'
-                ]
-            )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/assistants/{assistant_id}/libraries/{library_id}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def add_tool_to_assistant(
+    def assistants_add_tool_to_assistant(
         self,
         assistant_id: StrictInt,
         tool_id: StrictInt,
@@ -714,7 +696,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_tool_to_assistant_serialize(
+        _param = self._assistants_add_tool_to_assistant_serialize(
             assistant_id=assistant_id,
             tool_id=tool_id,
             cookie_name=cookie_name,
@@ -726,10 +708,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AssistantTool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -743,7 +722,7 @@ class Assistant:
 
 
     @validate_call
-    def add_tool_to_assistant_with_http_info(
+    def assistants_add_tool_to_assistant_with_http_info(
         self,
         assistant_id: StrictInt,
         tool_id: StrictInt,
@@ -792,7 +771,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_tool_to_assistant_serialize(
+        _param = self._assistants_add_tool_to_assistant_serialize(
             assistant_id=assistant_id,
             tool_id=tool_id,
             cookie_name=cookie_name,
@@ -804,10 +783,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AssistantTool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -821,7 +797,7 @@ class Assistant:
 
 
     @validate_call
-    def add_tool_to_assistant_without_preload_content(
+    def assistants_add_tool_to_assistant_without_preload_content(
         self,
         assistant_id: StrictInt,
         tool_id: StrictInt,
@@ -870,7 +846,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_tool_to_assistant_serialize(
+        _param = self._assistants_add_tool_to_assistant_serialize(
             assistant_id=assistant_id,
             tool_id=tool_id,
             cookie_name=cookie_name,
@@ -882,10 +858,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AssistantTool",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -894,7 +867,7 @@ class Assistant:
         return response_data.response
 
 
-    def _add_tool_to_assistant_serialize(
+    def _assistants_add_tool_to_assistant_serialize(
         self,
         assistant_id,
         tool_id,
@@ -968,7 +941,7 @@ class Assistant:
 
 
     @validate_call
-    def create_assistant(
+    def assistants_create_assistant(
         self,
         assistant_in: AssistantIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1014,7 +987,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_assistant_serialize(
+        _param = self._assistants_create_assistant_serialize(
             assistant_in=assistant_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1025,10 +998,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1042,7 +1012,7 @@ class Assistant:
 
 
     @validate_call
-    def create_assistant_with_http_info(
+    def assistants_create_assistant_with_http_info(
         self,
         assistant_in: AssistantIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1088,7 +1058,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_assistant_serialize(
+        _param = self._assistants_create_assistant_serialize(
             assistant_in=assistant_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1099,10 +1069,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1116,7 +1083,7 @@ class Assistant:
 
 
     @validate_call
-    def create_assistant_without_preload_content(
+    def assistants_create_assistant_without_preload_content(
         self,
         assistant_in: AssistantIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1162,7 +1129,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_assistant_serialize(
+        _param = self._assistants_create_assistant_serialize(
             assistant_in=assistant_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1173,10 +1140,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1185,7 +1149,7 @@ class Assistant:
         return response_data.response
 
 
-    def _create_assistant_serialize(
+    def _assistants_create_assistant_serialize(
         self,
         assistant_in,
         cookie_name,
@@ -1269,7 +1233,7 @@ class Assistant:
 
 
     @validate_call
-    def delete_assistant(
+    def assistants_delete_assistant(
         self,
         assistant_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1315,7 +1279,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_assistant_serialize(
+        _param = self._assistants_delete_assistant_serialize(
             assistant_id=assistant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1326,10 +1290,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1343,7 +1304,7 @@ class Assistant:
 
 
     @validate_call
-    def delete_assistant_with_http_info(
+    def assistants_delete_assistant_with_http_info(
         self,
         assistant_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1389,7 +1350,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_assistant_serialize(
+        _param = self._assistants_delete_assistant_serialize(
             assistant_id=assistant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1400,10 +1361,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1417,7 +1375,7 @@ class Assistant:
 
 
     @validate_call
-    def delete_assistant_without_preload_content(
+    def assistants_delete_assistant_without_preload_content(
         self,
         assistant_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -1463,7 +1421,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_assistant_serialize(
+        _param = self._assistants_delete_assistant_serialize(
             assistant_id=assistant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1474,10 +1432,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1486,7 +1441,7 @@ class Assistant:
         return response_data.response
 
 
-    def _delete_assistant_serialize(
+    def _assistants_delete_assistant_serialize(
         self,
         assistant_id,
         cookie_name,
@@ -1523,6 +1478,13 @@ class Assistant:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1550,291 +1512,7 @@ class Assistant:
 
 
     @validate_call
-    def leave_assitant(
-        self,
-        assistant_id: StrictInt,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
-        """Leave Assitant
-
-        user can leave the assistant by themselves.
-
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._leave_assitant_serialize(
-            assistant_id=assistant_id,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def leave_assitant_with_http_info(
-        self,
-        assistant_id: StrictInt,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
-        """Leave Assitant
-
-        user can leave the assistant by themselves.
-
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._leave_assitant_serialize(
-            assistant_id=assistant_id,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def leave_assitant_without_preload_content(
-        self,
-        assistant_id: StrictInt,
-        cookie_name: Optional[StrictStr] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Leave Assitant
-
-        user can leave the assistant by themselves.
-
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param cookie_name:
-        :type cookie_name: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._leave_assitant_serialize(
-            assistant_id=assistant_id,
-            cookie_name=cookie_name,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _leave_assitant_serialize(
-        self,
-        assistant_id,
-        cookie_name,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> RequestSerialized:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[
-            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
-        ] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if assistant_id is not None:
-            _path_params['assistant_id'] = assistant_id
-        # process the query parameters
-        if cookie_name is not None:
-            
-            _query_params.append(('cookie_name', cookie_name))
-            
-        # process the header parameters
-        # process the form parameters
-        # process the body parameter
-
-
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
-        ]
-
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/assistants/{assistant_id}/remove/me',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def remove_assistant_members(
+    def assistants_delete_members(
         self,
         assistant_id: StrictInt,
         assistant_members_in: AssistantMembersIn,
@@ -1852,7 +1530,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Remove Assistant Members
+        """Delete Members
 
 
         :param assistant_id: (required)
@@ -1883,7 +1561,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_assistant_members_serialize(
+        _param = self._assistants_delete_members_serialize(
             assistant_id=assistant_id,
             assistant_members_in=assistant_members_in,
             cookie_name=cookie_name,
@@ -1895,10 +1573,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1912,7 +1587,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_assistant_members_with_http_info(
+    def assistants_delete_members_with_http_info(
         self,
         assistant_id: StrictInt,
         assistant_members_in: AssistantMembersIn,
@@ -1930,7 +1605,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Remove Assistant Members
+        """Delete Members
 
 
         :param assistant_id: (required)
@@ -1961,7 +1636,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_assistant_members_serialize(
+        _param = self._assistants_delete_members_serialize(
             assistant_id=assistant_id,
             assistant_members_in=assistant_members_in,
             cookie_name=cookie_name,
@@ -1973,10 +1648,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1990,7 +1662,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_assistant_members_without_preload_content(
+    def assistants_delete_members_without_preload_content(
         self,
         assistant_id: StrictInt,
         assistant_members_in: AssistantMembersIn,
@@ -2008,7 +1680,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Remove Assistant Members
+        """Delete Members
 
 
         :param assistant_id: (required)
@@ -2039,7 +1711,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_assistant_members_serialize(
+        _param = self._assistants_delete_members_serialize(
             assistant_id=assistant_id,
             assistant_members_in=assistant_members_in,
             cookie_name=cookie_name,
@@ -2051,10 +1723,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2063,7 +1732,7 @@ class Assistant:
         return response_data.response
 
 
-    def _remove_assistant_members_serialize(
+    def _assistants_delete_members_serialize(
         self,
         assistant_id,
         assistant_members_in,
@@ -2103,6 +1772,13 @@ class Assistant:
             _body_params = assistant_members_in
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2143,7 +1819,289 @@ class Assistant:
 
 
     @validate_call
-    def remove_library_from_assistant(
+    def assistants_leave_assitant(
+        self,
+        assistant_id: StrictInt,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> None:
+        """Leave Assitant
+
+        user can leave the assistant by themselves.
+
+        :param assistant_id: (required)
+        :type assistant_id: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_leave_assitant_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def assistants_leave_assitant_with_http_info(
+        self,
+        assistant_id: StrictInt,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[None]:
+        """Leave Assitant
+
+        user can leave the assistant by themselves.
+
+        :param assistant_id: (required)
+        :type assistant_id: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_leave_assitant_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def assistants_leave_assitant_without_preload_content(
+        self,
+        assistant_id: StrictInt,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Leave Assitant
+
+        user can leave the assistant by themselves.
+
+        :param assistant_id: (required)
+        :type assistant_id: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_leave_assitant_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _assistants_leave_assitant_serialize(
+        self,
+        assistant_id,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if assistant_id is not None:
+            _path_params['assistant_id'] = assistant_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/assistants/{assistant_id}/remove/me',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def assistants_remove_library_from_assistant(
         self,
         assistant_id: StrictInt,
         library_id: StrictInt,
@@ -2193,7 +2151,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_assistant_serialize(
+        _param = self._assistants_remove_library_from_assistant_serialize(
             assistant_id=assistant_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -2205,10 +2163,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2222,7 +2177,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_library_from_assistant_with_http_info(
+    def assistants_remove_library_from_assistant_with_http_info(
         self,
         assistant_id: StrictInt,
         library_id: StrictInt,
@@ -2272,7 +2227,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_assistant_serialize(
+        _param = self._assistants_remove_library_from_assistant_serialize(
             assistant_id=assistant_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -2284,10 +2239,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2301,7 +2253,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_library_from_assistant_without_preload_content(
+    def assistants_remove_library_from_assistant_without_preload_content(
         self,
         assistant_id: StrictInt,
         library_id: StrictInt,
@@ -2351,7 +2303,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_from_assistant_serialize(
+        _param = self._assistants_remove_library_from_assistant_serialize(
             assistant_id=assistant_id,
             library_id=library_id,
             cookie_name=cookie_name,
@@ -2363,10 +2315,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2375,7 +2324,7 @@ class Assistant:
         return response_data.response
 
 
-    def _remove_library_from_assistant_serialize(
+    def _assistants_remove_library_from_assistant_serialize(
         self,
         assistant_id,
         library_id,
@@ -2415,6 +2364,13 @@ class Assistant:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2442,7 +2398,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_member(
+    def assistants_remove_member(
         self,
         assistant_id: StrictInt,
         user_id: StrictInt,
@@ -2491,7 +2447,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_member_serialize(
+        _param = self._assistants_remove_member_serialize(
             assistant_id=assistant_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -2503,10 +2459,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2520,7 +2473,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_member_with_http_info(
+    def assistants_remove_member_with_http_info(
         self,
         assistant_id: StrictInt,
         user_id: StrictInt,
@@ -2569,7 +2522,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_member_serialize(
+        _param = self._assistants_remove_member_serialize(
             assistant_id=assistant_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -2581,10 +2534,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2598,7 +2548,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_member_without_preload_content(
+    def assistants_remove_member_without_preload_content(
         self,
         assistant_id: StrictInt,
         user_id: StrictInt,
@@ -2647,7 +2597,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_member_serialize(
+        _param = self._assistants_remove_member_serialize(
             assistant_id=assistant_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -2659,10 +2609,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2671,7 +2618,7 @@ class Assistant:
         return response_data.response
 
 
-    def _remove_member_serialize(
+    def _assistants_remove_member_serialize(
         self,
         assistant_id,
         user_id,
@@ -2711,6 +2658,13 @@ class Assistant:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2738,7 +2692,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_tool_from_assistant(
+    def assistants_remove_tool_from_assistant(
         self,
         assistant_id: StrictInt,
         tool_id: StrictInt,
@@ -2787,7 +2741,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_tool_from_assistant_serialize(
+        _param = self._assistants_remove_tool_from_assistant_serialize(
             assistant_id=assistant_id,
             tool_id=tool_id,
             cookie_name=cookie_name,
@@ -2799,10 +2753,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2816,7 +2767,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_tool_from_assistant_with_http_info(
+    def assistants_remove_tool_from_assistant_with_http_info(
         self,
         assistant_id: StrictInt,
         tool_id: StrictInt,
@@ -2865,7 +2816,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_tool_from_assistant_serialize(
+        _param = self._assistants_remove_tool_from_assistant_serialize(
             assistant_id=assistant_id,
             tool_id=tool_id,
             cookie_name=cookie_name,
@@ -2877,10 +2828,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2894,7 +2842,7 @@ class Assistant:
 
 
     @validate_call
-    def remove_tool_from_assistant_without_preload_content(
+    def assistants_remove_tool_from_assistant_without_preload_content(
         self,
         assistant_id: StrictInt,
         tool_id: StrictInt,
@@ -2943,7 +2891,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_tool_from_assistant_serialize(
+        _param = self._assistants_remove_tool_from_assistant_serialize(
             assistant_id=assistant_id,
             tool_id=tool_id,
             cookie_name=cookie_name,
@@ -2955,10 +2903,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2967,7 +2912,7 @@ class Assistant:
         return response_data.response
 
 
-    def _remove_tool_from_assistant_serialize(
+    def _assistants_remove_tool_from_assistant_serialize(
         self,
         assistant_id,
         tool_id,
@@ -3007,6 +2952,13 @@ class Assistant:
         # process the body parameter
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -3034,7 +2986,7 @@ class Assistant:
 
 
     @validate_call
-    def submit_assistant(
+    def assistants_submit_assistant(
         self,
         name: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -3101,7 +3053,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._submit_assistant_serialize(
+        _param = self._assistants_submit_assistant_serialize(
             name=name,
             cookie_name=cookie_name,
             model=model,
@@ -3119,10 +3071,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3136,7 +3085,7 @@ class Assistant:
 
 
     @validate_call
-    def submit_assistant_with_http_info(
+    def assistants_submit_assistant_with_http_info(
         self,
         name: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -3203,7 +3152,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._submit_assistant_serialize(
+        _param = self._assistants_submit_assistant_serialize(
             name=name,
             cookie_name=cookie_name,
             model=model,
@@ -3221,10 +3170,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3238,7 +3184,7 @@ class Assistant:
 
 
     @validate_call
-    def submit_assistant_without_preload_content(
+    def assistants_submit_assistant_without_preload_content(
         self,
         name: StrictStr,
         cookie_name: Optional[StrictStr] = None,
@@ -3305,7 +3251,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._submit_assistant_serialize(
+        _param = self._assistants_submit_assistant_serialize(
             name=name,
             cookie_name=cookie_name,
             model=model,
@@ -3323,10 +3269,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3335,7 +3278,7 @@ class Assistant:
         return response_data.response
 
 
-    def _submit_assistant_serialize(
+    def _assistants_submit_assistant_serialize(
         self,
         name,
         cookie_name,
@@ -3441,7 +3384,7 @@ class Assistant:
 
 
     @validate_call
-    def update_assistant(
+    def assistants_update_assistant(
         self,
         assistant_id: StrictInt,
         assistant_in: AssistantIn,
@@ -3490,7 +3433,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_assistant_serialize(
+        _param = self._assistants_update_assistant_serialize(
             assistant_id=assistant_id,
             assistant_in=assistant_in,
             cookie_name=cookie_name,
@@ -3502,10 +3445,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3519,7 +3459,7 @@ class Assistant:
 
 
     @validate_call
-    def update_assistant_with_http_info(
+    def assistants_update_assistant_with_http_info(
         self,
         assistant_id: StrictInt,
         assistant_in: AssistantIn,
@@ -3568,7 +3508,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_assistant_serialize(
+        _param = self._assistants_update_assistant_serialize(
             assistant_id=assistant_id,
             assistant_in=assistant_in,
             cookie_name=cookie_name,
@@ -3580,10 +3520,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3597,7 +3534,7 @@ class Assistant:
 
 
     @validate_call
-    def update_assistant_without_preload_content(
+    def assistants_update_assistant_without_preload_content(
         self,
         assistant_id: StrictInt,
         assistant_in: AssistantIn,
@@ -3646,7 +3583,7 @@ class Assistant:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_assistant_serialize(
+        _param = self._assistants_update_assistant_serialize(
             assistant_id=assistant_id,
             assistant_in=assistant_in,
             cookie_name=cookie_name,
@@ -3658,10 +3595,7 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Assistant",
-            '401': None,
-            '403': None,
-            '404': None,
-            '422': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3670,7 +3604,7 @@ class Assistant:
         return response_data.response
 
 
-    def _update_assistant_serialize(
+    def _assistants_update_assistant_serialize(
         self,
         assistant_id,
         assistant_in,

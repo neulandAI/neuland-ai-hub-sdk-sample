@@ -26,8 +26,8 @@ class TestTool(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_update_tool(self) -> None:
-        """Test case for update_tool
+    def test_tools_update_tool(self) -> None:
+        """Test case for tools_update_tool
 
         Update Tool
         """

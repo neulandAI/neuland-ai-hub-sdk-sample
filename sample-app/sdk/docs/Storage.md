@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**download_shared_file**](Storage.md#download_shared_file) | **GET** /storage/{path} | Download Shared File
+[**storage_download_file**](Storage.md#storage_download_file) | **GET** /storage/{path} | Download File
 
 
-# **download_shared_file**
-> object download_shared_file(path, token)
+# **storage_download_file**
+> object storage_download_file(path, token)
 
-Download Shared File
+Download File
 
 ### Example
 
@@ -35,12 +35,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     token = 'token_example' # str | Download token
 
     try:
-        # Download Shared File
-        api_response = api_instance.download_shared_file(path, token)
-        print("The response of Storage->download_shared_file:\n")
+        # Download File
+        api_response = api_instance.storage_download_file(path, token)
+        print("The response of Storage->storage_download_file:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Storage->download_shared_file: %s\n" % e)
+        print("Exception when calling Storage->storage_download_file: %s\n" % e)
 ```
 
 
@@ -71,10 +71,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

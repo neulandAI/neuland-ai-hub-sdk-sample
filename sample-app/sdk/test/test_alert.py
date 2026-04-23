@@ -14,29 +14,36 @@
 
 import unittest
 
-from neuland_hub_sdk.api.auth_api_key import AuthApiKey
+from neuland_hub_sdk.api.alert import Alert
 
 
-class TestAuthApiKey(unittest.TestCase):
-    """AuthApiKey unit test stubs"""
+class TestAlert(unittest.TestCase):
+    """Alert unit test stubs"""
 
     def setUp(self) -> None:
-        self.api = AuthApiKey()
+        self.api = Alert()
 
     def tearDown(self) -> None:
         pass
 
-    def test_create_key(self) -> None:
-        """Test case for create_key
+    def test_alerts_create_alert(self) -> None:
+        """Test case for alerts_create_alert
 
-        Create Key
+        Create Alert
         """
         pass
 
-    def test_revoke_api_key(self) -> None:
-        """Test case for revoke_api_key
+    def test_alerts_delete_alert(self) -> None:
+        """Test case for alerts_delete_alert
 
-        Revoke Api Key
+        Delete Alert
+        """
+        pass
+
+    def test_alerts_update_alert(self) -> None:
+        """Test case for alerts_update_alert
+
+        Update Alert
         """
         pass
 

@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**current**](Settings.md#current) | **GET** /settings/current | Current
-[**update_current_settings**](Settings.md#update_current_settings) | **PATCH** /settings/current | Update Current Settings
-[**update_settings**](Settings.md#update_settings) | **PATCH** /settings/{settings_id} | Update Settings
+[**settings_current**](Settings.md#settings_current) | **GET** /settings/current | Current
+[**settings_update_current_settings**](Settings.md#settings_update_current_settings) | **PATCH** /settings/current | Update Current Settings
+[**settings_update_settings**](Settings.md#settings_update_settings) | **PATCH** /settings/{settings_id} | Update Settings
 
 
-# **current**
-> Settings current(cookie_name=cookie_name)
+# **settings_current**
+> Settings settings_current(cookie_name=cookie_name)
 
 Current
 
@@ -54,11 +54,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Current
-        api_response = api_instance.current(cookie_name=cookie_name)
-        print("The response of Settings->current:\n")
+        api_response = api_instance.settings_current(cookie_name=cookie_name)
+        print("The response of Settings->settings_current:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Settings->current: %s\n" % e)
+        print("Exception when calling Settings->settings_current: %s\n" % e)
 ```
 
 
@@ -88,15 +88,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_current_settings**
-> Settings update_current_settings(settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
+# **settings_update_current_settings**
+> Settings settings_update_current_settings(settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
 
 Update Current Settings
 
@@ -143,11 +140,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Current Settings
-        api_response = api_instance.update_current_settings(settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
-        print("The response of Settings->update_current_settings:\n")
+        api_response = api_instance.settings_update_current_settings(settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Settings->settings_update_current_settings:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Settings->update_current_settings: %s\n" % e)
+        print("Exception when calling Settings->settings_update_current_settings: %s\n" % e)
 ```
 
 
@@ -179,15 +176,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_settings**
-> Settings update_settings(settings_id, settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
+# **settings_update_settings**
+> Settings settings_update_settings(settings_id, settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
 
 Update Settings
 
@@ -233,11 +227,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Settings
-        api_response = api_instance.update_settings(settings_id, settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
-        print("The response of Settings->update_settings:\n")
+        api_response = api_instance.settings_update_settings(settings_id, settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Settings->settings_update_settings:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Settings->update_settings: %s\n" % e)
+        print("Exception when calling Settings->settings_update_settings: %s\n" % e)
 ```
 
 
@@ -270,10 +264,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Not authenticated |  -  |
-**403** | Insufficient permissions |  -  |
-**404** | Resource not found |  -  |
-**422** | Validation error |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

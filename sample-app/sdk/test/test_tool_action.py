@@ -14,20 +14,20 @@
 
 import unittest
 
-from neuland_hub_sdk.api.user_mail_send import UserMailSend
+from neuland_hub_sdk.api.tool_action import ToolAction
 
 
-class TestUserMailSend(unittest.TestCase):
-    """UserMailSend unit test stubs"""
+class TestToolAction(unittest.TestCase):
+    """ToolAction unit test stubs"""
 
     def setUp(self) -> None:
-        self.api = UserMailSend()
+        self.api = ToolAction()
 
     def tearDown(self) -> None:
         pass
 
-    def test_send_email_from_draft(self) -> None:
-        """Test case for send_email_from_draft
+    def test_toolactions_send_email_from_draft(self) -> None:
+        """Test case for toolactions_send_email_from_draft
 
         Send Email From Draft
         """
