@@ -1,7 +1,4 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 NLND_HUB_API_URL = os.getenv("NLND_HUB_API_URL") or "http://localhost:8000"
 NLND_JWT_ISSUER = os.getenv("NLND_JWT_ISSUER") or "hub.neuland.ai.com"

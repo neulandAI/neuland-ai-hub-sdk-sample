@@ -7,7 +7,7 @@ Sample backend (FastAPI) demonstrating how to consume the Neuland AI Hub via the
 - A running Hub backend
 - A running Hub frontend — required for the bundled frontend's auth-token exchange
 
-> All URLs and ports below (`:8000`, `:3001`, `:9999`, `:3002`) are the values used in our local test setup. Use whatever you like — just keep the values consistent across the Hub backend, the Hub frontend, your `sample-app/.env` (`NLND_JWT_AUDIENCE`), and the port you start the bundled frontend on.
+> All URLs and ports below (`:8000`, `:3001`, `:9999`, `:3002`) are the values used in our local test setup. Use whatever you like — just keep the values consistent across the Hub backend, the Hub frontend, your `python/sample-app/.env` (`NLND_JWT_AUDIENCE`), and the port you start the bundled frontend on.
 
 ---
 
@@ -16,7 +16,7 @@ Sample backend (FastAPI) demonstrating how to consume the Neuland AI Hub via the
 ### 1. Install the sample-app
 
 ```bash
-cd sample-app
+cd python/sample-app
 python -m venv .venv && source .venv/bin/activate    # optional but recommended
 pip install -e sdk
 pip install -r requirements.txt
@@ -27,15 +27,15 @@ pip install -r requirements.txt
 Create the env file and fill in the required values:
 
 ```bash
-cp sample-app/.env.example sample-app/.env
+cp python/sample-app/.env.example python/sample-app/.env
 ```
 
-See `sample-app/.env.example` for the full list of variables. Key one to watch: **`NLND_JWT_AUDIENCE` must match the URL the bundled frontend runs on** (the service token's `aud` claim).
+See `python/sample-app/.env.example` for the full list of variables. Key one to watch: **`NLND_JWT_AUDIENCE` must match the URL the bundled frontend runs on** (the service token's `aud` claim).
 
 ### 3. Run the sample-app
 
 ```bash
-cd sample-app
+cd python/sample-app
 uvicorn main:app --host 0.0.0.0 --port 9999 --reload
 ```
 
@@ -44,7 +44,7 @@ API docs: http://localhost:9999/docs (replace the port with whatever you ran on)
 ### 4. Run the bundled frontend
 
 ```bash
-cd frontend
+cd python/frontend
 npm install
 npm run dev -- -p 3002
 ```
@@ -63,7 +63,7 @@ The bundled frontend exchanges that access token via the Hub frontend for a serv
 
 ## Installing the SDK in another project
 
-The SDK (`sample-app/sdk/`) is published as a tagged Python package on this repository. The repo is private, so consumers need GitHub authentication. Pick one auth method below, then install.
+The SDK (`python/sample-app/sdk/`) is published as a tagged Python package on this repository. The repo is private, so consumers need GitHub authentication. Pick one auth method below, then install.
 
 ### Auth setup (one-time per machine)
 
@@ -94,13 +94,13 @@ Pick a released tag from [Releases](https://github.com/neulandAI/neuland-ai-hub-
 
 ```bash
 # SSH
-pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=sample-app/sdk"
+pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sample-app/sdk"
 
 # HTTPS (uses ~/.netrc if present)
-pip install "git+https://github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=sample-app/sdk"
+pip install "git+https://github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sample-app/sdk"
 
 # HTTPS with token in URL (for CI)
-pip install "git+https://${GITHUB_TOKEN}@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=sample-app/sdk"
+pip install "git+https://${GITHUB_TOKEN}@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sample-app/sdk"
 ```
 
 Then in your code:
@@ -120,7 +120,7 @@ with ApiClient(config) as client:
 ### `requirements.txt` usage
 
 ```
-neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=sample-app/sdk
+neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sample-app/sdk
 ```
 
 To upgrade, change the tag (`@sdk-v1.0.4`, etc.) and re-run `pip install -r requirements.txt`.
