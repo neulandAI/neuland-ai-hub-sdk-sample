@@ -1,0 +1,31 @@
+# TenantLLM
+
+Availability rows for tenant-enabled LLM models.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**created_at** | **string** |  | [optional] [default to undefined]
+**updated_at** | **string** |  | [optional] [default to undefined]
+**creator_user_id** | **number** |  | [optional] [default to undefined]
+**updater_user_id** | **number** |  | [optional] [default to undefined]
+**tenant_id** | **number** |  | [default to undefined]
+**llm_catalog_id** | **number** |  | [default to undefined]
+
+## Example
+
+```typescript
+import { TenantLLM } from 'neuland-hub-sdk';
+
+const instance: TenantLLM = {
+    created_at,
+    updated_at,
+    creator_user_id,
+    updater_user_id,
+    tenant_id,
+    llm_catalog_id,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

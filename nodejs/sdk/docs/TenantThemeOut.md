@@ -1,0 +1,46 @@
+# TenantThemeOut
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [default to undefined]
+**slug** | **string** |  | [default to undefined]
+**domain** | **string** |  | [optional] [default to undefined]
+**timezone** | **string** |  | [default to undefined]
+**locale** | **string** |  | [default to undefined]
+**display_name** | **string** |  | [optional] [default to undefined]
+**motto** | **string** |  | [optional] [default to undefined]
+**logo_url** | **string** |  | [optional] [default to undefined]
+**square_logo_url** | **string** |  | [optional] [default to undefined]
+**favicon_url** | **string** |  | [optional] [default to undefined]
+**chat_square_logo_url** | **string** |  | [optional] [default to undefined]
+**primary_color** | **string** |  | [optional] [default to undefined]
+**secondary_color** | **string** |  | [optional] [default to undefined]
+**theme** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { TenantThemeOut } from 'neuland-hub-sdk';
+
+const instance: TenantThemeOut = {
+    name,
+    slug,
+    domain,
+    timezone,
+    locale,
+    display_name,
+    motto,
+    logo_url,
+    square_logo_url,
+    favicon_url,
+    chat_square_logo_url,
+    primary_color,
+    secondary_color,
+    theme,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

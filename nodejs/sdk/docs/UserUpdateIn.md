@@ -1,0 +1,32 @@
+# UserUpdateIn
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**first_name** | **string** |  | [optional] [default to undefined]
+**last_name** | **string** |  | [optional] [default to undefined]
+**email** | **string** |  | [optional] [default to undefined]
+**password** | **string** |  | [optional] [default to undefined]
+**admin** | **boolean** |  | [optional] [default to undefined]
+**superadmin** | **boolean** |  | [optional] [default to undefined]
+**tenant_id** | **number** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { UserUpdateIn } from 'neuland-hub-sdk';
+
+const instance: UserUpdateIn = {
+    first_name,
+    last_name,
+    email,
+    password,
+    admin,
+    superadmin,
+    tenant_id,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
