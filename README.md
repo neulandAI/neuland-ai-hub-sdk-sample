@@ -1,59 +1,75 @@
 # neuland-ai-hub-sdk-sample
 
-Here you can find backend samples also a dummy frontend app.
+Sample backend (FastAPI) demonstrating how to consume the Neuland AI Hub via the SDK.
 
 ## Prerequisites
 
-- Python 3.13+
+- A running Hub backend
+- A running Hub frontend — required for the bundled frontend's auth-token exchange
 
-## Installation
+> All URLs and ports below (`:8000`, `:3001`, `:9999`, `:3002`) are the values used in our local test setup. Use whatever you like — just keep the values consistent across the Hub backend, the Hub frontend, your `sample-app/.env` (`NLND_JWT_AUDIENCE`), and the port you start the bundled frontend on.
 
-1. **Create and activate a virtual environment (Optional)**
+---
 
-   ```bash
-   cd sample-app
-   python -m venv .venv
-   source .venv/bin/activate        # macOS / Linux
-   # .venv\Scripts\activate          # Windows
-   ```
+## Quick Start
 
-2. **Install dependencies**
+### 1. Install the sample-app
 
-   ```bash
-   pip3 install -e sdk
-   pip3 install -r requirements.txt
-   ```
+```bash
+cd sample-app
+python -m venv .venv && source .venv/bin/activate    # optional but recommended
+pip install -e sdk
+pip install -r requirements.txt
+```
 
-## Configuration
+### 2. Configure
 
-Set the following environment variables (or rely on the defaults in `sample-app/config.py`):
+Create the env file and fill in the required values:
 
-| Variable | Default | Description |
-|---|---|---|
-| `NLND_JWT_PUBLIC_KEY` | _(required)_ | PEM-encoded RSA public key used to verify service tokens |
-| `NLND_JWT_ISSUER` | `hub.neuland.ai.com` | Expected JWT issuer |
-| `NLND_JWT_AUDIENCE` | `http://localhost:9999` | Expected JWT audience |
-| `NLND_JWT_KID` | `rsa-key-2025-09-15` | Key ID |
-| `NLND_JWT_LEEWAY_SECONDS` | `60` | Clock-skew tolerance in seconds |
+```bash
+cp sample-app/.env.example sample-app/.env
+```
 
-## Run the App
+See `sample-app/.env.example` for the full list of variables. Key one to watch: **`NLND_JWT_AUDIENCE` must match the URL the bundled frontend runs on** (the service token's `aud` claim).
+
+### 3. Run the sample-app
 
 ```bash
 cd sample-app
 uvicorn main:app --host 0.0.0.0 --port 9999 --reload
 ```
 
-The API docs will be available at [http://localhost:9999/docs](http://localhost:9999/docs).
+API docs: http://localhost:9999/docs (replace the port with whatever you ran on).
+
+### 4. Run the bundled frontend
+
+```bash
+cd frontend
+npm install
+npm run dev -- -p 3002
+```
+
+> Pick any free port — just make sure it matches the URL set in `NLND_JWT_AUDIENCE`, and that nothing else (e.g. PostgREST) is already using it.
+
+### 5. Sign in
+
+1. Log in to your Hub frontend in the browser as you normally would.
+2. Open the bundled frontend (e.g. http://localhost:3002).
+3. From your Hub frontend tab, copy the `access-token` cookie value (DevTools → Application → Cookies). Paste it into the **Access Token** field on the bundled frontend → **Authorize**.
+
+The bundled frontend exchanges that access token via the Hub frontend for a service token, stores both in cookies, and redirects to the dashboard. From there, every API call hits the sample-app, which verifies the JWT and forwards to the Hub backend via the SDK.
+
+---
 
 ## Installing the SDK in another project
 
-The SDK (`sample-app/sdk/`) is published as a tagged Python package on this repository. Since the repo is private, consumers need GitHub authentication. Pick **one** of the auth methods below, then install.
+The SDK (`sample-app/sdk/`) is published as a tagged Python package on this repository. The repo is private, so consumers need GitHub authentication. Pick one auth method below, then install.
 
 ### Auth setup (one-time per machine)
 
 **Option 1 — SSH (recommended for developers)**
 
-Make sure your SSH key is added to your GitHub account, then you can use `git+ssh://` URLs directly — no further setup needed.
+Make sure your SSH key is added to your GitHub account; `git+ssh://` URLs work directly — no further setup needed.
 
 **Option 2 — Personal Access Token via `~/.netrc`**
 
@@ -70,40 +86,82 @@ chmod 600 ~/.netrc
 
 **Option 3 — Personal Access Token in the URL (CI/CD)**
 
-Set `GITHUB_TOKEN` as an env var or secret, and embed it in the install URL (see below).
+Set `GITHUB_TOKEN` as an env var or secret and embed it in the install URL.
 
 ### Install
 
-Pick a released tag from [Releases](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/tags) (e.g. `sdk-v1.0.1`) and install:
+Pick a released tag from [Releases](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/tags) (e.g. `sdk-v1.0.3`) and install:
 
 ```bash
 # SSH
-pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.1#subdirectory=sample-app/sdk"
+pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=sample-app/sdk"
 
 # HTTPS (uses ~/.netrc if present)
-pip install "git+https://github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.1#subdirectory=sample-app/sdk"
+pip install "git+https://github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=sample-app/sdk"
 
 # HTTPS with token in URL (for CI)
-pip install "git+https://${GITHUB_TOKEN}@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.1#subdirectory=sample-app/sdk"
+pip install "git+https://${GITHUB_TOKEN}@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=sample-app/sdk"
 ```
 
 Then in your code:
 
 ```python
 from neuland_hub_sdk import ApiClient, Configuration
+from neuland_hub_sdk.api.user import User
 
 config = Configuration(host="https://hub.neuland.ai.com")
-client = ApiClient(config)
+config.api_key["APIKeyHeader"] = "<your-api-key>"
+
+with ApiClient(config) as client:
+    me = User(client).get_myself()
+    print(me)
 ```
 
 ### `requirements.txt` usage
 
 ```
-neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.1#subdirectory=sample-app/sdk
+neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=sample-app/sdk
 ```
 
-To upgrade, change the tag (`@sdk-v1.0.2`) and re-run `pip install -r requirements.txt`.
+To upgrade, change the tag (`@sdk-v1.0.4`, etc.) and re-run `pip install -r requirements.txt`.
+
+---
 
 ## Releasing a new SDK version (maintainers)
 
-Go to [Actions → Release SDK](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/actions/workflows/publish.yml) → **Run workflow**, pick `patch`/`minor`/`major`. The workflow will bump the version in all source files, commit, and push a `sdk-v<version>` tag — which is what consumers pin to.
+Go to [Actions → Release SDK](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/actions/workflows/publish.yml) → **Run workflow**, pick `patch`/`minor`/`major`. The workflow bumps the version in all source files, commits, and pushes a `sdk-v<version>` tag — which is what consumers pin to.
+
+---
+
+## SDK Regeneration (maintainers)
+
+Run when the Hub OpenAPI spec changes. Requires [OpenAPI Generator](https://openapi-generator.tech/) v7.21+ and a reachable Hub backend.
+
+```bash
+cd sample-app
+VERSION=$(python3 -c "import tomllib; print(tomllib.load(open('sdk/pyproject.toml','rb'))['project']['version'])")
+rm -rf sdk
+curl "$NLND_HUB_API_URL/openapi.json" -o /tmp/openapi.json
+
+openapi-generator generate \
+  -i /tmp/openapi.json \
+  -g python \
+  -o sdk \
+  --package-name neuland_hub_sdk \
+  --additional-properties=apiNameSuffix="",packageVersion=$VERSION \
+  --remove-operation-id-prefix
+
+rm /tmp/openapi.json
+pip install -e sdk
+```
+
+The `VERSION=...` line reads the current version from the existing `pyproject.toml` so the regen doesn't reset it.
+
+### Flags
+
+| Flag | Purpose |
+|---|---|
+| `--package-name neuland_hub_sdk` | Python import name |
+| `apiNameSuffix=""` | Class names without `Api` suffix (`User` instead of `UserApi`).|
+| `packageVersion=…` | Version stamped into `pyproject.toml`, `setup.py`, `__init__.py`, `api_client.py`, `configuration.py` |
+| `--remove-operation-id-prefix` | Strips tag prefixes from method names (e.g. `users_get_myself` → `get_myself`) |
