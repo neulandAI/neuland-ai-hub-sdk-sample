@@ -1,0 +1,25 @@
+# ApiKeyCreateResponse
+
+Api key creation response model
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**key** | **string** |  | [default to undefined]
+**key_id** | **string** |  | [default to undefined]
+**expires_at** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { ApiKeyCreateResponse } from 'neuland-hub-sdk';
+
+const instance: ApiKeyCreateResponse = {
+    key,
+    key_id,
+    expires_at,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

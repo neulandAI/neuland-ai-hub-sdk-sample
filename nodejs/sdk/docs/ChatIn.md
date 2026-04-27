@@ -1,0 +1,30 @@
+# ChatIn
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [optional] [default to undefined]
+**temperature** | **number** |  | [optional] [default to undefined]
+**similarity_top_k** | **number** |  | [optional] [default to undefined]
+**system_prompt** | **string** |  | [optional] [default to undefined]
+**model** | **string** |  | [optional] [default to undefined]
+**_private** | **boolean** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { ChatIn } from 'neuland-hub-sdk';
+
+const instance: ChatIn = {
+    name,
+    temperature,
+    similarity_top_k,
+    system_prompt,
+    model,
+    _private,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
