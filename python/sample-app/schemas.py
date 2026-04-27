@@ -11,16 +11,6 @@ class UserInfoResponse(BaseModel):
     tenant_id: int | None = None
 
 
-class LlmModelsResponse(BaseModel):
-    """ Model llm response """
-    name: str | None = None
-    provider: str | None = None
-    description: str | None = None
-    default: bool | None = None
-    multi_modal: bool | None = None
-    gdpr_compliant: bool | None = None
-
-
 class AssistantModel(BaseModel):
     """ Assistant model """
     name: str

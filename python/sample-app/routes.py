@@ -11,7 +11,7 @@ from neuland_hub_sdk.models.assistant_in import AssistantIn
 from neuland_hub_sdk.rest import ApiException
 
 from auth import bearer_scheme, decode_service_token, get_api_key
-from schemas import UserInfoResponse, LlmModelsResponse, AssistantModel
+from schemas import UserInfoResponse, AssistantModel
 
 router = APIRouter()
 sdk_config = Configuration(host=config.NLND_HUB_API_URL)
@@ -43,25 +43,6 @@ async def get_user_info(api_key: str = Depends(get_api_key)) -> UserInfoResponse
                     tenant_id=user.tenant_id)
         except ApiException as e:
             raise HTTPException(status_code=e.status, detail=f"API error: {e.reason}")
-
-
-# TODO: /llm/models endpoint was removed
-# @router.get("/llm/models", response_model=List[LlmModelsResponse])
-# async def get_llm_models(api_key: str = Depends(get_api_key)) -> List[LlmModelsResponse]:
-#     """ get llm models """
-#     sdk_config.api_key["APIKeyHeader"] = api_key
-#     with neuland_hub_sdk.ApiClient(sdk_config) as api_client:
-#         api = Settings(api_client)
-#         try:
-#             models = api.list_available_models_settings_models_get()
-#             return [LlmModelsResponse(name=m.name,
-#                     provider=m.provider,
-#                     description=m.description,
-#                     default=m.default,
-#                     multi_modal=m.multi_modal,
-#                     gdpr_compliant=m.gdpr_compliant) for m in models]
-#         except ApiException as e:
-#             raise HTTPException(status_code=e.status, detail=f"API error: {e.reason}")
 
 
 @router.post("/assistants", status_code=status.HTTP_201_CREATED)
