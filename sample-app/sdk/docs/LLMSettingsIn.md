@@ -1,22 +1,22 @@
 # LLMSettingsIn
 
-Create schema - all fields required, no defaults (validation only).
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**llm_catalog_id** | **int** |  | 
 **provider** | **str** |  | 
-**model** | **str** |  | 
 **library** | **str** |  | 
-**description** | **str** |  | 
 **max_tokens** | **int** |  | 
-**multi_modal** | **bool** |  | 
-**gdpr_compliant** | **bool** |  | 
 **cost_prompt_tokens** | [**CostPromptTokens**](CostPromptTokens.md) |  | 
 **cost_completion_tokens** | [**CostCompletionTokens**](CostCompletionTokens.md) |  | 
 **args** | **Dict[str, object]** |  | [optional] 
 **openai_resource** | **str** |  | [optional] 
+**api_version** | **str** |  | [optional] 
+**deployment_name** | **str** |  | [optional] 
+**endpoint** | **str** |  | [optional] 
+**api_key** | **str** |  | [optional] 
 
 ## Example
 

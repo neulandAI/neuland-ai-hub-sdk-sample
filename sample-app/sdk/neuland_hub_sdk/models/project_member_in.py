@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,8 @@ class ProjectMemberIn(BaseModel):
     ProjectMemberIn
     """ # noqa: E501
     user_id: StrictInt
-    __properties: ClassVar[List[str]] = ["user_id"]
+    role: StrictStr
+    __properties: ClassVar[List[str]] = ["user_id", "role"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -81,7 +82,8 @@ class ProjectMemberIn(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "user_id": obj.get("user_id")
+            "user_id": obj.get("user_id"),
+            "role": obj.get("role")
         })
         return _obj
 

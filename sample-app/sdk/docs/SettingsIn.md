@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**default_llm_catalog_id** | **int** |  | [optional] 
 **guardrails_enabled** | **bool** |  | [optional] 
 **sharepoint_enabled** | **bool** |  | [optional] 
 **inbound_guardrail** | **str** |  | [optional] 

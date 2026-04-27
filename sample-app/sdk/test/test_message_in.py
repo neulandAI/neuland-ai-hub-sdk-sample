@@ -39,7 +39,6 @@ class TestMessageIn(unittest.TestCase):
                 chat_id = 56,
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 project_id = 56,
-                provider = '',
                 model = '',
                 temperature = 1.337,
                 similarity_top_k = 56,

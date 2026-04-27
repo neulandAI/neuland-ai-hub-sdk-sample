@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
 **domain** | **str** |  | [optional] 
+**parent_tenant_id** | **int** |  | [optional] 
+**subtenants_enabled** | **bool** |  | [optional] 
 **timezone** | **str** |  | [optional] 
 **locale** | **str** |  | [optional] 
 **tarif_id** | **int** |  | [optional] 
@@ -25,6 +27,7 @@ Name | Type | Description | Notes
 **storage_limit_gb** | **int** |  | [optional] 
 **api_rate_limit** | **int** |  | [optional] 
 **upstream_tenant_id** | **str** |  | [optional] 
+**upstream_oidc_issuer** | **str** |  | [optional] 
 
 ## Example
 

@@ -38,6 +38,8 @@ class TestTenantIn(unittest.TestCase):
                 name = '',
                 slug = '',
                 domain = '',
+                parent_tenant_id = 56,
+                subtenants_enabled = True,
                 timezone = '',
                 locale = '',
                 tarif_id = 56,
@@ -55,7 +57,8 @@ class TestTenantIn(unittest.TestCase):
                 theme = '',
                 storage_limit_gb = 56,
                 api_rate_limit = 56,
-                upstream_tenant_id = ''
+                upstream_tenant_id = '',
+                upstream_oidc_issuer = ''
             )
         else:
             return TenantIn(

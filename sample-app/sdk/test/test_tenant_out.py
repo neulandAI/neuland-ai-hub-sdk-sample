@@ -41,6 +41,8 @@ class TestTenantOut(unittest.TestCase):
                 name = '',
                 slug = '',
                 domain = '',
+                parent_tenant_id = 56,
+                subtenants_enabled = True,
                 timezone = '',
                 locale = '',
                 tarif_id = 56,
@@ -58,7 +60,8 @@ class TestTenantOut(unittest.TestCase):
                 storage_limit_gb = 56,
                 api_rate_limit = 56,
                 state = '',
-                upstream_tenant_id = ''
+                upstream_tenant_id = '',
+                upstream_oidc_issuer = ''
             )
         else:
             return TenantOut(
@@ -66,6 +69,7 @@ class TestTenantOut(unittest.TestCase):
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 name = '',
                 slug = '',
+                subtenants_enabled = True,
                 timezone = '',
                 locale = '',
         )

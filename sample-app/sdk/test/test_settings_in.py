@@ -35,6 +35,7 @@ class TestSettingsIn(unittest.TestCase):
         model = SettingsIn()
         if include_optional:
             return SettingsIn(
+                default_llm_catalog_id = 56,
                 guardrails_enabled = True,
                 sharepoint_enabled = True,
                 inbound_guardrail = '',

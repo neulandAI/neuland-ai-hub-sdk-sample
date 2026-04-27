@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,6 +31,8 @@ class TenantIn(BaseModel):
     name: StrictStr
     slug: StrictStr
     domain: Optional[StrictStr] = None
+    parent_tenant_id: Optional[StrictInt] = None
+    subtenants_enabled: Optional[StrictBool] = None
     timezone: Optional[StrictStr] = None
     locale: Optional[StrictStr] = None
     tarif_id: Optional[StrictInt] = None
@@ -49,7 +51,8 @@ class TenantIn(BaseModel):
     storage_limit_gb: Optional[StrictInt] = None
     api_rate_limit: Optional[StrictInt] = None
     upstream_tenant_id: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["name", "slug", "domain", "timezone", "locale", "tarif_id", "tarif_expires_at", "max_users", "max_projects", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "upstream_tenant_id"]
+    upstream_oidc_issuer: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["name", "slug", "domain", "parent_tenant_id", "subtenants_enabled", "timezone", "locale", "tarif_id", "tarif_expires_at", "max_users", "max_projects", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "upstream_tenant_id", "upstream_oidc_issuer"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -94,6 +97,16 @@ class TenantIn(BaseModel):
         # and model_fields_set contains the field
         if self.domain is None and "domain" in self.model_fields_set:
             _dict['domain'] = None
+
+        # set to None if parent_tenant_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.parent_tenant_id is None and "parent_tenant_id" in self.model_fields_set:
+            _dict['parent_tenant_id'] = None
+
+        # set to None if subtenants_enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.subtenants_enabled is None and "subtenants_enabled" in self.model_fields_set:
+            _dict['subtenants_enabled'] = None
 
         # set to None if timezone (nullable) is None
         # and model_fields_set contains the field
@@ -185,6 +198,11 @@ class TenantIn(BaseModel):
         if self.upstream_tenant_id is None and "upstream_tenant_id" in self.model_fields_set:
             _dict['upstream_tenant_id'] = None
 
+        # set to None if upstream_oidc_issuer (nullable) is None
+        # and model_fields_set contains the field
+        if self.upstream_oidc_issuer is None and "upstream_oidc_issuer" in self.model_fields_set:
+            _dict['upstream_oidc_issuer'] = None
+
         return _dict
 
     @classmethod
@@ -200,6 +218,8 @@ class TenantIn(BaseModel):
             "name": obj.get("name"),
             "slug": obj.get("slug"),
             "domain": obj.get("domain"),
+            "parent_tenant_id": obj.get("parent_tenant_id"),
+            "subtenants_enabled": obj.get("subtenants_enabled"),
             "timezone": obj.get("timezone"),
             "locale": obj.get("locale"),
             "tarif_id": obj.get("tarif_id"),
@@ -217,7 +237,8 @@ class TenantIn(BaseModel):
             "theme": obj.get("theme"),
             "storage_limit_gb": obj.get("storage_limit_gb"),
             "api_rate_limit": obj.get("api_rate_limit"),
-            "upstream_tenant_id": obj.get("upstream_tenant_id")
+            "upstream_tenant_id": obj.get("upstream_tenant_id"),
+            "upstream_oidc_issuer": obj.get("upstream_oidc_issuer")
         })
         return _obj
 

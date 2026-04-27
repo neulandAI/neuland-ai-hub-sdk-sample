@@ -31,6 +31,7 @@ class Settings(BaseModel):
     """ # noqa: E501
     id: Optional[StrictInt] = None
     tenant_id: StrictInt
+    default_llm_catalog_id: Optional[StrictInt] = None
     created_at: Optional[datetime] = None
     guardrails_enabled: Optional[StrictBool] = False
     sharepoint_enabled: Optional[StrictBool]
@@ -41,7 +42,7 @@ class Settings(BaseModel):
     errlog_webhook_url: Optional[StrictStr] = None
     default_language: Optional[Annotated[str, Field(strict=True, max_length=5)]] = 'en'
     require_email_confirmation: Optional[StrictBool] = False
-    __properties: ClassVar[List[str]] = ["id", "tenant_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "system_prompt", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation"]
+    __properties: ClassVar[List[str]] = ["id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "system_prompt", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,6 +88,11 @@ class Settings(BaseModel):
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
 
+        # set to None if default_llm_catalog_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.default_llm_catalog_id is None and "default_llm_catalog_id" in self.model_fields_set:
+            _dict['default_llm_catalog_id'] = None
+
         # set to None if sharepoint_enabled (nullable) is None
         # and model_fields_set contains the field
         if self.sharepoint_enabled is None and "sharepoint_enabled" in self.model_fields_set:
@@ -131,6 +137,7 @@ class Settings(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "tenant_id": obj.get("tenant_id"),
+            "default_llm_catalog_id": obj.get("default_llm_catalog_id"),
             "created_at": obj.get("created_at"),
             "guardrails_enabled": obj.get("guardrails_enabled") if obj.get("guardrails_enabled") is not None else False,
             "sharepoint_enabled": obj.get("sharepoint_enabled"),

@@ -31,10 +31,9 @@ class ChatIn(BaseModel):
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
-    provider: Optional[StrictStr] = None
     model: Optional[StrictStr] = None
     private: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "temperature", "similarity_top_k", "system_prompt", "provider", "model", "private"]
+    __properties: ClassVar[List[str]] = ["name", "temperature", "similarity_top_k", "system_prompt", "model", "private"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -95,11 +94,6 @@ class ChatIn(BaseModel):
         if self.system_prompt is None and "system_prompt" in self.model_fields_set:
             _dict['system_prompt'] = None
 
-        # set to None if provider (nullable) is None
-        # and model_fields_set contains the field
-        if self.provider is None and "provider" in self.model_fields_set:
-            _dict['provider'] = None
-
         # set to None if model (nullable) is None
         # and model_fields_set contains the field
         if self.model is None and "model" in self.model_fields_set:
@@ -126,7 +120,6 @@ class ChatIn(BaseModel):
             "temperature": obj.get("temperature"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "system_prompt": obj.get("system_prompt"),
-            "provider": obj.get("provider"),
             "model": obj.get("model"),
             "private": obj.get("private")
         })

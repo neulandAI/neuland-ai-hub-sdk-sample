@@ -40,9 +40,11 @@ class OAuthClient(BaseModel):
     description: Optional[StrictStr] = None
     icon_url: Optional[StrictStr] = None
     authorize_url: StrictStr
+    admin_consent_url: Optional[StrictStr] = None
     token_url: StrictStr
+    logout_url: Optional[StrictStr] = None
     redirect_uri: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "name", "provider_key", "client_id", "description", "icon_url", "authorize_url", "token_url", "redirect_uri"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "name", "provider_key", "client_id", "description", "icon_url", "authorize_url", "admin_consent_url", "token_url", "logout_url", "redirect_uri"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -113,6 +115,16 @@ class OAuthClient(BaseModel):
         if self.icon_url is None and "icon_url" in self.model_fields_set:
             _dict['icon_url'] = None
 
+        # set to None if admin_consent_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.admin_consent_url is None and "admin_consent_url" in self.model_fields_set:
+            _dict['admin_consent_url'] = None
+
+        # set to None if logout_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.logout_url is None and "logout_url" in self.model_fields_set:
+            _dict['logout_url'] = None
+
         # set to None if redirect_uri (nullable) is None
         # and model_fields_set contains the field
         if self.redirect_uri is None and "redirect_uri" in self.model_fields_set:
@@ -141,7 +153,9 @@ class OAuthClient(BaseModel):
             "description": obj.get("description"),
             "icon_url": obj.get("icon_url"),
             "authorize_url": obj.get("authorize_url"),
+            "admin_consent_url": obj.get("admin_consent_url"),
             "token_url": obj.get("token_url"),
+            "logout_url": obj.get("logout_url"),
             "redirect_uri": obj.get("redirect_uri")
         })
         return _obj

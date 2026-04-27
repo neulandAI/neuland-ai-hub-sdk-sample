@@ -46,10 +46,10 @@ class TestAssistant(unittest.TestCase):
                 avatar = '',
                 description = '',
                 instructions = '',
-                provider = '',
-                model = '',
+                llm_catalog_id = 56,
                 temperature = 1.337,
-                similarity_top_k = 56
+                similarity_top_k = 56,
+                pre_defined = True
             )
         else:
             return Assistant(
