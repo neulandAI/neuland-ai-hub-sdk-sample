@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **chat_id** | **int** |  | [optional] 
 **updated_at** | **datetime** |  | [optional] 
 **project_id** | **int** |  | [optional] 
-**provider** | **str** |  | [optional] 
 **model** | **str** |  | [optional] 
 **temperature** | **float** |  | [optional] 
 **similarity_top_k** | **int** |  | [optional] 

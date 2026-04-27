@@ -37,6 +37,8 @@ class TestTenantUpdateIn(unittest.TestCase):
             return TenantUpdateIn(
                 name = '',
                 domain = '',
+                parent_tenant_id = 56,
+                subtenants_enabled = True,
                 timezone = '',
                 locale = '',
                 tarif_id = 56,
@@ -54,7 +56,8 @@ class TestTenantUpdateIn(unittest.TestCase):
                 theme = '',
                 storage_limit_gb = 56,
                 api_rate_limit = 56,
-                upstream_tenant_id = ''
+                upstream_tenant_id = '',
+                upstream_oidc_issuer = ''
             )
         else:
             return TenantUpdateIn(

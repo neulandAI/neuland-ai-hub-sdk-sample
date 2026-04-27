@@ -27,6 +27,7 @@ class SettingsIn(BaseModel):
     """
     SettingsIn
     """ # noqa: E501
+    default_llm_catalog_id: Optional[StrictInt] = None
     guardrails_enabled: Optional[StrictBool] = None
     sharepoint_enabled: Optional[StrictBool] = None
     inbound_guardrail: Optional[StrictStr] = None
@@ -36,7 +37,7 @@ class SettingsIn(BaseModel):
     system_prompt: Optional[StrictStr] = None
     errlog_webhook_url: Optional[StrictStr] = None
     require_email_confirmation: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "errlog_webhook_url", "require_email_confirmation"]
+    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "errlog_webhook_url", "require_email_confirmation"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -77,6 +78,11 @@ class SettingsIn(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if default_llm_catalog_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.default_llm_catalog_id is None and "default_llm_catalog_id" in self.model_fields_set:
+            _dict['default_llm_catalog_id'] = None
+
         # set to None if guardrails_enabled (nullable) is None
         # and model_fields_set contains the field
         if self.guardrails_enabled is None and "guardrails_enabled" in self.model_fields_set:
@@ -134,6 +140,7 @@ class SettingsIn(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "default_llm_catalog_id": obj.get("default_llm_catalog_id"),
             "guardrails_enabled": obj.get("guardrails_enabled"),
             "sharepoint_enabled": obj.get("sharepoint_enabled"),
             "inbound_guardrail": obj.get("inbound_guardrail"),

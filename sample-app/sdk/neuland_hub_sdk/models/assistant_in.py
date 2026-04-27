@@ -28,14 +28,13 @@ class AssistantIn(BaseModel):
     AssistantIn
     """ # noqa: E501
     name: StrictStr
-    provider: Optional[StrictStr] = None
     model: Optional[StrictStr] = None
     avatar: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     instructions: Optional[StrictStr] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     similarity_top_k: Optional[Union[StrictFloat, StrictInt]] = None
-    __properties: ClassVar[List[str]] = ["name", "provider", "model", "avatar", "description", "instructions", "temperature", "similarity_top_k"]
+    __properties: ClassVar[List[str]] = ["name", "model", "avatar", "description", "instructions", "temperature", "similarity_top_k"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -76,11 +75,6 @@ class AssistantIn(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if provider (nullable) is None
-        # and model_fields_set contains the field
-        if self.provider is None and "provider" in self.model_fields_set:
-            _dict['provider'] = None
-
         # set to None if model (nullable) is None
         # and model_fields_set contains the field
         if self.model is None and "model" in self.model_fields_set:
@@ -124,7 +118,6 @@ class AssistantIn(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "provider": obj.get("provider"),
             "model": obj.get("model"),
             "avatar": obj.get("avatar"),
             "description": obj.get("description"),

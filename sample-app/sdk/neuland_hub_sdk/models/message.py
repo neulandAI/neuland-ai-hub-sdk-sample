@@ -43,11 +43,11 @@ class Message(BaseModel):
     completed: Optional[StrictBool] = False
     error: Optional[StrictStr]
     hint: Optional[StrictStr]
-    provider: Optional[StrictStr] = None
-    model: Optional[StrictStr] = None
+    llm_catalog_id: Optional[StrictInt] = None
+    llm_settings_id: Optional[StrictInt] = None
     usage: Optional[Dict[str, Any]] = None
     celery_task_id: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "created_at", "updated_at", "creator_user_id", "chat_id", "role", "content", "sent_user_msg", "parent_id", "completed", "error", "hint", "provider", "model", "usage", "celery_task_id"]
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "created_at", "updated_at", "creator_user_id", "chat_id", "role", "content", "sent_user_msg", "parent_id", "completed", "error", "hint", "llm_catalog_id", "llm_settings_id", "usage", "celery_task_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -128,15 +128,15 @@ class Message(BaseModel):
         if self.hint is None and "hint" in self.model_fields_set:
             _dict['hint'] = None
 
-        # set to None if provider (nullable) is None
+        # set to None if llm_catalog_id (nullable) is None
         # and model_fields_set contains the field
-        if self.provider is None and "provider" in self.model_fields_set:
-            _dict['provider'] = None
+        if self.llm_catalog_id is None and "llm_catalog_id" in self.model_fields_set:
+            _dict['llm_catalog_id'] = None
 
-        # set to None if model (nullable) is None
+        # set to None if llm_settings_id (nullable) is None
         # and model_fields_set contains the field
-        if self.model is None and "model" in self.model_fields_set:
-            _dict['model'] = None
+        if self.llm_settings_id is None and "llm_settings_id" in self.model_fields_set:
+            _dict['llm_settings_id'] = None
 
         # set to None if usage (nullable) is None
         # and model_fields_set contains the field
@@ -175,8 +175,8 @@ class Message(BaseModel):
             "completed": obj.get("completed") if obj.get("completed") is not None else False,
             "error": obj.get("error"),
             "hint": obj.get("hint"),
-            "provider": obj.get("provider"),
-            "model": obj.get("model"),
+            "llm_catalog_id": obj.get("llm_catalog_id"),
+            "llm_settings_id": obj.get("llm_settings_id"),
             "usage": obj.get("usage"),
             "celery_task_id": obj.get("celery_task_id")
         })

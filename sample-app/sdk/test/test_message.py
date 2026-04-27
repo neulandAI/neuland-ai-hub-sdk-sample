@@ -50,8 +50,8 @@ class TestMessage(unittest.TestCase):
                 completed = True,
                 error = '',
                 hint = '',
-                provider = '',
-                model = '',
+                llm_catalog_id = 56,
+                llm_settings_id = 56,
                 usage = { },
                 celery_task_id = ''
             )

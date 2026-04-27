@@ -48,8 +48,8 @@ class TestChat(unittest.TestCase):
                 temperature = 1.337,
                 similarity_top_k = 56,
                 system_prompt = '',
-                provider = '',
-                model = '',
+                llm_catalog_id = 56,
+                llm_settings_id = 56,
                 assistant_id = 56,
                 private = True,
                 consumed_tokens = 56

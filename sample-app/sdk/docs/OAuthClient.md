@@ -16,7 +16,9 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **icon_url** | **str** |  | [optional] 
 **authorize_url** | **str** |  | 
+**admin_consent_url** | **str** |  | [optional] 
 **token_url** | **str** |  | 
+**logout_url** | **str** |  | [optional] 
 **redirect_uri** | **str** |  | [optional] 
 
 ## Example

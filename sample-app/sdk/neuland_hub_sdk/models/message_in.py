@@ -32,14 +32,13 @@ class MessageIn(BaseModel):
     chat_id: Optional[StrictInt] = None
     updated_at: Optional[datetime] = None
     project_id: Optional[StrictInt] = None
-    provider: Optional[StrictStr] = None
     model: Optional[StrictStr] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
     assistant_id: Optional[StrictInt] = None
     private: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["content", "chat_id", "updated_at", "project_id", "provider", "model", "temperature", "similarity_top_k", "system_prompt", "assistant_id", "private"]
+    __properties: ClassVar[List[str]] = ["content", "chat_id", "updated_at", "project_id", "model", "temperature", "similarity_top_k", "system_prompt", "assistant_id", "private"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -95,11 +94,6 @@ class MessageIn(BaseModel):
         if self.project_id is None and "project_id" in self.model_fields_set:
             _dict['project_id'] = None
 
-        # set to None if provider (nullable) is None
-        # and model_fields_set contains the field
-        if self.provider is None and "provider" in self.model_fields_set:
-            _dict['provider'] = None
-
         # set to None if model (nullable) is None
         # and model_fields_set contains the field
         if self.model is None and "model" in self.model_fields_set:
@@ -146,7 +140,6 @@ class MessageIn(BaseModel):
             "chat_id": obj.get("chat_id"),
             "updated_at": obj.get("updated_at"),
             "project_id": obj.get("project_id"),
-            "provider": obj.get("provider"),
             "model": obj.get("model"),
             "temperature": obj.get("temperature"),
             "similarity_top_k": obj.get("similarity_top_k"),

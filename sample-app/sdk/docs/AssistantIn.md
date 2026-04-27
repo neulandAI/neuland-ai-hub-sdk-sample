@@ -6,7 +6,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | 
-**provider** | **str** |  | [optional] 
 **model** | **str** |  | [optional] 
 **avatar** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
