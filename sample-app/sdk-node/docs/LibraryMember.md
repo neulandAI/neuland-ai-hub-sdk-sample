@@ -1,0 +1,33 @@
+# LibraryMember
+
+Members for a library
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**created_at** | **string** |  | [optional] [default to undefined]
+**updated_at** | **string** |  | [optional] [default to undefined]
+**creator_user_id** | **number** |  | [default to undefined]
+**updater_user_id** | **number** |  | [optional] [default to undefined]
+**library_id** | **number** |  | [default to undefined]
+**user_id** | **number** |  | [default to undefined]
+**role** | **string** |  | [default to undefined]
+
+## Example
+
+```typescript
+import { LibraryMember } from 'neuland-hub-sdk';
+
+const instance: LibraryMember = {
+    created_at,
+    updated_at,
+    creator_user_id,
+    updater_user_id,
+    library_id,
+    user_id,
+    role,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
