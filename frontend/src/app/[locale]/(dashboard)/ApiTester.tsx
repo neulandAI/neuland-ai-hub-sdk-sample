@@ -101,77 +101,77 @@ function UserProfileTabs({ data }: { data: UserProfileData }) {
     );
 }
 
-function LlmModelsTabs({ data }: { data: LlmModel[] }) {
-    const [activeTab, setActiveTab] = useState<"json" | "ui">("ui");
+// function LlmModelsTabs({ data }: { data: LlmModel[] }) {
+//     const [activeTab, setActiveTab] = useState<"json" | "ui">("ui");
 
-    return (
-        <div>
-            <div className="flex gap-2 mb-4 border-b border-border">
-                <button
-                    onClick={() => setActiveTab("ui")}
-                    className={`px-4 py-2 font-medium transition-colors ${
-                        activeTab === "ui"
-                            ? "text-primary border-b-2 border-primary"
-                            : "text-muted-foreground hover:text-foreground"
-                    }`}
-                >
-                    UI View
-                </button>
-                <button
-                    onClick={() => setActiveTab("json")}
-                    className={`px-4 py-2 font-medium transition-colors ${
-                        activeTab === "json"
-                            ? "text-primary border-b-2 border-primary"
-                            : "text-muted-foreground hover:text-foreground"
-                    }`}
-                >
-                    JSON View
-                </button>
-            </div>
+//     return (
+//         <div>
+//             <div className="flex gap-2 mb-4 border-b border-border">
+//                 <button
+//                     onClick={() => setActiveTab("ui")}
+//                     className={`px-4 py-2 font-medium transition-colors ${
+//                         activeTab === "ui"
+//                             ? "text-primary border-b-2 border-primary"
+//                             : "text-muted-foreground hover:text-foreground"
+//                     }`}
+//                 >
+//                     UI View
+//                 </button>
+//                 <button
+//                     onClick={() => setActiveTab("json")}
+//                     className={`px-4 py-2 font-medium transition-colors ${
+//                         activeTab === "json"
+//                             ? "text-primary border-b-2 border-primary"
+//                             : "text-muted-foreground hover:text-foreground"
+//                     }`}
+//                 >
+//                     JSON View
+//                 </button>
+//             </div>
 
-            {activeTab === "json" ? (
-                <div className="bg-muted rounded-lg p-4">
-                    <code className="text-sm text-muted-foreground whitespace-pre-wrap break-all">
-                        {JSON.stringify(data, null, 2)}
-                    </code>
-                </div>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {data.map((model, index) => (
-                        <div key={index} className="bg-muted rounded-lg p-4 space-y-3">
-                            <div className="flex items-start justify-between">
-                                <div>
-                                    <h4 className="text-base font-semibold text-foreground">{model.name}</h4>
-                                    <p className="text-xs text-muted-foreground mt-1">{model.description}</p>
-                                </div>
-                                {model.default && (
-                                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground">
-                                        Default
-                                    </span>
-                                )}
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-muted-foreground/20 text-foreground">
-                                    {model.provider}
-                                </span>
-                                {model.multi_modal && (
-                                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-600 dark:text-blue-400">
-                                        Multi-modal
-                                    </span>
-                                )}
-                                {model.gdpr_compliant && (
-                                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-600 dark:text-green-400">
-                                        GDPR Compliant
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-}
+//             {activeTab === "json" ? (
+//                 <div className="bg-muted rounded-lg p-4">
+//                     <code className="text-sm text-muted-foreground whitespace-pre-wrap break-all">
+//                         {JSON.stringify(data, null, 2)}
+//                     </code>
+//                 </div>
+//             ) : (
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+//                     {data.map((model, index) => (
+//                         <div key={index} className="bg-muted rounded-lg p-4 space-y-3">
+//                             <div className="flex items-start justify-between">
+//                                 <div>
+//                                     <h4 className="text-base font-semibold text-foreground">{model.name}</h4>
+//                                     <p className="text-xs text-muted-foreground mt-1">{model.description}</p>
+//                                 </div>
+//                                 {model.default && (
+//                                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary text-primary-foreground">
+//                                         Default
+//                                     </span>
+//                                 )}
+//                             </div>
+//                             <div className="flex flex-wrap gap-2">
+//                                 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-muted-foreground/20 text-foreground">
+//                                     {model.provider}
+//                                 </span>
+//                                 {model.multi_modal && (
+//                                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-600 dark:text-blue-400">
+//                                         Multi-modal
+//                                     </span>
+//                                 )}
+//                                 {model.gdpr_compliant && (
+//                                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-600 dark:text-green-400">
+//                                         GDPR Compliant
+//                                     </span>
+//                                 )}
+//                             </div>
+//                         </div>
+//                     ))}
+//                 </div>
+//             )}
+//         </div>
+//     );
+// }
 
 interface ApiTesterProps {
     serviceToken: string;
@@ -179,7 +179,7 @@ interface ApiTesterProps {
 
 export default function ApiTester({ serviceToken }: ApiTesterProps) {
     const [userProfile, setUserProfile] = useState<any>(null);
-    const [llmModels, setLlmModels] = useState<any>(null);
+    // const [llmModels, setLlmModels] = useState<any>(null);
     const [loadingProfile, setLoadingProfile] = useState(false);
     const [loadingModels, setLoadingModels] = useState(false);
     const [errorProfile, setErrorProfile] = useState<string | null>(null);
@@ -212,24 +212,24 @@ export default function ApiTester({ serviceToken }: ApiTesterProps) {
         }
     };
 
-    const fetchLlmModels = async () => {
-        setLoadingModels(true);
-        setErrorModels(null);
-        setLlmModels(null);
-        try {
-            const result = await getLlmModels(serviceToken);
+    // const fetchLlmModels = async () => {
+    //     setLoadingModels(true);
+    //     setErrorModels(null);
+    //     setLlmModels(null);
+    //     try {
+    //         const result = await getLlmModels(serviceToken);
             
-            if (result.success) {
-                setLlmModels(result.data);
-            } else {
-                setErrorModels(result.error || "Unknown error");
-            }
-        } catch (error) {
-            setErrorModels(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        } finally {
-            setLoadingModels(false);
-        }
-    };
+    //         if (result.success) {
+    //             setLlmModels(result.data);
+    //         } else {
+    //             setErrorModels(result.error || "Unknown error");
+    //         }
+    //     } catch (error) {
+    //         setErrorModels(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    //     } finally {
+    //         setLoadingModels(false);
+    //     }
+    // };
 
     const handleCreateAssistant = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -281,13 +281,13 @@ export default function ApiTester({ serviceToken }: ApiTesterProps) {
                             {loadingProfile ? "Loading..." : "Get User Profile"}
                         </button>
                         
-                        <button
+                        {/* <button
                             onClick={fetchLlmModels}
                             disabled={loadingModels}
                             className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
                         >
                             {loadingModels ? "Loading..." : "Get LLM Models"}
-                        </button>
+                        </button> */}
                     </div>
                 </div>
 
@@ -382,7 +382,7 @@ export default function ApiTester({ serviceToken }: ApiTesterProps) {
                     </div>
                 )}
 
-                {(llmModels || errorModels) && (
+                {/* {(llmModels || errorModels) && (
                     <div className="bg-card border border-border rounded-lg p-6">
                         <div className="flex items-center justify-between mb-3">
                             <h3 className="text-base font-semibold text-foreground">LLM Models</h3>
@@ -404,7 +404,7 @@ export default function ApiTester({ serviceToken }: ApiTesterProps) {
                             <LlmModelsTabs data={llmModels} />
                         )}
                     </div>
-                )}
+                )} */}
 
                 {(assistantResult || errorAssistant) && (
                     <div className="bg-card border border-border rounded-lg p-6">
