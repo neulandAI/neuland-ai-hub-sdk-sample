@@ -1,0 +1,673 @@
+# Auth
+
+All URIs are relative to *http://localhost*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**authAzureEntraCallback**](#authazureentracallback) | **GET** /auth/callback/azure-entra | Azure Entra Callback|
+|[**authConfirmEmail**](#authconfirmemail) | **GET** /auth/confirm-email | Confirm Email|
+|[**authExchangeToken**](#authexchangetoken) | **POST** /auth/exchange/token | Exchange Token|
+|[**authGetEntraGroups**](#authgetentragroups) | **GET** /auth/entra/groups | Get Entra Groups|
+|[**authGetEntraScopes**](#authgetentrascopes) | **GET** /auth/entra/scopes | Get Entra Scopes|
+|[**authLogin**](#authlogin) | **POST** /auth/token | Login|
+|[**authLogout**](#authlogout) | **POST** /auth/logout | Logout|
+|[**authOidcCallback**](#authoidccallback) | **GET** /auth/callback/oidc | Oidc Callback|
+|[**authRequestPasswordReset**](#authrequestpasswordreset) | **POST** /auth/request-password-reset | Request Password Reset|
+|[**authResetPassword**](#authresetpassword) | **POST** /auth/reset-password | Reset Password|
+|[**authResetPasswordForm**](#authresetpasswordform) | **GET** /auth/reset-password | Reset Password Form|
+|[**authSendEmailConfirmation**](#authsendemailconfirmation) | **POST** /auth/send-email-confirmation | Send Email Confirmation|
+
+# **authAzureEntraCallback**
+> { [key: string]: any; } authAzureEntraCallback()
+
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let code: string; //Authorization code from Azure Entra ID (default to undefined)
+let userAgent: string; // (optional) (default to undefined)
+let xRealIp: string; // (optional) (default to undefined)
+let xForwardedFor: string; // (optional) (default to undefined)
+let xClientIp: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authAzureEntraCallback(
+    code,
+    userAgent,
+    xRealIp,
+    xForwardedFor,
+    xClientIp
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **code** | [**string**] | Authorization code from Azure Entra ID | defaults to undefined|
+| **userAgent** | [**string**] |  | (optional) defaults to undefined|
+| **xRealIp** | [**string**] |  | (optional) defaults to undefined|
+| **xForwardedFor** | [**string**] |  | (optional) defaults to undefined|
+| **xClientIp** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**{ [key: string]: any; }**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authConfirmEmail**
+> any authConfirmEmail()
+
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let token: string; //JWT token from confirmation email (default to undefined)
+let accept: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authConfirmEmail(
+    token,
+    accept
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **token** | [**string**] | JWT token from confirmation email | defaults to undefined|
+| **accept** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authExchangeToken**
+> string authExchangeToken()
+
+service token endpoint for AI applications
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let appId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.authExchangeToken(
+    appId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **appId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authGetEntraGroups**
+> { [key: string]: ResponseAuthGetEntraGroupsValue; } authGetEntraGroups()
+
+Get Azure Entra group names for current user\'s groups
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+const { status, data } = await apiInstance.authGetEntraGroups();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**{ [key: string]: ResponseAuthGetEntraGroupsValue; }**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authGetEntraScopes**
+> Array<string | null> authGetEntraScopes()
+
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+const { status, data } = await apiInstance.authGetEntraScopes();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**Array<string | null>**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authLogin**
+> TokenOut authLogin()
+
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let username: string; // (default to undefined)
+let password: string; // (default to undefined)
+let userAgent: string; // (optional) (default to undefined)
+let xRealIp: string; // (optional) (default to undefined)
+let xForwardedFor: string; // (optional) (default to undefined)
+let xClientIp: string; // (optional) (default to undefined)
+let sessionId: number; // (optional) (default to undefined)
+let grantType: string; // (optional) (default to undefined)
+let scope: string; // (optional) (default to '')
+let clientId: string; // (optional) (default to undefined)
+let clientSecret: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authLogin(
+    username,
+    password,
+    userAgent,
+    xRealIp,
+    xForwardedFor,
+    xClientIp,
+    sessionId,
+    grantType,
+    scope,
+    clientId,
+    clientSecret
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **username** | [**string**] |  | defaults to undefined|
+| **password** | [**string**] |  | defaults to undefined|
+| **userAgent** | [**string**] |  | (optional) defaults to undefined|
+| **xRealIp** | [**string**] |  | (optional) defaults to undefined|
+| **xForwardedFor** | [**string**] |  | (optional) defaults to undefined|
+| **xClientIp** | [**string**] |  | (optional) defaults to undefined|
+| **sessionId** | [**number**] |  | (optional) defaults to undefined|
+| **grantType** | [**string**] |  | (optional) defaults to undefined|
+| **scope** | [**string**] |  | (optional) defaults to ''|
+| **clientId** | [**string**] |  | (optional) defaults to undefined|
+| **clientSecret** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TokenOut**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authLogout**
+> any authLogout()
+
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+const { status, data } = await apiInstance.authLogout();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authOidcCallback**
+> { [key: string]: any; } authOidcCallback()
+
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let code: string; //Authorization code from OIDC provider (default to undefined)
+let userAgent: string; // (optional) (default to undefined)
+let xRealIp: string; // (optional) (default to undefined)
+let xForwardedFor: string; // (optional) (default to undefined)
+let xClientIp: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authOidcCallback(
+    code,
+    userAgent,
+    xRealIp,
+    xForwardedFor,
+    xClientIp
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **code** | [**string**] | Authorization code from OIDC provider | defaults to undefined|
+| **userAgent** | [**string**] |  | (optional) defaults to undefined|
+| **xRealIp** | [**string**] |  | (optional) defaults to undefined|
+| **xForwardedFor** | [**string**] |  | (optional) defaults to undefined|
+| **xClientIp** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**{ [key: string]: any; }**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authRequestPasswordReset**
+> authRequestPasswordReset(passwordResetRequestIn)
+
+Request password reset. Always returns 200 OK to prevent user enumeration. Sends email with reset link if user exists and origin is valid.
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration,
+    PasswordResetRequestIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let passwordResetRequestIn: PasswordResetRequestIn; //
+let origin: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authRequestPasswordReset(
+    passwordResetRequestIn,
+    origin
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **passwordResetRequestIn** | **PasswordResetRequestIn**|  | |
+| **origin** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authResetPassword**
+> authResetPassword()
+
+Complete password reset with token and new password. Validates token, updates password, and revokes all user sessions. Accepts both JSON (for API) and form data (for HTML fallback).
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let token: string; //Password reset JWT token (default to undefined)
+
+const { status, data } = await apiInstance.authResetPassword(
+    token
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **token** | [**string**] | Password reset JWT token | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authResetPasswordForm**
+> string authResetPasswordForm()
+
+Fallback HTML form for password reset when no frontend is available. Displays a secure form with basic security measures. Validates token before showing form.
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let token: string; //Password reset JWT token (default to undefined)
+
+const { status, data } = await apiInstance.authResetPasswordForm(
+    token
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **token** | [**string**] | Password reset JWT token | defaults to undefined|
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/html, application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authSendEmailConfirmation**
+> authSendEmailConfirmation()
+
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authSendEmailConfirmation(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

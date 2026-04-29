@@ -1,0 +1,31 @@
+# TokenTimeseriesPoint
+
+Represents a single point in the token timeseries data.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**var_date** | **str** |  | 
+**value** | **float** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.token_timeseries_point import TokenTimeseriesPoint
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of TokenTimeseriesPoint from a JSON string
+token_timeseries_point_instance = TokenTimeseriesPoint.from_json(json)
+# print the JSON string representation of the object
+print(TokenTimeseriesPoint.to_json())
+
+# convert the object into a dict
+token_timeseries_point_dict = token_timeseries_point_instance.to_dict()
+# create an instance of TokenTimeseriesPoint from a dict
+token_timeseries_point_from_dict = TokenTimeseriesPoint.from_dict(token_timeseries_point_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -33,6 +33,20 @@ class TestSharepoint(unittest.TestCase):
         """
         pass
 
+    def test_integrations_get_user_info(self) -> None:
+        """Test case for integrations_get_user_info
+
+        Get User Info
+        """
+        pass
+
+    def test_integrations_is_connected(self) -> None:
+        """Test case for integrations_is_connected
+
+        Is Connected
+        """
+        pass
+
     def test_integrations_list_all_sites(self) -> None:
         """Test case for integrations_list_all_sites
 

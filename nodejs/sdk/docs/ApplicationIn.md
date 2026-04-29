@@ -1,0 +1,37 @@
+# ApplicationIn
+
+Schema for creating an application
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [default to undefined]
+**is_active** | **boolean** |  | [optional] [default to true]
+**tenant_id** | **number** |  | [default to undefined]
+**app_url** | **string** |  | [optional] [default to undefined]
+**is_native** | **boolean** |  | [optional] [default to undefined]
+**native_app_id** | **number** |  | [optional] [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+**version** | **string** |  | [optional] [default to undefined]
+**avatar** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { ApplicationIn } from 'neuland-hub-sdk';
+
+const instance: ApplicationIn = {
+    name,
+    is_active,
+    tenant_id,
+    app_url,
+    is_native,
+    native_app_id,
+    description,
+    version,
+    avatar,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

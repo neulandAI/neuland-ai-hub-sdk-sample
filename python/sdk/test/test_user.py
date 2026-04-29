@@ -26,10 +26,87 @@ class TestUser(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_users_activate_user(self) -> None:
+        """Test case for users_activate_user
+
+        Activate User
+        """
+        pass
+
+    def test_users_create_group(self) -> None:
+        """Test case for users_create_group
+
+        Create Group
+        """
+        pass
+
+    def test_users_create_user(self) -> None:
+        """Test case for users_create_user
+
+        Create User
+        """
+        pass
+
+    def test_users_deactivate_user(self) -> None:
+        """Test case for users_deactivate_user
+
+        Deactivate User
+        """
+        pass
+
+    def test_users_delete_group(self) -> None:
+        """Test case for users_delete_group
+
+        Delete Group
+        """
+        pass
+
+    def test_users_delete_user(self) -> None:
+        """Test case for users_delete_user
+
+        Delete User
+        """
+        pass
+
     def test_users_get_myself(self) -> None:
         """Test case for users_get_myself
 
         Get Myself
+        """
+        pass
+
+    def test_users_reset_password(self) -> None:
+        """Test case for users_reset_password
+
+        Reset Password
+        """
+        pass
+
+    def test_users_update_group(self) -> None:
+        """Test case for users_update_group
+
+        Update Group
+        """
+        pass
+
+    def test_users_update_user(self) -> None:
+        """Test case for users_update_user
+
+        Update User
+        """
+        pass
+
+    def test_users_upsert_members(self) -> None:
+        """Test case for users_upsert_members
+
+        Upsert Members
+        """
+        pass
+
+    def test_users_upsert_my_preferences(self) -> None:
+        """Test case for users_upsert_my_preferences
+
+        Upsert My Preferences
         """
         pass
 

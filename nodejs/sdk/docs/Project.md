@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost*
 |[**projectsDeleteMember**](#projectsdeletemember) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member|
 |[**projectsDeleteMembers**](#projectsdeletemembers) | **DELETE** /projects/{project_id}/members | Delete Members|
 |[**projectsDeleteProject**](#projectsdeleteproject) | **DELETE** /projects/{project_id} | Delete Project|
+|[**projectsIsProjectNameFree**](#projectsisprojectnamefree) | **GET** /projects/available | Is Project Name Free|
 |[**projectsLeaveProject**](#projectsleaveproject) | **DELETE** /projects/{project_id}/remove/me | Leave Project|
 |[**projectsRemoveLibraryFromProject**](#projectsremovelibraryfromproject) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project|
 |[**projectsUpdateProject**](#projectsupdateproject) | **PATCH** /projects/{project_id} | Update Project|
@@ -350,6 +351,60 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **projectsIsProjectNameFree**
+> boolean projectsIsProjectNameFree()
+
+
+### Example
+
+```typescript
+import {
+    Project,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Project(configuration);
+
+let name: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.projectsIsProjectNameFree(
+    name,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **name** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**boolean**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

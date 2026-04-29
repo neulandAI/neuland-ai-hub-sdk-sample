@@ -5,6 +5,8 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**integrations_get_item_info**](Sharepoint.md#integrations_get_item_info) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get Item Info
+[**integrations_get_user_info**](Sharepoint.md#integrations_get_user_info) | **GET** /integrations/sharepoint/me | Get User Info
+[**integrations_is_connected**](Sharepoint.md#integrations_is_connected) | **GET** /integrations/sharepoint/connected | Is Connected
 [**integrations_list_all_sites**](Sharepoint.md#integrations_list_all_sites) | **GET** /integrations/sharepoint/sites | List All Sites
 [**integrations_list_children**](Sharepoint.md#integrations_list_children) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List Children
 [**integrations_list_drives**](Sharepoint.md#integrations_list_drives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List Drives
@@ -84,6 +86,167 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SharepointItemModel**](SharepointItemModel.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **integrations_get_user_info**
+> SharepointUserModel integrations_get_user_info(cookie_name=cookie_name)
+
+Get User Info
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sharepoint_user_model import SharepointUserModel
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Get User Info
+        api_response = api_instance.integrations_get_user_info(cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_get_user_info:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Sharepoint->integrations_get_user_info: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**SharepointUserModel**](SharepointUserModel.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **integrations_is_connected**
+> bool integrations_is_connected(cookie_name=cookie_name)
+
+Is Connected
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Is Connected
+        api_response = api_instance.integrations_is_connected(cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_is_connected:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Sharepoint->integrations_is_connected: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**bool**
 
 ### Authorization
 

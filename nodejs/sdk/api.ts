@@ -24,6 +24,151 @@ import type { RequestArgs } from './base';
 import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerMap } from './base';
 
 /**
+ * api key model
+ */
+export interface ApiKey {
+    /**
+     * Primary key for api keys
+     */
+    'id'?: number;
+    'name'?: string | null;
+    'description'?: string | null;
+    /**
+     * Public part of the key
+     */
+    'key_id': string;
+    /**
+     * Environment where the key is used.
+     */
+    'environment'?: string;
+    /**
+     * hashed api key
+     */
+    'hashed_secret': string;
+    'active'?: boolean;
+    /**
+     * Version of the API key for rotation purposes.
+     */
+    'version'?: string;
+    /**
+     * ID of the user who created the key.
+     */
+    'creator_user_id': number;
+    /**
+     * Timestamp when the key was created.
+     */
+    'created_at'?: string;
+    'last_used_at'?: string;
+    'expires_at'?: string;
+}
+/**
+ * Api key creation payload model
+ */
+export interface ApiKeyCreateRequest {
+    'name'?: string | null;
+    'description'?: string | null;
+}
+/**
+ * Api key creation response model
+ */
+export interface ApiKeyCreateResponse {
+    'key': string;
+    'key_id': string;
+    'expires_at'?: string | null;
+}
+/**
+ * Applications available on the platform.
+ */
+export interface Application {
+    'created_at'?: string;
+    'updated_at'?: string;
+    'id'?: number | null;
+    /**
+     * Name of the application.
+     */
+    'name'?: string;
+    /**
+     * ID of the tenant that owns the application.
+     */
+    'tenant_id': number;
+    'is_active'?: boolean;
+    'is_native'?: boolean;
+    /**
+     * Unique URL identifier for the application.
+     */
+    'app_url'?: string;
+    'native_app_id'?: number | null;
+    'description'?: string | null;
+    'version'?: string | null;
+    'avatar'?: string | null;
+    'creator_user_id': number | null;
+}
+/**
+ * Schema for granting app access to users
+ */
+export interface ApplicationAccessIn {
+    'application_id': number;
+    'user_ids'?: Array<number> | null;
+}
+/**
+ * Group-level access for an application, scoped to tenant.
+ */
+export interface ApplicationGroup {
+    /**
+     * ID of the tenant.
+     */
+    'tenant_id': number;
+    /**
+     *  ID of the user group.
+     */
+    'group_id': number;
+    /**
+     * ID of the application.
+     */
+    'app_id': number;
+    'granted_by': number | null;
+    /**
+     * Timestamp when the user group was created.
+     */
+    'created_at'?: string;
+}
+/**
+ * Schema for creating an application
+ */
+export interface ApplicationIn {
+    'name': string;
+    'is_active'?: boolean;
+    'tenant_id': number;
+    'app_url'?: string | null;
+    'is_native'?: boolean | null;
+    'native_app_id'?: number | null;
+    'description'?: string | null;
+    'version'?: string | null;
+    'avatar'?: string | null;
+}
+/**
+ * User-specific access control for applications. This table allows setting explicit allow/deny rules for users on specific applications.
+ */
+export interface ApplicationMember {
+    /**
+     * ID of the user.
+     */
+    'user_id': number;
+    /**
+     * ID of the tenant.
+     */
+    'tenant_id': number;
+    /**
+     * ID of the application.
+     */
+    'app_id': number;
+    'granted_by': number | null;
+    /**
+     * Timestamp when access was created.
+     */
+    'created_at'?: string;
+}
+/**
  * Represents an AI Assistant partially compatible with the OpenAI Assistant API.
  */
 export interface Assistant {
@@ -77,6 +222,217 @@ export interface AssistantTool {
     'assistant_id': number;
     'tool_id': number;
 }
+/**
+ * BCC recipients
+ */
+export interface Bcc {
+}
+/**
+ * Saves the budget alerts.
+ */
+export interface BudgetAlert {
+    'id'?: number | null;
+    'tenant_id': number;
+    /**
+     * Name of the alert.
+     */
+    'name'?: string;
+    /**
+     * Budget threshold, for notification.
+     */
+    'threshold_amount'?: number;
+    /**
+     * Total Spent. In decimal to have more accuracy
+     */
+    'current_spend'?: string;
+    /**
+     * If the alert is triggered or not
+     */
+    'triggered'?: boolean;
+    /**
+     * If the alert is enabled
+     */
+    'active'?: boolean;
+    /**
+     * Timestamp when the alert was created.
+     */
+    'created_at'?: string;
+    /**
+     * Timestamp when alert was updated.
+     */
+    'updated_at'?: string;
+    /**
+     * ID of the user who made the LLM request.
+     */
+    'created_user_id': number;
+}
+/**
+ * Alert request model
+ */
+export interface BudgetAlertRequest {
+    /**
+     * Name for the alert to be created. Max 100 characters.
+     */
+    'name': string;
+    /**
+     * Threshold amount
+     */
+    'threshold_amount': number;
+}
+/**
+ * ALert update model
+ */
+export interface BudgetAlertUpdate {
+    'name'?: string | null;
+    'threshold_amount'?: number | null;
+    'active'?: boolean | null;
+}
+export interface BulkResult {
+    'count': number;
+    'ids': Array<number>;
+}
+export interface CatalogIn {
+    'name': string;
+    'description': string | null;
+    'multi_modal': boolean;
+    'gdpr_compliant': boolean;
+    'auto_seed'?: boolean;
+}
+export interface CatalogUpdate {
+    'name'?: string | null;
+    'description'?: string | null;
+    'multi_modal'?: boolean | null;
+    'gdpr_compliant'?: boolean | null;
+    'auto_seed'?: boolean | null;
+}
+/**
+ * CC recipients
+ */
+export interface Cc {
+}
+export interface Chat {
+    'state'?: string | null;
+    'state_reason'?: string | null;
+    'state_changed_at'?: string | null;
+    'id'?: number | null;
+    'created_at'?: string;
+    'updated_at'?: string;
+    'creator_user_id': number;
+    'project_id': number | null;
+    'name': string;
+    'busy': boolean;
+    'temperature'?: number | null;
+    'similarity_top_k'?: number | null;
+    'system_prompt'?: string | null;
+    'llm_catalog_id'?: number | null;
+    'llm_settings_id'?: number | null;
+    'assistant_id'?: number | null;
+    'private'?: boolean;
+    'consumed_tokens'?: number | null;
+}
+export interface ChatIn {
+    'name'?: string | null;
+    'temperature'?: number | null;
+    'similarity_top_k'?: number | null;
+    'system_prompt'?: string | null;
+    'model'?: string | null;
+    'private'?: boolean | null;
+}
+export interface ChatInactiveDocument {
+    'creator_user_id': number;
+    'created_at'?: string;
+    'chat_id': number;
+    'document_id': number;
+}
+export interface ChatLibrary {
+    'created_at'?: string;
+    'updated_at'?: string;
+    'creator_user_id': number;
+    'updater_user_id'?: number | null;
+    'chat_id': number;
+    'library_id': number;
+}
+/**
+ * Response schema for chat tool settings
+ */
+export interface ChatToolSettingsOut {
+    'chat_id': number;
+    'tool_id': number;
+    'enabled': boolean;
+    'created_at': string;
+    'updated_at': string | null;
+}
+/**
+ * Request schema for updating a single chat tool setting
+ */
+export interface ChatToolSettingsUpdate {
+    'enabled': boolean;
+}
+export interface Connector {
+    'created_at'?: string;
+    'updated_at'?: string;
+    'creator_user_id'?: number | null;
+    'updater_user_id'?: number | null;
+    'id'?: number | null;
+    'oauth_client_id': number;
+    'name': string;
+    'description'?: string | null;
+    'scopes'?: Array<string>;
+    'caps'?: Array<string>;
+    'auto_attach'?: boolean;
+}
+export interface ConnectorConsentOut {
+    'consent_url': string;
+    'connector': ConnectorOut;
+}
+export interface ConnectorOut {
+    'id': number;
+    'name': string;
+    'provider': string;
+    'caps': Array<string>;
+    'scopes': Array<string>;
+}
+export interface ConnectorStatusOut {
+    'connector_id': number;
+    'name': string;
+    'connected': boolean;
+    'needs_consent': boolean;
+    'missing_caps': Array<string>;
+}
+export interface ConnectorUpdate {
+    'description'?: string | null;
+}
+export interface CostByModel {
+    'provider': string;
+    'model': string;
+    'total_cost': number;
+    'total_tokens': number;
+    'prompt_tokens': number;
+    'completion_tokens': number;
+    'record_count': number;
+}
+export interface CostBySource {
+    'source': string;
+    'total_cost': number;
+    'total_tokens': number;
+    'prompt_tokens': number;
+    'completion_tokens': number;
+    'record_count': number;
+}
+export interface CostCompletionTokens {
+}
+export interface CostCompletionTokens1 {
+}
+export interface CostPromptTokens {
+}
+export interface CostPromptTokens1 {
+}
+export interface CostTimeseriesPoint {
+    'date': string;
+    'cost': number;
+    'tokens': number;
+    'record_count': number;
+}
 export interface Document {
     'id'?: number | null;
     'created_at'?: string;
@@ -107,6 +463,20 @@ export interface Document {
     'import_finished_at': string | null;
     'import_error'?: string | null;
 }
+/**
+ * Schema for granting app access to a group
+ */
+export interface GroupAppAccessIn {
+    'application_id': number;
+    'group_ids'?: Array<number> | null;
+}
+/**
+ * Schema for creating a user group
+ */
+export interface GroupIn {
+    'name': string;
+    'description'?: string | null;
+}
 export interface HTTPValidationError {
     'detail'?: Array<ValidationError>;
 }
@@ -126,6 +496,34 @@ export interface InvitationOut {
     'accepted_at': string | null;
     'revoked_at': string | null;
     'creator_user_id': number;
+}
+export interface LLMSettingsIn {
+    'llm_catalog_id': number;
+    'provider': string;
+    'library': string;
+    'max_tokens': number;
+    'cost_prompt_tokens': CostPromptTokens;
+    'cost_completion_tokens': CostCompletionTokens;
+    'args'?: { [key: string]: any; } | null;
+    'openai_resource'?: string | null;
+    'api_version'?: string | null;
+    'deployment_name'?: string | null;
+    'endpoint'?: string | null;
+    'api_key'?: string | null;
+}
+export interface LLMSettingsUpdate {
+    'llm_catalog_id'?: number | null;
+    'provider'?: string | null;
+    'library'?: string | null;
+    'max_tokens'?: number | null;
+    'cost_prompt_tokens'?: CostPromptTokens1 | null;
+    'cost_completion_tokens'?: CostCompletionTokens1 | null;
+    'args'?: { [key: string]: any; } | null;
+    'openai_resource'?: string | null;
+    'api_version'?: string | null;
+    'deployment_name'?: string | null;
+    'endpoint'?: string | null;
+    'api_key'?: string | null;
 }
 /**
  * Library definition
@@ -171,6 +569,97 @@ export interface LibraryUpdateIn {
     'description'?: string | null;
 }
 export interface LocationInner {
+}
+export interface Message {
+    'state'?: string | null;
+    'state_reason'?: string | null;
+    'state_changed_at'?: string | null;
+    'id'?: number | null;
+    'created_at'?: string;
+    'updated_at'?: string;
+    'creator_user_id': number;
+    'chat_id': number;
+    'role': string;
+    'content': string;
+    'sent_user_msg': string | null;
+    'parent_id': number | null;
+    'completed'?: boolean;
+    'error': string | null;
+    'hint': string | null;
+    'llm_catalog_id'?: number | null;
+    'llm_settings_id'?: number | null;
+    'usage'?: { [key: string]: any; } | null;
+    'celery_task_id'?: string | null;
+}
+export interface MessageIn {
+    'content': string;
+    'chat_id'?: number | null;
+    'updated_at'?: string | null;
+    'project_id'?: number | null;
+    'model'?: string | null;
+    'temperature'?: number | null;
+    'similarity_top_k'?: number | null;
+    'system_prompt'?: string | null;
+    'assistant_id'?: number | null;
+    'private'?: boolean | null;
+}
+/**
+ * Enum for OAuth providers.
+ */
+
+export const OAuth2ProviderEnum = {
+    azure_entra: 'azure-entra',
+    microsoft: 'microsoft',
+    oidc: 'oidc',
+} as const;
+
+export type OAuth2ProviderEnum = typeof OAuth2ProviderEnum[keyof typeof OAuth2ProviderEnum];
+
+
+export interface OAuthClient {
+    'created_at'?: string;
+    'updated_at'?: string;
+    'creator_user_id'?: number | null;
+    'updater_user_id'?: number | null;
+    'id'?: number | null;
+    'name': string;
+    'provider_key': OAuth2ProviderEnum;
+    'client_id'?: string | null;
+    'description'?: string | null;
+    'icon_url'?: string | null;
+    'authorize_url': string;
+    'admin_consent_url'?: string | null;
+    'token_url': string;
+    'logout_url'?: string | null;
+    'redirect_uri'?: string | null;
+}
+
+
+export interface OAuthClientUpdate {
+    'name'?: string | null;
+    'description'?: string | null;
+    'icon_url'?: string | null;
+}
+
+export const OutputFormat = {
+    pdf: 'pdf',
+    docx: 'docx',
+    html: 'html',
+    rtf: 'rtf',
+    odt: 'odt',
+    xlsx: 'xlsx',
+    csv: 'csv',
+} as const;
+
+export type OutputFormat = typeof OutputFormat[keyof typeof OutputFormat];
+
+
+export interface PasswordResetIn {
+    'old_password': string;
+    'new_password': string;
+}
+export interface PasswordResetRequestIn {
+    'email': string;
 }
 export interface Project {
     'id'?: number | null;
@@ -238,6 +727,63 @@ export const RephraseStyleEnum = {
 export type RephraseStyleEnum = typeof RephraseStyleEnum[keyof typeof RephraseStyleEnum];
 
 
+export interface ResponseAuthGetEntraGroupsValue {
+}
+/**
+ * Request to send an email from a tool call.
+ */
+export interface SendEmailRequest {
+    /**
+     * The ID of the tool call that generated the draft
+     */
+    'tool_call_id': string;
+    'to': To;
+    /**
+     * Email subject
+     */
+    'subject': string;
+    /**
+     * Email body content (can be markdown or HTML)
+     */
+    'body': string;
+    'cc'?: Cc | null;
+    'bcc'?: Bcc | null;
+}
+/**
+ * Response from sending an email.
+ */
+export interface SendEmailResponse {
+    'success': boolean;
+    'message': string;
+    'recipients'?: Array<string> | null;
+}
+export interface Settings {
+    'id'?: number | null;
+    'tenant_id': number;
+    'default_llm_catalog_id'?: number | null;
+    'created_at'?: string;
+    'guardrails_enabled'?: boolean;
+    'sharepoint_enabled': boolean | null;
+    'inbound_guardrail'?: string | null;
+    'outbound_guardrail'?: string | null;
+    'system_prompt'?: string | null;
+    'inserted_by': string | null;
+    'errlog_webhook_url'?: string | null;
+    'default_language'?: string;
+    'require_email_confirmation'?: boolean;
+}
+export interface SettingsIn {
+    'default_llm_catalog_id'?: number | null;
+    'guardrails_enabled'?: boolean | null;
+    'sharepoint_enabled'?: boolean | null;
+    'inbound_guardrail'?: string | null;
+    'outbound_guardrail'?: string | null;
+    'welcome_email_template_id'?: number | null;
+    'project_member_added_email_template_id'?: number | null;
+    'system_prompt'?: string | null;
+    'errlog_webhook_url'?: string | null;
+    'require_email_confirmation'?: boolean | null;
+}
 export interface SharepointDriveModel {
     'id': string;
     'web_url': string;
@@ -273,8 +819,389 @@ export interface SharepointSiteModel {
     'description': string | null;
     'imported_count'?: number;
 }
+export interface SharepointUserModel {
+    'display_name': string | null;
+    'job_title': string | null;
+    'mail': string | null;
+    'surname': string | null;
+    'user_principal_name': string | null;
+}
+/**
+ * Model for creating or updating a tarif.
+ */
+export interface Tarif {
+    /**
+     * Primary key for the tarif record.
+     */
+    'id'?: number;
+    /**
+     * Name for the tarif to be created. Max 100 characters.
+     */
+    'name': string;
+    /**
+     * The price of the tarif. This field is required.
+     */
+    'price': number;
+    'hard_limit'?: number | null;
+    /**
+     * Bypass usage checks if True.
+     */
+    'is_unlimited'?: boolean;
+    'description'?: string | null;
+    /**
+     * active = offered; retired = not for new signups.
+     */
+    'status'?: TarifStatusEnum;
+    'is_default'?: boolean;
+    'creator_user_id': number | null;
+    /**
+     * Timestamp when the tarif was created.
+     */
+    'created_at'?: string;
+    /**
+     * Timestamp when the tarif was last updated.
+     */
+    'updated_at'?: string;
+}
+
+
+/**
+ * Model for creating or updating a tarif.
+ */
+export interface TarifIn {
+    /**
+     * Name for the tarif to be created. Max 100 characters.
+     */
+    'name': string;
+    /**
+     * The price of the tarif. This field is required.
+     */
+    'price': number;
+    /**
+     * The hard limit to restrict the user.
+     */
+    'hard_limit': number;
+    'status'?: TarifStatusEnum | null;
+    'expires_at'?: string | null;
+    'description'?: string | null;
+    'is_unlimited'?: boolean | null;
+}
+
+
+/**
+ * Enum for Tarif status in Tarif
+ */
+
+export const TarifStatusEnum = {
+    ACTIVE: 'ACTIVE',
+    RETIRED: 'RETIRED',
+} as const;
+
+export type TarifStatusEnum = typeof TarifStatusEnum[keyof typeof TarifStatusEnum];
+
+
+export interface TemplateIn {
+    'name'?: string | null;
+    'text_body': string;
+    'html_body'?: string | null;
+}
+export interface TemplateOut {
+    'id': number;
+    'name': string | null;
+    'text_body': string;
+    'html_body': string | null;
+}
+export interface TenantIn {
+    'name': string;
+    'slug': string;
+    'domain'?: string | null;
+    'parent_tenant_id'?: number | null;
+    'subtenants_enabled'?: boolean | null;
+    'timezone'?: string | null;
+    'locale'?: string | null;
+    'tarif_id'?: number | null;
+    'tarif_expires_at'?: string | null;
+    'max_users'?: number | null;
+    'max_projects'?: number | null;
+    'display_name'?: string | null;
+    'motto'?: string | null;
+    'logo_url'?: string | null;
+    'square_logo_url'?: string | null;
+    'favicon_url'?: string | null;
+    'chat_square_logo_url'?: string | null;
+    'primary_color'?: string | null;
+    'secondary_color'?: string | null;
+    'theme'?: string | null;
+    'storage_limit_gb'?: number | null;
+    'api_rate_limit'?: number | null;
+    'upstream_tenant_id'?: string | null;
+    'upstream_oidc_issuer'?: string | null;
+}
+/**
+ * Availability rows for tenant-enabled LLM models.
+ */
+export interface TenantLLM {
+    'created_at'?: string;
+    'updated_at'?: string;
+    'creator_user_id'?: number | null;
+    'updater_user_id'?: number | null;
+    'tenant_id': number;
+    'llm_catalog_id': number;
+}
+export interface TenantModelBulkIn {
+    'all'?: boolean | null;
+    'tenant_ids'?: Array<number> | null;
+}
+export interface TenantOut {
+    'id': number;
+    'created_at': string;
+    'creator_user_id'?: number | null;
+    'name': string;
+    'slug': string;
+    'domain'?: string | null;
+    'parent_tenant_id'?: number | null;
+    'subtenants_enabled': boolean;
+    'timezone': string;
+    'locale': string;
+    'tarif_id'?: number | null;
+    'max_users'?: number | null;
+    'max_projects'?: number | null;
+    'display_name'?: string | null;
+    'motto'?: string | null;
+    'logo_url'?: string | null;
+    'square_logo_url'?: string | null;
+    'favicon_url'?: string | null;
+    'chat_square_logo_url'?: string | null;
+    'primary_color'?: string | null;
+    'secondary_color'?: string | null;
+    'theme'?: string | null;
+    'storage_limit_gb'?: number | null;
+    'api_rate_limit'?: number | null;
+    'state'?: string | null;
+    'upstream_tenant_id'?: string | null;
+    'upstream_oidc_issuer'?: string | null;
+}
+export interface TenantThemeOut {
+    'name': string;
+    'slug': string;
+    'domain'?: string | null;
+    'timezone': string;
+    'locale': string;
+    'display_name'?: string | null;
+    'motto'?: string | null;
+    'logo_url'?: string | null;
+    'square_logo_url'?: string | null;
+    'favicon_url'?: string | null;
+    'chat_square_logo_url'?: string | null;
+    'primary_color'?: string | null;
+    'secondary_color'?: string | null;
+    'theme'?: string | null;
+}
+export interface TenantUpdateIn {
+    'name'?: string | null;
+    'domain'?: string | null;
+    'parent_tenant_id'?: number | null;
+    'subtenants_enabled'?: boolean | null;
+    'timezone'?: string | null;
+    'locale'?: string | null;
+    'tarif_id'?: number | null;
+    'tarif_expires_at'?: string | null;
+    'max_users'?: number | null;
+    'max_projects'?: number | null;
+    'display_name'?: string | null;
+    'motto'?: string | null;
+    'logo_url'?: string | null;
+    'square_logo_url'?: string | null;
+    'favicon_url'?: string | null;
+    'chat_square_logo_url'?: string | null;
+    'primary_color'?: string | null;
+    'secondary_color'?: string | null;
+    'theme'?: string | null;
+    'storage_limit_gb'?: number | null;
+    'api_rate_limit'?: number | null;
+    'upstream_tenant_id'?: string | null;
+    'upstream_oidc_issuer'?: string | null;
+}
+
+export const ThemeModeEnum = {
+    LIGHT: 'LIGHT',
+    DARK: 'DARK',
+    SYSTEM: 'SYSTEM',
+} as const;
+
+export type ThemeModeEnum = typeof ThemeModeEnum[keyof typeof ThemeModeEnum];
+
+
+/**
+ * Represents a single point in the timeseries data.
+ */
+export interface TimeseriesPoint {
+    'date': string;
+    'cost': number;
+}
+/**
+ * Timeseries response model for LLM costs. Contains total cost for the current month and timeseries data for each model.
+ */
+export interface TimeseriesResponse {
+    'total_cost': number;
+    'timeseries': { [key: string]: Array<TimeseriesPoint>; };
+}
+/**
+ * Recipient email address(es)
+ */
+export interface To {
+}
+export interface TokenOut {
+    'access_token': string;
+    'token_type': string;
+}
+/**
+ * \"Represents token usage timeseries for a specific LLM model.
+ */
+export interface TokenTimeseriesPerModel {
+    'llm_model': string;
+    'timeseries': { [key: string]: Array<TokenTimeseriesPoint>; };
+}
+/**
+ * Represents a single point in the token timeseries data.
+ */
+export interface TokenTimeseriesPoint {
+    'date': string;
+    'value': number;
+}
+/**
+ * Model for total tokens of one llm resource.
+ */
+export interface TokensPerModel {
+    'llm_model': string;
+    'duration': string;
+    'total_tokens_count': number;
+    'prompt_token_count': number;
+    'completion_token_count': number;
+    'total_requests': number;
+}
+/**
+ * Response model for LLM tokens with timeseries data.
+ */
+export interface TokensTimeseriesResponse {
+    'total_prompt_tokens': number;
+    'total_completion_tokens': number;
+    'total_requests': number;
+    'total_tokens': number;
+    'tokens_per_model': Array<TokensPerModel>;
+    'timeseries_per_model': Array<TokenTimeseriesPerModel>;
+}
+export interface ToolOut {
+    'id': number;
+    'name': string;
+    'description': string | null;
+    'prompt': string | null;
+    'created_at': string;
+    'updated_at': string | null;
+}
+export interface ToolUpdate {
+    'name'?: string | null;
+    'description'?: string | null;
+    'prompt'?: string | null;
+}
 export interface Translation {
     'content': string;
+}
+export interface UsageCostRequest {
+    'granularity'?: UsageCostRequestGranularityEnum;
+    'date_start'?: string | null;
+    'date_end'?: string | null;
+    'source'?: string | null;
+    'model'?: string | null;
+    'provider'?: string | null;
+}
+
+export const UsageCostRequestGranularityEnum = {
+    monthly: 'monthly',
+    yearly: 'yearly',
+    custom: 'custom',
+} as const;
+
+export type UsageCostRequestGranularityEnum = typeof UsageCostRequestGranularityEnum[keyof typeof UsageCostRequestGranularityEnum];
+
+export interface UsageCostResponse {
+    'start_date': string;
+    'end_date': string;
+    'total_cost': number;
+    'total_tokens': number;
+    'total_prompt_tokens': number;
+    'total_completion_tokens': number;
+    'total_cached_tokens': number;
+    'record_count': number;
+    'by_source': Array<CostBySource>;
+    'by_model': Array<CostByModel>;
+    'timeseries': Array<CostTimeseriesPoint>;
+}
+/**
+ * Generic usage request model for both token and cost queries.
+ */
+export interface UsageRequest {
+    'granularity': UsageRequestGranularityEnum;
+    'date_start'?: string | null;
+    'date_end'?: string | null;
+}
+
+export const UsageRequestGranularityEnum = {
+    monthly: 'monthly',
+    yearly: 'yearly',
+    custom: 'custom',
+} as const;
+
+export type UsageRequestGranularityEnum = typeof UsageRequestGranularityEnum[keyof typeof UsageRequestGranularityEnum];
+
+/**
+ * Named group scoped to a tenant.
+ */
+export interface UserGroup {
+    'created_at'?: string;
+    'updated_at'?: string;
+    'id'?: number | null;
+    /**
+     * ID of the tenant.
+     */
+    'tenant_id': number;
+    /**
+     * Name of the user group.
+     */
+    'name'?: string;
+    'description'?: string | null;
+    'creator_user_id': number | null;
+}
+/**
+ * Membership of a user in a group (within a tenant).
+ */
+export interface UserGroupMember {
+    /**
+     *  ID of the user group.
+     */
+    'group_id': number;
+    /**
+     * ID of the user.
+     */
+    'user_id': number;
+    /**
+     * ID of the tenant.
+     */
+    'tenant_id': number;
+    'creator_user_id': number | null;
+    /**
+     * Timestamp when the user group was created.
+     */
+    'created_at'?: string;
+}
+export interface UserIn {
+    'first_name': string;
+    'last_name': string;
+    'email': string;
+    'password': string;
+    'admin'?: boolean | null;
+    'superadmin'?: boolean | null;
+    'tenant_id'?: number | null;
 }
 export interface UserOut {
     'id': number;
@@ -290,6 +1217,1237 @@ export interface UserOut {
     'active': boolean;
     'tenant_id'?: number | null;
 }
+export interface UserPreferenceOut {
+    'id': number;
+    'user_id': number;
+    'theme_mode'?: ThemeModeEnum | null;
+    'lang'?: string | null;
+    'timezone'?: UserPreferenceOutTimezoneEnum | null;
+}
+
+export const UserPreferenceOutTimezoneEnum = {
+    Africa_Abidjan: 'Africa/Abidjan',
+    Africa_Accra: 'Africa/Accra',
+    Africa_Addis_Ababa: 'Africa/Addis_Ababa',
+    Africa_Algiers: 'Africa/Algiers',
+    Africa_Asmara: 'Africa/Asmara',
+    Africa_Asmera: 'Africa/Asmera',
+    Africa_Bamako: 'Africa/Bamako',
+    Africa_Bangui: 'Africa/Bangui',
+    Africa_Banjul: 'Africa/Banjul',
+    Africa_Bissau: 'Africa/Bissau',
+    Africa_Blantyre: 'Africa/Blantyre',
+    Africa_Brazzaville: 'Africa/Brazzaville',
+    Africa_Bujumbura: 'Africa/Bujumbura',
+    Africa_Cairo: 'Africa/Cairo',
+    Africa_Casablanca: 'Africa/Casablanca',
+    Africa_Ceuta: 'Africa/Ceuta',
+    Africa_Conakry: 'Africa/Conakry',
+    Africa_Dakar: 'Africa/Dakar',
+    Africa_Dar_es_Salaam: 'Africa/Dar_es_Salaam',
+    Africa_Djibouti: 'Africa/Djibouti',
+    Africa_Douala: 'Africa/Douala',
+    Africa_El_Aaiun: 'Africa/El_Aaiun',
+    Africa_Freetown: 'Africa/Freetown',
+    Africa_Gaborone: 'Africa/Gaborone',
+    Africa_Harare: 'Africa/Harare',
+    Africa_Johannesburg: 'Africa/Johannesburg',
+    Africa_Juba: 'Africa/Juba',
+    Africa_Kampala: 'Africa/Kampala',
+    Africa_Khartoum: 'Africa/Khartoum',
+    Africa_Kigali: 'Africa/Kigali',
+    Africa_Kinshasa: 'Africa/Kinshasa',
+    Africa_Lagos: 'Africa/Lagos',
+    Africa_Libreville: 'Africa/Libreville',
+    Africa_Lome: 'Africa/Lome',
+    Africa_Luanda: 'Africa/Luanda',
+    Africa_Lubumbashi: 'Africa/Lubumbashi',
+    Africa_Lusaka: 'Africa/Lusaka',
+    Africa_Malabo: 'Africa/Malabo',
+    Africa_Maputo: 'Africa/Maputo',
+    Africa_Maseru: 'Africa/Maseru',
+    Africa_Mbabane: 'Africa/Mbabane',
+    Africa_Mogadishu: 'Africa/Mogadishu',
+    Africa_Monrovia: 'Africa/Monrovia',
+    Africa_Nairobi: 'Africa/Nairobi',
+    Africa_Ndjamena: 'Africa/Ndjamena',
+    Africa_Niamey: 'Africa/Niamey',
+    Africa_Nouakchott: 'Africa/Nouakchott',
+    Africa_Ouagadougou: 'Africa/Ouagadougou',
+    Africa_Porto_Novo: 'Africa/Porto-Novo',
+    Africa_Sao_Tome: 'Africa/Sao_Tome',
+    Africa_Timbuktu: 'Africa/Timbuktu',
+    Africa_Tripoli: 'Africa/Tripoli',
+    Africa_Tunis: 'Africa/Tunis',
+    Africa_Windhoek: 'Africa/Windhoek',
+    America_Adak: 'America/Adak',
+    America_Anchorage: 'America/Anchorage',
+    America_Anguilla: 'America/Anguilla',
+    America_Antigua: 'America/Antigua',
+    America_Araguaina: 'America/Araguaina',
+    America_Argentina_Buenos_Aires: 'America/Argentina/Buenos_Aires',
+    America_Argentina_Catamarca: 'America/Argentina/Catamarca',
+    America_Argentina_ComodRivadavia: 'America/Argentina/ComodRivadavia',
+    America_Argentina_Cordoba: 'America/Argentina/Cordoba',
+    America_Argentina_Jujuy: 'America/Argentina/Jujuy',
+    America_Argentina_La_Rioja: 'America/Argentina/La_Rioja',
+    America_Argentina_Mendoza: 'America/Argentina/Mendoza',
+    America_Argentina_Rio_Gallegos: 'America/Argentina/Rio_Gallegos',
+    America_Argentina_Salta: 'America/Argentina/Salta',
+    America_Argentina_San_Juan: 'America/Argentina/San_Juan',
+    America_Argentina_San_Luis: 'America/Argentina/San_Luis',
+    America_Argentina_Tucuman: 'America/Argentina/Tucuman',
+    America_Argentina_Ushuaia: 'America/Argentina/Ushuaia',
+    America_Aruba: 'America/Aruba',
+    America_Asuncion: 'America/Asuncion',
+    America_Atikokan: 'America/Atikokan',
+    America_Atka: 'America/Atka',
+    America_Bahia: 'America/Bahia',
+    America_Bahia_Banderas: 'America/Bahia_Banderas',
+    America_Barbados: 'America/Barbados',
+    America_Belem: 'America/Belem',
+    America_Belize: 'America/Belize',
+    America_Blanc_Sablon: 'America/Blanc-Sablon',
+    America_Boa_Vista: 'America/Boa_Vista',
+    America_Bogota: 'America/Bogota',
+    America_Boise: 'America/Boise',
+    America_Buenos_Aires: 'America/Buenos_Aires',
+    America_Cambridge_Bay: 'America/Cambridge_Bay',
+    America_Campo_Grande: 'America/Campo_Grande',
+    America_Cancun: 'America/Cancun',
+    America_Caracas: 'America/Caracas',
+    America_Catamarca: 'America/Catamarca',
+    America_Cayenne: 'America/Cayenne',
+    America_Cayman: 'America/Cayman',
+    America_Chicago: 'America/Chicago',
+    America_Chihuahua: 'America/Chihuahua',
+    America_Ciudad_Juarez: 'America/Ciudad_Juarez',
+    America_Coral_Harbour: 'America/Coral_Harbour',
+    America_Cordoba: 'America/Cordoba',
+    America_Costa_Rica: 'America/Costa_Rica',
+    America_Coyhaique: 'America/Coyhaique',
+    America_Creston: 'America/Creston',
+    America_Cuiaba: 'America/Cuiaba',
+    America_Curacao: 'America/Curacao',
+    America_Danmarkshavn: 'America/Danmarkshavn',
+    America_Dawson: 'America/Dawson',
+    America_Dawson_Creek: 'America/Dawson_Creek',
+    America_Denver: 'America/Denver',
+    America_Detroit: 'America/Detroit',
+    America_Dominica: 'America/Dominica',
+    America_Edmonton: 'America/Edmonton',
+    America_Eirunepe: 'America/Eirunepe',
+    America_El_Salvador: 'America/El_Salvador',
+    America_Ensenada: 'America/Ensenada',
+    America_Fort_Nelson: 'America/Fort_Nelson',
+    America_Fort_Wayne: 'America/Fort_Wayne',
+    America_Fortaleza: 'America/Fortaleza',
+    America_Glace_Bay: 'America/Glace_Bay',
+    America_Godthab: 'America/Godthab',
+    America_Goose_Bay: 'America/Goose_Bay',
+    America_Grand_Turk: 'America/Grand_Turk',
+    America_Grenada: 'America/Grenada',
+    America_Guadeloupe: 'America/Guadeloupe',
+    America_Guatemala: 'America/Guatemala',
+    America_Guayaquil: 'America/Guayaquil',
+    America_Guyana: 'America/Guyana',
+    America_Halifax: 'America/Halifax',
+    America_Havana: 'America/Havana',
+    America_Hermosillo: 'America/Hermosillo',
+    America_Indiana_Indianapolis: 'America/Indiana/Indianapolis',
+    America_Indiana_Knox: 'America/Indiana/Knox',
+    America_Indiana_Marengo: 'America/Indiana/Marengo',
+    America_Indiana_Petersburg: 'America/Indiana/Petersburg',
+    America_Indiana_Tell_City: 'America/Indiana/Tell_City',
+    America_Indiana_Vevay: 'America/Indiana/Vevay',
+    America_Indiana_Vincennes: 'America/Indiana/Vincennes',
+    America_Indiana_Winamac: 'America/Indiana/Winamac',
+    America_Indianapolis: 'America/Indianapolis',
+    America_Inuvik: 'America/Inuvik',
+    America_Iqaluit: 'America/Iqaluit',
+    America_Jamaica: 'America/Jamaica',
+    America_Jujuy: 'America/Jujuy',
+    America_Juneau: 'America/Juneau',
+    America_Kentucky_Louisville: 'America/Kentucky/Louisville',
+    America_Kentucky_Monticello: 'America/Kentucky/Monticello',
+    America_Knox_IN: 'America/Knox_IN',
+    America_Kralendijk: 'America/Kralendijk',
+    America_La_Paz: 'America/La_Paz',
+    America_Lima: 'America/Lima',
+    America_Los_Angeles: 'America/Los_Angeles',
+    America_Louisville: 'America/Louisville',
+    America_Lower_Princes: 'America/Lower_Princes',
+    America_Maceio: 'America/Maceio',
+    America_Managua: 'America/Managua',
+    America_Manaus: 'America/Manaus',
+    America_Marigot: 'America/Marigot',
+    America_Martinique: 'America/Martinique',
+    America_Matamoros: 'America/Matamoros',
+    America_Mazatlan: 'America/Mazatlan',
+    America_Mendoza: 'America/Mendoza',
+    America_Menominee: 'America/Menominee',
+    America_Merida: 'America/Merida',
+    America_Metlakatla: 'America/Metlakatla',
+    America_Mexico_City: 'America/Mexico_City',
+    America_Miquelon: 'America/Miquelon',
+    America_Moncton: 'America/Moncton',
+    America_Monterrey: 'America/Monterrey',
+    America_Montevideo: 'America/Montevideo',
+    America_Montreal: 'America/Montreal',
+    America_Montserrat: 'America/Montserrat',
+    America_Nassau: 'America/Nassau',
+    America_New_York: 'America/New_York',
+    America_Nipigon: 'America/Nipigon',
+    America_Nome: 'America/Nome',
+    America_Noronha: 'America/Noronha',
+    America_North_Dakota_Beulah: 'America/North_Dakota/Beulah',
+    America_North_Dakota_Center: 'America/North_Dakota/Center',
+    America_North_Dakota_New_Salem: 'America/North_Dakota/New_Salem',
+    America_Nuuk: 'America/Nuuk',
+    America_Ojinaga: 'America/Ojinaga',
+    America_Panama: 'America/Panama',
+    America_Pangnirtung: 'America/Pangnirtung',
+    America_Paramaribo: 'America/Paramaribo',
+    America_Phoenix: 'America/Phoenix',
+    America_Port_au_Prince: 'America/Port-au-Prince',
+    America_Port_of_Spain: 'America/Port_of_Spain',
+    America_Porto_Acre: 'America/Porto_Acre',
+    America_Porto_Velho: 'America/Porto_Velho',
+    America_Puerto_Rico: 'America/Puerto_Rico',
+    America_Punta_Arenas: 'America/Punta_Arenas',
+    America_Rainy_River: 'America/Rainy_River',
+    America_Rankin_Inlet: 'America/Rankin_Inlet',
+    America_Recife: 'America/Recife',
+    America_Regina: 'America/Regina',
+    America_Resolute: 'America/Resolute',
+    America_Rio_Branco: 'America/Rio_Branco',
+    America_Rosario: 'America/Rosario',
+    America_Santa_Isabel: 'America/Santa_Isabel',
+    America_Santarem: 'America/Santarem',
+    America_Santiago: 'America/Santiago',
+    America_Santo_Domingo: 'America/Santo_Domingo',
+    America_Sao_Paulo: 'America/Sao_Paulo',
+    America_Scoresbysund: 'America/Scoresbysund',
+    America_Shiprock: 'America/Shiprock',
+    America_Sitka: 'America/Sitka',
+    America_St_Barthelemy: 'America/St_Barthelemy',
+    America_St_Johns: 'America/St_Johns',
+    America_St_Kitts: 'America/St_Kitts',
+    America_St_Lucia: 'America/St_Lucia',
+    America_St_Thomas: 'America/St_Thomas',
+    America_St_Vincent: 'America/St_Vincent',
+    America_Swift_Current: 'America/Swift_Current',
+    America_Tegucigalpa: 'America/Tegucigalpa',
+    America_Thule: 'America/Thule',
+    America_Thunder_Bay: 'America/Thunder_Bay',
+    America_Tijuana: 'America/Tijuana',
+    America_Toronto: 'America/Toronto',
+    America_Tortola: 'America/Tortola',
+    America_Vancouver: 'America/Vancouver',
+    America_Virgin: 'America/Virgin',
+    America_Whitehorse: 'America/Whitehorse',
+    America_Winnipeg: 'America/Winnipeg',
+    America_Yakutat: 'America/Yakutat',
+    America_Yellowknife: 'America/Yellowknife',
+    Antarctica_Casey: 'Antarctica/Casey',
+    Antarctica_Davis: 'Antarctica/Davis',
+    Antarctica_DumontDUrville: 'Antarctica/DumontDUrville',
+    Antarctica_Macquarie: 'Antarctica/Macquarie',
+    Antarctica_Mawson: 'Antarctica/Mawson',
+    Antarctica_McMurdo: 'Antarctica/McMurdo',
+    Antarctica_Palmer: 'Antarctica/Palmer',
+    Antarctica_Rothera: 'Antarctica/Rothera',
+    Antarctica_South_Pole: 'Antarctica/South_Pole',
+    Antarctica_Syowa: 'Antarctica/Syowa',
+    Antarctica_Troll: 'Antarctica/Troll',
+    Antarctica_Vostok: 'Antarctica/Vostok',
+    Arctic_Longyearbyen: 'Arctic/Longyearbyen',
+    Asia_Aden: 'Asia/Aden',
+    Asia_Almaty: 'Asia/Almaty',
+    Asia_Amman: 'Asia/Amman',
+    Asia_Anadyr: 'Asia/Anadyr',
+    Asia_Aqtau: 'Asia/Aqtau',
+    Asia_Aqtobe: 'Asia/Aqtobe',
+    Asia_Ashgabat: 'Asia/Ashgabat',
+    Asia_Ashkhabad: 'Asia/Ashkhabad',
+    Asia_Atyrau: 'Asia/Atyrau',
+    Asia_Baghdad: 'Asia/Baghdad',
+    Asia_Bahrain: 'Asia/Bahrain',
+    Asia_Baku: 'Asia/Baku',
+    Asia_Bangkok: 'Asia/Bangkok',
+    Asia_Barnaul: 'Asia/Barnaul',
+    Asia_Beirut: 'Asia/Beirut',
+    Asia_Bishkek: 'Asia/Bishkek',
+    Asia_Brunei: 'Asia/Brunei',
+    Asia_Calcutta: 'Asia/Calcutta',
+    Asia_Chita: 'Asia/Chita',
+    Asia_Choibalsan: 'Asia/Choibalsan',
+    Asia_Chongqing: 'Asia/Chongqing',
+    Asia_Chungking: 'Asia/Chungking',
+    Asia_Colombo: 'Asia/Colombo',
+    Asia_Dacca: 'Asia/Dacca',
+    Asia_Damascus: 'Asia/Damascus',
+    Asia_Dhaka: 'Asia/Dhaka',
+    Asia_Dili: 'Asia/Dili',
+    Asia_Dubai: 'Asia/Dubai',
+    Asia_Dushanbe: 'Asia/Dushanbe',
+    Asia_Famagusta: 'Asia/Famagusta',
+    Asia_Gaza: 'Asia/Gaza',
+    Asia_Harbin: 'Asia/Harbin',
+    Asia_Hebron: 'Asia/Hebron',
+    Asia_Ho_Chi_Minh: 'Asia/Ho_Chi_Minh',
+    Asia_Hong_Kong: 'Asia/Hong_Kong',
+    Asia_Hovd: 'Asia/Hovd',
+    Asia_Irkutsk: 'Asia/Irkutsk',
+    Asia_Istanbul: 'Asia/Istanbul',
+    Asia_Jakarta: 'Asia/Jakarta',
+    Asia_Jayapura: 'Asia/Jayapura',
+    Asia_Jerusalem: 'Asia/Jerusalem',
+    Asia_Kabul: 'Asia/Kabul',
+    Asia_Kamchatka: 'Asia/Kamchatka',
+    Asia_Karachi: 'Asia/Karachi',
+    Asia_Kashgar: 'Asia/Kashgar',
+    Asia_Kathmandu: 'Asia/Kathmandu',
+    Asia_Katmandu: 'Asia/Katmandu',
+    Asia_Khandyga: 'Asia/Khandyga',
+    Asia_Kolkata: 'Asia/Kolkata',
+    Asia_Krasnoyarsk: 'Asia/Krasnoyarsk',
+    Asia_Kuala_Lumpur: 'Asia/Kuala_Lumpur',
+    Asia_Kuching: 'Asia/Kuching',
+    Asia_Kuwait: 'Asia/Kuwait',
+    Asia_Macao: 'Asia/Macao',
+    Asia_Macau: 'Asia/Macau',
+    Asia_Magadan: 'Asia/Magadan',
+    Asia_Makassar: 'Asia/Makassar',
+    Asia_Manila: 'Asia/Manila',
+    Asia_Muscat: 'Asia/Muscat',
+    Asia_Nicosia: 'Asia/Nicosia',
+    Asia_Novokuznetsk: 'Asia/Novokuznetsk',
+    Asia_Novosibirsk: 'Asia/Novosibirsk',
+    Asia_Omsk: 'Asia/Omsk',
+    Asia_Oral: 'Asia/Oral',
+    Asia_Phnom_Penh: 'Asia/Phnom_Penh',
+    Asia_Pontianak: 'Asia/Pontianak',
+    Asia_Pyongyang: 'Asia/Pyongyang',
+    Asia_Qatar: 'Asia/Qatar',
+    Asia_Qostanay: 'Asia/Qostanay',
+    Asia_Qyzylorda: 'Asia/Qyzylorda',
+    Asia_Rangoon: 'Asia/Rangoon',
+    Asia_Riyadh: 'Asia/Riyadh',
+    Asia_Saigon: 'Asia/Saigon',
+    Asia_Sakhalin: 'Asia/Sakhalin',
+    Asia_Samarkand: 'Asia/Samarkand',
+    Asia_Seoul: 'Asia/Seoul',
+    Asia_Shanghai: 'Asia/Shanghai',
+    Asia_Singapore: 'Asia/Singapore',
+    Asia_Srednekolymsk: 'Asia/Srednekolymsk',
+    Asia_Taipei: 'Asia/Taipei',
+    Asia_Tashkent: 'Asia/Tashkent',
+    Asia_Tbilisi: 'Asia/Tbilisi',
+    Asia_Tehran: 'Asia/Tehran',
+    Asia_Tel_Aviv: 'Asia/Tel_Aviv',
+    Asia_Thimbu: 'Asia/Thimbu',
+    Asia_Thimphu: 'Asia/Thimphu',
+    Asia_Tokyo: 'Asia/Tokyo',
+    Asia_Tomsk: 'Asia/Tomsk',
+    Asia_Ujung_Pandang: 'Asia/Ujung_Pandang',
+    Asia_Ulaanbaatar: 'Asia/Ulaanbaatar',
+    Asia_Ulan_Bator: 'Asia/Ulan_Bator',
+    Asia_Urumqi: 'Asia/Urumqi',
+    Asia_Ust_Nera: 'Asia/Ust-Nera',
+    Asia_Vientiane: 'Asia/Vientiane',
+    Asia_Vladivostok: 'Asia/Vladivostok',
+    Asia_Yakutsk: 'Asia/Yakutsk',
+    Asia_Yangon: 'Asia/Yangon',
+    Asia_Yekaterinburg: 'Asia/Yekaterinburg',
+    Asia_Yerevan: 'Asia/Yerevan',
+    Atlantic_Azores: 'Atlantic/Azores',
+    Atlantic_Bermuda: 'Atlantic/Bermuda',
+    Atlantic_Canary: 'Atlantic/Canary',
+    Atlantic_Cape_Verde: 'Atlantic/Cape_Verde',
+    Atlantic_Faeroe: 'Atlantic/Faeroe',
+    Atlantic_Faroe: 'Atlantic/Faroe',
+    Atlantic_Jan_Mayen: 'Atlantic/Jan_Mayen',
+    Atlantic_Madeira: 'Atlantic/Madeira',
+    Atlantic_Reykjavik: 'Atlantic/Reykjavik',
+    Atlantic_South_Georgia: 'Atlantic/South_Georgia',
+    Atlantic_St_Helena: 'Atlantic/St_Helena',
+    Atlantic_Stanley: 'Atlantic/Stanley',
+    Australia_ACT: 'Australia/ACT',
+    Australia_Adelaide: 'Australia/Adelaide',
+    Australia_Brisbane: 'Australia/Brisbane',
+    Australia_Broken_Hill: 'Australia/Broken_Hill',
+    Australia_Canberra: 'Australia/Canberra',
+    Australia_Currie: 'Australia/Currie',
+    Australia_Darwin: 'Australia/Darwin',
+    Australia_Eucla: 'Australia/Eucla',
+    Australia_Hobart: 'Australia/Hobart',
+    Australia_LHI: 'Australia/LHI',
+    Australia_Lindeman: 'Australia/Lindeman',
+    Australia_Lord_Howe: 'Australia/Lord_Howe',
+    Australia_Melbourne: 'Australia/Melbourne',
+    Australia_NSW: 'Australia/NSW',
+    Australia_North: 'Australia/North',
+    Australia_Perth: 'Australia/Perth',
+    Australia_Queensland: 'Australia/Queensland',
+    Australia_South: 'Australia/South',
+    Australia_Sydney: 'Australia/Sydney',
+    Australia_Tasmania: 'Australia/Tasmania',
+    Australia_Victoria: 'Australia/Victoria',
+    Australia_West: 'Australia/West',
+    Australia_Yancowinna: 'Australia/Yancowinna',
+    Brazil_Acre: 'Brazil/Acre',
+    Brazil_DeNoronha: 'Brazil/DeNoronha',
+    Brazil_East: 'Brazil/East',
+    Brazil_West: 'Brazil/West',
+    CET: 'CET',
+    CST6CDT: 'CST6CDT',
+    Canada_Atlantic: 'Canada/Atlantic',
+    Canada_Central: 'Canada/Central',
+    Canada_Eastern: 'Canada/Eastern',
+    Canada_Mountain: 'Canada/Mountain',
+    Canada_Newfoundland: 'Canada/Newfoundland',
+    Canada_Pacific: 'Canada/Pacific',
+    Canada_Saskatchewan: 'Canada/Saskatchewan',
+    Canada_Yukon: 'Canada/Yukon',
+    Chile_Continental: 'Chile/Continental',
+    Chile_EasterIsland: 'Chile/EasterIsland',
+    Cuba: 'Cuba',
+    EET: 'EET',
+    EST: 'EST',
+    EST5EDT: 'EST5EDT',
+    Egypt: 'Egypt',
+    Eire: 'Eire',
+    Etc_GMT: 'Etc/GMT',
+    Etc_GMT0: 'Etc/GMT+0',
+    Etc_GMT1: 'Etc/GMT+1',
+    Etc_GMT10: 'Etc/GMT+10',
+    Etc_GMT11: 'Etc/GMT+11',
+    Etc_GMT12: 'Etc/GMT+12',
+    Etc_GMT2: 'Etc/GMT+2',
+    Etc_GMT3: 'Etc/GMT+3',
+    Etc_GMT4: 'Etc/GMT+4',
+    Etc_GMT5: 'Etc/GMT+5',
+    Etc_GMT6: 'Etc/GMT+6',
+    Etc_GMT7: 'Etc/GMT+7',
+    Etc_GMT8: 'Etc/GMT+8',
+    Etc_GMT9: 'Etc/GMT+9',
+    Etc_GMT_0: 'Etc/GMT-0',
+    Etc_GMT_1: 'Etc/GMT-1',
+    Etc_GMT_10: 'Etc/GMT-10',
+    Etc_GMT_11: 'Etc/GMT-11',
+    Etc_GMT_12: 'Etc/GMT-12',
+    Etc_GMT_13: 'Etc/GMT-13',
+    Etc_GMT_14: 'Etc/GMT-14',
+    Etc_GMT_2: 'Etc/GMT-2',
+    Etc_GMT_3: 'Etc/GMT-3',
+    Etc_GMT_4: 'Etc/GMT-4',
+    Etc_GMT_5: 'Etc/GMT-5',
+    Etc_GMT_6: 'Etc/GMT-6',
+    Etc_GMT_7: 'Etc/GMT-7',
+    Etc_GMT_8: 'Etc/GMT-8',
+    Etc_GMT_9: 'Etc/GMT-9',
+    Etc_GMT02: 'Etc/GMT0',
+    Etc_Greenwich: 'Etc/Greenwich',
+    Etc_UCT: 'Etc/UCT',
+    Etc_UTC: 'Etc/UTC',
+    Etc_Universal: 'Etc/Universal',
+    Etc_Zulu: 'Etc/Zulu',
+    Europe_Amsterdam: 'Europe/Amsterdam',
+    Europe_Andorra: 'Europe/Andorra',
+    Europe_Astrakhan: 'Europe/Astrakhan',
+    Europe_Athens: 'Europe/Athens',
+    Europe_Belfast: 'Europe/Belfast',
+    Europe_Belgrade: 'Europe/Belgrade',
+    Europe_Berlin: 'Europe/Berlin',
+    Europe_Bratislava: 'Europe/Bratislava',
+    Europe_Brussels: 'Europe/Brussels',
+    Europe_Bucharest: 'Europe/Bucharest',
+    Europe_Budapest: 'Europe/Budapest',
+    Europe_Busingen: 'Europe/Busingen',
+    Europe_Chisinau: 'Europe/Chisinau',
+    Europe_Copenhagen: 'Europe/Copenhagen',
+    Europe_Dublin: 'Europe/Dublin',
+    Europe_Gibraltar: 'Europe/Gibraltar',
+    Europe_Guernsey: 'Europe/Guernsey',
+    Europe_Helsinki: 'Europe/Helsinki',
+    Europe_Isle_of_Man: 'Europe/Isle_of_Man',
+    Europe_Istanbul: 'Europe/Istanbul',
+    Europe_Jersey: 'Europe/Jersey',
+    Europe_Kaliningrad: 'Europe/Kaliningrad',
+    Europe_Kiev: 'Europe/Kiev',
+    Europe_Kirov: 'Europe/Kirov',
+    Europe_Kyiv: 'Europe/Kyiv',
+    Europe_Lisbon: 'Europe/Lisbon',
+    Europe_Ljubljana: 'Europe/Ljubljana',
+    Europe_London: 'Europe/London',
+    Europe_Luxembourg: 'Europe/Luxembourg',
+    Europe_Madrid: 'Europe/Madrid',
+    Europe_Malta: 'Europe/Malta',
+    Europe_Mariehamn: 'Europe/Mariehamn',
+    Europe_Minsk: 'Europe/Minsk',
+    Europe_Monaco: 'Europe/Monaco',
+    Europe_Moscow: 'Europe/Moscow',
+    Europe_Nicosia: 'Europe/Nicosia',
+    Europe_Oslo: 'Europe/Oslo',
+    Europe_Paris: 'Europe/Paris',
+    Europe_Podgorica: 'Europe/Podgorica',
+    Europe_Prague: 'Europe/Prague',
+    Europe_Riga: 'Europe/Riga',
+    Europe_Rome: 'Europe/Rome',
+    Europe_Samara: 'Europe/Samara',
+    Europe_San_Marino: 'Europe/San_Marino',
+    Europe_Sarajevo: 'Europe/Sarajevo',
+    Europe_Saratov: 'Europe/Saratov',
+    Europe_Simferopol: 'Europe/Simferopol',
+    Europe_Skopje: 'Europe/Skopje',
+    Europe_Sofia: 'Europe/Sofia',
+    Europe_Stockholm: 'Europe/Stockholm',
+    Europe_Tallinn: 'Europe/Tallinn',
+    Europe_Tirane: 'Europe/Tirane',
+    Europe_Tiraspol: 'Europe/Tiraspol',
+    Europe_Ulyanovsk: 'Europe/Ulyanovsk',
+    Europe_Uzhgorod: 'Europe/Uzhgorod',
+    Europe_Vaduz: 'Europe/Vaduz',
+    Europe_Vatican: 'Europe/Vatican',
+    Europe_Vienna: 'Europe/Vienna',
+    Europe_Vilnius: 'Europe/Vilnius',
+    Europe_Volgograd: 'Europe/Volgograd',
+    Europe_Warsaw: 'Europe/Warsaw',
+    Europe_Zagreb: 'Europe/Zagreb',
+    Europe_Zaporozhye: 'Europe/Zaporozhye',
+    Europe_Zurich: 'Europe/Zurich',
+    Factory: 'Factory',
+    GB: 'GB',
+    GB_Eire: 'GB-Eire',
+    GMT: 'GMT',
+    GMT0: 'GMT+0',
+    GMT_0: 'GMT-0',
+    GMT02: 'GMT0',
+    Greenwich: 'Greenwich',
+    HST: 'HST',
+    Hongkong: 'Hongkong',
+    Iceland: 'Iceland',
+    Indian_Antananarivo: 'Indian/Antananarivo',
+    Indian_Chagos: 'Indian/Chagos',
+    Indian_Christmas: 'Indian/Christmas',
+    Indian_Cocos: 'Indian/Cocos',
+    Indian_Comoro: 'Indian/Comoro',
+    Indian_Kerguelen: 'Indian/Kerguelen',
+    Indian_Mahe: 'Indian/Mahe',
+    Indian_Maldives: 'Indian/Maldives',
+    Indian_Mauritius: 'Indian/Mauritius',
+    Indian_Mayotte: 'Indian/Mayotte',
+    Indian_Reunion: 'Indian/Reunion',
+    Iran: 'Iran',
+    Israel: 'Israel',
+    Jamaica: 'Jamaica',
+    Japan: 'Japan',
+    Kwajalein: 'Kwajalein',
+    Libya: 'Libya',
+    MET: 'MET',
+    MST: 'MST',
+    MST7MDT: 'MST7MDT',
+    Mexico_BajaNorte: 'Mexico/BajaNorte',
+    Mexico_BajaSur: 'Mexico/BajaSur',
+    Mexico_General: 'Mexico/General',
+    NZ: 'NZ',
+    NZ_CHAT: 'NZ-CHAT',
+    Navajo: 'Navajo',
+    PRC: 'PRC',
+    PST8PDT: 'PST8PDT',
+    Pacific_Apia: 'Pacific/Apia',
+    Pacific_Auckland: 'Pacific/Auckland',
+    Pacific_Bougainville: 'Pacific/Bougainville',
+    Pacific_Chatham: 'Pacific/Chatham',
+    Pacific_Chuuk: 'Pacific/Chuuk',
+    Pacific_Easter: 'Pacific/Easter',
+    Pacific_Efate: 'Pacific/Efate',
+    Pacific_Enderbury: 'Pacific/Enderbury',
+    Pacific_Fakaofo: 'Pacific/Fakaofo',
+    Pacific_Fiji: 'Pacific/Fiji',
+    Pacific_Funafuti: 'Pacific/Funafuti',
+    Pacific_Galapagos: 'Pacific/Galapagos',
+    Pacific_Gambier: 'Pacific/Gambier',
+    Pacific_Guadalcanal: 'Pacific/Guadalcanal',
+    Pacific_Guam: 'Pacific/Guam',
+    Pacific_Honolulu: 'Pacific/Honolulu',
+    Pacific_Johnston: 'Pacific/Johnston',
+    Pacific_Kanton: 'Pacific/Kanton',
+    Pacific_Kiritimati: 'Pacific/Kiritimati',
+    Pacific_Kosrae: 'Pacific/Kosrae',
+    Pacific_Kwajalein: 'Pacific/Kwajalein',
+    Pacific_Majuro: 'Pacific/Majuro',
+    Pacific_Marquesas: 'Pacific/Marquesas',
+    Pacific_Midway: 'Pacific/Midway',
+    Pacific_Nauru: 'Pacific/Nauru',
+    Pacific_Niue: 'Pacific/Niue',
+    Pacific_Norfolk: 'Pacific/Norfolk',
+    Pacific_Noumea: 'Pacific/Noumea',
+    Pacific_Pago_Pago: 'Pacific/Pago_Pago',
+    Pacific_Palau: 'Pacific/Palau',
+    Pacific_Pitcairn: 'Pacific/Pitcairn',
+    Pacific_Pohnpei: 'Pacific/Pohnpei',
+    Pacific_Ponape: 'Pacific/Ponape',
+    Pacific_Port_Moresby: 'Pacific/Port_Moresby',
+    Pacific_Rarotonga: 'Pacific/Rarotonga',
+    Pacific_Saipan: 'Pacific/Saipan',
+    Pacific_Samoa: 'Pacific/Samoa',
+    Pacific_Tahiti: 'Pacific/Tahiti',
+    Pacific_Tarawa: 'Pacific/Tarawa',
+    Pacific_Tongatapu: 'Pacific/Tongatapu',
+    Pacific_Truk: 'Pacific/Truk',
+    Pacific_Wake: 'Pacific/Wake',
+    Pacific_Wallis: 'Pacific/Wallis',
+    Pacific_Yap: 'Pacific/Yap',
+    Poland: 'Poland',
+    Portugal: 'Portugal',
+    ROC: 'ROC',
+    ROK: 'ROK',
+    Singapore: 'Singapore',
+    Turkey: 'Turkey',
+    UCT: 'UCT',
+    US_Alaska: 'US/Alaska',
+    US_Aleutian: 'US/Aleutian',
+    US_Arizona: 'US/Arizona',
+    US_Central: 'US/Central',
+    US_East_Indiana: 'US/East-Indiana',
+    US_Eastern: 'US/Eastern',
+    US_Hawaii: 'US/Hawaii',
+    US_Indiana_Starke: 'US/Indiana-Starke',
+    US_Michigan: 'US/Michigan',
+    US_Mountain: 'US/Mountain',
+    US_Pacific: 'US/Pacific',
+    US_Samoa: 'US/Samoa',
+    UTC: 'UTC',
+    Universal: 'Universal',
+    W_SU: 'W-SU',
+    WET: 'WET',
+    Zulu: 'Zulu',
+    localtime: 'localtime',
+} as const;
+
+export type UserPreferenceOutTimezoneEnum = typeof UserPreferenceOutTimezoneEnum[keyof typeof UserPreferenceOutTimezoneEnum];
+
+export interface UserPreferenceUpdateIn {
+    'theme_mode'?: ThemeModeEnum | null;
+    'lang'?: string | null;
+    'timezone'?: UserPreferenceUpdateInTimezoneEnum | null;
+}
+
+export const UserPreferenceUpdateInTimezoneEnum = {
+    Africa_Abidjan: 'Africa/Abidjan',
+    Africa_Accra: 'Africa/Accra',
+    Africa_Addis_Ababa: 'Africa/Addis_Ababa',
+    Africa_Algiers: 'Africa/Algiers',
+    Africa_Asmara: 'Africa/Asmara',
+    Africa_Asmera: 'Africa/Asmera',
+    Africa_Bamako: 'Africa/Bamako',
+    Africa_Bangui: 'Africa/Bangui',
+    Africa_Banjul: 'Africa/Banjul',
+    Africa_Bissau: 'Africa/Bissau',
+    Africa_Blantyre: 'Africa/Blantyre',
+    Africa_Brazzaville: 'Africa/Brazzaville',
+    Africa_Bujumbura: 'Africa/Bujumbura',
+    Africa_Cairo: 'Africa/Cairo',
+    Africa_Casablanca: 'Africa/Casablanca',
+    Africa_Ceuta: 'Africa/Ceuta',
+    Africa_Conakry: 'Africa/Conakry',
+    Africa_Dakar: 'Africa/Dakar',
+    Africa_Dar_es_Salaam: 'Africa/Dar_es_Salaam',
+    Africa_Djibouti: 'Africa/Djibouti',
+    Africa_Douala: 'Africa/Douala',
+    Africa_El_Aaiun: 'Africa/El_Aaiun',
+    Africa_Freetown: 'Africa/Freetown',
+    Africa_Gaborone: 'Africa/Gaborone',
+    Africa_Harare: 'Africa/Harare',
+    Africa_Johannesburg: 'Africa/Johannesburg',
+    Africa_Juba: 'Africa/Juba',
+    Africa_Kampala: 'Africa/Kampala',
+    Africa_Khartoum: 'Africa/Khartoum',
+    Africa_Kigali: 'Africa/Kigali',
+    Africa_Kinshasa: 'Africa/Kinshasa',
+    Africa_Lagos: 'Africa/Lagos',
+    Africa_Libreville: 'Africa/Libreville',
+    Africa_Lome: 'Africa/Lome',
+    Africa_Luanda: 'Africa/Luanda',
+    Africa_Lubumbashi: 'Africa/Lubumbashi',
+    Africa_Lusaka: 'Africa/Lusaka',
+    Africa_Malabo: 'Africa/Malabo',
+    Africa_Maputo: 'Africa/Maputo',
+    Africa_Maseru: 'Africa/Maseru',
+    Africa_Mbabane: 'Africa/Mbabane',
+    Africa_Mogadishu: 'Africa/Mogadishu',
+    Africa_Monrovia: 'Africa/Monrovia',
+    Africa_Nairobi: 'Africa/Nairobi',
+    Africa_Ndjamena: 'Africa/Ndjamena',
+    Africa_Niamey: 'Africa/Niamey',
+    Africa_Nouakchott: 'Africa/Nouakchott',
+    Africa_Ouagadougou: 'Africa/Ouagadougou',
+    Africa_Porto_Novo: 'Africa/Porto-Novo',
+    Africa_Sao_Tome: 'Africa/Sao_Tome',
+    Africa_Timbuktu: 'Africa/Timbuktu',
+    Africa_Tripoli: 'Africa/Tripoli',
+    Africa_Tunis: 'Africa/Tunis',
+    Africa_Windhoek: 'Africa/Windhoek',
+    America_Adak: 'America/Adak',
+    America_Anchorage: 'America/Anchorage',
+    America_Anguilla: 'America/Anguilla',
+    America_Antigua: 'America/Antigua',
+    America_Araguaina: 'America/Araguaina',
+    America_Argentina_Buenos_Aires: 'America/Argentina/Buenos_Aires',
+    America_Argentina_Catamarca: 'America/Argentina/Catamarca',
+    America_Argentina_ComodRivadavia: 'America/Argentina/ComodRivadavia',
+    America_Argentina_Cordoba: 'America/Argentina/Cordoba',
+    America_Argentina_Jujuy: 'America/Argentina/Jujuy',
+    America_Argentina_La_Rioja: 'America/Argentina/La_Rioja',
+    America_Argentina_Mendoza: 'America/Argentina/Mendoza',
+    America_Argentina_Rio_Gallegos: 'America/Argentina/Rio_Gallegos',
+    America_Argentina_Salta: 'America/Argentina/Salta',
+    America_Argentina_San_Juan: 'America/Argentina/San_Juan',
+    America_Argentina_San_Luis: 'America/Argentina/San_Luis',
+    America_Argentina_Tucuman: 'America/Argentina/Tucuman',
+    America_Argentina_Ushuaia: 'America/Argentina/Ushuaia',
+    America_Aruba: 'America/Aruba',
+    America_Asuncion: 'America/Asuncion',
+    America_Atikokan: 'America/Atikokan',
+    America_Atka: 'America/Atka',
+    America_Bahia: 'America/Bahia',
+    America_Bahia_Banderas: 'America/Bahia_Banderas',
+    America_Barbados: 'America/Barbados',
+    America_Belem: 'America/Belem',
+    America_Belize: 'America/Belize',
+    America_Blanc_Sablon: 'America/Blanc-Sablon',
+    America_Boa_Vista: 'America/Boa_Vista',
+    America_Bogota: 'America/Bogota',
+    America_Boise: 'America/Boise',
+    America_Buenos_Aires: 'America/Buenos_Aires',
+    America_Cambridge_Bay: 'America/Cambridge_Bay',
+    America_Campo_Grande: 'America/Campo_Grande',
+    America_Cancun: 'America/Cancun',
+    America_Caracas: 'America/Caracas',
+    America_Catamarca: 'America/Catamarca',
+    America_Cayenne: 'America/Cayenne',
+    America_Cayman: 'America/Cayman',
+    America_Chicago: 'America/Chicago',
+    America_Chihuahua: 'America/Chihuahua',
+    America_Ciudad_Juarez: 'America/Ciudad_Juarez',
+    America_Coral_Harbour: 'America/Coral_Harbour',
+    America_Cordoba: 'America/Cordoba',
+    America_Costa_Rica: 'America/Costa_Rica',
+    America_Coyhaique: 'America/Coyhaique',
+    America_Creston: 'America/Creston',
+    America_Cuiaba: 'America/Cuiaba',
+    America_Curacao: 'America/Curacao',
+    America_Danmarkshavn: 'America/Danmarkshavn',
+    America_Dawson: 'America/Dawson',
+    America_Dawson_Creek: 'America/Dawson_Creek',
+    America_Denver: 'America/Denver',
+    America_Detroit: 'America/Detroit',
+    America_Dominica: 'America/Dominica',
+    America_Edmonton: 'America/Edmonton',
+    America_Eirunepe: 'America/Eirunepe',
+    America_El_Salvador: 'America/El_Salvador',
+    America_Ensenada: 'America/Ensenada',
+    America_Fort_Nelson: 'America/Fort_Nelson',
+    America_Fort_Wayne: 'America/Fort_Wayne',
+    America_Fortaleza: 'America/Fortaleza',
+    America_Glace_Bay: 'America/Glace_Bay',
+    America_Godthab: 'America/Godthab',
+    America_Goose_Bay: 'America/Goose_Bay',
+    America_Grand_Turk: 'America/Grand_Turk',
+    America_Grenada: 'America/Grenada',
+    America_Guadeloupe: 'America/Guadeloupe',
+    America_Guatemala: 'America/Guatemala',
+    America_Guayaquil: 'America/Guayaquil',
+    America_Guyana: 'America/Guyana',
+    America_Halifax: 'America/Halifax',
+    America_Havana: 'America/Havana',
+    America_Hermosillo: 'America/Hermosillo',
+    America_Indiana_Indianapolis: 'America/Indiana/Indianapolis',
+    America_Indiana_Knox: 'America/Indiana/Knox',
+    America_Indiana_Marengo: 'America/Indiana/Marengo',
+    America_Indiana_Petersburg: 'America/Indiana/Petersburg',
+    America_Indiana_Tell_City: 'America/Indiana/Tell_City',
+    America_Indiana_Vevay: 'America/Indiana/Vevay',
+    America_Indiana_Vincennes: 'America/Indiana/Vincennes',
+    America_Indiana_Winamac: 'America/Indiana/Winamac',
+    America_Indianapolis: 'America/Indianapolis',
+    America_Inuvik: 'America/Inuvik',
+    America_Iqaluit: 'America/Iqaluit',
+    America_Jamaica: 'America/Jamaica',
+    America_Jujuy: 'America/Jujuy',
+    America_Juneau: 'America/Juneau',
+    America_Kentucky_Louisville: 'America/Kentucky/Louisville',
+    America_Kentucky_Monticello: 'America/Kentucky/Monticello',
+    America_Knox_IN: 'America/Knox_IN',
+    America_Kralendijk: 'America/Kralendijk',
+    America_La_Paz: 'America/La_Paz',
+    America_Lima: 'America/Lima',
+    America_Los_Angeles: 'America/Los_Angeles',
+    America_Louisville: 'America/Louisville',
+    America_Lower_Princes: 'America/Lower_Princes',
+    America_Maceio: 'America/Maceio',
+    America_Managua: 'America/Managua',
+    America_Manaus: 'America/Manaus',
+    America_Marigot: 'America/Marigot',
+    America_Martinique: 'America/Martinique',
+    America_Matamoros: 'America/Matamoros',
+    America_Mazatlan: 'America/Mazatlan',
+    America_Mendoza: 'America/Mendoza',
+    America_Menominee: 'America/Menominee',
+    America_Merida: 'America/Merida',
+    America_Metlakatla: 'America/Metlakatla',
+    America_Mexico_City: 'America/Mexico_City',
+    America_Miquelon: 'America/Miquelon',
+    America_Moncton: 'America/Moncton',
+    America_Monterrey: 'America/Monterrey',
+    America_Montevideo: 'America/Montevideo',
+    America_Montreal: 'America/Montreal',
+    America_Montserrat: 'America/Montserrat',
+    America_Nassau: 'America/Nassau',
+    America_New_York: 'America/New_York',
+    America_Nipigon: 'America/Nipigon',
+    America_Nome: 'America/Nome',
+    America_Noronha: 'America/Noronha',
+    America_North_Dakota_Beulah: 'America/North_Dakota/Beulah',
+    America_North_Dakota_Center: 'America/North_Dakota/Center',
+    America_North_Dakota_New_Salem: 'America/North_Dakota/New_Salem',
+    America_Nuuk: 'America/Nuuk',
+    America_Ojinaga: 'America/Ojinaga',
+    America_Panama: 'America/Panama',
+    America_Pangnirtung: 'America/Pangnirtung',
+    America_Paramaribo: 'America/Paramaribo',
+    America_Phoenix: 'America/Phoenix',
+    America_Port_au_Prince: 'America/Port-au-Prince',
+    America_Port_of_Spain: 'America/Port_of_Spain',
+    America_Porto_Acre: 'America/Porto_Acre',
+    America_Porto_Velho: 'America/Porto_Velho',
+    America_Puerto_Rico: 'America/Puerto_Rico',
+    America_Punta_Arenas: 'America/Punta_Arenas',
+    America_Rainy_River: 'America/Rainy_River',
+    America_Rankin_Inlet: 'America/Rankin_Inlet',
+    America_Recife: 'America/Recife',
+    America_Regina: 'America/Regina',
+    America_Resolute: 'America/Resolute',
+    America_Rio_Branco: 'America/Rio_Branco',
+    America_Rosario: 'America/Rosario',
+    America_Santa_Isabel: 'America/Santa_Isabel',
+    America_Santarem: 'America/Santarem',
+    America_Santiago: 'America/Santiago',
+    America_Santo_Domingo: 'America/Santo_Domingo',
+    America_Sao_Paulo: 'America/Sao_Paulo',
+    America_Scoresbysund: 'America/Scoresbysund',
+    America_Shiprock: 'America/Shiprock',
+    America_Sitka: 'America/Sitka',
+    America_St_Barthelemy: 'America/St_Barthelemy',
+    America_St_Johns: 'America/St_Johns',
+    America_St_Kitts: 'America/St_Kitts',
+    America_St_Lucia: 'America/St_Lucia',
+    America_St_Thomas: 'America/St_Thomas',
+    America_St_Vincent: 'America/St_Vincent',
+    America_Swift_Current: 'America/Swift_Current',
+    America_Tegucigalpa: 'America/Tegucigalpa',
+    America_Thule: 'America/Thule',
+    America_Thunder_Bay: 'America/Thunder_Bay',
+    America_Tijuana: 'America/Tijuana',
+    America_Toronto: 'America/Toronto',
+    America_Tortola: 'America/Tortola',
+    America_Vancouver: 'America/Vancouver',
+    America_Virgin: 'America/Virgin',
+    America_Whitehorse: 'America/Whitehorse',
+    America_Winnipeg: 'America/Winnipeg',
+    America_Yakutat: 'America/Yakutat',
+    America_Yellowknife: 'America/Yellowknife',
+    Antarctica_Casey: 'Antarctica/Casey',
+    Antarctica_Davis: 'Antarctica/Davis',
+    Antarctica_DumontDUrville: 'Antarctica/DumontDUrville',
+    Antarctica_Macquarie: 'Antarctica/Macquarie',
+    Antarctica_Mawson: 'Antarctica/Mawson',
+    Antarctica_McMurdo: 'Antarctica/McMurdo',
+    Antarctica_Palmer: 'Antarctica/Palmer',
+    Antarctica_Rothera: 'Antarctica/Rothera',
+    Antarctica_South_Pole: 'Antarctica/South_Pole',
+    Antarctica_Syowa: 'Antarctica/Syowa',
+    Antarctica_Troll: 'Antarctica/Troll',
+    Antarctica_Vostok: 'Antarctica/Vostok',
+    Arctic_Longyearbyen: 'Arctic/Longyearbyen',
+    Asia_Aden: 'Asia/Aden',
+    Asia_Almaty: 'Asia/Almaty',
+    Asia_Amman: 'Asia/Amman',
+    Asia_Anadyr: 'Asia/Anadyr',
+    Asia_Aqtau: 'Asia/Aqtau',
+    Asia_Aqtobe: 'Asia/Aqtobe',
+    Asia_Ashgabat: 'Asia/Ashgabat',
+    Asia_Ashkhabad: 'Asia/Ashkhabad',
+    Asia_Atyrau: 'Asia/Atyrau',
+    Asia_Baghdad: 'Asia/Baghdad',
+    Asia_Bahrain: 'Asia/Bahrain',
+    Asia_Baku: 'Asia/Baku',
+    Asia_Bangkok: 'Asia/Bangkok',
+    Asia_Barnaul: 'Asia/Barnaul',
+    Asia_Beirut: 'Asia/Beirut',
+    Asia_Bishkek: 'Asia/Bishkek',
+    Asia_Brunei: 'Asia/Brunei',
+    Asia_Calcutta: 'Asia/Calcutta',
+    Asia_Chita: 'Asia/Chita',
+    Asia_Choibalsan: 'Asia/Choibalsan',
+    Asia_Chongqing: 'Asia/Chongqing',
+    Asia_Chungking: 'Asia/Chungking',
+    Asia_Colombo: 'Asia/Colombo',
+    Asia_Dacca: 'Asia/Dacca',
+    Asia_Damascus: 'Asia/Damascus',
+    Asia_Dhaka: 'Asia/Dhaka',
+    Asia_Dili: 'Asia/Dili',
+    Asia_Dubai: 'Asia/Dubai',
+    Asia_Dushanbe: 'Asia/Dushanbe',
+    Asia_Famagusta: 'Asia/Famagusta',
+    Asia_Gaza: 'Asia/Gaza',
+    Asia_Harbin: 'Asia/Harbin',
+    Asia_Hebron: 'Asia/Hebron',
+    Asia_Ho_Chi_Minh: 'Asia/Ho_Chi_Minh',
+    Asia_Hong_Kong: 'Asia/Hong_Kong',
+    Asia_Hovd: 'Asia/Hovd',
+    Asia_Irkutsk: 'Asia/Irkutsk',
+    Asia_Istanbul: 'Asia/Istanbul',
+    Asia_Jakarta: 'Asia/Jakarta',
+    Asia_Jayapura: 'Asia/Jayapura',
+    Asia_Jerusalem: 'Asia/Jerusalem',
+    Asia_Kabul: 'Asia/Kabul',
+    Asia_Kamchatka: 'Asia/Kamchatka',
+    Asia_Karachi: 'Asia/Karachi',
+    Asia_Kashgar: 'Asia/Kashgar',
+    Asia_Kathmandu: 'Asia/Kathmandu',
+    Asia_Katmandu: 'Asia/Katmandu',
+    Asia_Khandyga: 'Asia/Khandyga',
+    Asia_Kolkata: 'Asia/Kolkata',
+    Asia_Krasnoyarsk: 'Asia/Krasnoyarsk',
+    Asia_Kuala_Lumpur: 'Asia/Kuala_Lumpur',
+    Asia_Kuching: 'Asia/Kuching',
+    Asia_Kuwait: 'Asia/Kuwait',
+    Asia_Macao: 'Asia/Macao',
+    Asia_Macau: 'Asia/Macau',
+    Asia_Magadan: 'Asia/Magadan',
+    Asia_Makassar: 'Asia/Makassar',
+    Asia_Manila: 'Asia/Manila',
+    Asia_Muscat: 'Asia/Muscat',
+    Asia_Nicosia: 'Asia/Nicosia',
+    Asia_Novokuznetsk: 'Asia/Novokuznetsk',
+    Asia_Novosibirsk: 'Asia/Novosibirsk',
+    Asia_Omsk: 'Asia/Omsk',
+    Asia_Oral: 'Asia/Oral',
+    Asia_Phnom_Penh: 'Asia/Phnom_Penh',
+    Asia_Pontianak: 'Asia/Pontianak',
+    Asia_Pyongyang: 'Asia/Pyongyang',
+    Asia_Qatar: 'Asia/Qatar',
+    Asia_Qostanay: 'Asia/Qostanay',
+    Asia_Qyzylorda: 'Asia/Qyzylorda',
+    Asia_Rangoon: 'Asia/Rangoon',
+    Asia_Riyadh: 'Asia/Riyadh',
+    Asia_Saigon: 'Asia/Saigon',
+    Asia_Sakhalin: 'Asia/Sakhalin',
+    Asia_Samarkand: 'Asia/Samarkand',
+    Asia_Seoul: 'Asia/Seoul',
+    Asia_Shanghai: 'Asia/Shanghai',
+    Asia_Singapore: 'Asia/Singapore',
+    Asia_Srednekolymsk: 'Asia/Srednekolymsk',
+    Asia_Taipei: 'Asia/Taipei',
+    Asia_Tashkent: 'Asia/Tashkent',
+    Asia_Tbilisi: 'Asia/Tbilisi',
+    Asia_Tehran: 'Asia/Tehran',
+    Asia_Tel_Aviv: 'Asia/Tel_Aviv',
+    Asia_Thimbu: 'Asia/Thimbu',
+    Asia_Thimphu: 'Asia/Thimphu',
+    Asia_Tokyo: 'Asia/Tokyo',
+    Asia_Tomsk: 'Asia/Tomsk',
+    Asia_Ujung_Pandang: 'Asia/Ujung_Pandang',
+    Asia_Ulaanbaatar: 'Asia/Ulaanbaatar',
+    Asia_Ulan_Bator: 'Asia/Ulan_Bator',
+    Asia_Urumqi: 'Asia/Urumqi',
+    Asia_Ust_Nera: 'Asia/Ust-Nera',
+    Asia_Vientiane: 'Asia/Vientiane',
+    Asia_Vladivostok: 'Asia/Vladivostok',
+    Asia_Yakutsk: 'Asia/Yakutsk',
+    Asia_Yangon: 'Asia/Yangon',
+    Asia_Yekaterinburg: 'Asia/Yekaterinburg',
+    Asia_Yerevan: 'Asia/Yerevan',
+    Atlantic_Azores: 'Atlantic/Azores',
+    Atlantic_Bermuda: 'Atlantic/Bermuda',
+    Atlantic_Canary: 'Atlantic/Canary',
+    Atlantic_Cape_Verde: 'Atlantic/Cape_Verde',
+    Atlantic_Faeroe: 'Atlantic/Faeroe',
+    Atlantic_Faroe: 'Atlantic/Faroe',
+    Atlantic_Jan_Mayen: 'Atlantic/Jan_Mayen',
+    Atlantic_Madeira: 'Atlantic/Madeira',
+    Atlantic_Reykjavik: 'Atlantic/Reykjavik',
+    Atlantic_South_Georgia: 'Atlantic/South_Georgia',
+    Atlantic_St_Helena: 'Atlantic/St_Helena',
+    Atlantic_Stanley: 'Atlantic/Stanley',
+    Australia_ACT: 'Australia/ACT',
+    Australia_Adelaide: 'Australia/Adelaide',
+    Australia_Brisbane: 'Australia/Brisbane',
+    Australia_Broken_Hill: 'Australia/Broken_Hill',
+    Australia_Canberra: 'Australia/Canberra',
+    Australia_Currie: 'Australia/Currie',
+    Australia_Darwin: 'Australia/Darwin',
+    Australia_Eucla: 'Australia/Eucla',
+    Australia_Hobart: 'Australia/Hobart',
+    Australia_LHI: 'Australia/LHI',
+    Australia_Lindeman: 'Australia/Lindeman',
+    Australia_Lord_Howe: 'Australia/Lord_Howe',
+    Australia_Melbourne: 'Australia/Melbourne',
+    Australia_NSW: 'Australia/NSW',
+    Australia_North: 'Australia/North',
+    Australia_Perth: 'Australia/Perth',
+    Australia_Queensland: 'Australia/Queensland',
+    Australia_South: 'Australia/South',
+    Australia_Sydney: 'Australia/Sydney',
+    Australia_Tasmania: 'Australia/Tasmania',
+    Australia_Victoria: 'Australia/Victoria',
+    Australia_West: 'Australia/West',
+    Australia_Yancowinna: 'Australia/Yancowinna',
+    Brazil_Acre: 'Brazil/Acre',
+    Brazil_DeNoronha: 'Brazil/DeNoronha',
+    Brazil_East: 'Brazil/East',
+    Brazil_West: 'Brazil/West',
+    CET: 'CET',
+    CST6CDT: 'CST6CDT',
+    Canada_Atlantic: 'Canada/Atlantic',
+    Canada_Central: 'Canada/Central',
+    Canada_Eastern: 'Canada/Eastern',
+    Canada_Mountain: 'Canada/Mountain',
+    Canada_Newfoundland: 'Canada/Newfoundland',
+    Canada_Pacific: 'Canada/Pacific',
+    Canada_Saskatchewan: 'Canada/Saskatchewan',
+    Canada_Yukon: 'Canada/Yukon',
+    Chile_Continental: 'Chile/Continental',
+    Chile_EasterIsland: 'Chile/EasterIsland',
+    Cuba: 'Cuba',
+    EET: 'EET',
+    EST: 'EST',
+    EST5EDT: 'EST5EDT',
+    Egypt: 'Egypt',
+    Eire: 'Eire',
+    Etc_GMT: 'Etc/GMT',
+    Etc_GMT0: 'Etc/GMT+0',
+    Etc_GMT1: 'Etc/GMT+1',
+    Etc_GMT10: 'Etc/GMT+10',
+    Etc_GMT11: 'Etc/GMT+11',
+    Etc_GMT12: 'Etc/GMT+12',
+    Etc_GMT2: 'Etc/GMT+2',
+    Etc_GMT3: 'Etc/GMT+3',
+    Etc_GMT4: 'Etc/GMT+4',
+    Etc_GMT5: 'Etc/GMT+5',
+    Etc_GMT6: 'Etc/GMT+6',
+    Etc_GMT7: 'Etc/GMT+7',
+    Etc_GMT8: 'Etc/GMT+8',
+    Etc_GMT9: 'Etc/GMT+9',
+    Etc_GMT_0: 'Etc/GMT-0',
+    Etc_GMT_1: 'Etc/GMT-1',
+    Etc_GMT_10: 'Etc/GMT-10',
+    Etc_GMT_11: 'Etc/GMT-11',
+    Etc_GMT_12: 'Etc/GMT-12',
+    Etc_GMT_13: 'Etc/GMT-13',
+    Etc_GMT_14: 'Etc/GMT-14',
+    Etc_GMT_2: 'Etc/GMT-2',
+    Etc_GMT_3: 'Etc/GMT-3',
+    Etc_GMT_4: 'Etc/GMT-4',
+    Etc_GMT_5: 'Etc/GMT-5',
+    Etc_GMT_6: 'Etc/GMT-6',
+    Etc_GMT_7: 'Etc/GMT-7',
+    Etc_GMT_8: 'Etc/GMT-8',
+    Etc_GMT_9: 'Etc/GMT-9',
+    Etc_GMT02: 'Etc/GMT0',
+    Etc_Greenwich: 'Etc/Greenwich',
+    Etc_UCT: 'Etc/UCT',
+    Etc_UTC: 'Etc/UTC',
+    Etc_Universal: 'Etc/Universal',
+    Etc_Zulu: 'Etc/Zulu',
+    Europe_Amsterdam: 'Europe/Amsterdam',
+    Europe_Andorra: 'Europe/Andorra',
+    Europe_Astrakhan: 'Europe/Astrakhan',
+    Europe_Athens: 'Europe/Athens',
+    Europe_Belfast: 'Europe/Belfast',
+    Europe_Belgrade: 'Europe/Belgrade',
+    Europe_Berlin: 'Europe/Berlin',
+    Europe_Bratislava: 'Europe/Bratislava',
+    Europe_Brussels: 'Europe/Brussels',
+    Europe_Bucharest: 'Europe/Bucharest',
+    Europe_Budapest: 'Europe/Budapest',
+    Europe_Busingen: 'Europe/Busingen',
+    Europe_Chisinau: 'Europe/Chisinau',
+    Europe_Copenhagen: 'Europe/Copenhagen',
+    Europe_Dublin: 'Europe/Dublin',
+    Europe_Gibraltar: 'Europe/Gibraltar',
+    Europe_Guernsey: 'Europe/Guernsey',
+    Europe_Helsinki: 'Europe/Helsinki',
+    Europe_Isle_of_Man: 'Europe/Isle_of_Man',
+    Europe_Istanbul: 'Europe/Istanbul',
+    Europe_Jersey: 'Europe/Jersey',
+    Europe_Kaliningrad: 'Europe/Kaliningrad',
+    Europe_Kiev: 'Europe/Kiev',
+    Europe_Kirov: 'Europe/Kirov',
+    Europe_Kyiv: 'Europe/Kyiv',
+    Europe_Lisbon: 'Europe/Lisbon',
+    Europe_Ljubljana: 'Europe/Ljubljana',
+    Europe_London: 'Europe/London',
+    Europe_Luxembourg: 'Europe/Luxembourg',
+    Europe_Madrid: 'Europe/Madrid',
+    Europe_Malta: 'Europe/Malta',
+    Europe_Mariehamn: 'Europe/Mariehamn',
+    Europe_Minsk: 'Europe/Minsk',
+    Europe_Monaco: 'Europe/Monaco',
+    Europe_Moscow: 'Europe/Moscow',
+    Europe_Nicosia: 'Europe/Nicosia',
+    Europe_Oslo: 'Europe/Oslo',
+    Europe_Paris: 'Europe/Paris',
+    Europe_Podgorica: 'Europe/Podgorica',
+    Europe_Prague: 'Europe/Prague',
+    Europe_Riga: 'Europe/Riga',
+    Europe_Rome: 'Europe/Rome',
+    Europe_Samara: 'Europe/Samara',
+    Europe_San_Marino: 'Europe/San_Marino',
+    Europe_Sarajevo: 'Europe/Sarajevo',
+    Europe_Saratov: 'Europe/Saratov',
+    Europe_Simferopol: 'Europe/Simferopol',
+    Europe_Skopje: 'Europe/Skopje',
+    Europe_Sofia: 'Europe/Sofia',
+    Europe_Stockholm: 'Europe/Stockholm',
+    Europe_Tallinn: 'Europe/Tallinn',
+    Europe_Tirane: 'Europe/Tirane',
+    Europe_Tiraspol: 'Europe/Tiraspol',
+    Europe_Ulyanovsk: 'Europe/Ulyanovsk',
+    Europe_Uzhgorod: 'Europe/Uzhgorod',
+    Europe_Vaduz: 'Europe/Vaduz',
+    Europe_Vatican: 'Europe/Vatican',
+    Europe_Vienna: 'Europe/Vienna',
+    Europe_Vilnius: 'Europe/Vilnius',
+    Europe_Volgograd: 'Europe/Volgograd',
+    Europe_Warsaw: 'Europe/Warsaw',
+    Europe_Zagreb: 'Europe/Zagreb',
+    Europe_Zaporozhye: 'Europe/Zaporozhye',
+    Europe_Zurich: 'Europe/Zurich',
+    Factory: 'Factory',
+    GB: 'GB',
+    GB_Eire: 'GB-Eire',
+    GMT: 'GMT',
+    GMT0: 'GMT+0',
+    GMT_0: 'GMT-0',
+    GMT02: 'GMT0',
+    Greenwich: 'Greenwich',
+    HST: 'HST',
+    Hongkong: 'Hongkong',
+    Iceland: 'Iceland',
+    Indian_Antananarivo: 'Indian/Antananarivo',
+    Indian_Chagos: 'Indian/Chagos',
+    Indian_Christmas: 'Indian/Christmas',
+    Indian_Cocos: 'Indian/Cocos',
+    Indian_Comoro: 'Indian/Comoro',
+    Indian_Kerguelen: 'Indian/Kerguelen',
+    Indian_Mahe: 'Indian/Mahe',
+    Indian_Maldives: 'Indian/Maldives',
+    Indian_Mauritius: 'Indian/Mauritius',
+    Indian_Mayotte: 'Indian/Mayotte',
+    Indian_Reunion: 'Indian/Reunion',
+    Iran: 'Iran',
+    Israel: 'Israel',
+    Jamaica: 'Jamaica',
+    Japan: 'Japan',
+    Kwajalein: 'Kwajalein',
+    Libya: 'Libya',
+    MET: 'MET',
+    MST: 'MST',
+    MST7MDT: 'MST7MDT',
+    Mexico_BajaNorte: 'Mexico/BajaNorte',
+    Mexico_BajaSur: 'Mexico/BajaSur',
+    Mexico_General: 'Mexico/General',
+    NZ: 'NZ',
+    NZ_CHAT: 'NZ-CHAT',
+    Navajo: 'Navajo',
+    PRC: 'PRC',
+    PST8PDT: 'PST8PDT',
+    Pacific_Apia: 'Pacific/Apia',
+    Pacific_Auckland: 'Pacific/Auckland',
+    Pacific_Bougainville: 'Pacific/Bougainville',
+    Pacific_Chatham: 'Pacific/Chatham',
+    Pacific_Chuuk: 'Pacific/Chuuk',
+    Pacific_Easter: 'Pacific/Easter',
+    Pacific_Efate: 'Pacific/Efate',
+    Pacific_Enderbury: 'Pacific/Enderbury',
+    Pacific_Fakaofo: 'Pacific/Fakaofo',
+    Pacific_Fiji: 'Pacific/Fiji',
+    Pacific_Funafuti: 'Pacific/Funafuti',
+    Pacific_Galapagos: 'Pacific/Galapagos',
+    Pacific_Gambier: 'Pacific/Gambier',
+    Pacific_Guadalcanal: 'Pacific/Guadalcanal',
+    Pacific_Guam: 'Pacific/Guam',
+    Pacific_Honolulu: 'Pacific/Honolulu',
+    Pacific_Johnston: 'Pacific/Johnston',
+    Pacific_Kanton: 'Pacific/Kanton',
+    Pacific_Kiritimati: 'Pacific/Kiritimati',
+    Pacific_Kosrae: 'Pacific/Kosrae',
+    Pacific_Kwajalein: 'Pacific/Kwajalein',
+    Pacific_Majuro: 'Pacific/Majuro',
+    Pacific_Marquesas: 'Pacific/Marquesas',
+    Pacific_Midway: 'Pacific/Midway',
+    Pacific_Nauru: 'Pacific/Nauru',
+    Pacific_Niue: 'Pacific/Niue',
+    Pacific_Norfolk: 'Pacific/Norfolk',
+    Pacific_Noumea: 'Pacific/Noumea',
+    Pacific_Pago_Pago: 'Pacific/Pago_Pago',
+    Pacific_Palau: 'Pacific/Palau',
+    Pacific_Pitcairn: 'Pacific/Pitcairn',
+    Pacific_Pohnpei: 'Pacific/Pohnpei',
+    Pacific_Ponape: 'Pacific/Ponape',
+    Pacific_Port_Moresby: 'Pacific/Port_Moresby',
+    Pacific_Rarotonga: 'Pacific/Rarotonga',
+    Pacific_Saipan: 'Pacific/Saipan',
+    Pacific_Samoa: 'Pacific/Samoa',
+    Pacific_Tahiti: 'Pacific/Tahiti',
+    Pacific_Tarawa: 'Pacific/Tarawa',
+    Pacific_Tongatapu: 'Pacific/Tongatapu',
+    Pacific_Truk: 'Pacific/Truk',
+    Pacific_Wake: 'Pacific/Wake',
+    Pacific_Wallis: 'Pacific/Wallis',
+    Pacific_Yap: 'Pacific/Yap',
+    Poland: 'Poland',
+    Portugal: 'Portugal',
+    ROC: 'ROC',
+    ROK: 'ROK',
+    Singapore: 'Singapore',
+    Turkey: 'Turkey',
+    UCT: 'UCT',
+    US_Alaska: 'US/Alaska',
+    US_Aleutian: 'US/Aleutian',
+    US_Arizona: 'US/Arizona',
+    US_Central: 'US/Central',
+    US_East_Indiana: 'US/East-Indiana',
+    US_Eastern: 'US/Eastern',
+    US_Hawaii: 'US/Hawaii',
+    US_Indiana_Starke: 'US/Indiana-Starke',
+    US_Michigan: 'US/Michigan',
+    US_Mountain: 'US/Mountain',
+    US_Pacific: 'US/Pacific',
+    US_Samoa: 'US/Samoa',
+    UTC: 'UTC',
+    Universal: 'Universal',
+    W_SU: 'W-SU',
+    WET: 'WET',
+    Zulu: 'Zulu',
+    localtime: 'localtime',
+} as const;
+
+export type UserPreferenceUpdateInTimezoneEnum = typeof UserPreferenceUpdateInTimezoneEnum[keyof typeof UserPreferenceUpdateInTimezoneEnum];
+
+export interface UserUpdateIn {
+    'first_name'?: string | null;
+    'last_name'?: string | null;
+    'email'?: string | null;
+    'password'?: string | null;
+    'admin'?: boolean | null;
+    'superadmin'?: boolean | null;
+    'tenant_id'?: number | null;
+}
 export interface ValidationError {
     'loc': Array<LocationInner>;
     'msg': string;
@@ -297,6 +2455,994 @@ export interface ValidationError {
     'input'?: any;
     'ctx'?: object;
 }
+
+/**
+ * Alert - axios parameter creator
+ */
+export const AlertAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a new budget alert with threshold and current spend. Only Admins can do it.
+         * @summary Create Alert
+         * @param {BudgetAlertRequest} budgetAlertRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsCreateAlert: async (budgetAlertRequest: BudgetAlertRequest, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetAlertRequest' is not null or undefined
+            assertParamExists('alertsCreateAlert', 'budgetAlertRequest', budgetAlertRequest)
+            const localVarPath = `/alerts/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(budgetAlertRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete exisiting budget alert
+         * @summary Delete Alert
+         * @param {number} alertId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsDeleteAlert: async (alertId: number, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'alertId' is not null or undefined
+            assertParamExists('alertsDeleteAlert', 'alertId', alertId)
+            const localVarPath = `/alerts/{alert_id}`
+                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates a existing budget alert. Only Admins can do it.
+         * @summary Update Alert
+         * @param {number} alertId 
+         * @param {BudgetAlertUpdate} budgetAlertUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsUpdateAlert: async (alertId: number, budgetAlertUpdate: BudgetAlertUpdate, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'alertId' is not null or undefined
+            assertParamExists('alertsUpdateAlert', 'alertId', alertId)
+            // verify required parameter 'budgetAlertUpdate' is not null or undefined
+            assertParamExists('alertsUpdateAlert', 'budgetAlertUpdate', budgetAlertUpdate)
+            const localVarPath = `/alerts/{alert_id}`
+                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(budgetAlertUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Alert - functional programming interface
+ */
+export const AlertFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AlertAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create a new budget alert with threshold and current spend. Only Admins can do it.
+         * @summary Create Alert
+         * @param {BudgetAlertRequest} budgetAlertRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async alertsCreateAlert(budgetAlertRequest: BudgetAlertRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BudgetAlert>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.alertsCreateAlert(budgetAlertRequest, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Alert.alertsCreateAlert']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete exisiting budget alert
+         * @summary Delete Alert
+         * @param {number} alertId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async alertsDeleteAlert(alertId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.alertsDeleteAlert(alertId, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Alert.alertsDeleteAlert']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Updates a existing budget alert. Only Admins can do it.
+         * @summary Update Alert
+         * @param {number} alertId 
+         * @param {BudgetAlertUpdate} budgetAlertUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async alertsUpdateAlert(alertId: number, budgetAlertUpdate: BudgetAlertUpdate, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BudgetAlert>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.alertsUpdateAlert(alertId, budgetAlertUpdate, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Alert.alertsUpdateAlert']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Alert - factory interface
+ */
+export const AlertFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AlertFp(configuration)
+    return {
+        /**
+         * Create a new budget alert with threshold and current spend. Only Admins can do it.
+         * @summary Create Alert
+         * @param {BudgetAlertRequest} budgetAlertRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsCreateAlert(budgetAlertRequest: BudgetAlertRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<BudgetAlert> {
+            return localVarFp.alertsCreateAlert(budgetAlertRequest, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete exisiting budget alert
+         * @summary Delete Alert
+         * @param {number} alertId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsDeleteAlert(alertId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.alertsDeleteAlert(alertId, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates a existing budget alert. Only Admins can do it.
+         * @summary Update Alert
+         * @param {number} alertId 
+         * @param {BudgetAlertUpdate} budgetAlertUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsUpdateAlert(alertId: number, budgetAlertUpdate: BudgetAlertUpdate, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<BudgetAlert> {
+            return localVarFp.alertsUpdateAlert(alertId, budgetAlertUpdate, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Alert - object-oriented interface
+ */
+export class Alert extends BaseAPI {
+    /**
+     * Create a new budget alert with threshold and current spend. Only Admins can do it.
+     * @summary Create Alert
+     * @param {BudgetAlertRequest} budgetAlertRequest 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public alertsCreateAlert(budgetAlertRequest: BudgetAlertRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return AlertFp(this.configuration).alertsCreateAlert(budgetAlertRequest, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete exisiting budget alert
+     * @summary Delete Alert
+     * @param {number} alertId 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public alertsDeleteAlert(alertId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return AlertFp(this.configuration).alertsDeleteAlert(alertId, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Updates a existing budget alert. Only Admins can do it.
+     * @summary Update Alert
+     * @param {number} alertId 
+     * @param {BudgetAlertUpdate} budgetAlertUpdate 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public alertsUpdateAlert(alertId: number, budgetAlertUpdate: BudgetAlertUpdate, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return AlertFp(this.configuration).alertsUpdateAlert(alertId, budgetAlertUpdate, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * ApiKey - axios parameter creator
+ */
+export const ApiKeyAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * create key endpoint
+         * @summary Create Key
+         * @param {string | null} [cookieName] 
+         * @param {ApiKeyCreateRequest | null} [apiKeyCreateRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiCreateKey: async (cookieName?: string | null, apiKeyCreateRequest?: ApiKeyCreateRequest | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/key/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(apiKeyCreateRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update an existing apikey\'s active status
+         * @summary Revoke Api Key
+         * @param {number} apiKeyId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiRevokeApiKey: async (apiKeyId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'apiKeyId' is not null or undefined
+            assertParamExists('apiRevokeApiKey', 'apiKeyId', apiKeyId)
+            const localVarPath = `/api/key/revoke/{api_key_id}`
+                .replace(`{${"api_key_id"}}`, encodeURIComponent(String(apiKeyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ApiKey - functional programming interface
+ */
+export const ApiKeyFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ApiKeyAxiosParamCreator(configuration)
+    return {
+        /**
+         * create key endpoint
+         * @summary Create Key
+         * @param {string | null} [cookieName] 
+         * @param {ApiKeyCreateRequest | null} [apiKeyCreateRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiCreateKey(cookieName?: string | null, apiKeyCreateRequest?: ApiKeyCreateRequest | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiKeyCreateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiCreateKey(cookieName, apiKeyCreateRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ApiKey.apiCreateKey']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update an existing apikey\'s active status
+         * @summary Revoke Api Key
+         * @param {number} apiKeyId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiRevokeApiKey(apiKeyId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiKey>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiRevokeApiKey(apiKeyId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ApiKey.apiRevokeApiKey']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * ApiKey - factory interface
+ */
+export const ApiKeyFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ApiKeyFp(configuration)
+    return {
+        /**
+         * create key endpoint
+         * @summary Create Key
+         * @param {string | null} [cookieName] 
+         * @param {ApiKeyCreateRequest | null} [apiKeyCreateRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiCreateKey(cookieName?: string | null, apiKeyCreateRequest?: ApiKeyCreateRequest | null, options?: RawAxiosRequestConfig): AxiosPromise<ApiKeyCreateResponse> {
+            return localVarFp.apiCreateKey(cookieName, apiKeyCreateRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update an existing apikey\'s active status
+         * @summary Revoke Api Key
+         * @param {number} apiKeyId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiRevokeApiKey(apiKeyId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<ApiKey> {
+            return localVarFp.apiRevokeApiKey(apiKeyId, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ApiKey - object-oriented interface
+ */
+export class ApiKey extends BaseAPI {
+    /**
+     * create key endpoint
+     * @summary Create Key
+     * @param {string | null} [cookieName] 
+     * @param {ApiKeyCreateRequest | null} [apiKeyCreateRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public apiCreateKey(cookieName?: string | null, apiKeyCreateRequest?: ApiKeyCreateRequest | null, options?: RawAxiosRequestConfig) {
+        return ApiKeyFp(this.configuration).apiCreateKey(cookieName, apiKeyCreateRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update an existing apikey\'s active status
+     * @summary Revoke Api Key
+     * @param {number} apiKeyId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public apiRevokeApiKey(apiKeyId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ApiKeyFp(this.configuration).apiRevokeApiKey(apiKeyId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Application - axios parameter creator
+ */
+export const ApplicationAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a new application
+         * @summary Create App
+         * @param {ApplicationIn} applicationIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsCreateApp: async (applicationIn: ApplicationIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'applicationIn' is not null or undefined
+            assertParamExists('applicationsCreateApp', 'applicationIn', applicationIn)
+            const localVarPath = `/applications/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(applicationIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete an application
+         * @summary Delete App
+         * @param {number} appId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsDeleteApp: async (appId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('applicationsDeleteApp', 'appId', appId)
+            const localVarPath = `/applications/{app_id}`
+                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update an existing application
+         * @summary Update App
+         * @param {number} appId 
+         * @param {ApplicationIn} applicationIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsUpdateApp: async (appId: number, applicationIn: ApplicationIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('applicationsUpdateApp', 'appId', appId)
+            // verify required parameter 'applicationIn' is not null or undefined
+            assertParamExists('applicationsUpdateApp', 'applicationIn', applicationIn)
+            const localVarPath = `/applications/{app_id}`
+                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(applicationIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Grant or update app access for a user group
+         * @summary Update Group Membership
+         * @param {GroupAppAccessIn} groupAppAccessIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsUpdateGroupMembership: async (groupAppAccessIn: GroupAppAccessIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'groupAppAccessIn' is not null or undefined
+            assertParamExists('applicationsUpdateGroupMembership', 'groupAppAccessIn', groupAppAccessIn)
+            const localVarPath = `/applications/group/access`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(groupAppAccessIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Grant or update app access for list of users
+         * @summary Update User Membership
+         * @param {ApplicationAccessIn} applicationAccessIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsUpdateUserMembership: async (applicationAccessIn: ApplicationAccessIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'applicationAccessIn' is not null or undefined
+            assertParamExists('applicationsUpdateUserMembership', 'applicationAccessIn', applicationAccessIn)
+            const localVarPath = `/applications/user/access`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(applicationAccessIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Application - functional programming interface
+ */
+export const ApplicationFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ApplicationAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create a new application
+         * @summary Create App
+         * @param {ApplicationIn} applicationIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationsCreateApp(applicationIn: ApplicationIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationsCreateApp(applicationIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Application.applicationsCreateApp']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete an application
+         * @summary Delete App
+         * @param {number} appId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationsDeleteApp(appId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationsDeleteApp(appId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Application.applicationsDeleteApp']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update an existing application
+         * @summary Update App
+         * @param {number} appId 
+         * @param {ApplicationIn} applicationIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationsUpdateApp(appId: number, applicationIn: ApplicationIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Application>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationsUpdateApp(appId, applicationIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Application.applicationsUpdateApp']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Grant or update app access for a user group
+         * @summary Update Group Membership
+         * @param {GroupAppAccessIn} groupAppAccessIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationsUpdateGroupMembership(groupAppAccessIn: GroupAppAccessIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationGroup>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationsUpdateGroupMembership(groupAppAccessIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Application.applicationsUpdateGroupMembership']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Grant or update app access for list of users
+         * @summary Update User Membership
+         * @param {ApplicationAccessIn} applicationAccessIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationsUpdateUserMembership(applicationAccessIn: ApplicationAccessIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationMember>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationsUpdateUserMembership(applicationAccessIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Application.applicationsUpdateUserMembership']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Application - factory interface
+ */
+export const ApplicationFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ApplicationFp(configuration)
+    return {
+        /**
+         * Create a new application
+         * @summary Create App
+         * @param {ApplicationIn} applicationIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsCreateApp(applicationIn: ApplicationIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.applicationsCreateApp(applicationIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete an application
+         * @summary Delete App
+         * @param {number} appId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsDeleteApp(appId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.applicationsDeleteApp(appId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update an existing application
+         * @summary Update App
+         * @param {number} appId 
+         * @param {ApplicationIn} applicationIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsUpdateApp(appId: number, applicationIn: ApplicationIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Application> {
+            return localVarFp.applicationsUpdateApp(appId, applicationIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Grant or update app access for a user group
+         * @summary Update Group Membership
+         * @param {GroupAppAccessIn} groupAppAccessIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsUpdateGroupMembership(groupAppAccessIn: GroupAppAccessIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ApplicationGroup>> {
+            return localVarFp.applicationsUpdateGroupMembership(groupAppAccessIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Grant or update app access for list of users
+         * @summary Update User Membership
+         * @param {ApplicationAccessIn} applicationAccessIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationsUpdateUserMembership(applicationAccessIn: ApplicationAccessIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ApplicationMember>> {
+            return localVarFp.applicationsUpdateUserMembership(applicationAccessIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Application - object-oriented interface
+ */
+export class Application extends BaseAPI {
+    /**
+     * Create a new application
+     * @summary Create App
+     * @param {ApplicationIn} applicationIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public applicationsCreateApp(applicationIn: ApplicationIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ApplicationFp(this.configuration).applicationsCreateApp(applicationIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete an application
+     * @summary Delete App
+     * @param {number} appId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public applicationsDeleteApp(appId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ApplicationFp(this.configuration).applicationsDeleteApp(appId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update an existing application
+     * @summary Update App
+     * @param {number} appId 
+     * @param {ApplicationIn} applicationIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public applicationsUpdateApp(appId: number, applicationIn: ApplicationIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ApplicationFp(this.configuration).applicationsUpdateApp(appId, applicationIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Grant or update app access for a user group
+     * @summary Update Group Membership
+     * @param {GroupAppAccessIn} groupAppAccessIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public applicationsUpdateGroupMembership(groupAppAccessIn: GroupAppAccessIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return ApplicationFp(this.configuration).applicationsUpdateGroupMembership(groupAppAccessIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Grant or update app access for list of users
+     * @summary Update User Membership
+     * @param {ApplicationAccessIn} applicationAccessIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public applicationsUpdateUserMembership(applicationAccessIn: ApplicationAccessIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return ApplicationFp(this.configuration).applicationsUpdateUserMembership(applicationAccessIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
 
 /**
  * Assistant - axios parameter creator
@@ -796,6 +3942,93 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @summary Submit Assistant
+         * @param {string} name 
+         * @param {string | null} [cookieName] 
+         * @param {string | null} [model] 
+         * @param {string | null} [description] 
+         * @param {string | null} [avatar] 
+         * @param {string | null} [instructions] 
+         * @param {number | null} [temperature] 
+         * @param {number | null} [similarityTopK] 
+         * @param {Array<string> | null} [files] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        assistantsSubmitAssistant: async (name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<string> | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('assistantsSubmitAssistant', 'name', name)
+            const localVarPath = `/assistants/submit`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+
+            if (name !== undefined) { 
+                localVarFormParams.append('name', name as any);
+            }
+
+            if (model !== undefined) { 
+                localVarFormParams.append('model', model as any);
+            }
+
+            if (description !== undefined) { 
+                localVarFormParams.append('description', description as any);
+            }
+
+            if (avatar !== undefined) { 
+                localVarFormParams.append('avatar', avatar as any);
+            }
+
+            if (instructions !== undefined) { 
+                localVarFormParams.append('instructions', instructions as any);
+            }
+
+            if (temperature !== undefined) { 
+                localVarFormParams.append('temperature', temperature as any);
+            }
+
+            if (similarityTopK !== undefined) { 
+                localVarFormParams.append('similarity_top_k', similarityTopK as any);
+            }
+            if (files) {
+                localVarFormParams.append('files', files.join(COLLECTION_FORMATS.csv));
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update Assistant
          * @param {number} assistantId 
          * @param {AssistantIn} assistantIn 
@@ -1003,6 +4236,27 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Submit Assistant
+         * @param {string} name 
+         * @param {string | null} [cookieName] 
+         * @param {string | null} [model] 
+         * @param {string | null} [description] 
+         * @param {string | null} [avatar] 
+         * @param {string | null} [instructions] 
+         * @param {number | null} [temperature] 
+         * @param {number | null} [similarityTopK] 
+         * @param {Array<string> | null} [files] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<string> | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Assistant>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.assistantsSubmitAssistant(name, cookieName, model, description, avatar, instructions, temperature, similarityTopK, files, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Assistant.assistantsSubmitAssistant']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Update Assistant
          * @param {number} assistantId 
          * @param {AssistantIn} assistantIn 
@@ -1141,6 +4395,24 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
          */
         assistantsRemoveToolFromAssistant(assistantId: number, toolId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.assistantsRemoveToolFromAssistant(assistantId, toolId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Submit Assistant
+         * @param {string} name 
+         * @param {string | null} [cookieName] 
+         * @param {string | null} [model] 
+         * @param {string | null} [description] 
+         * @param {string | null} [avatar] 
+         * @param {string | null} [instructions] 
+         * @param {number | null} [temperature] 
+         * @param {number | null} [similarityTopK] 
+         * @param {Array<string> | null} [files] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<string> | null, options?: RawAxiosRequestConfig): AxiosPromise<Assistant> {
+            return localVarFp.assistantsSubmitAssistant(name, cookieName, model, description, avatar, instructions, temperature, similarityTopK, files, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1290,6 +4562,25 @@ export class Assistant extends BaseAPI {
 
     /**
      * 
+     * @summary Submit Assistant
+     * @param {string} name 
+     * @param {string | null} [cookieName] 
+     * @param {string | null} [model] 
+     * @param {string | null} [description] 
+     * @param {string | null} [avatar] 
+     * @param {string | null} [instructions] 
+     * @param {number | null} [temperature] 
+     * @param {number | null} [similarityTopK] 
+     * @param {Array<string> | null} [files] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<string> | null, options?: RawAxiosRequestConfig) {
+        return AssistantFp(this.configuration).assistantsSubmitAssistant(name, cookieName, model, description, avatar, instructions, temperature, similarityTopK, files, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Update Assistant
      * @param {number} assistantId 
      * @param {AssistantIn} assistantIn 
@@ -1299,6 +4590,2878 @@ export class Assistant extends BaseAPI {
      */
     public assistantsUpdateAssistant(assistantId: number, assistantIn: AssistantIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return AssistantFp(this.configuration).assistantsUpdateAssistant(assistantId, assistantIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Auth - axios parameter creator
+ */
+export const AuthAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Azure Entra Callback
+         * @param {string} code Authorization code from Azure Entra ID
+         * @param {string} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authAzureEntraCallback: async (code: string, userAgent?: string, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'code' is not null or undefined
+            assertParamExists('authAzureEntraCallback', 'code', code)
+            const localVarPath = `/auth/callback/azure-entra`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (code !== undefined) {
+                localVarQueryParameter['code'] = code;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            if (userAgent != null) {
+                localVarHeaderParameter['user-agent'] = String(userAgent);
+            }
+            if (xRealIp != null) {
+                localVarHeaderParameter['x-real-ip'] = String(xRealIp);
+            }
+            if (xForwardedFor != null) {
+                localVarHeaderParameter['x-forwarded-for'] = String(xForwardedFor);
+            }
+            if (xClientIp != null) {
+                localVarHeaderParameter['x-client-ip'] = String(xClientIp);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Confirm Email
+         * @param {string} token JWT token from confirmation email
+         * @param {string | null} [accept] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authConfirmEmail: async (token: string, accept?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            assertParamExists('authConfirmEmail', 'token', token)
+            const localVarPath = `/auth/confirm-email`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (token !== undefined) {
+                localVarQueryParameter['token'] = token;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            if (accept != null) {
+                localVarHeaderParameter['accept'] = String(accept);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * service token endpoint for AI applications
+         * @summary Exchange Token
+         * @param {number} appId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authExchangeToken: async (appId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('authExchangeToken', 'appId', appId)
+            const localVarPath = `/auth/exchange/token`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (appId !== undefined) {
+                localVarQueryParameter['app_id'] = appId;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get Azure Entra group names for current user\'s groups
+         * @summary Get Entra Groups
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGetEntraGroups: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/entra/groups`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Entra Scopes
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGetEntraScopes: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/entra/scopes`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Login
+         * @param {string} username 
+         * @param {string} password 
+         * @param {string | null} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {number | null} [sessionId] 
+         * @param {string | null} [grantType] 
+         * @param {string} [scope] 
+         * @param {string | null} [clientId] 
+         * @param {string | null} [clientSecret] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authLogin: async (username: string, password: string, userAgent?: string | null, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, sessionId?: number | null, grantType?: string | null, scope?: string, clientId?: string | null, clientSecret?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'username' is not null or undefined
+            assertParamExists('authLogin', 'username', username)
+            // verify required parameter 'password' is not null or undefined
+            assertParamExists('authLogin', 'password', password)
+            const localVarPath = `/auth/token`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new URLSearchParams();
+
+
+            if (grantType !== undefined) { 
+                localVarFormParams.set('grant_type', grantType as any);
+            }
+
+            if (username !== undefined) { 
+                localVarFormParams.set('username', username as any);
+            }
+
+            if (password !== undefined) { 
+                localVarFormParams.set('password', password as any);
+            }
+
+            if (scope !== undefined) { 
+                localVarFormParams.set('scope', scope as any);
+            }
+
+            if (clientId !== undefined) { 
+                localVarFormParams.set('client_id', clientId as any);
+            }
+
+            if (clientSecret !== undefined) { 
+                localVarFormParams.set('client_secret', clientSecret as any);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            if (userAgent != null) {
+                localVarHeaderParameter['user-agent'] = String(userAgent);
+            }
+            if (xRealIp != null) {
+                localVarHeaderParameter['x-real-ip'] = String(xRealIp);
+            }
+            if (xForwardedFor != null) {
+                localVarHeaderParameter['x-forwarded-for'] = String(xForwardedFor);
+            }
+            if (xClientIp != null) {
+                localVarHeaderParameter['x-client-ip'] = String(xClientIp);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams.toString();
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Logout
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authLogout: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/logout`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Oidc Callback
+         * @param {string} code Authorization code from OIDC provider
+         * @param {string} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authOidcCallback: async (code: string, userAgent?: string, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'code' is not null or undefined
+            assertParamExists('authOidcCallback', 'code', code)
+            const localVarPath = `/auth/callback/oidc`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (code !== undefined) {
+                localVarQueryParameter['code'] = code;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            if (userAgent != null) {
+                localVarHeaderParameter['user-agent'] = String(userAgent);
+            }
+            if (xRealIp != null) {
+                localVarHeaderParameter['x-real-ip'] = String(xRealIp);
+            }
+            if (xForwardedFor != null) {
+                localVarHeaderParameter['x-forwarded-for'] = String(xForwardedFor);
+            }
+            if (xClientIp != null) {
+                localVarHeaderParameter['x-client-ip'] = String(xClientIp);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Request password reset. Always returns 200 OK to prevent user enumeration. Sends email with reset link if user exists and origin is valid.
+         * @summary Request Password Reset
+         * @param {PasswordResetRequestIn} passwordResetRequestIn 
+         * @param {string | null} [origin] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authRequestPasswordReset: async (passwordResetRequestIn: PasswordResetRequestIn, origin?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'passwordResetRequestIn' is not null or undefined
+            assertParamExists('authRequestPasswordReset', 'passwordResetRequestIn', passwordResetRequestIn)
+            const localVarPath = `/auth/request-password-reset`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            if (origin != null) {
+                localVarHeaderParameter['origin'] = String(origin);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(passwordResetRequestIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Complete password reset with token and new password. Validates token, updates password, and revokes all user sessions. Accepts both JSON (for API) and form data (for HTML fallback).
+         * @summary Reset Password
+         * @param {string} token Password reset JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authResetPassword: async (token: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            assertParamExists('authResetPassword', 'token', token)
+            const localVarPath = `/auth/reset-password`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (token !== undefined) {
+                localVarQueryParameter['token'] = token;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Fallback HTML form for password reset when no frontend is available. Displays a secure form with basic security measures. Validates token before showing form.
+         * @summary Reset Password Form
+         * @param {string} token Password reset JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authResetPasswordForm: async (token: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            assertParamExists('authResetPasswordForm', 'token', token)
+            const localVarPath = `/auth/reset-password`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (token !== undefined) {
+                localVarQueryParameter['token'] = token;
+            }
+
+            localVarHeaderParameter['Accept'] = 'text/html,application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Send Email Confirmation
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authSendEmailConfirmation: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/send-email-confirmation`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Auth - functional programming interface
+ */
+export const AuthFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AuthAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Azure Entra Callback
+         * @param {string} code Authorization code from Azure Entra ID
+         * @param {string} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authAzureEntraCallback(code: string, userAgent?: string, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authAzureEntraCallback(code, userAgent, xRealIp, xForwardedFor, xClientIp, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authAzureEntraCallback']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Confirm Email
+         * @param {string} token JWT token from confirmation email
+         * @param {string | null} [accept] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authConfirmEmail(token: string, accept?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authConfirmEmail(token, accept, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authConfirmEmail']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * service token endpoint for AI applications
+         * @summary Exchange Token
+         * @param {number} appId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authExchangeToken(appId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authExchangeToken(appId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authExchangeToken']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get Azure Entra group names for current user\'s groups
+         * @summary Get Entra Groups
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authGetEntraGroups(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: ResponseAuthGetEntraGroupsValue; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authGetEntraGroups(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authGetEntraGroups']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get Entra Scopes
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authGetEntraScopes(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string | null>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authGetEntraScopes(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authGetEntraScopes']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Login
+         * @param {string} username 
+         * @param {string} password 
+         * @param {string | null} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {number | null} [sessionId] 
+         * @param {string | null} [grantType] 
+         * @param {string} [scope] 
+         * @param {string | null} [clientId] 
+         * @param {string | null} [clientSecret] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authLogin(username: string, password: string, userAgent?: string | null, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, sessionId?: number | null, grantType?: string | null, scope?: string, clientId?: string | null, clientSecret?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authLogin(username, password, userAgent, xRealIp, xForwardedFor, xClientIp, sessionId, grantType, scope, clientId, clientSecret, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authLogin']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Logout
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authLogout(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authLogout(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authLogout']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Oidc Callback
+         * @param {string} code Authorization code from OIDC provider
+         * @param {string} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authOidcCallback(code: string, userAgent?: string, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authOidcCallback(code, userAgent, xRealIp, xForwardedFor, xClientIp, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authOidcCallback']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Request password reset. Always returns 200 OK to prevent user enumeration. Sends email with reset link if user exists and origin is valid.
+         * @summary Request Password Reset
+         * @param {PasswordResetRequestIn} passwordResetRequestIn 
+         * @param {string | null} [origin] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authRequestPasswordReset(passwordResetRequestIn: PasswordResetRequestIn, origin?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authRequestPasswordReset(passwordResetRequestIn, origin, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authRequestPasswordReset']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Complete password reset with token and new password. Validates token, updates password, and revokes all user sessions. Accepts both JSON (for API) and form data (for HTML fallback).
+         * @summary Reset Password
+         * @param {string} token Password reset JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authResetPassword(token: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authResetPassword(token, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authResetPassword']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Fallback HTML form for password reset when no frontend is available. Displays a secure form with basic security measures. Validates token before showing form.
+         * @summary Reset Password Form
+         * @param {string} token Password reset JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authResetPasswordForm(token: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authResetPasswordForm(token, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authResetPasswordForm']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Send Email Confirmation
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authSendEmailConfirmation(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authSendEmailConfirmation(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authSendEmailConfirmation']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Auth - factory interface
+ */
+export const AuthFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AuthFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Azure Entra Callback
+         * @param {string} code Authorization code from Azure Entra ID
+         * @param {string} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authAzureEntraCallback(code: string, userAgent?: string, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.authAzureEntraCallback(code, userAgent, xRealIp, xForwardedFor, xClientIp, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Confirm Email
+         * @param {string} token JWT token from confirmation email
+         * @param {string | null} [accept] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authConfirmEmail(token: string, accept?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.authConfirmEmail(token, accept, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * service token endpoint for AI applications
+         * @summary Exchange Token
+         * @param {number} appId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authExchangeToken(appId: number, options?: RawAxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.authExchangeToken(appId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get Azure Entra group names for current user\'s groups
+         * @summary Get Entra Groups
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGetEntraGroups(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: ResponseAuthGetEntraGroupsValue; }> {
+            return localVarFp.authGetEntraGroups(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Entra Scopes
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGetEntraScopes(options?: RawAxiosRequestConfig): AxiosPromise<Array<string | null>> {
+            return localVarFp.authGetEntraScopes(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Login
+         * @param {string} username 
+         * @param {string} password 
+         * @param {string | null} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {number | null} [sessionId] 
+         * @param {string | null} [grantType] 
+         * @param {string} [scope] 
+         * @param {string | null} [clientId] 
+         * @param {string | null} [clientSecret] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authLogin(username: string, password: string, userAgent?: string | null, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, sessionId?: number | null, grantType?: string | null, scope?: string, clientId?: string | null, clientSecret?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<TokenOut> {
+            return localVarFp.authLogin(username, password, userAgent, xRealIp, xForwardedFor, xClientIp, sessionId, grantType, scope, clientId, clientSecret, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Logout
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authLogout(options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.authLogout(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Oidc Callback
+         * @param {string} code Authorization code from OIDC provider
+         * @param {string} [userAgent] 
+         * @param {string | null} [xRealIp] 
+         * @param {string | null} [xForwardedFor] 
+         * @param {string | null} [xClientIp] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authOidcCallback(code: string, userAgent?: string, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.authOidcCallback(code, userAgent, xRealIp, xForwardedFor, xClientIp, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Request password reset. Always returns 200 OK to prevent user enumeration. Sends email with reset link if user exists and origin is valid.
+         * @summary Request Password Reset
+         * @param {PasswordResetRequestIn} passwordResetRequestIn 
+         * @param {string | null} [origin] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authRequestPasswordReset(passwordResetRequestIn: PasswordResetRequestIn, origin?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.authRequestPasswordReset(passwordResetRequestIn, origin, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Complete password reset with token and new password. Validates token, updates password, and revokes all user sessions. Accepts both JSON (for API) and form data (for HTML fallback).
+         * @summary Reset Password
+         * @param {string} token Password reset JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authResetPassword(token: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.authResetPassword(token, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Fallback HTML form for password reset when no frontend is available. Displays a secure form with basic security measures. Validates token before showing form.
+         * @summary Reset Password Form
+         * @param {string} token Password reset JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authResetPasswordForm(token: string, options?: RawAxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.authResetPasswordForm(token, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Send Email Confirmation
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authSendEmailConfirmation(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.authSendEmailConfirmation(cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Auth - object-oriented interface
+ */
+export class Auth extends BaseAPI {
+    /**
+     * 
+     * @summary Azure Entra Callback
+     * @param {string} code Authorization code from Azure Entra ID
+     * @param {string} [userAgent] 
+     * @param {string | null} [xRealIp] 
+     * @param {string | null} [xForwardedFor] 
+     * @param {string | null} [xClientIp] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authAzureEntraCallback(code: string, userAgent?: string, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authAzureEntraCallback(code, userAgent, xRealIp, xForwardedFor, xClientIp, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Confirm Email
+     * @param {string} token JWT token from confirmation email
+     * @param {string | null} [accept] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authConfirmEmail(token: string, accept?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authConfirmEmail(token, accept, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * service token endpoint for AI applications
+     * @summary Exchange Token
+     * @param {number} appId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authExchangeToken(appId: number, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authExchangeToken(appId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get Azure Entra group names for current user\'s groups
+     * @summary Get Entra Groups
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authGetEntraGroups(options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authGetEntraGroups(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Entra Scopes
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authGetEntraScopes(options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authGetEntraScopes(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Login
+     * @param {string} username 
+     * @param {string} password 
+     * @param {string | null} [userAgent] 
+     * @param {string | null} [xRealIp] 
+     * @param {string | null} [xForwardedFor] 
+     * @param {string | null} [xClientIp] 
+     * @param {number | null} [sessionId] 
+     * @param {string | null} [grantType] 
+     * @param {string} [scope] 
+     * @param {string | null} [clientId] 
+     * @param {string | null} [clientSecret] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authLogin(username: string, password: string, userAgent?: string | null, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, sessionId?: number | null, grantType?: string | null, scope?: string, clientId?: string | null, clientSecret?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authLogin(username, password, userAgent, xRealIp, xForwardedFor, xClientIp, sessionId, grantType, scope, clientId, clientSecret, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Logout
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authLogout(options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authLogout(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Oidc Callback
+     * @param {string} code Authorization code from OIDC provider
+     * @param {string} [userAgent] 
+     * @param {string | null} [xRealIp] 
+     * @param {string | null} [xForwardedFor] 
+     * @param {string | null} [xClientIp] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authOidcCallback(code: string, userAgent?: string, xRealIp?: string | null, xForwardedFor?: string | null, xClientIp?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authOidcCallback(code, userAgent, xRealIp, xForwardedFor, xClientIp, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Request password reset. Always returns 200 OK to prevent user enumeration. Sends email with reset link if user exists and origin is valid.
+     * @summary Request Password Reset
+     * @param {PasswordResetRequestIn} passwordResetRequestIn 
+     * @param {string | null} [origin] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authRequestPasswordReset(passwordResetRequestIn: PasswordResetRequestIn, origin?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authRequestPasswordReset(passwordResetRequestIn, origin, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Complete password reset with token and new password. Validates token, updates password, and revokes all user sessions. Accepts both JSON (for API) and form data (for HTML fallback).
+     * @summary Reset Password
+     * @param {string} token Password reset JWT token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authResetPassword(token: string, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authResetPassword(token, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Fallback HTML form for password reset when no frontend is available. Displays a secure form with basic security measures. Validates token before showing form.
+     * @summary Reset Password Form
+     * @param {string} token Password reset JWT token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authResetPasswordForm(token: string, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authResetPasswordForm(token, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Send Email Confirmation
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authSendEmailConfirmation(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authSendEmailConfirmation(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * AuthConnector - axios parameter creator
+ */
+export const AuthConnectorAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Initiate admin consent flow for a specific connector. This is used when the connector requires admin consent in addition to user consent.
+         * @summary Initiate Admin Consent
+         * @param {number} connectorId 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authInitiateAdminConsent: async (connectorId: number, tenantId?: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('authInitiateAdminConsent', 'connectorId', connectorId)
+            const localVarPath = `/auth/connectors/{connector_id}/consent/admin`
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Initiate OAuth consent flow for a specific connector.  Returns redirect URL to OAuth provider\'s consent page. If redirect=true, returns HTTP 302 redirect response.
+         * @summary Initiate Consent
+         * @param {number} connectorId 
+         * @param {string | null} [returnUrl] 
+         * @param {boolean} [redirect] If true, return 302 redirect instead of JSON
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authInitiateConsent: async (connectorId: number, returnUrl?: string | null, redirect?: boolean, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('authInitiateConsent', 'connectorId', connectorId)
+            const localVarPath = `/auth/connectors/{connector_id}/consent`
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (returnUrl !== undefined) {
+                localVarQueryParameter['return_url'] = returnUrl;
+            }
+
+            if (redirect !== undefined) {
+                localVarQueryParameter['redirect'] = redirect;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List Connector Status
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authListConnectorStatus: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/connectors/status`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Generic OAuth callback from provider after user consent.
+         * @summary Oauth Callback
+         * @param {string} state 
+         * @param {string | null} [code] 
+         * @param {string | null} [error] 
+         * @param {string | null} [errorDescription] 
+         * @param {string | null} [errorSubcode] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authOauthCallback: async (state: string, code?: string | null, error?: string | null, errorDescription?: string | null, errorSubcode?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'state' is not null or undefined
+            assertParamExists('authOauthCallback', 'state', state)
+            const localVarPath = `/auth/connectors/callback`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (state !== undefined) {
+                localVarQueryParameter['state'] = state;
+            }
+
+            if (code !== undefined) {
+                localVarQueryParameter['code'] = code;
+            }
+
+            if (error !== undefined) {
+                localVarQueryParameter['error'] = error;
+            }
+
+            if (errorDescription !== undefined) {
+                localVarQueryParameter['error_description'] = errorDescription;
+            }
+
+            if (errorSubcode !== undefined) {
+                localVarQueryParameter['error_subcode'] = errorSubcode;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Revoke Consent
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authRevokeConsent: async (connectorId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('authRevokeConsent', 'connectorId', connectorId)
+            const localVarPath = `/auth/connectors/{connector_id}/consent`
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update a connector (superadmin only).
+         * @summary Update Connector
+         * @param {number} connectorId 
+         * @param {ConnectorUpdate} connectorUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authUpdateConnector: async (connectorId: number, connectorUpdate: ConnectorUpdate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('authUpdateConnector', 'connectorId', connectorId)
+            // verify required parameter 'connectorUpdate' is not null or undefined
+            assertParamExists('authUpdateConnector', 'connectorUpdate', connectorUpdate)
+            const localVarPath = `/auth/connectors/{connector_id}`
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(connectorUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update an OAuth client (superadmin only).
+         * @summary Update Oauth Client
+         * @param {number} oauthClientId 
+         * @param {OAuthClientUpdate} oAuthClientUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authUpdateOauthClient: async (oauthClientId: number, oAuthClientUpdate: OAuthClientUpdate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'oauthClientId' is not null or undefined
+            assertParamExists('authUpdateOauthClient', 'oauthClientId', oauthClientId)
+            // verify required parameter 'oAuthClientUpdate' is not null or undefined
+            assertParamExists('authUpdateOauthClient', 'oAuthClientUpdate', oAuthClientUpdate)
+            const localVarPath = `/auth/connectors/oauth-clients/{oauth_client_id}`
+                .replace(`{${"oauth_client_id"}}`, encodeURIComponent(String(oauthClientId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(oAuthClientUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AuthConnector - functional programming interface
+ */
+export const AuthConnectorFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AuthConnectorAxiosParamCreator(configuration)
+    return {
+        /**
+         * Initiate admin consent flow for a specific connector. This is used when the connector requires admin consent in addition to user consent.
+         * @summary Initiate Admin Consent
+         * @param {number} connectorId 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authInitiateAdminConsent(connectorId: number, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectorConsentOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authInitiateAdminConsent(connectorId, tenantId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authInitiateAdminConsent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Initiate OAuth consent flow for a specific connector.  Returns redirect URL to OAuth provider\'s consent page. If redirect=true, returns HTTP 302 redirect response.
+         * @summary Initiate Consent
+         * @param {number} connectorId 
+         * @param {string | null} [returnUrl] 
+         * @param {boolean} [redirect] If true, return 302 redirect instead of JSON
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authInitiateConsent(connectorId: number, returnUrl?: string | null, redirect?: boolean, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectorConsentOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authInitiateConsent(connectorId, returnUrl, redirect, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authInitiateConsent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List Connector Status
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authListConnectorStatus(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConnectorStatusOut>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authListConnectorStatus(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authListConnectorStatus']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Generic OAuth callback from provider after user consent.
+         * @summary Oauth Callback
+         * @param {string} state 
+         * @param {string | null} [code] 
+         * @param {string | null} [error] 
+         * @param {string | null} [errorDescription] 
+         * @param {string | null} [errorSubcode] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authOauthCallback(state: string, code?: string | null, error?: string | null, errorDescription?: string | null, errorSubcode?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authOauthCallback(state, code, error, errorDescription, errorSubcode, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authOauthCallback']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Revoke Consent
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authRevokeConsent(connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authRevokeConsent(connectorId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authRevokeConsent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update a connector (superadmin only).
+         * @summary Update Connector
+         * @param {number} connectorId 
+         * @param {ConnectorUpdate} connectorUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authUpdateConnector(connectorId: number, connectorUpdate: ConnectorUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Connector>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authUpdateConnector(connectorId, connectorUpdate, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authUpdateConnector']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update an OAuth client (superadmin only).
+         * @summary Update Oauth Client
+         * @param {number} oauthClientId 
+         * @param {OAuthClientUpdate} oAuthClientUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authUpdateOauthClient(oauthClientId: number, oAuthClientUpdate: OAuthClientUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OAuthClient>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authUpdateOauthClient(oauthClientId, oAuthClientUpdate, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authUpdateOauthClient']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * AuthConnector - factory interface
+ */
+export const AuthConnectorFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AuthConnectorFp(configuration)
+    return {
+        /**
+         * Initiate admin consent flow for a specific connector. This is used when the connector requires admin consent in addition to user consent.
+         * @summary Initiate Admin Consent
+         * @param {number} connectorId 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authInitiateAdminConsent(connectorId: number, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<ConnectorConsentOut> {
+            return localVarFp.authInitiateAdminConsent(connectorId, tenantId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Initiate OAuth consent flow for a specific connector.  Returns redirect URL to OAuth provider\'s consent page. If redirect=true, returns HTTP 302 redirect response.
+         * @summary Initiate Consent
+         * @param {number} connectorId 
+         * @param {string | null} [returnUrl] 
+         * @param {boolean} [redirect] If true, return 302 redirect instead of JSON
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authInitiateConsent(connectorId: number, returnUrl?: string | null, redirect?: boolean, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<ConnectorConsentOut> {
+            return localVarFp.authInitiateConsent(connectorId, returnUrl, redirect, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List Connector Status
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authListConnectorStatus(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<ConnectorStatusOut>> {
+            return localVarFp.authListConnectorStatus(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Generic OAuth callback from provider after user consent.
+         * @summary Oauth Callback
+         * @param {string} state 
+         * @param {string | null} [code] 
+         * @param {string | null} [error] 
+         * @param {string | null} [errorDescription] 
+         * @param {string | null} [errorSubcode] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authOauthCallback(state: string, code?: string | null, error?: string | null, errorDescription?: string | null, errorSubcode?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.authOauthCallback(state, code, error, errorDescription, errorSubcode, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Revoke Consent
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authRevokeConsent(connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.authRevokeConsent(connectorId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update a connector (superadmin only).
+         * @summary Update Connector
+         * @param {number} connectorId 
+         * @param {ConnectorUpdate} connectorUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authUpdateConnector(connectorId: number, connectorUpdate: ConnectorUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Connector> {
+            return localVarFp.authUpdateConnector(connectorId, connectorUpdate, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update an OAuth client (superadmin only).
+         * @summary Update Oauth Client
+         * @param {number} oauthClientId 
+         * @param {OAuthClientUpdate} oAuthClientUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authUpdateOauthClient(oauthClientId: number, oAuthClientUpdate: OAuthClientUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<OAuthClient> {
+            return localVarFp.authUpdateOauthClient(oauthClientId, oAuthClientUpdate, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AuthConnector - object-oriented interface
+ */
+export class AuthConnector extends BaseAPI {
+    /**
+     * Initiate admin consent flow for a specific connector. This is used when the connector requires admin consent in addition to user consent.
+     * @summary Initiate Admin Consent
+     * @param {number} connectorId 
+     * @param {number} [tenantId] 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authInitiateAdminConsent(connectorId: number, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authInitiateAdminConsent(connectorId, tenantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Initiate OAuth consent flow for a specific connector.  Returns redirect URL to OAuth provider\'s consent page. If redirect=true, returns HTTP 302 redirect response.
+     * @summary Initiate Consent
+     * @param {number} connectorId 
+     * @param {string | null} [returnUrl] 
+     * @param {boolean} [redirect] If true, return 302 redirect instead of JSON
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authInitiateConsent(connectorId: number, returnUrl?: string | null, redirect?: boolean, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authInitiateConsent(connectorId, returnUrl, redirect, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List Connector Status
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authListConnectorStatus(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authListConnectorStatus(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Generic OAuth callback from provider after user consent.
+     * @summary Oauth Callback
+     * @param {string} state 
+     * @param {string | null} [code] 
+     * @param {string | null} [error] 
+     * @param {string | null} [errorDescription] 
+     * @param {string | null} [errorSubcode] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authOauthCallback(state: string, code?: string | null, error?: string | null, errorDescription?: string | null, errorSubcode?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authOauthCallback(state, code, error, errorDescription, errorSubcode, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Revoke Consent
+     * @param {number} connectorId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authRevokeConsent(connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authRevokeConsent(connectorId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update a connector (superadmin only).
+     * @summary Update Connector
+     * @param {number} connectorId 
+     * @param {ConnectorUpdate} connectorUpdate 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authUpdateConnector(connectorId: number, connectorUpdate: ConnectorUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authUpdateConnector(connectorId, connectorUpdate, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update an OAuth client (superadmin only).
+     * @summary Update Oauth Client
+     * @param {number} oauthClientId 
+     * @param {OAuthClientUpdate} oAuthClientUpdate 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authUpdateOauthClient(oauthClientId: number, oAuthClientUpdate: OAuthClientUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authUpdateOauthClient(oauthClientId, oAuthClientUpdate, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Chat - axios parameter creator
+ */
+export const ChatAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Enables a library in a chat by creating a new association
+         * @summary Add Library To Chat
+         * @param {number} chatId 
+         * @param {number} libraryId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsAddLibraryToChat: async (chatId: number, libraryId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsAddLibraryToChat', 'chatId', chatId)
+            // verify required parameter 'libraryId' is not null or undefined
+            assertParamExists('chatsAddLibraryToChat', 'libraryId', libraryId)
+            const localVarPath = `/chats/{chat_id}/libraries/{library_id}`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)))
+                .replace(`{${"library_id"}}`, encodeURIComponent(String(libraryId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Cancel Message
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsCancelMessage: async (chatId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsCancelMessage', 'chatId', chatId)
+            const localVarPath = `/chats/{chat_id}/cancel`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Deactivate Documents
+         * @param {number} chatId 
+         * @param {Array<number>} documentIds 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsDeactivateDocuments: async (chatId: number, documentIds: Array<number>, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsDeactivateDocuments', 'chatId', chatId)
+            // verify required parameter 'documentIds' is not null or undefined
+            assertParamExists('chatsDeactivateDocuments', 'documentIds', documentIds)
+            const localVarPath = `/chats/{chat_id}/inactive-documents`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new URLSearchParams();
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (documentIds) {
+                localVarFormParams.set('document_ids', documentIds.join(COLLECTION_FORMATS.csv));
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams.toString();
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Remove Chat
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsRemoveChat: async (chatId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsRemoveChat', 'chatId', chatId)
+            const localVarPath = `/chats/{chat_id}`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Remove Inactive Documents
+         * @param {number} chatId 
+         * @param {Array<number>} documentIds 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsRemoveInactiveDocuments: async (chatId: number, documentIds: Array<number>, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsRemoveInactiveDocuments', 'chatId', chatId)
+            // verify required parameter 'documentIds' is not null or undefined
+            assertParamExists('chatsRemoveInactiveDocuments', 'documentIds', documentIds)
+            const localVarPath = `/chats/{chat_id}/inactive-documents`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new URLSearchParams();
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (documentIds) {
+                localVarFormParams.set('document_ids', documentIds.join(COLLECTION_FORMATS.csv));
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams.toString();
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Disables a library from a chat by removing the association
+         * @summary Remove Library From Chat
+         * @param {number} chatId 
+         * @param {number} libraryId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsRemoveLibraryFromChat: async (chatId: number, libraryId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsRemoveLibraryFromChat', 'chatId', chatId)
+            // verify required parameter 'libraryId' is not null or undefined
+            assertParamExists('chatsRemoveLibraryFromChat', 'libraryId', libraryId)
+            const localVarPath = `/chats/{chat_id}/libraries/{library_id}`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)))
+                .replace(`{${"library_id"}}`, encodeURIComponent(String(libraryId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Summerize Chat
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsSummerizeChat: async (chatId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsSummerizeChat', 'chatId', chatId)
+            const localVarPath = `/chats/{chat_id}/summary`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update Chat
+         * @param {number} chatId 
+         * @param {ChatIn} chatIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsUpdateChat: async (chatId: number, chatIn: ChatIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsUpdateChat', 'chatId', chatId)
+            // verify required parameter 'chatIn' is not null or undefined
+            assertParamExists('chatsUpdateChat', 'chatIn', chatIn)
+            const localVarPath = `/chats/{chat_id}`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(chatIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update tool settings for a chat (upsert: create or update).  - Validates tool_id exists in Tool table - Validates tool is enabled for the tenant - Creates new ChatToolSettings entry if it doesn\'t exist - Updates existing entry if it exists
+         * @summary Update Chat Tool Settings
+         * @param {number} chatId 
+         * @param {number} toolId 
+         * @param {ChatToolSettingsUpdate} chatToolSettingsUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsUpdateChatToolSettings: async (chatId: number, toolId: number, chatToolSettingsUpdate: ChatToolSettingsUpdate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsUpdateChatToolSettings', 'chatId', chatId)
+            // verify required parameter 'toolId' is not null or undefined
+            assertParamExists('chatsUpdateChatToolSettings', 'toolId', toolId)
+            // verify required parameter 'chatToolSettingsUpdate' is not null or undefined
+            assertParamExists('chatsUpdateChatToolSettings', 'chatToolSettingsUpdate', chatToolSettingsUpdate)
+            const localVarPath = `/chats/{chat_id}/tools/{tool_id}`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)))
+                .replace(`{${"tool_id"}}`, encodeURIComponent(String(toolId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(chatToolSettingsUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Chat - functional programming interface
+ */
+export const ChatFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ChatAxiosParamCreator(configuration)
+    return {
+        /**
+         * Enables a library in a chat by creating a new association
+         * @summary Add Library To Chat
+         * @param {number} chatId 
+         * @param {number} libraryId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsAddLibraryToChat(chatId: number, libraryId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChatLibrary>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsAddLibraryToChat(chatId, libraryId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsAddLibraryToChat']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Cancel Message
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsCancelMessage(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsCancelMessage(chatId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsCancelMessage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Deactivate Documents
+         * @param {number} chatId 
+         * @param {Array<number>} documentIds 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsDeactivateDocuments(chatId: number, documentIds: Array<number>, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ChatInactiveDocument>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsDeactivateDocuments(chatId, documentIds, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsDeactivateDocuments']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Remove Chat
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsRemoveChat(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsRemoveChat(chatId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsRemoveChat']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Remove Inactive Documents
+         * @param {number} chatId 
+         * @param {Array<number>} documentIds 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsRemoveInactiveDocuments(chatId: number, documentIds: Array<number>, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BulkResult>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsRemoveInactiveDocuments(chatId, documentIds, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsRemoveInactiveDocuments']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Disables a library from a chat by removing the association
+         * @summary Remove Library From Chat
+         * @param {number} chatId 
+         * @param {number} libraryId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsRemoveLibraryFromChat(chatId: number, libraryId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsRemoveLibraryFromChat(chatId, libraryId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsRemoveLibraryFromChat']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Summerize Chat
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsSummerizeChat(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsSummerizeChat(chatId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsSummerizeChat']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update Chat
+         * @param {number} chatId 
+         * @param {ChatIn} chatIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsUpdateChat(chatId: number, chatIn: ChatIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Chat>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsUpdateChat(chatId, chatIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsUpdateChat']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update tool settings for a chat (upsert: create or update).  - Validates tool_id exists in Tool table - Validates tool is enabled for the tenant - Creates new ChatToolSettings entry if it doesn\'t exist - Updates existing entry if it exists
+         * @summary Update Chat Tool Settings
+         * @param {number} chatId 
+         * @param {number} toolId 
+         * @param {ChatToolSettingsUpdate} chatToolSettingsUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsUpdateChatToolSettings(chatId: number, toolId: number, chatToolSettingsUpdate: ChatToolSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChatToolSettingsOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsUpdateChatToolSettings(chatId, toolId, chatToolSettingsUpdate, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsUpdateChatToolSettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Chat - factory interface
+ */
+export const ChatFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ChatFp(configuration)
+    return {
+        /**
+         * Enables a library in a chat by creating a new association
+         * @summary Add Library To Chat
+         * @param {number} chatId 
+         * @param {number} libraryId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsAddLibraryToChat(chatId: number, libraryId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<ChatLibrary> {
+            return localVarFp.chatsAddLibraryToChat(chatId, libraryId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Cancel Message
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsCancelMessage(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.chatsCancelMessage(chatId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Deactivate Documents
+         * @param {number} chatId 
+         * @param {Array<number>} documentIds 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsDeactivateDocuments(chatId: number, documentIds: Array<number>, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<ChatInactiveDocument>> {
+            return localVarFp.chatsDeactivateDocuments(chatId, documentIds, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Remove Chat
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsRemoveChat(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.chatsRemoveChat(chatId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Remove Inactive Documents
+         * @param {number} chatId 
+         * @param {Array<number>} documentIds 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsRemoveInactiveDocuments(chatId: number, documentIds: Array<number>, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<BulkResult> {
+            return localVarFp.chatsRemoveInactiveDocuments(chatId, documentIds, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Disables a library from a chat by removing the association
+         * @summary Remove Library From Chat
+         * @param {number} chatId 
+         * @param {number} libraryId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsRemoveLibraryFromChat(chatId: number, libraryId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.chatsRemoveLibraryFromChat(chatId, libraryId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Summerize Chat
+         * @param {number} chatId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsSummerizeChat(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.chatsSummerizeChat(chatId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Chat
+         * @param {number} chatId 
+         * @param {ChatIn} chatIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsUpdateChat(chatId: number, chatIn: ChatIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Chat> {
+            return localVarFp.chatsUpdateChat(chatId, chatIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update tool settings for a chat (upsert: create or update).  - Validates tool_id exists in Tool table - Validates tool is enabled for the tenant - Creates new ChatToolSettings entry if it doesn\'t exist - Updates existing entry if it exists
+         * @summary Update Chat Tool Settings
+         * @param {number} chatId 
+         * @param {number} toolId 
+         * @param {ChatToolSettingsUpdate} chatToolSettingsUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsUpdateChatToolSettings(chatId: number, toolId: number, chatToolSettingsUpdate: ChatToolSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<ChatToolSettingsOut> {
+            return localVarFp.chatsUpdateChatToolSettings(chatId, toolId, chatToolSettingsUpdate, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Chat - object-oriented interface
+ */
+export class Chat extends BaseAPI {
+    /**
+     * Enables a library in a chat by creating a new association
+     * @summary Add Library To Chat
+     * @param {number} chatId 
+     * @param {number} libraryId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsAddLibraryToChat(chatId: number, libraryId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsAddLibraryToChat(chatId, libraryId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Cancel Message
+     * @param {number} chatId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsCancelMessage(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsCancelMessage(chatId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Deactivate Documents
+     * @param {number} chatId 
+     * @param {Array<number>} documentIds 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsDeactivateDocuments(chatId: number, documentIds: Array<number>, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsDeactivateDocuments(chatId, documentIds, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Remove Chat
+     * @param {number} chatId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsRemoveChat(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsRemoveChat(chatId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Remove Inactive Documents
+     * @param {number} chatId 
+     * @param {Array<number>} documentIds 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsRemoveInactiveDocuments(chatId: number, documentIds: Array<number>, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsRemoveInactiveDocuments(chatId, documentIds, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Disables a library from a chat by removing the association
+     * @summary Remove Library From Chat
+     * @param {number} chatId 
+     * @param {number} libraryId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsRemoveLibraryFromChat(chatId: number, libraryId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsRemoveLibraryFromChat(chatId, libraryId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Summerize Chat
+     * @param {number} chatId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsSummerizeChat(chatId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsSummerizeChat(chatId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Chat
+     * @param {number} chatId 
+     * @param {ChatIn} chatIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsUpdateChat(chatId: number, chatIn: ChatIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsUpdateChat(chatId, chatIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update tool settings for a chat (upsert: create or update).  - Validates tool_id exists in Tool table - Validates tool is enabled for the tenant - Creates new ChatToolSettings entry if it doesn\'t exist - Updates existing entry if it exists
+     * @summary Update Chat Tool Settings
+     * @param {number} chatId 
+     * @param {number} toolId 
+     * @param {ChatToolSettingsUpdate} chatToolSettingsUpdate 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsUpdateChatToolSettings(chatId: number, toolId: number, chatToolSettingsUpdate: ChatToolSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsUpdateChatToolSettings(chatId, toolId, chatToolSettingsUpdate, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Default - axios parameter creator
+ */
+export const DefaultAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Power-On Self-Test (POST) endpoint. Runs comprehensive health checks for all configured services and returns results.
+         * @summary Post Check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postPostCheck: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/post`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * A welcome message for the API and testing.
+         * @summary Root
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rootRoot: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns application stat.
+         * @summary Stat
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        statStat: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/stat`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get the icon for a tenant
+         * @summary Get Theme
+         * @param {string | null} [origin] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        themeGetTheme: async (origin?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/theme`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            if (origin != null) {
+                localVarHeaderParameter['origin'] = String(origin);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns version information about the deployed application.
+         * @summary Version
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        versionVersion: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/version`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Default - functional programming interface
+ */
+export const DefaultFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DefaultAxiosParamCreator(configuration)
+    return {
+        /**
+         * Power-On Self-Test (POST) endpoint. Runs comprehensive health checks for all configured services and returns results.
+         * @summary Post Check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postPostCheck(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postPostCheck(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Default.postPostCheck']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * A welcome message for the API and testing.
+         * @summary Root
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rootRoot(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rootRoot(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Default.rootRoot']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns application stat.
+         * @summary Stat
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async statStat(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.statStat(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Default.statStat']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get the icon for a tenant
+         * @summary Get Theme
+         * @param {string | null} [origin] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async themeGetTheme(origin?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TenantThemeOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.themeGetTheme(origin, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Default.themeGetTheme']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Returns version information about the deployed application.
+         * @summary Version
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async versionVersion(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.versionVersion(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Default.versionVersion']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Default - factory interface
+ */
+export const DefaultFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DefaultFp(configuration)
+    return {
+        /**
+         * Power-On Self-Test (POST) endpoint. Runs comprehensive health checks for all configured services and returns results.
+         * @summary Post Check
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postPostCheck(options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.postPostCheck(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * A welcome message for the API and testing.
+         * @summary Root
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rootRoot(options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.rootRoot(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns application stat.
+         * @summary Stat
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        statStat(options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.statStat(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get the icon for a tenant
+         * @summary Get Theme
+         * @param {string | null} [origin] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        themeGetTheme(origin?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<TenantThemeOut> {
+            return localVarFp.themeGetTheme(origin, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns version information about the deployed application.
+         * @summary Version
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        versionVersion(options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.versionVersion(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Default - object-oriented interface
+ */
+export class Default extends BaseAPI {
+    /**
+     * Power-On Self-Test (POST) endpoint. Runs comprehensive health checks for all configured services and returns results.
+     * @summary Post Check
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public postPostCheck(options?: RawAxiosRequestConfig) {
+        return DefaultFp(this.configuration).postPostCheck(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * A welcome message for the API and testing.
+     * @summary Root
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public rootRoot(options?: RawAxiosRequestConfig) {
+        return DefaultFp(this.configuration).rootRoot(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns application stat.
+     * @summary Stat
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public statStat(options?: RawAxiosRequestConfig) {
+        return DefaultFp(this.configuration).statStat(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get the icon for a tenant
+     * @summary Get Theme
+     * @param {string | null} [origin] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public themeGetTheme(origin?: string | null, options?: RawAxiosRequestConfig) {
+        return DefaultFp(this.configuration).themeGetTheme(origin, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns version information about the deployed application.
+     * @summary Version
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public versionVersion(options?: RawAxiosRequestConfig) {
+        return DefaultFp(this.configuration).versionVersion(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1330,6 +7493,52 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             }
 
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get File
+         * @param {number} documentId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsGetFile: async (documentId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'documentId' is not null or undefined
+            assertParamExists('documentsGetFile', 'documentId', documentId)
+            const localVarPath = `/documents/{document_id}`
+                .replace(`{${"document_id"}}`, encodeURIComponent(String(documentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -1448,6 +7657,133 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Retry Document
+         * @param {number} documentId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsRetryDocument: async (documentId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'documentId' is not null or undefined
+            assertParamExists('documentsRetryDocument', 'documentId', documentId)
+            const localVarPath = `/documents/{document_id}/retry`
+                .replace(`{${"document_id"}}`, encodeURIComponent(String(documentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Unimport Documents
+         * @param {string} src Source type which the documents will be imported from
+         * @param {string} driveId Sharepoint drive ID
+         * @param {Array<string>} driveItemIds Sharepoint item IDs of the documents to be unimported
+         * @param {string | null} [cookieName] 
+         * @param {number | null} [projectId] 
+         * @param {number | null} [chatId] 
+         * @param {number | null} [assistantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsUnimportDocuments: async (src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'src' is not null or undefined
+            assertParamExists('documentsUnimportDocuments', 'src', src)
+            // verify required parameter 'driveId' is not null or undefined
+            assertParamExists('documentsUnimportDocuments', 'driveId', driveId)
+            // verify required parameter 'driveItemIds' is not null or undefined
+            assertParamExists('documentsUnimportDocuments', 'driveItemIds', driveItemIds)
+            const localVarPath = `/documents/import`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new URLSearchParams();
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+
+            if (src !== undefined) { 
+                localVarFormParams.set('src', src as any);
+            }
+
+            if (driveId !== undefined) { 
+                localVarFormParams.set('drive_id', driveId as any);
+            }
+            if (driveItemIds) {
+                localVarFormParams.set('drive_item_ids', driveItemIds.join(COLLECTION_FORMATS.csv));
+            }
+
+
+            if (projectId !== undefined) { 
+                localVarFormParams.set('project_id', projectId as any);
+            }
+
+            if (chatId !== undefined) { 
+                localVarFormParams.set('chat_id', chatId as any);
+            }
+
+            if (assistantId !== undefined) { 
+                localVarFormParams.set('assistant_id', assistantId as any);
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams.toString();
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Upload Documents
          * @param {Array<string>} files 
          * @param {string | null} [cookieName] 
@@ -1548,6 +7884,20 @@ export const DocumentFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get File
+         * @param {number} documentId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsGetFile(documentId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsGetFile(documentId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Document.documentsGetFile']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Import Documents
          * @param {string} src Source type which the documents will be imported from
          * @param {string} driveId Sharepoint drive ID
@@ -1565,6 +7915,39 @@ export const DocumentFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsImportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, messageId, libraryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Document.documentsImportDocuments']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Retry Document
+         * @param {number} documentId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsRetryDocument(documentId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsRetryDocument(documentId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Document.documentsRetryDocument']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Unimport Documents
+         * @param {string} src Source type which the documents will be imported from
+         * @param {string} driveId Sharepoint drive ID
+         * @param {Array<string>} driveItemIds Sharepoint item IDs of the documents to be unimported
+         * @param {string | null} [cookieName] 
+         * @param {number | null} [projectId] 
+         * @param {number | null} [chatId] 
+         * @param {number | null} [assistantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Document.documentsUnimportDocuments']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1608,6 +7991,17 @@ export const DocumentFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Get File
+         * @param {number} documentId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsGetFile(documentId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.documentsGetFile(documentId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Import Documents
          * @param {string} src Source type which the documents will be imported from
          * @param {string} driveId Sharepoint drive ID
@@ -1623,6 +8017,33 @@ export const DocumentFactory = function (configuration?: Configuration, basePath
          */
         documentsImportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options?: RawAxiosRequestConfig): AxiosPromise<string> {
             return localVarFp.documentsImportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, messageId, libraryId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Retry Document
+         * @param {number} documentId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsRetryDocument(documentId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.documentsRetryDocument(documentId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Unimport Documents
+         * @param {string} src Source type which the documents will be imported from
+         * @param {string} driveId Sharepoint drive ID
+         * @param {Array<string>} driveItemIds Sharepoint item IDs of the documents to be unimported
+         * @param {string | null} [cookieName] 
+         * @param {number | null} [projectId] 
+         * @param {number | null} [chatId] 
+         * @param {number | null} [assistantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1661,6 +8082,18 @@ export class Document extends BaseAPI {
 
     /**
      * 
+     * @summary Get File
+     * @param {number} documentId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public documentsGetFile(documentId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return DocumentFp(this.configuration).documentsGetFile(documentId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Import Documents
      * @param {string} src Source type which the documents will be imported from
      * @param {string} driveId Sharepoint drive ID
@@ -1676,6 +8109,35 @@ export class Document extends BaseAPI {
      */
     public documentsImportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options?: RawAxiosRequestConfig) {
         return DocumentFp(this.configuration).documentsImportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, messageId, libraryId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Retry Document
+     * @param {number} documentId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public documentsRetryDocument(documentId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return DocumentFp(this.configuration).documentsRetryDocument(documentId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Unimport Documents
+     * @param {string} src Source type which the documents will be imported from
+     * @param {string} driveId Sharepoint drive ID
+     * @param {Array<string>} driveItemIds Sharepoint item IDs of the documents to be unimported
+     * @param {string | null} [cookieName] 
+     * @param {number | null} [projectId] 
+     * @param {number | null} [chatId] 
+     * @param {number | null} [assistantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, options?: RawAxiosRequestConfig) {
+        return DocumentFp(this.configuration).documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1699,10 +8161,200 @@ export class Document extends BaseAPI {
 
 
 /**
+ * File - axios parameter creator
+ */
+export const FileAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Download File
+         * @param {number} fileId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        filesDownloadFile: async (fileId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'fileId' is not null or undefined
+            assertParamExists('filesDownloadFile', 'fileId', fileId)
+            const localVarPath = `/files/{file_id}`
+                .replace(`{${"file_id"}}`, encodeURIComponent(String(fileId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * File - functional programming interface
+ */
+export const FileFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FileAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Download File
+         * @param {number} fileId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async filesDownloadFile(fileId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.filesDownloadFile(fileId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['File.filesDownloadFile']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * File - factory interface
+ */
+export const FileFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FileFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Download File
+         * @param {number} fileId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        filesDownloadFile(fileId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.filesDownloadFile(fileId, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * File - object-oriented interface
+ */
+export class File extends BaseAPI {
+    /**
+     * 
+     * @summary Download File
+     * @param {number} fileId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public filesDownloadFile(fileId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return FileFp(this.configuration).filesDownloadFile(fileId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * Invitation - axios parameter creator
  */
 export const InvitationAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Complete invitation acceptance and create user account.
+         * @summary Accept Invitation Complete
+         * @param {string} token Invitation JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invitationsAcceptInvitationComplete: async (token: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            assertParamExists('invitationsAcceptInvitationComplete', 'token', token)
+            const localVarPath = `/invitations/accept`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (token !== undefined) {
+                localVarQueryParameter['token'] = token;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Fallback HTML form for accepting invitation when no frontend is available.
+         * @summary Accept Invitation Form
+         * @param {string} token Invitation JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invitationsAcceptInvitationForm: async (token: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            assertParamExists('invitationsAcceptInvitationForm', 'token', token)
+            const localVarPath = `/invitations/accept`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (token !== undefined) {
+                localVarQueryParameter['token'] = token;
+            }
+
+            localVarHeaderParameter['Accept'] = 'text/html,application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Create Invitations
@@ -1852,6 +8504,32 @@ export const InvitationFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = InvitationAxiosParamCreator(configuration)
     return {
         /**
+         * Complete invitation acceptance and create user account.
+         * @summary Accept Invitation Complete
+         * @param {string} token Invitation JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invitationsAcceptInvitationComplete(token: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invitationsAcceptInvitationComplete(token, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Invitation.invitationsAcceptInvitationComplete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Fallback HTML form for accepting invitation when no frontend is available.
+         * @summary Accept Invitation Form
+         * @param {string} token Invitation JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async invitationsAcceptInvitationForm(token: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.invitationsAcceptInvitationForm(token, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Invitation.invitationsAcceptInvitationForm']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 
          * @summary Create Invitations
          * @param {InvitationIn} invitationIn 
@@ -1903,6 +8581,26 @@ export const InvitationFactory = function (configuration?: Configuration, basePa
     const localVarFp = InvitationFp(configuration)
     return {
         /**
+         * Complete invitation acceptance and create user account.
+         * @summary Accept Invitation Complete
+         * @param {string} token Invitation JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invitationsAcceptInvitationComplete(token: string, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.invitationsAcceptInvitationComplete(token, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Fallback HTML form for accepting invitation when no frontend is available.
+         * @summary Accept Invitation Form
+         * @param {string} token Invitation JWT token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        invitationsAcceptInvitationForm(token: string, options?: RawAxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.invitationsAcceptInvitationForm(token, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
          * @summary Create Invitations
          * @param {InvitationIn} invitationIn 
@@ -1942,6 +8640,28 @@ export const InvitationFactory = function (configuration?: Configuration, basePa
  * Invitation - object-oriented interface
  */
 export class Invitation extends BaseAPI {
+    /**
+     * Complete invitation acceptance and create user account.
+     * @summary Accept Invitation Complete
+     * @param {string} token Invitation JWT token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public invitationsAcceptInvitationComplete(token: string, options?: RawAxiosRequestConfig) {
+        return InvitationFp(this.configuration).invitationsAcceptInvitationComplete(token, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Fallback HTML form for accepting invitation when no frontend is available.
+     * @summary Accept Invitation Form
+     * @param {string} token Invitation JWT token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public invitationsAcceptInvitationForm(token: string, options?: RawAxiosRequestConfig) {
+        return InvitationFp(this.configuration).invitationsAcceptInvitationForm(token, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Create Invitations
@@ -2628,10 +9348,1001 @@ export class Library extends BaseAPI {
 
 
 /**
+ * Llm - axios parameter creator
+ */
+export const LlmAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Returns: - Total cost of current month (all models) - Timeseries cost per model for requested granularity
+         * @summary Get Cost
+         * @param {UsageRequest} usageRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmGetCost: async (usageRequest: UsageRequest, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'usageRequest' is not null or undefined
+            assertParamExists('llmGetCost', 'usageRequest', usageRequest)
+            const localVarPath = `/llm/cost`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(usageRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get aggregated usage costs from the database.  Returns cost data aggregated by source, model, and time period. Supports filtering by date range, source type, model, and provider.
+         * @summary Get Usage Costs
+         * @param {UsageCostRequest} usageCostRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmGetUsageCosts: async (usageCostRequest: UsageCostRequest, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'usageCostRequest' is not null or undefined
+            assertParamExists('llmGetUsageCosts', 'usageCostRequest', usageCostRequest)
+            const localVarPath = `/llm/services/cost`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(usageCostRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Return the total cost and tokens used in llms.
+         * @summary Llm Total Tokens
+         * @param {UsageRequest} usageRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmLlmTotalTokens: async (usageRequest: UsageRequest, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'usageRequest' is not null or undefined
+            assertParamExists('llmLlmTotalTokens', 'usageRequest', usageRequest)
+            const localVarPath = `/llm/tokens`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(usageRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Llm - functional programming interface
+ */
+export const LlmFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LlmAxiosParamCreator(configuration)
+    return {
+        /**
+         * Returns: - Total cost of current month (all models) - Timeseries cost per model for requested granularity
+         * @summary Get Cost
+         * @param {UsageRequest} usageRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmGetCost(usageRequest: UsageRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TimeseriesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmGetCost(usageRequest, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Llm.llmGetCost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get aggregated usage costs from the database.  Returns cost data aggregated by source, model, and time period. Supports filtering by date range, source type, model, and provider.
+         * @summary Get Usage Costs
+         * @param {UsageCostRequest} usageCostRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmGetUsageCosts(usageCostRequest: UsageCostRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsageCostResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmGetUsageCosts(usageCostRequest, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Llm.llmGetUsageCosts']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Return the total cost and tokens used in llms.
+         * @summary Llm Total Tokens
+         * @param {UsageRequest} usageRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmLlmTotalTokens(usageRequest: UsageRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensTimeseriesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmLlmTotalTokens(usageRequest, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Llm.llmLlmTotalTokens']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Llm - factory interface
+ */
+export const LlmFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LlmFp(configuration)
+    return {
+        /**
+         * Returns: - Total cost of current month (all models) - Timeseries cost per model for requested granularity
+         * @summary Get Cost
+         * @param {UsageRequest} usageRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmGetCost(usageRequest: UsageRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<TimeseriesResponse> {
+            return localVarFp.llmGetCost(usageRequest, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get aggregated usage costs from the database.  Returns cost data aggregated by source, model, and time period. Supports filtering by date range, source type, model, and provider.
+         * @summary Get Usage Costs
+         * @param {UsageCostRequest} usageCostRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmGetUsageCosts(usageCostRequest: UsageCostRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<UsageCostResponse> {
+            return localVarFp.llmGetUsageCosts(usageCostRequest, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Return the total cost and tokens used in llms.
+         * @summary Llm Total Tokens
+         * @param {UsageRequest} usageRequest 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmLlmTotalTokens(usageRequest: UsageRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<TokensTimeseriesResponse> {
+            return localVarFp.llmLlmTotalTokens(usageRequest, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Llm - object-oriented interface
+ */
+export class Llm extends BaseAPI {
+    /**
+     * Returns: - Total cost of current month (all models) - Timeseries cost per model for requested granularity
+     * @summary Get Cost
+     * @param {UsageRequest} usageRequest 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmGetCost(usageRequest: UsageRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return LlmFp(this.configuration).llmGetCost(usageRequest, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get aggregated usage costs from the database.  Returns cost data aggregated by source, model, and time period. Supports filtering by date range, source type, model, and provider.
+     * @summary Get Usage Costs
+     * @param {UsageCostRequest} usageCostRequest 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmGetUsageCosts(usageCostRequest: UsageCostRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return LlmFp(this.configuration).llmGetUsageCosts(usageCostRequest, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Return the total cost and tokens used in llms.
+     * @summary Llm Total Tokens
+     * @param {UsageRequest} usageRequest 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmLlmTotalTokens(usageRequest: UsageRequest, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return LlmFp(this.configuration).llmLlmTotalTokens(usageRequest, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * LlmCatalog - axios parameter creator
+ */
+export const LlmCatalogAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create Catalog
+         * @param {CatalogIn} catalogIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmCreateCatalog: async (catalogIn: CatalogIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogIn' is not null or undefined
+            assertParamExists('llmCreateCatalog', 'catalogIn', catalogIn)
+            const localVarPath = `/llm/catalog`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(catalogIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete Catalog
+         * @param {number} catalogId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmDeleteCatalog: async (catalogId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            assertParamExists('llmDeleteCatalog', 'catalogId', catalogId)
+            const localVarPath = `/llm/catalog/{catalog_id}`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update Catalog
+         * @param {number} catalogId 
+         * @param {CatalogUpdate} catalogUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmUpdateCatalog: async (catalogId: number, catalogUpdate: CatalogUpdate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'catalogId' is not null or undefined
+            assertParamExists('llmUpdateCatalog', 'catalogId', catalogId)
+            // verify required parameter 'catalogUpdate' is not null or undefined
+            assertParamExists('llmUpdateCatalog', 'catalogUpdate', catalogUpdate)
+            const localVarPath = `/llm/catalog/{catalog_id}`
+                .replace(`{${"catalog_id"}}`, encodeURIComponent(String(catalogId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(catalogUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LlmCatalog - functional programming interface
+ */
+export const LlmCatalogFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LlmCatalogAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create Catalog
+         * @param {CatalogIn} catalogIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmCreateCatalog(catalogIn: CatalogIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmCreateCatalog(catalogIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LlmCatalog.llmCreateCatalog']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete Catalog
+         * @param {number} catalogId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmDeleteCatalog(catalogId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmDeleteCatalog(catalogId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LlmCatalog.llmDeleteCatalog']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update Catalog
+         * @param {number} catalogId 
+         * @param {CatalogUpdate} catalogUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmUpdateCatalog(catalogId: number, catalogUpdate: CatalogUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmUpdateCatalog(catalogId, catalogUpdate, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LlmCatalog.llmUpdateCatalog']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * LlmCatalog - factory interface
+ */
+export const LlmCatalogFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LlmCatalogFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create Catalog
+         * @param {CatalogIn} catalogIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmCreateCatalog(catalogIn: CatalogIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.llmCreateCatalog(catalogIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete Catalog
+         * @param {number} catalogId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmDeleteCatalog(catalogId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.llmDeleteCatalog(catalogId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Catalog
+         * @param {number} catalogId 
+         * @param {CatalogUpdate} catalogUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmUpdateCatalog(catalogId: number, catalogUpdate: CatalogUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.llmUpdateCatalog(catalogId, catalogUpdate, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LlmCatalog - object-oriented interface
+ */
+export class LlmCatalog extends BaseAPI {
+    /**
+     * 
+     * @summary Create Catalog
+     * @param {CatalogIn} catalogIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmCreateCatalog(catalogIn: CatalogIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return LlmCatalogFp(this.configuration).llmCreateCatalog(catalogIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete Catalog
+     * @param {number} catalogId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmDeleteCatalog(catalogId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return LlmCatalogFp(this.configuration).llmDeleteCatalog(catalogId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Catalog
+     * @param {number} catalogId 
+     * @param {CatalogUpdate} catalogUpdate 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmUpdateCatalog(catalogId: number, catalogUpdate: CatalogUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return LlmCatalogFp(this.configuration).llmUpdateCatalog(catalogId, catalogUpdate, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * LlmSetting - axios parameter creator
+ */
+export const LlmSettingAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create Llm Settings
+         * @param {LLMSettingsIn} lLMSettingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmCreateLlmSettings: async (lLMSettingsIn: LLMSettingsIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'lLMSettingsIn' is not null or undefined
+            assertParamExists('llmCreateLlmSettings', 'lLMSettingsIn', lLMSettingsIn)
+            const localVarPath = `/llm/settings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(lLMSettingsIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete Llm Settings
+         * @param {number} settingsId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmDeleteLlmSettings: async (settingsId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'settingsId' is not null or undefined
+            assertParamExists('llmDeleteLlmSettings', 'settingsId', settingsId)
+            const localVarPath = `/llm/settings/{settings_id}`
+                .replace(`{${"settings_id"}}`, encodeURIComponent(String(settingsId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update Llm Settings
+         * @param {number} settingsId 
+         * @param {LLMSettingsUpdate} lLMSettingsUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmUpdateLlmSettings: async (settingsId: number, lLMSettingsUpdate: LLMSettingsUpdate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'settingsId' is not null or undefined
+            assertParamExists('llmUpdateLlmSettings', 'settingsId', settingsId)
+            // verify required parameter 'lLMSettingsUpdate' is not null or undefined
+            assertParamExists('llmUpdateLlmSettings', 'lLMSettingsUpdate', lLMSettingsUpdate)
+            const localVarPath = `/llm/settings/{settings_id}`
+                .replace(`{${"settings_id"}}`, encodeURIComponent(String(settingsId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(lLMSettingsUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LlmSetting - functional programming interface
+ */
+export const LlmSettingFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LlmSettingAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create Llm Settings
+         * @param {LLMSettingsIn} lLMSettingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmCreateLlmSettings(lLMSettingsIn: LLMSettingsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmCreateLlmSettings(lLMSettingsIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LlmSetting.llmCreateLlmSettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete Llm Settings
+         * @param {number} settingsId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmDeleteLlmSettings(settingsId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmDeleteLlmSettings(settingsId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LlmSetting.llmDeleteLlmSettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update Llm Settings
+         * @param {number} settingsId 
+         * @param {LLMSettingsUpdate} lLMSettingsUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmUpdateLlmSettings(settingsId: number, lLMSettingsUpdate: LLMSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmUpdateLlmSettings(settingsId, lLMSettingsUpdate, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LlmSetting.llmUpdateLlmSettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * LlmSetting - factory interface
+ */
+export const LlmSettingFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LlmSettingFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create Llm Settings
+         * @param {LLMSettingsIn} lLMSettingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmCreateLlmSettings(lLMSettingsIn: LLMSettingsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.llmCreateLlmSettings(lLMSettingsIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete Llm Settings
+         * @param {number} settingsId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmDeleteLlmSettings(settingsId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.llmDeleteLlmSettings(settingsId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Llm Settings
+         * @param {number} settingsId 
+         * @param {LLMSettingsUpdate} lLMSettingsUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmUpdateLlmSettings(settingsId: number, lLMSettingsUpdate: LLMSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.llmUpdateLlmSettings(settingsId, lLMSettingsUpdate, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LlmSetting - object-oriented interface
+ */
+export class LlmSetting extends BaseAPI {
+    /**
+     * 
+     * @summary Create Llm Settings
+     * @param {LLMSettingsIn} lLMSettingsIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmCreateLlmSettings(lLMSettingsIn: LLMSettingsIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return LlmSettingFp(this.configuration).llmCreateLlmSettings(lLMSettingsIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete Llm Settings
+     * @param {number} settingsId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmDeleteLlmSettings(settingsId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return LlmSettingFp(this.configuration).llmDeleteLlmSettings(settingsId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Llm Settings
+     * @param {number} settingsId 
+     * @param {LLMSettingsUpdate} lLMSettingsUpdate 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmUpdateLlmSettings(settingsId: number, lLMSettingsUpdate: LLMSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return LlmSettingFp(this.configuration).llmUpdateLlmSettings(settingsId, lLMSettingsUpdate, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * Message - axios parameter creator
  */
 export const MessageAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Convert a message to various document formats.
+         * @summary Convert Message
+         * @param {number} messageId 
+         * @param {OutputFormat} format Output format
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        messagesConvertMessage: async (messageId: number, format: OutputFormat, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'messageId' is not null or undefined
+            assertParamExists('messagesConvertMessage', 'messageId', messageId)
+            // verify required parameter 'format' is not null or undefined
+            assertParamExists('messagesConvertMessage', 'format', format)
+            const localVarPath = `/messages/{message_id}/convert`
+                .replace(`{${"message_id"}}`, encodeURIComponent(String(messageId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (format !== undefined) {
+                localVarQueryParameter['format'] = format;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Create Message
+         * @param {MessageIn} messageIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        messagesCreateMessage: async (messageIn: MessageIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'messageIn' is not null or undefined
+            assertParamExists('messagesCreateMessage', 'messageIn', messageIn)
+            const localVarPath = `/messages/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(messageIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Rephrase Message
@@ -2679,6 +10390,121 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Submit Message
+         * @param {string | null} [cookieName] 
+         * @param {string} [content] 
+         * @param {number} [projectId] 
+         * @param {number} [chatId] 
+         * @param {Array<number>} [documentIds] 
+         * @param {string} [updatedAt] 
+         * @param {Array<string> | null} [files] 
+         * @param {number} [chatTemperature] 
+         * @param {number} [chatSimilarityTopK] 
+         * @param {string} [chatSystemPrompt] 
+         * @param {number} [assistantId] 
+         * @param {string} [model] 
+         * @param {Array<number>} [toolIds] 
+         * @param {boolean} [_private] 
+         * @param {number} [libraryId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<string> | null, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/messages/submit`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+
+            if (content !== undefined) { 
+                localVarFormParams.append('content', content as any);
+            }
+
+            if (projectId !== undefined) { 
+                localVarFormParams.append('project_id', projectId as any);
+            }
+
+            if (chatId !== undefined) { 
+                localVarFormParams.append('chat_id', chatId as any);
+            }
+            if (documentIds) {
+                localVarFormParams.append('document_ids', documentIds.join(COLLECTION_FORMATS.csv));
+            }
+
+
+            if (updatedAt !== undefined) { 
+                localVarFormParams.append('updated_at', updatedAt as any);
+            }
+            if (files) {
+                localVarFormParams.append('files', files.join(COLLECTION_FORMATS.csv));
+            }
+
+
+            if (chatTemperature !== undefined) { 
+                localVarFormParams.append('chat_temperature', chatTemperature as any);
+            }
+
+            if (chatSimilarityTopK !== undefined) { 
+                localVarFormParams.append('chat_similarity_top_k', chatSimilarityTopK as any);
+            }
+
+            if (chatSystemPrompt !== undefined) { 
+                localVarFormParams.append('chat_system_prompt', chatSystemPrompt as any);
+            }
+
+            if (assistantId !== undefined) { 
+                localVarFormParams.append('assistant_id', assistantId as any);
+            }
+
+            if (model !== undefined) { 
+                localVarFormParams.append('model', model as any);
+            }
+            if (toolIds) {
+                localVarFormParams.append('tool_ids', toolIds.join(COLLECTION_FORMATS.csv));
+            }
+
+
+            if (_private !== undefined) { 
+                localVarFormParams.append('private', String(_private) as any);
+            }
+
+            if (libraryId !== undefined) { 
+                localVarFormParams.append('library_id', libraryId as any);
+            }
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2748,6 +10574,35 @@ export const MessageFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = MessageAxiosParamCreator(configuration)
     return {
         /**
+         * Convert a message to various document formats.
+         * @summary Convert Message
+         * @param {number} messageId 
+         * @param {OutputFormat} format Output format
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async messagesConvertMessage(messageId: number, format: OutputFormat, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesConvertMessage(messageId, format, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Message.messagesConvertMessage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Create Message
+         * @param {MessageIn} messageIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async messagesCreateMessage(messageIn: MessageIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesCreateMessage(messageIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Message.messagesCreateMessage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 
          * @summary Rephrase Message
          * @param {number} messageId 
@@ -2760,6 +10615,33 @@ export const MessageFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.messagesRephraseMessage(messageId, style, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Message.messagesRephraseMessage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Submit Message
+         * @param {string | null} [cookieName] 
+         * @param {string} [content] 
+         * @param {number} [projectId] 
+         * @param {number} [chatId] 
+         * @param {Array<number>} [documentIds] 
+         * @param {string} [updatedAt] 
+         * @param {Array<string> | null} [files] 
+         * @param {number} [chatTemperature] 
+         * @param {number} [chatSimilarityTopK] 
+         * @param {string} [chatSystemPrompt] 
+         * @param {number} [assistantId] 
+         * @param {string} [model] 
+         * @param {Array<number>} [toolIds] 
+         * @param {boolean} [_private] 
+         * @param {number} [libraryId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<string> | null, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, updatedAt, files, chatTemperature, chatSimilarityTopK, chatSystemPrompt, assistantId, model, toolIds, _private, libraryId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Message.messagesSubmitMessage']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2787,6 +10669,29 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
     const localVarFp = MessageFp(configuration)
     return {
         /**
+         * Convert a message to various document formats.
+         * @summary Convert Message
+         * @param {number} messageId 
+         * @param {OutputFormat} format Output format
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        messagesConvertMessage(messageId: number, format: OutputFormat, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.messagesConvertMessage(messageId, format, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Create Message
+         * @param {MessageIn} messageIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        messagesCreateMessage(messageIn: MessageIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Message> {
+            return localVarFp.messagesCreateMessage(messageIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
          * @summary Rephrase Message
          * @param {number} messageId 
@@ -2797,6 +10702,30 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          */
         messagesRephraseMessage(messageId: number, style: RephraseStyleEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Translation> {
             return localVarFp.messagesRephraseMessage(messageId, style, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Submit Message
+         * @param {string | null} [cookieName] 
+         * @param {string} [content] 
+         * @param {number} [projectId] 
+         * @param {number} [chatId] 
+         * @param {Array<number>} [documentIds] 
+         * @param {string} [updatedAt] 
+         * @param {Array<string> | null} [files] 
+         * @param {number} [chatTemperature] 
+         * @param {number} [chatSimilarityTopK] 
+         * @param {string} [chatSystemPrompt] 
+         * @param {number} [assistantId] 
+         * @param {string} [model] 
+         * @param {Array<number>} [toolIds] 
+         * @param {boolean} [_private] 
+         * @param {number} [libraryId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<string> | null, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig): AxiosPromise<Message> {
+            return localVarFp.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, updatedAt, files, chatTemperature, chatSimilarityTopK, chatSystemPrompt, assistantId, model, toolIds, _private, libraryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2818,6 +10747,31 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
  */
 export class Message extends BaseAPI {
     /**
+     * Convert a message to various document formats.
+     * @summary Convert Message
+     * @param {number} messageId 
+     * @param {OutputFormat} format Output format
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public messagesConvertMessage(messageId: number, format: OutputFormat, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return MessageFp(this.configuration).messagesConvertMessage(messageId, format, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Create Message
+     * @param {MessageIn} messageIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public messagesCreateMessage(messageIn: MessageIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return MessageFp(this.configuration).messagesCreateMessage(messageIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * 
      * @summary Rephrase Message
      * @param {number} messageId 
@@ -2828,6 +10782,31 @@ export class Message extends BaseAPI {
      */
     public messagesRephraseMessage(messageId: number, style: RephraseStyleEnum, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return MessageFp(this.configuration).messagesRephraseMessage(messageId, style, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Submit Message
+     * @param {string | null} [cookieName] 
+     * @param {string} [content] 
+     * @param {number} [projectId] 
+     * @param {number} [chatId] 
+     * @param {Array<number>} [documentIds] 
+     * @param {string} [updatedAt] 
+     * @param {Array<string> | null} [files] 
+     * @param {number} [chatTemperature] 
+     * @param {number} [chatSimilarityTopK] 
+     * @param {string} [chatSystemPrompt] 
+     * @param {number} [assistantId] 
+     * @param {string} [model] 
+     * @param {Array<number>} [toolIds] 
+     * @param {boolean} [_private] 
+     * @param {number} [libraryId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<string> | null, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig) {
+        return MessageFp(this.configuration).messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, updatedAt, files, chatTemperature, chatSimilarityTopK, chatSystemPrompt, assistantId, model, toolIds, _private, libraryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3147,6 +11126,55 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
+         * 
+         * @summary Is Project Name Free
+         * @param {string} name 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsIsProjectNameFree: async (name: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('projectsIsProjectNameFree', 'name', name)
+            const localVarPath = `/projects/available`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * user can leave the project by themselves.
          * @summary Leave Project
          * @param {number} projectId 
@@ -3391,6 +11419,20 @@ export const ProjectFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * 
+         * @summary Is Project Name Free
+         * @param {string} name 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async projectsIsProjectNameFree(name: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.projectsIsProjectNameFree(name, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Project.projectsIsProjectNameFree']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * user can leave the project by themselves.
          * @summary Leave Project
          * @param {number} projectId 
@@ -3514,6 +11556,17 @@ export const ProjectFactory = function (configuration?: Configuration, basePath?
             return localVarFp.projectsDeleteProject(projectId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
+         * 
+         * @summary Is Project Name Free
+         * @param {string} name 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsIsProjectNameFree(name: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<boolean> {
+            return localVarFp.projectsIsProjectNameFree(name, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * user can leave the project by themselves.
          * @summary Leave Project
          * @param {number} projectId 
@@ -3629,6 +11682,18 @@ export class Project extends BaseAPI {
      */
     public projectsDeleteProject(projectId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return ProjectFp(this.configuration).projectsDeleteProject(projectId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Is Project Name Free
+     * @param {string} name 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public projectsIsProjectNameFree(name: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ProjectFp(this.configuration).projectsIsProjectNameFree(name, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3964,6 +12029,505 @@ export class Prompt extends BaseAPI {
 
 
 /**
+ * Query - axios parameter creator
+ */
+export const QueryAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Query
+         * @param {string} path 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        queryQuery: async (path: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'path' is not null or undefined
+            assertParamExists('queryQuery', 'path', path)
+            const localVarPath = `/query/{path}`
+                .replace(`{${"path"}}`, encodeURIComponent(String(path)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Query Rpc
+         * @param {string} path 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        queryQueryRpc: async (path: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'path' is not null or undefined
+            assertParamExists('queryQueryRpc', 'path', path)
+            const localVarPath = `/query/rpc/{path}`
+                .replace(`{${"path"}}`, encodeURIComponent(String(path)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Query - functional programming interface
+ */
+export const QueryFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = QueryAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Query
+         * @param {string} path 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async queryQuery(path: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.queryQuery(path, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Query.queryQuery']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Query Rpc
+         * @param {string} path 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async queryQueryRpc(path: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.queryQueryRpc(path, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Query.queryQueryRpc']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Query - factory interface
+ */
+export const QueryFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = QueryFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Query
+         * @param {string} path 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        queryQuery(path: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.queryQuery(path, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Query Rpc
+         * @param {string} path 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        queryQueryRpc(path: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.queryQueryRpc(path, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Query - object-oriented interface
+ */
+export class Query extends BaseAPI {
+    /**
+     * 
+     * @summary Query
+     * @param {string} path 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public queryQuery(path: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return QueryFp(this.configuration).queryQuery(path, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Query Rpc
+     * @param {string} path 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public queryQueryRpc(path: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return QueryFp(this.configuration).queryQueryRpc(path, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Settings - axios parameter creator
+ */
+export const SettingsAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get settings for current user\'s tenant
+         * @summary Current
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsCurrent: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/settings/current`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update settings for current user\'s tenant (tenant admin only)
+         * @summary Update Current Settings
+         * @param {SettingsIn} settingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsUpdateCurrentSettings: async (settingsIn: SettingsIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'settingsIn' is not null or undefined
+            assertParamExists('settingsUpdateCurrentSettings', 'settingsIn', settingsIn)
+            const localVarPath = `/settings/current`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settingsIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update Settings
+         * @param {number} settingsId 
+         * @param {SettingsIn} settingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsUpdateSettings: async (settingsId: number, settingsIn: SettingsIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'settingsId' is not null or undefined
+            assertParamExists('settingsUpdateSettings', 'settingsId', settingsId)
+            // verify required parameter 'settingsIn' is not null or undefined
+            assertParamExists('settingsUpdateSettings', 'settingsIn', settingsIn)
+            const localVarPath = `/settings/{settings_id}`
+                .replace(`{${"settings_id"}}`, encodeURIComponent(String(settingsId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settingsIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Settings - functional programming interface
+ */
+export const SettingsFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SettingsAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get settings for current user\'s tenant
+         * @summary Current
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsCurrent(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Settings>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsCurrent(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Settings.settingsCurrent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update settings for current user\'s tenant (tenant admin only)
+         * @summary Update Current Settings
+         * @param {SettingsIn} settingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsUpdateCurrentSettings(settingsIn: SettingsIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Settings>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsUpdateCurrentSettings(settingsIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Settings.settingsUpdateCurrentSettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update Settings
+         * @param {number} settingsId 
+         * @param {SettingsIn} settingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsUpdateSettings(settingsId: number, settingsIn: SettingsIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Settings>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsUpdateSettings(settingsId, settingsIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Settings.settingsUpdateSettings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Settings - factory interface
+ */
+export const SettingsFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SettingsFp(configuration)
+    return {
+        /**
+         * Get settings for current user\'s tenant
+         * @summary Current
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsCurrent(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Settings> {
+            return localVarFp.settingsCurrent(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update settings for current user\'s tenant (tenant admin only)
+         * @summary Update Current Settings
+         * @param {SettingsIn} settingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsUpdateCurrentSettings(settingsIn: SettingsIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<Settings> {
+            return localVarFp.settingsUpdateCurrentSettings(settingsIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Settings
+         * @param {number} settingsId 
+         * @param {SettingsIn} settingsIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsUpdateSettings(settingsId: number, settingsIn: SettingsIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<Settings> {
+            return localVarFp.settingsUpdateSettings(settingsId, settingsIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Settings - object-oriented interface
+ */
+export class Settings extends BaseAPI {
+    /**
+     * Get settings for current user\'s tenant
+     * @summary Current
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public settingsCurrent(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return SettingsFp(this.configuration).settingsCurrent(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update settings for current user\'s tenant (tenant admin only)
+     * @summary Update Current Settings
+     * @param {SettingsIn} settingsIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public settingsUpdateCurrentSettings(settingsIn: SettingsIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return SettingsFp(this.configuration).settingsUpdateCurrentSettings(settingsIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Settings
+     * @param {number} settingsId 
+     * @param {SettingsIn} settingsIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public settingsUpdateSettings(settingsId: number, settingsIn: SettingsIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return SettingsFp(this.configuration).settingsUpdateSettings(settingsId, settingsIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * Sharepoint - axios parameter creator
  */
 export const SharepointAxiosParamCreator = function (configuration?: Configuration) {
@@ -4022,6 +12586,90 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             if (projectId !== undefined) {
                 localVarQueryParameter['project_id'] = projectId;
             }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get User Info
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        integrationsGetUserInfo: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/sharepoint/me`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Is Connected
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        integrationsIsConnected: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/sharepoint/connected`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -4271,6 +12919,32 @@ export const SharepointFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get User Info
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async integrationsGetUserInfo(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SharepointUserModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.integrationsGetUserInfo(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Sharepoint.integrationsGetUserInfo']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Is Connected
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async integrationsIsConnected(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.integrationsIsConnected(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Sharepoint.integrationsIsConnected']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary List All Sites
          * @param {number | null} [chatId] 
          * @param {number | null} [libraryId] 
@@ -4351,6 +13025,26 @@ export const SharepointFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Get User Info
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        integrationsGetUserInfo(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<SharepointUserModel> {
+            return localVarFp.integrationsGetUserInfo(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Is Connected
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        integrationsIsConnected(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<boolean> {
+            return localVarFp.integrationsIsConnected(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary List All Sites
          * @param {number | null} [chatId] 
          * @param {number | null} [libraryId] 
@@ -4421,6 +13115,28 @@ export class Sharepoint extends BaseAPI {
 
     /**
      * 
+     * @summary Get User Info
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public integrationsGetUserInfo(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return SharepointFp(this.configuration).integrationsGetUserInfo(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Is Connected
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public integrationsIsConnected(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return SharepointFp(this.configuration).integrationsIsConnected(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary List All Sites
      * @param {number | null} [chatId] 
      * @param {number | null} [libraryId] 
@@ -4472,10 +13188,2645 @@ export class Sharepoint extends BaseAPI {
 
 
 /**
+ * Storage - axios parameter creator
+ */
+export const StorageAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Download File
+         * @param {string} path File path
+         * @param {string} token Download token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        storageDownloadFile: async (path: string, token: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'path' is not null or undefined
+            assertParamExists('storageDownloadFile', 'path', path)
+            // verify required parameter 'token' is not null or undefined
+            assertParamExists('storageDownloadFile', 'token', token)
+            const localVarPath = `/storage/{path}`
+                .replace(`{${"path"}}`, encodeURIComponent(String(path)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (token !== undefined) {
+                localVarQueryParameter['token'] = token;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Storage - functional programming interface
+ */
+export const StorageFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = StorageAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Download File
+         * @param {string} path File path
+         * @param {string} token Download token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async storageDownloadFile(path: string, token: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.storageDownloadFile(path, token, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Storage.storageDownloadFile']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Storage - factory interface
+ */
+export const StorageFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = StorageFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Download File
+         * @param {string} path File path
+         * @param {string} token Download token
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        storageDownloadFile(path: string, token: string, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.storageDownloadFile(path, token, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Storage - object-oriented interface
+ */
+export class Storage extends BaseAPI {
+    /**
+     * 
+     * @summary Download File
+     * @param {string} path File path
+     * @param {string} token Download token
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public storageDownloadFile(path: string, token: string, options?: RawAxiosRequestConfig) {
+        return StorageFp(this.configuration).storageDownloadFile(path, token, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Tarif - axios parameter creator
+ */
+export const TarifAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a new tarif plan.
+         * @summary Create Tarif
+         * @param {TarifIn} tarifIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tarifsCreateTarif: async (tarifIn: TarifIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tarifIn' is not null or undefined
+            assertParamExists('tarifsCreateTarif', 'tarifIn', tarifIn)
+            const localVarPath = `/tarifs/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tarifIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a tarif plan.
+         * @summary Delete Tarif
+         * @param {number} tarifId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tarifsDeleteTarif: async (tarifId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tarifId' is not null or undefined
+            assertParamExists('tarifsDeleteTarif', 'tarifId', tarifId)
+            const localVarPath = `/tarifs/{tarif_id}`
+                .replace(`{${"tarif_id"}}`, encodeURIComponent(String(tarifId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update an existing tarif plan.
+         * @summary Update Tarif
+         * @param {number} tarifId 
+         * @param {TarifIn} tarifIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tarifsUpdateTarif: async (tarifId: number, tarifIn: TarifIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tarifId' is not null or undefined
+            assertParamExists('tarifsUpdateTarif', 'tarifId', tarifId)
+            // verify required parameter 'tarifIn' is not null or undefined
+            assertParamExists('tarifsUpdateTarif', 'tarifIn', tarifIn)
+            const localVarPath = `/tarifs/{tarif_id}`
+                .replace(`{${"tarif_id"}}`, encodeURIComponent(String(tarifId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tarifIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Tarif - functional programming interface
+ */
+export const TarifFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TarifAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create a new tarif plan.
+         * @summary Create Tarif
+         * @param {TarifIn} tarifIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tarifsCreateTarif(tarifIn: TarifIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tarif>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tarifsCreateTarif(tarifIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tarif.tarifsCreateTarif']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete a tarif plan.
+         * @summary Delete Tarif
+         * @param {number} tarifId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tarifsDeleteTarif(tarifId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tarifsDeleteTarif(tarifId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tarif.tarifsDeleteTarif']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update an existing tarif plan.
+         * @summary Update Tarif
+         * @param {number} tarifId 
+         * @param {TarifIn} tarifIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tarifsUpdateTarif(tarifId: number, tarifIn: TarifIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tarif>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tarifsUpdateTarif(tarifId, tarifIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tarif.tarifsUpdateTarif']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Tarif - factory interface
+ */
+export const TarifFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TarifFp(configuration)
+    return {
+        /**
+         * Create a new tarif plan.
+         * @summary Create Tarif
+         * @param {TarifIn} tarifIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tarifsCreateTarif(tarifIn: TarifIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Tarif> {
+            return localVarFp.tarifsCreateTarif(tarifIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete a tarif plan.
+         * @summary Delete Tarif
+         * @param {number} tarifId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tarifsDeleteTarif(tarifId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.tarifsDeleteTarif(tarifId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update an existing tarif plan.
+         * @summary Update Tarif
+         * @param {number} tarifId 
+         * @param {TarifIn} tarifIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tarifsUpdateTarif(tarifId: number, tarifIn: TarifIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Tarif> {
+            return localVarFp.tarifsUpdateTarif(tarifId, tarifIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Tarif - object-oriented interface
+ */
+export class Tarif extends BaseAPI {
+    /**
+     * Create a new tarif plan.
+     * @summary Create Tarif
+     * @param {TarifIn} tarifIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tarifsCreateTarif(tarifIn: TarifIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TarifFp(this.configuration).tarifsCreateTarif(tarifIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete a tarif plan.
+     * @summary Delete Tarif
+     * @param {number} tarifId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tarifsDeleteTarif(tarifId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TarifFp(this.configuration).tarifsDeleteTarif(tarifId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update an existing tarif plan.
+     * @summary Update Tarif
+     * @param {number} tarifId 
+     * @param {TarifIn} tarifIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tarifsUpdateTarif(tarifId: number, tarifIn: TarifIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TarifFp(this.configuration).tarifsUpdateTarif(tarifId, tarifIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Template - axios parameter creator
+ */
+export const TemplateAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {TemplateIn} templateIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templatesCreate: async (templateIn: TemplateIn, tenantId?: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'templateIn' is not null or undefined
+            assertParamExists('templatesCreate', 'templateIn', templateIn)
+            const localVarPath = `/templates/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(templateIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete
+         * @param {number} templateId 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templatesDelete: async (templateId: number, tenantId?: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'templateId' is not null or undefined
+            assertParamExists('templatesDelete', 'templateId', templateId)
+            const localVarPath = `/templates/{template_id}`
+                .replace(`{${"template_id"}}`, encodeURIComponent(String(templateId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} templateId 
+         * @param {TemplateIn} templateIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templatesUpdate: async (templateId: number, templateIn: TemplateIn, tenantId?: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'templateId' is not null or undefined
+            assertParamExists('templatesUpdate', 'templateId', templateId)
+            // verify required parameter 'templateIn' is not null or undefined
+            assertParamExists('templatesUpdate', 'templateIn', templateIn)
+            const localVarPath = `/templates/{template_id}`
+                .replace(`{${"template_id"}}`, encodeURIComponent(String(templateId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(templateIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Template - functional programming interface
+ */
+export const TemplateFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TemplateAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {TemplateIn} templateIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async templatesCreate(templateIn: TemplateIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TemplateOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.templatesCreate(templateIn, tenantId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Template.templatesCreate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete
+         * @param {number} templateId 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async templatesDelete(templateId: number, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.templatesDelete(templateId, tenantId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Template.templatesDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} templateId 
+         * @param {TemplateIn} templateIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async templatesUpdate(templateId: number, templateIn: TemplateIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TemplateOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.templatesUpdate(templateId, templateIn, tenantId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Template.templatesUpdate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Template - factory interface
+ */
+export const TemplateFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TemplateFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create
+         * @param {TemplateIn} templateIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templatesCreate(templateIn: TemplateIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<TemplateOut> {
+            return localVarFp.templatesCreate(templateIn, tenantId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete
+         * @param {number} templateId 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templatesDelete(templateId: number, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.templatesDelete(templateId, tenantId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update
+         * @param {number} templateId 
+         * @param {TemplateIn} templateIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        templatesUpdate(templateId: number, templateIn: TemplateIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<TemplateOut> {
+            return localVarFp.templatesUpdate(templateId, templateIn, tenantId, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Template - object-oriented interface
+ */
+export class Template extends BaseAPI {
+    /**
+     * 
+     * @summary Create
+     * @param {TemplateIn} templateIn 
+     * @param {number} [tenantId] 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public templatesCreate(templateIn: TemplateIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TemplateFp(this.configuration).templatesCreate(templateIn, tenantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete
+     * @param {number} templateId 
+     * @param {number} [tenantId] 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public templatesDelete(templateId: number, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TemplateFp(this.configuration).templatesDelete(templateId, tenantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update
+     * @param {number} templateId 
+     * @param {TemplateIn} templateIn 
+     * @param {number} [tenantId] 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public templatesUpdate(templateId: number, templateIn: TemplateIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TemplateFp(this.configuration).templatesUpdate(templateId, templateIn, tenantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Tenant - axios parameter creator
+ */
+export const TenantAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Assign library to the tenant by superadmin or to one entire tenancy by admin
+         * @summary Add Library To Tenants
+         * @param {number} libraryId 
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsAddLibraryToTenants: async (libraryId: number, tenantId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'libraryId' is not null or undefined
+            assertParamExists('tenantsAddLibraryToTenants', 'libraryId', libraryId)
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsAddLibraryToTenants', 'tenantId', tenantId)
+            const localVarPath = `/tenants/{tenant_id}/libraries/{library_id}`
+                .replace(`{${"library_id"}}`, encodeURIComponent(String(libraryId)))
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new tenant (platform operator or parent tenant admin)
+         * @summary Create Tenant
+         * @param {TenantIn} tenantIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsCreateTenant: async (tenantIn: TenantIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantIn' is not null or undefined
+            assertParamExists('tenantsCreateTenant', 'tenantIn', tenantIn)
+            const localVarPath = `/tenants/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tenantIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Enable a connector for a tenant by creating TenantConnector record (superadmin or parent tenant admin)
+         * @summary Create Tenant Connector
+         * @param {number} tenantId 
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsCreateTenantConnector: async (tenantId: number, connectorId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsCreateTenantConnector', 'tenantId', tenantId)
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('tenantsCreateTenantConnector', 'connectorId', connectorId)
+            const localVarPath = `/tenants/{tenant_id}/connectors/{connector_id}`
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)))
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Enable a tool for a tenant by creating TenantTool record (superadmin or parent tenant admin)
+         * @summary Create Tenant Tool
+         * @param {number} tenantId 
+         * @param {number} toolId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsCreateTenantTool: async (tenantId: number, toolId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsCreateTenantTool', 'tenantId', tenantId)
+            // verify required parameter 'toolId' is not null or undefined
+            assertParamExists('tenantsCreateTenantTool', 'toolId', toolId)
+            const localVarPath = `/tenants/{tenant_id}/tools/{tool_id}`
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)))
+                .replace(`{${"tool_id"}}`, encodeURIComponent(String(toolId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a tenant (superadmin or parent tenant admin)
+         * @summary Delete Tenant
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenant: async (tenantId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsDeleteTenant', 'tenantId', tenantId)
+            const localVarPath = `/tenants/{tenant_id}`
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Disable a connector for a tenant by removing TenantConnector record (superadmin or parent tenant admin)
+         * @summary Delete Tenant Connector
+         * @param {number} tenantId 
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenantConnector: async (tenantId: number, connectorId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsDeleteTenantConnector', 'tenantId', tenantId)
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('tenantsDeleteTenantConnector', 'connectorId', connectorId)
+            const localVarPath = `/tenants/{tenant_id}/connectors/{connector_id}`
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)))
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete Tenant Model
+         * @param {number} tenantId 
+         * @param {number} modelId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenantModel: async (tenantId: number, modelId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsDeleteTenantModel', 'tenantId', tenantId)
+            // verify required parameter 'modelId' is not null or undefined
+            assertParamExists('tenantsDeleteTenantModel', 'modelId', modelId)
+            const localVarPath = `/tenants/{tenant_id}/models/{model_id}`
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)))
+                .replace(`{${"model_id"}}`, encodeURIComponent(String(modelId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete Tenant Models Bulk
+         * @param {number} modelId 
+         * @param {TenantModelBulkIn} tenantModelBulkIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenantModelsBulk: async (modelId: number, tenantModelBulkIn: TenantModelBulkIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'modelId' is not null or undefined
+            assertParamExists('tenantsDeleteTenantModelsBulk', 'modelId', modelId)
+            // verify required parameter 'tenantModelBulkIn' is not null or undefined
+            assertParamExists('tenantsDeleteTenantModelsBulk', 'tenantModelBulkIn', tenantModelBulkIn)
+            const localVarPath = `/tenants/models/{model_id}/bulk`
+                .replace(`{${"model_id"}}`, encodeURIComponent(String(modelId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tenantModelBulkIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Disable a tool for a tenant by removing TenantTool record (superadmin or parent tenant admin)
+         * @summary Delete Tenant Tool
+         * @param {number} tenantId 
+         * @param {number} toolId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenantTool: async (tenantId: number, toolId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsDeleteTenantTool', 'tenantId', tenantId)
+            // verify required parameter 'toolId' is not null or undefined
+            assertParamExists('tenantsDeleteTenantTool', 'toolId', toolId)
+            const localVarPath = `/tenants/{tenant_id}/tools/{tool_id}`
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)))
+                .replace(`{${"tool_id"}}`, encodeURIComponent(String(toolId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get current user\'s tenant
+         * @summary Get Current Tenant
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsGetCurrentTenant: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/tenants/current`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Put Tenant Model
+         * @param {number} tenantId 
+         * @param {number} modelId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsPutTenantModel: async (tenantId: number, modelId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsPutTenantModel', 'tenantId', tenantId)
+            // verify required parameter 'modelId' is not null or undefined
+            assertParamExists('tenantsPutTenantModel', 'modelId', modelId)
+            const localVarPath = `/tenants/{tenant_id}/models/{model_id}`
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)))
+                .replace(`{${"model_id"}}`, encodeURIComponent(String(modelId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Put Tenant Models Bulk
+         * @param {number} modelId 
+         * @param {TenantModelBulkIn} tenantModelBulkIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsPutTenantModelsBulk: async (modelId: number, tenantModelBulkIn: TenantModelBulkIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'modelId' is not null or undefined
+            assertParamExists('tenantsPutTenantModelsBulk', 'modelId', modelId)
+            // verify required parameter 'tenantModelBulkIn' is not null or undefined
+            assertParamExists('tenantsPutTenantModelsBulk', 'tenantModelBulkIn', tenantModelBulkIn)
+            const localVarPath = `/tenants/models/{model_id}/bulk`
+                .replace(`{${"model_id"}}`, encodeURIComponent(String(modelId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tenantModelBulkIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deletes a tenant from the library
+         * @summary Remove Tenant Library Member
+         * @param {number} libraryId 
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsRemoveTenantLibraryMember: async (libraryId: number, tenantId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'libraryId' is not null or undefined
+            assertParamExists('tenantsRemoveTenantLibraryMember', 'libraryId', libraryId)
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsRemoveTenantLibraryMember', 'tenantId', tenantId)
+            const localVarPath = `/tenants/{tenant_id}/libraries/{library_id}`
+                .replace(`{${"library_id"}}`, encodeURIComponent(String(libraryId)))
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update current user\'s tenant (tenant admin only)
+         * @summary Update Current Tenant
+         * @param {TenantUpdateIn} tenantUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsUpdateCurrentTenant: async (tenantUpdateIn: TenantUpdateIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantUpdateIn' is not null or undefined
+            assertParamExists('tenantsUpdateCurrentTenant', 'tenantUpdateIn', tenantUpdateIn)
+            const localVarPath = `/tenants/current`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tenantUpdateIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update a tenant (superadmin or parent tenant admin)
+         * @summary Update Tenant
+         * @param {number} tenantId 
+         * @param {TenantUpdateIn} tenantUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsUpdateTenant: async (tenantId: number, tenantUpdateIn: TenantUpdateIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tenantId' is not null or undefined
+            assertParamExists('tenantsUpdateTenant', 'tenantId', tenantId)
+            // verify required parameter 'tenantUpdateIn' is not null or undefined
+            assertParamExists('tenantsUpdateTenant', 'tenantUpdateIn', tenantUpdateIn)
+            const localVarPath = `/tenants/{tenant_id}`
+                .replace(`{${"tenant_id"}}`, encodeURIComponent(String(tenantId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tenantUpdateIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Tenant - functional programming interface
+ */
+export const TenantFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TenantAxiosParamCreator(configuration)
+    return {
+        /**
+         * Assign library to the tenant by superadmin or to one entire tenancy by admin
+         * @summary Add Library To Tenants
+         * @param {number} libraryId 
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsAddLibraryToTenants(libraryId: number, tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsAddLibraryToTenants(libraryId, tenantId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsAddLibraryToTenants']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Create a new tenant (platform operator or parent tenant admin)
+         * @summary Create Tenant
+         * @param {TenantIn} tenantIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsCreateTenant(tenantIn: TenantIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TenantOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsCreateTenant(tenantIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsCreateTenant']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Enable a connector for a tenant by creating TenantConnector record (superadmin or parent tenant admin)
+         * @summary Create Tenant Connector
+         * @param {number} tenantId 
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsCreateTenantConnector(tenantId: number, connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsCreateTenantConnector(tenantId, connectorId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsCreateTenantConnector']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Enable a tool for a tenant by creating TenantTool record (superadmin or parent tenant admin)
+         * @summary Create Tenant Tool
+         * @param {number} tenantId 
+         * @param {number} toolId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsCreateTenantTool(tenantId: number, toolId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsCreateTenantTool(tenantId, toolId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsCreateTenantTool']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete a tenant (superadmin or parent tenant admin)
+         * @summary Delete Tenant
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsDeleteTenant(tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsDeleteTenant(tenantId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsDeleteTenant']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Disable a connector for a tenant by removing TenantConnector record (superadmin or parent tenant admin)
+         * @summary Delete Tenant Connector
+         * @param {number} tenantId 
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsDeleteTenantConnector(tenantId: number, connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsDeleteTenantConnector(tenantId, connectorId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsDeleteTenantConnector']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete Tenant Model
+         * @param {number} tenantId 
+         * @param {number} modelId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsDeleteTenantModel(tenantId: number, modelId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsDeleteTenantModel(tenantId, modelId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsDeleteTenantModel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete Tenant Models Bulk
+         * @param {number} modelId 
+         * @param {TenantModelBulkIn} tenantModelBulkIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsDeleteTenantModelsBulk(modelId: number, tenantModelBulkIn: TenantModelBulkIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsDeleteTenantModelsBulk(modelId, tenantModelBulkIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsDeleteTenantModelsBulk']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Disable a tool for a tenant by removing TenantTool record (superadmin or parent tenant admin)
+         * @summary Delete Tenant Tool
+         * @param {number} tenantId 
+         * @param {number} toolId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsDeleteTenantTool(tenantId: number, toolId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsDeleteTenantTool(tenantId, toolId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsDeleteTenantTool']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Get current user\'s tenant
+         * @summary Get Current Tenant
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsGetCurrentTenant(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TenantOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsGetCurrentTenant(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsGetCurrentTenant']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Put Tenant Model
+         * @param {number} tenantId 
+         * @param {number} modelId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsPutTenantModel(tenantId: number, modelId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TenantLLM>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsPutTenantModel(tenantId, modelId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsPutTenantModel']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Put Tenant Models Bulk
+         * @param {number} modelId 
+         * @param {TenantModelBulkIn} tenantModelBulkIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsPutTenantModelsBulk(modelId: number, tenantModelBulkIn: TenantModelBulkIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsPutTenantModelsBulk(modelId, tenantModelBulkIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsPutTenantModelsBulk']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Deletes a tenant from the library
+         * @summary Remove Tenant Library Member
+         * @param {number} libraryId 
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsRemoveTenantLibraryMember(libraryId: number, tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsRemoveTenantLibraryMember(libraryId, tenantId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsRemoveTenantLibraryMember']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update current user\'s tenant (tenant admin only)
+         * @summary Update Current Tenant
+         * @param {TenantUpdateIn} tenantUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsUpdateCurrentTenant(tenantUpdateIn: TenantUpdateIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TenantOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsUpdateCurrentTenant(tenantUpdateIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsUpdateCurrentTenant']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update a tenant (superadmin or parent tenant admin)
+         * @summary Update Tenant
+         * @param {number} tenantId 
+         * @param {TenantUpdateIn} tenantUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async tenantsUpdateTenant(tenantId: number, tenantUpdateIn: TenantUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TenantOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.tenantsUpdateTenant(tenantId, tenantUpdateIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tenant.tenantsUpdateTenant']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Tenant - factory interface
+ */
+export const TenantFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TenantFp(configuration)
+    return {
+        /**
+         * Assign library to the tenant by superadmin or to one entire tenancy by admin
+         * @summary Add Library To Tenants
+         * @param {number} libraryId 
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsAddLibraryToTenants(libraryId: number, tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.tenantsAddLibraryToTenants(libraryId, tenantId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new tenant (platform operator or parent tenant admin)
+         * @summary Create Tenant
+         * @param {TenantIn} tenantIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsCreateTenant(tenantIn: TenantIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<TenantOut> {
+            return localVarFp.tenantsCreateTenant(tenantIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Enable a connector for a tenant by creating TenantConnector record (superadmin or parent tenant admin)
+         * @summary Create Tenant Connector
+         * @param {number} tenantId 
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsCreateTenantConnector(tenantId: number, connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.tenantsCreateTenantConnector(tenantId, connectorId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Enable a tool for a tenant by creating TenantTool record (superadmin or parent tenant admin)
+         * @summary Create Tenant Tool
+         * @param {number} tenantId 
+         * @param {number} toolId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsCreateTenantTool(tenantId: number, toolId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.tenantsCreateTenantTool(tenantId, toolId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete a tenant (superadmin or parent tenant admin)
+         * @summary Delete Tenant
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenant(tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.tenantsDeleteTenant(tenantId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Disable a connector for a tenant by removing TenantConnector record (superadmin or parent tenant admin)
+         * @summary Delete Tenant Connector
+         * @param {number} tenantId 
+         * @param {number} connectorId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenantConnector(tenantId: number, connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.tenantsDeleteTenantConnector(tenantId, connectorId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete Tenant Model
+         * @param {number} tenantId 
+         * @param {number} modelId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenantModel(tenantId: number, modelId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.tenantsDeleteTenantModel(tenantId, modelId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete Tenant Models Bulk
+         * @param {number} modelId 
+         * @param {TenantModelBulkIn} tenantModelBulkIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenantModelsBulk(modelId: number, tenantModelBulkIn: TenantModelBulkIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.tenantsDeleteTenantModelsBulk(modelId, tenantModelBulkIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Disable a tool for a tenant by removing TenantTool record (superadmin or parent tenant admin)
+         * @summary Delete Tenant Tool
+         * @param {number} tenantId 
+         * @param {number} toolId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsDeleteTenantTool(tenantId: number, toolId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.tenantsDeleteTenantTool(tenantId, toolId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get current user\'s tenant
+         * @summary Get Current Tenant
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsGetCurrentTenant(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<TenantOut> {
+            return localVarFp.tenantsGetCurrentTenant(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Put Tenant Model
+         * @param {number} tenantId 
+         * @param {number} modelId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsPutTenantModel(tenantId: number, modelId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<TenantLLM> {
+            return localVarFp.tenantsPutTenantModel(tenantId, modelId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Put Tenant Models Bulk
+         * @param {number} modelId 
+         * @param {TenantModelBulkIn} tenantModelBulkIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsPutTenantModelsBulk(modelId: number, tenantModelBulkIn: TenantModelBulkIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.tenantsPutTenantModelsBulk(modelId, tenantModelBulkIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes a tenant from the library
+         * @summary Remove Tenant Library Member
+         * @param {number} libraryId 
+         * @param {number} tenantId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsRemoveTenantLibraryMember(libraryId: number, tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.tenantsRemoveTenantLibraryMember(libraryId, tenantId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update current user\'s tenant (tenant admin only)
+         * @summary Update Current Tenant
+         * @param {TenantUpdateIn} tenantUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsUpdateCurrentTenant(tenantUpdateIn: TenantUpdateIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<TenantOut> {
+            return localVarFp.tenantsUpdateCurrentTenant(tenantUpdateIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update a tenant (superadmin or parent tenant admin)
+         * @summary Update Tenant
+         * @param {number} tenantId 
+         * @param {TenantUpdateIn} tenantUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        tenantsUpdateTenant(tenantId: number, tenantUpdateIn: TenantUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<TenantOut> {
+            return localVarFp.tenantsUpdateTenant(tenantId, tenantUpdateIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Tenant - object-oriented interface
+ */
+export class Tenant extends BaseAPI {
+    /**
+     * Assign library to the tenant by superadmin or to one entire tenancy by admin
+     * @summary Add Library To Tenants
+     * @param {number} libraryId 
+     * @param {number} tenantId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsAddLibraryToTenants(libraryId: number, tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsAddLibraryToTenants(libraryId, tenantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a new tenant (platform operator or parent tenant admin)
+     * @summary Create Tenant
+     * @param {TenantIn} tenantIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsCreateTenant(tenantIn: TenantIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsCreateTenant(tenantIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Enable a connector for a tenant by creating TenantConnector record (superadmin or parent tenant admin)
+     * @summary Create Tenant Connector
+     * @param {number} tenantId 
+     * @param {number} connectorId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsCreateTenantConnector(tenantId: number, connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsCreateTenantConnector(tenantId, connectorId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Enable a tool for a tenant by creating TenantTool record (superadmin or parent tenant admin)
+     * @summary Create Tenant Tool
+     * @param {number} tenantId 
+     * @param {number} toolId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsCreateTenantTool(tenantId: number, toolId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsCreateTenantTool(tenantId, toolId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete a tenant (superadmin or parent tenant admin)
+     * @summary Delete Tenant
+     * @param {number} tenantId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsDeleteTenant(tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsDeleteTenant(tenantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Disable a connector for a tenant by removing TenantConnector record (superadmin or parent tenant admin)
+     * @summary Delete Tenant Connector
+     * @param {number} tenantId 
+     * @param {number} connectorId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsDeleteTenantConnector(tenantId: number, connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsDeleteTenantConnector(tenantId, connectorId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete Tenant Model
+     * @param {number} tenantId 
+     * @param {number} modelId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsDeleteTenantModel(tenantId: number, modelId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsDeleteTenantModel(tenantId, modelId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete Tenant Models Bulk
+     * @param {number} modelId 
+     * @param {TenantModelBulkIn} tenantModelBulkIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsDeleteTenantModelsBulk(modelId: number, tenantModelBulkIn: TenantModelBulkIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsDeleteTenantModelsBulk(modelId, tenantModelBulkIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Disable a tool for a tenant by removing TenantTool record (superadmin or parent tenant admin)
+     * @summary Delete Tenant Tool
+     * @param {number} tenantId 
+     * @param {number} toolId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsDeleteTenantTool(tenantId: number, toolId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsDeleteTenantTool(tenantId, toolId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get current user\'s tenant
+     * @summary Get Current Tenant
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsGetCurrentTenant(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsGetCurrentTenant(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Put Tenant Model
+     * @param {number} tenantId 
+     * @param {number} modelId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsPutTenantModel(tenantId: number, modelId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsPutTenantModel(tenantId, modelId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Put Tenant Models Bulk
+     * @param {number} modelId 
+     * @param {TenantModelBulkIn} tenantModelBulkIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsPutTenantModelsBulk(modelId: number, tenantModelBulkIn: TenantModelBulkIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsPutTenantModelsBulk(modelId, tenantModelBulkIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Deletes a tenant from the library
+     * @summary Remove Tenant Library Member
+     * @param {number} libraryId 
+     * @param {number} tenantId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsRemoveTenantLibraryMember(libraryId: number, tenantId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsRemoveTenantLibraryMember(libraryId, tenantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update current user\'s tenant (tenant admin only)
+     * @summary Update Current Tenant
+     * @param {TenantUpdateIn} tenantUpdateIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsUpdateCurrentTenant(tenantUpdateIn: TenantUpdateIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsUpdateCurrentTenant(tenantUpdateIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update a tenant (superadmin or parent tenant admin)
+     * @summary Update Tenant
+     * @param {number} tenantId 
+     * @param {TenantUpdateIn} tenantUpdateIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public tenantsUpdateTenant(tenantId: number, tenantUpdateIn: TenantUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return TenantFp(this.configuration).tenantsUpdateTenant(tenantId, tenantUpdateIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * Tool - axios parameter creator
+ */
+export const ToolAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Update a tool (superadmin only)
+         * @summary Update Tool
+         * @param {number} toolId 
+         * @param {ToolUpdate} toolUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolsUpdateTool: async (toolId: number, toolUpdate: ToolUpdate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'toolId' is not null or undefined
+            assertParamExists('toolsUpdateTool', 'toolId', toolId)
+            // verify required parameter 'toolUpdate' is not null or undefined
+            assertParamExists('toolsUpdateTool', 'toolUpdate', toolUpdate)
+            const localVarPath = `/tools/{tool_id}`
+                .replace(`{${"tool_id"}}`, encodeURIComponent(String(toolId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(toolUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Tool - functional programming interface
+ */
+export const ToolFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ToolAxiosParamCreator(configuration)
+    return {
+        /**
+         * Update a tool (superadmin only)
+         * @summary Update Tool
+         * @param {number} toolId 
+         * @param {ToolUpdate} toolUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async toolsUpdateTool(toolId: number, toolUpdate: ToolUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ToolOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.toolsUpdateTool(toolId, toolUpdate, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Tool.toolsUpdateTool']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Tool - factory interface
+ */
+export const ToolFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ToolFp(configuration)
+    return {
+        /**
+         * Update a tool (superadmin only)
+         * @summary Update Tool
+         * @param {number} toolId 
+         * @param {ToolUpdate} toolUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolsUpdateTool(toolId: number, toolUpdate: ToolUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<ToolOut> {
+            return localVarFp.toolsUpdateTool(toolId, toolUpdate, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Tool - object-oriented interface
+ */
+export class Tool extends BaseAPI {
+    /**
+     * Update a tool (superadmin only)
+     * @summary Update Tool
+     * @param {number} toolId 
+     * @param {ToolUpdate} toolUpdate 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public toolsUpdateTool(toolId: number, toolUpdate: ToolUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ToolFp(this.configuration).toolsUpdateTool(toolId, toolUpdate, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * ToolAction - axios parameter creator
+ */
+export const ToolActionAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Send an email from a tool-generated draft.  Called after the user reviews and approves an email draft generated by the mail tool. Sends via Microsoft Graph API from the user\'s Outlook account.
+         * @summary Send Email From Draft
+         * @param {SendEmailRequest} sendEmailRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsSendEmailFromDraft: async (sendEmailRequest: SendEmailRequest, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sendEmailRequest' is not null or undefined
+            assertParamExists('toolactionsSendEmailFromDraft', 'sendEmailRequest', sendEmailRequest)
+            const localVarPath = `/tool-actions/email/send`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(sendEmailRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ToolAction - functional programming interface
+ */
+export const ToolActionFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ToolActionAxiosParamCreator(configuration)
+    return {
+        /**
+         * Send an email from a tool-generated draft.  Called after the user reviews and approves an email draft generated by the mail tool. Sends via Microsoft Graph API from the user\'s Outlook account.
+         * @summary Send Email From Draft
+         * @param {SendEmailRequest} sendEmailRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async toolactionsSendEmailFromDraft(sendEmailRequest: SendEmailRequest, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SendEmailResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.toolactionsSendEmailFromDraft(sendEmailRequest, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ToolAction.toolactionsSendEmailFromDraft']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * ToolAction - factory interface
+ */
+export const ToolActionFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ToolActionFp(configuration)
+    return {
+        /**
+         * Send an email from a tool-generated draft.  Called after the user reviews and approves an email draft generated by the mail tool. Sends via Microsoft Graph API from the user\'s Outlook account.
+         * @summary Send Email From Draft
+         * @param {SendEmailRequest} sendEmailRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsSendEmailFromDraft(sendEmailRequest: SendEmailRequest, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<SendEmailResponse> {
+            return localVarFp.toolactionsSendEmailFromDraft(sendEmailRequest, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ToolAction - object-oriented interface
+ */
+export class ToolAction extends BaseAPI {
+    /**
+     * Send an email from a tool-generated draft.  Called after the user reviews and approves an email draft generated by the mail tool. Sends via Microsoft Graph API from the user\'s Outlook account.
+     * @summary Send Email From Draft
+     * @param {SendEmailRequest} sendEmailRequest 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public toolactionsSendEmailFromDraft(sendEmailRequest: SendEmailRequest, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ToolActionFp(this.configuration).toolactionsSendEmailFromDraft(sendEmailRequest, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * User - axios parameter creator
  */
 export const UserAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary Activate User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersActivateUser: async (userId: number, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('usersActivateUser', 'userId', userId)
+            const localVarPath = `/users/{user_id}/activate`
+                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new user group
+         * @summary Create Group
+         * @param {GroupIn} groupIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersCreateGroup: async (groupIn: GroupIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'groupIn' is not null or undefined
+            assertParamExists('usersCreateGroup', 'groupIn', groupIn)
+            const localVarPath = `/users/groups`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(groupIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Create User
+         * @param {UserIn} userIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersCreateUser: async (userIn: UserIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userIn' is not null or undefined
+            assertParamExists('usersCreateUser', 'userIn', userIn)
+            const localVarPath = `/users/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Deactivate User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersDeactivateUser: async (userId: number, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('usersDeactivateUser', 'userId', userId)
+            const localVarPath = `/users/{user_id}/deactivate`
+                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a user group
+         * @summary Delete Group
+         * @param {number} groupId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersDeleteGroup: async (groupId: number, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'groupId' is not null or undefined
+            assertParamExists('usersDeleteGroup', 'groupId', groupId)
+            const localVarPath = `/users/groups/{group_id}`
+                .replace(`{${"group_id"}}`, encodeURIComponent(String(groupId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersDeleteUser: async (userId: number, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('usersDeleteUser', 'userId', userId)
+            const localVarPath = `/users/{user_id}`
+                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Get Myself
@@ -4518,6 +15869,263 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Resets the current user password.
+         * @summary Reset Password
+         * @param {PasswordResetIn} passwordResetIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersResetPassword: async (passwordResetIn: PasswordResetIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'passwordResetIn' is not null or undefined
+            assertParamExists('usersResetPassword', 'passwordResetIn', passwordResetIn)
+            const localVarPath = `/users/passwd`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(passwordResetIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update an existing user group
+         * @summary Update Group
+         * @param {number} groupId 
+         * @param {GroupIn} groupIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersUpdateGroup: async (groupId: number, groupIn: GroupIn, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'groupId' is not null or undefined
+            assertParamExists('usersUpdateGroup', 'groupId', groupId)
+            // verify required parameter 'groupIn' is not null or undefined
+            assertParamExists('usersUpdateGroup', 'groupIn', groupIn)
+            const localVarPath = `/users/groups/{group_id}`
+                .replace(`{${"group_id"}}`, encodeURIComponent(String(groupId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(groupIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update User
+         * @param {number} userId 
+         * @param {UserUpdateIn} userUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersUpdateUser: async (userId: number, userUpdateIn: UserUpdateIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('usersUpdateUser', 'userId', userId)
+            // verify required parameter 'userUpdateIn' is not null or undefined
+            assertParamExists('usersUpdateUser', 'userUpdateIn', userUpdateIn)
+            const localVarPath = `/users/{user_id}`
+                .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userUpdateIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Synchronize group members — add new ones and remove missing ones.
+         * @summary Upsert Members
+         * @param {number} groupId 
+         * @param {Array<number>} requestBody 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersUpsertMembers: async (groupId: number, requestBody: Array<number>, cookieName?: string | null, tenantId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'groupId' is not null or undefined
+            assertParamExists('usersUpsertMembers', 'groupId', groupId)
+            // verify required parameter 'requestBody' is not null or undefined
+            assertParamExists('usersUpsertMembers', 'requestBody', requestBody)
+            const localVarPath = `/users/members/{group_id}`
+                .replace(`{${"group_id"}}`, encodeURIComponent(String(groupId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Upsert My Preferences
+         * @param {UserPreferenceUpdateIn} userPreferenceUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersUpsertMyPreferences: async (userPreferenceUpdateIn: UserPreferenceUpdateIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userPreferenceUpdateIn' is not null or undefined
+            assertParamExists('usersUpsertMyPreferences', 'userPreferenceUpdateIn', userPreferenceUpdateIn)
+            const localVarPath = `/users/me/preferences`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userPreferenceUpdateIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -4527,6 +16135,96 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
 export const UserFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UserAxiosParamCreator(configuration)
     return {
+        /**
+         * 
+         * @summary Activate User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersActivateUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersActivateUser(userId, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersActivateUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Create a new user group
+         * @summary Create Group
+         * @param {GroupIn} groupIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersCreateGroup(groupIn: GroupIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersCreateGroup(groupIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersCreateGroup']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Create User
+         * @param {UserIn} userIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersCreateUser(userIn: UserIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersCreateUser(userIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersCreateUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Deactivate User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersDeactivateUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersDeactivateUser(userId, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersDeactivateUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete a user group
+         * @summary Delete Group
+         * @param {number} groupId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersDeleteGroup(groupId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersDeleteGroup(groupId, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersDeleteGroup']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersDeleteUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersDeleteUser(userId, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersDeleteUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
         /**
          * 
          * @summary Get Myself
@@ -4540,6 +16238,81 @@ export const UserFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['User.usersGetMyself']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Resets the current user password.
+         * @summary Reset Password
+         * @param {PasswordResetIn} passwordResetIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersResetPassword(passwordResetIn: PasswordResetIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersResetPassword(passwordResetIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersResetPassword']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Update an existing user group
+         * @summary Update Group
+         * @param {number} groupId 
+         * @param {GroupIn} groupIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersUpdateGroup(groupId: number, groupIn: GroupIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersUpdateGroup(groupId, groupIn, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersUpdateGroup']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update User
+         * @param {number} userId 
+         * @param {UserUpdateIn} userUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersUpdateUser(userId: number, userUpdateIn: UserUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersUpdateUser(userId, userUpdateIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersUpdateUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Synchronize group members — add new ones and remove missing ones.
+         * @summary Upsert Members
+         * @param {number} groupId 
+         * @param {Array<number>} requestBody 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersUpsertMembers(groupId: number, requestBody: Array<number>, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserGroupMember>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersUpsertMembers(groupId, requestBody, cookieName, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersUpsertMembers']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Upsert My Preferences
+         * @param {UserPreferenceUpdateIn} userPreferenceUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersUpsertMyPreferences(userPreferenceUpdateIn: UserPreferenceUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPreferenceOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersUpsertMyPreferences(userPreferenceUpdateIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersUpsertMyPreferences']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -4551,6 +16324,78 @@ export const UserFactory = function (configuration?: Configuration, basePath?: s
     return {
         /**
          * 
+         * @summary Activate User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersActivateUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<UserOut> {
+            return localVarFp.usersActivateUser(userId, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new user group
+         * @summary Create Group
+         * @param {GroupIn} groupIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersCreateGroup(groupIn: GroupIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<UserGroup> {
+            return localVarFp.usersCreateGroup(groupIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Create User
+         * @param {UserIn} userIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersCreateUser(userIn: UserIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<UserOut> {
+            return localVarFp.usersCreateUser(userIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Deactivate User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersDeactivateUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<UserOut> {
+            return localVarFp.usersDeactivateUser(userId, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete a user group
+         * @summary Delete Group
+         * @param {number} groupId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersDeleteGroup(groupId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.usersDeleteGroup(groupId, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete User
+         * @param {number} userId 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersDeleteUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.usersDeleteUser(userId, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get Myself
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -4558,6 +16403,66 @@ export const UserFactory = function (configuration?: Configuration, basePath?: s
          */
         usersGetMyself(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<UserOut> {
             return localVarFp.usersGetMyself(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Resets the current user password.
+         * @summary Reset Password
+         * @param {PasswordResetIn} passwordResetIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersResetPassword(passwordResetIn: PasswordResetIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.usersResetPassword(passwordResetIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update an existing user group
+         * @summary Update Group
+         * @param {number} groupId 
+         * @param {GroupIn} groupIn 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersUpdateGroup(groupId: number, groupIn: GroupIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<UserGroup> {
+            return localVarFp.usersUpdateGroup(groupId, groupIn, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update User
+         * @param {number} userId 
+         * @param {UserUpdateIn} userUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersUpdateUser(userId: number, userUpdateIn: UserUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<UserOut> {
+            return localVarFp.usersUpdateUser(userId, userUpdateIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Synchronize group members — add new ones and remove missing ones.
+         * @summary Upsert Members
+         * @param {number} groupId 
+         * @param {Array<number>} requestBody 
+         * @param {string | null} [cookieName] 
+         * @param {number} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersUpsertMembers(groupId: number, requestBody: Array<number>, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<UserGroupMember>> {
+            return localVarFp.usersUpsertMembers(groupId, requestBody, cookieName, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upsert My Preferences
+         * @param {UserPreferenceUpdateIn} userPreferenceUpdateIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersUpsertMyPreferences(userPreferenceUpdateIn: UserPreferenceUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<UserPreferenceOut> {
+            return localVarFp.usersUpsertMyPreferences(userPreferenceUpdateIn, cookieName, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4568,6 +16473,84 @@ export const UserFactory = function (configuration?: Configuration, basePath?: s
 export class User extends BaseAPI {
     /**
      * 
+     * @summary Activate User
+     * @param {number} userId 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersActivateUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersActivateUser(userId, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a new user group
+     * @summary Create Group
+     * @param {GroupIn} groupIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersCreateGroup(groupIn: GroupIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersCreateGroup(groupIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Create User
+     * @param {UserIn} userIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersCreateUser(userIn: UserIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersCreateUser(userIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Deactivate User
+     * @param {number} userId 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersDeactivateUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersDeactivateUser(userId, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete a user group
+     * @summary Delete Group
+     * @param {number} groupId 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersDeleteGroup(groupId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersDeleteGroup(groupId, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete User
+     * @param {number} userId 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersDeleteUser(userId: number, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersDeleteUser(userId, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Get Myself
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -4575,6 +16558,71 @@ export class User extends BaseAPI {
      */
     public usersGetMyself(cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return UserFp(this.configuration).usersGetMyself(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Resets the current user password.
+     * @summary Reset Password
+     * @param {PasswordResetIn} passwordResetIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersResetPassword(passwordResetIn: PasswordResetIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersResetPassword(passwordResetIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update an existing user group
+     * @summary Update Group
+     * @param {number} groupId 
+     * @param {GroupIn} groupIn 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersUpdateGroup(groupId: number, groupIn: GroupIn, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersUpdateGroup(groupId, groupIn, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update User
+     * @param {number} userId 
+     * @param {UserUpdateIn} userUpdateIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersUpdateUser(userId: number, userUpdateIn: UserUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersUpdateUser(userId, userUpdateIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Synchronize group members — add new ones and remove missing ones.
+     * @summary Upsert Members
+     * @param {number} groupId 
+     * @param {Array<number>} requestBody 
+     * @param {string | null} [cookieName] 
+     * @param {number} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersUpsertMembers(groupId: number, requestBody: Array<number>, cookieName?: string | null, tenantId?: number, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersUpsertMembers(groupId, requestBody, cookieName, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upsert My Preferences
+     * @param {UserPreferenceUpdateIn} userPreferenceUpdateIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersUpsertMyPreferences(userPreferenceUpdateIn: UserPreferenceUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersUpsertMyPreferences(userPreferenceUpdateIn, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

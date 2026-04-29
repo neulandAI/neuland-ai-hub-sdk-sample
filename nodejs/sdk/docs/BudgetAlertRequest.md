@@ -1,0 +1,23 @@
+# BudgetAlertRequest
+
+Alert request model
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** | Name for the alert to be created. Max 100 characters. | [default to undefined]
+**threshold_amount** | **number** | Threshold amount | [default to undefined]
+
+## Example
+
+```typescript
+import { BudgetAlertRequest } from 'neuland-hub-sdk';
+
+const instance: BudgetAlertRequest = {
+    name,
+    threshold_amount,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

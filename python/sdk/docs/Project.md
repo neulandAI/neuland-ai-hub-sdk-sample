@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**projects_delete_member**](Project.md#projects_delete_member) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member
 [**projects_delete_members**](Project.md#projects_delete_members) | **DELETE** /projects/{project_id}/members | Delete Members
 [**projects_delete_project**](Project.md#projects_delete_project) | **DELETE** /projects/{project_id} | Delete Project
+[**projects_is_project_name_free**](Project.md#projects_is_project_name_free) | **GET** /projects/available | Is Project Name Free
 [**projects_leave_project**](Project.md#projects_leave_project) | **DELETE** /projects/{project_id}/remove/me | Leave Project
 [**projects_remove_library_from_project**](Project.md#projects_remove_library_from_project) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project
 [**projects_update_project**](Project.md#projects_update_project) | **PATCH** /projects/{project_id} | Update Project
@@ -513,6 +514,88 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **projects_is_project_name_free**
+> bool projects_is_project_name_free(name, cookie_name=cookie_name)
+
+Is Project Name Free
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Project(api_client)
+    name = 'name_example' # str | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Is Project Name Free
+        api_response = api_instance.projects_is_project_name_free(name, cookie_name=cookie_name)
+        print("The response of Project->projects_is_project_name_free:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Project->projects_is_project_name_free: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **name** | **str**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

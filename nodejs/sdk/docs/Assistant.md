@@ -14,6 +14,7 @@ All URIs are relative to *http://localhost*
 |[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove Library From Assistant|
 |[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove Member|
 |[**assistantsRemoveToolFromAssistant**](#assistantsremovetoolfromassistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove Tool From Assistant|
+|[**assistantsSubmitAssistant**](#assistantssubmitassistant) | **POST** /assistants/submit | Submit Assistant|
 |[**assistantsUpdateAssistant**](#assistantsupdateassistant) | **PATCH** /assistants/{assistant_id} | Update Assistant|
 
 # **assistantsAddLibraryToAssistant**
@@ -579,6 +580,81 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **assistantsSubmitAssistant**
+> Assistant assistantsSubmitAssistant()
+
+
+### Example
+
+```typescript
+import {
+    Assistant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Assistant(configuration);
+
+let name: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+let model: string; // (optional) (default to undefined)
+let description: string; // (optional) (default to undefined)
+let avatar: string; // (optional) (default to undefined)
+let instructions: string; // (optional) (default to undefined)
+let temperature: number; // (optional) (default to undefined)
+let similarityTopK: number; // (optional) (default to undefined)
+let files: Array<string>; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.assistantsSubmitAssistant(
+    name,
+    cookieName,
+    model,
+    description,
+    avatar,
+    instructions,
+    temperature,
+    similarityTopK,
+    files
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **name** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **model** | [**string**] |  | (optional) defaults to undefined|
+| **description** | [**string**] |  | (optional) defaults to undefined|
+| **avatar** | [**string**] |  | (optional) defaults to undefined|
+| **instructions** | [**string**] |  | (optional) defaults to undefined|
+| **temperature** | [**number**] |  | (optional) defaults to undefined|
+| **similarityTopK** | [**number**] |  | (optional) defaults to undefined|
+| **files** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Assistant**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

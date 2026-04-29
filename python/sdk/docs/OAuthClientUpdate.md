@@ -1,0 +1,31 @@
+# OAuthClientUpdate
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**icon_url** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.o_auth_client_update import OAuthClientUpdate
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of OAuthClientUpdate from a JSON string
+o_auth_client_update_instance = OAuthClientUpdate.from_json(json)
+# print the JSON string representation of the object
+print(OAuthClientUpdate.to_json())
+
+# convert the object into a dict
+o_auth_client_update_dict = o_auth_client_update_instance.to_dict()
+# create an instance of OAuthClientUpdate from a dict
+o_auth_client_update_from_dict = OAuthClientUpdate.from_dict(o_auth_client_update_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
