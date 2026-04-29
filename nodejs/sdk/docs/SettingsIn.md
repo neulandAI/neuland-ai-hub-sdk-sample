@@ -1,0 +1,38 @@
+# SettingsIn
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**default_llm_catalog_id** | **number** |  | [optional] [default to undefined]
+**guardrails_enabled** | **boolean** |  | [optional] [default to undefined]
+**sharepoint_enabled** | **boolean** |  | [optional] [default to undefined]
+**inbound_guardrail** | **string** |  | [optional] [default to undefined]
+**outbound_guardrail** | **string** |  | [optional] [default to undefined]
+**welcome_email_template_id** | **number** |  | [optional] [default to undefined]
+**project_member_added_email_template_id** | **number** |  | [optional] [default to undefined]
+**system_prompt** | **string** |  | [optional] [default to undefined]
+**errlog_webhook_url** | **string** |  | [optional] [default to undefined]
+**require_email_confirmation** | **boolean** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { SettingsIn } from 'neuland-hub-sdk';
+
+const instance: SettingsIn = {
+    default_llm_catalog_id,
+    guardrails_enabled,
+    sharepoint_enabled,
+    inbound_guardrail,
+    outbound_guardrail,
+    welcome_email_template_id,
+    project_member_added_email_template_id,
+    system_prompt,
+    errlog_webhook_url,
+    require_email_confirmation,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

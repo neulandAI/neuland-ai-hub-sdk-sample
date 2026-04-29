@@ -1,0 +1,31 @@
+# UserPreferenceUpdateIn
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**theme_mode** | [**ThemeModeEnum**](ThemeModeEnum.md) |  | [optional] 
+**lang** | **str** |  | [optional] 
+**timezone** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.user_preference_update_in import UserPreferenceUpdateIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UserPreferenceUpdateIn from a JSON string
+user_preference_update_in_instance = UserPreferenceUpdateIn.from_json(json)
+# print the JSON string representation of the object
+print(UserPreferenceUpdateIn.to_json())
+
+# convert the object into a dict
+user_preference_update_in_dict = user_preference_update_in_instance.to_dict()
+# create an instance of UserPreferenceUpdateIn from a dict
+user_preference_update_in_from_dict = UserPreferenceUpdateIn.from_dict(user_preference_update_in_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

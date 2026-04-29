@@ -151,12 +151,6 @@ cp .env.local.example .env.local
 npm run dev -- -p 3002
 ```
 
-Fill in `frontend/.env.local`
-
-## 4. Sign in
+Open http://localhost:3002 in your browser.
 
 ---
-
-## Maintaining
-
-Regenerating the SDK, adding/removing endpoints, and the generator version pin are documented separately in [MAINTAINING.md](MAINTAINING.md).

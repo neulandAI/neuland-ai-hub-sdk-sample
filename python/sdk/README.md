@@ -78,18 +78,18 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
-    library_id = 56 # int | 
+    api_instance = neuland_hub_sdk.Alert(api_client)
+    budget_alert_request = neuland_hub_sdk.BudgetAlertRequest() # BudgetAlertRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
 
     try:
-        # Add Library To Assistant
-        api_response = api_instance.assistants_add_library_to_assistant(assistant_id, library_id, cookie_name=cookie_name)
-        print("The response of Assistant->assistants_add_library_to_assistant:\n")
+        # Create Alert
+        api_response = api_instance.alerts_create_alert(budget_alert_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Alert->alerts_create_alert:\n")
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling Assistant->assistants_add_library_to_assistant: %s\n" % e)
+        print("Exception when calling Alert->alerts_create_alert: %s\n" % e)
 
 ```
 
@@ -99,6 +99,16 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*Alert* | [**alerts_create_alert**](docs/Alert.md#alerts_create_alert) | **POST** /alerts/ | Create Alert
+*Alert* | [**alerts_delete_alert**](docs/Alert.md#alerts_delete_alert) | **DELETE** /alerts/{alert_id} | Delete Alert
+*Alert* | [**alerts_update_alert**](docs/Alert.md#alerts_update_alert) | **PATCH** /alerts/{alert_id} | Update Alert
+*ApiKey* | [**api_create_key**](docs/ApiKey.md#api_create_key) | **POST** /api/key/ | Create Key
+*ApiKey* | [**api_revoke_api_key**](docs/ApiKey.md#api_revoke_api_key) | **PATCH** /api/key/revoke/{api_key_id} | Revoke Api Key
+*Application* | [**applications_create_app**](docs/Application.md#applications_create_app) | **POST** /applications/ | Create App
+*Application* | [**applications_delete_app**](docs/Application.md#applications_delete_app) | **DELETE** /applications/{app_id} | Delete App
+*Application* | [**applications_update_app**](docs/Application.md#applications_update_app) | **PATCH** /applications/{app_id} | Update App
+*Application* | [**applications_update_group_membership**](docs/Application.md#applications_update_group_membership) | **PUT** /applications/group/access | Update Group Membership
+*Application* | [**applications_update_user_membership**](docs/Application.md#applications_update_user_membership) | **PUT** /applications/user/access | Update User Membership
 *Assistant* | [**assistants_add_library_to_assistant**](docs/Assistant.md#assistants_add_library_to_assistant) | **POST** /assistants/{assistant_id}/libraries/{library_id} | Add Library To Assistant
 *Assistant* | [**assistants_add_members**](docs/Assistant.md#assistants_add_members) | **POST** /assistants/{assistant_id}/members | Add Members
 *Assistant* | [**assistants_add_tool_to_assistant**](docs/Assistant.md#assistants_add_tool_to_assistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add Tool To Assistant
@@ -109,10 +119,45 @@ Class | Method | HTTP request | Description
 *Assistant* | [**assistants_remove_library_from_assistant**](docs/Assistant.md#assistants_remove_library_from_assistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove Library From Assistant
 *Assistant* | [**assistants_remove_member**](docs/Assistant.md#assistants_remove_member) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove Member
 *Assistant* | [**assistants_remove_tool_from_assistant**](docs/Assistant.md#assistants_remove_tool_from_assistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove Tool From Assistant
+*Assistant* | [**assistants_submit_assistant**](docs/Assistant.md#assistants_submit_assistant) | **POST** /assistants/submit | Submit Assistant
 *Assistant* | [**assistants_update_assistant**](docs/Assistant.md#assistants_update_assistant) | **PATCH** /assistants/{assistant_id} | Update Assistant
+*Auth* | [**auth_azure_entra_callback**](docs/Auth.md#auth_azure_entra_callback) | **GET** /auth/callback/azure-entra | Azure Entra Callback
+*Auth* | [**auth_confirm_email**](docs/Auth.md#auth_confirm_email) | **GET** /auth/confirm-email | Confirm Email
+*Auth* | [**auth_exchange_token**](docs/Auth.md#auth_exchange_token) | **POST** /auth/exchange/token | Exchange Token
+*Auth* | [**auth_get_entra_groups**](docs/Auth.md#auth_get_entra_groups) | **GET** /auth/entra/groups | Get Entra Groups
+*Auth* | [**auth_get_entra_scopes**](docs/Auth.md#auth_get_entra_scopes) | **GET** /auth/entra/scopes | Get Entra Scopes
+*Auth* | [**auth_login**](docs/Auth.md#auth_login) | **POST** /auth/token | Login
+*Auth* | [**auth_logout**](docs/Auth.md#auth_logout) | **POST** /auth/logout | Logout
+*Auth* | [**auth_oidc_callback**](docs/Auth.md#auth_oidc_callback) | **GET** /auth/callback/oidc | Oidc Callback
+*Auth* | [**auth_request_password_reset**](docs/Auth.md#auth_request_password_reset) | **POST** /auth/request-password-reset | Request Password Reset
+*Auth* | [**auth_reset_password**](docs/Auth.md#auth_reset_password) | **POST** /auth/reset-password | Reset Password
+*Auth* | [**auth_reset_password_form**](docs/Auth.md#auth_reset_password_form) | **GET** /auth/reset-password | Reset Password Form
+*Auth* | [**auth_send_email_confirmation**](docs/Auth.md#auth_send_email_confirmation) | **POST** /auth/send-email-confirmation | Send Email Confirmation
+*AuthConnector* | [**auth_initiate_admin_consent**](docs/AuthConnector.md#auth_initiate_admin_consent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate Admin Consent
+*AuthConnector* | [**auth_initiate_consent**](docs/AuthConnector.md#auth_initiate_consent) | **GET** /auth/connectors/{connector_id}/consent | Initiate Consent
+*AuthConnector* | [**auth_list_connector_status**](docs/AuthConnector.md#auth_list_connector_status) | **GET** /auth/connectors/status | List Connector Status
+*AuthConnector* | [**auth_oauth_callback**](docs/AuthConnector.md#auth_oauth_callback) | **GET** /auth/connectors/callback | Oauth Callback
+*AuthConnector* | [**auth_revoke_consent**](docs/AuthConnector.md#auth_revoke_consent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke Consent
+*AuthConnector* | [**auth_update_connector**](docs/AuthConnector.md#auth_update_connector) | **PATCH** /auth/connectors/{connector_id} | Update Connector
+*AuthConnector* | [**auth_update_oauth_client**](docs/AuthConnector.md#auth_update_oauth_client) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update Oauth Client
+*Chat* | [**chats_add_library_to_chat**](docs/Chat.md#chats_add_library_to_chat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add Library To Chat
+*Chat* | [**chats_cancel_message**](docs/Chat.md#chats_cancel_message) | **POST** /chats/{chat_id}/cancel | Cancel Message
+*Chat* | [**chats_deactivate_documents**](docs/Chat.md#chats_deactivate_documents) | **POST** /chats/{chat_id}/inactive-documents | Deactivate Documents
+*Chat* | [**chats_remove_chat**](docs/Chat.md#chats_remove_chat) | **DELETE** /chats/{chat_id} | Remove Chat
+*Chat* | [**chats_remove_inactive_documents**](docs/Chat.md#chats_remove_inactive_documents) | **DELETE** /chats/{chat_id}/inactive-documents | Remove Inactive Documents
+*Chat* | [**chats_remove_library_from_chat**](docs/Chat.md#chats_remove_library_from_chat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove Library From Chat
+*Chat* | [**chats_summerize_chat**](docs/Chat.md#chats_summerize_chat) | **GET** /chats/{chat_id}/summary | Summerize Chat
+*Chat* | [**chats_update_chat**](docs/Chat.md#chats_update_chat) | **PATCH** /chats/{chat_id} | Update Chat
+*Chat* | [**chats_update_chat_tool_settings**](docs/Chat.md#chats_update_chat_tool_settings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Update Chat Tool Settings
 *Document* | [**documents_delete_chat_document**](docs/Document.md#documents_delete_chat_document) | **DELETE** /documents/{document_id} | Delete Chat Document
+*Document* | [**documents_get_file**](docs/Document.md#documents_get_file) | **GET** /documents/{document_id} | Get File
 *Document* | [**documents_import_documents**](docs/Document.md#documents_import_documents) | **POST** /documents/import | Import Documents
+*Document* | [**documents_retry_document**](docs/Document.md#documents_retry_document) | **POST** /documents/{document_id}/retry | Retry Document
+*Document* | [**documents_unimport_documents**](docs/Document.md#documents_unimport_documents) | **DELETE** /documents/import | Unimport Documents
 *Document* | [**documents_upload_documents**](docs/Document.md#documents_upload_documents) | **POST** /documents/ | Upload Documents
+*File* | [**files_download_file**](docs/File.md#files_download_file) | **GET** /files/{file_id} | Download File
+*Invitation* | [**invitations_accept_invitation_complete**](docs/Invitation.md#invitations_accept_invitation_complete) | **POST** /invitations/accept | Accept Invitation Complete
+*Invitation* | [**invitations_accept_invitation_form**](docs/Invitation.md#invitations_accept_invitation_form) | **GET** /invitations/accept | Accept Invitation Form
 *Invitation* | [**invitations_create_invitations**](docs/Invitation.md#invitations_create_invitations) | **POST** /invitations/ | Create Invitations
 *Invitation* | [**invitations_resend_invitation**](docs/Invitation.md#invitations_resend_invitation) | **POST** /invitations/{invitation_id}/resend | Resend Invitation
 *Invitation* | [**invitations_revoke_invitation**](docs/Invitation.md#invitations_revoke_invitation) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation
@@ -123,7 +168,19 @@ Class | Method | HTTP request | Description
 *Library* | [**libraries_remove_library_members**](docs/Library.md#libraries_remove_library_members) | **DELETE** /libraries/{library_id}/members | Remove Library Members
 *Library* | [**libraries_remove_single_member**](docs/Library.md#libraries_remove_single_member) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove Single Member
 *Library* | [**libraries_update_library**](docs/Library.md#libraries_update_library) | **PATCH** /libraries/{library_id} | Update Library
+*Llm* | [**llm_get_cost**](docs/Llm.md#llm_get_cost) | **POST** /llm/cost | Get Cost
+*Llm* | [**llm_get_usage_costs**](docs/Llm.md#llm_get_usage_costs) | **POST** /llm/services/cost | Get Usage Costs
+*Llm* | [**llm_llm_total_tokens**](docs/Llm.md#llm_llm_total_tokens) | **POST** /llm/tokens | Llm Total Tokens
+*LlmCatalog* | [**llm_create_catalog**](docs/LlmCatalog.md#llm_create_catalog) | **POST** /llm/catalog | Create Catalog
+*LlmCatalog* | [**llm_delete_catalog**](docs/LlmCatalog.md#llm_delete_catalog) | **DELETE** /llm/catalog/{catalog_id} | Delete Catalog
+*LlmCatalog* | [**llm_update_catalog**](docs/LlmCatalog.md#llm_update_catalog) | **PATCH** /llm/catalog/{catalog_id} | Update Catalog
+*LlmSetting* | [**llm_create_llm_settings**](docs/LlmSetting.md#llm_create_llm_settings) | **POST** /llm/settings | Create Llm Settings
+*LlmSetting* | [**llm_delete_llm_settings**](docs/LlmSetting.md#llm_delete_llm_settings) | **DELETE** /llm/settings/{settings_id} | Delete Llm Settings
+*LlmSetting* | [**llm_update_llm_settings**](docs/LlmSetting.md#llm_update_llm_settings) | **PATCH** /llm/settings/{settings_id} | Update Llm Settings
+*Message* | [**messages_convert_message**](docs/Message.md#messages_convert_message) | **GET** /messages/{message_id}/convert | Convert Message
+*Message* | [**messages_create_message**](docs/Message.md#messages_create_message) | **POST** /messages/ | Create Message
 *Message* | [**messages_rephrase_message**](docs/Message.md#messages_rephrase_message) | **GET** /messages/{message_id}/rephrase | Rephrase Message
+*Message* | [**messages_submit_message**](docs/Message.md#messages_submit_message) | **POST** /messages/submit | Submit Message
 *Message* | [**messages_translate_message**](docs/Message.md#messages_translate_message) | **GET** /messages/{message_id}/translate | Translate Message
 *Project* | [**projects_add_library_to_project**](docs/Project.md#projects_add_library_to_project) | **POST** /projects/{project_id}/libraries/{library_id} | Add Library To Project
 *Project* | [**projects_add_members**](docs/Project.md#projects_add_members) | **POST** /projects/{project_id}/members | Add Members
@@ -131,31 +188,117 @@ Class | Method | HTTP request | Description
 *Project* | [**projects_delete_member**](docs/Project.md#projects_delete_member) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member
 *Project* | [**projects_delete_members**](docs/Project.md#projects_delete_members) | **DELETE** /projects/{project_id}/members | Delete Members
 *Project* | [**projects_delete_project**](docs/Project.md#projects_delete_project) | **DELETE** /projects/{project_id} | Delete Project
+*Project* | [**projects_is_project_name_free**](docs/Project.md#projects_is_project_name_free) | **GET** /projects/available | Is Project Name Free
 *Project* | [**projects_leave_project**](docs/Project.md#projects_leave_project) | **DELETE** /projects/{project_id}/remove/me | Leave Project
 *Project* | [**projects_remove_library_from_project**](docs/Project.md#projects_remove_library_from_project) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project
 *Project* | [**projects_update_project**](docs/Project.md#projects_update_project) | **PATCH** /projects/{project_id} | Update Project
 *Prompt* | [**prompts_create_prompt**](docs/Prompt.md#prompts_create_prompt) | **POST** /prompts/ | Create Prompt
 *Prompt* | [**prompts_delete_prompt**](docs/Prompt.md#prompts_delete_prompt) | **DELETE** /prompts/{prompt_id} | Delete Prompt
 *Prompt* | [**prompts_update_prompt**](docs/Prompt.md#prompts_update_prompt) | **PATCH** /prompts/{prompt_id} | Update Prompt
+*Query* | [**query_query**](docs/Query.md#query_query) | **GET** /query/{path} | Query
+*Query* | [**query_query_rpc**](docs/Query.md#query_query_rpc) | **GET** /query/rpc/{path} | Query Rpc
+*Settings* | [**settings_current**](docs/Settings.md#settings_current) | **GET** /settings/current | Current
+*Settings* | [**settings_update_current_settings**](docs/Settings.md#settings_update_current_settings) | **PATCH** /settings/current | Update Current Settings
+*Settings* | [**settings_update_settings**](docs/Settings.md#settings_update_settings) | **PATCH** /settings/{settings_id} | Update Settings
 *Sharepoint* | [**integrations_get_item_info**](docs/Sharepoint.md#integrations_get_item_info) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get Item Info
+*Sharepoint* | [**integrations_get_user_info**](docs/Sharepoint.md#integrations_get_user_info) | **GET** /integrations/sharepoint/me | Get User Info
+*Sharepoint* | [**integrations_is_connected**](docs/Sharepoint.md#integrations_is_connected) | **GET** /integrations/sharepoint/connected | Is Connected
 *Sharepoint* | [**integrations_list_all_sites**](docs/Sharepoint.md#integrations_list_all_sites) | **GET** /integrations/sharepoint/sites | List All Sites
 *Sharepoint* | [**integrations_list_children**](docs/Sharepoint.md#integrations_list_children) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List Children
 *Sharepoint* | [**integrations_list_drives**](docs/Sharepoint.md#integrations_list_drives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List Drives
+*Storage* | [**storage_download_file**](docs/Storage.md#storage_download_file) | **GET** /storage/{path} | Download File
+*Tarif* | [**tarifs_create_tarif**](docs/Tarif.md#tarifs_create_tarif) | **POST** /tarifs/ | Create Tarif
+*Tarif* | [**tarifs_delete_tarif**](docs/Tarif.md#tarifs_delete_tarif) | **DELETE** /tarifs/{tarif_id} | Delete Tarif
+*Tarif* | [**tarifs_update_tarif**](docs/Tarif.md#tarifs_update_tarif) | **PATCH** /tarifs/{tarif_id} | Update Tarif
+*Template* | [**templates_create**](docs/Template.md#templates_create) | **POST** /templates/ | Create
+*Template* | [**templates_delete**](docs/Template.md#templates_delete) | **DELETE** /templates/{template_id} | Delete
+*Template* | [**templates_update**](docs/Template.md#templates_update) | **PATCH** /templates/{template_id} | Update
+*Tenant* | [**tenants_add_library_to_tenants**](docs/Tenant.md#tenants_add_library_to_tenants) | **POST** /tenants/{tenant_id}/libraries/{library_id} | Add Library To Tenants
+*Tenant* | [**tenants_create_tenant**](docs/Tenant.md#tenants_create_tenant) | **POST** /tenants/ | Create Tenant
+*Tenant* | [**tenants_create_tenant_connector**](docs/Tenant.md#tenants_create_tenant_connector) | **POST** /tenants/{tenant_id}/connectors/{connector_id} | Create Tenant Connector
+*Tenant* | [**tenants_create_tenant_tool**](docs/Tenant.md#tenants_create_tenant_tool) | **POST** /tenants/{tenant_id}/tools/{tool_id} | Create Tenant Tool
+*Tenant* | [**tenants_delete_tenant**](docs/Tenant.md#tenants_delete_tenant) | **DELETE** /tenants/{tenant_id} | Delete Tenant
+*Tenant* | [**tenants_delete_tenant_connector**](docs/Tenant.md#tenants_delete_tenant_connector) | **DELETE** /tenants/{tenant_id}/connectors/{connector_id} | Delete Tenant Connector
+*Tenant* | [**tenants_delete_tenant_model**](docs/Tenant.md#tenants_delete_tenant_model) | **DELETE** /tenants/{tenant_id}/models/{model_id} | Delete Tenant Model
+*Tenant* | [**tenants_delete_tenant_models_bulk**](docs/Tenant.md#tenants_delete_tenant_models_bulk) | **DELETE** /tenants/models/{model_id}/bulk | Delete Tenant Models Bulk
+*Tenant* | [**tenants_delete_tenant_tool**](docs/Tenant.md#tenants_delete_tenant_tool) | **DELETE** /tenants/{tenant_id}/tools/{tool_id} | Delete Tenant Tool
+*Tenant* | [**tenants_get_current_tenant**](docs/Tenant.md#tenants_get_current_tenant) | **GET** /tenants/current | Get Current Tenant
+*Tenant* | [**tenants_put_tenant_model**](docs/Tenant.md#tenants_put_tenant_model) | **PUT** /tenants/{tenant_id}/models/{model_id} | Put Tenant Model
+*Tenant* | [**tenants_put_tenant_models_bulk**](docs/Tenant.md#tenants_put_tenant_models_bulk) | **PUT** /tenants/models/{model_id}/bulk | Put Tenant Models Bulk
+*Tenant* | [**tenants_remove_tenant_library_member**](docs/Tenant.md#tenants_remove_tenant_library_member) | **DELETE** /tenants/{tenant_id}/libraries/{library_id} | Remove Tenant Library Member
+*Tenant* | [**tenants_update_current_tenant**](docs/Tenant.md#tenants_update_current_tenant) | **PATCH** /tenants/current | Update Current Tenant
+*Tenant* | [**tenants_update_tenant**](docs/Tenant.md#tenants_update_tenant) | **PATCH** /tenants/{tenant_id} | Update Tenant
+*Tool* | [**tools_update_tool**](docs/Tool.md#tools_update_tool) | **PATCH** /tools/{tool_id} | Update Tool
+*ToolAction* | [**toolactions_send_email_from_draft**](docs/ToolAction.md#toolactions_send_email_from_draft) | **POST** /tool-actions/email/send | Send Email From Draft
+*User* | [**users_activate_user**](docs/User.md#users_activate_user) | **POST** /users/{user_id}/activate | Activate User
+*User* | [**users_create_group**](docs/User.md#users_create_group) | **POST** /users/groups | Create Group
+*User* | [**users_create_user**](docs/User.md#users_create_user) | **POST** /users/ | Create User
+*User* | [**users_deactivate_user**](docs/User.md#users_deactivate_user) | **POST** /users/{user_id}/deactivate | Deactivate User
+*User* | [**users_delete_group**](docs/User.md#users_delete_group) | **DELETE** /users/groups/{group_id} | Delete Group
+*User* | [**users_delete_user**](docs/User.md#users_delete_user) | **DELETE** /users/{user_id} | Delete User
 *User* | [**users_get_myself**](docs/User.md#users_get_myself) | **GET** /users/me | Get Myself
+*User* | [**users_reset_password**](docs/User.md#users_reset_password) | **POST** /users/passwd | Reset Password
+*User* | [**users_update_group**](docs/User.md#users_update_group) | **PATCH** /users/groups/{group_id} | Update Group
+*User* | [**users_update_user**](docs/User.md#users_update_user) | **PATCH** /users/{user_id} | Update User
+*User* | [**users_upsert_members**](docs/User.md#users_upsert_members) | **PUT** /users/members/{group_id} | Upsert Members
+*User* | [**users_upsert_my_preferences**](docs/User.md#users_upsert_my_preferences) | **PATCH** /users/me/preferences | Upsert My Preferences
+*Default* | [**post_post_check**](docs/Default.md#post_post_check) | **POST** /post | Post Check
+*Default* | [**root_root**](docs/Default.md#root_root) | **GET** / | Root
+*Default* | [**stat_stat**](docs/Default.md#stat_stat) | **GET** /stat | Stat
+*Default* | [**theme_get_theme**](docs/Default.md#theme_get_theme) | **GET** /theme | Get Theme
+*Default* | [**version_version**](docs/Default.md#version_version) | **GET** /version | Version
 
 
 ## Documentation For Models
 
+ - [ApiKey](docs/ApiKey.md)
+ - [ApiKeyCreateRequest](docs/ApiKeyCreateRequest.md)
+ - [ApiKeyCreateResponse](docs/ApiKeyCreateResponse.md)
+ - [Application](docs/Application.md)
+ - [ApplicationAccessIn](docs/ApplicationAccessIn.md)
+ - [ApplicationGroup](docs/ApplicationGroup.md)
+ - [ApplicationIn](docs/ApplicationIn.md)
+ - [ApplicationMember](docs/ApplicationMember.md)
  - [Assistant](docs/Assistant.md)
  - [AssistantIn](docs/AssistantIn.md)
  - [AssistantLibrary](docs/AssistantLibrary.md)
  - [AssistantMember](docs/AssistantMember.md)
  - [AssistantMembersIn](docs/AssistantMembersIn.md)
  - [AssistantTool](docs/AssistantTool.md)
+ - [Bcc](docs/Bcc.md)
+ - [BudgetAlert](docs/BudgetAlert.md)
+ - [BudgetAlertRequest](docs/BudgetAlertRequest.md)
+ - [BudgetAlertUpdate](docs/BudgetAlertUpdate.md)
+ - [BulkResult](docs/BulkResult.md)
+ - [CatalogIn](docs/CatalogIn.md)
+ - [CatalogUpdate](docs/CatalogUpdate.md)
+ - [Cc](docs/Cc.md)
+ - [Chat](docs/Chat.md)
+ - [ChatIn](docs/ChatIn.md)
+ - [ChatInactiveDocument](docs/ChatInactiveDocument.md)
+ - [ChatLibrary](docs/ChatLibrary.md)
+ - [ChatToolSettingsOut](docs/ChatToolSettingsOut.md)
+ - [ChatToolSettingsUpdate](docs/ChatToolSettingsUpdate.md)
+ - [Connector](docs/Connector.md)
+ - [ConnectorConsentOut](docs/ConnectorConsentOut.md)
+ - [ConnectorOut](docs/ConnectorOut.md)
+ - [ConnectorStatusOut](docs/ConnectorStatusOut.md)
+ - [ConnectorUpdate](docs/ConnectorUpdate.md)
+ - [CostByModel](docs/CostByModel.md)
+ - [CostBySource](docs/CostBySource.md)
+ - [CostCompletionTokens](docs/CostCompletionTokens.md)
+ - [CostCompletionTokens1](docs/CostCompletionTokens1.md)
+ - [CostPromptTokens](docs/CostPromptTokens.md)
+ - [CostPromptTokens1](docs/CostPromptTokens1.md)
+ - [CostTimeseriesPoint](docs/CostTimeseriesPoint.md)
  - [Document](docs/Document.md)
+ - [GroupAppAccessIn](docs/GroupAppAccessIn.md)
+ - [GroupIn](docs/GroupIn.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
  - [InvitationIn](docs/InvitationIn.md)
  - [InvitationOut](docs/InvitationOut.md)
+ - [LLMSettingsIn](docs/LLMSettingsIn.md)
+ - [LLMSettingsUpdate](docs/LLMSettingsUpdate.md)
  - [Library](docs/Library.md)
  - [LibraryIn](docs/LibraryIn.md)
  - [LibraryMember](docs/LibraryMember.md)
@@ -164,6 +307,14 @@ Class | Method | HTTP request | Description
  - [LibraryMemberIn](docs/LibraryMemberIn.md)
  - [LibraryUpdateIn](docs/LibraryUpdateIn.md)
  - [LocationInner](docs/LocationInner.md)
+ - [Message](docs/Message.md)
+ - [MessageIn](docs/MessageIn.md)
+ - [OAuth2ProviderEnum](docs/OAuth2ProviderEnum.md)
+ - [OAuthClient](docs/OAuthClient.md)
+ - [OAuthClientUpdate](docs/OAuthClientUpdate.md)
+ - [OutputFormat](docs/OutputFormat.md)
+ - [PasswordResetIn](docs/PasswordResetIn.md)
+ - [PasswordResetRequestIn](docs/PasswordResetRequestIn.md)
  - [Project](docs/Project.md)
  - [ProjectIn](docs/ProjectIn.md)
  - [ProjectLibrary](docs/ProjectLibrary.md)
@@ -174,12 +325,49 @@ Class | Method | HTTP request | Description
  - [Prompt](docs/Prompt.md)
  - [PromptIn](docs/PromptIn.md)
  - [RephraseStyleEnum](docs/RephraseStyleEnum.md)
+ - [ResponseAuthGetEntraGroupsValue](docs/ResponseAuthGetEntraGroupsValue.md)
+ - [SendEmailRequest](docs/SendEmailRequest.md)
+ - [SendEmailResponse](docs/SendEmailResponse.md)
+ - [Settings](docs/Settings.md)
+ - [SettingsIn](docs/SettingsIn.md)
  - [SharepointDriveModel](docs/SharepointDriveModel.md)
  - [SharepointFolderModel](docs/SharepointFolderModel.md)
  - [SharepointItemModel](docs/SharepointItemModel.md)
  - [SharepointSiteModel](docs/SharepointSiteModel.md)
+ - [SharepointUserModel](docs/SharepointUserModel.md)
+ - [Tarif](docs/Tarif.md)
+ - [TarifIn](docs/TarifIn.md)
+ - [TarifStatusEnum](docs/TarifStatusEnum.md)
+ - [TemplateIn](docs/TemplateIn.md)
+ - [TemplateOut](docs/TemplateOut.md)
+ - [TenantIn](docs/TenantIn.md)
+ - [TenantLLM](docs/TenantLLM.md)
+ - [TenantModelBulkIn](docs/TenantModelBulkIn.md)
+ - [TenantOut](docs/TenantOut.md)
+ - [TenantThemeOut](docs/TenantThemeOut.md)
+ - [TenantUpdateIn](docs/TenantUpdateIn.md)
+ - [ThemeModeEnum](docs/ThemeModeEnum.md)
+ - [TimeseriesPoint](docs/TimeseriesPoint.md)
+ - [TimeseriesResponse](docs/TimeseriesResponse.md)
+ - [To](docs/To.md)
+ - [TokenOut](docs/TokenOut.md)
+ - [TokenTimeseriesPerModel](docs/TokenTimeseriesPerModel.md)
+ - [TokenTimeseriesPoint](docs/TokenTimeseriesPoint.md)
+ - [TokensPerModel](docs/TokensPerModel.md)
+ - [TokensTimeseriesResponse](docs/TokensTimeseriesResponse.md)
+ - [ToolOut](docs/ToolOut.md)
+ - [ToolUpdate](docs/ToolUpdate.md)
  - [Translation](docs/Translation.md)
+ - [UsageCostRequest](docs/UsageCostRequest.md)
+ - [UsageCostResponse](docs/UsageCostResponse.md)
+ - [UsageRequest](docs/UsageRequest.md)
+ - [UserGroup](docs/UserGroup.md)
+ - [UserGroupMember](docs/UserGroupMember.md)
+ - [UserIn](docs/UserIn.md)
  - [UserOut](docs/UserOut.md)
+ - [UserPreferenceOut](docs/UserPreferenceOut.md)
+ - [UserPreferenceUpdateIn](docs/UserPreferenceUpdateIn.md)
+ - [UserUpdateIn](docs/UserUpdateIn.md)
  - [ValidationError](docs/ValidationError.md)
 
 
