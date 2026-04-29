@@ -4,151 +4,13 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**accept_invitation_complete**](Invitation.md#accept_invitation_complete) | **POST** /invitations/accept | Accept Invitation Complete
-[**accept_invitation_form**](Invitation.md#accept_invitation_form) | **GET** /invitations/accept | Accept Invitation Form
-[**create_invitations**](Invitation.md#create_invitations) | **POST** /invitations/ | Create Invitations
-[**resend_invitation**](Invitation.md#resend_invitation) | **POST** /invitations/{invitation_id}/resend | Resend Invitation
-[**revoke_invitation**](Invitation.md#revoke_invitation) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation
+[**invitations_create_invitations**](Invitation.md#invitations_create_invitations) | **POST** /invitations/ | Create Invitations
+[**invitations_resend_invitation**](Invitation.md#invitations_resend_invitation) | **POST** /invitations/{invitation_id}/resend | Resend Invitation
+[**invitations_revoke_invitation**](Invitation.md#invitations_revoke_invitation) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation
 
 
-# **accept_invitation_complete**
-> object accept_invitation_complete(token)
-
-Accept Invitation Complete
-
-Complete invitation acceptance and create user account.
-
-### Example
-
-
-```python
-import neuland_hub_sdk
-from neuland_hub_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
-)
-
-
-# Enter a context with an instance of the API client
-with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Invitation(api_client)
-    token = 'token_example' # str | Invitation JWT token
-
-    try:
-        # Accept Invitation Complete
-        api_response = api_instance.accept_invitation_complete(token)
-        print("The response of Invitation->accept_invitation_complete:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling Invitation->accept_invitation_complete: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **str**| Invitation JWT token | 
-
-### Return type
-
-**object**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | Successful Response |  -  |
-**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **accept_invitation_form**
-> str accept_invitation_form(token)
-
-Accept Invitation Form
-
-Fallback HTML form for accepting invitation when no frontend is available.
-
-### Example
-
-
-```python
-import neuland_hub_sdk
-from neuland_hub_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
-)
-
-
-# Enter a context with an instance of the API client
-with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Invitation(api_client)
-    token = 'token_example' # str | Invitation JWT token
-
-    try:
-        # Accept Invitation Form
-        api_response = api_instance.accept_invitation_form(token)
-        print("The response of Invitation->accept_invitation_form:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling Invitation->accept_invitation_form: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **token** | **str**| Invitation JWT token | 
-
-### Return type
-
-**str**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/html, application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful Response |  -  |
-**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **create_invitations**
-> List[InvitationOut] create_invitations(invitation_in, cookie_name=cookie_name)
+# **invitations_create_invitations**
+> List[InvitationOut] invitations_create_invitations(invitation_in, cookie_name=cookie_name)
 
 Create Invitations
 
@@ -192,11 +54,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Invitations
-        api_response = api_instance.create_invitations(invitation_in, cookie_name=cookie_name)
-        print("The response of Invitation->create_invitations:\n")
+        api_response = api_instance.invitations_create_invitations(invitation_in, cookie_name=cookie_name)
+        print("The response of Invitation->invitations_create_invitations:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Invitation->create_invitations: %s\n" % e)
+        print("Exception when calling Invitation->invitations_create_invitations: %s\n" % e)
 ```
 
 
@@ -231,8 +93,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **resend_invitation**
-> InvitationOut resend_invitation(invitation_id, cookie_name=cookie_name)
+# **invitations_resend_invitation**
+> InvitationOut invitations_resend_invitation(invitation_id, cookie_name=cookie_name)
 
 Resend Invitation
 
@@ -277,11 +139,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Resend Invitation
-        api_response = api_instance.resend_invitation(invitation_id, cookie_name=cookie_name)
-        print("The response of Invitation->resend_invitation:\n")
+        api_response = api_instance.invitations_resend_invitation(invitation_id, cookie_name=cookie_name)
+        print("The response of Invitation->invitations_resend_invitation:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Invitation->resend_invitation: %s\n" % e)
+        print("Exception when calling Invitation->invitations_resend_invitation: %s\n" % e)
 ```
 
 
@@ -316,8 +178,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **revoke_invitation**
-> revoke_invitation(invitation_id, cookie_name=cookie_name)
+# **invitations_revoke_invitation**
+> invitations_revoke_invitation(invitation_id, cookie_name=cookie_name)
 
 Revoke Invitation
 
@@ -359,9 +221,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Revoke Invitation
-        api_instance.revoke_invitation(invitation_id, cookie_name=cookie_name)
+        api_instance.invitations_revoke_invitation(invitation_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Invitation->revoke_invitation: %s\n" % e)
+        print("Exception when calling Invitation->invitations_revoke_invitation: %s\n" % e)
 ```
 
 

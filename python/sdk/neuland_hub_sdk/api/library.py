@@ -43,7 +43,7 @@ class Library:
 
 
     @validate_call
-    def add_library_members(
+    def libraries_add_library_members(
         self,
         library_id: StrictInt,
         library_member_bulk_in: LibraryMemberBulkIn,
@@ -93,7 +93,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_members_serialize(
+        _param = self._libraries_add_library_members_serialize(
             library_id=library_id,
             library_member_bulk_in=library_member_bulk_in,
             cookie_name=cookie_name,
@@ -119,7 +119,7 @@ class Library:
 
 
     @validate_call
-    def add_library_members_with_http_info(
+    def libraries_add_library_members_with_http_info(
         self,
         library_id: StrictInt,
         library_member_bulk_in: LibraryMemberBulkIn,
@@ -169,7 +169,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_members_serialize(
+        _param = self._libraries_add_library_members_serialize(
             library_id=library_id,
             library_member_bulk_in=library_member_bulk_in,
             cookie_name=cookie_name,
@@ -195,7 +195,7 @@ class Library:
 
 
     @validate_call
-    def add_library_members_without_preload_content(
+    def libraries_add_library_members_without_preload_content(
         self,
         library_id: StrictInt,
         library_member_bulk_in: LibraryMemberBulkIn,
@@ -245,7 +245,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_library_members_serialize(
+        _param = self._libraries_add_library_members_serialize(
             library_id=library_id,
             library_member_bulk_in=library_member_bulk_in,
             cookie_name=cookie_name,
@@ -266,7 +266,7 @@ class Library:
         return response_data.response
 
 
-    def _add_library_members_serialize(
+    def _libraries_add_library_members_serialize(
         self,
         library_id,
         library_member_bulk_in,
@@ -353,7 +353,7 @@ class Library:
 
 
     @validate_call
-    def delete_library(
+    def libraries_delete_library(
         self,
         library_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -400,7 +400,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_library_serialize(
+        _param = self._libraries_delete_library_serialize(
             library_id=library_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -425,7 +425,7 @@ class Library:
 
 
     @validate_call
-    def delete_library_with_http_info(
+    def libraries_delete_library_with_http_info(
         self,
         library_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -472,7 +472,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_library_serialize(
+        _param = self._libraries_delete_library_serialize(
             library_id=library_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -497,7 +497,7 @@ class Library:
 
 
     @validate_call
-    def delete_library_without_preload_content(
+    def libraries_delete_library_without_preload_content(
         self,
         library_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -544,7 +544,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_library_serialize(
+        _param = self._libraries_delete_library_serialize(
             library_id=library_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -564,7 +564,7 @@ class Library:
         return response_data.response
 
 
-    def _delete_library_serialize(
+    def _libraries_delete_library_serialize(
         self,
         library_id,
         cookie_name,
@@ -635,7 +635,7 @@ class Library:
 
 
     @validate_call
-    def leave_library(
+    def libraries_leave_library(
         self,
         library_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -681,7 +681,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._leave_library_serialize(
+        _param = self._libraries_leave_library_serialize(
             library_id=library_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -706,7 +706,7 @@ class Library:
 
 
     @validate_call
-    def leave_library_with_http_info(
+    def libraries_leave_library_with_http_info(
         self,
         library_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -752,7 +752,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._leave_library_serialize(
+        _param = self._libraries_leave_library_serialize(
             library_id=library_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -777,7 +777,7 @@ class Library:
 
 
     @validate_call
-    def leave_library_without_preload_content(
+    def libraries_leave_library_without_preload_content(
         self,
         library_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -823,7 +823,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._leave_library_serialize(
+        _param = self._libraries_leave_library_serialize(
             library_id=library_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -843,7 +843,7 @@ class Library:
         return response_data.response
 
 
-    def _leave_library_serialize(
+    def _libraries_leave_library_serialize(
         self,
         library_id,
         cookie_name,
@@ -914,7 +914,7 @@ class Library:
 
 
     @validate_call
-    def new_library(
+    def libraries_new_library(
         self,
         library_in: LibraryIn,
         cookie_name: Optional[StrictStr] = None,
@@ -961,7 +961,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._new_library_serialize(
+        _param = self._libraries_new_library_serialize(
             library_in=library_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -986,7 +986,7 @@ class Library:
 
 
     @validate_call
-    def new_library_with_http_info(
+    def libraries_new_library_with_http_info(
         self,
         library_in: LibraryIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1033,7 +1033,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._new_library_serialize(
+        _param = self._libraries_new_library_serialize(
             library_in=library_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1058,7 +1058,7 @@ class Library:
 
 
     @validate_call
-    def new_library_without_preload_content(
+    def libraries_new_library_without_preload_content(
         self,
         library_in: LibraryIn,
         cookie_name: Optional[StrictStr] = None,
@@ -1105,7 +1105,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._new_library_serialize(
+        _param = self._libraries_new_library_serialize(
             library_in=library_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -1125,7 +1125,7 @@ class Library:
         return response_data.response
 
 
-    def _new_library_serialize(
+    def _libraries_new_library_serialize(
         self,
         library_in,
         cookie_name,
@@ -1209,7 +1209,7 @@ class Library:
 
 
     @validate_call
-    def remove_library_members(
+    def libraries_remove_library_members(
         self,
         library_id: StrictInt,
         library_member_bulk_delete: LibraryMemberBulkDelete,
@@ -1259,7 +1259,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_members_serialize(
+        _param = self._libraries_remove_library_members_serialize(
             library_id=library_id,
             library_member_bulk_delete=library_member_bulk_delete,
             cookie_name=cookie_name,
@@ -1285,7 +1285,7 @@ class Library:
 
 
     @validate_call
-    def remove_library_members_with_http_info(
+    def libraries_remove_library_members_with_http_info(
         self,
         library_id: StrictInt,
         library_member_bulk_delete: LibraryMemberBulkDelete,
@@ -1335,7 +1335,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_members_serialize(
+        _param = self._libraries_remove_library_members_serialize(
             library_id=library_id,
             library_member_bulk_delete=library_member_bulk_delete,
             cookie_name=cookie_name,
@@ -1361,7 +1361,7 @@ class Library:
 
 
     @validate_call
-    def remove_library_members_without_preload_content(
+    def libraries_remove_library_members_without_preload_content(
         self,
         library_id: StrictInt,
         library_member_bulk_delete: LibraryMemberBulkDelete,
@@ -1411,7 +1411,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_library_members_serialize(
+        _param = self._libraries_remove_library_members_serialize(
             library_id=library_id,
             library_member_bulk_delete=library_member_bulk_delete,
             cookie_name=cookie_name,
@@ -1432,7 +1432,7 @@ class Library:
         return response_data.response
 
 
-    def _remove_library_members_serialize(
+    def _libraries_remove_library_members_serialize(
         self,
         library_id,
         library_member_bulk_delete,
@@ -1519,7 +1519,7 @@ class Library:
 
 
     @validate_call
-    def remove_single_member(
+    def libraries_remove_single_member(
         self,
         library_id: StrictInt,
         user_id: StrictInt,
@@ -1568,7 +1568,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_single_member_serialize(
+        _param = self._libraries_remove_single_member_serialize(
             library_id=library_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -1594,7 +1594,7 @@ class Library:
 
 
     @validate_call
-    def remove_single_member_with_http_info(
+    def libraries_remove_single_member_with_http_info(
         self,
         library_id: StrictInt,
         user_id: StrictInt,
@@ -1643,7 +1643,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_single_member_serialize(
+        _param = self._libraries_remove_single_member_serialize(
             library_id=library_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -1669,7 +1669,7 @@ class Library:
 
 
     @validate_call
-    def remove_single_member_without_preload_content(
+    def libraries_remove_single_member_without_preload_content(
         self,
         library_id: StrictInt,
         user_id: StrictInt,
@@ -1718,7 +1718,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._remove_single_member_serialize(
+        _param = self._libraries_remove_single_member_serialize(
             library_id=library_id,
             user_id=user_id,
             cookie_name=cookie_name,
@@ -1739,7 +1739,7 @@ class Library:
         return response_data.response
 
 
-    def _remove_single_member_serialize(
+    def _libraries_remove_single_member_serialize(
         self,
         library_id,
         user_id,
@@ -1813,7 +1813,7 @@ class Library:
 
 
     @validate_call
-    def update_library(
+    def libraries_update_library(
         self,
         library_id: StrictInt,
         library_update_in: LibraryUpdateIn,
@@ -1863,7 +1863,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_library_serialize(
+        _param = self._libraries_update_library_serialize(
             library_id=library_id,
             library_update_in=library_update_in,
             cookie_name=cookie_name,
@@ -1889,7 +1889,7 @@ class Library:
 
 
     @validate_call
-    def update_library_with_http_info(
+    def libraries_update_library_with_http_info(
         self,
         library_id: StrictInt,
         library_update_in: LibraryUpdateIn,
@@ -1939,7 +1939,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_library_serialize(
+        _param = self._libraries_update_library_serialize(
             library_id=library_id,
             library_update_in=library_update_in,
             cookie_name=cookie_name,
@@ -1965,7 +1965,7 @@ class Library:
 
 
     @validate_call
-    def update_library_without_preload_content(
+    def libraries_update_library_without_preload_content(
         self,
         library_id: StrictInt,
         library_update_in: LibraryUpdateIn,
@@ -2015,7 +2015,7 @@ class Library:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_library_serialize(
+        _param = self._libraries_update_library_serialize(
             library_id=library_id,
             library_update_in=library_update_in,
             cookie_name=cookie_name,
@@ -2036,7 +2036,7 @@ class Library:
         return response_data.response
 
 
-    def _update_library_serialize(
+    def _libraries_update_library_serialize(
         self,
         library_id,
         library_update_in,

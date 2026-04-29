@@ -14,64 +14,32 @@
 
 import unittest
 
-from neuland_hub_sdk.models.message import Message
+from neuland_hub_sdk.api.message import Message
+
 
 class TestMessage(unittest.TestCase):
     """Message unit test stubs"""
 
-    def setUp(self):
+    def setUp(self) -> None:
+        self.api = Message()
+
+    def tearDown(self) -> None:
         pass
 
-    def tearDown(self):
+    def test_messages_rephrase_message(self) -> None:
+        """Test case for messages_rephrase_message
+
+        Rephrase Message
+        """
         pass
 
-    def make_instance(self, include_optional) -> Message:
-        """Test Message
-            include_optional is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # uncomment below to create an instance of `Message`
-        """
-        model = Message()
-        if include_optional:
-            return Message(
-                state = '',
-                state_reason = '',
-                state_changed_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                id = 56,
-                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                creator_user_id = 56,
-                chat_id = 56,
-                role = '',
-                content = '',
-                sent_user_msg = '',
-                parent_id = 56,
-                completed = True,
-                error = '',
-                hint = '',
-                llm_catalog_id = 56,
-                llm_settings_id = 56,
-                usage = { },
-                celery_task_id = ''
-            )
-        else:
-            return Message(
-                creator_user_id = 56,
-                chat_id = 56,
-                role = '',
-                content = '',
-                sent_user_msg = '',
-                parent_id = 56,
-                error = '',
-                hint = '',
-        )
-        """
+    def test_messages_translate_message(self) -> None:
+        """Test case for messages_translate_message
 
-    def testMessage(self):
-        """Test Message"""
-        # inst_req_only = self.make_instance(include_optional=False)
-        # inst_req_and_optional = self.make_instance(include_optional=True)
+        Translate Message
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

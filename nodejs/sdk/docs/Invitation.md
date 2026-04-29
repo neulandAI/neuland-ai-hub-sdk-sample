@@ -1,34 +1,34 @@
-# Prompt
+# Invitation
 
 All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**promptsCreatePrompt**](#promptscreateprompt) | **POST** /prompts/ | Create Prompt|
-|[**promptsDeletePrompt**](#promptsdeleteprompt) | **DELETE** /prompts/{prompt_id} | Delete Prompt|
-|[**promptsUpdatePrompt**](#promptsupdateprompt) | **PATCH** /prompts/{prompt_id} | Update Prompt|
+|[**invitationsCreateInvitations**](#invitationscreateinvitations) | **POST** /invitations/ | Create Invitations|
+|[**invitationsResendInvitation**](#invitationsresendinvitation) | **POST** /invitations/{invitation_id}/resend | Resend Invitation|
+|[**invitationsRevokeInvitation**](#invitationsrevokeinvitation) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation|
 
-# **promptsCreatePrompt**
-> Prompt promptsCreatePrompt(promptIn)
+# **invitationsCreateInvitations**
+> Array<InvitationOut> invitationsCreateInvitations(invitationIn)
 
 
 ### Example
 
 ```typescript
 import {
-    Prompt,
+    Invitation,
     Configuration,
-    PromptIn
+    InvitationIn
 } from 'neuland-hub-sdk';
 
 const configuration = new Configuration();
-const apiInstance = new Prompt(configuration);
+const apiInstance = new Invitation(configuration);
 
-let promptIn: PromptIn; //
+let invitationIn: InvitationIn; //
 let cookieName: string; // (optional) (default to undefined)
 
-const { status, data } = await apiInstance.promptsCreatePrompt(
-    promptIn,
+const { status, data } = await apiInstance.invitationsCreateInvitations(
+    invitationIn,
     cookieName
 );
 ```
@@ -37,13 +37,13 @@ const { status, data } = await apiInstance.promptsCreatePrompt(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **promptIn** | **PromptIn**|  | |
+| **invitationIn** | **InvitationIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Prompt**
+**Array<InvitationOut>**
 
 ### Authorization
 
@@ -63,26 +63,27 @@ const { status, data } = await apiInstance.promptsCreatePrompt(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **promptsDeletePrompt**
-> promptsDeletePrompt()
+# **invitationsResendInvitation**
+> InvitationOut invitationsResendInvitation()
 
+Resend invitation email with a new token.
 
 ### Example
 
 ```typescript
 import {
-    Prompt,
+    Invitation,
     Configuration
 } from 'neuland-hub-sdk';
 
 const configuration = new Configuration();
-const apiInstance = new Prompt(configuration);
+const apiInstance = new Invitation(configuration);
 
-let promptId: number; // (default to undefined)
+let invitationId: number; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
-const { status, data } = await apiInstance.promptsDeletePrompt(
-    promptId,
+const { status, data } = await apiInstance.invitationsResendInvitation(
+    invitationId,
     cookieName
 );
 ```
@@ -91,7 +92,61 @@ const { status, data } = await apiInstance.promptsDeletePrompt(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **promptId** | [**number**] |  | defaults to undefined|
+| **invitationId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**InvitationOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **invitationsRevokeInvitation**
+> invitationsRevokeInvitation()
+
+
+### Example
+
+```typescript
+import {
+    Invitation,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Invitation(configuration);
+
+let invitationId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.invitationsRevokeInvitation(
+    invitationId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **invitationId** | [**number**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -113,64 +168,6 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
-|**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **promptsUpdatePrompt**
-> Prompt promptsUpdatePrompt(promptIn)
-
-
-### Example
-
-```typescript
-import {
-    Prompt,
-    Configuration,
-    PromptIn
-} from 'neuland-hub-sdk';
-
-const configuration = new Configuration();
-const apiInstance = new Prompt(configuration);
-
-let promptId: number; // (default to undefined)
-let promptIn: PromptIn; //
-let cookieName: string; // (optional) (default to undefined)
-
-const { status, data } = await apiInstance.promptsUpdatePrompt(
-    promptId,
-    promptIn,
-    cookieName
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **promptIn** | **PromptIn**|  | |
-| **promptId** | [**number**] |  | defaults to undefined|
-| **cookieName** | [**string**] |  | (optional) defaults to undefined|
-
-
-### Return type
-
-**Prompt**
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | Successful Response |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
