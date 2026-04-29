@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_prompt**](Prompt.md#create_prompt) | **POST** /prompts/ | Create Prompt
-[**delete_prompt**](Prompt.md#delete_prompt) | **DELETE** /prompts/{prompt_id} | Delete Prompt
-[**update_prompt**](Prompt.md#update_prompt) | **PATCH** /prompts/{prompt_id} | Update Prompt
+[**prompts_create_prompt**](Prompt.md#prompts_create_prompt) | **POST** /prompts/ | Create Prompt
+[**prompts_delete_prompt**](Prompt.md#prompts_delete_prompt) | **DELETE** /prompts/{prompt_id} | Delete Prompt
+[**prompts_update_prompt**](Prompt.md#prompts_update_prompt) | **PATCH** /prompts/{prompt_id} | Update Prompt
 
 
-# **create_prompt**
-> Prompt create_prompt(prompt_in, cookie_name=cookie_name)
+# **prompts_create_prompt**
+> Prompt prompts_create_prompt(prompt_in, cookie_name=cookie_name)
 
 Create Prompt
 
@@ -54,11 +54,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Prompt
-        api_response = api_instance.create_prompt(prompt_in, cookie_name=cookie_name)
-        print("The response of Prompt->create_prompt:\n")
+        api_response = api_instance.prompts_create_prompt(prompt_in, cookie_name=cookie_name)
+        print("The response of Prompt->prompts_create_prompt:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Prompt->create_prompt: %s\n" % e)
+        print("Exception when calling Prompt->prompts_create_prompt: %s\n" % e)
 ```
 
 
@@ -93,8 +93,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_prompt**
-> delete_prompt(prompt_id, cookie_name=cookie_name)
+# **prompts_delete_prompt**
+> prompts_delete_prompt(prompt_id, cookie_name=cookie_name)
 
 Delete Prompt
 
@@ -136,9 +136,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Delete Prompt
-        api_instance.delete_prompt(prompt_id, cookie_name=cookie_name)
+        api_instance.prompts_delete_prompt(prompt_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Prompt->delete_prompt: %s\n" % e)
+        print("Exception when calling Prompt->prompts_delete_prompt: %s\n" % e)
 ```
 
 
@@ -173,8 +173,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_prompt**
-> Prompt update_prompt(prompt_id, prompt_in, cookie_name=cookie_name)
+# **prompts_update_prompt**
+> Prompt prompts_update_prompt(prompt_id, prompt_in, cookie_name=cookie_name)
 
 Update Prompt
 
@@ -219,11 +219,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Prompt
-        api_response = api_instance.update_prompt(prompt_id, prompt_in, cookie_name=cookie_name)
-        print("The response of Prompt->update_prompt:\n")
+        api_response = api_instance.prompts_update_prompt(prompt_id, prompt_in, cookie_name=cookie_name)
+        print("The response of Prompt->prompts_update_prompt:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Prompt->update_prompt: %s\n" % e)
+        print("Exception when calling Prompt->prompts_update_prompt: %s\n" % e)
 ```
 
 

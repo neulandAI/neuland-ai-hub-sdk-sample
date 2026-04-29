@@ -4,20 +4,19 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_library_to_project**](Project.md#add_library_to_project) | **POST** /projects/{project_id}/libraries/{library_id} | Add Library To Project
-[**add_members**](Project.md#add_members) | **POST** /projects/{project_id}/members | Add Members
-[**create_project**](Project.md#create_project) | **POST** /projects/ | Create Project
-[**delete_member**](Project.md#delete_member) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member
-[**delete_members**](Project.md#delete_members) | **DELETE** /projects/{project_id}/members | Delete Members
-[**delete_project**](Project.md#delete_project) | **DELETE** /projects/{project_id} | Delete Project
-[**is_project_name_free**](Project.md#is_project_name_free) | **GET** /projects/available | Is Project Name Free
-[**leave_project**](Project.md#leave_project) | **DELETE** /projects/{project_id}/remove/me | Leave Project
-[**remove_library_from_project**](Project.md#remove_library_from_project) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project
-[**update_project**](Project.md#update_project) | **PATCH** /projects/{project_id} | Update Project
+[**projects_add_library_to_project**](Project.md#projects_add_library_to_project) | **POST** /projects/{project_id}/libraries/{library_id} | Add Library To Project
+[**projects_add_members**](Project.md#projects_add_members) | **POST** /projects/{project_id}/members | Add Members
+[**projects_create_project**](Project.md#projects_create_project) | **POST** /projects/ | Create Project
+[**projects_delete_member**](Project.md#projects_delete_member) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member
+[**projects_delete_members**](Project.md#projects_delete_members) | **DELETE** /projects/{project_id}/members | Delete Members
+[**projects_delete_project**](Project.md#projects_delete_project) | **DELETE** /projects/{project_id} | Delete Project
+[**projects_leave_project**](Project.md#projects_leave_project) | **DELETE** /projects/{project_id}/remove/me | Leave Project
+[**projects_remove_library_from_project**](Project.md#projects_remove_library_from_project) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project
+[**projects_update_project**](Project.md#projects_update_project) | **PATCH** /projects/{project_id} | Update Project
 
 
-# **add_library_to_project**
-> ProjectLibrary add_library_to_project(project_id, library_id, cookie_name=cookie_name)
+# **projects_add_library_to_project**
+> ProjectLibrary projects_add_library_to_project(project_id, library_id, cookie_name=cookie_name)
 
 Add Library To Project
 
@@ -63,11 +62,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Add Library To Project
-        api_response = api_instance.add_library_to_project(project_id, library_id, cookie_name=cookie_name)
-        print("The response of Project->add_library_to_project:\n")
+        api_response = api_instance.projects_add_library_to_project(project_id, library_id, cookie_name=cookie_name)
+        print("The response of Project->projects_add_library_to_project:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Project->add_library_to_project: %s\n" % e)
+        print("Exception when calling Project->projects_add_library_to_project: %s\n" % e)
 ```
 
 
@@ -103,8 +102,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **add_members**
-> List[ProjectMember] add_members(project_id, project_member_bulk_in, cookie_name=cookie_name)
+# **projects_add_members**
+> List[ProjectMember] projects_add_members(project_id, project_member_bulk_in, cookie_name=cookie_name)
 
 Add Members
 
@@ -149,11 +148,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Add Members
-        api_response = api_instance.add_members(project_id, project_member_bulk_in, cookie_name=cookie_name)
-        print("The response of Project->add_members:\n")
+        api_response = api_instance.projects_add_members(project_id, project_member_bulk_in, cookie_name=cookie_name)
+        print("The response of Project->projects_add_members:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Project->add_members: %s\n" % e)
+        print("Exception when calling Project->projects_add_members: %s\n" % e)
 ```
 
 
@@ -189,8 +188,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_project**
-> Project create_project(project_in, cookie_name=cookie_name)
+# **projects_create_project**
+> Project projects_create_project(project_in, cookie_name=cookie_name)
 
 Create Project
 
@@ -234,11 +233,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create Project
-        api_response = api_instance.create_project(project_in, cookie_name=cookie_name)
-        print("The response of Project->create_project:\n")
+        api_response = api_instance.projects_create_project(project_in, cookie_name=cookie_name)
+        print("The response of Project->projects_create_project:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Project->create_project: %s\n" % e)
+        print("Exception when calling Project->projects_create_project: %s\n" % e)
 ```
 
 
@@ -273,8 +272,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_member**
-> delete_member(project_id, user_id, cookie_name=cookie_name)
+# **projects_delete_member**
+> projects_delete_member(project_id, user_id, cookie_name=cookie_name)
 
 Delete Member
 
@@ -317,9 +316,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Delete Member
-        api_instance.delete_member(project_id, user_id, cookie_name=cookie_name)
+        api_instance.projects_delete_member(project_id, user_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Project->delete_member: %s\n" % e)
+        print("Exception when calling Project->projects_delete_member: %s\n" % e)
 ```
 
 
@@ -355,8 +354,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_members**
-> delete_members(project_id, project_member_bulk_delete, cookie_name=cookie_name)
+# **projects_delete_members**
+> projects_delete_members(project_id, project_member_bulk_delete, cookie_name=cookie_name)
 
 Delete Members
 
@@ -400,9 +399,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Delete Members
-        api_instance.delete_members(project_id, project_member_bulk_delete, cookie_name=cookie_name)
+        api_instance.projects_delete_members(project_id, project_member_bulk_delete, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Project->delete_members: %s\n" % e)
+        print("Exception when calling Project->projects_delete_members: %s\n" % e)
 ```
 
 
@@ -438,8 +437,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_project**
-> delete_project(project_id, cookie_name=cookie_name)
+# **projects_delete_project**
+> projects_delete_project(project_id, cookie_name=cookie_name)
 
 Delete Project
 
@@ -481,9 +480,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Delete Project
-        api_instance.delete_project(project_id, cookie_name=cookie_name)
+        api_instance.projects_delete_project(project_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Project->delete_project: %s\n" % e)
+        print("Exception when calling Project->projects_delete_project: %s\n" % e)
 ```
 
 
@@ -518,90 +517,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **is_project_name_free**
-> bool is_project_name_free(name, cookie_name=cookie_name)
-
-Is Project Name Free
-
-### Example
-
-* Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
-
-```python
-import neuland_hub_sdk
-from neuland_hub_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: APIKeyHeader
-configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Enter a context with an instance of the API client
-with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
-    name = 'name_example' # str | 
-    cookie_name = 'cookie_name_example' # str |  (optional)
-
-    try:
-        # Is Project Name Free
-        api_response = api_instance.is_project_name_free(name, cookie_name=cookie_name)
-        print("The response of Project->is_project_name_free:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling Project->is_project_name_free: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **name** | **str**|  | 
- **cookie_name** | **str**|  | [optional] 
-
-### Return type
-
-**bool**
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful Response |  -  |
-**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **leave_project**
-> leave_project(project_id, cookie_name=cookie_name)
+# **projects_leave_project**
+> projects_leave_project(project_id, cookie_name=cookie_name)
 
 Leave Project
 
@@ -645,9 +562,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Leave Project
-        api_instance.leave_project(project_id, cookie_name=cookie_name)
+        api_instance.projects_leave_project(project_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Project->leave_project: %s\n" % e)
+        print("Exception when calling Project->projects_leave_project: %s\n" % e)
 ```
 
 
@@ -682,8 +599,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **remove_library_from_project**
-> remove_library_from_project(project_id, library_id, cookie_name=cookie_name)
+# **projects_remove_library_from_project**
+> projects_remove_library_from_project(project_id, library_id, cookie_name=cookie_name)
 
 Remove Library From Project
 
@@ -728,9 +645,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Remove Library From Project
-        api_instance.remove_library_from_project(project_id, library_id, cookie_name=cookie_name)
+        api_instance.projects_remove_library_from_project(project_id, library_id, cookie_name=cookie_name)
     except Exception as e:
-        print("Exception when calling Project->remove_library_from_project: %s\n" % e)
+        print("Exception when calling Project->projects_remove_library_from_project: %s\n" % e)
 ```
 
 
@@ -766,8 +683,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_project**
-> Project update_project(project_id, project_in, cookie_name=cookie_name)
+# **projects_update_project**
+> Project projects_update_project(project_id, project_in, cookie_name=cookie_name)
 
 Update Project
 
@@ -812,11 +729,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Update Project
-        api_response = api_instance.update_project(project_id, project_in, cookie_name=cookie_name)
-        print("The response of Project->update_project:\n")
+        api_response = api_instance.projects_update_project(project_id, project_in, cookie_name=cookie_name)
+        print("The response of Project->projects_update_project:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling Project->update_project: %s\n" % e)
+        print("Exception when calling Project->projects_update_project: %s\n" % e)
 ```
 
 

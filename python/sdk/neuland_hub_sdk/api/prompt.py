@@ -39,7 +39,7 @@ class Prompt:
 
 
     @validate_call
-    def create_prompt(
+    def prompts_create_prompt(
         self,
         prompt_in: PromptIn,
         cookie_name: Optional[StrictStr] = None,
@@ -85,7 +85,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_prompt_serialize(
+        _param = self._prompts_create_prompt_serialize(
             prompt_in=prompt_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -110,7 +110,7 @@ class Prompt:
 
 
     @validate_call
-    def create_prompt_with_http_info(
+    def prompts_create_prompt_with_http_info(
         self,
         prompt_in: PromptIn,
         cookie_name: Optional[StrictStr] = None,
@@ -156,7 +156,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_prompt_serialize(
+        _param = self._prompts_create_prompt_serialize(
             prompt_in=prompt_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -181,7 +181,7 @@ class Prompt:
 
 
     @validate_call
-    def create_prompt_without_preload_content(
+    def prompts_create_prompt_without_preload_content(
         self,
         prompt_in: PromptIn,
         cookie_name: Optional[StrictStr] = None,
@@ -227,7 +227,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_prompt_serialize(
+        _param = self._prompts_create_prompt_serialize(
             prompt_in=prompt_in,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -247,7 +247,7 @@ class Prompt:
         return response_data.response
 
 
-    def _create_prompt_serialize(
+    def _prompts_create_prompt_serialize(
         self,
         prompt_in,
         cookie_name,
@@ -331,7 +331,7 @@ class Prompt:
 
 
     @validate_call
-    def delete_prompt(
+    def prompts_delete_prompt(
         self,
         prompt_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -377,7 +377,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_prompt_serialize(
+        _param = self._prompts_delete_prompt_serialize(
             prompt_id=prompt_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -402,7 +402,7 @@ class Prompt:
 
 
     @validate_call
-    def delete_prompt_with_http_info(
+    def prompts_delete_prompt_with_http_info(
         self,
         prompt_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -448,7 +448,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_prompt_serialize(
+        _param = self._prompts_delete_prompt_serialize(
             prompt_id=prompt_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -473,7 +473,7 @@ class Prompt:
 
 
     @validate_call
-    def delete_prompt_without_preload_content(
+    def prompts_delete_prompt_without_preload_content(
         self,
         prompt_id: StrictInt,
         cookie_name: Optional[StrictStr] = None,
@@ -519,7 +519,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._delete_prompt_serialize(
+        _param = self._prompts_delete_prompt_serialize(
             prompt_id=prompt_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
@@ -539,7 +539,7 @@ class Prompt:
         return response_data.response
 
 
-    def _delete_prompt_serialize(
+    def _prompts_delete_prompt_serialize(
         self,
         prompt_id,
         cookie_name,
@@ -610,7 +610,7 @@ class Prompt:
 
 
     @validate_call
-    def update_prompt(
+    def prompts_update_prompt(
         self,
         prompt_id: StrictInt,
         prompt_in: PromptIn,
@@ -659,7 +659,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_prompt_serialize(
+        _param = self._prompts_update_prompt_serialize(
             prompt_id=prompt_id,
             prompt_in=prompt_in,
             cookie_name=cookie_name,
@@ -685,7 +685,7 @@ class Prompt:
 
 
     @validate_call
-    def update_prompt_with_http_info(
+    def prompts_update_prompt_with_http_info(
         self,
         prompt_id: StrictInt,
         prompt_in: PromptIn,
@@ -734,7 +734,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_prompt_serialize(
+        _param = self._prompts_update_prompt_serialize(
             prompt_id=prompt_id,
             prompt_in=prompt_in,
             cookie_name=cookie_name,
@@ -760,7 +760,7 @@ class Prompt:
 
 
     @validate_call
-    def update_prompt_without_preload_content(
+    def prompts_update_prompt_without_preload_content(
         self,
         prompt_id: StrictInt,
         prompt_in: PromptIn,
@@ -809,7 +809,7 @@ class Prompt:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._update_prompt_serialize(
+        _param = self._prompts_update_prompt_serialize(
             prompt_id=prompt_id,
             prompt_in=prompt_in,
             cookie_name=cookie_name,
@@ -830,7 +830,7 @@ class Prompt:
         return response_data.response
 
 
-    def _update_prompt_serialize(
+    def _prompts_update_prompt_serialize(
         self,
         prompt_id,
         prompt_in,

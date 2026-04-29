@@ -1,56 +1,123 @@
 # Message
 
+All URIs are relative to *http://localhost*
 
-## Properties
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**messagesRephraseMessage**](#messagesrephrasemessage) | **GET** /messages/{message_id}/rephrase | Rephrase Message|
+|[**messagesTranslateMessage**](#messagestranslatemessage) | **GET** /messages/{message_id}/translate | Translate Message|
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**state** | **string** |  | [optional] [default to undefined]
-**state_reason** | **string** |  | [optional] [default to undefined]
-**state_changed_at** | **string** |  | [optional] [default to undefined]
-**id** | **number** |  | [optional] [default to undefined]
-**created_at** | **string** |  | [optional] [default to undefined]
-**updated_at** | **string** |  | [optional] [default to undefined]
-**creator_user_id** | **number** |  | [default to undefined]
-**chat_id** | **number** |  | [default to undefined]
-**role** | **string** |  | [default to undefined]
-**content** | **string** |  | [default to undefined]
-**sent_user_msg** | **string** |  | [default to undefined]
-**parent_id** | **number** |  | [default to undefined]
-**completed** | **boolean** |  | [optional] [default to false]
-**error** | **string** |  | [default to undefined]
-**hint** | **string** |  | [default to undefined]
-**llm_catalog_id** | **number** |  | [optional] [default to undefined]
-**llm_settings_id** | **number** |  | [optional] [default to undefined]
-**usage** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
-**celery_task_id** | **string** |  | [optional] [default to undefined]
+# **messagesRephraseMessage**
+> Translation messagesRephraseMessage()
 
-## Example
+
+### Example
 
 ```typescript
-import { Message } from 'neuland-hub-sdk';
+import {
+    Message,
+    Configuration
+} from 'neuland-hub-sdk';
 
-const instance: Message = {
-    state,
-    state_reason,
-    state_changed_at,
-    id,
-    created_at,
-    updated_at,
-    creator_user_id,
-    chat_id,
-    role,
-    content,
-    sent_user_msg,
-    parent_id,
-    completed,
-    error,
-    hint,
-    llm_catalog_id,
-    llm_settings_id,
-    usage,
-    celery_task_id,
-};
+const configuration = new Configuration();
+const apiInstance = new Message(configuration);
+
+let messageId: number; // (default to undefined)
+let style: RephraseStyleEnum; //Style of rephrasing: \'same\' (same length), \'short\' (shorter), or \'long\' (longer) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.messagesRephraseMessage(
+    messageId,
+    style,
+    cookieName
+);
 ```
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **messageId** | [**number**] |  | defaults to undefined|
+| **style** | **RephraseStyleEnum** | Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer) | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Translation**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **messagesTranslateMessage**
+> Translation messagesTranslateMessage()
+
+
+### Example
+
+```typescript
+import {
+    Message,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Message(configuration);
+
+let messageId: number; // (default to undefined)
+let lang: string; //Target language. Preferably RFC 5646 format. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.messagesTranslateMessage(
+    messageId,
+    lang,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **messageId** | [**number**] |  | defaults to undefined|
+| **lang** | [**string**] | Target language. Preferably RFC 5646 format. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Translation**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

@@ -26,36 +26,22 @@ class TestInvitation(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_accept_invitation_complete(self) -> None:
-        """Test case for accept_invitation_complete
-
-        Accept Invitation Complete
-        """
-        pass
-
-    def test_accept_invitation_form(self) -> None:
-        """Test case for accept_invitation_form
-
-        Accept Invitation Form
-        """
-        pass
-
-    def test_create_invitations(self) -> None:
-        """Test case for create_invitations
+    def test_invitations_create_invitations(self) -> None:
+        """Test case for invitations_create_invitations
 
         Create Invitations
         """
         pass
 
-    def test_resend_invitation(self) -> None:
-        """Test case for resend_invitation
+    def test_invitations_resend_invitation(self) -> None:
+        """Test case for invitations_resend_invitation
 
         Resend Invitation
         """
         pass
 
-    def test_revoke_invitation(self) -> None:
-        """Test case for revoke_invitation
+    def test_invitations_revoke_invitation(self) -> None:
+        """Test case for invitations_revoke_invitation
 
         Revoke Invitation
         """
