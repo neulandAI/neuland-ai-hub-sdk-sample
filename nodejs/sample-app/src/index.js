@@ -1,5 +1,5 @@
 import express from "express";
-import { Configuration, UserApi, AssistantApi } from "neuland-hub-sdk";
+import { Configuration, User, Assistant } from "neuland-hub-sdk";
 import { config } from "./config.js";
 import { getApiKey } from "./auth.js";
 
@@ -13,7 +13,7 @@ function sdkConfig(apiKey) {
 app.get("/users/me", async (req, res) => {
   try {
     const apiKey = getApiKey(req);
-    const { data: user } = await new UserApi(sdkConfig(apiKey)).usersGetMyself();
+    const { data: user } = await new User(sdkConfig(apiKey)).usersGetMyself();
     res.json({
       name: user.name,
       email: user.email,
@@ -31,7 +31,7 @@ app.get("/users/me", async (req, res) => {
 app.post("/assistants", async (req, res) => {
   try {
     const apiKey = getApiKey(req);
-    const { data: assistant } = await new AssistantApi(sdkConfig(apiKey)).assistantsCreateAssistant(req.body);
+    const { data: assistant } = await new Assistant(sdkConfig(apiKey)).assistantsCreateAssistant(req.body);
     res.status(201).json({
       name: assistant.name,
       description: assistant.description,

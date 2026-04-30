@@ -123,7 +123,7 @@ Fill in real values.
 
 ```bash
 cd python
-python -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -e sdk
 pip install -r requirements.txt
 set -a && source .env && set +a
