@@ -3951,11 +3951,11 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
          * @param {string | null} [instructions] 
          * @param {number | null} [temperature] 
          * @param {number | null} [similarityTopK] 
-         * @param {Array<string> | null} [files] 
+         * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        assistantsSubmitAssistant: async (name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<string> | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        assistantsSubmitAssistant: async (name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<File>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
             assertParamExists('assistantsSubmitAssistant', 'name', name)
             const localVarPath = `/assistants/submit`;
@@ -4011,7 +4011,9 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
                 localVarFormParams.append('similarity_top_k', similarityTopK as any);
             }
             if (files) {
-                localVarFormParams.append('files', files.join(COLLECTION_FORMATS.csv));
+                files.forEach((element) => {
+                    localVarFormParams.append('files', element as any);
+                })
             }
 
             localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
@@ -4245,11 +4247,11 @@ export const AssistantFp = function(configuration?: Configuration) {
          * @param {string | null} [instructions] 
          * @param {number | null} [temperature] 
          * @param {number | null} [similarityTopK] 
-         * @param {Array<string> | null} [files] 
+         * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<string> | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Assistant>> {
+        async assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<File>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Assistant>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.assistantsSubmitAssistant(name, cookieName, model, description, avatar, instructions, temperature, similarityTopK, files, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Assistant.assistantsSubmitAssistant']?.[localVarOperationServerIndex]?.url;
@@ -4407,11 +4409,11 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
          * @param {string | null} [instructions] 
          * @param {number | null} [temperature] 
          * @param {number | null} [similarityTopK] 
-         * @param {Array<string> | null} [files] 
+         * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<string> | null, options?: RawAxiosRequestConfig): AxiosPromise<Assistant> {
+        assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<File>, options?: RawAxiosRequestConfig): AxiosPromise<Assistant> {
             return localVarFp.assistantsSubmitAssistant(name, cookieName, model, description, avatar, instructions, temperature, similarityTopK, files, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4571,11 +4573,11 @@ export class Assistant extends BaseAPI {
      * @param {string | null} [instructions] 
      * @param {number | null} [temperature] 
      * @param {number | null} [similarityTopK] 
-     * @param {Array<string> | null} [files] 
+     * @param {Array<File>} [files] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<string> | null, options?: RawAxiosRequestConfig) {
+    public assistantsSubmitAssistant(name: string, cookieName?: string | null, model?: string | null, description?: string | null, avatar?: string | null, instructions?: string | null, temperature?: number | null, similarityTopK?: number | null, files?: Array<File>, options?: RawAxiosRequestConfig) {
         return AssistantFp(this.configuration).assistantsSubmitAssistant(name, cookieName, model, description, avatar, instructions, temperature, similarityTopK, files, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -7785,7 +7787,7 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
         /**
          * 
          * @summary Upload Documents
-         * @param {Array<string>} files 
+         * @param {Array<File>} files 
          * @param {string | null} [cookieName] 
          * @param {number | null} [projectId] 
          * @param {number | null} [chatId] 
@@ -7795,7 +7797,7 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsUploadDocuments: async (files: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsUploadDocuments: async (files: Array<File>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'files' is not null or undefined
             assertParamExists('documentsUploadDocuments', 'files', files)
             const localVarPath = `/documents/`;
@@ -7823,7 +7825,9 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             }
 
             if (files) {
-                localVarFormParams.append('files', files.join(COLLECTION_FORMATS.csv));
+                files.forEach((element) => {
+                    localVarFormParams.append('files', element as any);
+                })
             }
 
 
@@ -7953,7 +7957,7 @@ export const DocumentFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Upload Documents
-         * @param {Array<string>} files 
+         * @param {Array<File>} files 
          * @param {string | null} [cookieName] 
          * @param {number | null} [projectId] 
          * @param {number | null} [chatId] 
@@ -7963,7 +7967,7 @@ export const DocumentFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsUploadDocuments(files: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Document>>> {
+        async documentsUploadDocuments(files: Array<File>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Document>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentsUploadDocuments(files, cookieName, projectId, chatId, assistantId, messageId, libraryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Document.documentsUploadDocuments']?.[localVarOperationServerIndex]?.url;
@@ -8048,7 +8052,7 @@ export const DocumentFactory = function (configuration?: Configuration, basePath
         /**
          * 
          * @summary Upload Documents
-         * @param {Array<string>} files 
+         * @param {Array<File>} files 
          * @param {string | null} [cookieName] 
          * @param {number | null} [projectId] 
          * @param {number | null} [chatId] 
@@ -8058,7 +8062,7 @@ export const DocumentFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsUploadDocuments(files: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<Document>> {
+        documentsUploadDocuments(files: Array<File>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<Document>> {
             return localVarFp.documentsUploadDocuments(files, cookieName, projectId, chatId, assistantId, messageId, libraryId, options).then((request) => request(axios, basePath));
         },
     };
@@ -8143,7 +8147,7 @@ export class Document extends BaseAPI {
     /**
      * 
      * @summary Upload Documents
-     * @param {Array<string>} files 
+     * @param {Array<File>} files 
      * @param {string | null} [cookieName] 
      * @param {number | null} [projectId] 
      * @param {number | null} [chatId] 
@@ -8153,7 +8157,7 @@ export class Document extends BaseAPI {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public documentsUploadDocuments(files: Array<string>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options?: RawAxiosRequestConfig) {
+    public documentsUploadDocuments(files: Array<File>, cookieName?: string | null, projectId?: number | null, chatId?: number | null, assistantId?: number | null, messageId?: number | null, libraryId?: number | null, options?: RawAxiosRequestConfig) {
         return DocumentFp(this.configuration).documentsUploadDocuments(files, cookieName, projectId, chatId, assistantId, messageId, libraryId, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -10345,6 +10349,52 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @summary Get Message
+         * @param {number} messageId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        messagesGetMessage: async (messageId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'messageId' is not null or undefined
+            assertParamExists('messagesGetMessage', 'messageId', messageId)
+            const localVarPath = `/messages/{message_id}`
+                .replace(`{${"message_id"}}`, encodeURIComponent(String(messageId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Rephrase Message
          * @param {number} messageId 
          * @param {RephraseStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
@@ -10405,7 +10455,7 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * @param {number} [chatId] 
          * @param {Array<number>} [documentIds] 
          * @param {string} [updatedAt] 
-         * @param {Array<string> | null} [files] 
+         * @param {Array<File>} [files] 
          * @param {number} [chatTemperature] 
          * @param {number} [chatSimilarityTopK] 
          * @param {string} [chatSystemPrompt] 
@@ -10417,7 +10467,7 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<string> | null, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<File>, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/messages/submit`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -10463,7 +10513,9 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
                 localVarFormParams.append('updated_at', updatedAt as any);
             }
             if (files) {
-                localVarFormParams.append('files', files.join(COLLECTION_FORMATS.csv));
+                files.forEach((element) => {
+                    localVarFormParams.append('files', element as any);
+                })
             }
 
 
@@ -10604,6 +10656,20 @@ export const MessageFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get Message
+         * @param {number} messageId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async messagesGetMessage(messageId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesGetMessage(messageId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Message.messagesGetMessage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Rephrase Message
          * @param {number} messageId 
          * @param {RephraseStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
@@ -10626,7 +10692,7 @@ export const MessageFp = function(configuration?: Configuration) {
          * @param {number} [chatId] 
          * @param {Array<number>} [documentIds] 
          * @param {string} [updatedAt] 
-         * @param {Array<string> | null} [files] 
+         * @param {Array<File>} [files] 
          * @param {number} [chatTemperature] 
          * @param {number} [chatSimilarityTopK] 
          * @param {string} [chatSystemPrompt] 
@@ -10638,7 +10704,7 @@ export const MessageFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<string> | null, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
+        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<File>, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, updatedAt, files, chatTemperature, chatSimilarityTopK, chatSystemPrompt, assistantId, model, toolIds, _private, libraryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Message.messagesSubmitMessage']?.[localVarOperationServerIndex]?.url;
@@ -10693,6 +10759,17 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @summary Get Message
+         * @param {number} messageId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        messagesGetMessage(messageId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Message> {
+            return localVarFp.messagesGetMessage(messageId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Rephrase Message
          * @param {number} messageId 
          * @param {RephraseStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
@@ -10712,7 +10789,7 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * @param {number} [chatId] 
          * @param {Array<number>} [documentIds] 
          * @param {string} [updatedAt] 
-         * @param {Array<string> | null} [files] 
+         * @param {Array<File>} [files] 
          * @param {number} [chatTemperature] 
          * @param {number} [chatSimilarityTopK] 
          * @param {string} [chatSystemPrompt] 
@@ -10724,7 +10801,7 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<string> | null, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig): AxiosPromise<Message> {
+        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<File>, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig): AxiosPromise<Message> {
             return localVarFp.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, updatedAt, files, chatTemperature, chatSimilarityTopK, chatSystemPrompt, assistantId, model, toolIds, _private, libraryId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -10773,6 +10850,18 @@ export class Message extends BaseAPI {
 
     /**
      * 
+     * @summary Get Message
+     * @param {number} messageId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public messagesGetMessage(messageId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return MessageFp(this.configuration).messagesGetMessage(messageId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Rephrase Message
      * @param {number} messageId 
      * @param {RephraseStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
@@ -10793,7 +10882,7 @@ export class Message extends BaseAPI {
      * @param {number} [chatId] 
      * @param {Array<number>} [documentIds] 
      * @param {string} [updatedAt] 
-     * @param {Array<string> | null} [files] 
+     * @param {Array<File>} [files] 
      * @param {number} [chatTemperature] 
      * @param {number} [chatSimilarityTopK] 
      * @param {string} [chatSystemPrompt] 
@@ -10805,7 +10894,7 @@ export class Message extends BaseAPI {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<string> | null, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig) {
+    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: number, chatId?: number, documentIds?: Array<number>, updatedAt?: string, files?: Array<File>, chatTemperature?: number, chatSimilarityTopK?: number, chatSystemPrompt?: string, assistantId?: number, model?: string, toolIds?: Array<number>, _private?: boolean, libraryId?: number, options?: RawAxiosRequestConfig) {
         return MessageFp(this.configuration).messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, updatedAt, files, chatTemperature, chatSimilarityTopK, chatSystemPrompt, assistantId, model, toolIds, _private, libraryId, options).then((request) => request(this.axios, this.basePath));
     }
 

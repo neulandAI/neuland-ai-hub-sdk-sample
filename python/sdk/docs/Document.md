@@ -479,7 +479,7 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Document(api_client)
-    files = ['files_example'] # List[str] | 
+    files = None # List[bytes] | 
     cookie_name = 'cookie_name_example' # str |  (optional)
     project_id = 56 # int |  (optional)
     chat_id = 56 # int |  (optional)
@@ -503,7 +503,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **files** | [**List[str]**](str.md)|  | 
+ **files** | **List[bytes]**|  | 
  **cookie_name** | **str**|  | [optional] 
  **project_id** | **int**|  | [optional] 
  **chat_id** | **int**|  | [optional] 

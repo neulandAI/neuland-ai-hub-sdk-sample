@@ -14,7 +14,17 @@ The SDKs are auto-generated from Hub's full OpenAPI spec. The generator version 
 curl -fsSL "${HUB_URL:-http://localhost:8000}/openapi.json" -o /tmp/hub-openapi.json
 ```
 
-### 2. Regenerate the Python SDK
+### 2. Normalize the spec for the pinned generator
+
+FastAPI ≥ 0.129.1 emits binary fields using OpenAPI 3.1's `contentMediaType: application/octet-stream`. The pinned generator (7.21.0) doesn't recognize that keyword yet (tracking: [openapi-generator#23095](https://github.com/OpenAPITools/openapi-generator/issues/23095)) and emits broken multipart upload code unless the spec is rewritten to the 3.0-style `format: binary` shape.
+
+```bash
+python3 scripts/normalize-openapi.py /tmp/hub-openapi.json /tmp/hub-openapi.json
+```
+
+Drop this step (and delete `scripts/normalize-openapi.py`) once the generator ships native 3.1 binary support.
+
+### 3. Regenerate the Python SDK
 
 ```bash
 rm -rf python/sdk
@@ -26,7 +36,7 @@ npx --yes @openapitools/openapi-generator-cli generate \
   --additional-properties=packageName=neuland_hub_sdk,projectName=neuland-hub-sdk,packageVersion=1.0.0,apiNameSuffix=
 ```
 
-### 3. Regenerate the Node SDK
+### 4. Regenerate the Node SDK
 
 ```bash
 find nodejs/sdk -mindepth 1 -maxdepth 1 ! -name node_modules ! -name dist -exec rm -rf {} +
@@ -39,7 +49,7 @@ npx --yes @openapitools/openapi-generator-cli generate \
 ( cd nodejs/sdk && npm install && npm run build )
 ```
 
-### 4. Clean up
+### 5. Clean up
 
 ```bash
 rm -f /tmp/hub-openapi.json
@@ -54,4 +64,5 @@ rm -f /tmp/hub-openapi.json
 | File | Purpose |
 |---|---|
 | [openapitools.json](openapitools.json) | Pins the openapi-generator JAR version. |
+| [scripts/normalize-openapi.py](scripts/normalize-openapi.py) | Rewrites OpenAPI 3.1 binary fields to the 3.0-style shape the pinned generator understands. Temporary; remove once openapi-generator ships native 3.1 binary support. |
 | `python/sdk/`, `nodejs/sdk/` | Generated output, committed for consumers to install from a tag. |

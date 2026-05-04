@@ -900,7 +900,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     instructions = 'instructions_example' # str |  (optional)
     temperature = 3.4 # float |  (optional)
     similarity_top_k = 56 # int |  (optional)
-    files = ['files_example'] # List[str] |  (optional)
+    files = None # List[bytes] |  (optional)
 
     try:
         # Submit Assistant
@@ -926,7 +926,7 @@ Name | Type | Description  | Notes
  **instructions** | **str**|  | [optional] 
  **temperature** | **float**|  | [optional] 
  **similarity_top_k** | **int**|  | [optional] 
- **files** | [**List[str]**](str.md)|  | [optional] 
+ **files** | **List[bytes]**|  | [optional] 
 
 ### Return type
 

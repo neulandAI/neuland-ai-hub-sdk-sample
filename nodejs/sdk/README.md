@@ -136,6 +136,7 @@ Class | Method | HTTP request | Description
 *LlmSetting* | [**llmUpdateLlmSettings**](docs/LlmSetting.md#llmupdatellmsettings) | **PATCH** /llm/settings/{settings_id} | Update Llm Settings
 *Message* | [**messagesConvertMessage**](docs/Message.md#messagesconvertmessage) | **GET** /messages/{message_id}/convert | Convert Message
 *Message* | [**messagesCreateMessage**](docs/Message.md#messagescreatemessage) | **POST** /messages/ | Create Message
+*Message* | [**messagesGetMessage**](docs/Message.md#messagesgetmessage) | **GET** /messages/{message_id} | Get Message
 *Message* | [**messagesRephraseMessage**](docs/Message.md#messagesrephrasemessage) | **GET** /messages/{message_id}/rephrase | Rephrase Message
 *Message* | [**messagesSubmitMessage**](docs/Message.md#messagessubmitmessage) | **POST** /messages/submit | Submit Message
 *Message* | [**messagesTranslateMessage**](docs/Message.md#messagestranslatemessage) | **GET** /messages/{message_id}/translate | Translate Message
