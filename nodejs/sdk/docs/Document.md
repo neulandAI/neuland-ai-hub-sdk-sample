@@ -332,7 +332,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
 
-let files: Array<string>; // (default to undefined)
+let files: Array<File>; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 let projectId: number; // (optional) (default to undefined)
 let chatId: number; // (optional) (default to undefined)
@@ -355,7 +355,7 @@ const { status, data } = await apiInstance.documentsUploadDocuments(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **files** | **Array&lt;string&gt;** |  | defaults to undefined|
+| **files** | **Array&lt;File&gt;** |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 | **projectId** | [**number**] |  | (optional) defaults to undefined|
 | **chatId** | [**number**] |  | (optional) defaults to undefined|

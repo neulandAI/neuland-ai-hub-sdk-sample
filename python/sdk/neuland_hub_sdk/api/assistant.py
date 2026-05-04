@@ -15,8 +15,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictFloat, StrictInt, StrictStr
-from typing import List, Optional, Union
+from pydantic import StrictBytes, StrictFloat, StrictInt, StrictStr
+from typing import List, Optional, Tuple, Union
 from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.models.assistant_in import AssistantIn
 from neuland_hub_sdk.models.assistant_library import AssistantLibrary
@@ -2996,7 +2996,7 @@ class Assistant:
         instructions: Optional[StrictStr] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
         similarity_top_k: Optional[StrictInt] = None,
-        files: Optional[List[StrictStr]] = None,
+        files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3030,7 +3030,7 @@ class Assistant:
         :param similarity_top_k:
         :type similarity_top_k: int
         :param files:
-        :type files: List[str]
+        :type files: List[bytes]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3095,7 +3095,7 @@ class Assistant:
         instructions: Optional[StrictStr] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
         similarity_top_k: Optional[StrictInt] = None,
-        files: Optional[List[StrictStr]] = None,
+        files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3129,7 +3129,7 @@ class Assistant:
         :param similarity_top_k:
         :type similarity_top_k: int
         :param files:
-        :type files: List[str]
+        :type files: List[bytes]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3194,7 +3194,7 @@ class Assistant:
         instructions: Optional[StrictStr] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
         similarity_top_k: Optional[StrictInt] = None,
-        files: Optional[List[StrictStr]] = None,
+        files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3228,7 +3228,7 @@ class Assistant:
         :param similarity_top_k:
         :type similarity_top_k: int
         :param files:
-        :type files: List[str]
+        :type files: List[bytes]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3333,7 +3333,7 @@ class Assistant:
         if similarity_top_k is not None:
             _form_params.append(('similarity_top_k', similarity_top_k))
         if files is not None:
-            _form_params.append(('files', files))
+            _files['files'] = files
         # process the body parameter
 
 

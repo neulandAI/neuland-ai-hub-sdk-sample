@@ -6,6 +6,7 @@ All URIs are relative to *http://localhost*
 |------------- | ------------- | -------------|
 |[**messagesConvertMessage**](#messagesconvertmessage) | **GET** /messages/{message_id}/convert | Convert Message|
 |[**messagesCreateMessage**](#messagescreatemessage) | **POST** /messages/ | Create Message|
+|[**messagesGetMessage**](#messagesgetmessage) | **GET** /messages/{message_id} | Get Message|
 |[**messagesRephraseMessage**](#messagesrephrasemessage) | **GET** /messages/{message_id}/rephrase | Rephrase Message|
 |[**messagesSubmitMessage**](#messagessubmitmessage) | **POST** /messages/submit | Submit Message|
 |[**messagesTranslateMessage**](#messagestranslatemessage) | **GET** /messages/{message_id}/translate | Translate Message|
@@ -123,6 +124,60 @@ const { status, data } = await apiInstance.messagesCreateMessage(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **messagesGetMessage**
+> Message messagesGetMessage()
+
+
+### Example
+
+```typescript
+import {
+    Message,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Message(configuration);
+
+let messageId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.messagesGetMessage(
+    messageId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **messageId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Message**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **messagesRephraseMessage**
 > Translation messagesRephraseMessage()
 
@@ -201,7 +256,7 @@ let projectId: number; // (optional) (default to undefined)
 let chatId: number; // (optional) (default to undefined)
 let documentIds: Array<number>; // (optional) (default to undefined)
 let updatedAt: string; // (optional) (default to undefined)
-let files: Array<string>; // (optional) (default to undefined)
+let files: Array<File>; // (optional) (default to undefined)
 let chatTemperature: number; // (optional) (default to undefined)
 let chatSimilarityTopK: number; // (optional) (default to undefined)
 let chatSystemPrompt: string; // (optional) (default to undefined)
@@ -240,7 +295,7 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 | **chatId** | [**number**] |  | (optional) defaults to undefined|
 | **documentIds** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **updatedAt** | [**string**] |  | (optional) defaults to undefined|
-| **files** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
+| **files** | **Array&lt;File&gt;** |  | (optional) defaults to undefined|
 | **chatTemperature** | [**number**] |  | (optional) defaults to undefined|
 | **chatSimilarityTopK** | [**number**] |  | (optional) defaults to undefined|
 | **chatSystemPrompt** | [**string**] |  | (optional) defaults to undefined|

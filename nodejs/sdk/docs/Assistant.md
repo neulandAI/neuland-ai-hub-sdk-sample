@@ -607,7 +607,7 @@ let avatar: string; // (optional) (default to undefined)
 let instructions: string; // (optional) (default to undefined)
 let temperature: number; // (optional) (default to undefined)
 let similarityTopK: number; // (optional) (default to undefined)
-let files: Array<string>; // (optional) (default to undefined)
+let files: Array<File>; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsSubmitAssistant(
     name,
@@ -634,7 +634,7 @@ const { status, data } = await apiInstance.assistantsSubmitAssistant(
 | **instructions** | [**string**] |  | (optional) defaults to undefined|
 | **temperature** | [**number**] |  | (optional) defaults to undefined|
 | **similarityTopK** | [**number**] |  | (optional) defaults to undefined|
-| **files** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
+| **files** | **Array&lt;File&gt;** |  | (optional) defaults to undefined|
 
 
 ### Return type

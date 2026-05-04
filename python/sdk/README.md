@@ -179,6 +179,7 @@ Class | Method | HTTP request | Description
 *LlmSetting* | [**llm_update_llm_settings**](docs/LlmSetting.md#llm_update_llm_settings) | **PATCH** /llm/settings/{settings_id} | Update Llm Settings
 *Message* | [**messages_convert_message**](docs/Message.md#messages_convert_message) | **GET** /messages/{message_id}/convert | Convert Message
 *Message* | [**messages_create_message**](docs/Message.md#messages_create_message) | **POST** /messages/ | Create Message
+*Message* | [**messages_get_message**](docs/Message.md#messages_get_message) | **GET** /messages/{message_id} | Get Message
 *Message* | [**messages_rephrase_message**](docs/Message.md#messages_rephrase_message) | **GET** /messages/{message_id}/rephrase | Rephrase Message
 *Message* | [**messages_submit_message**](docs/Message.md#messages_submit_message) | **POST** /messages/submit | Submit Message
 *Message* | [**messages_translate_message**](docs/Message.md#messages_translate_message) | **GET** /messages/{message_id}/translate | Translate Message

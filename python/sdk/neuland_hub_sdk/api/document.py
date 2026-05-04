@@ -15,8 +15,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
-from typing import Any, List, Optional
+from pydantic import Field, StrictBytes, StrictInt, StrictStr
+from typing import Any, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.document import Document
@@ -1645,7 +1645,7 @@ class Document:
     @validate_call
     def documents_upload_documents(
         self,
-        files: List[StrictStr],
+        files: List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]],
         cookie_name: Optional[StrictStr] = None,
         project_id: Optional[StrictInt] = None,
         chat_id: Optional[StrictInt] = None,
@@ -1669,7 +1669,7 @@ class Document:
 
 
         :param files: (required)
-        :type files: List[str]
+        :type files: List[bytes]
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
@@ -1736,7 +1736,7 @@ class Document:
     @validate_call
     def documents_upload_documents_with_http_info(
         self,
-        files: List[StrictStr],
+        files: List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]],
         cookie_name: Optional[StrictStr] = None,
         project_id: Optional[StrictInt] = None,
         chat_id: Optional[StrictInt] = None,
@@ -1760,7 +1760,7 @@ class Document:
 
 
         :param files: (required)
-        :type files: List[str]
+        :type files: List[bytes]
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
@@ -1827,7 +1827,7 @@ class Document:
     @validate_call
     def documents_upload_documents_without_preload_content(
         self,
-        files: List[StrictStr],
+        files: List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]],
         cookie_name: Optional[StrictStr] = None,
         project_id: Optional[StrictInt] = None,
         chat_id: Optional[StrictInt] = None,
@@ -1851,7 +1851,7 @@ class Document:
 
 
         :param files: (required)
-        :type files: List[str]
+        :type files: List[bytes]
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
@@ -1950,7 +1950,7 @@ class Document:
         # process the header parameters
         # process the form parameters
         if files is not None:
-            _form_params.append(('files', files))
+            _files['files'] = files
         if project_id is not None:
             _form_params.append(('project_id', project_id))
         if chat_id is not None:
