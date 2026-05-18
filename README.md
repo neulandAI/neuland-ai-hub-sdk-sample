@@ -4,7 +4,7 @@ The Neuland AI Hub SDK plus runnable sample apps that demonstrate it end-to-end.
 
 This README has two paths — pick the one that matches what you're doing:
 
-- **[Integrating the SDK in your project](#integrating-the-sdk-in-your-project)** — install, configure with an API key, call Hub. This is what 99% of users want.
+- **[Integrating the SDK in your project](#integrating-the-sdk-in-your-project)** — install, configure with an API key, call Hub.
 - **[Running the sample apps locally](#running-the-sample-apps-locally)** — clone this repo and play with the FastAPI/Express sample backends + Next.js demo frontend. For evaluation and learning.
 
 ---
