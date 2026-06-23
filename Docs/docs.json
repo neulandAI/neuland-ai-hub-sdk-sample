@@ -1,0 +1,44 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Neuland AI Hub",
+  "colors": {
+    "primary": "#0A0A0A",
+    "light": "#C4B5FD",
+    "dark": "#7C3AED"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": ["introduction", "quickstart", "authentication"]
+          },
+          {
+            "group": "SDK",
+            "pages": ["sdk/installation", "sdk/usage"]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "openapi": "openapi.json"
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "https://neuland-hub.ai"
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "website": "https://neuland-hub.ai"
+    }
+  }
+}
