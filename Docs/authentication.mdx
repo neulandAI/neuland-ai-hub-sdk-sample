@@ -1,0 +1,37 @@
+---
+title: "Authentication"
+description: "How to authenticate requests to the Neuland AI Hub API."
+---
+
+Almost every endpoint requires a **bearer token** in the `Authorization`
+header:
+
+```
+Authorization: Bearer <token>
+```
+
+There are two ways to get a token.
+
+## 1. Login (user token)
+
+Exchange credentials for an access token via the **Auth** endpoints:
+
+```bash
+curl -X POST https://api.your-domain.com/auth/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "username=you@example.com&password=••••••••"
+```
+
+The response contains an access token you send as the bearer token on
+subsequent requests.
+
+## 2. API key (programmatic access)
+
+For server-to-server and SDK usage, create an **API key** (see the `ApiKey`
+endpoints in the API Reference) and send it as the bearer token. API keys are
+the recommended option for automated integrations.
+
+<Note>
+  Keep API keys secret. Store them in environment variables or a secrets
+  manager — never commit them to source control.
+</Note>
