@@ -66,3 +66,4 @@ rm -f /tmp/hub-openapi.json
 | [openapitools.json](openapitools.json) | Pins the openapi-generator JAR version. |
 | [scripts/normalize-openapi.py](scripts/normalize-openapi.py) | Rewrites OpenAPI 3.1 binary fields to the 3.0-style shape the pinned generator understands. Temporary; remove once openapi-generator ships native 3.1 binary support. |
 | `python/sdk/`, `nodejs/sdk/` | Generated output, committed for consumers to install from a tag. |
+| [python/streaming.py](python/streaming.py), [nodejs/streaming.ts](nodejs/streaming.ts) | Hand-written SSE clients for the streaming endpoints (excluded from OpenAPI). Live outside `sdk/` so regen doesn't wipe them; maintained by hand, never regenerated. |
