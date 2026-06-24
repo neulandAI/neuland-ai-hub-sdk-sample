@@ -38,9 +38,6 @@
         "operationId": "alerts_create_alert",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -121,9 +118,6 @@
         "operationId": "alerts_delete_alert",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -198,9 +192,6 @@
         "description": "Update an existing budget alert.",
         "operationId": "alerts_update_alert",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -296,9 +287,6 @@
         "operationId": "api_create_key",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -374,9 +362,6 @@
         "operationId": "api_revoke_api_key",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -449,9 +434,6 @@
         "operationId": "applications_create_app",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -520,9 +502,6 @@
         "description": "Grant or update application access for a user group (tenant admin only).",
         "operationId": "applications_update_group_membership",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -611,9 +590,6 @@
         "operationId": "applications_update_user_membership",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -701,9 +677,6 @@
         "operationId": "applications_delete_app",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -769,9 +742,6 @@
         "description": "Update an existing application (superadmin only).",
         "operationId": "applications_update_app",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -858,9 +828,6 @@
         "operationId": "assistants_create_assistant",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -928,9 +895,6 @@
         "description": "Create an assistant via multipart form, with optional knowledge-file uploads.",
         "operationId": "assistants_submit_assistant",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -1003,9 +967,6 @@
         "operationId": "assistants_delete_assistant",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -1069,9 +1030,6 @@
         "description": "Update an assistant's configuration.",
         "operationId": "assistants_update_assistant",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -1156,9 +1114,6 @@
         "operationId": "assistants_remove_library_from_assistant",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -1233,9 +1188,6 @@
         "description": "Enables a library for a assistant by creating a new association",
         "operationId": "assistants_add_library_to_assistant",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -1319,9 +1271,6 @@
         "operationId": "assistants_delete_members",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -1398,9 +1347,6 @@
         "description": "Add one or more users as members of the assistant.",
         "operationId": "assistants_add_members",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -1489,9 +1435,6 @@
         "operationId": "assistants_remove_member",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -1569,9 +1512,6 @@
         "operationId": "assistants_leave_assitant",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -1637,9 +1577,6 @@
         "description": "Detach a tag from an assistant.",
         "operationId": "assistants_remove_tag_from_assistant",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -1713,9 +1650,6 @@
         "description": "Attach a tag to an assistant.",
         "operationId": "assistants_add_tag_to_assistant",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -1799,9 +1733,6 @@
         "operationId": "assistants_remove_tool_from_assistant",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -1876,9 +1807,6 @@
         "description": "Enable a tenant tool for the assistant.",
         "operationId": "assistants_add_tool_to_assistant",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -2350,9 +2278,6 @@
         "operationId": "auth_update_oauth_client",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -2438,9 +2363,6 @@
         "operationId": "auth_list_connector_status",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -2505,9 +2427,6 @@
         "description": "Update a connector (superadmin only).",
         "operationId": "auth_update_connector",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -2594,9 +2513,6 @@
         "operationId": "auth_revoke_consent",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -2656,9 +2572,6 @@
         "description": "Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.",
         "operationId": "auth_initiate_consent",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -2764,9 +2677,6 @@
         "description": "Start the admin consent flow for connectors that require organization-wide admin consent.",
         "operationId": "auth_initiate_admin_consent",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -2878,12 +2788,7 @@
           "401": {
             "description": "Missing or invalid authentication."
           }
-        },
-        "security": [
-          {
-            "OAuth2PasswordBearer": []
-          }
-        ]
+        }
       }
     },
     "/auth/entra/scopes": {
@@ -2920,11 +2825,6 @@
         "summary": "Exchange for a service token",
         "description": "Exchange the caller's token for a service token scoped to an AI application.",
         "operationId": "auth_exchange_token",
-        "security": [
-          {
-            "OAuth2PasswordBearer": []
-          }
-        ],
         "parameters": [
           {
             "name": "app_id",
@@ -2992,12 +2892,7 @@
           "404": {
             "description": "Session not found."
           }
-        },
-        "security": [
-          {
-            "OAuth2PasswordBearer": []
-          }
-        ]
+        }
       }
     },
     "/auth/request-password-reset": {
@@ -3143,9 +3038,6 @@
         "description": "Send a confirmation email to the current user unless their email is already verified.",
         "operationId": "auth_send_email_confirmation",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -3325,9 +3217,6 @@
         "operationId": "chats_remove_chat",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -3391,9 +3280,6 @@
         "description": "Update settings of an existing chat (name, model, temperature, etc.).",
         "operationId": "chats_update_chat",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -3478,9 +3364,6 @@
         "operationId": "chats_cancel_message",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -3548,9 +3431,6 @@
         "description": "Re-include previously deactivated documents in the chat's retrieval context.",
         "operationId": "chats_remove_inactive_documents",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -3629,9 +3509,6 @@
         "description": "Exclude the given documents from the chat's retrieval context.",
         "operationId": "chats_deactivate_documents",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -3720,9 +3597,6 @@
         "operationId": "chats_remove_library_from_chat",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -3794,9 +3668,6 @@
         "description": "Enables a library in a chat by creating a new association",
         "operationId": "chats_add_library_to_chat",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -3877,9 +3748,6 @@
         "operationId": "chats_summerize_chat",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -3953,9 +3821,6 @@
         "description": "Enable or disable a tool for a chat, creating the setting if needed.",
         "operationId": "chats_update_chat_tool_settings",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -4051,9 +3916,6 @@
         "operationId": "documents_upload_documents",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -4132,9 +3994,6 @@
         "operationId": "documents_unimport_documents",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -4202,9 +4061,6 @@
         "description": "Import drive items from a connected source as documents; returns an import token.",
         "operationId": "documents_import_documents",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -4285,9 +4141,6 @@
         "operationId": "documents_delete_chat_document",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -4351,9 +4204,6 @@
         "description": "Stream a document's content as an attachment to authorized callers.",
         "operationId": "documents_get_file",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -4426,9 +4276,6 @@
         "operationId": "documents_retry_document",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -4494,9 +4341,6 @@
         "description": "Stream a stored file as an attachment to authorized callers.",
         "operationId": "files_download_file",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -4568,9 +4412,6 @@
         "description": "Set the active Atlassian cloud_id on this connector's consent.",
         "operationId": "integrations_set_atlassian_cloud_id",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -4647,9 +4488,6 @@
         "operationId": "onedrive_capabilities",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -4704,9 +4542,6 @@
         "description": "Report whether the user has consented to this source's browse scopes.",
         "operationId": "onedrive_is_connected",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -4766,9 +4601,6 @@
         "description": "Get a single data source drive item, annotated with imported counts.",
         "operationId": "onedrive_get_item_info",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -4924,9 +4756,6 @@
         "description": "List files and folders under a drive item, annotated with imported counts.",
         "operationId": "onedrive_list_children",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -5099,9 +4928,6 @@
         "operationId": "onedrive_get_user_info",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -5162,9 +4988,6 @@
         "description": "List the source's top-level browse entries (sites or drives) with imported counts.",
         "operationId": "onedrive_list_roots",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -5312,9 +5135,6 @@
         "description": "List the drives under a site (or the user's drives for drive-rooted sources).",
         "operationId": "onedrive_list_drives",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -5464,9 +5284,6 @@
         "operationId": "integrations_is_connected",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -5525,9 +5342,6 @@
         "description": "Get a single SharePoint drive item, annotated with imported counts.",
         "operationId": "integrations_get_item_info",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -5683,9 +5497,6 @@
         "description": "List files and folders under a drive item, annotated with imported counts.",
         "operationId": "integrations_list_children",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -5858,9 +5669,6 @@
         "operationId": "integrations_get_user_info",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -5921,9 +5729,6 @@
         "description": "List the SharePoint sites the user can access, with imported document counts.",
         "operationId": "integrations_list_all_sites",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -6061,9 +5866,6 @@
         "description": "List the document libraries (drives) within a SharePoint site.",
         "operationId": "integrations_list_drives",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -6213,9 +6015,6 @@
         "operationId": "sharepointv1_capabilities",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -6270,9 +6069,6 @@
         "description": "Report whether the user has consented to this source's browse scopes.",
         "operationId": "sharepointv1_is_connected",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -6332,9 +6128,6 @@
         "description": "Get a single data source drive item, annotated with imported counts.",
         "operationId": "sharepointv1_get_item_info",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -6490,9 +6283,6 @@
         "description": "List files and folders under a drive item, annotated with imported counts.",
         "operationId": "sharepointv1_list_children",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -6665,9 +6455,6 @@
         "operationId": "sharepointv1_get_user_info",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -6728,9 +6515,6 @@
         "description": "List the source's top-level browse entries (sites or drives) with imported counts.",
         "operationId": "sharepointv1_list_roots",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -6879,9 +6663,6 @@
         "operationId": "sharepointv1_list_drives",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -7029,9 +6810,6 @@
         "description": "Invite the given email addresses, skipping ones already invited or registered.",
         "operationId": "invitations_create_invitations",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -7197,9 +6975,6 @@
         "operationId": "invitations_resend_invitation",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -7275,9 +7050,6 @@
         "operationId": "invitations_revoke_invitation",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -7345,9 +7117,6 @@
         "description": "Create a library owned by the caller in their tenant.",
         "operationId": "libraries_new_library",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -7417,9 +7186,6 @@
         "operationId": "libraries_delete_library",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -7483,9 +7249,6 @@
         "description": "Update name and/or description of an existing library.",
         "operationId": "libraries_update_library",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -7570,9 +7333,6 @@
         "operationId": "libraries_remove_library_members",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -7649,9 +7409,6 @@
         "description": "Add one or more members to the library; owner only.",
         "operationId": "libraries_add_library_members",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -7740,9 +7497,6 @@
         "operationId": "libraries_remove_single_member",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -7823,9 +7577,6 @@
         "operationId": "libraries_leave_library",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -7894,9 +7645,6 @@
         "description": "Register a new LLM in the model catalog.",
         "operationId": "llm_create_catalog",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -7967,9 +7715,6 @@
         "operationId": "llm_delete_catalog",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -8035,9 +7780,6 @@
         "description": "Update fields of an existing catalog entry.",
         "operationId": "llm_update_catalog",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -8122,9 +7864,6 @@
         "operationId": "llm_get_cost",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -8204,9 +7943,6 @@
         "description": "Return non-LLM service usage costs aggregated by source, model, and time period.",
         "operationId": "llm_get_usage_costs",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -8291,9 +8027,6 @@
         "operationId": "llm_create_llm_settings",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -8363,9 +8096,6 @@
         "operationId": "llm_delete_llm_settings",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -8431,9 +8161,6 @@
         "description": "Update fields of an existing LLM settings entry.",
         "operationId": "llm_update_llm_settings",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -8518,9 +8245,6 @@
         "operationId": "llm_llm_total_tokens",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -8601,9 +8325,6 @@
         "operationId": "messages_create_message",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -8678,9 +8399,6 @@
         "operationId": "messages_submit_message",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -8753,9 +8471,6 @@
         "description": "Canonical recovery endpoint: full composed state of a message.",
         "operationId": "messages_get_message",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -8831,9 +8546,6 @@
         "description": "Convert a message to various document formats.",
         "operationId": "messages_convert_message",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -8917,9 +8629,6 @@
         "description": "Rephrase a message's content in the requested style.",
         "operationId": "messages_rephrase_message",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -9005,9 +8714,6 @@
         "description": "Translate a message's content into the requested language.",
         "operationId": "messages_translate_message",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -9112,9 +8818,6 @@
         "operationId": "projects_create_project",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -9182,9 +8885,6 @@
         "description": "Return true if no project already uses the given name.",
         "operationId": "projects_is_project_name_free",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -9256,9 +8956,6 @@
         "operationId": "projects_delete_project",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -9322,9 +9019,6 @@
         "description": "Update an existing project's fields (project owner only).",
         "operationId": "projects_update_project",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -9409,9 +9103,6 @@
         "operationId": "projects_remove_library_from_project",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -9486,9 +9177,6 @@
         "description": "Enable a library for a project by creating an association.",
         "operationId": "projects_add_library_to_project",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -9572,9 +9260,6 @@
         "operationId": "projects_delete_members",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -9648,9 +9333,6 @@
         "description": "Add one or more members to a project (project owner only).",
         "operationId": "projects_add_members",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -9739,9 +9421,6 @@
         "operationId": "projects_delete_member",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -9819,9 +9498,6 @@
         "operationId": "projects_leave_project",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -9887,9 +9563,6 @@
         "description": "Create a saved prompt for the current user.",
         "operationId": "prompts_create_prompt",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -9961,9 +9634,6 @@
         "description": "Rewrite a draft prompt into a clearer, better-structured version using an LLM.",
         "operationId": "prompts_optimize_prompt",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -10039,9 +9709,6 @@
         "operationId": "prompts_delete_prompt",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -10107,9 +9774,6 @@
         "description": "Update a prompt owned by the current user.",
         "operationId": "prompts_update_prompt",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -10196,9 +9860,6 @@
         "operationId": "query_query_rpc",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -10268,9 +9929,6 @@
         "description": "Forward the request to the upstream PostgREST service and return its response.",
         "operationId": "query_query",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -10342,9 +10000,6 @@
         "operationId": "settings_current",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -10400,9 +10055,6 @@
         "description": "Update the settings for the current user's tenant (tenant admin only).",
         "operationId": "settings_update_current_settings",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -10483,9 +10135,6 @@
         "description": "Update a tenant's settings by id (tenant admin; some fields superadmin-only).",
         "operationId": "settings_update_settings",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -10660,9 +10309,6 @@
         "operationId": "system_read_system_settings",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -10714,9 +10360,6 @@
         "summary": "Update System Settings",
         "operationId": "system_update_system_settings",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -10782,9 +10425,6 @@
         "description": "Create a new tag in the caller's tenant.",
         "operationId": "tags_new_tag",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -10854,9 +10494,6 @@
         "operationId": "tags_delete_tag",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -10920,9 +10557,6 @@
         "description": "Rename a tag in the caller's tenant.",
         "operationId": "tags_update_tag",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -11007,9 +10641,6 @@
         "operationId": "tarifs_create_tarif",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -11090,9 +10721,6 @@
         "operationId": "tarifs_delete_tarif",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -11170,9 +10798,6 @@
         "description": "Update an existing tarif plan.",
         "operationId": "tarifs_update_tarif",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -11268,9 +10893,6 @@
         "operationId": "templates_create",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -11351,9 +10973,6 @@
         "operationId": "templates_delete",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -11428,9 +11047,6 @@
         "description": "Update an existing email template.",
         "operationId": "templates_update",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -11526,9 +11142,6 @@
         "operationId": "tenants_create_tenant",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -11612,9 +11225,6 @@
         "operationId": "tenants_get_current_tenant",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -11670,9 +11280,6 @@
         "description": "Update the current user's tenant (tenant admin; some fields superadmin-only).",
         "operationId": "tenants_update_current_tenant",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -11754,9 +11361,6 @@
         "operationId": "tenants_delete_tenant_models_bulk",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -11832,9 +11436,6 @@
         "description": "Enable an LLM catalog model for all tenants or a list of tenants (superadmin).",
         "operationId": "tenants_put_tenant_models_bulk",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -11914,9 +11515,6 @@
         "operationId": "tenants_delete_tenant",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -11980,9 +11578,6 @@
         "description": "Update a tenant by id (superadmin or parent tenant admin).",
         "operationId": "tenants_update_tenant",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -12067,9 +11662,6 @@
         "operationId": "tenants_delete_tenant_connector",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -12144,9 +11736,6 @@
         "description": "Enable a connector for a tenant (superadmin or parent tenant admin).",
         "operationId": "tenants_create_tenant_connector",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -12230,9 +11819,6 @@
         "operationId": "tenants_remove_tenant_library_member",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -12307,9 +11893,6 @@
         "description": "Assign a library to a tenant (library owner who is admin of that tenant).",
         "operationId": "tenants_add_library_to_tenants",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -12393,9 +11976,6 @@
         "operationId": "tenants_delete_tenant_model",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -12470,9 +12050,6 @@
         "description": "Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).",
         "operationId": "tenants_put_tenant_model",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -12558,9 +12135,6 @@
         "operationId": "tenants_delete_tenant_tool",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -12635,9 +12209,6 @@
         "description": "Enable a tool for a tenant (superadmin or parent tenant admin).",
         "operationId": "tenants_create_tenant_tool",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -12765,9 +12336,6 @@
         "operationId": "toolactions_send_email_from_draft",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -12838,9 +12406,6 @@
         "description": "Update a tool's editable fields (superadmin only).",
         "operationId": "tools_update_tool",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -12927,9 +12492,6 @@
         "operationId": "transcriptions_create_transcription",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -13009,9 +12571,6 @@
         "description": "Create a user in the caller's (or specified) tenant and send a confirmation email.",
         "operationId": "users_create_user",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -13093,9 +12652,6 @@
         "operationId": "users_create_group",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -13176,9 +12732,6 @@
         "operationId": "users_delete_group",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -13256,9 +12809,6 @@
         "description": "Update an existing user group.",
         "operationId": "users_update_group",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -13357,9 +12907,6 @@
         "operationId": "users_get_myself",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -13420,9 +12967,6 @@
         "description": "Create or update the current user's UI preferences.",
         "operationId": "users_upsert_my_preferences",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -13494,9 +13038,6 @@
         "description": "Synchronize group members \u2014 add new ones and remove missing ones.",
         "operationId": "users_upsert_members",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -13603,9 +13144,6 @@
         "operationId": "users_reset_password",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -13669,9 +13207,6 @@
         "description": "Delete a user; you cannot delete your own account.",
         "operationId": "users_delete_user",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -13747,9 +13282,6 @@
         "description": "Update a user's profile, role, tenant, or email; password changes are restricted.",
         "operationId": "users_update_user",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -13836,9 +13368,6 @@
         "operationId": "users_activate_user",
         "security": [
           {
-            "OAuth2PasswordBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
         ],
@@ -13922,9 +13451,6 @@
         "description": "Deactivate a user so they can no longer authenticate; you cannot deactivate yourself.",
         "operationId": "users_deactivate_user",
         "security": [
-          {
-            "OAuth2PasswordBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -26659,15 +26185,6 @@
       }
     },
     "securitySchemes": {
-      "OAuth2PasswordBearer": {
-        "type": "oauth2",
-        "flows": {
-          "password": {
-            "scopes": {},
-            "tokenUrl": "auth/token"
-          }
-        }
-      },
       "APIKeyHeader": {
         "type": "apiKey",
         "description": "Api key to access backend from external services",

@@ -15,22 +15,20 @@ description: "Authenticate and make your first call with the SDK."
 <CodeGroup>
 
 ```python Python
-from neuland_nimbus import Configuration, ApiClient
+from neuland_hub_sdk import Configuration, ApiClient
 
-config = Configuration(
-    host="https://api.your-domain.com",
-    access_token="<YOUR_API_KEY_OR_TOKEN>",
-)
+config = Configuration(host="https://api.your-domain.com")
+config.api_key["APIKeyHeader"] = "ak.<key_id>.<secret>"  # sent as X-API-KEY
 client = ApiClient(config)
 ```
 
 ```typescript TypeScript
-import { Configuration, DefaultApi } from "@neuland/nimbus";
+import { Configuration, DefaultApi } from "neuland-hub-sdk";
 
 const api = new DefaultApi(
   new Configuration({
     basePath: "https://api.your-domain.com",
-    accessToken: "<YOUR_API_KEY_OR_TOKEN>",
+    apiKey: "ak.<key_id>.<secret>",  // sent as X-API-KEY
   }),
 );
 ```
@@ -44,7 +42,7 @@ resource prefix stripped), so `GET /users/me` becomes `users.me()` /
 `getMe()` depending on the target language.
 
 ```python Python
-from neuland_nimbus.api.user_api import UserApi
+from neuland_hub_sdk.api.user_api import UserApi
 
 me = UserApi(client).me()
 print(me)
