@@ -1,0 +1,31 @@
+---
+title: "Authentication"
+description: "How to authenticate requests to the Neuland AI Hub API."
+---
+
+The API authenticates every request with an **API key** sent in the
+`X-API-KEY` header:
+
+```
+X-API-KEY: ak.<key_id>.<secret>
+```
+
+## Get an API key
+
+Create an API key for your account via the `ApiKey` endpoints (see the API
+Reference). The full secret is shown **once** at creation — store it securely;
+it cannot be retrieved again.
+
+## Use it
+
+Send the key in the `X-API-KEY` header on every request:
+
+```bash
+curl https://api.your-domain.com/users/me \
+  -H "X-API-KEY: ak.a1b2c3d4.s3cr3t-value"
+```
+
+<Note>
+  Keep API keys secret. Store them in environment variables or a secrets
+  manager — never commit them to source control.
+</Note>
