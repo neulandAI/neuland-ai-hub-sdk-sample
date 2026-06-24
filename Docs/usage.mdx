@@ -1,0 +1,49 @@
+---
+title: "Usage"
+description: "Authenticate and make your first call with the SDK."
+---
+
+<Note>
+  The snippets below are illustrative. The exact client and method names come
+  from your OpenAPI Generator configuration — keep this page in sync with the
+  generated client, or inject per-endpoint examples into the spec via the
+  `x-codeSamples` extension so they render automatically in the API Reference.
+</Note>
+
+## Configure the client
+
+<CodeGroup>
+
+```python Python
+from neuland_hub_sdk import Configuration, ApiClient
+
+config = Configuration(host="https://api.your-domain.com")
+config.api_key["APIKeyHeader"] = "ak.<key_id>.<secret>"  # sent as X-API-KEY
+client = ApiClient(config)
+```
+
+```typescript TypeScript
+import { Configuration, DefaultApi } from "neuland-hub-sdk";
+
+const api = new DefaultApi(
+  new Configuration({
+    basePath: "https://api.your-domain.com",
+    apiKey: "ak.<key_id>.<secret>",  // sent as X-API-KEY
+  }),
+);
+```
+
+</CodeGroup>
+
+## Make a request
+
+Method names are derived from each endpoint's `operationId` (with the
+resource prefix stripped), so `GET /users/me` becomes `users.me()` /
+`getMe()` depending on the target language.
+
+```python Python
+from neuland_hub_sdk.api.user_api import UserApi
+
+me = UserApi(client).me()
+print(me)
+```

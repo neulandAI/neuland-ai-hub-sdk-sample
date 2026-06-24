@@ -90,6 +90,22 @@ console.log(me);
 
 Requires Node.js 18+.
 
+## 4. Streaming (not in the generated SDK)
+
+Live, token-by-token responses aren't part of the generated SDK. To use streaming, copy one standalone file into your project — full usage is documented at the top of each file:
+
+- **Python** — [python/streaming.py](python/streaming.py) (needs only `urllib3`, already an SDK dependency)
+- **Node.js** — [nodejs/streaming.ts](nodejs/streaming.ts) (needs only `fetch`)
+
+```python
+from streaming import stream_message
+
+for event in stream_message(config, {"content": "Explain quantum tunneling"}):
+    print(event.event, event.data)
+```
+
+The stream ends after a terminal `state` event. On disconnect, refetch the message via `GET /messages/{id}` — don't resume.
+
 ---
 
 # Running the sample apps locally

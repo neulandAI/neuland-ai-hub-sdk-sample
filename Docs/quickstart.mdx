@@ -1,0 +1,24 @@
+---
+title: "Quickstart"
+description: "Make your first authenticated request in a few minutes."
+---
+
+## 1. Get an API key
+
+Create an API key for your account — see [Authentication](/authentication). The
+secret is shown once at creation, so store it securely.
+
+## 2. Call an endpoint
+
+Send your API key in the `X-API-KEY` header:
+
+```bash
+curl https://api.your-domain.com/users/me \
+  -H "X-API-KEY: ak.a1b2c3d4.s3cr3t-value"
+```
+
+## 3. Explore
+
+Every endpoint, with parameters, schemas, and a live "Try it" playground, is in
+the **API Reference** tab. Prefer a typed client? Head to the
+[SDK](/installation) guide.
