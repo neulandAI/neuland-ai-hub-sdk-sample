@@ -3,27 +3,22 @@ title: "Quickstart"
 description: "Make your first authenticated request in a few minutes."
 ---
 
-## 1. Get a token
+## 1. Get an API key
 
-See [Authentication](/authentication). For a quick test, log in:
-
-```bash
-TOKEN=$(curl -s -X POST https://api.your-domain.com/auth/token \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "username=you@example.com&password=••••••••" | jq -r .access_token)
-```
+Create an API key for your account — see [Authentication](/authentication). The
+secret is shown once at creation, so store it securely.
 
 ## 2. Call an endpoint
 
-Use the token as a bearer token:
+Send your API key in the `X-API-KEY` header:
 
 ```bash
 curl https://api.your-domain.com/users/me \
-  -H "Authorization: Bearer $TOKEN"
+  -H "X-API-KEY: ak.a1b2c3d4.s3cr3t-value"
 ```
 
 ## 3. Explore
 
 Every endpoint, with parameters, schemas, and a live "Try it" playground, is in
-the [API Reference](/api-reference) tab. Prefer a typed client? Head to the
-[SDK](/sdk/installation) guide.
+the **API Reference** tab. Prefer a typed client? Head to the
+[SDK](/installation) guide.
