@@ -5,15 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **number** |  | [default to undefined]
-**email** | **string** |  | [default to undefined]
-**tenant_id** | **number** |  | [default to undefined]
+**id** | **number** | Unique identifier of the invitation. | [default to undefined]
+**email** | **string** | Email address the invitation was sent to. | [default to undefined]
+**tenant_id** | **number** | Identifier of the tenant the invite belongs to. | [default to undefined]
 **project_id** | **number** |  | [default to undefined]
-**status** | **string** |  | [default to undefined]
-**created_at** | **string** |  | [default to undefined]
+**status** | **string** | Current invitation status. | [default to undefined]
+**created_at** | **string** | UTC timestamp when the invitation was created. | [default to undefined]
 **accepted_at** | **string** |  | [default to undefined]
 **revoked_at** | **string** |  | [default to undefined]
-**creator_user_id** | **number** |  | [default to undefined]
+**creator_user_id** | **number** | Identifier of the user who created the invitation. | [default to undefined]
 
 ## Example
 

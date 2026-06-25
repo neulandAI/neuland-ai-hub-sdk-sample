@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **string** |  | [default to undefined]
+**content** | **string** |  | [optional] [default to undefined]
 **chat_id** | **number** |  | [optional] [default to undefined]
 **updated_at** | **string** |  | [optional] [default to undefined]
 **project_id** | **number** |  | [optional] [default to undefined]
@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **system_prompt** | **string** |  | [optional] [default to undefined]
 **assistant_id** | **number** |  | [optional] [default to undefined]
 **_private** | **boolean** |  | [optional] [default to undefined]
+**form_data** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -32,6 +33,7 @@ const instance: MessageIn = {
     system_prompt,
     assistant_id,
     _private,
+    form_data,
 };
 ```
 

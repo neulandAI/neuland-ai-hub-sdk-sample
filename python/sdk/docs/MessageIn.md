@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **str** |  | 
+**content** | **str** |  | [optional] 
 **chat_id** | **int** |  | [optional] 
 **updated_at** | **datetime** |  | [optional] 
 **project_id** | **int** |  | [optional] 
@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **system_prompt** | **str** |  | [optional] 
 **assistant_id** | **int** |  | [optional] 
 **private** | **bool** |  | [optional] 
+**form_data** | **Dict[str, object]** |  | [optional] 
 
 ## Example
 

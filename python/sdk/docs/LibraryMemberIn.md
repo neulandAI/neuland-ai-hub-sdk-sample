@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_id** | **int** |  | 
-**role** | **str** |  | 
+**user_id** | **int** | ID of the user to add as a member. | 
+**role** | **str** | Role to assign the member (e.g. owner or member). | 
 
 ## Example
 

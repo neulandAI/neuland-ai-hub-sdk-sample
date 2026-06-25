@@ -1,12 +1,13 @@
 # TemplateIn
 
+Payload for creating or updating an email template.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] [default to undefined]
-**text_body** | **string** |  | [default to undefined]
+**text_body** | **string** | Plain-text body of the email. | [default to undefined]
 **html_body** | **string** |  | [optional] [default to undefined]
 
 ## Example

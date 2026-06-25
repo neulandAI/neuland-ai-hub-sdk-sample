@@ -4,18 +4,20 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**integrations_get_item_info**](Sharepoint.md#integrations_get_item_info) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get Item Info
-[**integrations_get_user_info**](Sharepoint.md#integrations_get_user_info) | **GET** /integrations/sharepoint/me | Get User Info
-[**integrations_is_connected**](Sharepoint.md#integrations_is_connected) | **GET** /integrations/sharepoint/connected | Is Connected
-[**integrations_list_all_sites**](Sharepoint.md#integrations_list_all_sites) | **GET** /integrations/sharepoint/sites | List All Sites
-[**integrations_list_children**](Sharepoint.md#integrations_list_children) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List Children
-[**integrations_list_drives**](Sharepoint.md#integrations_list_drives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List Drives
+[**integrations_get_item_info**](Sharepoint.md#integrations_get_item_info) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get a drive item
+[**integrations_get_user_info**](Sharepoint.md#integrations_get_user_info) | **GET** /integrations/sharepoint/me | Get current SharePoint user
+[**integrations_is_connected**](Sharepoint.md#integrations_is_connected) | **GET** /integrations/sharepoint/connected | Check SharePoint connection
+[**integrations_list_all_sites**](Sharepoint.md#integrations_list_all_sites) | **GET** /integrations/sharepoint/sites | List SharePoint sites
+[**integrations_list_children**](Sharepoint.md#integrations_list_children) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item
+[**integrations_list_drives**](Sharepoint.md#integrations_list_drives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List drives in a site
 
 
 # **integrations_get_item_info**
 > SharepointItemModel integrations_get_item_info(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
 
-Get Item Info
+Get a drive item
+
+Get a single SharePoint drive item, annotated with imported counts.
 
 ### Example
 
@@ -51,16 +53,16 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Sharepoint(api_client)
-    drive_id = 'drive_id_example' # str | 
-    drive_item_id = 'drive_item_id_example' # str | 
-    chat_id = 56 # int |  (optional)
-    library_id = 56 # int |  (optional)
-    assistant_id = 56 # int |  (optional)
-    project_id = 56 # int |  (optional)
+    drive_id = 'drive_id_example' # str | Id of the drive.
+    drive_item_id = 'drive_item_id_example' # str | Id of the drive item.
+    chat_id = 56 # int | Scope imported counts to this chat. (optional)
+    library_id = 56 # int | Scope imported counts to this library. (optional)
+    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
+    project_id = 56 # int | Scope imported counts to this project. (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Get Item Info
+        # Get a drive item
         api_response = api_instance.integrations_get_item_info(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
         print("The response of Sharepoint->integrations_get_item_info:\n")
         pprint(api_response)
@@ -75,12 +77,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **drive_id** | **str**|  | 
- **drive_item_id** | **str**|  | 
- **chat_id** | **int**|  | [optional] 
- **library_id** | **int**|  | [optional] 
- **assistant_id** | **int**|  | [optional] 
- **project_id** | **int**|  | [optional] 
+ **drive_id** | **str**| Id of the drive. | 
+ **drive_item_id** | **str**| Id of the drive item. | 
+ **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **int**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **int**| Scope imported counts to this project. | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -101,6 +103,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -108,7 +112,9 @@ Name | Type | Description  | Notes
 # **integrations_get_user_info**
 > SharepointUserModel integrations_get_user_info(cookie_name=cookie_name)
 
-Get User Info
+Get current SharePoint user
+
+Return the signed-in user's SharePoint / Microsoft Graph profile.
 
 ### Example
 
@@ -147,7 +153,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Get User Info
+        # Get current SharePoint user
         api_response = api_instance.integrations_get_user_info(cookie_name=cookie_name)
         print("The response of Sharepoint->integrations_get_user_info:\n")
         pprint(api_response)
@@ -182,6 +188,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -189,7 +197,9 @@ Name | Type | Description  | Notes
 # **integrations_is_connected**
 > bool integrations_is_connected(cookie_name=cookie_name)
 
-Is Connected
+Check SharePoint connection
+
+Report whether the user has consented to the SharePoint file-read scope.
 
 ### Example
 
@@ -227,7 +237,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Is Connected
+        # Check SharePoint connection
         api_response = api_instance.integrations_is_connected(cookie_name=cookie_name)
         print("The response of Sharepoint->integrations_is_connected:\n")
         pprint(api_response)
@@ -262,6 +272,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -269,7 +280,9 @@ Name | Type | Description  | Notes
 # **integrations_list_all_sites**
 > List[SharepointSiteModel] integrations_list_all_sites(chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
 
-List All Sites
+List SharePoint sites
+
+List the SharePoint sites the user can access, with imported document counts.
 
 ### Example
 
@@ -305,14 +318,14 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Sharepoint(api_client)
-    chat_id = 56 # int |  (optional)
-    library_id = 56 # int |  (optional)
-    assistant_id = 56 # int |  (optional)
-    project_id = 56 # int |  (optional)
+    chat_id = 56 # int | Scope imported counts to this chat. (optional)
+    library_id = 56 # int | Scope imported counts to this library. (optional)
+    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
+    project_id = 56 # int | Scope imported counts to this project. (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # List All Sites
+        # List SharePoint sites
         api_response = api_instance.integrations_list_all_sites(chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
         print("The response of Sharepoint->integrations_list_all_sites:\n")
         pprint(api_response)
@@ -327,10 +340,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | [optional] 
- **library_id** | **int**|  | [optional] 
- **assistant_id** | **int**|  | [optional] 
- **project_id** | **int**|  | [optional] 
+ **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **int**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **int**| Scope imported counts to this project. | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -351,6 +364,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -358,7 +373,9 @@ Name | Type | Description  | Notes
 # **integrations_list_children**
 > List[SharepointItemModel] integrations_list_children(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, recursive=recursive, cookie_name=cookie_name)
 
-List Children
+List children of a drive item
+
+List files and folders under a drive item, annotated with imported counts.
 
 ### Example
 
@@ -394,17 +411,17 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Sharepoint(api_client)
-    drive_id = 'drive_id_example' # str | 
-    drive_item_id = 'drive_item_id_example' # str | 
-    chat_id = 56 # int |  (optional)
-    library_id = 56 # int |  (optional)
-    assistant_id = 56 # int |  (optional)
-    project_id = 56 # int |  (optional)
-    recursive = False # bool |  (optional) (default to False)
+    drive_id = 'drive_id_example' # str | Id of the drive.
+    drive_item_id = 'drive_item_id_example' # str | Id of the parent item; empty or 'root' for the drive root.
+    chat_id = 56 # int | Scope imported counts to this chat. (optional)
+    library_id = 56 # int | Scope imported counts to this library. (optional)
+    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
+    project_id = 56 # int | Scope imported counts to this project. (optional)
+    recursive = False # bool | Recurse into subfolders, returning only files. (optional) (default to False)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # List Children
+        # List children of a drive item
         api_response = api_instance.integrations_list_children(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, recursive=recursive, cookie_name=cookie_name)
         print("The response of Sharepoint->integrations_list_children:\n")
         pprint(api_response)
@@ -419,13 +436,13 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **drive_id** | **str**|  | 
- **drive_item_id** | **str**|  | 
- **chat_id** | **int**|  | [optional] 
- **library_id** | **int**|  | [optional] 
- **assistant_id** | **int**|  | [optional] 
- **project_id** | **int**|  | [optional] 
- **recursive** | **bool**|  | [optional] [default to False]
+ **drive_id** | **str**| Id of the drive. | 
+ **drive_item_id** | **str**| Id of the parent item; empty or &#39;root&#39; for the drive root. | 
+ **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **int**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **recursive** | **bool**| Recurse into subfolders, returning only files. | [optional] [default to False]
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -446,6 +463,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -453,7 +472,9 @@ Name | Type | Description  | Notes
 # **integrations_list_drives**
 > List[SharepointDriveModel] integrations_list_drives(site_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
 
-List Drives
+List drives in a site
+
+List the document libraries (drives) within a SharePoint site.
 
 ### Example
 
@@ -489,15 +510,15 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Sharepoint(api_client)
-    site_id = 'site_id_example' # str | 
-    chat_id = 56 # int |  (optional)
-    library_id = 56 # int |  (optional)
-    assistant_id = 56 # int |  (optional)
-    project_id = 56 # int |  (optional)
+    site_id = 'site_id_example' # str | SharePoint site id.
+    chat_id = 56 # int | Scope imported counts to this chat. (optional)
+    library_id = 56 # int | Scope imported counts to this library. (optional)
+    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
+    project_id = 56 # int | Scope imported counts to this project. (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # List Drives
+        # List drives in a site
         api_response = api_instance.integrations_list_drives(site_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
         print("The response of Sharepoint->integrations_list_drives:\n")
         pprint(api_response)
@@ -512,11 +533,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **site_id** | **str**|  | 
- **chat_id** | **int**|  | [optional] 
- **library_id** | **int**|  | [optional] 
- **assistant_id** | **int**|  | [optional] 
- **project_id** | **int**|  | [optional] 
+ **site_id** | **str**| SharePoint site id. | 
+ **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **int**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **int**| Scope imported counts to this project. | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -537,6 +558,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

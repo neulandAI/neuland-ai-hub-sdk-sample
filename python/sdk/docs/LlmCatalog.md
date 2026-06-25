@@ -4,15 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**llm_create_catalog**](LlmCatalog.md#llm_create_catalog) | **POST** /llm/catalog | Create Catalog
-[**llm_delete_catalog**](LlmCatalog.md#llm_delete_catalog) | **DELETE** /llm/catalog/{catalog_id} | Delete Catalog
-[**llm_update_catalog**](LlmCatalog.md#llm_update_catalog) | **PATCH** /llm/catalog/{catalog_id} | Update Catalog
+[**llm_create_catalog**](LlmCatalog.md#llm_create_catalog) | **POST** /llm/catalog | Create a catalog entry
+[**llm_delete_catalog**](LlmCatalog.md#llm_delete_catalog) | **DELETE** /llm/catalog/{catalog_id} | Delete a catalog entry
+[**llm_update_catalog**](LlmCatalog.md#llm_update_catalog) | **PATCH** /llm/catalog/{catalog_id} | Update a catalog entry
 
 
 # **llm_create_catalog**
 > object llm_create_catalog(catalog_in, cookie_name=cookie_name)
 
-Create Catalog
+Create a catalog entry
+
+Register a new LLM in the model catalog.
 
 ### Example
 
@@ -52,7 +54,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create Catalog
+        # Create a catalog entry
         api_response = api_instance.llm_create_catalog(catalog_in, cookie_name=cookie_name)
         print("The response of LlmCatalog->llm_create_catalog:\n")
         pprint(api_response)
@@ -88,6 +90,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -95,7 +99,9 @@ Name | Type | Description  | Notes
 # **llm_delete_catalog**
 > llm_delete_catalog(catalog_id, cookie_name=cookie_name)
 
-Delete Catalog
+Delete a catalog entry
+
+Remove a catalog entry permanently.
 
 ### Example
 
@@ -130,11 +136,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.LlmCatalog(api_client)
-    catalog_id = 56 # int | 
+    catalog_id = 56 # int | ID of the catalog entry to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Catalog
+        # Delete a catalog entry
         api_instance.llm_delete_catalog(catalog_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling LlmCatalog->llm_delete_catalog: %s\n" % e)
@@ -147,7 +153,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **catalog_id** | **int**|  | 
+ **catalog_id** | **int**| ID of the catalog entry to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -168,6 +174,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
+**404** | No catalog entry exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -175,7 +184,9 @@ void (empty response body)
 # **llm_update_catalog**
 > object llm_update_catalog(catalog_id, catalog_update, cookie_name=cookie_name)
 
-Update Catalog
+Update a catalog entry
+
+Update fields of an existing catalog entry.
 
 ### Example
 
@@ -211,12 +222,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.LlmCatalog(api_client)
-    catalog_id = 56 # int | 
+    catalog_id = 56 # int | ID of the catalog entry to update.
     catalog_update = neuland_hub_sdk.CatalogUpdate() # CatalogUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Catalog
+        # Update a catalog entry
         api_response = api_instance.llm_update_catalog(catalog_id, catalog_update, cookie_name=cookie_name)
         print("The response of LlmCatalog->llm_update_catalog:\n")
         pprint(api_response)
@@ -231,7 +242,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **catalog_id** | **int**|  | 
+ **catalog_id** | **int**| ID of the catalog entry to update. | 
  **catalog_update** | [**CatalogUpdate**](CatalogUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -253,6 +264,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
+**404** | No catalog entry exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

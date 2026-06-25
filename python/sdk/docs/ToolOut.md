@@ -1,15 +1,16 @@
 # ToolOut
 
+A tool as returned by the API.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
-**name** | **str** |  | 
+**id** | **int** | Unique identifier of the tool. | 
+**name** | **str** | Human-readable name of the tool. | 
 **description** | **str** |  | 
 **prompt** | **str** |  | 
-**created_at** | **datetime** |  | 
+**created_at** | **datetime** | UTC timestamp when the tool was created. | 
 **updated_at** | **datetime** |  | 
 
 ## Example

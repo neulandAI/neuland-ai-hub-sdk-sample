@@ -4,11 +4,12 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**storageDownloadFile**](#storagedownloadfile) | **GET** /storage/{path} | Download File|
+|[**storageDownloadFile**](#storagedownloadfile) | **GET** /storage/{path} | Download a file by signed token|
 
 # **storageDownloadFile**
 > any storageDownloadFile()
 
+Stream a stored file as an attachment, authorized by a signed download token.
 
 ### Example
 
@@ -21,8 +22,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Storage(configuration);
 
-let path: string; //File path (default to undefined)
-let token: string; //Download token (default to undefined)
+let path: string; //Storage path of the file to download. (default to undefined)
+let token: string; //Signed download token authorizing access to the file. (default to undefined)
 
 const { status, data } = await apiInstance.storageDownloadFile(
     path,
@@ -34,8 +35,8 @@ const { status, data } = await apiInstance.storageDownloadFile(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **path** | [**string**] | File path | defaults to undefined|
-| **token** | [**string**] | Download token | defaults to undefined|
+| **path** | [**string**] | Storage path of the file to download. | defaults to undefined|
+| **token** | [**string**] | Signed download token authorizing access to the file. | defaults to undefined|
 
 
 ### Return type
@@ -56,6 +57,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**400** | Token is malformed or missing required claims. |  -  |
+|**401** | Token issuer is not trusted. |  -  |
+|**404** | Token does not match the path, or the file no longer exists. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -9,6 +9,9 @@ Name | Type | Description | Notes
 **name** | **string** | Name for the tarif to be created. Max 100 characters. | [default to undefined]
 **price** | **number** | The price of the tarif. This field is required. | [default to undefined]
 **hard_limit** | **number** | The hard limit to restrict the user. | [default to undefined]
+**licenses** | **number** |  | [optional] [default to undefined]
+**monthly_limit_per_license** | **number** |  | [optional] [default to undefined]
+**soft_limit_fraction** | **number** |  | [optional] [default to undefined]
 **status** | [**TarifStatusEnum**](TarifStatusEnum.md) |  | [optional] [default to undefined]
 **expires_at** | **string** |  | [optional] [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
@@ -23,6 +26,9 @@ const instance: TarifIn = {
     name,
     price,
     hard_limit,
+    licenses,
+    monthly_limit_per_license,
+    soft_limit_fraction,
     status,
     expires_at,
     description,

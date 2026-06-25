@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**old_password** | **string** |  | [default to undefined]
-**new_password** | **string** |  | [default to undefined]
+**old_password** | **string** | Current password, required to authorize the change. | [default to undefined]
+**new_password** | **string** | New password to set. | [default to undefined]
 
 ## Example
 

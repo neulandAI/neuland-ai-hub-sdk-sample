@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
+**name** | **str** | Display name of the library. | 
 **description** | **str** |  | [optional] 
 
 ## Example

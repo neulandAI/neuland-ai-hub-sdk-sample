@@ -1,0 +1,25 @@
+# DataSourceCapabilities
+
+Metadata the frontend uses to render the right browse hierarchy.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**source** | **string** | Data source identifier. | [default to undefined]
+**root_kind** | **string** | Whether the source\&#39;s top level is sites or drives. | [default to undefined]
+**hierarchy_depth** | **number** | Number of browsable levels above individual drive items. | [default to undefined]
+
+## Example
+
+```typescript
+import { DataSourceCapabilities } from 'neuland-hub-sdk';
+
+const instance: DataSourceCapabilities = {
+    source,
+    root_kind,
+    hierarchy_depth,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

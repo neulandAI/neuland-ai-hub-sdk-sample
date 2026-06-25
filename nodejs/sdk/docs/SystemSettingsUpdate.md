@@ -1,0 +1,36 @@
+# SystemSettingsUpdate
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**maintenance_enabled** | **boolean** |  | [optional] [default to undefined]
+**tracing_enabled** | **boolean** |  | [optional] [default to undefined]
+**inbound_guardrail_llm_settings_id** | **number** |  | [optional] [default to undefined]
+**outbound_guardrail_llm_settings_id** | **number** |  | [optional] [default to undefined]
+**embedding_llm_settings_id** | **number** |  | [optional] [default to undefined]
+**maintenance_start_at** | **string** |  | [optional] [default to undefined]
+**maintenance_end_at** | **string** |  | [optional] [default to undefined]
+**maintenance_message** | **string** |  | [optional] [default to undefined]
+**reason** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { SystemSettingsUpdate } from 'neuland-hub-sdk';
+
+const instance: SystemSettingsUpdate = {
+    maintenance_enabled,
+    tracing_enabled,
+    inbound_guardrail_llm_settings_id,
+    outbound_guardrail_llm_settings_id,
+    embedding_llm_settings_id,
+    maintenance_start_at,
+    maintenance_end_at,
+    maintenance_message,
+    reason,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

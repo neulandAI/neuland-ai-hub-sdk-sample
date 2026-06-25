@@ -1,13 +1,14 @@
 # TemplateOut
 
+Email template as returned by the API.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
+**id** | **int** | Unique identifier of the template. | 
 **name** | **str** |  | 
-**text_body** | **str** |  | 
+**text_body** | **str** | Plain-text body of the email. | 
 **html_body** | **str** |  | 
 
 ## Example

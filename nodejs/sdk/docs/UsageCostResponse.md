@@ -5,17 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**start_date** | **string** |  | [default to undefined]
-**end_date** | **string** |  | [default to undefined]
-**total_cost** | **number** |  | [default to undefined]
-**total_tokens** | **number** |  | [default to undefined]
-**total_prompt_tokens** | **number** |  | [default to undefined]
-**total_completion_tokens** | **number** |  | [default to undefined]
-**total_cached_tokens** | **number** |  | [default to undefined]
-**record_count** | **number** |  | [default to undefined]
-**by_source** | [**Array&lt;CostBySource&gt;**](CostBySource.md) |  | [default to undefined]
-**by_model** | [**Array&lt;CostByModel&gt;**](CostByModel.md) |  | [default to undefined]
-**timeseries** | [**Array&lt;CostTimeseriesPoint&gt;**](CostTimeseriesPoint.md) |  | [default to undefined]
+**start_date** | **string** | Start of the aggregation window. | [default to undefined]
+**end_date** | **string** | End of the aggregation window. | [default to undefined]
+**total_cost** | **number** | Total cost across the window. | [default to undefined]
+**total_tokens** | **number** | Total tokens across the window. | [default to undefined]
+**total_prompt_tokens** | **number** | Total prompt tokens across the window. | [default to undefined]
+**total_completion_tokens** | **number** | Total completion tokens across the window. | [default to undefined]
+**total_cached_tokens** | **number** | Total cached prompt tokens across the window. | [default to undefined]
+**record_count** | **number** | Total number of usage records. | [default to undefined]
+**by_source** | [**Array&lt;CostBySource&gt;**](CostBySource.md) | Cost breakdown grouped by source. | [default to undefined]
+**by_model** | [**Array&lt;CostByModel&gt;**](CostByModel.md) | Cost breakdown grouped by provider and model. | [default to undefined]
+**timeseries** | [**Array&lt;CostTimeseriesPoint&gt;**](CostTimeseriesPoint.md) | Daily cost timeseries across the window. | [default to undefined]
 
 ## Example
 

@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**tarifs_create_tarif**](Tarif.md#tarifs_create_tarif) | **POST** /tarifs/ | Create Tarif
-[**tarifs_delete_tarif**](Tarif.md#tarifs_delete_tarif) | **DELETE** /tarifs/{tarif_id} | Delete Tarif
-[**tarifs_update_tarif**](Tarif.md#tarifs_update_tarif) | **PATCH** /tarifs/{tarif_id} | Update Tarif
+[**tarifs_create_tarif**](Tarif.md#tarifs_create_tarif) | **POST** /tarifs/ | Create a tarif plan
+[**tarifs_delete_tarif**](Tarif.md#tarifs_delete_tarif) | **DELETE** /tarifs/{tarif_id} | Delete a tarif plan
+[**tarifs_update_tarif**](Tarif.md#tarifs_update_tarif) | **PATCH** /tarifs/{tarif_id} | Update a tarif plan
 
 
 # **tarifs_create_tarif**
-> Tarif tarifs_create_tarif(tarif_in, cookie_name=cookie_name)
+> Tarif tarifs_create_tarif(tarif_in, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Create Tarif
+Create a tarif plan
 
 Create a new tarif plan.
 
@@ -53,10 +53,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Tarif(api_client)
     tarif_in = neuland_hub_sdk.TarifIn() # TarifIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
 
     try:
-        # Create Tarif
-        api_response = api_instance.tarifs_create_tarif(tarif_in, cookie_name=cookie_name)
+        # Create a tarif plan
+        api_response = api_instance.tarifs_create_tarif(tarif_in, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Tarif->tarifs_create_tarif:\n")
         pprint(api_response)
     except Exception as e:
@@ -72,6 +73,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tarif_in** | [**TarifIn**](TarifIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
+ **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -91,14 +93,16 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator or parent tenant admin privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **tarifs_delete_tarif**
-> tarifs_delete_tarif(tarif_id, cookie_name=cookie_name)
+> tarifs_delete_tarif(tarif_id, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Delete Tarif
+Delete a tarif plan
 
 Delete a tarif plan.
 
@@ -135,12 +139,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tarif(api_client)
-    tarif_id = 56 # int | 
+    tarif_id = 56 # int | ID of the tarif to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
 
     try:
-        # Delete Tarif
-        api_instance.tarifs_delete_tarif(tarif_id, cookie_name=cookie_name)
+        # Delete a tarif plan
+        api_instance.tarifs_delete_tarif(tarif_id, cookie_name=cookie_name, tenant_id=tenant_id)
     except Exception as e:
         print("Exception when calling Tarif->tarifs_delete_tarif: %s\n" % e)
 ```
@@ -152,8 +157,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tarif_id** | **int**|  | 
+ **tarif_id** | **int**| ID of the tarif to delete. | 
  **cookie_name** | **str**|  | [optional] 
+ **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -173,14 +179,18 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Insufficient privileges, or tariff not deletable by your tenant. |  -  |
+**404** | No tarif exists with the given id. |  -  |
+**409** | Tarif is the active plan for one or more tenants and cannot be deleted. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **tarifs_update_tarif**
-> Tarif tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name)
+> Tarif tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Update Tarif
+Update a tarif plan
 
 Update an existing tarif plan.
 
@@ -219,13 +229,14 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tarif(api_client)
-    tarif_id = 56 # int | 
+    tarif_id = 56 # int | ID of the tarif to update.
     tarif_in = neuland_hub_sdk.TarifIn() # TarifIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
 
     try:
-        # Update Tarif
-        api_response = api_instance.tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name)
+        # Update a tarif plan
+        api_response = api_instance.tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Tarif->tarifs_update_tarif:\n")
         pprint(api_response)
     except Exception as e:
@@ -239,9 +250,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tarif_id** | **int**|  | 
+ **tarif_id** | **int**| ID of the tarif to update. | 
  **tarif_in** | [**TarifIn**](TarifIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
+ **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -261,6 +273,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Insufficient privileges, or tariff not editable by your tenant. |  -  |
+**404** | No tarif exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

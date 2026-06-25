@@ -4,9 +4,9 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**tarifsCreateTarif**](#tarifscreatetarif) | **POST** /tarifs/ | Create Tarif|
-|[**tarifsDeleteTarif**](#tarifsdeletetarif) | **DELETE** /tarifs/{tarif_id} | Delete Tarif|
-|[**tarifsUpdateTarif**](#tarifsupdatetarif) | **PATCH** /tarifs/{tarif_id} | Update Tarif|
+|[**tarifsCreateTarif**](#tarifscreatetarif) | **POST** /tarifs/ | Create a tarif plan|
+|[**tarifsDeleteTarif**](#tarifsdeletetarif) | **DELETE** /tarifs/{tarif_id} | Delete a tarif plan|
+|[**tarifsUpdateTarif**](#tarifsupdatetarif) | **PATCH** /tarifs/{tarif_id} | Update a tarif plan|
 
 # **tarifsCreateTarif**
 > Tarif tarifsCreateTarif(tarifIn)
@@ -27,10 +27,12 @@ const apiInstance = new Tarif(configuration);
 
 let tarifIn: TarifIn; //
 let cookieName: string; // (optional) (default to undefined)
+let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tarifsCreateTarif(
     tarifIn,
-    cookieName
+    cookieName,
+    tenantId
 );
 ```
 
@@ -40,6 +42,7 @@ const { status, data } = await apiInstance.tarifsCreateTarif(
 |------------- | ------------- | ------------- | -------------|
 | **tarifIn** | **TarifIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -60,6 +63,8 @@ const { status, data } = await apiInstance.tarifsCreateTarif(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator or parent tenant admin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -80,12 +85,14 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tarif(configuration);
 
-let tarifId: number; // (default to undefined)
+let tarifId: number; //ID of the tarif to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
+let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tarifsDeleteTarif(
     tarifId,
-    cookieName
+    cookieName,
+    tenantId
 );
 ```
 
@@ -93,8 +100,9 @@ const { status, data } = await apiInstance.tarifsDeleteTarif(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tarifId** | [**number**] |  | defaults to undefined|
+| **tarifId** | [**number**] | ID of the tarif to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -115,6 +123,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Insufficient privileges, or tariff not deletable by your tenant. |  -  |
+|**404** | No tarif exists with the given id. |  -  |
+|**409** | Tarif is the active plan for one or more tenants and cannot be deleted. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -136,14 +148,16 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tarif(configuration);
 
-let tarifId: number; // (default to undefined)
+let tarifId: number; //ID of the tarif to update. (default to undefined)
 let tarifIn: TarifIn; //
 let cookieName: string; // (optional) (default to undefined)
+let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tarifsUpdateTarif(
     tarifId,
     tarifIn,
-    cookieName
+    cookieName,
+    tenantId
 );
 ```
 
@@ -152,8 +166,9 @@ const { status, data } = await apiInstance.tarifsUpdateTarif(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tarifIn** | **TarifIn**|  | |
-| **tarifId** | [**number**] |  | defaults to undefined|
+| **tarifId** | [**number**] | ID of the tarif to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -174,6 +189,9 @@ const { status, data } = await apiInstance.tarifsUpdateTarif(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Insufficient privileges, or tariff not editable by your tenant. |  -  |
+|**404** | No tarif exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

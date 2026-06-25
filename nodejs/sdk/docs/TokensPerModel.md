@@ -6,12 +6,12 @@ Model for total tokens of one llm resource.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_model** | **string** |  | [default to undefined]
-**duration** | **string** |  | [default to undefined]
-**total_tokens_count** | **number** |  | [default to undefined]
-**prompt_token_count** | **number** |  | [default to undefined]
-**completion_token_count** | **number** |  | [default to undefined]
-**total_requests** | **number** |  | [default to undefined]
+**llm_model** | **string** | Catalog name of the model. | [default to undefined]
+**duration** | **string** | Window the totals cover. | [default to undefined]
+**total_tokens_count** | **number** | Total tokens (prompt + completion) in the window. | [default to undefined]
+**prompt_token_count** | **number** | Prompt tokens consumed in the window. | [default to undefined]
+**completion_token_count** | **number** | Completion tokens generated in the window. | [default to undefined]
+**total_requests** | **number** | Number of requests in the window. | [default to undefined]
 
 ## Example
 

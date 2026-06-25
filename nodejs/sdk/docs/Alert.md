@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**alertsCreateAlert**](#alertscreatealert) | **POST** /alerts/ | Create Alert|
-|[**alertsDeleteAlert**](#alertsdeletealert) | **DELETE** /alerts/{alert_id} | Delete Alert|
-|[**alertsUpdateAlert**](#alertsupdatealert) | **PATCH** /alerts/{alert_id} | Update Alert|
+|[**alertsCreateAlert**](#alertscreatealert) | **POST** /alerts/ | Create a budget alert|
+|[**alertsDeleteAlert**](#alertsdeletealert) | **DELETE** /alerts/{alert_id} | Delete a budget alert|
+|[**alertsUpdateAlert**](#alertsupdatealert) | **PATCH** /alerts/{alert_id} | Update a budget alert|
 
 # **alertsCreateAlert**
 > BudgetAlert alertsCreateAlert(budgetAlertRequest)
 
-Create a new budget alert with threshold and current spend. Only Admins can do it.
+Create a new budget alert with threshold and current spend.
 
 ### Example
 
@@ -63,6 +63,8 @@ const { status, data } = await apiInstance.alertsCreateAlert(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -70,7 +72,7 @@ const { status, data } = await apiInstance.alertsCreateAlert(
 # **alertsDeleteAlert**
 > alertsDeleteAlert()
 
-Delete exisiting budget alert
+Delete an existing budget alert.
 
 ### Example
 
@@ -83,7 +85,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
 
-let alertId: number; // (default to undefined)
+let alertId: number; //ID of the budget alert to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 let tenantId: number; // (optional) (default to undefined)
 
@@ -98,7 +100,7 @@ const { status, data } = await apiInstance.alertsDeleteAlert(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **alertId** | [**number**] |  | defaults to undefined|
+| **alertId** | [**number**] | ID of the budget alert to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 | **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
@@ -121,6 +123,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**404** | No budget alert exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -128,7 +133,7 @@ void (empty response body)
 # **alertsUpdateAlert**
 > BudgetAlert alertsUpdateAlert(budgetAlertUpdate)
 
-Updates a existing budget alert. Only Admins can do it.
+Update an existing budget alert.
 
 ### Example
 
@@ -142,7 +147,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
 
-let alertId: number; // (default to undefined)
+let alertId: number; //ID of the budget alert to update. (default to undefined)
 let budgetAlertUpdate: BudgetAlertUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 let tenantId: number; // (optional) (default to undefined)
@@ -160,7 +165,7 @@ const { status, data } = await apiInstance.alertsUpdateAlert(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **budgetAlertUpdate** | **BudgetAlertUpdate**|  | |
-| **alertId** | [**number**] |  | defaults to undefined|
+| **alertId** | [**number**] | ID of the budget alert to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 | **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
@@ -183,6 +188,9 @@ const { status, data } = await apiInstance.alertsUpdateAlert(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**404** | No budget alert exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

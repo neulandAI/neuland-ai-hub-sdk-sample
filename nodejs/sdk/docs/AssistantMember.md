@@ -6,9 +6,10 @@ Saves the members of an AI Assistant.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **string** |  | [optional] [default to undefined]
-**assistant_id** | **number** |  | [default to undefined]
+**created_at** | **string** | Timestamp when the membership was created. | [optional] [default to undefined]
+**assistant_id** | **number** | ID of the assistant. | [default to undefined]
 **user_id** | **number** |  | [default to undefined]
+**granted_via** | [**AssistantMemberGrantedViaEnum**](AssistantMemberGrantedViaEnum.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -19,6 +20,7 @@ const instance: AssistantMember = {
     created_at,
     assistant_id,
     user_id,
+    granted_via,
 };
 ```
 

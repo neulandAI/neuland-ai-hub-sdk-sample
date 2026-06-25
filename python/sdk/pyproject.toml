@@ -1,12 +1,12 @@
 [project]
 name = "neuland_hub_sdk"
 version = "1.0.0"
-description = "FastAPI"
+description = "Neuland AI Hub API"
 authors = [
-  {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
+  {name = "neuland.ai",email = "team@openapitools.org"},
 ]
 readme = "README.md"
-keywords = ["OpenAPI", "OpenAPI-Generator", "FastAPI"]
+keywords = ["OpenAPI", "OpenAPI-Generator", "Neuland AI Hub API"]
 requires-python = ">=3.9"
 
 dependencies = [

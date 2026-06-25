@@ -5,12 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_catalog_id** | **int** |  | 
-**provider** | **str** |  | 
-**library** | **str** |  | 
-**max_tokens** | **int** |  | 
+**llm_catalog_id** | **int** | ID of the catalog model these settings configure. | 
+**provider** | **str** | Provider backing the model. | 
+**library** | **str** | Client library used to call the provider. | 
+**max_tokens** | **int** | Maximum tokens allowed per request for this model. | 
 **cost_prompt_tokens** | [**CostPromptTokens**](CostPromptTokens.md) |  | 
 **cost_completion_tokens** | [**CostCompletionTokens**](CostCompletionTokens.md) |  | 
+**region** | **str** |  | [optional] 
 **args** | **Dict[str, object]** |  | [optional] 
 **openai_resource** | **str** |  | [optional] 
 **api_version** | **str** |  | [optional] 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**members** | [**List[ProjectMemberIn]**](ProjectMemberIn.md) |  | 
+**members** | [**List[ProjectMemberIn]**](ProjectMemberIn.md) | List of members to add to the project. | 
 
 ## Example
 

@@ -4,13 +4,14 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**llmCreateLlmSettings**](#llmcreatellmsettings) | **POST** /llm/settings | Create Llm Settings|
-|[**llmDeleteLlmSettings**](#llmdeletellmsettings) | **DELETE** /llm/settings/{settings_id} | Delete Llm Settings|
-|[**llmUpdateLlmSettings**](#llmupdatellmsettings) | **PATCH** /llm/settings/{settings_id} | Update Llm Settings|
+|[**llmCreateLlmSettings**](#llmcreatellmsettings) | **POST** /llm/settings | Create LLM settings|
+|[**llmDeleteLlmSettings**](#llmdeletellmsettings) | **DELETE** /llm/settings/{settings_id} | Delete LLM settings|
+|[**llmUpdateLlmSettings**](#llmupdatellmsettings) | **PATCH** /llm/settings/{settings_id} | Update LLM settings|
 
 # **llmCreateLlmSettings**
 > any llmCreateLlmSettings(lLMSettingsIn)
 
+Create a provider-specific settings entry for a catalog model.
 
 ### Example
 
@@ -59,6 +60,8 @@ const { status, data } = await apiInstance.llmCreateLlmSettings(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -66,6 +69,7 @@ const { status, data } = await apiInstance.llmCreateLlmSettings(
 # **llmDeleteLlmSettings**
 > llmDeleteLlmSettings()
 
+Remove an LLM settings entry permanently.
 
 ### Example
 
@@ -78,7 +82,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new LlmSetting(configuration);
 
-let settingsId: number; // (default to undefined)
+let settingsId: number; //ID of the LLM settings entry to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.llmDeleteLlmSettings(
@@ -91,7 +95,7 @@ const { status, data } = await apiInstance.llmDeleteLlmSettings(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **settingsId** | [**number**] |  | defaults to undefined|
+| **settingsId** | [**number**] | ID of the LLM settings entry to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -113,6 +117,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator privileges required. |  -  |
+|**404** | No LLM settings exist with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -120,6 +127,7 @@ void (empty response body)
 # **llmUpdateLlmSettings**
 > any llmUpdateLlmSettings(lLMSettingsUpdate)
 
+Update fields of an existing LLM settings entry.
 
 ### Example
 
@@ -133,7 +141,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new LlmSetting(configuration);
 
-let settingsId: number; // (default to undefined)
+let settingsId: number; //ID of the LLM settings entry to update. (default to undefined)
 let lLMSettingsUpdate: LLMSettingsUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -149,7 +157,7 @@ const { status, data } = await apiInstance.llmUpdateLlmSettings(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **lLMSettingsUpdate** | **LLMSettingsUpdate**|  | |
-| **settingsId** | [**number**] |  | defaults to undefined|
+| **settingsId** | [**number**] | ID of the LLM settings entry to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -171,6 +179,9 @@ const { status, data } = await apiInstance.llmUpdateLlmSettings(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator privileges required. |  -  |
+|**404** | No LLM settings exist with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

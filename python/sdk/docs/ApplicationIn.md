@@ -6,9 +6,9 @@ Schema for creating an application
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
-**is_active** | **bool** |  | [optional] [default to True]
-**tenant_id** | **int** |  | 
+**name** | **str** | Display name of the application. | 
+**is_active** | **bool** | Whether the application is active and available to users. | [optional] [default to True]
+**tenant_id** | **int** | ID of the tenant the application belongs to. | 
 **app_url** | **str** |  | [optional] 
 **is_native** | **bool** |  | [optional] 
 **native_app_id** | **int** |  | [optional] 

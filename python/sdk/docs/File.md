@@ -4,13 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**files_download_file**](File.md#files_download_file) | **GET** /files/{file_id} | Download File
+[**files_download_file**](File.md#files_download_file) | **GET** /files/{file_id} | Download a file
 
 
 # **files_download_file**
 > object files_download_file(file_id, cookie_name=cookie_name)
 
-Download File
+Download a file
+
+Stream a stored file as an attachment to authorized callers.
 
 ### Example
 
@@ -49,7 +51,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Download File
+        # Download a file
         api_response = api_instance.files_download_file(file_id, cookie_name=cookie_name)
         print("The response of File->files_download_file:\n")
         pprint(api_response)
@@ -85,6 +87,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller may not access this file. |  -  |
+**404** | No file exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**tools_update_tool**](Tool.md#tools_update_tool) | **PATCH** /tools/{tool_id} | Update Tool
+[**tools_update_tool**](Tool.md#tools_update_tool) | **PATCH** /tools/{tool_id} | Update a tool
 
 
 # **tools_update_tool**
 > ToolOut tools_update_tool(tool_id, tool_update, cookie_name=cookie_name)
 
-Update Tool
+Update a tool
 
-Update a tool (superadmin only)
+Update a tool's editable fields (superadmin only).
 
 ### Example
 
@@ -49,12 +49,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tool(api_client)
-    tool_id = 56 # int | 
+    tool_id = 56 # int | ID of the tool to update.
     tool_update = neuland_hub_sdk.ToolUpdate() # ToolUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Tool
+        # Update a tool
         api_response = api_instance.tools_update_tool(tool_id, tool_update, cookie_name=cookie_name)
         print("The response of Tool->tools_update_tool:\n")
         pprint(api_response)
@@ -69,7 +69,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tool_id** | **int**|  | 
+ **tool_id** | **int**| ID of the tool to update. | 
  **tool_update** | [**ToolUpdate**](ToolUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -91,6 +91,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller is not a superadmin. |  -  |
+**404** | No tool exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

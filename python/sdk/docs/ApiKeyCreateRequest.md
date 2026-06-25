@@ -1,6 +1,6 @@
 # ApiKeyCreateRequest
 
-Api key creation payload model
+Payload for creating an API key. All fields are optional.
 
 ## Properties
 

@@ -4,15 +4,18 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**prompts_create_prompt**](Prompt.md#prompts_create_prompt) | **POST** /prompts/ | Create Prompt
-[**prompts_delete_prompt**](Prompt.md#prompts_delete_prompt) | **DELETE** /prompts/{prompt_id} | Delete Prompt
-[**prompts_update_prompt**](Prompt.md#prompts_update_prompt) | **PATCH** /prompts/{prompt_id} | Update Prompt
+[**prompts_create_prompt**](Prompt.md#prompts_create_prompt) | **POST** /prompts/ | Create a prompt
+[**prompts_delete_prompt**](Prompt.md#prompts_delete_prompt) | **DELETE** /prompts/{prompt_id} | Delete a prompt
+[**prompts_optimize_prompt**](Prompt.md#prompts_optimize_prompt) | **POST** /prompts/optimize | Optimize a prompt
+[**prompts_update_prompt**](Prompt.md#prompts_update_prompt) | **PATCH** /prompts/{prompt_id} | Update a prompt
 
 
 # **prompts_create_prompt**
 > Prompt prompts_create_prompt(prompt_in, cookie_name=cookie_name)
 
-Create Prompt
+Create a prompt
+
+Create a saved prompt for the current user.
 
 ### Example
 
@@ -53,7 +56,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create Prompt
+        # Create a prompt
         api_response = api_instance.prompts_create_prompt(prompt_in, cookie_name=cookie_name)
         print("The response of Prompt->prompts_create_prompt:\n")
         pprint(api_response)
@@ -89,6 +92,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Only admins may create public prompts. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -96,7 +101,9 @@ Name | Type | Description  | Notes
 # **prompts_delete_prompt**
 > prompts_delete_prompt(prompt_id, cookie_name=cookie_name)
 
-Delete Prompt
+Delete a prompt
+
+Delete a prompt owned by the current user.
 
 ### Example
 
@@ -131,11 +138,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Prompt(api_client)
-    prompt_id = 56 # int | 
+    prompt_id = 56 # int | ID of the prompt to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Prompt
+        # Delete a prompt
         api_instance.prompts_delete_prompt(prompt_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Prompt->prompts_delete_prompt: %s\n" % e)
@@ -148,7 +155,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **prompt_id** | **int**|  | 
+ **prompt_id** | **int**| ID of the prompt to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -169,6 +176,98 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Not the creator of this prompt. |  -  |
+**404** | No prompt exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **prompts_optimize_prompt**
+> PromptOptimizeOut prompts_optimize_prompt(prompt_optimize_in, cookie_name=cookie_name)
+
+Optimize a prompt
+
+Rewrite a draft prompt into a clearer, better-structured version using an LLM.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.prompt_optimize_in import PromptOptimizeIn
+from neuland_hub_sdk.models.prompt_optimize_out import PromptOptimizeOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Prompt(api_client)
+    prompt_optimize_in = neuland_hub_sdk.PromptOptimizeIn() # PromptOptimizeIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Optimize a prompt
+        api_response = api_instance.prompts_optimize_prompt(prompt_optimize_in, cookie_name=cookie_name)
+        print("The response of Prompt->prompts_optimize_prompt:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Prompt->prompts_optimize_prompt: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **prompt_optimize_in** | [**PromptOptimizeIn**](PromptOptimizeIn.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**PromptOptimizeOut**](PromptOptimizeOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Usage budget exceeded. |  -  |
+**404** | Current user does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -176,7 +275,9 @@ void (empty response body)
 # **prompts_update_prompt**
 > Prompt prompts_update_prompt(prompt_id, prompt_in, cookie_name=cookie_name)
 
-Update Prompt
+Update a prompt
+
+Update a prompt owned by the current user.
 
 ### Example
 
@@ -213,12 +314,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Prompt(api_client)
-    prompt_id = 56 # int | 
+    prompt_id = 56 # int | ID of the prompt to update.
     prompt_in = neuland_hub_sdk.PromptIn() # PromptIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Prompt
+        # Update a prompt
         api_response = api_instance.prompts_update_prompt(prompt_id, prompt_in, cookie_name=cookie_name)
         print("The response of Prompt->prompts_update_prompt:\n")
         pprint(api_response)
@@ -233,7 +334,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **prompt_id** | **int**|  | 
+ **prompt_id** | **int**| ID of the prompt to update. | 
  **prompt_in** | [**PromptIn**](PromptIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -255,6 +356,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Not the creator, or only admins may make a prompt public. |  -  |
+**404** | No prompt exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

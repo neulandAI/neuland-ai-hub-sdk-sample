@@ -4,26 +4,30 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**tenantsAddLibraryToTenants**](#tenantsaddlibrarytotenants) | **POST** /tenants/{tenant_id}/libraries/{library_id} | Add Library To Tenants|
-|[**tenantsCreateTenant**](#tenantscreatetenant) | **POST** /tenants/ | Create Tenant|
-|[**tenantsCreateTenantConnector**](#tenantscreatetenantconnector) | **POST** /tenants/{tenant_id}/connectors/{connector_id} | Create Tenant Connector|
-|[**tenantsCreateTenantTool**](#tenantscreatetenanttool) | **POST** /tenants/{tenant_id}/tools/{tool_id} | Create Tenant Tool|
-|[**tenantsDeleteTenant**](#tenantsdeletetenant) | **DELETE** /tenants/{tenant_id} | Delete Tenant|
-|[**tenantsDeleteTenantConnector**](#tenantsdeletetenantconnector) | **DELETE** /tenants/{tenant_id}/connectors/{connector_id} | Delete Tenant Connector|
-|[**tenantsDeleteTenantModel**](#tenantsdeletetenantmodel) | **DELETE** /tenants/{tenant_id}/models/{model_id} | Delete Tenant Model|
-|[**tenantsDeleteTenantModelsBulk**](#tenantsdeletetenantmodelsbulk) | **DELETE** /tenants/models/{model_id}/bulk | Delete Tenant Models Bulk|
-|[**tenantsDeleteTenantTool**](#tenantsdeletetenanttool) | **DELETE** /tenants/{tenant_id}/tools/{tool_id} | Delete Tenant Tool|
-|[**tenantsGetCurrentTenant**](#tenantsgetcurrenttenant) | **GET** /tenants/current | Get Current Tenant|
-|[**tenantsPutTenantModel**](#tenantsputtenantmodel) | **PUT** /tenants/{tenant_id}/models/{model_id} | Put Tenant Model|
-|[**tenantsPutTenantModelsBulk**](#tenantsputtenantmodelsbulk) | **PUT** /tenants/models/{model_id}/bulk | Put Tenant Models Bulk|
-|[**tenantsRemoveTenantLibraryMember**](#tenantsremovetenantlibrarymember) | **DELETE** /tenants/{tenant_id}/libraries/{library_id} | Remove Tenant Library Member|
-|[**tenantsUpdateCurrentTenant**](#tenantsupdatecurrenttenant) | **PATCH** /tenants/current | Update Current Tenant|
-|[**tenantsUpdateTenant**](#tenantsupdatetenant) | **PATCH** /tenants/{tenant_id} | Update Tenant|
+|[**tenantsAddLibraryToTenants**](#tenantsaddlibrarytotenants) | **POST** /tenants/{tenant_id}/libraries/{library_id} | Assign a library to a tenant|
+|[**tenantsCreateTenant**](#tenantscreatetenant) | **POST** /tenants/ | Create a tenant|
+|[**tenantsCreateTenantConnector**](#tenantscreatetenantconnector) | **POST** /tenants/{tenant_id}/connectors/{connector_id} | Enable a connector for a tenant|
+|[**tenantsCreateTenantOauthClient**](#tenantscreatetenantoauthclient) | **POST** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Create Tenant Oauth Client|
+|[**tenantsCreateTenantTool**](#tenantscreatetenanttool) | **POST** /tenants/{tenant_id}/tools/{tool_id} | Enable a tool for a tenant|
+|[**tenantsDeleteTenant**](#tenantsdeletetenant) | **DELETE** /tenants/{tenant_id} | Delete a tenant|
+|[**tenantsDeleteTenantConnector**](#tenantsdeletetenantconnector) | **DELETE** /tenants/{tenant_id}/connectors/{connector_id} | Disable a connector for a tenant|
+|[**tenantsDeleteTenantModel**](#tenantsdeletetenantmodel) | **DELETE** /tenants/{tenant_id}/models/{model_id} | Disable a model for a tenant|
+|[**tenantsDeleteTenantModelsBulk**](#tenantsdeletetenantmodelsbulk) | **DELETE** /tenants/models/{model_id}/bulk | Disable a model for multiple tenants|
+|[**tenantsDeleteTenantOauthClient**](#tenantsdeletetenantoauthclient) | **DELETE** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Delete Tenant Oauth Client|
+|[**tenantsDeleteTenantTool**](#tenantsdeletetenanttool) | **DELETE** /tenants/{tenant_id}/tools/{tool_id} | Disable a tool for a tenant|
+|[**tenantsGetCurrentTenant**](#tenantsgetcurrenttenant) | **GET** /tenants/current | Get current tenant|
+|[**tenantsPutTenantModel**](#tenantsputtenantmodel) | **PUT** /tenants/{tenant_id}/models/{model_id} | Enable a model for a tenant|
+|[**tenantsPutTenantModelsBulk**](#tenantsputtenantmodelsbulk) | **PUT** /tenants/models/{model_id}/bulk | Enable a model for multiple tenants|
+|[**tenantsRemoveTenantLibraryMember**](#tenantsremovetenantlibrarymember) | **DELETE** /tenants/{tenant_id}/libraries/{library_id} | Unassign a library from a tenant|
+|[**tenantsUpdateCurrentTenant**](#tenantsupdatecurrenttenant) | **PATCH** /tenants/current | Update current tenant|
+|[**tenantsUpdateTenant**](#tenantsupdatetenant) | **PATCH** /tenants/{tenant_id} | Update a tenant|
+|[**tenantsUpdateTenantOauthClient**](#tenantsupdatetenantoauthclient) | **PATCH** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Update Tenant Oauth Client|
+|[**tenantsUpdateTenantOauthSecret**](#tenantsupdatetenantoauthsecret) | **PUT** /tenants/{tenant_id}/oauth-clients/{oauth_client_id}/secret | Update Tenant Oauth Secret|
 
 # **tenantsAddLibraryToTenants**
 > any tenantsAddLibraryToTenants()
 
-Assign library to the tenant by superadmin or to one entire tenancy by admin
+Assign a library to a tenant (library owner who is admin of that tenant).
 
 ### Example
 
@@ -37,7 +41,7 @@ const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
 let libraryId: number; // (default to undefined)
-let tenantId: number; // (default to undefined)
+let tenantId: number; //ID of the tenant. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
@@ -52,7 +56,7 @@ const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **libraryId** | [**number**] |  | defaults to undefined|
-| **tenantId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -74,6 +78,9 @@ const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Library owner and tenant admin privileges required. |  -  |
+|**404** | Current user not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -81,7 +88,7 @@ const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
 # **tenantsCreateTenant**
 > TenantOut tenantsCreateTenant(tenantIn)
 
-Create a new tenant (platform operator or parent tenant admin)
+Create a new tenant (platform operator or parent tenant admin).
 
 ### Example
 
@@ -133,6 +140,9 @@ const { status, data } = await apiInstance.tenantsCreateTenant(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required, or not permitted to create this kind of tenant. |  -  |
+|**404** | Current user or parent tenant not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -140,7 +150,7 @@ const { status, data } = await apiInstance.tenantsCreateTenant(
 # **tenantsCreateTenantConnector**
 > any tenantsCreateTenantConnector()
 
-Enable a connector for a tenant by creating TenantConnector record (superadmin or parent tenant admin)
+Enable a connector for a tenant (superadmin or parent tenant admin).
 
 ### Example
 
@@ -154,7 +164,7 @@ const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
 let tenantId: number; // (default to undefined)
-let connectorId: number; // (default to undefined)
+let connectorId: number; //ID of the connector to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsCreateTenantConnector(
@@ -169,7 +179,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantConnector(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantId** | [**number**] |  | defaults to undefined|
-| **connectorId** | [**number**] |  | defaults to undefined|
+| **connectorId** | [**number**] | ID of the connector to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -184,6 +194,71 @@ const { status, data } = await apiInstance.tenantsCreateTenantConnector(
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | No connector exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **tenantsCreateTenantOauthClient**
+> TenantOAuthClientOut tenantsCreateTenantOauthClient(tenantOAuthClientIn)
+
+Provision per-tenant SSO config + secret for a deployment-wide template.
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantOAuthClientIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let oauthClientId: number; // (default to undefined)
+let tenantOAuthClientIn: TenantOAuthClientIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsCreateTenantOauthClient(
+    tenantId,
+    oauthClientId,
+    tenantOAuthClientIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantOAuthClientIn** | **TenantOAuthClientIn**|  | |
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantOAuthClientOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -198,7 +273,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantConnector(
 # **tenantsCreateTenantTool**
 > any tenantsCreateTenantTool()
 
-Enable a tool for a tenant by creating TenantTool record (superadmin or parent tenant admin)
+Enable a tool for a tenant (superadmin or parent tenant admin).
 
 ### Example
 
@@ -212,7 +287,7 @@ const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
 let tenantId: number; // (default to undefined)
-let toolId: number; // (default to undefined)
+let toolId: number; //ID of the tool to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsCreateTenantTool(
@@ -227,7 +302,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantTool(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantId** | [**number**] |  | defaults to undefined|
-| **toolId** | [**number**] |  | defaults to undefined|
+| **toolId** | [**number**] | ID of the tool to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -249,6 +324,8 @@ const { status, data } = await apiInstance.tenantsCreateTenantTool(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -256,7 +333,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantTool(
 # **tenantsDeleteTenant**
 > tenantsDeleteTenant()
 
-Delete a tenant (superadmin or parent tenant admin)
+Delete a tenant by id (superadmin or parent tenant admin).
 
 ### Example
 
@@ -304,6 +381,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | No tenant exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -311,7 +391,7 @@ void (empty response body)
 # **tenantsDeleteTenantConnector**
 > tenantsDeleteTenantConnector()
 
-Disable a connector for a tenant by removing TenantConnector record (superadmin or parent tenant admin)
+Disable a connector for a tenant (superadmin or parent tenant admin).
 
 ### Example
 
@@ -325,7 +405,7 @@ const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
 let tenantId: number; // (default to undefined)
-let connectorId: number; // (default to undefined)
+let connectorId: number; //ID of the connector to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsDeleteTenantConnector(
@@ -340,7 +420,7 @@ const { status, data } = await apiInstance.tenantsDeleteTenantConnector(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantId** | [**number**] |  | defaults to undefined|
-| **connectorId** | [**number**] |  | defaults to undefined|
+| **connectorId** | [**number**] | ID of the connector to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -362,6 +442,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | The connector is not enabled for the tenant. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -369,6 +452,7 @@ void (empty response body)
 # **tenantsDeleteTenantModel**
 > tenantsDeleteTenantModel()
 
+Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
 
 ### Example
 
@@ -382,7 +466,7 @@ const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
 let tenantId: number; // (default to undefined)
-let modelId: number; // (default to undefined)
+let modelId: number; //ID of the LLM catalog model to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsDeleteTenantModel(
@@ -397,7 +481,7 @@ const { status, data } = await apiInstance.tenantsDeleteTenantModel(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantId** | [**number**] |  | defaults to undefined|
-| **modelId** | [**number**] |  | defaults to undefined|
+| **modelId** | [**number**] | ID of the LLM catalog model to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -419,6 +503,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | Tenant model association not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -426,6 +513,7 @@ void (empty response body)
 # **tenantsDeleteTenantModelsBulk**
 > tenantsDeleteTenantModelsBulk(tenantModelBulkIn)
 
+Disable an LLM catalog model for all tenants or a list of tenants (superadmin).
 
 ### Example
 
@@ -439,7 +527,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let modelId: number; // (default to undefined)
+let modelId: number; //ID of the LLM catalog model to disable. (default to undefined)
 let tenantModelBulkIn: TenantModelBulkIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -455,7 +543,7 @@ const { status, data } = await apiInstance.tenantsDeleteTenantModelsBulk(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantModelBulkIn** | **TenantModelBulkIn**|  | |
-| **modelId** | [**number**] |  | defaults to undefined|
+| **modelId** | [**number**] | ID of the LLM catalog model to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -477,14 +565,16 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | Catalog model not found, or a target tenant not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **tenantsDeleteTenantTool**
-> tenantsDeleteTenantTool()
+# **tenantsDeleteTenantOauthClient**
+> tenantsDeleteTenantOauthClient()
 
-Disable a tool for a tenant by removing TenantTool record (superadmin or parent tenant admin)
 
 ### Example
 
@@ -498,12 +588,12 @@ const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
 let tenantId: number; // (default to undefined)
-let toolId: number; // (default to undefined)
+let oauthClientId: number; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
-const { status, data } = await apiInstance.tenantsDeleteTenantTool(
+const { status, data } = await apiInstance.tenantsDeleteTenantOauthClient(
     tenantId,
-    toolId,
+    oauthClientId,
     cookieName
 );
 ```
@@ -513,7 +603,7 @@ const { status, data } = await apiInstance.tenantsDeleteTenantTool(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantId** | [**number**] |  | defaults to undefined|
-| **toolId** | [**number**] |  | defaults to undefined|
+| **oauthClientId** | [**number**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -539,10 +629,71 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **tenantsDeleteTenantTool**
+> tenantsDeleteTenantTool()
+
+Disable a tool for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let toolId: number; //ID of the tool to disable. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsDeleteTenantTool(
+    tenantId,
+    toolId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **toolId** | [**number**] | ID of the tool to disable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | The tool is not enabled for the tenant. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **tenantsGetCurrentTenant**
 > TenantOut tenantsGetCurrentTenant()
 
-Get current user\'s tenant
+Get the tenant the current user belongs to.
 
 ### Example
 
@@ -587,6 +738,7 @@ const { status, data } = await apiInstance.tenantsGetCurrentTenant(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -594,6 +746,7 @@ const { status, data } = await apiInstance.tenantsGetCurrentTenant(
 # **tenantsPutTenantModel**
 > TenantLLM tenantsPutTenantModel()
 
+Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
 
 ### Example
 
@@ -607,7 +760,7 @@ const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
 let tenantId: number; // (default to undefined)
-let modelId: number; // (default to undefined)
+let modelId: number; //ID of the LLM catalog model to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsPutTenantModel(
@@ -622,7 +775,7 @@ const { status, data } = await apiInstance.tenantsPutTenantModel(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantId** | [**number**] |  | defaults to undefined|
-| **modelId** | [**number**] |  | defaults to undefined|
+| **modelId** | [**number**] | ID of the LLM catalog model to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -644,6 +797,9 @@ const { status, data } = await apiInstance.tenantsPutTenantModel(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | Tenant or catalog model not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -651,6 +807,7 @@ const { status, data } = await apiInstance.tenantsPutTenantModel(
 # **tenantsPutTenantModelsBulk**
 > tenantsPutTenantModelsBulk(tenantModelBulkIn)
 
+Enable an LLM catalog model for all tenants or a list of tenants (superadmin).
 
 ### Example
 
@@ -664,7 +821,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let modelId: number; // (default to undefined)
+let modelId: number; //ID of the LLM catalog model to enable. (default to undefined)
 let tenantModelBulkIn: TenantModelBulkIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -680,7 +837,7 @@ const { status, data } = await apiInstance.tenantsPutTenantModelsBulk(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantModelBulkIn** | **TenantModelBulkIn**|  | |
-| **modelId** | [**number**] |  | defaults to undefined|
+| **modelId** | [**number**] | ID of the LLM catalog model to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -702,6 +859,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | Catalog model not found, or a target tenant not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -709,7 +869,7 @@ void (empty response body)
 # **tenantsRemoveTenantLibraryMember**
 > tenantsRemoveTenantLibraryMember()
 
-Deletes a tenant from the library
+Remove a library assignment from a tenant (library owner who is tenant admin).
 
 ### Example
 
@@ -723,7 +883,7 @@ const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
 let libraryId: number; // (default to undefined)
-let tenantId: number; // (default to undefined)
+let tenantId: number; //ID of the tenant. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsRemoveTenantLibraryMember(
@@ -738,7 +898,7 @@ const { status, data } = await apiInstance.tenantsRemoveTenantLibraryMember(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **libraryId** | [**number**] |  | defaults to undefined|
-| **tenantId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -760,6 +920,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Library owner and tenant admin privileges required. |  -  |
+|**404** | The library is not assigned to the tenant. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -767,7 +930,7 @@ void (empty response body)
 # **tenantsUpdateCurrentTenant**
 > TenantOut tenantsUpdateCurrentTenant(tenantUpdateIn)
 
-Update current user\'s tenant (tenant admin only)
+Update the current user\'s tenant (tenant admin; some fields superadmin-only).
 
 ### Example
 
@@ -819,6 +982,8 @@ const { status, data } = await apiInstance.tenantsUpdateCurrentTenant(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required, or superadmin required to change protected fields. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -826,7 +991,7 @@ const { status, data } = await apiInstance.tenantsUpdateCurrentTenant(
 # **tenantsUpdateTenant**
 > TenantOut tenantsUpdateTenant(tenantUpdateIn)
 
-Update a tenant (superadmin or parent tenant admin)
+Update a tenant by id (superadmin or parent tenant admin).
 
 ### Example
 
@@ -878,6 +1043,131 @@ const { status, data } = await apiInstance.tenantsUpdateTenant(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required; some fields require superadmin. |  -  |
+|**404** | No tenant exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **tenantsUpdateTenantOauthClient**
+> TenantOAuthClientOut tenantsUpdateTenantOauthClient(tenantOAuthClientUpdate)
+
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantOAuthClientUpdate
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let oauthClientId: number; // (default to undefined)
+let tenantOAuthClientUpdate: TenantOAuthClientUpdate; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsUpdateTenantOauthClient(
+    tenantId,
+    oauthClientId,
+    tenantOAuthClientUpdate,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantOAuthClientUpdate** | **TenantOAuthClientUpdate**|  | |
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantOAuthClientOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **tenantsUpdateTenantOauthSecret**
+> tenantsUpdateTenantOauthSecret(secretUpdateIn)
+
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    SecretUpdateIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let oauthClientId: number; // (default to undefined)
+let secretUpdateIn: SecretUpdateIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsUpdateTenantOauthSecret(
+    tenantId,
+    oauthClientId,
+    secretUpdateIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **secretUpdateIn** | **SecretUpdateIn**|  | |
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **str** |  | 
+**content** | **str** | The translated or rephrased text. | 
 
 ## Example
 

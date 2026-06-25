@@ -4,21 +4,21 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**chats_add_library_to_chat**](Chat.md#chats_add_library_to_chat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add Library To Chat
-[**chats_cancel_message**](Chat.md#chats_cancel_message) | **POST** /chats/{chat_id}/cancel | Cancel Message
-[**chats_deactivate_documents**](Chat.md#chats_deactivate_documents) | **POST** /chats/{chat_id}/inactive-documents | Deactivate Documents
-[**chats_remove_chat**](Chat.md#chats_remove_chat) | **DELETE** /chats/{chat_id} | Remove Chat
-[**chats_remove_inactive_documents**](Chat.md#chats_remove_inactive_documents) | **DELETE** /chats/{chat_id}/inactive-documents | Remove Inactive Documents
-[**chats_remove_library_from_chat**](Chat.md#chats_remove_library_from_chat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove Library From Chat
-[**chats_summerize_chat**](Chat.md#chats_summerize_chat) | **GET** /chats/{chat_id}/summary | Summerize Chat
-[**chats_update_chat**](Chat.md#chats_update_chat) | **PATCH** /chats/{chat_id} | Update Chat
-[**chats_update_chat_tool_settings**](Chat.md#chats_update_chat_tool_settings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Update Chat Tool Settings
+[**chats_add_library_to_chat**](Chat.md#chats_add_library_to_chat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add a library to a chat
+[**chats_cancel_message**](Chat.md#chats_cancel_message) | **POST** /chats/{chat_id}/cancel | Cancel in-progress generation
+[**chats_deactivate_documents**](Chat.md#chats_deactivate_documents) | **POST** /chats/{chat_id}/inactive-documents | Deactivate documents in a chat
+[**chats_remove_chat**](Chat.md#chats_remove_chat) | **DELETE** /chats/{chat_id} | Delete a chat
+[**chats_remove_inactive_documents**](Chat.md#chats_remove_inactive_documents) | **DELETE** /chats/{chat_id}/inactive-documents | Reactivate documents in a chat
+[**chats_remove_library_from_chat**](Chat.md#chats_remove_library_from_chat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat
+[**chats_summerize_chat**](Chat.md#chats_summerize_chat) | **GET** /chats/{chat_id}/summary | Summarize a chat
+[**chats_update_chat**](Chat.md#chats_update_chat) | **PATCH** /chats/{chat_id} | Update a chat
+[**chats_update_chat_tool_settings**](Chat.md#chats_update_chat_tool_settings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Set a chat tool setting
 
 
 # **chats_add_library_to_chat**
 > ChatLibrary chats_add_library_to_chat(chat_id, library_id, cookie_name=cookie_name)
 
-Add Library To Chat
+Add a library to a chat
 
 Enables a library in a chat by creating a new association
 
@@ -61,7 +61,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add Library To Chat
+        # Add a library to a chat
         api_response = api_instance.chats_add_library_to_chat(chat_id, library_id, cookie_name=cookie_name)
         print("The response of Chat->chats_add_library_to_chat:\n")
         pprint(api_response)
@@ -98,6 +98,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to the chat or the library. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -105,7 +107,9 @@ Name | Type | Description  | Notes
 # **chats_cancel_message**
 > object chats_cancel_message(chat_id, cookie_name=cookie_name)
 
-Cancel Message
+Cancel in-progress generation
+
+Cancel any pending or streaming message generation in the chat.
 
 ### Example
 
@@ -144,7 +148,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Cancel Message
+        # Cancel in-progress generation
         api_response = api_instance.chats_cancel_message(chat_id, cookie_name=cookie_name)
         print("The response of Chat->chats_cancel_message:\n")
         pprint(api_response)
@@ -180,6 +184,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to this chat. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -187,7 +193,9 @@ Name | Type | Description  | Notes
 # **chats_deactivate_documents**
 > List[ChatInactiveDocument] chats_deactivate_documents(chat_id, document_ids, cookie_name=cookie_name)
 
-Deactivate Documents
+Deactivate documents in a chat
+
+Exclude the given documents from the chat's retrieval context.
 
 ### Example
 
@@ -228,7 +236,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Deactivate Documents
+        # Deactivate documents in a chat
         api_response = api_instance.chats_deactivate_documents(chat_id, document_ids, cookie_name=cookie_name)
         print("The response of Chat->chats_deactivate_documents:\n")
         pprint(api_response)
@@ -265,6 +273,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to this chat. |  -  |
+**404** | Chat or one of the documents does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -272,7 +283,9 @@ Name | Type | Description  | Notes
 # **chats_remove_chat**
 > chats_remove_chat(chat_id, cookie_name=cookie_name)
 
-Remove Chat
+Delete a chat
+
+Delete a chat and its messages.
 
 ### Example
 
@@ -311,7 +324,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove Chat
+        # Delete a chat
         api_instance.chats_remove_chat(chat_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Chat->chats_remove_chat: %s\n" % e)
@@ -345,6 +358,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to this chat. |  -  |
+**404** | No chat exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -352,7 +368,9 @@ void (empty response body)
 # **chats_remove_inactive_documents**
 > BulkResult chats_remove_inactive_documents(chat_id, document_ids, cookie_name=cookie_name)
 
-Remove Inactive Documents
+Reactivate documents in a chat
+
+Re-include previously deactivated documents in the chat's retrieval context.
 
 ### Example
 
@@ -393,7 +411,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove Inactive Documents
+        # Reactivate documents in a chat
         api_response = api_instance.chats_remove_inactive_documents(chat_id, document_ids, cookie_name=cookie_name)
         print("The response of Chat->chats_remove_inactive_documents:\n")
         pprint(api_response)
@@ -430,6 +448,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to this chat. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -437,7 +457,7 @@ Name | Type | Description  | Notes
 # **chats_remove_library_from_chat**
 > chats_remove_library_from_chat(chat_id, library_id, cookie_name=cookie_name)
 
-Remove Library From Chat
+Remove a library from a chat
 
 Disables a library from a chat by removing the association
 
@@ -475,11 +495,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
     chat_id = 56 # int | 
-    library_id = 56 # int | 
+    library_id = 56 # int | ID of the library to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove Library From Chat
+        # Remove a library from a chat
         api_instance.chats_remove_library_from_chat(chat_id, library_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Chat->chats_remove_library_from_chat: %s\n" % e)
@@ -493,7 +513,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **chat_id** | **int**|  | 
- **library_id** | **int**|  | 
+ **library_id** | **int**| ID of the library to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -514,6 +534,8 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to this chat. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -521,7 +543,9 @@ void (empty response body)
 # **chats_summerize_chat**
 > str chats_summerize_chat(chat_id, cookie_name=cookie_name)
 
-Summerize Chat
+Summarize a chat
+
+Generate a short LLM summary of the chat's recent conversation.
 
 ### Example
 
@@ -560,7 +584,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Summerize Chat
+        # Summarize a chat
         api_response = api_instance.chats_summerize_chat(chat_id, cookie_name=cookie_name)
         print("The response of Chat->chats_summerize_chat:\n")
         pprint(api_response)
@@ -596,6 +620,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to the chat, or usage budget exceeded. |  -  |
+**404** | Chat or owning user does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -603,7 +630,9 @@ Name | Type | Description  | Notes
 # **chats_update_chat**
 > Chat chats_update_chat(chat_id, chat_in, cookie_name=cookie_name)
 
-Update Chat
+Update a chat
+
+Update settings of an existing chat (name, model, temperature, etc.).
 
 ### Example
 
@@ -645,7 +674,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Chat
+        # Update a chat
         api_response = api_instance.chats_update_chat(chat_id, chat_in, cookie_name=cookie_name)
         print("The response of Chat->chats_update_chat:\n")
         pprint(api_response)
@@ -682,6 +711,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to this chat. |  -  |
+**404** | No chat exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -689,14 +721,9 @@ Name | Type | Description  | Notes
 # **chats_update_chat_tool_settings**
 > ChatToolSettingsOut chats_update_chat_tool_settings(chat_id, tool_id, chat_tool_settings_update, cookie_name=cookie_name)
 
-Update Chat Tool Settings
+Set a chat tool setting
 
-Update tool settings for a chat (upsert: create or update).
-
-- Validates tool_id exists in Tool table
-- Validates tool is enabled for the tenant
-- Creates new ChatToolSettings entry if it doesn't exist
-- Updates existing entry if it exists
+Enable or disable a tool for a chat, creating the setting if needed.
 
 ### Example
 
@@ -734,12 +761,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
     chat_id = 56 # int | 
-    tool_id = 56 # int | 
+    tool_id = 56 # int | ID of the tool to configure.
     chat_tool_settings_update = neuland_hub_sdk.ChatToolSettingsUpdate() # ChatToolSettingsUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Chat Tool Settings
+        # Set a chat tool setting
         api_response = api_instance.chats_update_chat_tool_settings(chat_id, tool_id, chat_tool_settings_update, cookie_name=cookie_name)
         print("The response of Chat->chats_update_chat_tool_settings:\n")
         pprint(api_response)
@@ -755,7 +782,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **chat_id** | **int**|  | 
- **tool_id** | **int**|  | 
+ **tool_id** | **int**| ID of the tool to configure. | 
  **chat_tool_settings_update** | [**ChatToolSettingsUpdate**](ChatToolSettingsUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -777,6 +804,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to the chat, or the tool is not enabled for the tenant. |  -  |
+**404** | Chat, tool, or owning user does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

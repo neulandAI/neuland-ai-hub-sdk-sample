@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **string** |  | [default to undefined]
+**content** | **string** | The translated or rephrased text. | [default to undefined]
 
 ## Example
 

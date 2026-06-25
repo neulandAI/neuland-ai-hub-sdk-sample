@@ -6,10 +6,10 @@ Response schema for chat tool settings
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**chat_id** | **int** |  | 
-**tool_id** | **int** |  | 
-**enabled** | **bool** |  | 
-**created_at** | **datetime** |  | 
+**chat_id** | **int** | ID of the chat. | 
+**tool_id** | **int** | ID of the tool. | 
+**enabled** | **bool** | Whether the tool is enabled for the chat. | 
+**created_at** | **datetime** | When the setting was created. | 
 **updated_at** | **datetime** |  | 
 
 ## Example

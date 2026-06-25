@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**provider** | **string** |  | [default to undefined]
-**model** | **string** |  | [default to undefined]
-**total_cost** | **number** |  | [default to undefined]
-**total_tokens** | **number** |  | [default to undefined]
-**prompt_tokens** | **number** |  | [default to undefined]
-**completion_tokens** | **number** |  | [default to undefined]
-**record_count** | **number** |  | [default to undefined]
+**provider** | **string** | Provider of the model. | [default to undefined]
+**model** | **string** | Catalog name of the model. | [default to undefined]
+**total_cost** | **number** | Total cost for this model. | [default to undefined]
+**total_tokens** | **number** | Total tokens for this model. | [default to undefined]
+**prompt_tokens** | **number** | Prompt tokens for this model. | [default to undefined]
+**completion_tokens** | **number** | Completion tokens for this model. | [default to undefined]
+**record_count** | **number** | Number of usage records for this model. | [default to undefined]
 
 ## Example
 

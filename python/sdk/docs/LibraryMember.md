@@ -6,13 +6,13 @@ Members for a library
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** |  | [optional] 
-**updated_at** | **datetime** |  | [optional] 
-**creator_user_id** | **int** |  | 
+**created_at** | **datetime** | UTC timestamp when the record was created. | [optional] 
+**updated_at** | **datetime** | UTC timestamp when the record was last updated. | [optional] 
+**creator_user_id** | **int** | ID of the user who created the record. | 
 **updater_user_id** | **int** |  | [optional] 
-**library_id** | **int** |  | 
-**user_id** | **int** |  | 
-**role** | **str** |  | 
+**library_id** | **int** | ID of the library. | 
+**user_id** | **int** | ID of the member user. | 
+**role** | **str** | Role of the user within the library. | 
 
 ## Example
 

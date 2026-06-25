@@ -4,13 +4,14 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**templatesCreate**](#templatescreate) | **POST** /templates/ | Create|
-|[**templatesDelete**](#templatesdelete) | **DELETE** /templates/{template_id} | Delete|
-|[**templatesUpdate**](#templatesupdate) | **PATCH** /templates/{template_id} | Update|
+|[**templatesCreate**](#templatescreate) | **POST** /templates/ | Create an email template|
+|[**templatesDelete**](#templatesdelete) | **DELETE** /templates/{template_id} | Delete an email template|
+|[**templatesUpdate**](#templatesupdate) | **PATCH** /templates/{template_id} | Update an email template|
 
 # **templatesCreate**
 > TemplateOut templatesCreate(templateIn)
 
+Create a new email template for the current user\'s tenant.
 
 ### Example
 
@@ -62,6 +63,8 @@ const { status, data } = await apiInstance.templatesCreate(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -69,6 +72,7 @@ const { status, data } = await apiInstance.templatesCreate(
 # **templatesDelete**
 > templatesDelete()
 
+Delete an email template.
 
 ### Example
 
@@ -81,7 +85,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Template(configuration);
 
-let templateId: number; // (default to undefined)
+let templateId: number; //ID of the template to delete. (default to undefined)
 let tenantId: number; // (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -96,7 +100,7 @@ const { status, data } = await apiInstance.templatesDelete(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **templateId** | [**number**] |  | defaults to undefined|
+| **templateId** | [**number**] | ID of the template to delete. | defaults to undefined|
 | **tenantId** | [**number**] |  | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -119,6 +123,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**404** | No email template exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -126,6 +133,7 @@ void (empty response body)
 # **templatesUpdate**
 > TemplateOut templatesUpdate(templateIn)
 
+Update an existing email template.
 
 ### Example
 
@@ -139,7 +147,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Template(configuration);
 
-let templateId: number; // (default to undefined)
+let templateId: number; //ID of the template to update. (default to undefined)
 let templateIn: TemplateIn; //
 let tenantId: number; // (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
@@ -157,7 +165,7 @@ const { status, data } = await apiInstance.templatesUpdate(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **templateIn** | **TemplateIn**|  | |
-| **templateId** | [**number**] |  | defaults to undefined|
+| **templateId** | [**number**] | ID of the template to update. | defaults to undefined|
 | **tenantId** | [**number**] |  | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -180,6 +188,9 @@ const { status, data } = await apiInstance.templatesUpdate(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**404** | No email template exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
