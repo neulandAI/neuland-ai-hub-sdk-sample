@@ -4,19 +4,19 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**applications_create_app**](Application.md#applications_create_app) | **POST** /applications/ | Create App
-[**applications_delete_app**](Application.md#applications_delete_app) | **DELETE** /applications/{app_id} | Delete App
-[**applications_update_app**](Application.md#applications_update_app) | **PATCH** /applications/{app_id} | Update App
-[**applications_update_group_membership**](Application.md#applications_update_group_membership) | **PUT** /applications/group/access | Update Group Membership
-[**applications_update_user_membership**](Application.md#applications_update_user_membership) | **PUT** /applications/user/access | Update User Membership
+[**applications_create_app**](Application.md#applications_create_app) | **POST** /applications/ | Create an application
+[**applications_delete_app**](Application.md#applications_delete_app) | **DELETE** /applications/{app_id} | Delete an application
+[**applications_update_app**](Application.md#applications_update_app) | **PATCH** /applications/{app_id} | Update an application
+[**applications_update_group_membership**](Application.md#applications_update_group_membership) | **PUT** /applications/group/access | Set application access for a user group
+[**applications_update_user_membership**](Application.md#applications_update_user_membership) | **PUT** /applications/user/access | Set application access for users
 
 
 # **applications_create_app**
 > object applications_create_app(application_in, cookie_name=cookie_name)
 
-Create App
+Create an application
 
-Create a new application
+Create a new application (superadmin only).
 
 ### Example
 
@@ -56,7 +56,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create App
+        # Create an application
         api_response = api_instance.applications_create_app(application_in, cookie_name=cookie_name)
         print("The response of Application->applications_create_app:\n")
         pprint(api_response)
@@ -92,6 +92,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -99,9 +101,9 @@ Name | Type | Description  | Notes
 # **applications_delete_app**
 > applications_delete_app(app_id, cookie_name=cookie_name)
 
-Delete App
-
 Delete an application
+
+Delete an application (superadmin only).
 
 ### Example
 
@@ -136,11 +138,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Application(api_client)
-    app_id = 56 # int | 
+    app_id = 56 # int | ID of the application to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete App
+        # Delete an application
         api_instance.applications_delete_app(app_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Application->applications_delete_app: %s\n" % e)
@@ -153,7 +155,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**|  | 
+ **app_id** | **int**| ID of the application to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -174,6 +176,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin privileges required. |  -  |
+**404** | No application exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -181,9 +186,9 @@ void (empty response body)
 # **applications_update_app**
 > Application applications_update_app(app_id, application_in, cookie_name=cookie_name)
 
-Update App
+Update an application
 
-Update an existing application
+Update an existing application (superadmin only).
 
 ### Example
 
@@ -220,12 +225,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Application(api_client)
-    app_id = 56 # int | 
+    app_id = 56 # int | ID of the application to update.
     application_in = neuland_hub_sdk.ApplicationIn() # ApplicationIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update App
+        # Update an application
         api_response = api_instance.applications_update_app(app_id, application_in, cookie_name=cookie_name)
         print("The response of Application->applications_update_app:\n")
         pprint(api_response)
@@ -240,7 +245,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**|  | 
+ **app_id** | **int**| ID of the application to update. | 
  **application_in** | [**ApplicationIn**](ApplicationIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -262,6 +267,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin privileges required. |  -  |
+**404** | No application exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -269,9 +277,9 @@ Name | Type | Description  | Notes
 # **applications_update_group_membership**
 > List[ApplicationGroup] applications_update_group_membership(group_app_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Update Group Membership
+Set application access for a user group
 
-Grant or update app access for a user group
+Grant or update application access for a user group (tenant admin only).
 
 ### Example
 
@@ -313,7 +321,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     tenant_id = 56 # int |  (optional)
 
     try:
-        # Update Group Membership
+        # Set application access for a user group
         api_response = api_instance.applications_update_group_membership(group_app_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Application->applications_update_group_membership:\n")
         pprint(api_response)
@@ -350,6 +358,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin privileges required. |  -  |
+**404** | Application not found, or one or more groups not found. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -357,9 +368,9 @@ Name | Type | Description  | Notes
 # **applications_update_user_membership**
 > List[ApplicationMember] applications_update_user_membership(application_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Update User Membership
+Set application access for users
 
-Grant or update app access for list of users
+Grant or update application access for a list of users (tenant admin only).
 
 ### Example
 
@@ -401,7 +412,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     tenant_id = 56 # int |  (optional)
 
     try:
-        # Update User Membership
+        # Set application access for users
         api_response = api_instance.applications_update_user_membership(application_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Application->applications_update_user_membership:\n")
         pprint(api_response)
@@ -438,6 +449,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin privileges required. |  -  |
+**404** | No application exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

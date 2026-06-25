@@ -1,0 +1,31 @@
+# DataSourceSiteModel
+
+A site from a data source — the top level for site-rooted sources (SharePoint).
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** | Site id. | [default to undefined]
+**web_url** | **string** | URL to open the site in the source application. | [default to undefined]
+**name** | **string** |  | [default to undefined]
+**display_name** | **string** |  | [default to undefined]
+**description** | **string** |  | [default to undefined]
+**imported_count** | **number** | Number of imported documents from this site in the current scope. | [optional] [default to 0]
+
+## Example
+
+```typescript
+import { DataSourceSiteModel } from 'neuland-hub-sdk';
+
+const instance: DataSourceSiteModel = {
+    id,
+    web_url,
+    name,
+    display_name,
+    description,
+    imported_count,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

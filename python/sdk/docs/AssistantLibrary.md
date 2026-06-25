@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** |  | [optional] 
-**updated_at** | **datetime** |  | [optional] 
-**creator_user_id** | **int** |  | 
+**created_at** | **datetime** | UTC timestamp when the record was created. | [optional] 
+**updated_at** | **datetime** | UTC timestamp when the record was last updated. | [optional] 
+**creator_user_id** | **int** | ID of the user who created the record. | 
 **updater_user_id** | **int** |  | [optional] 
-**assistant_id** | **int** |  | 
-**library_id** | **int** |  | 
+**assistant_id** | **int** | ID of the assistant. | 
+**library_id** | **int** | ID of the library linked to the assistant. | 
 
 ## Example
 

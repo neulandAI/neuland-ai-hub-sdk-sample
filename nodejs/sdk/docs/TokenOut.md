@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**access_token** | **string** |  | [default to undefined]
-**token_type** | **string** |  | [default to undefined]
+**access_token** | **string** | Signed JWT access token to send as a Bearer credential. | [default to undefined]
+**token_type** | **string** | Token scheme to use in the Authorization header. | [default to undefined]
 
 ## Example
 

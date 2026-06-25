@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **max_tokens** | **int** |  | [optional] 
 **cost_prompt_tokens** | [**CostPromptTokens1**](CostPromptTokens1.md) |  | [optional] 
 **cost_completion_tokens** | [**CostCompletionTokens1**](CostCompletionTokens1.md) |  | [optional] 
+**region** | **str** |  | [optional] 
 **args** | **Dict[str, object]** |  | [optional] 
 **openai_resource** | **str** |  | [optional] 
 **api_version** | **str** |  | [optional] 

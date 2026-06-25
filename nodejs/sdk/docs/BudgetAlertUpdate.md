@@ -1,6 +1,6 @@
 # BudgetAlertUpdate
 
-ALert update model
+Payload for updating a budget alert. All fields are optional.
 
 ## Properties
 

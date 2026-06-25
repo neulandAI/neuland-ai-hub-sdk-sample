@@ -5,13 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
+**name** | **str** | Display name of the assistant. | 
 **model** | **str** |  | [optional] 
 **avatar** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
+**description_show_in_chat** | **bool** | Whether to show the description inside the chat UI. | [optional] [default to False]
+**predefined_prompts** | **List[str]** |  | [optional] 
 **instructions** | **str** |  | [optional] 
 **temperature** | **float** |  | [optional] 
 **similarity_top_k** | **float** |  | [optional] 
+**input_type** | [**AssistantInputTypeEnum**](AssistantInputTypeEnum.md) | Input mode: free-text prompt or structured form. | [optional] 
+**form_fields** | [**List[FormField]**](FormField.md) |  | [optional] 
 
 ## Example
 

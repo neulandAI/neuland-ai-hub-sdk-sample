@@ -4,15 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**templates_create**](Template.md#templates_create) | **POST** /templates/ | Create
-[**templates_delete**](Template.md#templates_delete) | **DELETE** /templates/{template_id} | Delete
-[**templates_update**](Template.md#templates_update) | **PATCH** /templates/{template_id} | Update
+[**templates_create**](Template.md#templates_create) | **POST** /templates/ | Create an email template
+[**templates_delete**](Template.md#templates_delete) | **DELETE** /templates/{template_id} | Delete an email template
+[**templates_update**](Template.md#templates_update) | **PATCH** /templates/{template_id} | Update an email template
 
 
 # **templates_create**
 > TemplateOut templates_create(template_in, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Create
+Create an email template
+
+Create a new email template for the current user's tenant.
 
 ### Example
 
@@ -54,7 +56,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create
+        # Create an email template
         api_response = api_instance.templates_create(template_in, tenant_id=tenant_id, cookie_name=cookie_name)
         print("The response of Template->templates_create:\n")
         pprint(api_response)
@@ -91,6 +93,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -98,7 +102,9 @@ Name | Type | Description  | Notes
 # **templates_delete**
 > templates_delete(template_id, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Delete
+Delete an email template
+
+Delete an email template.
 
 ### Example
 
@@ -133,12 +139,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Template(api_client)
-    template_id = 56 # int | 
+    template_id = 56 # int | ID of the template to delete.
     tenant_id = 56 # int |  (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete
+        # Delete an email template
         api_instance.templates_delete(template_id, tenant_id=tenant_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Template->templates_delete: %s\n" % e)
@@ -151,7 +157,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **template_id** | **int**|  | 
+ **template_id** | **int**| ID of the template to delete. | 
  **tenant_id** | **int**|  | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
@@ -173,6 +179,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
+**404** | No email template exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -180,7 +189,9 @@ void (empty response body)
 # **templates_update**
 > TemplateOut templates_update(template_id, template_in, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Update
+Update an email template
+
+Update an existing email template.
 
 ### Example
 
@@ -217,13 +228,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Template(api_client)
-    template_id = 56 # int | 
+    template_id = 56 # int | ID of the template to update.
     template_in = neuland_hub_sdk.TemplateIn() # TemplateIn | 
     tenant_id = 56 # int |  (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update
+        # Update an email template
         api_response = api_instance.templates_update(template_id, template_in, tenant_id=tenant_id, cookie_name=cookie_name)
         print("The response of Template->templates_update:\n")
         pprint(api_response)
@@ -238,7 +249,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **template_id** | **int**|  | 
+ **template_id** | **int**| ID of the template to update. | 
  **template_in** | [**TemplateIn**](TemplateIn.md)|  | 
  **tenant_id** | **int**|  | [optional] 
  **cookie_name** | **str**|  | [optional] 
@@ -261,6 +272,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
+**404** | No email template exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -1,13 +1,13 @@
 # BudgetAlertRequest
 
-Alert request model
+Payload for creating a budget alert.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** | Name for the alert to be created. Max 100 characters. | [default to undefined]
-**threshold_amount** | **number** | Threshold amount | [default to undefined]
+**threshold_amount** | **number** | Spend threshold that triggers the alert. | [default to undefined]
 
 ## Example
 

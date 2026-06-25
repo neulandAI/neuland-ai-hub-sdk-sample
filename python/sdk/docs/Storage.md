@@ -4,13 +4,15 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**storage_download_file**](Storage.md#storage_download_file) | **GET** /storage/{path} | Download File
+[**storage_download_file**](Storage.md#storage_download_file) | **GET** /storage/{path} | Download a file by signed token
 
 
 # **storage_download_file**
 > object storage_download_file(path, token)
 
-Download File
+Download a file by signed token
+
+Stream a stored file as an attachment, authorized by a signed download token.
 
 ### Example
 
@@ -31,11 +33,11 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Storage(api_client)
-    path = 'path_example' # str | File path
-    token = 'token_example' # str | Download token
+    path = 'path_example' # str | Storage path of the file to download.
+    token = 'token_example' # str | Signed download token authorizing access to the file.
 
     try:
-        # Download File
+        # Download a file by signed token
         api_response = api_instance.storage_download_file(path, token)
         print("The response of Storage->storage_download_file:\n")
         pprint(api_response)
@@ -50,8 +52,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **path** | **str**| File path | 
- **token** | **str**| Download token | 
+ **path** | **str**| Storage path of the file to download. | 
+ **token** | **str**| Signed download token authorizing access to the file. | 
 
 ### Return type
 
@@ -71,6 +73,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**400** | Token is malformed or missing required claims. |  -  |
+**401** | Token issuer is not trusted. |  -  |
+**404** | Token does not match the path, or the file no longer exists. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

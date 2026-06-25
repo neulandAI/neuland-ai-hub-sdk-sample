@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **string** |  | [optional] [default to undefined]
-**updated_at** | **string** |  | [optional] [default to undefined]
-**creator_user_id** | **number** |  | [default to undefined]
+**created_at** | **string** | UTC timestamp when the record was created. | [optional] [default to undefined]
+**updated_at** | **string** | UTC timestamp when the record was last updated. | [optional] [default to undefined]
+**creator_user_id** | **number** | ID of the user who created the record. | [default to undefined]
 **updater_user_id** | **number** |  | [optional] [default to undefined]
-**assistant_id** | **number** |  | [default to undefined]
-**library_id** | **number** |  | [default to undefined]
+**assistant_id** | **number** | ID of the assistant. | [default to undefined]
+**library_id** | **number** | ID of the library linked to the assistant. | [default to undefined]
 
 ## Example
 

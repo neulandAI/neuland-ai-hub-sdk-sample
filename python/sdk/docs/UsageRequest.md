@@ -6,7 +6,7 @@ Generic usage request model for both token and cost queries.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**granularity** | **str** |  | 
+**granularity** | **str** | Aggregation window; &#39;custom&#39; requires date_start and date_end. | 
 **date_start** | **datetime** |  | [optional] 
 **date_end** | **datetime** |  | [optional] 
 

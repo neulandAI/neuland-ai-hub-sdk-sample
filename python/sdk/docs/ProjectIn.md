@@ -5,7 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
+**name** | **str** | Display name of the project. | 
+**description_show_in_chat** | **bool** | Whether the project description is shown to users in chat. | [optional] [default to False]
 **description** | **str** |  | [optional] 
 
 ## Example

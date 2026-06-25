@@ -4,17 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**invitations_accept_invitation_complete**](Invitation.md#invitations_accept_invitation_complete) | **POST** /invitations/accept | Accept Invitation Complete
-[**invitations_accept_invitation_form**](Invitation.md#invitations_accept_invitation_form) | **GET** /invitations/accept | Accept Invitation Form
-[**invitations_create_invitations**](Invitation.md#invitations_create_invitations) | **POST** /invitations/ | Create Invitations
-[**invitations_resend_invitation**](Invitation.md#invitations_resend_invitation) | **POST** /invitations/{invitation_id}/resend | Resend Invitation
-[**invitations_revoke_invitation**](Invitation.md#invitations_revoke_invitation) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation
+[**invitations_accept_invitation_complete**](Invitation.md#invitations_accept_invitation_complete) | **POST** /invitations/accept | Accept an invitation
+[**invitations_accept_invitation_form**](Invitation.md#invitations_accept_invitation_form) | **GET** /invitations/accept | Invitation acceptance HTML form
+[**invitations_create_invitations**](Invitation.md#invitations_create_invitations) | **POST** /invitations/ | Create invitations
+[**invitations_resend_invitation**](Invitation.md#invitations_resend_invitation) | **POST** /invitations/{invitation_id}/resend | Resend an invitation
+[**invitations_revoke_invitation**](Invitation.md#invitations_revoke_invitation) | **POST** /invitations/{invitation_id}/revoke | Revoke an invitation
 
 
 # **invitations_accept_invitation_complete**
 > object invitations_accept_invitation_complete(token)
 
-Accept Invitation Complete
+Accept an invitation
 
 Complete invitation acceptance and create user account.
 
@@ -40,7 +40,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     token = 'token_example' # str | Invitation JWT token
 
     try:
-        # Accept Invitation Complete
+        # Accept an invitation
         api_response = api_instance.invitations_accept_invitation_complete(token)
         print("The response of Invitation->invitations_accept_invitation_complete:\n")
         pprint(api_response)
@@ -82,7 +82,7 @@ No authorization required
 # **invitations_accept_invitation_form**
 > str invitations_accept_invitation_form(token)
 
-Accept Invitation Form
+Invitation acceptance HTML form
 
 Fallback HTML form for accepting invitation when no frontend is available.
 
@@ -108,7 +108,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     token = 'token_example' # str | Invitation JWT token
 
     try:
-        # Accept Invitation Form
+        # Invitation acceptance HTML form
         api_response = api_instance.invitations_accept_invitation_form(token)
         print("The response of Invitation->invitations_accept_invitation_form:\n")
         pprint(api_response)
@@ -150,7 +150,9 @@ No authorization required
 # **invitations_create_invitations**
 > List[InvitationOut] invitations_create_invitations(invitation_in, cookie_name=cookie_name)
 
-Create Invitations
+Create invitations
+
+Invite the given email addresses, skipping ones already invited or registered.
 
 ### Example
 
@@ -191,7 +193,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create Invitations
+        # Create invitations
         api_response = api_instance.invitations_create_invitations(invitation_in, cookie_name=cookie_name)
         print("The response of Invitation->invitations_create_invitations:\n")
         pprint(api_response)
@@ -227,6 +229,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin or project owner privileges required. |  -  |
+**404** | The target tenant or project does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -234,9 +239,9 @@ Name | Type | Description  | Notes
 # **invitations_resend_invitation**
 > InvitationOut invitations_resend_invitation(invitation_id, cookie_name=cookie_name)
 
-Resend Invitation
+Resend an invitation
 
-Resend invitation email with a new token.
+Resend the invitation email for a pending invitation.
 
 ### Example
 
@@ -272,11 +277,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Invitation(api_client)
-    invitation_id = 56 # int | 
+    invitation_id = 56 # int | ID of the invitation to resend.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Resend Invitation
+        # Resend an invitation
         api_response = api_instance.invitations_resend_invitation(invitation_id, cookie_name=cookie_name)
         print("The response of Invitation->invitations_resend_invitation:\n")
         pprint(api_response)
@@ -291,7 +296,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **invitation_id** | **int**|  | 
+ **invitation_id** | **int**| ID of the invitation to resend. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -312,6 +317,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin privileges required. |  -  |
+**404** | No invitation exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -319,7 +327,9 @@ Name | Type | Description  | Notes
 # **invitations_revoke_invitation**
 > invitations_revoke_invitation(invitation_id, cookie_name=cookie_name)
 
-Revoke Invitation
+Revoke an invitation
+
+Revoke a pending invitation so its token can no longer be used.
 
 ### Example
 
@@ -354,11 +364,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Invitation(api_client)
-    invitation_id = 56 # int | 
+    invitation_id = 56 # int | ID of the invitation to revoke.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Revoke Invitation
+        # Revoke an invitation
         api_instance.invitations_revoke_invitation(invitation_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Invitation->invitations_revoke_invitation: %s\n" % e)
@@ -371,7 +381,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **invitation_id** | **int**|  | 
+ **invitation_id** | **int**| ID of the invitation to revoke. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -392,6 +402,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin privileges required. |  -  |
+**404** | No invitation exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

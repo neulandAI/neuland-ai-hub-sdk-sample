@@ -6,8 +6,8 @@ Represents a single point in the token timeseries data.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**date** | **string** |  | [default to undefined]
-**value** | **number** |  | [default to undefined]
+**date** | **string** | Date of the data point (YYYY-MM-DD). | [default to undefined]
+**value** | **number** | Token count for this date. | [default to undefined]
 
 ## Example
 

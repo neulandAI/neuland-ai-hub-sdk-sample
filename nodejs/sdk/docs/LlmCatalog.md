@@ -4,13 +4,14 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**llmCreateCatalog**](#llmcreatecatalog) | **POST** /llm/catalog | Create Catalog|
-|[**llmDeleteCatalog**](#llmdeletecatalog) | **DELETE** /llm/catalog/{catalog_id} | Delete Catalog|
-|[**llmUpdateCatalog**](#llmupdatecatalog) | **PATCH** /llm/catalog/{catalog_id} | Update Catalog|
+|[**llmCreateCatalog**](#llmcreatecatalog) | **POST** /llm/catalog | Create a catalog entry|
+|[**llmDeleteCatalog**](#llmdeletecatalog) | **DELETE** /llm/catalog/{catalog_id} | Delete a catalog entry|
+|[**llmUpdateCatalog**](#llmupdatecatalog) | **PATCH** /llm/catalog/{catalog_id} | Update a catalog entry|
 
 # **llmCreateCatalog**
 > any llmCreateCatalog(catalogIn)
 
+Register a new LLM in the model catalog.
 
 ### Example
 
@@ -59,6 +60,8 @@ const { status, data } = await apiInstance.llmCreateCatalog(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -66,6 +69,7 @@ const { status, data } = await apiInstance.llmCreateCatalog(
 # **llmDeleteCatalog**
 > llmDeleteCatalog()
 
+Remove a catalog entry permanently.
 
 ### Example
 
@@ -78,7 +82,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new LlmCatalog(configuration);
 
-let catalogId: number; // (default to undefined)
+let catalogId: number; //ID of the catalog entry to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.llmDeleteCatalog(
@@ -91,7 +95,7 @@ const { status, data } = await apiInstance.llmDeleteCatalog(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **catalogId** | [**number**] |  | defaults to undefined|
+| **catalogId** | [**number**] | ID of the catalog entry to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -113,6 +117,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator privileges required. |  -  |
+|**404** | No catalog entry exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -120,6 +127,7 @@ void (empty response body)
 # **llmUpdateCatalog**
 > any llmUpdateCatalog(catalogUpdate)
 
+Update fields of an existing catalog entry.
 
 ### Example
 
@@ -133,7 +141,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new LlmCatalog(configuration);
 
-let catalogId: number; // (default to undefined)
+let catalogId: number; //ID of the catalog entry to update. (default to undefined)
 let catalogUpdate: CatalogUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -149,7 +157,7 @@ const { status, data } = await apiInstance.llmUpdateCatalog(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **catalogUpdate** | **CatalogUpdate**|  | |
-| **catalogId** | [**number**] |  | defaults to undefined|
+| **catalogId** | [**number**] | ID of the catalog entry to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -171,6 +179,9 @@ const { status, data } = await apiInstance.llmUpdateCatalog(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator privileges required. |  -  |
+|**404** | No catalog entry exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

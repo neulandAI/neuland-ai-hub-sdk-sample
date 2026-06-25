@@ -6,8 +6,10 @@ Schema for creating a user group
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **string** |  | [default to undefined]
+**name** | **string** | Display name of the user group. | [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
+**source** | [**UserGroupSource**](UserGroupSource.md) |  | [optional] [default to undefined]
+**external_id** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -17,6 +19,8 @@ import { GroupIn } from 'neuland-hub-sdk';
 const instance: GroupIn = {
     name,
     description,
+    source,
+    external_id,
 };
 ```
 

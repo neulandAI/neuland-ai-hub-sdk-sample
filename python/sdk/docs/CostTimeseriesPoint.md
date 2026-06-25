@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_date** | **str** |  | 
-**cost** | **float** |  | 
-**tokens** | **int** |  | 
-**record_count** | **int** |  | 
+**var_date** | **str** | Date of the data point (YYYY-MM-DD). | 
+**cost** | **float** | Cost incurred on this date. | 
+**tokens** | **int** | Tokens consumed on this date. | 
+**record_count** | **int** | Number of usage records on this date. | 
 
 ## Example
 

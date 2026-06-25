@@ -6,12 +6,12 @@ Response model for LLM tokens with timeseries data.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total_prompt_tokens** | **float** |  | 
-**total_completion_tokens** | **float** |  | 
-**total_requests** | **float** |  | 
-**total_tokens** | **float** |  | 
-**tokens_per_model** | [**List[TokensPerModel]**](TokensPerModel.md) |  | 
-**timeseries_per_model** | [**List[TokenTimeseriesPerModel]**](TokenTimeseriesPerModel.md) |  | 
+**total_prompt_tokens** | **float** | Total prompt tokens across all models for the current month. | 
+**total_completion_tokens** | **float** | Total completion tokens across all models for the current month. | 
+**total_requests** | **float** | Total requests across all models for the current month. | 
+**total_tokens** | **float** | Total tokens (prompt + completion) for the current month. | 
+**tokens_per_model** | [**List[TokensPerModel]**](TokensPerModel.md) | Current-month token summary for each model. | 
+**timeseries_per_model** | [**List[TokenTimeseriesPerModel]**](TokenTimeseriesPerModel.md) | Token usage timeseries for each model. | 
 
 ## Example
 

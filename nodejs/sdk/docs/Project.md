@@ -4,21 +4,21 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**projectsAddLibraryToProject**](#projectsaddlibrarytoproject) | **POST** /projects/{project_id}/libraries/{library_id} | Add Library To Project|
-|[**projectsAddMembers**](#projectsaddmembers) | **POST** /projects/{project_id}/members | Add Members|
-|[**projectsCreateProject**](#projectscreateproject) | **POST** /projects/ | Create Project|
-|[**projectsDeleteMember**](#projectsdeletemember) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member|
-|[**projectsDeleteMembers**](#projectsdeletemembers) | **DELETE** /projects/{project_id}/members | Delete Members|
-|[**projectsDeleteProject**](#projectsdeleteproject) | **DELETE** /projects/{project_id} | Delete Project|
-|[**projectsIsProjectNameFree**](#projectsisprojectnamefree) | **GET** /projects/available | Is Project Name Free|
-|[**projectsLeaveProject**](#projectsleaveproject) | **DELETE** /projects/{project_id}/remove/me | Leave Project|
-|[**projectsRemoveLibraryFromProject**](#projectsremovelibraryfromproject) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project|
-|[**projectsUpdateProject**](#projectsupdateproject) | **PATCH** /projects/{project_id} | Update Project|
+|[**projectsAddLibraryToProject**](#projectsaddlibrarytoproject) | **POST** /projects/{project_id}/libraries/{library_id} | Add a library to a project|
+|[**projectsAddMembers**](#projectsaddmembers) | **POST** /projects/{project_id}/members | Add members to a project|
+|[**projectsCreateProject**](#projectscreateproject) | **POST** /projects/ | Create a project|
+|[**projectsDeleteMember**](#projectsdeletemember) | **DELETE** /projects/{project_id}/members/{user_id} | Remove a member from a project|
+|[**projectsDeleteMembers**](#projectsdeletemembers) | **DELETE** /projects/{project_id}/members | Remove members from a project|
+|[**projectsDeleteProject**](#projectsdeleteproject) | **DELETE** /projects/{project_id} | Delete a project|
+|[**projectsIsProjectNameFree**](#projectsisprojectnamefree) | **GET** /projects/available | Check if a project name is free|
+|[**projectsLeaveProject**](#projectsleaveproject) | **DELETE** /projects/{project_id}/remove/me | Leave a project|
+|[**projectsRemoveLibraryFromProject**](#projectsremovelibraryfromproject) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove a library from a project|
+|[**projectsUpdateProject**](#projectsupdateproject) | **PATCH** /projects/{project_id} | Update a project|
 
 # **projectsAddLibraryToProject**
 > ProjectLibrary projectsAddLibraryToProject()
 
-Enables a library for a project by creating an association
+Enable a library for a project by creating an association.
 
 ### Example
 
@@ -69,6 +69,9 @@ const { status, data } = await apiInstance.projectsAddLibraryToProject(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user lacks access to the library or the project. |  -  |
+|**404** | Library or project not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -76,6 +79,7 @@ const { status, data } = await apiInstance.projectsAddLibraryToProject(
 # **projectsAddMembers**
 > Array<ProjectMember> projectsAddMembers(projectMemberBulkIn)
 
+Add one or more members to a project (project owner only).
 
 ### Example
 
@@ -127,6 +131,9 @@ const { status, data } = await apiInstance.projectsAddMembers(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user is not an owner of the project. |  -  |
+|**404** | No project exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -134,6 +141,7 @@ const { status, data } = await apiInstance.projectsAddMembers(
 # **projectsCreateProject**
 > Project projectsCreateProject(projectIn)
 
+Create a project and add the current user as its owner.
 
 ### Example
 
@@ -182,6 +190,7 @@ const { status, data } = await apiInstance.projectsCreateProject(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -189,6 +198,7 @@ const { status, data } = await apiInstance.projectsCreateProject(
 # **projectsDeleteMember**
 > projectsDeleteMember()
 
+Remove a single member from a project (project owner only).
 
 ### Example
 
@@ -202,7 +212,7 @@ const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
 let projectId: number; // (default to undefined)
-let userId: number; // (default to undefined)
+let userId: number; //ID of the user to remove. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.projectsDeleteMember(
@@ -217,7 +227,7 @@ const { status, data } = await apiInstance.projectsDeleteMember(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **projectId** | [**number**] |  | defaults to undefined|
-| **userId** | [**number**] |  | defaults to undefined|
+| **userId** | [**number**] | ID of the user to remove. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -239,6 +249,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user is not an owner of the project. |  -  |
+|**404** | Project not found, or the user is not a member of it. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -246,6 +259,7 @@ void (empty response body)
 # **projectsDeleteMembers**
 > projectsDeleteMembers(projectMemberBulkDelete)
 
+Remove multiple members from a project (project owner only).
 
 ### Example
 
@@ -297,6 +311,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user is not an owner of the project. |  -  |
+|**404** | Project not found, or a user is not a member of it. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -304,6 +321,7 @@ void (empty response body)
 # **projectsDeleteProject**
 > projectsDeleteProject()
 
+Permanently delete a project (project owner only).
 
 ### Example
 
@@ -351,6 +369,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user is not an owner of the project. |  -  |
+|**404** | No project exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -358,6 +379,7 @@ void (empty response body)
 # **projectsIsProjectNameFree**
 > boolean projectsIsProjectNameFree()
 
+Return true if no project already uses the given name.
 
 ### Example
 
@@ -370,7 +392,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let name: string; // (default to undefined)
+let name: string; //Project name to check for availability. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.projectsIsProjectNameFree(
@@ -383,7 +405,7 @@ const { status, data } = await apiInstance.projectsIsProjectNameFree(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **name** | [**string**] |  | defaults to undefined|
+| **name** | [**string**] | Project name to check for availability. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -405,6 +427,7 @@ const { status, data } = await apiInstance.projectsIsProjectNameFree(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -412,7 +435,7 @@ const { status, data } = await apiInstance.projectsIsProjectNameFree(
 # **projectsLeaveProject**
 > projectsLeaveProject()
 
-user can leave the project by themselves.
+Remove the current user from a project they belong to.
 
 ### Example
 
@@ -460,6 +483,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user is not a member of the project. |  -  |
+|**404** | Project not found, or the user is not a member of it. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -467,7 +493,7 @@ void (empty response body)
 # **projectsRemoveLibraryFromProject**
 > projectsRemoveLibraryFromProject()
 
-Disables a library for a project by deleting the association
+Disable a library for a project by deleting the association.
 
 ### Example
 
@@ -481,7 +507,7 @@ const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
 let projectId: number; // (default to undefined)
-let libraryId: number; // (default to undefined)
+let libraryId: number; //ID of the library to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.projectsRemoveLibraryFromProject(
@@ -496,7 +522,7 @@ const { status, data } = await apiInstance.projectsRemoveLibraryFromProject(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **projectId** | [**number**] |  | defaults to undefined|
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**number**] | ID of the library to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -518,6 +544,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user is not a member of the project. |  -  |
+|**404** | No project exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -525,6 +554,7 @@ void (empty response body)
 # **projectsUpdateProject**
 > Project projectsUpdateProject(projectIn)
 
+Update an existing project\'s fields (project owner only).
 
 ### Example
 
@@ -576,6 +606,9 @@ const { status, data } = await apiInstance.projectsUpdateProject(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user is not an owner of the project. |  -  |
+|**404** | No project exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

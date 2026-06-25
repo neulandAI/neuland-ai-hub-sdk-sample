@@ -1,5 +1,6 @@
 # CostPromptTokens
 
+Cost per prompt token in the billing currency.
 
 ## Properties
 

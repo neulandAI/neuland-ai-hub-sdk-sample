@@ -4,19 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**llm_get_cost**](Llm.md#llm_get_cost) | **POST** /llm/cost | Get Cost
-[**llm_get_usage_costs**](Llm.md#llm_get_usage_costs) | **POST** /llm/services/cost | Get Usage Costs
-[**llm_llm_total_tokens**](Llm.md#llm_llm_total_tokens) | **POST** /llm/tokens | Llm Total Tokens
+[**llm_get_cost**](Llm.md#llm_get_cost) | **POST** /llm/cost | Get LLM cost metrics
+[**llm_get_usage_costs**](Llm.md#llm_get_usage_costs) | **POST** /llm/services/cost | Get external service usage costs
+[**llm_llm_total_tokens**](Llm.md#llm_llm_total_tokens) | **POST** /llm/tokens | Get token usage metrics
 
 
 # **llm_get_cost**
 > TimeseriesResponse llm_get_cost(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Get Cost
+Get LLM cost metrics
 
-Returns:
-- Total cost of current month (all models)
-- Timeseries cost per model for requested granularity
+Return current-month total LLM cost and per-model cost timeseries for the tenant.
 
 ### Example
 
@@ -58,7 +56,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     tenant_id = 56 # int |  (optional)
 
     try:
-        # Get Cost
+        # Get LLM cost metrics
         api_response = api_instance.llm_get_cost(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Llm->llm_get_cost:\n")
         pprint(api_response)
@@ -95,6 +93,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -102,12 +102,9 @@ Name | Type | Description  | Notes
 # **llm_get_usage_costs**
 > UsageCostResponse llm_get_usage_costs(usage_cost_request, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Get Usage Costs
+Get external service usage costs
 
-Get aggregated usage costs from the database.
-
-Returns cost data aggregated by source, model, and time period.
-Supports filtering by date range, source type, model, and provider.
+Return non-LLM service usage costs aggregated by source, model, and time period.
 
 ### Example
 
@@ -149,7 +146,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     tenant_id = 56 # int |  (optional)
 
     try:
-        # Get Usage Costs
+        # Get external service usage costs
         api_response = api_instance.llm_get_usage_costs(usage_cost_request, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Llm->llm_get_usage_costs:\n")
         pprint(api_response)
@@ -186,6 +183,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**400** | Custom granularity requires both date_start and date_end. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -193,9 +193,9 @@ Name | Type | Description  | Notes
 # **llm_llm_total_tokens**
 > TokensTimeseriesResponse llm_llm_total_tokens(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Llm Total Tokens
+Get token usage metrics
 
-Return the total cost and tokens used in llms.
+Return current-month token totals and per-model token timeseries for the tenant.
 
 ### Example
 
@@ -237,7 +237,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     tenant_id = 56 # int |  (optional)
 
     try:
-        # Llm Total Tokens
+        # Get token usage metrics
         api_response = api_instance.llm_llm_total_tokens(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Llm->llm_llm_total_tokens:\n")
         pprint(api_response)
@@ -274,6 +274,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

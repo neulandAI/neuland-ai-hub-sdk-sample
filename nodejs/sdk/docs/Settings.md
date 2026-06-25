@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**settingsCurrent**](#settingscurrent) | **GET** /settings/current | Current|
-|[**settingsUpdateCurrentSettings**](#settingsupdatecurrentsettings) | **PATCH** /settings/current | Update Current Settings|
-|[**settingsUpdateSettings**](#settingsupdatesettings) | **PATCH** /settings/{settings_id} | Update Settings|
+|[**settingsCurrent**](#settingscurrent) | **GET** /settings/current | Get current tenant settings|
+|[**settingsUpdateCurrentSettings**](#settingsupdatecurrentsettings) | **PATCH** /settings/current | Update current tenant settings|
+|[**settingsUpdateSettings**](#settingsupdatesettings) | **PATCH** /settings/{settings_id} | Update settings by id|
 
 # **settingsCurrent**
 > Settings settingsCurrent()
 
-Get settings for current user\'s tenant
+Get the settings for the current user\'s tenant, creating defaults if absent.
 
 ### Example
 
@@ -56,6 +56,7 @@ const { status, data } = await apiInstance.settingsCurrent(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -63,7 +64,7 @@ const { status, data } = await apiInstance.settingsCurrent(
 # **settingsUpdateCurrentSettings**
 > Settings settingsUpdateCurrentSettings(settingsIn)
 
-Update settings for current user\'s tenant (tenant admin only)
+Update the settings for the current user\'s tenant (tenant admin only).
 
 ### Example
 
@@ -115,6 +116,8 @@ const { status, data } = await apiInstance.settingsUpdateCurrentSettings(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -122,6 +125,7 @@ const { status, data } = await apiInstance.settingsUpdateCurrentSettings(
 # **settingsUpdateSettings**
 > Settings settingsUpdateSettings(settingsIn)
 
+Update a tenant\'s settings by id (tenant admin; some fields superadmin-only).
 
 ### Example
 
@@ -135,7 +139,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Settings(configuration);
 
-let settingsId: number; // (default to undefined)
+let settingsId: number; //ID of the settings record to update. (default to undefined)
 let settingsIn: SettingsIn; //
 let cookieName: string; // (optional) (default to undefined)
 let tenantId: number; // (optional) (default to undefined)
@@ -153,7 +157,7 @@ const { status, data } = await apiInstance.settingsUpdateSettings(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **settingsIn** | **SettingsIn**|  | |
-| **settingsId** | [**number**] |  | defaults to undefined|
+| **settingsId** | [**number**] | ID of the settings record to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 | **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
@@ -176,6 +180,9 @@ const { status, data } = await apiInstance.settingsUpdateSettings(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required, or superadmin required to change protected fields. |  -  |
+|**404** | No settings record exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

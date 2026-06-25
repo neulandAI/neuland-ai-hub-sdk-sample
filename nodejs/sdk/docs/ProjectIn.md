@@ -5,7 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **string** |  | [default to undefined]
+**name** | **string** | Display name of the project. | [default to undefined]
+**description_show_in_chat** | **boolean** | Whether the project description is shown to users in chat. | [optional] [default to false]
 **description** | **string** |  | [optional] [default to undefined]
 
 ## Example
@@ -15,6 +16,7 @@ import { ProjectIn } from 'neuland-hub-sdk';
 
 const instance: ProjectIn = {
     name,
+    description_show_in_chat,
     description,
 };
 ```

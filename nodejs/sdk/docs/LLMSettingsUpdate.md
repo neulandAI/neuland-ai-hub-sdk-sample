@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **max_tokens** | **number** |  | [optional] [default to undefined]
 **cost_prompt_tokens** | [**CostPromptTokens1**](CostPromptTokens1.md) |  | [optional] [default to undefined]
 **cost_completion_tokens** | [**CostCompletionTokens1**](CostCompletionTokens1.md) |  | [optional] [default to undefined]
+**region** | **string** |  | [optional] [default to undefined]
 **args** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
 **openai_resource** | **string** |  | [optional] [default to undefined]
 **api_version** | **string** |  | [optional] [default to undefined]
@@ -30,6 +31,7 @@ const instance: LLMSettingsUpdate = {
     max_tokens,
     cost_prompt_tokens,
     cost_completion_tokens,
+    region,
     args,
     openai_resource,
     api_version,

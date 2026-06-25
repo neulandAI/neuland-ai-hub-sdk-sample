@@ -1,0 +1,30 @@
+# DataSourceFolderModel
+
+Metadata specific to folder items.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**child_count** | **int** | Number of immediate children inside the folder. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.data_source_folder_model import DataSourceFolderModel
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of DataSourceFolderModel from a JSON string
+data_source_folder_model_instance = DataSourceFolderModel.from_json(json)
+# print the JSON string representation of the object
+print(DataSourceFolderModel.to_json())
+
+# convert the object into a dict
+data_source_folder_model_dict = data_source_folder_model_instance.to_dict()
+# create an instance of DataSourceFolderModel from a dict
+data_source_folder_model_from_dict = DataSourceFolderModel.from_dict(data_source_folder_model_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

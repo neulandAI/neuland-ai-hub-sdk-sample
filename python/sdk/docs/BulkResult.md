@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **int** |  | 
-**ids** | **List[int]** |  | 
+**count** | **int** | Number of rows affected. | 
+**ids** | **List[int]** | IDs that were targeted by the operation. | 
 
 ## Example
 

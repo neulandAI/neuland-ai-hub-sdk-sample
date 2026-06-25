@@ -1,5 +1,6 @@
 # ToolUpdate
 
+Editable fields of a tool; only provided fields are updated.
 
 ## Properties
 

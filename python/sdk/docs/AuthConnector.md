@@ -4,22 +4,21 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**auth_initiate_admin_consent**](AuthConnector.md#auth_initiate_admin_consent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate Admin Consent
-[**auth_initiate_consent**](AuthConnector.md#auth_initiate_consent) | **GET** /auth/connectors/{connector_id}/consent | Initiate Consent
-[**auth_list_connector_status**](AuthConnector.md#auth_list_connector_status) | **GET** /auth/connectors/status | List Connector Status
-[**auth_oauth_callback**](AuthConnector.md#auth_oauth_callback) | **GET** /auth/connectors/callback | Oauth Callback
-[**auth_revoke_consent**](AuthConnector.md#auth_revoke_consent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke Consent
-[**auth_update_connector**](AuthConnector.md#auth_update_connector) | **PATCH** /auth/connectors/{connector_id} | Update Connector
-[**auth_update_oauth_client**](AuthConnector.md#auth_update_oauth_client) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update Oauth Client
+[**auth_initiate_admin_consent**](AuthConnector.md#auth_initiate_admin_consent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate admin connector consent
+[**auth_initiate_consent**](AuthConnector.md#auth_initiate_consent) | **GET** /auth/connectors/{connector_id}/consent | Initiate connector consent
+[**auth_list_connector_status**](AuthConnector.md#auth_list_connector_status) | **GET** /auth/connectors/status | List connector status
+[**auth_oauth_callback**](AuthConnector.md#auth_oauth_callback) | **GET** /auth/connectors/callback | Connector OAuth callback
+[**auth_revoke_consent**](AuthConnector.md#auth_revoke_consent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke connector consent
+[**auth_update_connector**](AuthConnector.md#auth_update_connector) | **PATCH** /auth/connectors/{connector_id} | Update a connector
+[**auth_update_oauth_client**](AuthConnector.md#auth_update_oauth_client) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update an OAuth client
 
 
 # **auth_initiate_admin_consent**
 > ConnectorConsentOut auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Initiate Admin Consent
+Initiate admin connector consent
 
-Initiate admin consent flow for a specific connector. This is used
-when the connector requires admin consent in addition to user consent.
+Start the admin consent flow for connectors that require organization-wide admin consent.
 
 ### Example
 
@@ -55,12 +54,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | 
+    connector_id = 56 # int | ID of the connector to consent to.
     tenant_id = 56 # int |  (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Initiate Admin Consent
+        # Initiate admin connector consent
         api_response = api_instance.auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
         print("The response of AuthConnector->auth_initiate_admin_consent:\n")
         pprint(api_response)
@@ -75,7 +74,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**|  | 
+ **connector_id** | **int**| ID of the connector to consent to. | 
  **tenant_id** | **int**|  | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
@@ -97,6 +96,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Administrator privileges required. |  -  |
+**404** | No connector or OAuth client exists for the given id. |  -  |
+**503** | The OAuth provider has no admin consent URL or is misconfigured. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -104,12 +107,9 @@ Name | Type | Description  | Notes
 # **auth_initiate_consent**
 > ConnectorConsentOut auth_initiate_consent(connector_id, return_url=return_url, redirect=redirect, cookie_name=cookie_name)
 
-Initiate Consent
+Initiate connector consent
 
-Initiate OAuth consent flow for a specific connector.
-
-Returns redirect URL to OAuth provider's consent page.
-If redirect=true, returns HTTP 302 redirect response.
+Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.
 
 ### Example
 
@@ -145,13 +145,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | 
-    return_url = 'return_url_example' # str |  (optional)
+    connector_id = 56 # int | ID of the connector to consent to.
+    return_url = 'return_url_example' # str | URL to return the user to after consent. (optional)
     redirect = False # bool | If true, return 302 redirect instead of JSON (optional) (default to False)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Initiate Consent
+        # Initiate connector consent
         api_response = api_instance.auth_initiate_consent(connector_id, return_url=return_url, redirect=redirect, cookie_name=cookie_name)
         print("The response of AuthConnector->auth_initiate_consent:\n")
         pprint(api_response)
@@ -166,8 +166,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**|  | 
- **return_url** | **str**|  | [optional] 
+ **connector_id** | **int**| ID of the connector to consent to. | 
+ **return_url** | **str**| URL to return the user to after consent. | [optional] 
  **redirect** | **bool**| If true, return 302 redirect instead of JSON | [optional] [default to False]
  **cookie_name** | **str**|  | [optional] 
 
@@ -189,6 +189,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | No connector or OAuth client exists for the given id. |  -  |
+**503** | The OAuth provider is misconfigured. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -196,7 +199,9 @@ Name | Type | Description  | Notes
 # **auth_list_connector_status**
 > List[ConnectorStatusOut] auth_list_connector_status(cookie_name=cookie_name)
 
-List Connector Status
+List connector status
+
+List connectors available to the user's tenant with their per-user consent status.
 
 ### Example
 
@@ -235,7 +240,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # List Connector Status
+        # List connector status
         api_response = api_instance.auth_list_connector_status(cookie_name=cookie_name)
         print("The response of AuthConnector->auth_list_connector_status:\n")
         pprint(api_response)
@@ -270,6 +275,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | The current user no longer exists. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -277,9 +284,9 @@ Name | Type | Description  | Notes
 # **auth_oauth_callback**
 > object auth_oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
 
-Oauth Callback
+Connector OAuth callback
 
-Generic OAuth callback from provider after user consent.
+Handle the provider redirect after user consent and persist the granted connector tokens.
 
 ### Example
 
@@ -300,14 +307,14 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    state = 'state_example' # str | 
+    state = 'state_example' # str | Opaque state token issued when consent was initiated.
     code = 'code_example' # str |  (optional)
     error = 'error_example' # str |  (optional)
     error_description = 'error_description_example' # str |  (optional)
     error_subcode = 'error_subcode_example' # str |  (optional)
 
     try:
-        # Oauth Callback
+        # Connector OAuth callback
         api_response = api_instance.auth_oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
         print("The response of AuthConnector->auth_oauth_callback:\n")
         pprint(api_response)
@@ -322,7 +329,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **state** | **str**|  | 
+ **state** | **str**| Opaque state token issued when consent was initiated. | 
  **code** | **str**|  | [optional] 
  **error** | **str**|  | [optional] 
  **error_description** | **str**|  | [optional] 
@@ -346,6 +353,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**403** | The provider granted insufficient scopes for the requested capabilities. |  -  |
+**404** | No connector or OAuth client exists for the consent state. |  -  |
+**503** | Token exchange with the OAuth provider failed. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -353,7 +363,9 @@ No authorization required
 # **auth_revoke_consent**
 > auth_revoke_consent(connector_id, cookie_name=cookie_name)
 
-Revoke Consent
+Revoke connector consent
+
+Delete the current user's stored consent for a connector, if any exists.
 
 ### Example
 
@@ -388,11 +400,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | 
+    connector_id = 56 # int | ID of the connector to revoke consent for.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Revoke Consent
+        # Revoke connector consent
         api_instance.auth_revoke_consent(connector_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling AuthConnector->auth_revoke_consent: %s\n" % e)
@@ -405,7 +417,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**|  | 
+ **connector_id** | **int**| ID of the connector to revoke consent for. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -426,6 +438,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -433,7 +446,7 @@ void (empty response body)
 # **auth_update_connector**
 > Connector auth_update_connector(connector_id, connector_update, cookie_name=cookie_name)
 
-Update Connector
+Update a connector
 
 Update a connector (superadmin only).
 
@@ -472,12 +485,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | 
+    connector_id = 56 # int | ID of the connector to update.
     connector_update = neuland_hub_sdk.ConnectorUpdate() # ConnectorUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Connector
+        # Update a connector
         api_response = api_instance.auth_update_connector(connector_id, connector_update, cookie_name=cookie_name)
         print("The response of AuthConnector->auth_update_connector:\n")
         pprint(api_response)
@@ -492,7 +505,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**|  | 
+ **connector_id** | **int**| ID of the connector to update. | 
  **connector_update** | [**ConnectorUpdate**](ConnectorUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -514,6 +527,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator (superadmin) privileges required. |  -  |
+**404** | No connector exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -521,7 +537,7 @@ Name | Type | Description  | Notes
 # **auth_update_oauth_client**
 > OAuthClient auth_update_oauth_client(oauth_client_id, o_auth_client_update, cookie_name=cookie_name)
 
-Update Oauth Client
+Update an OAuth client
 
 Update an OAuth client (superadmin only).
 
@@ -560,12 +576,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    oauth_client_id = 56 # int | 
+    oauth_client_id = 56 # int | ID of the OAuth client to update.
     o_auth_client_update = neuland_hub_sdk.OAuthClientUpdate() # OAuthClientUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Oauth Client
+        # Update an OAuth client
         api_response = api_instance.auth_update_oauth_client(oauth_client_id, o_auth_client_update, cookie_name=cookie_name)
         print("The response of AuthConnector->auth_update_oauth_client:\n")
         pprint(api_response)
@@ -580,7 +596,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **oauth_client_id** | **int**|  | 
+ **oauth_client_id** | **int**| ID of the OAuth client to update. | 
  **o_auth_client_update** | [**OAuthClientUpdate**](OAuthClientUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -602,6 +618,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator (superadmin) privileges required. |  -  |
+**404** | No OAuth client exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
