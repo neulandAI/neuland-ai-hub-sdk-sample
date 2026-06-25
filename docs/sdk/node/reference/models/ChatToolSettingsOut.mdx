@@ -1,0 +1,29 @@
+---
+title: "ChatToolSettingsOut"
+---
+
+Response schema for chat tool settings
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**chat_id** | **number** |  | [default to undefined]
+**tool_id** | **number** |  | [default to undefined]
+**enabled** | **boolean** |  | [default to undefined]
+**created_at** | **string** |  | [default to undefined]
+**updated_at** | **string** |  | [default to undefined]
+
+## Example
+
+```typescript
+import { ChatToolSettingsOut } from 'neuland-hub-sdk';
+
+const instance: ChatToolSettingsOut = {
+    chat_id,
+    tool_id,
+    enabled,
+    created_at,
+    updated_at,
+};
+```

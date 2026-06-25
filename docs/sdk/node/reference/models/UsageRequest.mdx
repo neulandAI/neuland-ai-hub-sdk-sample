@@ -1,0 +1,25 @@
+---
+title: "UsageRequest"
+---
+
+Generic usage request model for both token and cost queries.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**granularity** | **string** |  | [default to undefined]
+**date_start** | **string** |  | [optional] [default to undefined]
+**date_end** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { UsageRequest } from 'neuland-hub-sdk';
+
+const instance: UsageRequest = {
+    granularity,
+    date_start,
+    date_end,
+};
+```

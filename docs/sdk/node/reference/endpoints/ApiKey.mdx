@@ -1,0 +1,122 @@
+---
+title: "ApiKey"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**apiCreateKey**](#apicreatekey) | **POST** /api/key/ | Create Key|
+|[**apiRevokeApiKey**](#apirevokeapikey) | **PATCH** /api/key/revoke/&#123;api_key_id&#125; | Revoke Api Key|
+
+## **apiCreateKey**
+```typescript
+ApiKeyCreateResponse apiCreateKey()
+```
+
+create key endpoint
+
+### Example
+
+```typescript
+import {
+    ApiKey,
+    Configuration,
+    ApiKeyCreateRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new ApiKey(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+let apiKeyCreateRequest: ApiKeyCreateRequest; // (optional)
+
+const { status, data } = await apiInstance.apiCreateKey(
+    cookieName,
+    apiKeyCreateRequest
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **apiKeyCreateRequest** | **ApiKeyCreateRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**ApiKeyCreateResponse**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **apiRevokeApiKey**
+```typescript
+ApiKey apiRevokeApiKey()
+```
+
+Update an existing apikey\'s active status
+
+### Example
+
+```typescript
+import {
+    ApiKey,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new ApiKey(configuration);
+
+let apiKeyId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.apiRevokeApiKey(
+    apiKeyId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **apiKeyId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**ApiKey**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |

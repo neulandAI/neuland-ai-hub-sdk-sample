@@ -1,0 +1,394 @@
+---
+title: "Document"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**documentsDeleteChatDocument**](#documentsdeletechatdocument) | **DELETE** /documents/&#123;document_id&#125; | Delete Chat Document|
+|[**documentsGetFile**](#documentsgetfile) | **GET** /documents/&#123;document_id&#125; | Get File|
+|[**documentsImportDocuments**](#documentsimportdocuments) | **POST** /documents/import | Import Documents|
+|[**documentsRetryDocument**](#documentsretrydocument) | **POST** /documents/&#123;document_id&#125;/retry | Retry Document|
+|[**documentsUnimportDocuments**](#documentsunimportdocuments) | **DELETE** /documents/import | Unimport Documents|
+|[**documentsUploadDocuments**](#documentsuploaddocuments) | **POST** /documents/ | Upload Documents|
+
+## **documentsDeleteChatDocument**
+```typescript
+documentsDeleteChatDocument()
+```
+
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let documentId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsDeleteChatDocument(
+    documentId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **documentId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **documentsGetFile**
+```typescript
+any documentsGetFile()
+```
+
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let documentId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsGetFile(
+    documentId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **documentId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **documentsImportDocuments**
+```typescript
+string documentsImportDocuments()
+```
+
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let src: string; //Source type which the documents will be imported from (default to undefined)
+let driveId: string; //Sharepoint drive ID (default to undefined)
+let driveItemIds: Array<string>; //Sharepoint item IDs of the documents to be imported (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+let projectId: number; // (optional) (default to undefined)
+let chatId: number; // (optional) (default to undefined)
+let assistantId: number; // (optional) (default to undefined)
+let messageId: number; // (optional) (default to undefined)
+let libraryId: number; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsImportDocuments(
+    src,
+    driveId,
+    driveItemIds,
+    cookieName,
+    projectId,
+    chatId,
+    assistantId,
+    messageId,
+    libraryId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **src** | [**string**] | Source type which the documents will be imported from | defaults to undefined|
+| **driveId** | [**string**] | Sharepoint drive ID | defaults to undefined|
+| **driveItemIds** | **Array&lt;string&gt;** | Sharepoint item IDs of the documents to be imported | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **chatId** | [**number**] |  | (optional) defaults to undefined|
+| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+| **messageId** | [**number**] |  | (optional) defaults to undefined|
+| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **documentsRetryDocument**
+```typescript
+documentsRetryDocument()
+```
+
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let documentId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsRetryDocument(
+    documentId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **documentId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **documentsUnimportDocuments**
+```typescript
+documentsUnimportDocuments()
+```
+
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let src: string; //Source type which the documents will be imported from (default to undefined)
+let driveId: string; //Sharepoint drive ID (default to undefined)
+let driveItemIds: Array<string>; //Sharepoint item IDs of the documents to be unimported (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+let projectId: number; // (optional) (default to undefined)
+let chatId: number; // (optional) (default to undefined)
+let assistantId: number; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsUnimportDocuments(
+    src,
+    driveId,
+    driveItemIds,
+    cookieName,
+    projectId,
+    chatId,
+    assistantId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **src** | [**string**] | Source type which the documents will be imported from | defaults to undefined|
+| **driveId** | [**string**] | Sharepoint drive ID | defaults to undefined|
+| **driveItemIds** | **Array&lt;string&gt;** | Sharepoint item IDs of the documents to be unimported | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **chatId** | [**number**] |  | (optional) defaults to undefined|
+| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **documentsUploadDocuments**
+```typescript
+Array<Document> documentsUploadDocuments()
+```
+
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let files: Array<File>; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+let projectId: number; // (optional) (default to undefined)
+let chatId: number; // (optional) (default to undefined)
+let assistantId: number; // (optional) (default to undefined)
+let messageId: number; // (optional) (default to undefined)
+let libraryId: number; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsUploadDocuments(
+    files,
+    cookieName,
+    projectId,
+    chatId,
+    assistantId,
+    messageId,
+    libraryId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **files** | **Array&lt;File&gt;** |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **chatId** | [**number**] |  | (optional) defaults to undefined|
+| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+| **messageId** | [**number**] |  | (optional) defaults to undefined|
+| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;Document>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |

@@ -1,0 +1,28 @@
+---
+title: "TokenOut"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**access_token** | **str** |  | 
+**token_type** | **str** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.token_out import TokenOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of TokenOut from a JSON string
+token_out_instance = TokenOut.from_json(json)
+# print the JSON string representation of the object
+print(TokenOut.to_json())
+
+# convert the object into a dict
+token_out_dict = token_out_instance.to_dict()
+# create an instance of TokenOut from a dict
+token_out_from_dict = TokenOut.from_dict(token_out_dict)
+```

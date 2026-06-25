@@ -1,0 +1,28 @@
+---
+title: "LibraryMemberIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**user_id** | **int** |  | 
+**role** | **str** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.library_member_in import LibraryMemberIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of LibraryMemberIn from a JSON string
+library_member_in_instance = LibraryMemberIn.from_json(json)
+# print the JSON string representation of the object
+print(LibraryMemberIn.to_json())
+
+# convert the object into a dict
+library_member_in_dict = library_member_in_instance.to_dict()
+# create an instance of LibraryMemberIn from a dict
+library_member_in_from_dict = LibraryMemberIn.from_dict(library_member_in_dict)
+```

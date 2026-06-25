@@ -1,0 +1,537 @@
+---
+title: "Chat"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**chatsAddLibraryToChat**](#chatsaddlibrarytochat) | **POST** /chats/&#123;chat_id&#125;/libraries/&#123;library_id&#125; | Add Library To Chat|
+|[**chatsCancelMessage**](#chatscancelmessage) | **POST** /chats/&#123;chat_id&#125;/cancel | Cancel Message|
+|[**chatsDeactivateDocuments**](#chatsdeactivatedocuments) | **POST** /chats/&#123;chat_id&#125;/inactive-documents | Deactivate Documents|
+|[**chatsRemoveChat**](#chatsremovechat) | **DELETE** /chats/&#123;chat_id&#125; | Remove Chat|
+|[**chatsRemoveInactiveDocuments**](#chatsremoveinactivedocuments) | **DELETE** /chats/&#123;chat_id&#125;/inactive-documents | Remove Inactive Documents|
+|[**chatsRemoveLibraryFromChat**](#chatsremovelibraryfromchat) | **DELETE** /chats/&#123;chat_id&#125;/libraries/&#123;library_id&#125; | Remove Library From Chat|
+|[**chatsSummerizeChat**](#chatssummerizechat) | **GET** /chats/&#123;chat_id&#125;/summary | Summerize Chat|
+|[**chatsUpdateChat**](#chatsupdatechat) | **PATCH** /chats/&#123;chat_id&#125; | Update Chat|
+|[**chatsUpdateChatToolSettings**](#chatsupdatechattoolsettings) | **PUT** /chats/&#123;chat_id&#125;/tools/&#123;tool_id&#125; | Update Chat Tool Settings|
+
+## **chatsAddLibraryToChat**
+```typescript
+ChatLibrary chatsAddLibraryToChat()
+```
+
+Enables a library in a chat by creating a new association
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let libraryId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsAddLibraryToChat(
+    chatId,
+    libraryId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**ChatLibrary**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **chatsCancelMessage**
+```typescript
+any chatsCancelMessage()
+```
+
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsCancelMessage(
+    chatId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **chatsDeactivateDocuments**
+```typescript
+Array<ChatInactiveDocument> chatsDeactivateDocuments()
+```
+
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let documentIds: Array<number>; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsDeactivateDocuments(
+    chatId,
+    documentIds,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] |  | defaults to undefined|
+| **documentIds** | **Array&lt;number&gt;** |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;ChatInactiveDocument>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **chatsRemoveChat**
+```typescript
+chatsRemoveChat()
+```
+
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsRemoveChat(
+    chatId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **chatsRemoveInactiveDocuments**
+```typescript
+BulkResult chatsRemoveInactiveDocuments()
+```
+
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let documentIds: Array<number>; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsRemoveInactiveDocuments(
+    chatId,
+    documentIds,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] |  | defaults to undefined|
+| **documentIds** | **Array&lt;number&gt;** |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**BulkResult**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **chatsRemoveLibraryFromChat**
+```typescript
+chatsRemoveLibraryFromChat()
+```
+
+Disables a library from a chat by removing the association
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let libraryId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsRemoveLibraryFromChat(
+    chatId,
+    libraryId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **chatsSummerizeChat**
+```typescript
+string chatsSummerizeChat()
+```
+
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsSummerizeChat(
+    chatId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **chatsUpdateChat**
+```typescript
+Chat chatsUpdateChat(chatIn)
+```
+
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration,
+    ChatIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let chatIn: ChatIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsUpdateChat(
+    chatId,
+    chatIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatIn** | **ChatIn**|  | |
+| **chatId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Chat**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **chatsUpdateChatToolSettings**
+```typescript
+ChatToolSettingsOut chatsUpdateChatToolSettings(chatToolSettingsUpdate)
+```
+
+Update tool settings for a chat (upsert: create or update).  - Validates tool_id exists in Tool table - Validates tool is enabled for the tenant - Creates new ChatToolSettings entry if it doesn\'t exist - Updates existing entry if it exists
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration,
+    ChatToolSettingsUpdate
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: number; // (default to undefined)
+let toolId: number; // (default to undefined)
+let chatToolSettingsUpdate: ChatToolSettingsUpdate; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsUpdateChatToolSettings(
+    chatId,
+    toolId,
+    chatToolSettingsUpdate,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatToolSettingsUpdate** | **ChatToolSettingsUpdate**|  | |
+| **chatId** | [**number**] |  | defaults to undefined|
+| **toolId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**ChatToolSettingsOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
