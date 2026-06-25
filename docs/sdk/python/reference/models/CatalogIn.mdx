@@ -1,0 +1,34 @@
+---
+title: "CatalogIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** | Unique catalog name identifying the model. | 
+**description** | **str** |  | 
+**multi_modal** | **bool** | Whether the model accepts non-text inputs such as images. | 
+**gdpr_compliant** | **bool** | Whether the model may be used for GDPR-compliant workloads. | 
+**embedding_dimension** | **int** |  | [optional] 
+**supports_embedding** | **bool** | Whether the model can generate embeddings. | [optional] [default to False]
+**supports_transcription** | **bool** | Whether the model can transcribe audio. | [optional] [default to False]
+**auto_seed** | **bool** | Whether to auto-create default settings for this catalog entry on seed. | [optional] [default to False]
+
+## Example
+
+```python
+from neuland_hub_sdk.models.catalog_in import CatalogIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CatalogIn from a JSON string
+catalog_in_instance = CatalogIn.from_json(json)
+# print the JSON string representation of the object
+print(CatalogIn.to_json())
+
+# convert the object into a dict
+catalog_in_dict = catalog_in_instance.to_dict()
+# create an instance of CatalogIn from a dict
+catalog_in_from_dict = CatalogIn.from_dict(catalog_in_dict)
+```

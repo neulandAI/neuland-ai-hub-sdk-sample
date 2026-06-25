@@ -1,0 +1,31 @@
+---
+title: "ProjectMember"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**tenant_id** | **int** | ID of the tenant that owns the project membership. | 
+**created_at** | **datetime** | Timestamp when the membership was created. | [optional] 
+**project_id** | **int** | ID of the project. | 
+**user_id** | **int** | ID of the member user. | 
+**role** | **str** | Role of the user within the project. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.project_member import ProjectMember
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ProjectMember from a JSON string
+project_member_instance = ProjectMember.from_json(json)
+# print the JSON string representation of the object
+print(ProjectMember.to_json())
+
+# convert the object into a dict
+project_member_dict = project_member_instance.to_dict()
+# create an instance of ProjectMember from a dict
+project_member_from_dict = ProjectMember.from_dict(project_member_dict)
+```

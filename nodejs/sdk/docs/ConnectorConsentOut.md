@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**consent_url** | **string** |  | [default to undefined]
-**connector** | [**ConnectorOut**](ConnectorOut.md) |  | [default to undefined]
+**consent_url** | **string** | URL to redirect the user to for granting consent. | [default to undefined]
+**connector** | [**ConnectorOut**](ConnectorOut.md) | Details of the connector consent is being requested for. | [default to undefined]
 
 ## Example
 

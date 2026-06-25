@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**members** | [**Array&lt;LibraryMemberIn&gt;**](LibraryMemberIn.md) |  | [default to undefined]
+**members** | [**Array&lt;LibraryMemberIn&gt;**](LibraryMemberIn.md) | Members to add to the library. | [default to undefined]
 
 ## Example
 

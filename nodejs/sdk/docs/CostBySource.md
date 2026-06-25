@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**source** | **string** |  | [default to undefined]
-**total_cost** | **number** |  | [default to undefined]
-**total_tokens** | **number** |  | [default to undefined]
-**prompt_tokens** | **number** |  | [default to undefined]
-**completion_tokens** | **number** |  | [default to undefined]
-**record_count** | **number** |  | [default to undefined]
+**source** | **string** | Usage source name. | [default to undefined]
+**total_cost** | **number** | Total cost for this source. | [default to undefined]
+**total_tokens** | **number** | Total tokens for this source. | [default to undefined]
+**prompt_tokens** | **number** | Prompt tokens for this source. | [default to undefined]
+**completion_tokens** | **number** | Completion tokens for this source. | [default to undefined]
+**record_count** | **number** | Number of usage records for this source. | [default to undefined]
 
 ## Example
 

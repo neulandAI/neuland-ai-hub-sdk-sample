@@ -1,15 +1,16 @@
 # ToolOut
 
+A tool as returned by the API.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **number** |  | [default to undefined]
-**name** | **string** |  | [default to undefined]
+**id** | **number** | Unique identifier of the tool. | [default to undefined]
+**name** | **string** | Human-readable name of the tool. | [default to undefined]
 **description** | **string** |  | [default to undefined]
 **prompt** | **string** |  | [default to undefined]
-**created_at** | **string** |  | [default to undefined]
+**created_at** | **string** | UTC timestamp when the tool was created. | [default to undefined]
 **updated_at** | **string** |  | [default to undefined]
 
 ## Example

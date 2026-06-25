@@ -1,0 +1,30 @@
+---
+title: "ApplicationAccessIn"
+---
+
+Schema for granting app access to users
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**application_id** | **int** | ID of the application to grant access to. | 
+**user_ids** | **List[int]** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.application_access_in import ApplicationAccessIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ApplicationAccessIn from a JSON string
+application_access_in_instance = ApplicationAccessIn.from_json(json)
+# print the JSON string representation of the object
+print(ApplicationAccessIn.to_json())
+
+# convert the object into a dict
+application_access_in_dict = application_access_in_instance.to_dict()
+# create an instance of ApplicationAccessIn from a dict
+application_access_in_from_dict = ApplicationAccessIn.from_dict(application_access_in_dict)
+```

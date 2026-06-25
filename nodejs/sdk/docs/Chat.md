@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**chatsAddLibraryToChat**](#chatsaddlibrarytochat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add Library To Chat|
-|[**chatsCancelMessage**](#chatscancelmessage) | **POST** /chats/{chat_id}/cancel | Cancel Message|
-|[**chatsDeactivateDocuments**](#chatsdeactivatedocuments) | **POST** /chats/{chat_id}/inactive-documents | Deactivate Documents|
-|[**chatsRemoveChat**](#chatsremovechat) | **DELETE** /chats/{chat_id} | Remove Chat|
-|[**chatsRemoveInactiveDocuments**](#chatsremoveinactivedocuments) | **DELETE** /chats/{chat_id}/inactive-documents | Remove Inactive Documents|
-|[**chatsRemoveLibraryFromChat**](#chatsremovelibraryfromchat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove Library From Chat|
-|[**chatsSummerizeChat**](#chatssummerizechat) | **GET** /chats/{chat_id}/summary | Summerize Chat|
-|[**chatsUpdateChat**](#chatsupdatechat) | **PATCH** /chats/{chat_id} | Update Chat|
-|[**chatsUpdateChatToolSettings**](#chatsupdatechattoolsettings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Update Chat Tool Settings|
+|[**chatsAddLibraryToChat**](#chatsaddlibrarytochat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add a library to a chat|
+|[**chatsCancelMessage**](#chatscancelmessage) | **POST** /chats/{chat_id}/cancel | Cancel in-progress generation|
+|[**chatsDeactivateDocuments**](#chatsdeactivatedocuments) | **POST** /chats/{chat_id}/inactive-documents | Deactivate documents in a chat|
+|[**chatsRemoveChat**](#chatsremovechat) | **DELETE** /chats/{chat_id} | Delete a chat|
+|[**chatsRemoveInactiveDocuments**](#chatsremoveinactivedocuments) | **DELETE** /chats/{chat_id}/inactive-documents | Reactivate documents in a chat|
+|[**chatsRemoveLibraryFromChat**](#chatsremovelibraryfromchat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat|
+|[**chatsSummerizeChat**](#chatssummerizechat) | **GET** /chats/{chat_id}/summary | Summarize a chat|
+|[**chatsUpdateChat**](#chatsupdatechat) | **PATCH** /chats/{chat_id} | Update a chat|
+|[**chatsUpdateChatToolSettings**](#chatsupdatechattoolsettings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Set a chat tool setting|
 
 # **chatsAddLibraryToChat**
 > ChatLibrary chatsAddLibraryToChat()
@@ -68,6 +68,8 @@ const { status, data } = await apiInstance.chatsAddLibraryToChat(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat or the library. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -75,6 +77,7 @@ const { status, data } = await apiInstance.chatsAddLibraryToChat(
 # **chatsCancelMessage**
 > any chatsCancelMessage()
 
+Cancel any pending or streaming message generation in the chat.
 
 ### Example
 
@@ -122,6 +125,8 @@ const { status, data } = await apiInstance.chatsCancelMessage(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to this chat. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -129,6 +134,7 @@ const { status, data } = await apiInstance.chatsCancelMessage(
 # **chatsDeactivateDocuments**
 > Array<ChatInactiveDocument> chatsDeactivateDocuments()
 
+Exclude the given documents from the chat\'s retrieval context.
 
 ### Example
 
@@ -179,6 +185,9 @@ const { status, data } = await apiInstance.chatsDeactivateDocuments(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to this chat. |  -  |
+|**404** | Chat or one of the documents does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -186,6 +195,7 @@ const { status, data } = await apiInstance.chatsDeactivateDocuments(
 # **chatsRemoveChat**
 > chatsRemoveChat()
 
+Delete a chat and its messages.
 
 ### Example
 
@@ -233,6 +243,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to this chat. |  -  |
+|**404** | No chat exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -240,6 +253,7 @@ void (empty response body)
 # **chatsRemoveInactiveDocuments**
 > BulkResult chatsRemoveInactiveDocuments()
 
+Re-include previously deactivated documents in the chat\'s retrieval context.
 
 ### Example
 
@@ -290,6 +304,8 @@ const { status, data } = await apiInstance.chatsRemoveInactiveDocuments(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to this chat. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -311,7 +327,7 @@ const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
 let chatId: number; // (default to undefined)
-let libraryId: number; // (default to undefined)
+let libraryId: number; //ID of the library to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.chatsRemoveLibraryFromChat(
@@ -326,7 +342,7 @@ const { status, data } = await apiInstance.chatsRemoveLibraryFromChat(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **chatId** | [**number**] |  | defaults to undefined|
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**number**] | ID of the library to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -348,6 +364,8 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to this chat. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -355,6 +373,7 @@ void (empty response body)
 # **chatsSummerizeChat**
 > string chatsSummerizeChat()
 
+Generate a short LLM summary of the chat\'s recent conversation.
 
 ### Example
 
@@ -402,6 +421,9 @@ const { status, data } = await apiInstance.chatsSummerizeChat(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat, or usage budget exceeded. |  -  |
+|**404** | Chat or owning user does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -409,6 +431,7 @@ const { status, data } = await apiInstance.chatsSummerizeChat(
 # **chatsUpdateChat**
 > Chat chatsUpdateChat(chatIn)
 
+Update settings of an existing chat (name, model, temperature, etc.).
 
 ### Example
 
@@ -460,6 +483,9 @@ const { status, data } = await apiInstance.chatsUpdateChat(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to this chat. |  -  |
+|**404** | No chat exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -467,7 +493,7 @@ const { status, data } = await apiInstance.chatsUpdateChat(
 # **chatsUpdateChatToolSettings**
 > ChatToolSettingsOut chatsUpdateChatToolSettings(chatToolSettingsUpdate)
 
-Update tool settings for a chat (upsert: create or update).  - Validates tool_id exists in Tool table - Validates tool is enabled for the tenant - Creates new ChatToolSettings entry if it doesn\'t exist - Updates existing entry if it exists
+Enable or disable a tool for a chat, creating the setting if needed.
 
 ### Example
 
@@ -482,7 +508,7 @@ const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
 let chatId: number; // (default to undefined)
-let toolId: number; // (default to undefined)
+let toolId: number; //ID of the tool to configure. (default to undefined)
 let chatToolSettingsUpdate: ChatToolSettingsUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -500,7 +526,7 @@ const { status, data } = await apiInstance.chatsUpdateChatToolSettings(
 |------------- | ------------- | ------------- | -------------|
 | **chatToolSettingsUpdate** | **ChatToolSettingsUpdate**|  | |
 | **chatId** | [**number**] |  | defaults to undefined|
-| **toolId** | [**number**] |  | defaults to undefined|
+| **toolId** | [**number**] | ID of the tool to configure. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -522,6 +548,9 @@ const { status, data } = await apiInstance.chatsUpdateChatToolSettings(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat, or the tool is not enabled for the tenant. |  -  |
+|**404** | Chat, tool, or owning user does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

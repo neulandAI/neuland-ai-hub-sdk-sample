@@ -4,12 +4,13 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**queryQuery**](#queryquery) | **GET** /query/{path} | Query|
-|[**queryQueryRpc**](#queryqueryrpc) | **GET** /query/rpc/{path} | Query Rpc|
+|[**queryQuery**](#queryquery) | **GET** /query/{path} | Proxy a PostgREST query|
+|[**queryQueryRpc**](#queryqueryrpc) | **GET** /query/rpc/{path} | Proxy a PostgREST RPC call|
 
 # **queryQuery**
 > any queryQuery()
 
+Forward the request to the upstream PostgREST service and return its response.
 
 ### Example
 
@@ -22,7 +23,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Query(configuration);
 
-let path: string; // (default to undefined)
+let path: string; //PostgREST resource path to proxy. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.queryQuery(
@@ -35,7 +36,7 @@ const { status, data } = await apiInstance.queryQuery(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **path** | [**string**] |  | defaults to undefined|
+| **path** | [**string**] | PostgREST resource path to proxy. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -57,6 +58,8 @@ const { status, data } = await apiInstance.queryQuery(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**502** | The upstream PostgREST service is unavailable. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -64,6 +67,7 @@ const { status, data } = await apiInstance.queryQuery(
 # **queryQueryRpc**
 > any queryQueryRpc()
 
+Forward the request to an upstream PostgREST RPC endpoint and return its response.
 
 ### Example
 
@@ -76,7 +80,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Query(configuration);
 
-let path: string; // (default to undefined)
+let path: string; //PostgREST RPC function name to invoke. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.queryQueryRpc(
@@ -89,7 +93,7 @@ const { status, data } = await apiInstance.queryQueryRpc(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **path** | [**string**] |  | defaults to undefined|
+| **path** | [**string**] | PostgREST RPC function name to invoke. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -111,6 +115,8 @@ const { status, data } = await apiInstance.queryQueryRpc(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**502** | The upstream PostgREST service is unavailable. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

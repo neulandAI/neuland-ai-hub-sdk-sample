@@ -1,0 +1,30 @@
+---
+title: "CostTimeseriesPoint"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**var_date** | **str** | Date of the data point (YYYY-MM-DD). | 
+**cost** | **float** | Cost incurred on this date. | 
+**tokens** | **int** | Tokens consumed on this date. | 
+**record_count** | **int** | Number of usage records on this date. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.cost_timeseries_point import CostTimeseriesPoint
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CostTimeseriesPoint from a JSON string
+cost_timeseries_point_instance = CostTimeseriesPoint.from_json(json)
+# print the JSON string representation of the object
+print(CostTimeseriesPoint.to_json())
+
+# convert the object into a dict
+cost_timeseries_point_dict = cost_timeseries_point_instance.to_dict()
+# create an instance of CostTimeseriesPoint from a dict
+cost_timeseries_point_from_dict = CostTimeseriesPoint.from_dict(cost_timeseries_point_dict)
+```

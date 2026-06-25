@@ -5,17 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
-**created_at** | **datetime** |  | 
-**email** | **str** |  | 
-**email_confirmed** | **bool** |  | 
+**id** | **int** | Unique identifier of the user. | 
+**created_at** | **datetime** | UTC timestamp when the user was created. | 
+**email** | **str** | Current confirmed email address. | 
+**email_confirmed** | **bool** | Whether the email address has been confirmed. | 
 **pending_email** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
 **first_name** | **str** |  | [optional] 
 **last_name** | **str** |  | [optional] 
-**admin** | **bool** |  | 
+**admin** | **bool** | Whether the user has tenant administrator privileges. | 
 **superadmin** | **bool** |  | [optional] 
-**active** | **bool** |  | 
+**active** | **bool** | Whether the account is active and can authenticate. | 
 **tenant_id** | **int** |  | [optional] 
 
 ## Example

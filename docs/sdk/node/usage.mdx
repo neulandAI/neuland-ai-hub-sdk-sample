@@ -1,0 +1,34 @@
+---
+title: "Usage"
+description: "Authenticate and make your first call with the Node SDK."
+---
+
+## Configure the client
+
+```typescript
+import { Configuration, User } from "neuland-hub-sdk";
+
+const configuration = new Configuration({
+  basePath: "https://api.your-domain.com",
+  apiKey: "ak.<key_id>.<secret>", // sent as X-API-KEY
+});
+```
+
+## Make a request
+
+Each API tag (for example `Alert`, `Chat`, `User`) becomes a client class, and
+each endpoint's `operationId` becomes a method on it. The exact names are listed
+under [API Methods](/sdk/node/reference).
+
+```typescript
+const api = new User(configuration);
+
+const { data } = await api.usersGetMyself();
+console.log(data);
+```
+
+<Note>
+  The per-endpoint and per-model reference pages in this section are generated
+  directly from the SDK on every release, so they always match the installed
+  package.
+</Note>

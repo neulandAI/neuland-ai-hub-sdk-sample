@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
-**user_id** | **int** |  | 
+**id** | **int** | Unique identifier of the preference record. | 
+**user_id** | **int** | Identifier of the user these preferences belong to. | 
 **theme_mode** | [**ThemeModeEnum**](ThemeModeEnum.md) |  | [optional] 
 **lang** | **str** |  | [optional] 
 **timezone** | **str** |  | [optional] 

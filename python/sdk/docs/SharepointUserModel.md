@@ -1,5 +1,6 @@
 # SharepointUserModel
 
+The signed-in user's SharePoint / Microsoft Graph profile.
 
 ## Properties
 

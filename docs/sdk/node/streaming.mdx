@@ -1,0 +1,67 @@
+---
+title: "Streaming"
+description: "Consume token-by-token message responses over Server-Sent Events with Node."
+---
+
+The Hub streams message generation token-by-token over **Server-Sent Events
+(SSE)** on two endpoints:
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /messages/stream` | Create a message and stream its generation |
+| `GET /messages/{message_id}/stream` | Observe an existing message's stream |
+
+<Note>
+  These endpoints are **not part of the generated SDK**. An open-ended event
+  stream can't be modelled in OpenAPI — a generated method would read the whole
+  body before returning, which defeats streaming. Use the standalone streaming
+  client below instead. The endpoints still appear in the **API Reference** tab
+  for completeness.
+</Note>
+
+## Install the streaming client
+
+The client is a single dependency-light file — copy `streaming.ts` into your
+project. It needs only the platform `fetch` (browsers and Node 18+), so it works
+unchanged in the browser and on the server.
+
+## Stream a new message
+
+```typescript
+import { streamMessage } from "./streaming";
+
+for await (const event of streamMessage({
+  baseUrl: "https://api.your-domain.com",
+  apiKey: "ak.<key_id>.<secret>", // sent as X-API-KEY
+  message: { content: "Explain quantum tunneling" },
+})) {
+  console.log(event.event, event.data);
+}
+```
+
+## Observe an existing message
+
+Already created a message and want to watch its generation? Stream it by id:
+
+```typescript
+import { observeMessage } from "./streaming";
+
+for await (const event of observeMessage({
+  baseUrl: "https://api.your-domain.com",
+  apiKey: "ak.<key_id>.<secret>",
+  messageId: 123,
+})) {
+  console.log(event.event, event.data);
+}
+```
+
+## Event model
+
+Each SSE frame is delivered as a `StreamEvent` with a type (`event`) and a
+parsed JSON payload (`data`). The stream **ends after a terminal `state` event**
+(`completed`, `failed`, or `cancelled`), or on a forced max-duration close.
+
+<Warning>
+  On any disconnect, **do not resume** the stream. Refetch the canonical message
+  with `GET /messages/{message_id}` to get its final state.
+</Warning>

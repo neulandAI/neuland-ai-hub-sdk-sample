@@ -4,16 +4,17 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**integrationsGetItemInfo**](#integrationsgetiteminfo) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get Item Info|
-|[**integrationsGetUserInfo**](#integrationsgetuserinfo) | **GET** /integrations/sharepoint/me | Get User Info|
-|[**integrationsIsConnected**](#integrationsisconnected) | **GET** /integrations/sharepoint/connected | Is Connected|
-|[**integrationsListAllSites**](#integrationslistallsites) | **GET** /integrations/sharepoint/sites | List All Sites|
-|[**integrationsListChildren**](#integrationslistchildren) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List Children|
-|[**integrationsListDrives**](#integrationslistdrives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List Drives|
+|[**integrationsGetItemInfo**](#integrationsgetiteminfo) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get a drive item|
+|[**integrationsGetUserInfo**](#integrationsgetuserinfo) | **GET** /integrations/sharepoint/me | Get current SharePoint user|
+|[**integrationsIsConnected**](#integrationsisconnected) | **GET** /integrations/sharepoint/connected | Check SharePoint connection|
+|[**integrationsListAllSites**](#integrationslistallsites) | **GET** /integrations/sharepoint/sites | List SharePoint sites|
+|[**integrationsListChildren**](#integrationslistchildren) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item|
+|[**integrationsListDrives**](#integrationslistdrives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List drives in a site|
 
 # **integrationsGetItemInfo**
 > SharepointItemModel integrationsGetItemInfo()
 
+Get a single SharePoint drive item, annotated with imported counts.
 
 ### Example
 
@@ -26,12 +27,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
 
-let driveId: string; // (default to undefined)
-let driveItemId: string; // (default to undefined)
-let chatId: number; // (optional) (default to undefined)
-let libraryId: number; // (optional) (default to undefined)
-let assistantId: number; // (optional) (default to undefined)
-let projectId: number; // (optional) (default to undefined)
+let driveId: string; //Id of the drive. (default to undefined)
+let driveItemId: string; //Id of the drive item. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.integrationsGetItemInfo(
@@ -49,12 +50,12 @@ const { status, data } = await apiInstance.integrationsGetItemInfo(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **driveId** | [**string**] |  | defaults to undefined|
-| **driveItemId** | [**string**] |  | defaults to undefined|
-| **chatId** | [**number**] |  | (optional) defaults to undefined|
-| **libraryId** | [**number**] |  | (optional) defaults to undefined|
-| **assistantId** | [**number**] |  | (optional) defaults to undefined|
-| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **driveId** | [**string**] | Id of the drive. | defaults to undefined|
+| **driveItemId** | [**string**] | Id of the drive item. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -76,6 +77,8 @@ const { status, data } = await apiInstance.integrationsGetItemInfo(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -83,6 +86,7 @@ const { status, data } = await apiInstance.integrationsGetItemInfo(
 # **integrationsGetUserInfo**
 > SharepointUserModel integrationsGetUserInfo()
 
+Return the signed-in user\'s SharePoint / Microsoft Graph profile.
 
 ### Example
 
@@ -127,6 +131,8 @@ const { status, data } = await apiInstance.integrationsGetUserInfo(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -134,6 +140,7 @@ const { status, data } = await apiInstance.integrationsGetUserInfo(
 # **integrationsIsConnected**
 > boolean integrationsIsConnected()
 
+Report whether the user has consented to the SharePoint file-read scope.
 
 ### Example
 
@@ -178,6 +185,7 @@ const { status, data } = await apiInstance.integrationsIsConnected(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -185,6 +193,7 @@ const { status, data } = await apiInstance.integrationsIsConnected(
 # **integrationsListAllSites**
 > Array<SharepointSiteModel> integrationsListAllSites()
 
+List the SharePoint sites the user can access, with imported document counts.
 
 ### Example
 
@@ -197,10 +206,10 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
 
-let chatId: number; // (optional) (default to undefined)
-let libraryId: number; // (optional) (default to undefined)
-let assistantId: number; // (optional) (default to undefined)
-let projectId: number; // (optional) (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.integrationsListAllSites(
@@ -216,10 +225,10 @@ const { status, data } = await apiInstance.integrationsListAllSites(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] |  | (optional) defaults to undefined|
-| **libraryId** | [**number**] |  | (optional) defaults to undefined|
-| **assistantId** | [**number**] |  | (optional) defaults to undefined|
-| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -241,6 +250,8 @@ const { status, data } = await apiInstance.integrationsListAllSites(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -248,6 +259,7 @@ const { status, data } = await apiInstance.integrationsListAllSites(
 # **integrationsListChildren**
 > Array<SharepointItemModel> integrationsListChildren()
 
+List files and folders under a drive item, annotated with imported counts.
 
 ### Example
 
@@ -260,13 +272,13 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
 
-let driveId: string; // (default to undefined)
-let driveItemId: string; // (default to undefined)
-let chatId: number; // (optional) (default to undefined)
-let libraryId: number; // (optional) (default to undefined)
-let assistantId: number; // (optional) (default to undefined)
-let projectId: number; // (optional) (default to undefined)
-let recursive: boolean; // (optional) (default to false)
+let driveId: string; //Id of the drive. (default to undefined)
+let driveItemId: string; //Id of the parent item; empty or \'root\' for the drive root. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let recursive: boolean; //Recurse into subfolders, returning only files. (optional) (default to false)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.integrationsListChildren(
@@ -285,13 +297,13 @@ const { status, data } = await apiInstance.integrationsListChildren(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **driveId** | [**string**] |  | defaults to undefined|
-| **driveItemId** | [**string**] |  | defaults to undefined|
-| **chatId** | [**number**] |  | (optional) defaults to undefined|
-| **libraryId** | [**number**] |  | (optional) defaults to undefined|
-| **assistantId** | [**number**] |  | (optional) defaults to undefined|
-| **projectId** | [**number**] |  | (optional) defaults to undefined|
-| **recursive** | [**boolean**] |  | (optional) defaults to false|
+| **driveId** | [**string**] | Id of the drive. | defaults to undefined|
+| **driveItemId** | [**string**] | Id of the parent item; empty or \&#39;root\&#39; for the drive root. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **recursive** | [**boolean**] | Recurse into subfolders, returning only files. | (optional) defaults to false|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -313,6 +325,8 @@ const { status, data } = await apiInstance.integrationsListChildren(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -320,6 +334,7 @@ const { status, data } = await apiInstance.integrationsListChildren(
 # **integrationsListDrives**
 > Array<SharepointDriveModel> integrationsListDrives()
 
+List the document libraries (drives) within a SharePoint site.
 
 ### Example
 
@@ -332,11 +347,11 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
 
-let siteId: string; // (default to undefined)
-let chatId: number; // (optional) (default to undefined)
-let libraryId: number; // (optional) (default to undefined)
-let assistantId: number; // (optional) (default to undefined)
-let projectId: number; // (optional) (default to undefined)
+let siteId: string; //SharePoint site id. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.integrationsListDrives(
@@ -353,11 +368,11 @@ const { status, data } = await apiInstance.integrationsListDrives(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **siteId** | [**string**] |  | defaults to undefined|
-| **chatId** | [**number**] |  | (optional) defaults to undefined|
-| **libraryId** | [**number**] |  | (optional) defaults to undefined|
-| **assistantId** | [**number**] |  | (optional) defaults to undefined|
-| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **siteId** | [**string**] | SharePoint site id. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -379,6 +394,8 @@ const { status, data } = await apiInstance.integrationsListDrives(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

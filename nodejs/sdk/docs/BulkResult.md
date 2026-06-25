@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**count** | **number** |  | [default to undefined]
-**ids** | **Array&lt;number&gt;** |  | [default to undefined]
+**count** | **number** | Number of rows affected. | [default to undefined]
+**ids** | **Array&lt;number&gt;** | IDs that were targeted by the operation. | [default to undefined]
 
 ## Example
 

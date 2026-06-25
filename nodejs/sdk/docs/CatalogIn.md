@@ -5,11 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **string** |  | [default to undefined]
+**name** | **string** | Unique catalog name identifying the model. | [default to undefined]
 **description** | **string** |  | [default to undefined]
-**multi_modal** | **boolean** |  | [default to undefined]
-**gdpr_compliant** | **boolean** |  | [default to undefined]
-**auto_seed** | **boolean** |  | [optional] [default to false]
+**multi_modal** | **boolean** | Whether the model accepts non-text inputs such as images. | [default to undefined]
+**gdpr_compliant** | **boolean** | Whether the model may be used for GDPR-compliant workloads. | [default to undefined]
+**embedding_dimension** | **number** |  | [optional] [default to undefined]
+**supports_embedding** | **boolean** | Whether the model can generate embeddings. | [optional] [default to false]
+**supports_transcription** | **boolean** | Whether the model can transcribe audio. | [optional] [default to false]
+**auto_seed** | **boolean** | Whether to auto-create default settings for this catalog entry on seed. | [optional] [default to false]
 
 ## Example
 
@@ -21,6 +24,9 @@ const instance: CatalogIn = {
     description,
     multi_modal,
     gdpr_compliant,
+    embedding_dimension,
+    supports_embedding,
+    supports_transcription,
     auto_seed,
 };
 ```

@@ -1,0 +1,416 @@
+---
+title: "Invitation"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**invitations_accept_invitation_complete**](/sdk/python/reference/endpoints/Invitation#invitations_accept_invitation_complete) | **POST** /invitations/accept | Accept an invitation
+[**invitations_accept_invitation_form**](/sdk/python/reference/endpoints/Invitation#invitations_accept_invitation_form) | **GET** /invitations/accept | Invitation acceptance HTML form
+[**invitations_create_invitations**](/sdk/python/reference/endpoints/Invitation#invitations_create_invitations) | **POST** /invitations/ | Create invitations
+[**invitations_resend_invitation**](/sdk/python/reference/endpoints/Invitation#invitations_resend_invitation) | **POST** /invitations/&#123;invitation_id&#125;/resend | Resend an invitation
+[**invitations_revoke_invitation**](/sdk/python/reference/endpoints/Invitation#invitations_revoke_invitation) | **POST** /invitations/&#123;invitation_id&#125;/revoke | Revoke an invitation
+
+
+## **invitations_accept_invitation_complete**
+```python
+object invitations_accept_invitation_complete(token)
+```
+
+Accept an invitation
+
+Complete invitation acceptance and create user account.
+
+### Example
+
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Invitation(api_client)
+    token = 'token_example' # str | Invitation JWT token
+
+    try:
+        # Accept an invitation
+        api_response = api_instance.invitations_accept_invitation_complete(token)
+        print("The response of Invitation->invitations_accept_invitation_complete:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Invitation->invitations_accept_invitation_complete: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **str**| Invitation JWT token | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+
+## **invitations_accept_invitation_form**
+```python
+str invitations_accept_invitation_form(token)
+```
+
+Invitation acceptance HTML form
+
+Fallback HTML form for accepting invitation when no frontend is available.
+
+### Example
+
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Invitation(api_client)
+    token = 'token_example' # str | Invitation JWT token
+
+    try:
+        # Invitation acceptance HTML form
+        api_response = api_instance.invitations_accept_invitation_form(token)
+        print("The response of Invitation->invitations_accept_invitation_form:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Invitation->invitations_accept_invitation_form: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **str**| Invitation JWT token | 
+
+### Return type
+
+**str**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/html, application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+
+## **invitations_create_invitations**
+```python
+List[InvitationOut] invitations_create_invitations(invitation_in, cookie_name=cookie_name)
+```
+
+Create invitations
+
+Invite the given email addresses, skipping ones already invited or registered.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.invitation_in import InvitationIn
+from neuland_hub_sdk.models.invitation_out import InvitationOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Invitation(api_client)
+    invitation_in = neuland_hub_sdk.InvitationIn() # InvitationIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Create invitations
+        api_response = api_instance.invitations_create_invitations(invitation_in, cookie_name=cookie_name)
+        print("The response of Invitation->invitations_create_invitations:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Invitation->invitations_create_invitations: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **invitation_in** | [**InvitationIn**](/sdk/python/reference/models/InvitationIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[InvitationOut]**](/sdk/python/reference/models/InvitationOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin or project owner privileges required. |  -  |
+**404** | The target tenant or project does not exist. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **invitations_resend_invitation**
+```python
+InvitationOut invitations_resend_invitation(invitation_id, cookie_name=cookie_name)
+```
+
+Resend an invitation
+
+Resend the invitation email for a pending invitation.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.invitation_out import InvitationOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Invitation(api_client)
+    invitation_id = 56 # int | ID of the invitation to resend.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Resend an invitation
+        api_response = api_instance.invitations_resend_invitation(invitation_id, cookie_name=cookie_name)
+        print("The response of Invitation->invitations_resend_invitation:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Invitation->invitations_resend_invitation: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **invitation_id** | **int**| ID of the invitation to resend. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**InvitationOut**](/sdk/python/reference/models/InvitationOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin privileges required. |  -  |
+**404** | No invitation exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **invitations_revoke_invitation**
+```python
+invitations_revoke_invitation(invitation_id, cookie_name=cookie_name)
+```
+
+Revoke an invitation
+
+Revoke a pending invitation so its token can no longer be used.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Invitation(api_client)
+    invitation_id = 56 # int | ID of the invitation to revoke.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Revoke an invitation
+        api_instance.invitations_revoke_invitation(invitation_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Invitation->invitations_revoke_invitation: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **invitation_id** | **int**| ID of the invitation to revoke. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin privileges required. |  -  |
+**404** | No invitation exists with the given id. |  -  |
+**422** | Validation Error |  -  |

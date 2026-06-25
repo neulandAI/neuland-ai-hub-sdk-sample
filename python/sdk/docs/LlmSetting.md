@@ -4,15 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**llm_create_llm_settings**](LlmSetting.md#llm_create_llm_settings) | **POST** /llm/settings | Create Llm Settings
-[**llm_delete_llm_settings**](LlmSetting.md#llm_delete_llm_settings) | **DELETE** /llm/settings/{settings_id} | Delete Llm Settings
-[**llm_update_llm_settings**](LlmSetting.md#llm_update_llm_settings) | **PATCH** /llm/settings/{settings_id} | Update Llm Settings
+[**llm_create_llm_settings**](LlmSetting.md#llm_create_llm_settings) | **POST** /llm/settings | Create LLM settings
+[**llm_delete_llm_settings**](LlmSetting.md#llm_delete_llm_settings) | **DELETE** /llm/settings/{settings_id} | Delete LLM settings
+[**llm_update_llm_settings**](LlmSetting.md#llm_update_llm_settings) | **PATCH** /llm/settings/{settings_id} | Update LLM settings
 
 
 # **llm_create_llm_settings**
 > object llm_create_llm_settings(llm_settings_in, cookie_name=cookie_name)
 
-Create Llm Settings
+Create LLM settings
+
+Create a provider-specific settings entry for a catalog model.
 
 ### Example
 
@@ -52,7 +54,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create Llm Settings
+        # Create LLM settings
         api_response = api_instance.llm_create_llm_settings(llm_settings_in, cookie_name=cookie_name)
         print("The response of LlmSetting->llm_create_llm_settings:\n")
         pprint(api_response)
@@ -88,6 +90,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -95,7 +99,9 @@ Name | Type | Description  | Notes
 # **llm_delete_llm_settings**
 > llm_delete_llm_settings(settings_id, cookie_name=cookie_name)
 
-Delete Llm Settings
+Delete LLM settings
+
+Remove an LLM settings entry permanently.
 
 ### Example
 
@@ -130,11 +136,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.LlmSetting(api_client)
-    settings_id = 56 # int | 
+    settings_id = 56 # int | ID of the LLM settings entry to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Llm Settings
+        # Delete LLM settings
         api_instance.llm_delete_llm_settings(settings_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling LlmSetting->llm_delete_llm_settings: %s\n" % e)
@@ -147,7 +153,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **settings_id** | **int**|  | 
+ **settings_id** | **int**| ID of the LLM settings entry to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -168,6 +174,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
+**404** | No LLM settings exist with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -175,7 +184,9 @@ void (empty response body)
 # **llm_update_llm_settings**
 > object llm_update_llm_settings(settings_id, llm_settings_update, cookie_name=cookie_name)
 
-Update Llm Settings
+Update LLM settings
+
+Update fields of an existing LLM settings entry.
 
 ### Example
 
@@ -211,12 +222,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.LlmSetting(api_client)
-    settings_id = 56 # int | 
+    settings_id = 56 # int | ID of the LLM settings entry to update.
     llm_settings_update = neuland_hub_sdk.LLMSettingsUpdate() # LLMSettingsUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Llm Settings
+        # Update LLM settings
         api_response = api_instance.llm_update_llm_settings(settings_id, llm_settings_update, cookie_name=cookie_name)
         print("The response of LlmSetting->llm_update_llm_settings:\n")
         pprint(api_response)
@@ -231,7 +242,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **settings_id** | **int**|  | 
+ **settings_id** | **int**| ID of the LLM settings entry to update. | 
  **llm_settings_update** | [**LLMSettingsUpdate**](LLMSettingsUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -253,6 +264,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
+**404** | No LLM settings exist with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

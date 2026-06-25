@@ -5,17 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **number** |  | [default to undefined]
-**created_at** | **string** |  | [default to undefined]
-**email** | **string** |  | [default to undefined]
-**email_confirmed** | **boolean** |  | [default to undefined]
+**id** | **number** | Unique identifier of the user. | [default to undefined]
+**created_at** | **string** | UTC timestamp when the user was created. | [default to undefined]
+**email** | **string** | Current confirmed email address. | [default to undefined]
+**email_confirmed** | **boolean** | Whether the email address has been confirmed. | [default to undefined]
 **pending_email** | **string** |  | [optional] [default to undefined]
 **name** | **string** |  | [optional] [default to undefined]
 **first_name** | **string** |  | [optional] [default to undefined]
 **last_name** | **string** |  | [optional] [default to undefined]
-**admin** | **boolean** |  | [default to undefined]
+**admin** | **boolean** | Whether the user has tenant administrator privileges. | [default to undefined]
 **superadmin** | **boolean** |  | [optional] [default to undefined]
-**active** | **boolean** |  | [default to undefined]
+**active** | **boolean** | Whether the account is active and can authenticate. | [default to undefined]
 **tenant_id** | **number** |  | [optional] [default to undefined]
 
 ## Example

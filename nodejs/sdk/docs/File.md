@@ -4,11 +4,12 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**filesDownloadFile**](#filesdownloadfile) | **GET** /files/{file_id} | Download File|
+|[**filesDownloadFile**](#filesdownloadfile) | **GET** /files/{file_id} | Download a file|
 
 # **filesDownloadFile**
 > any filesDownloadFile()
 
+Stream a stored file as an attachment to authorized callers.
 
 ### Example
 
@@ -56,6 +57,9 @@ const { status, data } = await apiInstance.filesDownloadFile(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller may not access this file. |  -  |
+|**404** | No file exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

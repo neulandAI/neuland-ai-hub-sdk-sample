@@ -1,0 +1,30 @@
+---
+title: "AssistantTool"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**created_at** | **datetime** | UTC timestamp when the record was created. | [optional] 
+**updated_at** | **datetime** | UTC timestamp when the record was last updated. | [optional] 
+**assistant_id** | **int** | ID of the assistant the tool is attached to. | 
+**tool_id** | **int** | ID of the tool attached to the assistant. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.assistant_tool import AssistantTool
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of AssistantTool from a JSON string
+assistant_tool_instance = AssistantTool.from_json(json)
+# print the JSON string representation of the object
+print(AssistantTool.to_json())
+
+# convert the object into a dict
+assistant_tool_dict = assistant_tool_instance.to_dict()
+# create an instance of AssistantTool from a dict
+assistant_tool_from_dict = AssistantTool.from_dict(assistant_tool_dict)
+```

@@ -1,0 +1,34 @@
+---
+title: "DataSourceSiteModel"
+---
+
+A site from a data source — the top level for site-rooted sources (SharePoint).
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **str** | Site id. | 
+**web_url** | **str** | URL to open the site in the source application. | 
+**name** | **str** |  | 
+**display_name** | **str** |  | 
+**description** | **str** |  | 
+**imported_count** | **int** | Number of imported documents from this site in the current scope. | [optional] [default to 0]
+
+## Example
+
+```python
+from neuland_hub_sdk.models.data_source_site_model import DataSourceSiteModel
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of DataSourceSiteModel from a JSON string
+data_source_site_model_instance = DataSourceSiteModel.from_json(json)
+# print the JSON string representation of the object
+print(DataSourceSiteModel.to_json())
+
+# convert the object into a dict
+data_source_site_model_dict = data_source_site_model_instance.to_dict()
+# create an instance of DataSourceSiteModel from a dict
+data_source_site_model_from_dict = DataSourceSiteModel.from_dict(data_source_site_model_dict)
+```

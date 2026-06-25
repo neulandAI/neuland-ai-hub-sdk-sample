@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**llmGetCost**](#llmgetcost) | **POST** /llm/cost | Get Cost|
-|[**llmGetUsageCosts**](#llmgetusagecosts) | **POST** /llm/services/cost | Get Usage Costs|
-|[**llmLlmTotalTokens**](#llmllmtotaltokens) | **POST** /llm/tokens | Llm Total Tokens|
+|[**llmGetCost**](#llmgetcost) | **POST** /llm/cost | Get LLM cost metrics|
+|[**llmGetUsageCosts**](#llmgetusagecosts) | **POST** /llm/services/cost | Get external service usage costs|
+|[**llmLlmTotalTokens**](#llmllmtotaltokens) | **POST** /llm/tokens | Get token usage metrics|
 
 # **llmGetCost**
 > TimeseriesResponse llmGetCost(usageRequest)
 
-Returns: - Total cost of current month (all models) - Timeseries cost per model for requested granularity
+Return current-month total LLM cost and per-model cost timeseries for the tenant.
 
 ### Example
 
@@ -63,6 +63,8 @@ const { status, data } = await apiInstance.llmGetCost(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -70,7 +72,7 @@ const { status, data } = await apiInstance.llmGetCost(
 # **llmGetUsageCosts**
 > UsageCostResponse llmGetUsageCosts(usageCostRequest)
 
-Get aggregated usage costs from the database.  Returns cost data aggregated by source, model, and time period. Supports filtering by date range, source type, model, and provider.
+Return non-LLM service usage costs aggregated by source, model, and time period.
 
 ### Example
 
@@ -122,6 +124,9 @@ const { status, data } = await apiInstance.llmGetUsageCosts(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**400** | Custom granularity requires both date_start and date_end. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -129,7 +134,7 @@ const { status, data } = await apiInstance.llmGetUsageCosts(
 # **llmLlmTotalTokens**
 > TokensTimeseriesResponse llmLlmTotalTokens(usageRequest)
 
-Return the total cost and tokens used in llms.
+Return current-month token totals and per-model token timeseries for the tenant.
 
 ### Example
 
@@ -181,6 +186,8 @@ const { status, data } = await apiInstance.llmLlmTotalTokens(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

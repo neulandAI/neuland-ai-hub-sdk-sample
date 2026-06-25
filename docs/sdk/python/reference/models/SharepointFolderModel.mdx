@@ -1,0 +1,29 @@
+---
+title: "SharepointFolderModel"
+---
+
+Metadata specific to folder items.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**child_count** | **int** | Number of immediate children inside the folder. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.sharepoint_folder_model import SharepointFolderModel
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of SharepointFolderModel from a JSON string
+sharepoint_folder_model_instance = SharepointFolderModel.from_json(json)
+# print the JSON string representation of the object
+print(SharepointFolderModel.to_json())
+
+# convert the object into a dict
+sharepoint_folder_model_dict = sharepoint_folder_model_instance.to_dict()
+# create an instance of SharepointFolderModel from a dict
+sharepoint_folder_model_from_dict = SharepointFolderModel.from_dict(sharepoint_folder_model_dict)
+```

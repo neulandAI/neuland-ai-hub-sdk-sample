@@ -6,8 +6,10 @@ Schema for creating a user group
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
+**name** | **str** | Display name of the user group. | 
 **description** | **str** |  | [optional] 
+**source** | [**UserGroupSource**](UserGroupSource.md) |  | [optional] 
+**external_id** | **str** |  | [optional] 
 
 ## Example
 

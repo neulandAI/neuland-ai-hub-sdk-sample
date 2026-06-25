@@ -1,0 +1,125 @@
+---
+title: "Query"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**queryQuery**](#queryquery) | **GET** /query/&#123;path&#125; | Proxy a PostgREST query|
+|[**queryQueryRpc**](#queryqueryrpc) | **GET** /query/rpc/&#123;path&#125; | Proxy a PostgREST RPC call|
+
+## **queryQuery**
+```typescript
+any queryQuery()
+```
+
+Forward the request to the upstream PostgREST service and return its response.
+
+### Example
+
+```typescript
+import {
+    Query,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Query(configuration);
+
+let path: string; //PostgREST resource path to proxy. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.queryQuery(
+    path,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **path** | [**string**] | PostgREST resource path to proxy. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**502** | The upstream PostgREST service is unavailable. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **queryQueryRpc**
+```typescript
+any queryQueryRpc()
+```
+
+Forward the request to an upstream PostgREST RPC endpoint and return its response.
+
+### Example
+
+```typescript
+import {
+    Query,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Query(configuration);
+
+let path: string; //PostgREST RPC function name to invoke. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.queryQueryRpc(
+    path,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **path** | [**string**] | PostgREST RPC function name to invoke. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**502** | The upstream PostgREST service is unavailable. |  -  |
+|**422** | Validation Error |  -  |

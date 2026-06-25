@@ -4,16 +4,16 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**api_create_key**](ApiKey.md#api_create_key) | **POST** /api/key/ | Create Key
-[**api_revoke_api_key**](ApiKey.md#api_revoke_api_key) | **PATCH** /api/key/revoke/{api_key_id} | Revoke Api Key
+[**api_create_key**](ApiKey.md#api_create_key) | **POST** /api/key/ | Create an API key
+[**api_revoke_api_key**](ApiKey.md#api_revoke_api_key) | **PATCH** /api/key/revoke/{api_key_id} | Revoke an API key
 
 
 # **api_create_key**
 > ApiKeyCreateResponse api_create_key(cookie_name=cookie_name, api_key_create_request=api_key_create_request)
 
-Create Key
+Create an API key
 
-create key endpoint
+Create an API key for the current user; the secret is returned only once.
 
 ### Example
 
@@ -54,7 +54,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_key_create_request = neuland_hub_sdk.ApiKeyCreateRequest() # ApiKeyCreateRequest |  (optional)
 
     try:
-        # Create Key
+        # Create an API key
         api_response = api_instance.api_create_key(cookie_name=cookie_name, api_key_create_request=api_key_create_request)
         print("The response of ApiKey->api_create_key:\n")
         pprint(api_response)
@@ -90,6 +90,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -97,9 +98,9 @@ Name | Type | Description  | Notes
 # **api_revoke_api_key**
 > ApiKey api_revoke_api_key(api_key_id, cookie_name=cookie_name)
 
-Revoke Api Key
+Revoke an API key
 
-Update an existing apikey's active status
+Deactivate an API key so it can no longer authenticate requests.
 
 ### Example
 
@@ -135,11 +136,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.ApiKey(api_client)
-    api_key_id = 56 # int | 
+    api_key_id = 56 # int | ID of the API key to revoke.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Revoke Api Key
+        # Revoke an API key
         api_response = api_instance.api_revoke_api_key(api_key_id, cookie_name=cookie_name)
         print("The response of ApiKey->api_revoke_api_key:\n")
         pprint(api_response)
@@ -154,7 +155,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **api_key_id** | **int**|  | 
+ **api_key_id** | **int**| ID of the API key to revoke. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -175,6 +176,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | No API key exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

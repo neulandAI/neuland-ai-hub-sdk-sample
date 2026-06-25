@@ -5,15 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
-**email** | **str** |  | 
-**tenant_id** | **int** |  | 
+**id** | **int** | Unique identifier of the invitation. | 
+**email** | **str** | Email address the invitation was sent to. | 
+**tenant_id** | **int** | Identifier of the tenant the invite belongs to. | 
 **project_id** | **int** |  | 
-**status** | **str** |  | 
-**created_at** | **datetime** |  | 
+**status** | **str** | Current invitation status. | 
+**created_at** | **datetime** | UTC timestamp when the invitation was created. | 
 **accepted_at** | **datetime** |  | 
 **revoked_at** | **datetime** |  | 
-**creator_user_id** | **int** |  | 
+**creator_user_id** | **int** | Identifier of the user who created the invitation. | 
 
 ## Example
 

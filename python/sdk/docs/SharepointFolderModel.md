@@ -1,11 +1,12 @@
 # SharepointFolderModel
 
+Metadata specific to folder items.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**child_count** | **int** |  | 
+**child_count** | **int** | Number of immediate children inside the folder. | 
 
 ## Example
 

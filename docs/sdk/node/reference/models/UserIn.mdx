@@ -1,0 +1,31 @@
+---
+title: "UserIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**first_name** | **string** | User\&#39;s given name. | [default to undefined]
+**last_name** | **string** | User\&#39;s family name. | [default to undefined]
+**email** | **string** | Email address used to log in; must be unique. | [default to undefined]
+**password** | **string** | Initial password; the user is prompted to change it on first login. | [default to undefined]
+**admin** | **boolean** |  | [optional] [default to undefined]
+**superadmin** | **boolean** |  | [optional] [default to undefined]
+**tenant_id** | **number** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { UserIn } from 'neuland-hub-sdk';
+
+const instance: UserIn = {
+    first_name,
+    last_name,
+    email,
+    password,
+    admin,
+    superadmin,
+    tenant_id,
+};
+```

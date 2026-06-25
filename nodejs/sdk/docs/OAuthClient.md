@@ -5,21 +5,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **string** |  | [optional] [default to undefined]
-**updated_at** | **string** |  | [optional] [default to undefined]
+**created_at** | **string** | UTC timestamp when the record was created. | [optional] [default to undefined]
+**updated_at** | **string** | UTC timestamp when the record was last updated. | [optional] [default to undefined]
 **creator_user_id** | **number** |  | [optional] [default to undefined]
 **updater_user_id** | **number** |  | [optional] [default to undefined]
 **id** | **number** |  | [optional] [default to undefined]
-**name** | **string** |  | [default to undefined]
-**provider_key** | [**OAuth2ProviderEnum**](OAuth2ProviderEnum.md) |  | [default to undefined]
-**client_id** | **string** |  | [optional] [default to undefined]
+**name** | **string** | Unique human-readable name of the OAuth client. | [default to undefined]
+**provider_key** | [**OAuth2ProviderEnum**](OAuth2ProviderEnum.md) | OAuth provider this client uses. | [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
 **icon_url** | **string** |  | [optional] [default to undefined]
-**authorize_url** | **string** |  | [default to undefined]
-**admin_consent_url** | **string** |  | [optional] [default to undefined]
-**token_url** | **string** |  | [default to undefined]
-**logout_url** | **string** |  | [optional] [default to undefined]
-**redirect_uri** | **string** |  | [optional] [default to undefined]
+**oidc_issuer** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -34,14 +29,9 @@ const instance: OAuthClient = {
     id,
     name,
     provider_key,
-    client_id,
     description,
     icon_url,
-    authorize_url,
-    admin_consent_url,
-    token_url,
-    logout_url,
-    redirect_uri,
+    oidc_issuer,
 };
 ```
 

@@ -1,0 +1,634 @@
+---
+title: "AuthConnector"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**auth_initiate_admin_consent**](/sdk/python/reference/endpoints/AuthConnector#auth_initiate_admin_consent) | **GET** /auth/connectors/&#123;connector_id&#125;/consent/admin | Initiate admin connector consent
+[**auth_initiate_consent**](/sdk/python/reference/endpoints/AuthConnector#auth_initiate_consent) | **GET** /auth/connectors/&#123;connector_id&#125;/consent | Initiate connector consent
+[**auth_list_connector_status**](/sdk/python/reference/endpoints/AuthConnector#auth_list_connector_status) | **GET** /auth/connectors/status | List connector status
+[**auth_oauth_callback**](/sdk/python/reference/endpoints/AuthConnector#auth_oauth_callback) | **GET** /auth/connectors/callback | Connector OAuth callback
+[**auth_revoke_consent**](/sdk/python/reference/endpoints/AuthConnector#auth_revoke_consent) | **DELETE** /auth/connectors/&#123;connector_id&#125;/consent | Revoke connector consent
+[**auth_update_connector**](/sdk/python/reference/endpoints/AuthConnector#auth_update_connector) | **PATCH** /auth/connectors/&#123;connector_id&#125; | Update a connector
+[**auth_update_oauth_client**](/sdk/python/reference/endpoints/AuthConnector#auth_update_oauth_client) | **PATCH** /auth/connectors/oauth-clients/&#123;oauth_client_id&#125; | Update an OAuth client
+
+
+## **auth_initiate_admin_consent**
+```python
+ConnectorConsentOut auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
+```
+
+Initiate admin connector consent
+
+Start the admin consent flow for connectors that require organization-wide admin consent.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    connector_id = 56 # int | ID of the connector to consent to.
+    tenant_id = 56 # int |  (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Initiate admin connector consent
+        api_response = api_instance.auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_initiate_admin_consent:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_initiate_admin_consent: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connector_id** | **int**| ID of the connector to consent to. | 
+ **tenant_id** | **int**|  | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**ConnectorConsentOut**](/sdk/python/reference/models/ConnectorConsentOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Administrator privileges required. |  -  |
+**404** | No connector or OAuth client exists for the given id. |  -  |
+**503** | The OAuth provider has no admin consent URL or is misconfigured. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **auth_initiate_consent**
+```python
+ConnectorConsentOut auth_initiate_consent(connector_id, return_url=return_url, redirect=redirect, cookie_name=cookie_name)
+```
+
+Initiate connector consent
+
+Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    connector_id = 56 # int | ID of the connector to consent to.
+    return_url = 'return_url_example' # str | URL to return the user to after consent. (optional)
+    redirect = False # bool | If true, return 302 redirect instead of JSON (optional) (default to False)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Initiate connector consent
+        api_response = api_instance.auth_initiate_consent(connector_id, return_url=return_url, redirect=redirect, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_initiate_consent:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_initiate_consent: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connector_id** | **int**| ID of the connector to consent to. | 
+ **return_url** | **str**| URL to return the user to after consent. | [optional] 
+ **redirect** | **bool**| If true, return 302 redirect instead of JSON | [optional] [default to False]
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**ConnectorConsentOut**](/sdk/python/reference/models/ConnectorConsentOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | No connector or OAuth client exists for the given id. |  -  |
+**503** | The OAuth provider is misconfigured. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **auth_list_connector_status**
+```python
+List[ConnectorStatusOut] auth_list_connector_status(cookie_name=cookie_name)
+```
+
+List connector status
+
+List connectors available to the user's tenant with their per-user consent status.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.connector_status_out import ConnectorStatusOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List connector status
+        api_response = api_instance.auth_list_connector_status(cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_list_connector_status:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_list_connector_status: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[ConnectorStatusOut]**](/sdk/python/reference/models/ConnectorStatusOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | The current user no longer exists. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **auth_oauth_callback**
+```python
+object auth_oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
+```
+
+Connector OAuth callback
+
+Handle the provider redirect after user consent and persist the granted connector tokens.
+
+### Example
+
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    state = 'state_example' # str | Opaque state token issued when consent was initiated.
+    code = 'code_example' # str |  (optional)
+    error = 'error_example' # str |  (optional)
+    error_description = 'error_description_example' # str |  (optional)
+    error_subcode = 'error_subcode_example' # str |  (optional)
+
+    try:
+        # Connector OAuth callback
+        api_response = api_instance.auth_oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
+        print("The response of AuthConnector->auth_oauth_callback:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_oauth_callback: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **state** | **str**| Opaque state token issued when consent was initiated. | 
+ **code** | **str**|  | [optional] 
+ **error** | **str**|  | [optional] 
+ **error_description** | **str**|  | [optional] 
+ **error_subcode** | **str**|  | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**403** | The provider granted insufficient scopes for the requested capabilities. |  -  |
+**404** | No connector or OAuth client exists for the consent state. |  -  |
+**503** | Token exchange with the OAuth provider failed. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **auth_revoke_consent**
+```python
+auth_revoke_consent(connector_id, cookie_name=cookie_name)
+```
+
+Revoke connector consent
+
+Delete the current user's stored consent for a connector, if any exists.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    connector_id = 56 # int | ID of the connector to revoke consent for.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Revoke connector consent
+        api_instance.auth_revoke_consent(connector_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_revoke_consent: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connector_id** | **int**| ID of the connector to revoke consent for. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **auth_update_connector**
+```python
+Connector auth_update_connector(connector_id, connector_update, cookie_name=cookie_name)
+```
+
+Update a connector
+
+Update a connector (superadmin only).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.connector import Connector
+from neuland_hub_sdk.models.connector_update import ConnectorUpdate
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    connector_id = 56 # int | ID of the connector to update.
+    connector_update = neuland_hub_sdk.ConnectorUpdate() # ConnectorUpdate | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Update a connector
+        api_response = api_instance.auth_update_connector(connector_id, connector_update, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_update_connector:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_update_connector: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connector_id** | **int**| ID of the connector to update. | 
+ **connector_update** | [**ConnectorUpdate**](/sdk/python/reference/models/ConnectorUpdate)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**Connector**](/sdk/python/reference/models/Connector)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator (superadmin) privileges required. |  -  |
+**404** | No connector exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **auth_update_oauth_client**
+```python
+OAuthClient auth_update_oauth_client(oauth_client_id, o_auth_client_update, cookie_name=cookie_name)
+```
+
+Update an OAuth client
+
+Update an OAuth client (superadmin only).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.o_auth_client import OAuthClient
+from neuland_hub_sdk.models.o_auth_client_update import OAuthClientUpdate
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    oauth_client_id = 56 # int | ID of the OAuth client to update.
+    o_auth_client_update = neuland_hub_sdk.OAuthClientUpdate() # OAuthClientUpdate | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Update an OAuth client
+        api_response = api_instance.auth_update_oauth_client(oauth_client_id, o_auth_client_update, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_update_oauth_client:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_update_oauth_client: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **oauth_client_id** | **int**| ID of the OAuth client to update. | 
+ **o_auth_client_update** | [**OAuthClientUpdate**](/sdk/python/reference/models/OAuthClientUpdate)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**OAuthClient**](/sdk/python/reference/models/OAuthClient)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator (superadmin) privileges required. |  -  |
+**404** | No OAuth client exists with the given id. |  -  |
+**422** | Validation Error |  -  |

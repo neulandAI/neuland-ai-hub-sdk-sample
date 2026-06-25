@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**messagesConvertMessage**](#messagesconvertmessage) | **GET** /messages/{message_id}/convert | Convert Message|
-|[**messagesCreateMessage**](#messagescreatemessage) | **POST** /messages/ | Create Message|
-|[**messagesGetMessage**](#messagesgetmessage) | **GET** /messages/{message_id} | Get Message|
-|[**messagesRephraseMessage**](#messagesrephrasemessage) | **GET** /messages/{message_id}/rephrase | Rephrase Message|
-|[**messagesSubmitMessage**](#messagessubmitmessage) | **POST** /messages/submit | Submit Message|
-|[**messagesTranslateMessage**](#messagestranslatemessage) | **GET** /messages/{message_id}/translate | Translate Message|
+|[**messagesConvertMessage**](#messagesconvertmessage) | **GET** /messages/{message_id}/convert | Convert a message to a document|
+|[**messagesCreateMessage**](#messagescreatemessage) | **POST** /messages/ | Create a message|
+|[**messagesGetMessage**](#messagesgetmessage) | **GET** /messages/{message_id} | Get a message|
+|[**messagesRephraseMessage**](#messagesrephrasemessage) | **GET** /messages/{message_id}/rephrase | Rephrase a message|
+|[**messagesSubmitMessage**](#messagessubmitmessage) | **POST** /messages/submit | Submit a message with attachments|
+|[**messagesTranslateMessage**](#messagestranslatemessage) | **GET** /messages/{message_id}/translate | Translate a message|
 
 # **messagesConvertMessage**
 > any messagesConvertMessage()
@@ -27,7 +27,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
-let messageId: number; // (default to undefined)
+let messageId: number; //ID of the message to convert. (default to undefined)
 let format: OutputFormat; //Output format (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -42,7 +42,7 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **messageId** | [**number**] |  | defaults to undefined|
+| **messageId** | [**number**] | ID of the message to convert. | defaults to undefined|
 | **format** | **OutputFormat** | Output format | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -65,6 +65,9 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the message\&#39;s chat. |  -  |
+|**404** | Message or its chat does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -72,6 +75,7 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 # **messagesCreateMessage**
 > Message messagesCreateMessage(messageIn)
 
+Send a JSON message to a chat (or start a new one) and enqueue generation.
 
 ### Example
 
@@ -120,13 +124,17 @@ const { status, data } = await apiInstance.messagesCreateMessage(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat/project/assistant, or usage budget exceeded. |  -  |
+|**404** | Referenced chat or assistant does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **messagesGetMessage**
-> Message messagesGetMessage()
+> MessageDetailOut messagesGetMessage()
 
+Canonical recovery endpoint: full composed state of a message.
 
 ### Example
 
@@ -139,7 +147,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
-let messageId: number; // (default to undefined)
+let messageId: number; //ID of the message to fetch. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.messagesGetMessage(
@@ -152,13 +160,13 @@ const { status, data } = await apiInstance.messagesGetMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **messageId** | [**number**] |  | defaults to undefined|
+| **messageId** | [**number**] | ID of the message to fetch. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Message**
+**MessageDetailOut**
 
 ### Authorization
 
@@ -174,6 +182,9 @@ const { status, data } = await apiInstance.messagesGetMessage(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat the message belongs to. |  -  |
+|**404** | Message or its chat does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -181,6 +192,7 @@ const { status, data } = await apiInstance.messagesGetMessage(
 # **messagesRephraseMessage**
 > Translation messagesRephraseMessage()
 
+Rephrase a message\'s content in the requested style.
 
 ### Example
 
@@ -193,7 +205,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
-let messageId: number; // (default to undefined)
+let messageId: number; //ID of the message to rephrase. (default to undefined)
 let style: RephraseStyleEnum; //Style of rephrasing: \'same\' (same length), \'short\' (shorter), or \'long\' (longer) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -208,7 +220,7 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **messageId** | [**number**] |  | defaults to undefined|
+| **messageId** | [**number**] | ID of the message to rephrase. | defaults to undefined|
 | **style** | **RephraseStyleEnum** | Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer) | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -231,6 +243,9 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the message\&#39;s chat, or usage budget exceeded. |  -  |
+|**404** | Message, its chat, or owning user does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -238,6 +253,7 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 # **messagesSubmitMessage**
 > Message messagesSubmitMessage()
 
+Send a multipart message with optional file uploads and enqueue generation.
 
 ### Example
 
@@ -265,6 +281,7 @@ let model: string; // (optional) (default to undefined)
 let toolIds: Array<number>; // (optional) (default to undefined)
 let _private: boolean; // (optional) (default to false)
 let libraryId: number; // (optional) (default to undefined)
+let formData: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.messagesSubmitMessage(
     cookieName,
@@ -281,7 +298,8 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
     model,
     toolIds,
     _private,
-    libraryId
+    libraryId,
+    formData
 );
 ```
 
@@ -304,6 +322,7 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 | **toolIds** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
 | **_private** | [**boolean**] |  | (optional) defaults to false|
 | **libraryId** | [**number**] |  | (optional) defaults to undefined|
+| **formData** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -324,6 +343,9 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat/project/assistant, or usage budget exceeded. |  -  |
+|**404** | Referenced chat or assistant does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -331,6 +353,7 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 # **messagesTranslateMessage**
 > Translation messagesTranslateMessage()
 
+Translate a message\'s content into the requested language.
 
 ### Example
 
@@ -343,7 +366,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
-let messageId: number; // (default to undefined)
+let messageId: number; //ID of the message to translate. (default to undefined)
 let lang: string; //Target language. Preferably RFC 5646 format. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -358,7 +381,7 @@ const { status, data } = await apiInstance.messagesTranslateMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **messageId** | [**number**] |  | defaults to undefined|
+| **messageId** | [**number**] | ID of the message to translate. | defaults to undefined|
 | **lang** | [**string**] | Target language. Preferably RFC 5646 format. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -381,6 +404,9 @@ const { status, data } = await apiInstance.messagesTranslateMessage(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the message\&#39;s chat, or usage budget exceeded. |  -  |
+|**404** | Message, its chat, or owning user does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

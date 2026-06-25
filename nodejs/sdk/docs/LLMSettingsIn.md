@@ -5,12 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_catalog_id** | **number** |  | [default to undefined]
-**provider** | **string** |  | [default to undefined]
-**library** | **string** |  | [default to undefined]
-**max_tokens** | **number** |  | [default to undefined]
+**llm_catalog_id** | **number** | ID of the catalog model these settings configure. | [default to undefined]
+**provider** | **string** | Provider backing the model. | [default to undefined]
+**library** | **string** | Client library used to call the provider. | [default to undefined]
+**max_tokens** | **number** | Maximum tokens allowed per request for this model. | [default to undefined]
 **cost_prompt_tokens** | [**CostPromptTokens**](CostPromptTokens.md) |  | [default to undefined]
 **cost_completion_tokens** | [**CostCompletionTokens**](CostCompletionTokens.md) |  | [default to undefined]
+**region** | **string** |  | [optional] [default to undefined]
 **args** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
 **openai_resource** | **string** |  | [optional] [default to undefined]
 **api_version** | **string** |  | [optional] [default to undefined]
@@ -30,6 +31,7 @@ const instance: LLMSettingsIn = {
     max_tokens,
     cost_prompt_tokens,
     cost_completion_tokens,
+    region,
     args,
     openai_resource,
     api_version,

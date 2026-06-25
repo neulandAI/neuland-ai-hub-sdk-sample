@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_ids** | **List[int]** |  | 
+**user_ids** | **List[int]** | IDs of the users to remove from the library. | 
 
 ## Example
 

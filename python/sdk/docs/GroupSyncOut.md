@@ -1,0 +1,32 @@
+# GroupSyncOut
+
+Result of an on-demand external-group membership sync.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**directory_member_count** | **int** |  | 
+**synced_member_count** | **int** |  | 
+**unprovisioned_member_count** | **int** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.group_sync_out import GroupSyncOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of GroupSyncOut from a JSON string
+group_sync_out_instance = GroupSyncOut.from_json(json)
+# print the JSON string representation of the object
+print(GroupSyncOut.to_json())
+
+# convert the object into a dict
+group_sync_out_dict = group_sync_out_instance.to_dict()
+# create an instance of GroupSyncOut from a dict
+group_sync_out_from_dict = GroupSyncOut.from_dict(group_sync_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

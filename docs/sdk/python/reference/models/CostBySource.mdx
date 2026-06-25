@@ -1,0 +1,32 @@
+---
+title: "CostBySource"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**source** | **str** | Usage source name. | 
+**total_cost** | **float** | Total cost for this source. | 
+**total_tokens** | **int** | Total tokens for this source. | 
+**prompt_tokens** | **int** | Prompt tokens for this source. | 
+**completion_tokens** | **int** | Completion tokens for this source. | 
+**record_count** | **int** | Number of usage records for this source. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.cost_by_source import CostBySource
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CostBySource from a JSON string
+cost_by_source_instance = CostBySource.from_json(json)
+# print the JSON string representation of the object
+print(CostBySource.to_json())
+
+# convert the object into a dict
+cost_by_source_dict = cost_by_source_instance.to_dict()
+# create an instance of CostBySource from a dict
+cost_by_source_from_dict = CostBySource.from_dict(cost_by_source_dict)
+```

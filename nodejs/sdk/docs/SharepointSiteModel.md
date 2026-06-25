@@ -1,16 +1,17 @@
 # SharepointSiteModel
 
+A SharePoint site.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  | [default to undefined]
-**web_url** | **string** |  | [default to undefined]
+**id** | **string** | Site id. | [default to undefined]
+**web_url** | **string** | URL to open the site in SharePoint. | [default to undefined]
 **name** | **string** |  | [default to undefined]
 **display_name** | **string** |  | [default to undefined]
 **description** | **string** |  | [default to undefined]
-**imported_count** | **number** |  | [optional] [default to 0]
+**imported_count** | **number** | Number of imported documents from this site in the current scope. | [optional] [default to 0]
 
 ## Example
 

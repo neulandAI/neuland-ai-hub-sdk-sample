@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **tarif_expires_at** | **datetime** |  | [optional] 
 **max_users** | **int** |  | [optional] 
 **max_projects** | **int** |  | [optional] 
+**licenses** | **int** |  | [optional] 
 **display_name** | **str** |  | [optional] 
 **motto** | **str** |  | [optional] 
 **logo_url** | **str** |  | [optional] 

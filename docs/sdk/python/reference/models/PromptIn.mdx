@@ -1,0 +1,30 @@
+---
+title: "PromptIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** |  | [optional] 
+**prompt** | **str** | The content of the prompt. This field is required. | 
+**is_public** | **bool** |  | [optional] 
+**description** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.prompt_in import PromptIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of PromptIn from a JSON string
+prompt_in_instance = PromptIn.from_json(json)
+# print the JSON string representation of the object
+print(PromptIn.to_json())
+
+# convert the object into a dict
+prompt_in_dict = prompt_in_instance.to_dict()
+# create an instance of PromptIn from a dict
+prompt_in_from_dict = PromptIn.from_dict(prompt_in_dict)
+```

@@ -1,0 +1,21 @@
+---
+title: "BulkResult"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**count** | **number** | Number of rows affected. | [default to undefined]
+**ids** | **Array&lt;number&gt;** | IDs that were targeted by the operation. | [default to undefined]
+
+## Example
+
+```typescript
+import { BulkResult } from 'neuland-hub-sdk';
+
+const instance: BulkResult = {
+    count,
+    ids,
+};
+```

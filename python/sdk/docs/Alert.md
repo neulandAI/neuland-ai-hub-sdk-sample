@@ -4,18 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**alerts_create_alert**](Alert.md#alerts_create_alert) | **POST** /alerts/ | Create Alert
-[**alerts_delete_alert**](Alert.md#alerts_delete_alert) | **DELETE** /alerts/{alert_id} | Delete Alert
-[**alerts_update_alert**](Alert.md#alerts_update_alert) | **PATCH** /alerts/{alert_id} | Update Alert
+[**alerts_create_alert**](Alert.md#alerts_create_alert) | **POST** /alerts/ | Create a budget alert
+[**alerts_delete_alert**](Alert.md#alerts_delete_alert) | **DELETE** /alerts/{alert_id} | Delete a budget alert
+[**alerts_update_alert**](Alert.md#alerts_update_alert) | **PATCH** /alerts/{alert_id} | Update a budget alert
 
 
 # **alerts_create_alert**
 > BudgetAlert alerts_create_alert(budget_alert_request, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Create Alert
+Create a budget alert
 
 Create a new budget alert with threshold and current spend.
-Only Admins can do it.
 
 ### Example
 
@@ -57,7 +56,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     tenant_id = 56 # int |  (optional)
 
     try:
-        # Create Alert
+        # Create a budget alert
         api_response = api_instance.alerts_create_alert(budget_alert_request, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Alert->alerts_create_alert:\n")
         pprint(api_response)
@@ -94,6 +93,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -101,9 +102,9 @@ Name | Type | Description  | Notes
 # **alerts_delete_alert**
 > alerts_delete_alert(alert_id, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Delete Alert
+Delete a budget alert
 
-Delete exisiting budget alert
+Delete an existing budget alert.
 
 ### Example
 
@@ -138,12 +139,12 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Alert(api_client)
-    alert_id = 56 # int | 
+    alert_id = 56 # int | ID of the budget alert to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
     tenant_id = 56 # int |  (optional)
 
     try:
-        # Delete Alert
+        # Delete a budget alert
         api_instance.alerts_delete_alert(alert_id, cookie_name=cookie_name, tenant_id=tenant_id)
     except Exception as e:
         print("Exception when calling Alert->alerts_delete_alert: %s\n" % e)
@@ -156,7 +157,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **alert_id** | **int**|  | 
+ **alert_id** | **int**| ID of the budget alert to delete. | 
  **cookie_name** | **str**|  | [optional] 
  **tenant_id** | **int**|  | [optional] 
 
@@ -178,6 +179,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
+**404** | No budget alert exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -185,10 +189,9 @@ void (empty response body)
 # **alerts_update_alert**
 > BudgetAlert alerts_update_alert(alert_id, budget_alert_update, cookie_name=cookie_name, tenant_id=tenant_id)
 
-Update Alert
+Update a budget alert
 
-Updates a existing budget alert.
-Only Admins can do it.
+Update an existing budget alert.
 
 ### Example
 
@@ -225,13 +228,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Alert(api_client)
-    alert_id = 56 # int | 
+    alert_id = 56 # int | ID of the budget alert to update.
     budget_alert_update = neuland_hub_sdk.BudgetAlertUpdate() # BudgetAlertUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
     tenant_id = 56 # int |  (optional)
 
     try:
-        # Update Alert
+        # Update a budget alert
         api_response = api_instance.alerts_update_alert(alert_id, budget_alert_update, cookie_name=cookie_name, tenant_id=tenant_id)
         print("The response of Alert->alerts_update_alert:\n")
         pprint(api_response)
@@ -246,7 +249,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **alert_id** | **int**|  | 
+ **alert_id** | **int**| ID of the budget alert to update. | 
  **budget_alert_update** | [**BudgetAlertUpdate**](BudgetAlertUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
  **tenant_id** | **int**|  | [optional] 
@@ -269,6 +272,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
+**404** | No budget alert exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
