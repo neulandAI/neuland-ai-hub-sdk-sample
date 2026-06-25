@@ -6,11 +6,14 @@ title: "CatalogIn"
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
+**name** | **str** | Unique catalog name identifying the model. | 
 **description** | **str** |  | 
-**multi_modal** | **bool** |  | 
-**gdpr_compliant** | **bool** |  | 
-**auto_seed** | **bool** |  | [optional] [default to False]
+**multi_modal** | **bool** | Whether the model accepts non-text inputs such as images. | 
+**gdpr_compliant** | **bool** | Whether the model may be used for GDPR-compliant workloads. | 
+**embedding_dimension** | **int** |  | [optional] 
+**supports_embedding** | **bool** | Whether the model can generate embeddings. | [optional] [default to False]
+**supports_transcription** | **bool** | Whether the model can transcribe audio. | [optional] [default to False]
+**auto_seed** | **bool** | Whether to auto-create default settings for this catalog entry on seed. | [optional] [default to False]
 
 ## Example
 

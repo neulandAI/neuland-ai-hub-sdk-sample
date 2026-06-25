@@ -1,0 +1,32 @@
+---
+title: "TenantOAuthClientUpdate"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**client_id** | **str** |  | [optional] 
+**authorize_url** | **str** |  | [optional] 
+**token_url** | **str** |  | [optional] 
+**revocation_url** | **str** |  | [optional] 
+**redirect_uri** | **str** |  | [optional] 
+**admin_consent_url** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.tenant_o_auth_client_update import TenantOAuthClientUpdate
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of TenantOAuthClientUpdate from a JSON string
+tenant_o_auth_client_update_instance = TenantOAuthClientUpdate.from_json(json)
+# print the JSON string representation of the object
+print(TenantOAuthClientUpdate.to_json())
+
+# convert the object into a dict
+tenant_o_auth_client_update_dict = tenant_o_auth_client_update_instance.to_dict()
+# create an instance of TenantOAuthClientUpdate from a dict
+tenant_o_auth_client_update_from_dict = TenantOAuthClientUpdate.from_dict(tenant_o_auth_client_update_dict)
+```

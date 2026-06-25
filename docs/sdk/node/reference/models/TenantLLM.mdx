@@ -8,12 +8,12 @@ Availability rows for tenant-enabled LLM models.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **string** |  | [optional] [default to undefined]
-**updated_at** | **string** |  | [optional] [default to undefined]
+**created_at** | **string** | UTC timestamp when the record was created. | [optional] [default to undefined]
+**updated_at** | **string** | UTC timestamp when the record was last updated. | [optional] [default to undefined]
 **creator_user_id** | **number** |  | [optional] [default to undefined]
 **updater_user_id** | **number** |  | [optional] [default to undefined]
-**tenant_id** | **number** |  | [default to undefined]
-**llm_catalog_id** | **number** |  | [default to undefined]
+**tenant_id** | **number** | ID of the tenant the LLM is enabled for. | [default to undefined]
+**llm_catalog_id** | **number** | ID of the LLM catalog entry enabled for the tenant. | [default to undefined]
 
 ## Example
 

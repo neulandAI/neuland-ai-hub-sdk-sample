@@ -1,0 +1,31 @@
+---
+title: "DataSourceCapabilities"
+---
+
+Metadata the frontend uses to render the right browse hierarchy.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**source** | **str** | Data source identifier. | 
+**root_kind** | **str** | Whether the source&#39;s top level is sites or drives. | 
+**hierarchy_depth** | **int** | Number of browsable levels above individual drive items. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.data_source_capabilities import DataSourceCapabilities
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of DataSourceCapabilities from a JSON string
+data_source_capabilities_instance = DataSourceCapabilities.from_json(json)
+# print the JSON string representation of the object
+print(DataSourceCapabilities.to_json())
+
+# convert the object into a dict
+data_source_capabilities_dict = data_source_capabilities_instance.to_dict()
+# create an instance of DataSourceCapabilities from a dict
+data_source_capabilities_from_dict = DataSourceCapabilities.from_dict(data_source_capabilities_dict)
+```

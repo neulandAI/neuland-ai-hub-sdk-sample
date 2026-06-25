@@ -6,13 +6,14 @@ All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**filesDownloadFile**](#filesdownloadfile) | **GET** /files/&#123;file_id&#125; | Download File|
+|[**filesDownloadFile**](#filesdownloadfile) | **GET** /files/&#123;file_id&#125; | Download a file|
 
 ## **filesDownloadFile**
 ```typescript
 any filesDownloadFile()
 ```
 
+Stream a stored file as an attachment to authorized callers.
 
 ### Example
 
@@ -60,4 +61,7 @@ const { status, data } = await apiInstance.filesDownloadFile(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller may not access this file. |  -  |
+|**404** | No file exists with the given id. |  -  |
 |**422** | Validation Error |  -  |

@@ -2,16 +2,18 @@
 title: "SharepointDriveModel"
 ---
 
+A document library (drive) within a SharePoint site.
+
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**web_url** | **str** |  | 
+**id** | **str** | Drive id. | 
+**web_url** | **str** | URL to open the drive in SharePoint. | 
 **name** | **str** |  | 
 **description** | **str** |  | 
-**root** | [**SharepointItemModel**](/sdk/python/reference/models/SharepointItemModel) |  | 
-**imported_count** | **int** |  | [optional] [default to 0]
+**root** | [**SharepointItemModel**](/sdk/python/reference/models/SharepointItemModel) | The drive&#39;s root folder item. | 
+**imported_count** | **int** | Number of imported documents from this drive in the current scope. | [optional] [default to 0]
 
 ## Example
 

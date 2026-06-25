@@ -2,14 +2,14 @@
 title: "ApiKeyCreateResponse"
 ---
 
-Api key creation response model
+Returned once when an API key is created.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **string** |  | [default to undefined]
-**key_id** | **string** |  | [default to undefined]
+**key** | **string** | The full secret token, in the form &#x60;ak.&lt;key_id&gt;.&lt;secret&gt;&#x60;. **Shown only once at creation** — store it securely; it cannot be retrieved again. | [default to undefined]
+**key_id** | **string** | Public identifier of the key. Safe to log and reference. | [default to undefined]
 **expires_at** | **string** |  | [optional] [default to undefined]
 
 ## Example

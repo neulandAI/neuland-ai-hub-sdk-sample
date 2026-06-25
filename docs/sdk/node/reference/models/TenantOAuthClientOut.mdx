@@ -1,0 +1,35 @@
+---
+title: "TenantOAuthClientOut"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**tenant_id** | **number** |  | [default to undefined]
+**oauth_client_id** | **number** |  | [default to undefined]
+**provider_key** | [**OAuth2ProviderEnum**](/sdk/node/reference/models/OAuth2ProviderEnum) |  | [default to undefined]
+**client_id** | **string** |  | [default to undefined]
+**authorize_url** | **string** |  | [default to undefined]
+**token_url** | **string** |  | [default to undefined]
+**revocation_url** | **string** |  | [optional] [default to undefined]
+**redirect_uri** | **string** |  | [optional] [default to undefined]
+**admin_consent_url** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { TenantOAuthClientOut } from 'neuland-hub-sdk';
+
+const instance: TenantOAuthClientOut = {
+    tenant_id,
+    oauth_client_id,
+    provider_key,
+    client_id,
+    authorize_url,
+    token_url,
+    revocation_url,
+    redirect_uri,
+    admin_consent_url,
+};
+```

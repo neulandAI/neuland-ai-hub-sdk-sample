@@ -16,9 +16,7 @@
             "group": "Getting Started",
             "pages": [
               "guides/introduction",
-              "guides/quickstart",
-              "guides/authentication",
-              "guides/streaming"
+              "guides/quickstart"
             ]
           }
         ]
@@ -30,7 +28,8 @@
             "group": "Get Started",
             "pages": [
               "sdk/python/installation",
-              "sdk/python/usage"
+              "sdk/python/usage",
+              "sdk/python/streaming"
             ]
           },
           "sdk/python/reference/endpoints/Auth",
@@ -41,11 +40,13 @@
           "sdk/python/reference/endpoints/Project",
           "sdk/python/reference/endpoints/Chat",
           "sdk/python/reference/endpoints/Message",
+          "sdk/python/reference/endpoints/Rating",
           "sdk/python/reference/endpoints/Query",
           "sdk/python/reference/endpoints/Document",
           "sdk/python/reference/endpoints/Library",
           "sdk/python/reference/endpoints/File",
           "sdk/python/reference/endpoints/Storage",
+          "sdk/python/reference/endpoints/Tag",
           "sdk/python/reference/endpoints/Assistant",
           "sdk/python/reference/endpoints/Prompt",
           "sdk/python/reference/endpoints/Template",
@@ -54,13 +55,18 @@
           "sdk/python/reference/endpoints/Llm",
           "sdk/python/reference/endpoints/LlmCatalog",
           "sdk/python/reference/endpoints/LlmSetting",
+          "sdk/python/reference/endpoints/Transcription",
           "sdk/python/reference/endpoints/Sharepoint",
+          "sdk/python/reference/endpoints/OneDrive",
+          "sdk/python/reference/endpoints/Atlassian",
           "sdk/python/reference/endpoints/Application",
           "sdk/python/reference/endpoints/ApiKey",
           "sdk/python/reference/endpoints/Tarif",
           "sdk/python/reference/endpoints/Alert",
           "sdk/python/reference/endpoints/Settings",
+          "sdk/python/reference/endpoints/System",
           "sdk/python/reference/endpoints/Default",
+          "sdk/python/reference/endpoints/SharepointV1",
           {
             "group": "Models",
             "pages": [
@@ -69,6 +75,9 @@
                 "pages": [
                   "sdk/python/reference/models/PasswordResetRequestIn",
                   "sdk/python/reference/models/ResponseAuthGetEntraGroupsValue",
+                  "sdk/python/reference/models/SsoExchangeIn",
+                  "sdk/python/reference/models/SsoInitOut",
+                  "sdk/python/reference/models/SsoResolveOut",
                   "sdk/python/reference/models/TokenOut"
                 ]
               },
@@ -89,10 +98,12 @@
                 "group": "User",
                 "pages": [
                   "sdk/python/reference/models/GroupIn",
+                  "sdk/python/reference/models/GroupSyncOut",
                   "sdk/python/reference/models/PasswordResetIn",
                   "sdk/python/reference/models/ThemeModeEnum",
                   "sdk/python/reference/models/UserGroup",
                   "sdk/python/reference/models/UserGroupMember",
+                  "sdk/python/reference/models/UserGroupSource",
                   "sdk/python/reference/models/UserIn",
                   "sdk/python/reference/models/UserOut",
                   "sdk/python/reference/models/UserPreferenceOut",
@@ -110,9 +121,13 @@
               {
                 "group": "Tenant",
                 "pages": [
+                  "sdk/python/reference/models/SecretUpdateIn",
                   "sdk/python/reference/models/TenantIn",
                   "sdk/python/reference/models/TenantLLM",
                   "sdk/python/reference/models/TenantModelBulkIn",
+                  "sdk/python/reference/models/TenantOAuthClientIn",
+                  "sdk/python/reference/models/TenantOAuthClientOut",
+                  "sdk/python/reference/models/TenantOAuthClientUpdate",
                   "sdk/python/reference/models/TenantOut",
                   "sdk/python/reference/models/TenantUpdateIn"
                 ]
@@ -142,10 +157,21 @@
               {
                 "group": "Message",
                 "pages": [
+                  "sdk/python/reference/models/MessageDetailOut",
+                  "sdk/python/reference/models/MessageFileOut",
                   "sdk/python/reference/models/MessageIn",
                   "sdk/python/reference/models/OutputFormat",
                   "sdk/python/reference/models/RephraseStyleEnum",
+                  "sdk/python/reference/models/ToolCallOut",
+                  "sdk/python/reference/models/ToolCallProgressStepOut",
                   "sdk/python/reference/models/Translation"
+                ]
+              },
+              {
+                "group": "Rating",
+                "pages": [
+                  "sdk/python/reference/models/RateableTypeEnum",
+                  "sdk/python/reference/models/RatingIn"
                 ]
               },
               {
@@ -160,19 +186,36 @@
                 ]
               },
               {
+                "group": "Tag",
+                "pages": [
+                  "sdk/python/reference/models/TagIn"
+                ]
+              },
+              {
                 "group": "Assistant",
                 "pages": [
+                  "sdk/python/reference/models/AssistantGroup",
+                  "sdk/python/reference/models/AssistantGroupsIn",
                   "sdk/python/reference/models/AssistantIn",
+                  "sdk/python/reference/models/AssistantInputTypeEnum",
                   "sdk/python/reference/models/AssistantLibrary",
                   "sdk/python/reference/models/AssistantMember",
+                  "sdk/python/reference/models/AssistantMemberGrantedViaEnum",
                   "sdk/python/reference/models/AssistantMembersIn",
-                  "sdk/python/reference/models/AssistantTool"
+                  "sdk/python/reference/models/AssistantTool",
+                  "sdk/python/reference/models/AssistantVisibilityEnum",
+                  "sdk/python/reference/models/AssistantVisibilityUpdate",
+                  "sdk/python/reference/models/FormField",
+                  "sdk/python/reference/models/FormFieldTypeEnum",
+                  "sdk/python/reference/models/Tagging"
                 ]
               },
               {
                 "group": "Prompt",
                 "pages": [
-                  "sdk/python/reference/models/PromptIn"
+                  "sdk/python/reference/models/PromptIn",
+                  "sdk/python/reference/models/PromptOptimizeIn",
+                  "sdk/python/reference/models/PromptOptimizeOut"
                 ]
               },
               {
@@ -235,6 +278,12 @@
                 ]
               },
               {
+                "group": "Transcription",
+                "pages": [
+                  "sdk/python/reference/models/TranscriptionOut"
+                ]
+              },
+              {
                 "group": "Sharepoint",
                 "pages": [
                   "sdk/python/reference/models/SharepointDriveModel",
@@ -242,6 +291,24 @@
                   "sdk/python/reference/models/SharepointItemModel",
                   "sdk/python/reference/models/SharepointSiteModel",
                   "sdk/python/reference/models/SharepointUserModel"
+                ]
+              },
+              {
+                "group": "OneDrive",
+                "pages": [
+                  "sdk/python/reference/models/DataSourceCapabilities",
+                  "sdk/python/reference/models/DataSourceDriveModel",
+                  "sdk/python/reference/models/DataSourceFolderModel",
+                  "sdk/python/reference/models/DataSourceItemModel",
+                  "sdk/python/reference/models/DataSourceSiteModel",
+                  "sdk/python/reference/models/DataSourceUserModel",
+                  "sdk/python/reference/models/ResponseOnedriveListRoots"
+                ]
+              },
+              {
+                "group": "Atlassian",
+                "pages": [
+                  "sdk/python/reference/models/SetAtlassianCloudIdRequest"
                 ]
               },
               {
@@ -286,9 +353,22 @@
                 ]
               },
               {
+                "group": "System",
+                "pages": [
+                  "sdk/python/reference/models/SystemSettings",
+                  "sdk/python/reference/models/SystemSettingsUpdate"
+                ]
+              },
+              {
                 "group": "Default",
                 "pages": [
                   "sdk/python/reference/models/TenantThemeOut"
+                ]
+              },
+              {
+                "group": "SharepointV1",
+                "pages": [
+                  "sdk/python/reference/models/ResponseSharepointv1ListRoots"
                 ]
               }
             ]
@@ -302,7 +382,8 @@
             "group": "Get Started",
             "pages": [
               "sdk/node/installation",
-              "sdk/node/usage"
+              "sdk/node/usage",
+              "sdk/node/streaming"
             ]
           },
           "sdk/node/reference/endpoints/Auth",
@@ -313,11 +394,13 @@
           "sdk/node/reference/endpoints/Project",
           "sdk/node/reference/endpoints/Chat",
           "sdk/node/reference/endpoints/Message",
+          "sdk/node/reference/endpoints/Rating",
           "sdk/node/reference/endpoints/Query",
           "sdk/node/reference/endpoints/Document",
           "sdk/node/reference/endpoints/Library",
           "sdk/node/reference/endpoints/File",
           "sdk/node/reference/endpoints/Storage",
+          "sdk/node/reference/endpoints/Tag",
           "sdk/node/reference/endpoints/Assistant",
           "sdk/node/reference/endpoints/Prompt",
           "sdk/node/reference/endpoints/Template",
@@ -326,13 +409,18 @@
           "sdk/node/reference/endpoints/Llm",
           "sdk/node/reference/endpoints/LlmCatalog",
           "sdk/node/reference/endpoints/LlmSetting",
+          "sdk/node/reference/endpoints/Transcription",
           "sdk/node/reference/endpoints/Sharepoint",
+          "sdk/node/reference/endpoints/OneDrive",
+          "sdk/node/reference/endpoints/Atlassian",
           "sdk/node/reference/endpoints/Application",
           "sdk/node/reference/endpoints/ApiKey",
           "sdk/node/reference/endpoints/Tarif",
           "sdk/node/reference/endpoints/Alert",
           "sdk/node/reference/endpoints/Settings",
+          "sdk/node/reference/endpoints/System",
           "sdk/node/reference/endpoints/Default",
+          "sdk/node/reference/endpoints/SharepointV1",
           {
             "group": "Models",
             "pages": [
@@ -341,6 +429,9 @@
                 "pages": [
                   "sdk/node/reference/models/PasswordResetRequestIn",
                   "sdk/node/reference/models/ResponseAuthGetEntraGroupsValue",
+                  "sdk/node/reference/models/SsoExchangeIn",
+                  "sdk/node/reference/models/SsoInitOut",
+                  "sdk/node/reference/models/SsoResolveOut",
                   "sdk/node/reference/models/TokenOut"
                 ]
               },
@@ -361,10 +452,12 @@
                 "group": "User",
                 "pages": [
                   "sdk/node/reference/models/GroupIn",
+                  "sdk/node/reference/models/GroupSyncOut",
                   "sdk/node/reference/models/PasswordResetIn",
                   "sdk/node/reference/models/ThemeModeEnum",
                   "sdk/node/reference/models/UserGroup",
                   "sdk/node/reference/models/UserGroupMember",
+                  "sdk/node/reference/models/UserGroupSource",
                   "sdk/node/reference/models/UserIn",
                   "sdk/node/reference/models/UserOut",
                   "sdk/node/reference/models/UserPreferenceOut",
@@ -382,9 +475,13 @@
               {
                 "group": "Tenant",
                 "pages": [
+                  "sdk/node/reference/models/SecretUpdateIn",
                   "sdk/node/reference/models/TenantIn",
                   "sdk/node/reference/models/TenantLLM",
                   "sdk/node/reference/models/TenantModelBulkIn",
+                  "sdk/node/reference/models/TenantOAuthClientIn",
+                  "sdk/node/reference/models/TenantOAuthClientOut",
+                  "sdk/node/reference/models/TenantOAuthClientUpdate",
                   "sdk/node/reference/models/TenantOut",
                   "sdk/node/reference/models/TenantUpdateIn"
                 ]
@@ -414,10 +511,21 @@
               {
                 "group": "Message",
                 "pages": [
+                  "sdk/node/reference/models/MessageDetailOut",
+                  "sdk/node/reference/models/MessageFileOut",
                   "sdk/node/reference/models/MessageIn",
                   "sdk/node/reference/models/OutputFormat",
                   "sdk/node/reference/models/RephraseStyleEnum",
+                  "sdk/node/reference/models/ToolCallOut",
+                  "sdk/node/reference/models/ToolCallProgressStepOut",
                   "sdk/node/reference/models/Translation"
+                ]
+              },
+              {
+                "group": "Rating",
+                "pages": [
+                  "sdk/node/reference/models/RateableTypeEnum",
+                  "sdk/node/reference/models/RatingIn"
                 ]
               },
               {
@@ -432,19 +540,36 @@
                 ]
               },
               {
+                "group": "Tag",
+                "pages": [
+                  "sdk/node/reference/models/TagIn"
+                ]
+              },
+              {
                 "group": "Assistant",
                 "pages": [
+                  "sdk/node/reference/models/AssistantGroup",
+                  "sdk/node/reference/models/AssistantGroupsIn",
                   "sdk/node/reference/models/AssistantIn",
+                  "sdk/node/reference/models/AssistantInputTypeEnum",
                   "sdk/node/reference/models/AssistantLibrary",
                   "sdk/node/reference/models/AssistantMember",
+                  "sdk/node/reference/models/AssistantMemberGrantedViaEnum",
                   "sdk/node/reference/models/AssistantMembersIn",
-                  "sdk/node/reference/models/AssistantTool"
+                  "sdk/node/reference/models/AssistantTool",
+                  "sdk/node/reference/models/AssistantVisibilityEnum",
+                  "sdk/node/reference/models/AssistantVisibilityUpdate",
+                  "sdk/node/reference/models/FormField",
+                  "sdk/node/reference/models/FormFieldTypeEnum",
+                  "sdk/node/reference/models/Tagging"
                 ]
               },
               {
                 "group": "Prompt",
                 "pages": [
-                  "sdk/node/reference/models/PromptIn"
+                  "sdk/node/reference/models/PromptIn",
+                  "sdk/node/reference/models/PromptOptimizeIn",
+                  "sdk/node/reference/models/PromptOptimizeOut"
                 ]
               },
               {
@@ -507,6 +632,12 @@
                 ]
               },
               {
+                "group": "Transcription",
+                "pages": [
+                  "sdk/node/reference/models/TranscriptionOut"
+                ]
+              },
+              {
                 "group": "Sharepoint",
                 "pages": [
                   "sdk/node/reference/models/SharepointDriveModel",
@@ -514,6 +645,24 @@
                   "sdk/node/reference/models/SharepointItemModel",
                   "sdk/node/reference/models/SharepointSiteModel",
                   "sdk/node/reference/models/SharepointUserModel"
+                ]
+              },
+              {
+                "group": "OneDrive",
+                "pages": [
+                  "sdk/node/reference/models/DataSourceCapabilities",
+                  "sdk/node/reference/models/DataSourceDriveModel",
+                  "sdk/node/reference/models/DataSourceFolderModel",
+                  "sdk/node/reference/models/DataSourceItemModel",
+                  "sdk/node/reference/models/DataSourceSiteModel",
+                  "sdk/node/reference/models/DataSourceUserModel",
+                  "sdk/node/reference/models/ResponseOnedriveListRoots"
+                ]
+              },
+              {
+                "group": "Atlassian",
+                "pages": [
+                  "sdk/node/reference/models/SetAtlassianCloudIdRequest"
                 ]
               },
               {
@@ -558,9 +707,22 @@
                 ]
               },
               {
+                "group": "System",
+                "pages": [
+                  "sdk/node/reference/models/SystemSettings",
+                  "sdk/node/reference/models/SystemSettingsUpdate"
+                ]
+              },
+              {
                 "group": "Default",
                 "pages": [
                   "sdk/node/reference/models/TenantThemeOut"
+                ]
+              },
+              {
+                "group": "SharepointV1",
+                "pages": [
+                  "sdk/node/reference/models/ResponseSharepointv1ListRoots"
                 ]
               }
             ]

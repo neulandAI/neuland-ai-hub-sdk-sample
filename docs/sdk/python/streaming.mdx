@@ -1,0 +1,61 @@
+---
+title: "Streaming"
+description: "Consume token-by-token message responses over Server-Sent Events with Python."
+---
+
+The Hub streams message generation token-by-token over **Server-Sent Events
+(SSE)** on two endpoints:
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /messages/stream` | Create a message and stream its generation |
+| `GET /messages/{message_id}/stream` | Observe an existing message's stream |
+
+<Note>
+  These endpoints are **not part of the generated SDK**. An open-ended event
+  stream can't be modelled in OpenAPI — a generated method would read the whole
+  body before returning, which defeats streaming. Use the standalone streaming
+  client below instead. The endpoints still appear in the **API Reference** tab
+  for completeness.
+</Note>
+
+## Install the streaming client
+
+The client is a single dependency-light file — copy `streaming.py` into your
+project. It needs only `urllib3` (already an SDK dependency) and reuses the
+SDK's `Configuration` for the host and API key.
+
+## Stream a new message
+
+```python
+from neuland_hub_sdk import Configuration
+from streaming import stream_message
+
+config = Configuration(host="https://api.your-domain.com")
+config.api_key["APIKeyHeader"] = "ak.<key_id>.<secret>"  # sent as X-API-KEY
+
+for event in stream_message(config, {"content": "Explain quantum tunneling"}):
+    print(event.event, event.data)
+```
+
+## Observe an existing message
+
+Already created a message and want to watch its generation? Stream it by id:
+
+```python
+from streaming import observe_message
+
+for event in observe_message(config, message_id=123):
+    print(event.event, event.data)
+```
+
+## Event model
+
+Each SSE frame is delivered as a `StreamEvent` with a type (`event`) and a
+parsed JSON payload (`data`). The stream **ends after a terminal `state` event**
+(`completed`, `failed`, or `cancelled`), or on a forced max-duration close.
+
+<Warning>
+  On any disconnect, **do not resume** the stream. Refetch the canonical message
+  with `GET /messages/{message_id}` to get its final state.
+</Warning>

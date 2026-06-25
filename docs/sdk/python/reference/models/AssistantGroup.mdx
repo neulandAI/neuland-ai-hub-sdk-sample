@@ -1,0 +1,33 @@
+---
+title: "AssistantGroup"
+---
+
+Group-level access for an assistant, scoped to tenant.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**tenant_id** | **int** | ID of the tenant. | 
+**group_id** | **int** | ID of the user group. | 
+**assistant_id** | **int** | ID of the assistant. | 
+**granted_by** | **int** |  | 
+**created_at** | **datetime** | Timestamp when access was granted. | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.assistant_group import AssistantGroup
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of AssistantGroup from a JSON string
+assistant_group_instance = AssistantGroup.from_json(json)
+# print the JSON string representation of the object
+print(AssistantGroup.to_json())
+
+# convert the object into a dict
+assistant_group_dict = assistant_group_instance.to_dict()
+# create an instance of AssistantGroup from a dict
+assistant_group_from_dict = AssistantGroup.from_dict(assistant_group_dict)
+```
