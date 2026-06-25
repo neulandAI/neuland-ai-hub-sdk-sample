@@ -97,9 +97,9 @@ STREAMING_PATHS = {
     },
 }
 
-# Markdown link with up to one level of nested brackets in the text, e.g.
-# `[**List[int]**](int.md)` — so the link text is captured whole.
-LINK_RE = re.compile(r"\[((?:[^\[\]]|\[[^\]]*\])*)\]\(([^)]+)\)")
+# Markdown link with up to two levels of nested brackets in the text, e.g.
+# `[**List[Optional[int]]**](int.md)` — so the link text is captured whole.
+LINK_RE = re.compile(r"\[((?:[^\[\]]|\[(?:[^\[\]]|\[[^\]]*\])*\])*)\]\(([^)]+)\)")
 CODE_SPAN_RE = re.compile(r"`[^`]*`")
 LOCAL_MD_RE = re.compile(r"^([A-Za-z0-9_.]*)\.md(#.*)?$")
 DOC_LINK_RE = re.compile(r"\]\(([A-Za-z0-9_]+)\.md")

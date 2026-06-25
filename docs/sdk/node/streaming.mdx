@@ -1,6 +1,6 @@
 ---
 title: "Streaming"
-description: "Consume token-by-token message responses over Server-Sent Events."
+description: "Consume token-by-token message responses over Server-Sent Events with Node."
 ---
 
 The Hub streams message generation token-by-token over **Server-Sent Events
@@ -21,27 +21,13 @@ The Hub streams message generation token-by-token over **Server-Sent Events
 
 ## Install the streaming client
 
-The client is a single dependency-light file. Copy it into your project:
-
-- **Python** — `streaming.py` (needs only `urllib3`, already an SDK dependency)
-- **Node** — `streaming.ts` (needs only the platform `fetch` — browsers and Node 18+)
+The client is a single dependency-light file — copy `streaming.ts` into your
+project. It needs only the platform `fetch` (browsers and Node 18+), so it works
+unchanged in the browser and on the server.
 
 ## Stream a new message
 
-<CodeGroup>
-
-```python Python
-from neuland_hub_sdk import Configuration
-from streaming import stream_message
-
-config = Configuration(host="https://api.your-domain.com")
-config.api_key["APIKeyHeader"] = "ak.<key_id>.<secret>"  # sent as X-API-KEY
-
-for event in stream_message(config, {"content": "Explain quantum tunneling"}):
-    print(event.event, event.data)
-```
-
-```typescript TypeScript
+```typescript
 import { streamMessage } from "./streaming";
 
 for await (const event of streamMessage({
@@ -53,22 +39,11 @@ for await (const event of streamMessage({
 }
 ```
 
-</CodeGroup>
-
 ## Observe an existing message
 
 Already created a message and want to watch its generation? Stream it by id:
 
-<CodeGroup>
-
-```python Python
-from streaming import observe_message
-
-for event in observe_message(config, message_id=123):
-    print(event.event, event.data)
-```
-
-```typescript TypeScript
+```typescript
 import { observeMessage } from "./streaming";
 
 for await (const event of observeMessage({
@@ -80,12 +55,10 @@ for await (const event of observeMessage({
 }
 ```
 
-</CodeGroup>
-
 ## Event model
 
-Each SSE frame is delivered as an event with a type (`event`) and a parsed JSON
-payload (`data`). The stream **ends after a terminal `state` event**
+Each SSE frame is delivered as a `StreamEvent` with a type (`event`) and a
+parsed JSON payload (`data`). The stream **ends after a terminal `state` event**
 (`completed`, `failed`, or `cancelled`), or on a forced max-duration close.
 
 <Warning>

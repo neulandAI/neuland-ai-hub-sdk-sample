@@ -10,6 +10,9 @@ Name | Type | Description | Notes
 **description** | **string** |  | [optional] [default to undefined]
 **multi_modal** | **boolean** |  | [optional] [default to undefined]
 **gdpr_compliant** | **boolean** |  | [optional] [default to undefined]
+**embedding_dimension** | **number** |  | [optional] [default to undefined]
+**supports_embedding** | **boolean** |  | [optional] [default to undefined]
+**supports_transcription** | **boolean** |  | [optional] [default to undefined]
 **auto_seed** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
@@ -22,6 +25,9 @@ const instance: CatalogUpdate = {
     description,
     multi_modal,
     gdpr_compliant,
+    embedding_dimension,
+    supports_embedding,
+    supports_transcription,
     auto_seed,
 };
 ```

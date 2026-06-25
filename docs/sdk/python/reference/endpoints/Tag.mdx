@@ -1,0 +1,277 @@
+---
+title: "Tag"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**tags_delete_tag**](/sdk/python/reference/endpoints/Tag#tags_delete_tag) | **DELETE** /tags/&#123;tag_id&#125; | Delete a tag
+[**tags_new_tag**](/sdk/python/reference/endpoints/Tag#tags_new_tag) | **POST** /tags/ | Create a tag
+[**tags_update_tag**](/sdk/python/reference/endpoints/Tag#tags_update_tag) | **PATCH** /tags/&#123;tag_id&#125; | Rename a tag
+
+
+## **tags_delete_tag**
+```python
+tags_delete_tag(tag_id, cookie_name=cookie_name)
+```
+
+Delete a tag
+
+Delete a tag. CASCADE removes all taggings.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tag(api_client)
+    tag_id = 56 # int | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Delete a tag
+        api_instance.tags_delete_tag(tag_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tag->tags_delete_tag: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag_id** | **int**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tag belongs to another tenant. |  -  |
+**404** | No tag exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tags_new_tag**
+```python
+Tag tags_new_tag(tag_in, cookie_name=cookie_name)
+```
+
+Create a tag
+
+Create a new tag in the caller's tenant.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tag import Tag
+from neuland_hub_sdk.models.tag_in import TagIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tag(api_client)
+    tag_in = neuland_hub_sdk.TagIn() # TagIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Create a tag
+        api_response = api_instance.tags_new_tag(tag_in, cookie_name=cookie_name)
+        print("The response of Tag->tags_new_tag:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tag->tags_new_tag: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag_in** | [**TagIn**](/sdk/python/reference/models/TagIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**Tag**](/sdk/python/reference/endpoints/Tag)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tags_update_tag**
+```python
+Tag tags_update_tag(tag_id, tag_in, cookie_name=cookie_name)
+```
+
+Rename a tag
+
+Rename a tag in the caller's tenant.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tag import Tag
+from neuland_hub_sdk.models.tag_in import TagIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tag(api_client)
+    tag_id = 56 # int | 
+    tag_in = neuland_hub_sdk.TagIn() # TagIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Rename a tag
+        api_response = api_instance.tags_update_tag(tag_id, tag_in, cookie_name=cookie_name)
+        print("The response of Tag->tags_update_tag:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tag->tags_update_tag: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag_id** | **int**|  | 
+ **tag_in** | [**TagIn**](/sdk/python/reference/models/TagIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**Tag**](/sdk/python/reference/endpoints/Tag)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tag belongs to another tenant. |  -  |
+**404** | No tag exists with the given id. |  -  |
+**422** | Validation Error |  -  |

@@ -6,11 +6,11 @@ title: "ConnectorStatusOut"
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**connector_id** | **number** |  | [default to undefined]
-**name** | **string** |  | [default to undefined]
-**connected** | **boolean** |  | [default to undefined]
-**needs_consent** | **boolean** |  | [default to undefined]
-**missing_caps** | **Array&lt;string&gt;** |  | [default to undefined]
+**connector_id** | **number** | Unique identifier of the connector. | [default to undefined]
+**name** | **string** | Human-readable connector name. | [default to undefined]
+**connected** | **boolean** | Whether the current user has a valid consent for this connector. | [default to undefined]
+**needs_consent** | **boolean** | Whether the user must (re)grant consent to use this connector. | [default to undefined]
+**missing_caps** | **Array&lt;string | null&gt;** | Capabilities not yet covered by the user\&#39;s consent. | [default to undefined]
 
 ## Example
 

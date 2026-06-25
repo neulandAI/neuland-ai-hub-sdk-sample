@@ -1,0 +1,29 @@
+---
+title: "AssistantGroup"
+---
+
+Group-level access for an assistant, scoped to tenant.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**tenant_id** | **number** | ID of the tenant. | [default to undefined]
+**group_id** | **number** | ID of the user group. | [default to undefined]
+**assistant_id** | **number** | ID of the assistant. | [default to undefined]
+**granted_by** | **number** |  | [default to undefined]
+**created_at** | **string** | Timestamp when access was granted. | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { AssistantGroup } from 'neuland-hub-sdk';
+
+const instance: AssistantGroup = {
+    tenant_id,
+    group_id,
+    assistant_id,
+    granted_by,
+    created_at,
+};
+```

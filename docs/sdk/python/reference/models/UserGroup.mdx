@@ -8,12 +8,14 @@ Named group scoped to a tenant.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** |  | [optional] 
-**updated_at** | **datetime** |  | [optional] 
+**created_at** | **datetime** | UTC timestamp when the record was created. | [optional] 
+**updated_at** | **datetime** | UTC timestamp when the record was last updated. | [optional] 
 **id** | **int** |  | [optional] 
 **tenant_id** | **int** | ID of the tenant. | 
 **name** | **str** | Name of the user group. | [optional] 
 **description** | **str** |  | [optional] 
+**source** | **str** | Where the group and its membership come from: &#39;manual&#39; (managed in the HUB) or &#39;external&#39; (synced from an identity provider). | [optional] [default to 'manual']
+**external_id** | **str** |  | [optional] 
 **creator_user_id** | **int** |  | 
 
 ## Example

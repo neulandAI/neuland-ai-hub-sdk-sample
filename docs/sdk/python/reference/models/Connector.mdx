@@ -6,17 +6,17 @@ title: "Connector"
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** |  | [optional] 
-**updated_at** | **datetime** |  | [optional] 
+**created_at** | **datetime** | UTC timestamp when the record was created. | [optional] 
+**updated_at** | **datetime** | UTC timestamp when the record was last updated. | [optional] 
 **creator_user_id** | **int** |  | [optional] 
 **updater_user_id** | **int** |  | [optional] 
 **id** | **int** |  | [optional] 
-**oauth_client_id** | **int** |  | 
-**name** | **str** |  | 
+**oauth_client_id** | **int** | ID of the OAuth client backing this connector. | 
+**name** | **str** | Name of the connector. | 
 **description** | **str** |  | [optional] 
-**scopes** | **List[str]** |  | [optional] 
-**caps** | **List[str]** |  | [optional] 
-**auto_attach** | **bool** |  | [optional] [default to False]
+**scopes** | **List[Optional[str]]** | OAuth scopes requested by this connector. | [optional] 
+**caps** | **List[Optional[str]]** | Capabilities provided by this connector. | [optional] 
+**auto_attach** | **bool** | Whether this connector is automatically attached to new resources. | [optional] [default to False]
 
 ## Example
 
