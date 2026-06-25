@@ -1,0 +1,149 @@
+---
+title: "Authentication"
+description: "How to authenticate requests to the Neuland AI Hub API."
+---
+
+The API authenticates every request with an **API key** sent in the
+`X-API-KEY` header:
+
+```
+X-API-KEY: ak.<key_id>.<secret>
+```
+
+## Create an API key
+
+You can create a key two ways: from the Hub dashboard (the easiest way to get
+your first key) or programmatically via the API.
+
+### From the Hub dashboard
+
+<Steps>
+  <Step title="Sign in as an admin">
+    Log in to the Neuland AI Hub with an account that has admin privileges.
+  </Step>
+  <Step title="Open Settings → API Keys">
+    Go to **Settings**, then open the **API Keys** section.
+  </Step>
+  <Step title="Create the key">
+    Click **Create** (or **New API Key**), give it a descriptive name, and confirm.
+  </Step>
+  <Step title="Copy and store it safely">
+    The full key is displayed **once**. Copy it immediately and store it in a
+    safe place (a password manager or your secrets manager). It is **not
+    recoverable** afterwards — if you lose it, revoke it and create a new one.
+  </Step>
+</Steps>
+
+### Via the API
+
+Create a key with `POST /api/key/`. The request takes a `name` and optional
+`description`; the response returns the full `key`, its `key_id`, and an
+optional `expires_at`.
+
+<Note>
+  Creating a key is itself an authenticated action — make this call while signed
+  in (a session from the web app) or with an existing API key or OAuth bearer
+  token. Bootstrap your first key from the Hub dashboard (above).
+</Note>
+
+<CodeGroup>
+
+```bash curl
+curl -X POST https://api.your-domain.com/api/key/ \
+  -H "X-API-KEY: ak.<existing_key_id>.<secret>" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "ci-pipeline", "description": "Used by the CI deploy job"}'
+```
+
+```python Python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.api_key_create_request import ApiKeyCreateRequest
+
+configuration = neuland_hub_sdk.Configuration(host="https://api.your-domain.com")
+configuration.api_key["APIKeyHeader"] = "ak.<existing_key_id>.<secret>"
+
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    api = neuland_hub_sdk.ApiKey(api_client)
+    created = api.api_create_key(
+        api_key_create_request=ApiKeyCreateRequest(
+            name="ci-pipeline",
+            description="Used by the CI deploy job",
+        ),
+    )
+    print(created.key)  # full secret — shown once
+```
+
+```typescript TypeScript
+import { Configuration, ApiKey } from "neuland-hub-sdk";
+
+const configuration = new Configuration({
+  basePath: "https://api.your-domain.com",
+  apiKey: "ak.<existing_key_id>.<secret>",
+});
+
+const api = new ApiKey(configuration);
+// apiCreateKey(cookieName?, apiKeyCreateRequest?) — pass the body as the 2nd arg.
+const { data } = await api.apiCreateKey(undefined, {
+  name: "ci-pipeline",
+  description: "Used by the CI deploy job",
+});
+console.log(data.key); // full secret — shown once
+```
+
+</CodeGroup>
+
+The response looks like:
+
+```json
+{
+  "key": "ak.a1b2c3d4.s3cr3t-value",
+  "key_id": "a1b2c3d4",
+  "expires_at": "2027-01-01T00:00:00Z"
+}
+```
+
+The full secret (`key`) is shown **once** at creation — store it securely; it
+cannot be retrieved again. To rotate or disable a key, revoke it with
+`PATCH /api/key/revoke/{api_key_id}`.
+
+## Use it
+
+Send the key in the `X-API-KEY` header on every request:
+
+```bash
+curl https://api.your-domain.com/users/me \
+  -H "X-API-KEY: ak.a1b2c3d4.s3cr3t-value"
+```
+
+<Note>
+  Keep API keys secret. Store them in environment variables or a secrets
+  manager — never commit them to source control.
+</Note>
+
+## Integrated AI applications
+
+AI applications that run **inside** the Neuland AI Hub don't manage their own
+API key. Instead, the Hub hands each integrated application a **service token**
+(a signed JWT) at invocation. The application reads the API key embedded in that
+token and uses it as the `X-API-KEY` on its requests back to the API.
+
+The flow is:
+
+<Steps>
+  <Step title="Receive the service token">
+    The Hub passes the service token to your application (for example in the
+    request headers or environment when your app is launched).
+  </Step>
+  <Step title="Read the API key from the token">
+    The token is a JWT. Decode its payload and read the API key from the
+    embedded claim. The exact claim name depends on your Hub deployment.
+  </Step>
+  <Step title="Call the API with the extracted key">
+    Send the extracted key in the `X-API-KEY` header on every request.
+  </Step>
+</Steps>
+
+<Warning>
+  Treat the extracted API key as a secret: keep it in memory for the duration of
+  the request, don't log it, and don't persist it.
+</Warning>

@@ -1,0 +1,29 @@
+---
+title: "UsageCostRequest"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**granularity** | **string** |  | [optional] [default to GranularityEnum_monthly]
+**date_start** | **string** |  | [optional] [default to undefined]
+**date_end** | **string** |  | [optional] [default to undefined]
+**source** | **string** |  | [optional] [default to undefined]
+**model** | **string** |  | [optional] [default to undefined]
+**provider** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { UsageCostRequest } from 'neuland-hub-sdk';
+
+const instance: UsageCostRequest = {
+    granularity,
+    date_start,
+    date_end,
+    source,
+    model,
+    provider,
+};
+```

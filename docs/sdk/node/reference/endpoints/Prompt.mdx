@@ -1,0 +1,180 @@
+---
+title: "Prompt"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**promptsCreatePrompt**](#promptscreateprompt) | **POST** /prompts/ | Create Prompt|
+|[**promptsDeletePrompt**](#promptsdeleteprompt) | **DELETE** /prompts/&#123;prompt_id&#125; | Delete Prompt|
+|[**promptsUpdatePrompt**](#promptsupdateprompt) | **PATCH** /prompts/&#123;prompt_id&#125; | Update Prompt|
+
+## **promptsCreatePrompt**
+```typescript
+Prompt promptsCreatePrompt(promptIn)
+```
+
+
+### Example
+
+```typescript
+import {
+    Prompt,
+    Configuration,
+    PromptIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Prompt(configuration);
+
+let promptIn: PromptIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.promptsCreatePrompt(
+    promptIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **promptIn** | **PromptIn**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Prompt**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **promptsDeletePrompt**
+```typescript
+promptsDeletePrompt()
+```
+
+
+### Example
+
+```typescript
+import {
+    Prompt,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Prompt(configuration);
+
+let promptId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.promptsDeletePrompt(
+    promptId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **promptId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **promptsUpdatePrompt**
+```typescript
+Prompt promptsUpdatePrompt(promptIn)
+```
+
+
+### Example
+
+```typescript
+import {
+    Prompt,
+    Configuration,
+    PromptIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Prompt(configuration);
+
+let promptId: number; // (default to undefined)
+let promptIn: PromptIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.promptsUpdatePrompt(
+    promptId,
+    promptIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **promptIn** | **PromptIn**|  | |
+| **promptId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Prompt**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |

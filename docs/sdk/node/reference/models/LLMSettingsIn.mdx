@@ -1,0 +1,41 @@
+---
+title: "LLMSettingsIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**llm_catalog_id** | **number** |  | [default to undefined]
+**provider** | **string** |  | [default to undefined]
+**library** | **string** |  | [default to undefined]
+**max_tokens** | **number** |  | [default to undefined]
+**cost_prompt_tokens** | [**CostPromptTokens**](/sdk/node/reference/models/CostPromptTokens) |  | [default to undefined]
+**cost_completion_tokens** | [**CostCompletionTokens**](/sdk/node/reference/models/CostCompletionTokens) |  | [default to undefined]
+**args** | **&#123; [key: string]: any; &#125;** |  | [optional] [default to undefined]
+**openai_resource** | **string** |  | [optional] [default to undefined]
+**api_version** | **string** |  | [optional] [default to undefined]
+**deployment_name** | **string** |  | [optional] [default to undefined]
+**endpoint** | **string** |  | [optional] [default to undefined]
+**api_key** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { LLMSettingsIn } from 'neuland-hub-sdk';
+
+const instance: LLMSettingsIn = {
+    llm_catalog_id,
+    provider,
+    library,
+    max_tokens,
+    cost_prompt_tokens,
+    cost_completion_tokens,
+    args,
+    openai_resource,
+    api_version,
+    deployment_name,
+    endpoint,
+    api_key,
+};
+```

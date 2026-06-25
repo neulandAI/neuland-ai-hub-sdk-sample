@@ -1,0 +1,23 @@
+---
+title: "TimeseriesResponse"
+---
+
+Timeseries response model for LLM costs. Contains total cost for the current month and timeseries data for each model.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**total_cost** | **number** |  | [default to undefined]
+**timeseries** | **&#123; [key: string]: Array&lt;TimeseriesPoint&gt;; &#125;** |  | [default to undefined]
+
+## Example
+
+```typescript
+import { TimeseriesResponse } from 'neuland-hub-sdk';
+
+const instance: TimeseriesResponse = {
+    total_cost,
+    timeseries,
+};
+```

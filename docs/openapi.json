@@ -823,7 +823,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Create an assistant",
+        "summary": "Create Assistant",
         "description": "Create an assistant from a JSON payload.",
         "operationId": "assistants_create_assistant",
         "security": [
@@ -869,9 +869,6 @@
                 }
               }
             }
-          },
-          "401": {
-            "description": "Missing or invalid authentication."
           },
           "422": {
             "description": "Validation Error",
@@ -1090,6 +1087,84 @@
           },
           "404": {
             "description": "No assistant exists with the given id."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assistants/{assistant_id}/groups": {
+      "put": {
+        "tags": [
+          "Assistant"
+        ],
+        "summary": "Update Assistant Groups",
+        "description": "Grant or update assistant access for user groups (replaces the current set).",
+        "operationId": "assistants_update_assistant_groups",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assistant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Assistant Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantGroupsIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssistantGroup"
+                  },
+                  "title": "Response Assistants Update Assistant Groups"
+                }
+              }
+            }
           },
           "422": {
             "description": "Validation Error",
@@ -1344,7 +1419,7 @@
           "Assistant"
         ],
         "summary": "Add members to an assistant",
-        "description": "Add one or more users as members of the assistant.",
+        "description": "Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is\npromoted to INVITED so it survives a later TENANT->PRIVATE downgrade.\n\nRace-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for\nrows that didn't exist before this call \u2014 promoting a self-joiner from\nDISCOVERED to INVITED is a bookkeeping change, not a new grant.",
         "operationId": "assistants_add_members",
         "security": [
           {
@@ -1488,6 +1563,70 @@
           },
           "404": {
             "description": "Assistant does not exist, or the user is not a member."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assistants/{assistant_id}/membership": {
+      "post": {
+        "tags": [
+          "Assistant"
+        ],
+        "summary": "Join Assistant",
+        "description": "self-add to a tenant-shared community assistant.",
+        "operationId": "assistants_join_assistant",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assistant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Assistant Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantMember"
+                }
+              }
+            }
           },
           "422": {
             "description": "Validation Error",
@@ -1882,38 +2021,32 @@
         }
       }
     },
-    "/auth/callback/azure-entra": {
-      "get": {
+    "/assistants/{assistant_id}/visibility": {
+      "patch": {
         "tags": [
-          "Auth"
+          "Assistant"
         ],
-        "summary": "Azure Entra login callback",
-        "description": "Complete the Azure Entra ID OAuth flow and return an access token.",
-        "operationId": "auth_azure_entra_callback",
+        "summary": "Update Assistant Visibility",
+        "description": "creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.",
+        "operationId": "assistants_update_assistant_visibility",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "parameters": [
           {
-            "name": "code",
-            "in": "query",
+            "name": "assistant_id",
+            "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "description": "Authorization code from Azure Entra ID",
-              "title": "Code"
-            },
-            "description": "Authorization code from Azure Entra ID"
-          },
-          {
-            "name": "user-agent",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "User-Agent"
+              "type": "integer",
+              "title": "Assistant Id"
             }
           },
           {
-            "name": "x-real-ip",
-            "in": "header",
+            "name": "cookie_name",
+            "in": "query",
             "required": false,
             "schema": {
               "anyOf": [
@@ -1924,155 +2057,27 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Real-Ip"
-            }
-          },
-          {
-            "name": "x-forwarded-for",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Forwarded-For"
-            }
-          },
-          {
-            "name": "x-client-ip",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Client-Ip"
+              "title": "Cookie Name"
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantVisibilityUpdate"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Auth Azure Entra Callback"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/callback/oidc": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "OIDC login callback",
-        "description": "Complete the generic OIDC OAuth flow and return an access token.",
-        "operationId": "auth_oidc_callback",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Authorization code from OIDC provider",
-              "title": "Code"
-            },
-            "description": "Authorization code from OIDC provider"
-          },
-          {
-            "name": "user-agent",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "title": "User-Agent"
-            }
-          },
-          {
-            "name": "x-real-ip",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Real-Ip"
-            }
-          },
-          {
-            "name": "x-forwarded-for",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Forwarded-For"
-            }
-          },
-          {
-            "name": "x-client-ip",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "X-Client-Ip"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Auth Oidc Callback"
+                  "$ref": "#/components/schemas/Assistant"
                 }
               }
             }
@@ -3066,6 +3071,220 @@
           },
           "401": {
             "description": "Missing or invalid authentication."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/sso/resolve": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Sso Resolve",
+        "description": "Pre-login step: resolve a tenant from its domain and\nreturn the routing slug and available SSO providers.",
+        "operationId": "auth_sso_resolve",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Domain"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SsoResolveOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/sso/{slug}/{provider}/exchange": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Sso Exchange",
+        "description": "Exchange an IdP authorization code (with the signed state from init)\nfor a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.",
+        "operationId": "auth_sso_exchange",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Provider"
+            }
+          },
+          {
+            "name": "user-agent",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "User-Agent"
+            }
+          },
+          {
+            "name": "x-real-ip",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Real-Ip"
+            }
+          },
+          {
+            "name": "x-forwarded-for",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Forwarded-For"
+            }
+          },
+          {
+            "name": "x-client-ip",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Client-Ip"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SsoExchangeIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/sso/{slug}/{provider}/init": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Sso Init",
+        "description": "Return the IdP authorize URL + signed state token. No cookies, no redirect.\nFrontend uses the response to redirect the browser to the IdP itself.",
+        "operationId": "auth_sso_init",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Provider"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SsoInitOut"
+                }
+              }
+            }
           },
           "422": {
             "description": "Validation Error",
@@ -9990,6 +10209,136 @@
         }
       }
     },
+    "/ratings/": {
+      "post": {
+        "tags": [
+          "Rating"
+        ],
+        "summary": "Upsert",
+        "description": "Upsert the caller's rating for the target resource.",
+        "operationId": "ratings_upsert",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RatingIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rating"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ratings/{rateable_type}/{rateable_id}": {
+      "delete": {
+        "tags": [
+          "Rating"
+        ],
+        "summary": "Remove",
+        "description": "Delete the caller's rating for the target resource.",
+        "operationId": "ratings_remove",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "rateable_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RateableTypeEnum"
+            }
+          },
+          {
+            "name": "rateable_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Rateable Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/settings/current": {
       "get": {
         "tags": [
@@ -12125,6 +12474,307 @@
         }
       }
     },
+    "/tenants/{tenant_id}/oauth-clients/{oauth_client_id}": {
+      "delete": {
+        "tags": [
+          "Tenant"
+        ],
+        "summary": "Delete Tenant Oauth Client",
+        "operationId": "tenants_delete_tenant_oauth_client",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Tenant Id"
+            }
+          },
+          {
+            "name": "oauth_client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Oauth Client Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Tenant"
+        ],
+        "summary": "Update Tenant Oauth Client",
+        "operationId": "tenants_update_tenant_oauth_client",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Tenant Id"
+            }
+          },
+          {
+            "name": "oauth_client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Oauth Client Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TenantOAuthClientUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TenantOAuthClientOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tenant"
+        ],
+        "summary": "Create Tenant Oauth Client",
+        "description": "Provision per-tenant SSO config + secret for a deployment-wide template.",
+        "operationId": "tenants_create_tenant_oauth_client",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Tenant Id"
+            }
+          },
+          {
+            "name": "oauth_client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Oauth Client Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TenantOAuthClientIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TenantOAuthClientOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenants/{tenant_id}/oauth-clients/{oauth_client_id}/secret": {
+      "put": {
+        "tags": [
+          "Tenant"
+        ],
+        "summary": "Update Tenant Oauth Secret",
+        "operationId": "tenants_update_tenant_oauth_secret",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Tenant Id"
+            }
+          },
+          {
+            "name": "oauth_client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Oauth Client Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SecretUpdateIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/tenants/{tenant_id}/tools/{tool_id}": {
       "delete": {
         "tags": [
@@ -13542,6 +14192,83 @@
           }
         }
       }
+    },
+    "/messages/stream": {
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "Stream Message",
+        "description": "Create a message and stream its generation as Server-Sent Events. Not part of the generated SDK \u2014 use the standalone streaming client (see the Streaming guide).",
+        "operationId": "messages_stream_message",
+        "x-streaming": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server-Sent Events stream. Each frame is an SSE event; the stream ends after a terminal `state` event.",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/{message_id}/stream": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "Observe Message Stream",
+        "description": "Observe an existing message's generation as Server-Sent Events. Not part of the generated SDK \u2014 use the standalone streaming client (see the Streaming guide).",
+        "operationId": "messages_observe_message",
+        "x-streaming": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Message Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Server-Sent Events stream. Each frame is an SSE event; the stream ends after a terminal `state` event.",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -14182,11 +14909,7 @@
                 "type": "null"
               }
             ],
-            "title": "Id",
-            "description": "Primary key for the assistant.",
-            "examples": [
-              1
-            ]
+            "title": "Id"
           },
           "tenant_id": {
             "type": "integer",
@@ -14334,11 +15057,7 @@
                 "type": "null"
               }
             ],
-            "title": "Temperature",
-            "description": "Sampling temperature used by the assistant.",
-            "examples": [
-              0.7
-            ]
+            "title": "Temperature"
           },
           "similarity_top_k": {
             "anyOf": [
@@ -14349,20 +15068,12 @@
                 "type": "null"
               }
             ],
-            "title": "Similarity Top K",
-            "description": "Number of top similar documents to retrieve for the assistant.",
-            "examples": [
-              5
-            ]
+            "title": "Similarity Top K"
           },
           "input_type": {
             "type": "string",
             "title": "Input Type",
-            "description": "Input type for the assistant (e.g. prompt or form).",
-            "default": "prompt",
-            "examples": [
-              "PROMPT"
-            ]
+            "default": "prompt"
           },
           "form_fields": {
             "anyOf": [
@@ -14374,17 +15085,22 @@
                 "type": "null"
               }
             ],
-            "title": "Form Fields",
-            "description": "Form field definitions for form-input assistants.",
-            "examples": [
-              [
-                {
-                  "key": "topic",
-                  "label": "Topic",
-                  "type": "text"
-                }
-              ]
-            ]
+            "title": "Form Fields"
+          },
+          "assistant_catalog_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assistant Catalog Id"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/AssistantVisibilityEnum",
+            "default": "PRIVATE"
           }
         },
         "type": "object",
@@ -14395,6 +15111,72 @@
         ],
         "title": "Assistant",
         "description": "Represents an AI Assistant partially compatible with the OpenAI Assistant API."
+      },
+      "AssistantGroup": {
+        "properties": {
+          "tenant_id": {
+            "type": "integer",
+            "title": "Tenant Id",
+            "description": "ID of the tenant."
+          },
+          "group_id": {
+            "type": "integer",
+            "title": "Group Id",
+            "description": "ID of the user group."
+          },
+          "assistant_id": {
+            "type": "integer",
+            "title": "Assistant Id",
+            "description": "ID of the assistant."
+          },
+          "granted_by": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Granted By",
+            "description": "ID of the user who granted access."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "description": "Timestamp when access was granted."
+          }
+        },
+        "type": "object",
+        "required": [
+          "tenant_id",
+          "group_id",
+          "assistant_id",
+          "granted_by"
+        ],
+        "title": "AssistantGroup",
+        "description": "Group-level access for an assistant, scoped to tenant."
+      },
+      "AssistantGroupsIn": {
+        "properties": {
+          "group_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Group Ids"
+          }
+        },
+        "type": "object",
+        "title": "AssistantGroupsIn"
       },
       "AssistantIn": {
         "properties": {
@@ -14655,11 +15437,11 @@
           },
           "user_id": {
             "type": "integer",
-            "title": "User Id",
-            "description": "ID of the member user.",
-            "examples": [
-              1
-            ]
+            "title": "User Id"
+          },
+          "granted_via": {
+            "$ref": "#/components/schemas/AssistantMemberGrantedViaEnum",
+            "default": "INVITED"
           }
         },
         "type": "object",
@@ -14669,6 +15451,14 @@
         ],
         "title": "AssistantMember",
         "description": "Saves the members of an AI Assistant."
+      },
+      "AssistantMemberGrantedViaEnum": {
+        "type": "string",
+        "enum": [
+          "INVITED",
+          "DISCOVERED"
+        ],
+        "title": "AssistantMemberGrantedViaEnum"
       },
       "AssistantMembersIn": {
         "properties": {
@@ -14736,6 +15526,27 @@
           "tool_id"
         ],
         "title": "AssistantTool"
+      },
+      "AssistantVisibilityEnum": {
+        "type": "string",
+        "enum": [
+          "PRIVATE",
+          "TENANT"
+        ],
+        "title": "AssistantVisibilityEnum"
+      },
+      "AssistantVisibilityUpdate": {
+        "properties": {
+          "visibility": {
+            "$ref": "#/components/schemas/AssistantVisibilityEnum"
+          }
+        },
+        "type": "object",
+        "required": [
+          "visibility"
+        ],
+        "title": "AssistantVisibilityUpdate",
+        "description": "Request body for updating assistant visibility."
       },
       "Body_assistants_submit_assistant": {
         "properties": {
@@ -15778,11 +16589,7 @@
           },
           "creator_user_id": {
             "type": "integer",
-            "title": "Creator User Id",
-            "description": "ID of the user who created the chat.",
-            "examples": [
-              1
-            ]
+            "title": "Creator User Id"
           },
           "project_id": {
             "anyOf": [
@@ -15793,19 +16600,11 @@
                 "type": "null"
               }
             ],
-            "title": "Project Id",
-            "description": "ID of the project the chat belongs to, if any.",
-            "examples": [
-              1
-            ]
+            "title": "Project Id"
           },
           "name": {
             "type": "string",
-            "title": "Name",
-            "description": "Name/title of the chat.",
-            "examples": [
-              "Untitled chat"
-            ]
+            "title": "Name"
           },
           "busy": {
             "type": "boolean",
@@ -17245,11 +18044,7 @@
                 "type": "null"
               }
             ],
-            "title": "Id",
-            "description": "Primary key for the document.",
-            "examples": [
-              1
-            ]
+            "title": "Id"
           },
           "created_at": {
             "type": "string",
@@ -17271,19 +18066,11 @@
           },
           "creator_user_id": {
             "type": "integer",
-            "title": "Creator User Id",
-            "description": "ID of the user who created the document.",
-            "examples": [
-              1
-            ]
+            "title": "Creator User Id"
           },
           "tenant_id": {
             "type": "integer",
-            "title": "Tenant Id",
-            "description": "ID of the tenant that owns the document.",
-            "examples": [
-              1
-            ]
+            "title": "Tenant Id"
           },
           "project_id": {
             "anyOf": [
@@ -17294,11 +18081,7 @@
                 "type": "null"
               }
             ],
-            "title": "Project Id",
-            "description": "ID of the project the document belongs to, if any.",
-            "examples": [
-              1
-            ]
+            "title": "Project Id"
           },
           "chat_id": {
             "anyOf": [
@@ -17309,11 +18092,7 @@
                 "type": "null"
               }
             ],
-            "title": "Chat Id",
-            "description": "ID of the chat the document belongs to, if any.",
-            "examples": [
-              1
-            ]
+            "title": "Chat Id"
           },
           "assistant_id": {
             "anyOf": [
@@ -18758,11 +19537,7 @@
                 "type": "null"
               }
             ],
-            "title": "Id",
-            "description": "Primary key for the message.",
-            "examples": [
-              1
-            ]
+            "title": "Id"
           },
           "created_at": {
             "type": "string",
@@ -19423,26 +20198,14 @@
                 "type": "null"
               }
             ],
-            "title": "Id",
-            "description": "Primary key for the OAuth client.",
-            "examples": [
-              1
-            ]
+            "title": "Id"
           },
           "name": {
             "type": "string",
-            "title": "Name",
-            "description": "Unique human-readable name of the OAuth client.",
-            "examples": [
-              "Microsoft 365"
-            ]
+            "title": "Name"
           },
           "provider_key": {
-            "$ref": "#/components/schemas/OAuth2ProviderEnum",
-            "description": "OAuth provider this client uses.",
-            "examples": [
-              "microsoft"
-            ]
+            "$ref": "#/components/schemas/OAuth2ProviderEnum"
           },
           "client_id": {
             "anyOf": [
@@ -19468,11 +20231,7 @@
                 "type": "null"
               }
             ],
-            "title": "Description",
-            "description": "Optional description of the OAuth client.",
-            "examples": [
-              "Microsoft Entra ID login and connectors"
-            ]
+            "title": "Description"
           },
           "icon_url": {
             "anyOf": [
@@ -19483,11 +20242,7 @@
                 "type": "null"
               }
             ],
-            "title": "Icon Url",
-            "description": "URL of the icon shown for this OAuth client.",
-            "examples": [
-              "https://cdn.example.com/microsoft.png"
-            ]
+            "title": "Icon Url"
           },
           "authorize_url": {
             "type": "string",
@@ -19549,6 +20304,18 @@
             "examples": [
               "https://app.example.com/auth/callback"
             ]
+          },
+          "oidc_issuer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Oidc Issuer",
+            "description": "OIDC `iss` claim value this template handles. Used to match tenants to templates when multiple templates share a provider_key. Nullable for non-OIDC providers."
           }
         },
         "type": "object",
@@ -19571,11 +20338,7 @@
                 "type": "null"
               }
             ],
-            "title": "Name",
-            "description": "New display name for the OAuth client.",
-            "examples": [
-              "Microsoft 365"
-            ]
+            "title": "Name"
           },
           "description": {
             "anyOf": [
@@ -19586,11 +20349,7 @@
                 "type": "null"
               }
             ],
-            "title": "Description",
-            "description": "New description for the OAuth client.",
-            "examples": [
-              "Shared Microsoft OAuth application."
-            ]
+            "title": "Description"
           },
           "icon_url": {
             "anyOf": [
@@ -19601,11 +20360,18 @@
                 "type": "null"
               }
             ],
-            "title": "Icon Url",
-            "description": "URL of an icon representing the OAuth client.",
-            "examples": [
-              "https://cdn.example.com/icons/microsoft.svg"
-            ]
+            "title": "Icon Url"
+          },
+          "oidc_issuer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Oidc Issuer"
           }
         },
         "type": "object",
@@ -20189,6 +20955,119 @@
         ],
         "title": "PromptOptimizeOut"
       },
+      "RateableTypeEnum": {
+        "type": "string",
+        "enum": [
+          "ASSISTANT_CATALOG",
+          "COMMUNITY_ASSISTANT"
+        ],
+        "title": "RateableTypeEnum",
+        "description": "Resources that can be rated through the generic rating system."
+      },
+      "Rating": {
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "description": "UTC timestamp when the record was created.",
+            "examples": [
+              "2026-01-15T10:30:00Z"
+            ]
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At",
+            "description": "UTC timestamp when the record was last updated.",
+            "examples": [
+              "2026-01-16T08:00:00Z"
+            ]
+          },
+          "rateable_type": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Rateable Type",
+            "description": "Resource kind this rating targets."
+          },
+          "rateable_id": {
+            "type": "integer",
+            "title": "Rateable Id",
+            "description": "ID of the rated resource (interpreted per rateable_type)."
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "tenant_id": {
+            "type": "integer",
+            "title": "Tenant Id"
+          },
+          "value": {
+            "type": "integer",
+            "title": "Value",
+            "description": "Star value 1..5. Application-layer validation."
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rateable_type",
+          "rateable_id",
+          "user_id",
+          "tenant_id",
+          "value"
+        ],
+        "title": "Rating",
+        "description": "Generic per-user rating on a polymorphic resource (catalog item, community assistant, etc.).\n\nThe primary key index on (rateable_type, rateable_id, user_id) already covers\naggregate lookups via its left-prefix; no separate (rateable_type, rateable_id)\nindex is needed."
+      },
+      "RatingIn": {
+        "properties": {
+          "rateable_type": {
+            "$ref": "#/components/schemas/RateableTypeEnum"
+          },
+          "rateable_id": {
+            "type": "integer",
+            "title": "Rateable Id"
+          },
+          "value": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 1.0,
+            "title": "Value"
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rateable_type",
+          "rateable_id",
+          "value"
+        ],
+        "title": "RatingIn",
+        "description": "Request body for creating or updating a rating."
+      },
       "RephraseStyleEnum": {
         "type": "string",
         "enum": [
@@ -20197,6 +21076,19 @@
           "long"
         ],
         "title": "RephraseStyleEnum"
+      },
+      "SecretUpdateIn": {
+        "properties": {
+          "secret": {
+            "type": "string",
+            "title": "Secret"
+          }
+        },
+        "type": "object",
+        "required": [
+          "secret"
+        ],
+        "title": "SecretUpdateIn"
       },
       "SendEmailRequest": {
         "properties": {
@@ -21159,6 +22051,68 @@
         ],
         "title": "SharepointUserModel",
         "description": "The signed-in user's SharePoint / Microsoft Graph profile."
+      },
+      "SsoExchangeIn": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "state"
+        ],
+        "title": "SsoExchangeIn"
+      },
+      "SsoInitOut": {
+        "properties": {
+          "authorize_url": {
+            "type": "string",
+            "title": "Authorize Url"
+          },
+          "redirect_uri": {
+            "type": "string",
+            "title": "Redirect Uri"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "authorize_url",
+          "redirect_uri",
+          "state"
+        ],
+        "title": "SsoInitOut"
+      },
+      "SsoResolveOut": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "providers": {
+            "items": {
+              "$ref": "#/components/schemas/OAuth2ProviderEnum"
+            },
+            "type": "array",
+            "title": "Providers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "providers"
+        ],
+        "title": "SsoResolveOut"
       },
       "SystemSettings": {
         "properties": {
@@ -22498,6 +23452,209 @@
         },
         "type": "object",
         "title": "TenantModelBulkIn"
+      },
+      "TenantOAuthClientIn": {
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "title": "Client Id"
+          },
+          "authorize_url": {
+            "type": "string",
+            "title": "Authorize Url"
+          },
+          "token_url": {
+            "type": "string",
+            "title": "Token Url"
+          },
+          "revocation_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revocation Url"
+          },
+          "redirect_uri": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Uri"
+          },
+          "admin_consent_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Consent Url"
+          },
+          "secret": {
+            "type": "string",
+            "title": "Secret"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_id",
+          "authorize_url",
+          "token_url",
+          "secret"
+        ],
+        "title": "TenantOAuthClientIn"
+      },
+      "TenantOAuthClientOut": {
+        "properties": {
+          "tenant_id": {
+            "type": "integer",
+            "title": "Tenant Id"
+          },
+          "oauth_client_id": {
+            "type": "integer",
+            "title": "Oauth Client Id"
+          },
+          "provider_key": {
+            "$ref": "#/components/schemas/OAuth2ProviderEnum"
+          },
+          "client_id": {
+            "type": "string",
+            "title": "Client Id"
+          },
+          "authorize_url": {
+            "type": "string",
+            "title": "Authorize Url"
+          },
+          "token_url": {
+            "type": "string",
+            "title": "Token Url"
+          },
+          "revocation_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revocation Url"
+          },
+          "redirect_uri": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Uri"
+          },
+          "admin_consent_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Consent Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tenant_id",
+          "oauth_client_id",
+          "provider_key",
+          "client_id",
+          "authorize_url",
+          "token_url"
+        ],
+        "title": "TenantOAuthClientOut"
+      },
+      "TenantOAuthClientUpdate": {
+        "properties": {
+          "client_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Id"
+          },
+          "authorize_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Authorize Url"
+          },
+          "token_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Token Url"
+          },
+          "revocation_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revocation Url"
+          },
+          "redirect_uri": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Uri"
+          },
+          "admin_consent_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Consent Url"
+          }
+        },
+        "type": "object",
+        "title": "TenantOAuthClientUpdate"
       },
       "TenantOut": {
         "properties": {
@@ -24396,6 +25553,12 @@
             "title": "Description",
             "description": "Description of the user group."
           },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "description": "Where the group and its membership come from: 'manual' (managed in the HUB) or 'external' (synced from an identity provider).",
+            "default": "manual"
+          },
           "creator_user_id": {
             "anyOf": [
               {
@@ -26225,6 +27388,10 @@
     {
       "name": "Message",
       "description": "Messages within a chat, including assistant responses."
+    },
+    {
+      "name": "Rating",
+      "description": "User feedback (ratings) on assistant messages and responses."
     },
     {
       "name": "Query",

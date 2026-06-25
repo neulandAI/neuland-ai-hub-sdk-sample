@@ -1,0 +1,391 @@
+---
+title: "Sharepoint"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**integrationsGetItemInfo**](#integrationsgetiteminfo) | **GET** /integrations/sharepoint/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125; | Get Item Info|
+|[**integrationsGetUserInfo**](#integrationsgetuserinfo) | **GET** /integrations/sharepoint/me | Get User Info|
+|[**integrationsIsConnected**](#integrationsisconnected) | **GET** /integrations/sharepoint/connected | Is Connected|
+|[**integrationsListAllSites**](#integrationslistallsites) | **GET** /integrations/sharepoint/sites | List All Sites|
+|[**integrationsListChildren**](#integrationslistchildren) | **GET** /integrations/sharepoint/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125;/children | List Children|
+|[**integrationsListDrives**](#integrationslistdrives) | **GET** /integrations/sharepoint/sites/&#123;site_id&#125;/drives | List Drives|
+
+## **integrationsGetItemInfo**
+```typescript
+SharepointItemModel integrationsGetItemInfo()
+```
+
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let driveId: string; // (default to undefined)
+let driveItemId: string; // (default to undefined)
+let chatId: number; // (optional) (default to undefined)
+let libraryId: number; // (optional) (default to undefined)
+let assistantId: number; // (optional) (default to undefined)
+let projectId: number; // (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsGetItemInfo(
+    driveId,
+    driveItemId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **driveId** | [**string**] |  | defaults to undefined|
+| **driveItemId** | [**string**] |  | defaults to undefined|
+| **chatId** | [**number**] |  | (optional) defaults to undefined|
+| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**SharepointItemModel**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsGetUserInfo**
+```typescript
+SharepointUserModel integrationsGetUserInfo()
+```
+
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsGetUserInfo(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**SharepointUserModel**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsIsConnected**
+```typescript
+boolean integrationsIsConnected()
+```
+
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsIsConnected(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**boolean**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsListAllSites**
+```typescript
+Array<SharepointSiteModel> integrationsListAllSites()
+```
+
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let chatId: number; // (optional) (default to undefined)
+let libraryId: number; // (optional) (default to undefined)
+let assistantId: number; // (optional) (default to undefined)
+let projectId: number; // (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsListAllSites(
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] |  | (optional) defaults to undefined|
+| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;SharepointSiteModel>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsListChildren**
+```typescript
+Array<SharepointItemModel> integrationsListChildren()
+```
+
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let driveId: string; // (default to undefined)
+let driveItemId: string; // (default to undefined)
+let chatId: number; // (optional) (default to undefined)
+let libraryId: number; // (optional) (default to undefined)
+let assistantId: number; // (optional) (default to undefined)
+let projectId: number; // (optional) (default to undefined)
+let recursive: boolean; // (optional) (default to false)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsListChildren(
+    driveId,
+    driveItemId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    recursive,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **driveId** | [**string**] |  | defaults to undefined|
+| **driveItemId** | [**string**] |  | defaults to undefined|
+| **chatId** | [**number**] |  | (optional) defaults to undefined|
+| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **recursive** | [**boolean**] |  | (optional) defaults to false|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;SharepointItemModel>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsListDrives**
+```typescript
+Array<SharepointDriveModel> integrationsListDrives()
+```
+
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let siteId: string; // (default to undefined)
+let chatId: number; // (optional) (default to undefined)
+let libraryId: number; // (optional) (default to undefined)
+let assistantId: number; // (optional) (default to undefined)
+let projectId: number; // (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsListDrives(
+    siteId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **siteId** | [**string**] |  | defaults to undefined|
+| **chatId** | [**number**] |  | (optional) defaults to undefined|
+| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+| **projectId** | [**number**] |  | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;SharepointDriveModel>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |

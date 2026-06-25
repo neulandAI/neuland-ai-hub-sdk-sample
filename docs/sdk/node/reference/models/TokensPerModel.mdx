@@ -1,0 +1,31 @@
+---
+title: "TokensPerModel"
+---
+
+Model for total tokens of one llm resource.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**llm_model** | **string** |  | [default to undefined]
+**duration** | **string** |  | [default to undefined]
+**total_tokens_count** | **number** |  | [default to undefined]
+**prompt_token_count** | **number** |  | [default to undefined]
+**completion_token_count** | **number** |  | [default to undefined]
+**total_requests** | **number** |  | [default to undefined]
+
+## Example
+
+```typescript
+import { TokensPerModel } from 'neuland-hub-sdk';
+
+const instance: TokensPerModel = {
+    llm_model,
+    duration,
+    total_tokens_count,
+    prompt_token_count,
+    completion_token_count,
+    total_requests,
+};
+```
