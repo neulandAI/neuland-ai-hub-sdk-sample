@@ -4,18 +4,20 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**documents_delete_chat_document**](Document.md#documents_delete_chat_document) | **DELETE** /documents/{document_id} | Delete Chat Document
-[**documents_get_file**](Document.md#documents_get_file) | **GET** /documents/{document_id} | Get File
-[**documents_import_documents**](Document.md#documents_import_documents) | **POST** /documents/import | Import Documents
-[**documents_retry_document**](Document.md#documents_retry_document) | **POST** /documents/{document_id}/retry | Retry Document
-[**documents_unimport_documents**](Document.md#documents_unimport_documents) | **DELETE** /documents/import | Unimport Documents
-[**documents_upload_documents**](Document.md#documents_upload_documents) | **POST** /documents/ | Upload Documents
+[**documents_delete_chat_document**](Document.md#documents_delete_chat_document) | **DELETE** /documents/{document_id} | Delete a document
+[**documents_get_file**](Document.md#documents_get_file) | **GET** /documents/{document_id} | Download a document
+[**documents_import_documents**](Document.md#documents_import_documents) | **POST** /documents/import | Import documents from a connected source
+[**documents_retry_document**](Document.md#documents_retry_document) | **POST** /documents/{document_id}/retry | Retry document processing
+[**documents_unimport_documents**](Document.md#documents_unimport_documents) | **DELETE** /documents/import | Remove imported documents
+[**documents_upload_documents**](Document.md#documents_upload_documents) | **POST** /documents/ | Upload documents
 
 
 # **documents_delete_chat_document**
 > documents_delete_chat_document(document_id, cookie_name=cookie_name)
 
-Delete Chat Document
+Delete a document
+
+Delete a document and its associated content.
 
 ### Example
 
@@ -54,7 +56,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Chat Document
+        # Delete a document
         api_instance.documents_delete_chat_document(document_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Document->documents_delete_chat_document: %s\n" % e)
@@ -88,6 +90,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller may not access this document. |  -  |
+**404** | No document exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -95,7 +100,9 @@ void (empty response body)
 # **documents_get_file**
 > object documents_get_file(document_id, cookie_name=cookie_name)
 
-Get File
+Download a document
+
+Stream a document's content as an attachment to authorized callers.
 
 ### Example
 
@@ -134,7 +141,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Get File
+        # Download a document
         api_response = api_instance.documents_get_file(document_id, cookie_name=cookie_name)
         print("The response of Document->documents_get_file:\n")
         pprint(api_response)
@@ -170,6 +177,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller may not access this document. |  -  |
+**404** | No document exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -177,7 +187,9 @@ Name | Type | Description  | Notes
 # **documents_import_documents**
 > UUID documents_import_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
 
-Import Documents
+Import documents from a connected source
+
+Import drive items from a connected source as documents; returns an import token.
 
 ### Example
 
@@ -213,8 +225,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Document(api_client)
     src = 'src_example' # str | Source type which the documents will be imported from
-    drive_id = 'drive_id_example' # str | Sharepoint drive ID
-    drive_item_ids = ['drive_item_ids_example'] # List[str] | Sharepoint item IDs of the documents to be imported
+    drive_id = 'drive_id_example' # str | Drive ID
+    drive_item_ids = ['drive_item_ids_example'] # List[str] | Item IDs of the documents to be imported
     cookie_name = 'cookie_name_example' # str |  (optional)
     project_id = 56 # int |  (optional)
     chat_id = 56 # int |  (optional)
@@ -223,7 +235,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     library_id = 56 # int |  (optional)
 
     try:
-        # Import Documents
+        # Import documents from a connected source
         api_response = api_instance.documents_import_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
         print("The response of Document->documents_import_documents:\n")
         pprint(api_response)
@@ -239,8 +251,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **src** | **str**| Source type which the documents will be imported from | 
- **drive_id** | **str**| Sharepoint drive ID | 
- **drive_item_ids** | [**List[str]**](str.md)| Sharepoint item IDs of the documents to be imported | 
+ **drive_id** | **str**| Drive ID | 
+ **drive_item_ids** | [**List[str]**](str.md)| Item IDs of the documents to be imported | 
  **cookie_name** | **str**|  | [optional] 
  **project_id** | **int**|  | [optional] 
  **chat_id** | **int**|  | [optional] 
@@ -266,6 +278,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**400** | The provided source type is not supported. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Usage limit exceeded, or caller lacks access to the target entity. |  -  |
+**404** | The referenced project, chat, assistant, or library does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -273,7 +289,9 @@ Name | Type | Description  | Notes
 # **documents_retry_document**
 > documents_retry_document(document_id, cookie_name=cookie_name)
 
-Retry Document
+Retry document processing
+
+Re-run processing for a previously failed or stuck document.
 
 ### Example
 
@@ -312,7 +330,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Retry Document
+        # Retry document processing
         api_instance.documents_retry_document(document_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Document->documents_retry_document: %s\n" % e)
@@ -346,6 +364,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Usage limit exceeded, or caller may not access this document. |  -  |
+**404** | No document exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -353,7 +374,9 @@ void (empty response body)
 # **documents_unimport_documents**
 > documents_unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id)
 
-Unimport Documents
+Remove imported documents
+
+Delete documents previously imported from a source for the given entity.
 
 ### Example
 
@@ -397,7 +420,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     assistant_id = 56 # int |  (optional)
 
     try:
-        # Unimport Documents
+        # Remove imported documents
         api_instance.documents_unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id)
     except Exception as e:
         print("Exception when calling Document->documents_unimport_documents: %s\n" % e)
@@ -436,6 +459,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**400** | The provided source type is not supported. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller lacks access to the target entity. |  -  |
+**404** | The referenced project, chat, or assistant does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -443,7 +470,9 @@ void (empty response body)
 # **documents_upload_documents**
 > List[Document] documents_upload_documents(files, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
 
-Upload Documents
+Upload documents
+
+Upload files as documents and kick off async processing for the given entity.
 
 ### Example
 
@@ -488,7 +517,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     library_id = 56 # int |  (optional)
 
     try:
-        # Upload Documents
+        # Upload documents
         api_response = api_instance.documents_upload_documents(files, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, message_id=message_id, library_id=library_id)
         print("The response of Document->documents_upload_documents:\n")
         pprint(api_response)
@@ -529,6 +558,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Usage limit exceeded, or caller lacks access to the target entity. |  -  |
+**404** | The referenced project, chat, assistant, or library does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

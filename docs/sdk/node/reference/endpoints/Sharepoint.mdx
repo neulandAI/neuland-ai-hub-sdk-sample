@@ -1,0 +1,408 @@
+---
+title: "Sharepoint"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**integrationsGetItemInfo**](#integrationsgetiteminfo) | **GET** /integrations/sharepoint/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125; | Get a drive item|
+|[**integrationsGetUserInfo**](#integrationsgetuserinfo) | **GET** /integrations/sharepoint/me | Get current SharePoint user|
+|[**integrationsIsConnected**](#integrationsisconnected) | **GET** /integrations/sharepoint/connected | Check SharePoint connection|
+|[**integrationsListAllSites**](#integrationslistallsites) | **GET** /integrations/sharepoint/sites | List SharePoint sites|
+|[**integrationsListChildren**](#integrationslistchildren) | **GET** /integrations/sharepoint/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125;/children | List children of a drive item|
+|[**integrationsListDrives**](#integrationslistdrives) | **GET** /integrations/sharepoint/sites/&#123;site_id&#125;/drives | List drives in a site|
+
+## **integrationsGetItemInfo**
+```typescript
+SharepointItemModel integrationsGetItemInfo()
+```
+
+Get a single SharePoint drive item, annotated with imported counts.
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let driveId: string; //Id of the drive. (default to undefined)
+let driveItemId: string; //Id of the drive item. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsGetItemInfo(
+    driveId,
+    driveItemId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **driveId** | [**string**] | Id of the drive. | defaults to undefined|
+| **driveItemId** | [**string**] | Id of the drive item. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**SharepointItemModel**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsGetUserInfo**
+```typescript
+SharepointUserModel integrationsGetUserInfo()
+```
+
+Return the signed-in user\'s SharePoint / Microsoft Graph profile.
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsGetUserInfo(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**SharepointUserModel**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsIsConnected**
+```typescript
+boolean integrationsIsConnected()
+```
+
+Report whether the user has consented to the SharePoint file-read scope.
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsIsConnected(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**boolean**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsListAllSites**
+```typescript
+Array<SharepointSiteModel> integrationsListAllSites()
+```
+
+List the SharePoint sites the user can access, with imported document counts.
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsListAllSites(
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;SharepointSiteModel>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsListChildren**
+```typescript
+Array<SharepointItemModel> integrationsListChildren()
+```
+
+List files and folders under a drive item, annotated with imported counts.
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let driveId: string; //Id of the drive. (default to undefined)
+let driveItemId: string; //Id of the parent item; empty or \'root\' for the drive root. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let recursive: boolean; //Recurse into subfolders, returning only files. (optional) (default to false)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsListChildren(
+    driveId,
+    driveItemId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    recursive,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **driveId** | [**string**] | Id of the drive. | defaults to undefined|
+| **driveItemId** | [**string**] | Id of the parent item; empty or \&#39;root\&#39; for the drive root. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **recursive** | [**boolean**] | Recurse into subfolders, returning only files. | (optional) defaults to false|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;SharepointItemModel>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **integrationsListDrives**
+```typescript
+Array<SharepointDriveModel> integrationsListDrives()
+```
+
+List the document libraries (drives) within a SharePoint site.
+
+### Example
+
+```typescript
+import {
+    Sharepoint,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Sharepoint(configuration);
+
+let siteId: string; //SharePoint site id. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.integrationsListDrives(
+    siteId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **siteId** | [**string**] | SharePoint site id. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;SharepointDriveModel>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**422** | Validation Error |  -  |

@@ -1,0 +1,1193 @@
+---
+title: "Tenant"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**tenantsAddLibraryToTenants**](#tenantsaddlibrarytotenants) | **POST** /tenants/&#123;tenant_id&#125;/libraries/&#123;library_id&#125; | Assign a library to a tenant|
+|[**tenantsCreateTenant**](#tenantscreatetenant) | **POST** /tenants/ | Create a tenant|
+|[**tenantsCreateTenantConnector**](#tenantscreatetenantconnector) | **POST** /tenants/&#123;tenant_id&#125;/connectors/&#123;connector_id&#125; | Enable a connector for a tenant|
+|[**tenantsCreateTenantOauthClient**](#tenantscreatetenantoauthclient) | **POST** /tenants/&#123;tenant_id&#125;/oauth-clients/&#123;oauth_client_id&#125; | Create Tenant Oauth Client|
+|[**tenantsCreateTenantTool**](#tenantscreatetenanttool) | **POST** /tenants/&#123;tenant_id&#125;/tools/&#123;tool_id&#125; | Enable a tool for a tenant|
+|[**tenantsDeleteTenant**](#tenantsdeletetenant) | **DELETE** /tenants/&#123;tenant_id&#125; | Delete a tenant|
+|[**tenantsDeleteTenantConnector**](#tenantsdeletetenantconnector) | **DELETE** /tenants/&#123;tenant_id&#125;/connectors/&#123;connector_id&#125; | Disable a connector for a tenant|
+|[**tenantsDeleteTenantModel**](#tenantsdeletetenantmodel) | **DELETE** /tenants/&#123;tenant_id&#125;/models/&#123;model_id&#125; | Disable a model for a tenant|
+|[**tenantsDeleteTenantModelsBulk**](#tenantsdeletetenantmodelsbulk) | **DELETE** /tenants/models/&#123;model_id&#125;/bulk | Disable a model for multiple tenants|
+|[**tenantsDeleteTenantOauthClient**](#tenantsdeletetenantoauthclient) | **DELETE** /tenants/&#123;tenant_id&#125;/oauth-clients/&#123;oauth_client_id&#125; | Delete Tenant Oauth Client|
+|[**tenantsDeleteTenantTool**](#tenantsdeletetenanttool) | **DELETE** /tenants/&#123;tenant_id&#125;/tools/&#123;tool_id&#125; | Disable a tool for a tenant|
+|[**tenantsGetCurrentTenant**](#tenantsgetcurrenttenant) | **GET** /tenants/current | Get current tenant|
+|[**tenantsPutTenantModel**](#tenantsputtenantmodel) | **PUT** /tenants/&#123;tenant_id&#125;/models/&#123;model_id&#125; | Enable a model for a tenant|
+|[**tenantsPutTenantModelsBulk**](#tenantsputtenantmodelsbulk) | **PUT** /tenants/models/&#123;model_id&#125;/bulk | Enable a model for multiple tenants|
+|[**tenantsRemoveTenantLibraryMember**](#tenantsremovetenantlibrarymember) | **DELETE** /tenants/&#123;tenant_id&#125;/libraries/&#123;library_id&#125; | Unassign a library from a tenant|
+|[**tenantsUpdateCurrentTenant**](#tenantsupdatecurrenttenant) | **PATCH** /tenants/current | Update current tenant|
+|[**tenantsUpdateTenant**](#tenantsupdatetenant) | **PATCH** /tenants/&#123;tenant_id&#125; | Update a tenant|
+|[**tenantsUpdateTenantOauthClient**](#tenantsupdatetenantoauthclient) | **PATCH** /tenants/&#123;tenant_id&#125;/oauth-clients/&#123;oauth_client_id&#125; | Update Tenant Oauth Client|
+|[**tenantsUpdateTenantOauthSecret**](#tenantsupdatetenantoauthsecret) | **PUT** /tenants/&#123;tenant_id&#125;/oauth-clients/&#123;oauth_client_id&#125;/secret | Update Tenant Oauth Secret|
+
+## **tenantsAddLibraryToTenants**
+```typescript
+any tenantsAddLibraryToTenants()
+```
+
+Assign a library to a tenant (library owner who is admin of that tenant).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let libraryId: number; // (default to undefined)
+let tenantId: number; //ID of the tenant. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
+    libraryId,
+    tenantId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **libraryId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Library owner and tenant admin privileges required. |  -  |
+|**404** | Current user not found. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsCreateTenant**
+```typescript
+TenantOut tenantsCreateTenant(tenantIn)
+```
+
+Create a new tenant (platform operator or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantIn: TenantIn; //
+let cookieName: string; // (optional) (default to undefined)
+let tenantId: number; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsCreateTenant(
+    tenantIn,
+    cookieName,
+    tenantId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantIn** | **TenantIn**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **tenantId** | [**number**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required, or not permitted to create this kind of tenant. |  -  |
+|**404** | Current user or parent tenant not found. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsCreateTenantConnector**
+```typescript
+any tenantsCreateTenantConnector()
+```
+
+Enable a connector for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let connectorId: number; //ID of the connector to enable. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsCreateTenantConnector(
+    tenantId,
+    connectorId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **connectorId** | [**number**] | ID of the connector to enable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | No connector exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsCreateTenantOauthClient**
+```typescript
+TenantOAuthClientOut tenantsCreateTenantOauthClient(tenantOAuthClientIn)
+```
+
+Provision per-tenant SSO config + secret for a deployment-wide template.
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantOAuthClientIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let oauthClientId: number; // (default to undefined)
+let tenantOAuthClientIn: TenantOAuthClientIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsCreateTenantOauthClient(
+    tenantId,
+    oauthClientId,
+    tenantOAuthClientIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantOAuthClientIn** | **TenantOAuthClientIn**|  | |
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantOAuthClientOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsCreateTenantTool**
+```typescript
+any tenantsCreateTenantTool()
+```
+
+Enable a tool for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let toolId: number; //ID of the tool to enable. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsCreateTenantTool(
+    tenantId,
+    toolId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **toolId** | [**number**] | ID of the tool to enable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsDeleteTenant**
+```typescript
+tenantsDeleteTenant()
+```
+
+Delete a tenant by id (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsDeleteTenant(
+    tenantId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | No tenant exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsDeleteTenantConnector**
+```typescript
+tenantsDeleteTenantConnector()
+```
+
+Disable a connector for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let connectorId: number; //ID of the connector to disable. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsDeleteTenantConnector(
+    tenantId,
+    connectorId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **connectorId** | [**number**] | ID of the connector to disable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | The connector is not enabled for the tenant. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsDeleteTenantModel**
+```typescript
+tenantsDeleteTenantModel()
+```
+
+Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let modelId: number; //ID of the LLM catalog model to disable. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsDeleteTenantModel(
+    tenantId,
+    modelId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **modelId** | [**number**] | ID of the LLM catalog model to disable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | Tenant model association not found. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsDeleteTenantModelsBulk**
+```typescript
+tenantsDeleteTenantModelsBulk(tenantModelBulkIn)
+```
+
+Disable an LLM catalog model for all tenants or a list of tenants (superadmin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantModelBulkIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let modelId: number; //ID of the LLM catalog model to disable. (default to undefined)
+let tenantModelBulkIn: TenantModelBulkIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsDeleteTenantModelsBulk(
+    modelId,
+    tenantModelBulkIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantModelBulkIn** | **TenantModelBulkIn**|  | |
+| **modelId** | [**number**] | ID of the LLM catalog model to disable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | Catalog model not found, or a target tenant not found. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsDeleteTenantOauthClient**
+```typescript
+tenantsDeleteTenantOauthClient()
+```
+
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let oauthClientId: number; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsDeleteTenantOauthClient(
+    tenantId,
+    oauthClientId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsDeleteTenantTool**
+```typescript
+tenantsDeleteTenantTool()
+```
+
+Disable a tool for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let toolId: number; //ID of the tool to disable. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsDeleteTenantTool(
+    tenantId,
+    toolId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **toolId** | [**number**] | ID of the tool to disable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | The tool is not enabled for the tenant. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsGetCurrentTenant**
+```typescript
+TenantOut tenantsGetCurrentTenant()
+```
+
+Get the tenant the current user belongs to.
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsGetCurrentTenant(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsPutTenantModel**
+```typescript
+TenantLLM tenantsPutTenantModel()
+```
+
+Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let modelId: number; //ID of the LLM catalog model to enable. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsPutTenantModel(
+    tenantId,
+    modelId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **modelId** | [**number**] | ID of the LLM catalog model to enable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantLLM**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required. |  -  |
+|**404** | Tenant or catalog model not found. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsPutTenantModelsBulk**
+```typescript
+tenantsPutTenantModelsBulk(tenantModelBulkIn)
+```
+
+Enable an LLM catalog model for all tenants or a list of tenants (superadmin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantModelBulkIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let modelId: number; //ID of the LLM catalog model to enable. (default to undefined)
+let tenantModelBulkIn: TenantModelBulkIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsPutTenantModelsBulk(
+    modelId,
+    tenantModelBulkIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantModelBulkIn** | **TenantModelBulkIn**|  | |
+| **modelId** | [**number**] | ID of the LLM catalog model to enable. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | Catalog model not found, or a target tenant not found. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsRemoveTenantLibraryMember**
+```typescript
+tenantsRemoveTenantLibraryMember()
+```
+
+Remove a library assignment from a tenant (library owner who is tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let libraryId: number; // (default to undefined)
+let tenantId: number; //ID of the tenant. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsRemoveTenantLibraryMember(
+    libraryId,
+    tenantId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **libraryId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Library owner and tenant admin privileges required. |  -  |
+|**404** | The library is not assigned to the tenant. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsUpdateCurrentTenant**
+```typescript
+TenantOut tenantsUpdateCurrentTenant(tenantUpdateIn)
+```
+
+Update the current user\'s tenant (tenant admin; some fields superadmin-only).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantUpdateIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantUpdateIn: TenantUpdateIn; //
+let cookieName: string; // (optional) (default to undefined)
+let tenantId: number; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsUpdateCurrentTenant(
+    tenantUpdateIn,
+    cookieName,
+    tenantId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantUpdateIn** | **TenantUpdateIn**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+| **tenantId** | [**number**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required, or superadmin required to change protected fields. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsUpdateTenant**
+```typescript
+TenantOut tenantsUpdateTenant(tenantUpdateIn)
+```
+
+Update a tenant by id (superadmin or parent tenant admin).
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantUpdateIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let tenantUpdateIn: TenantUpdateIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsUpdateTenant(
+    tenantId,
+    tenantUpdateIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantUpdateIn** | **TenantUpdateIn**|  | |
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin or parent tenant admin required; some fields require superadmin. |  -  |
+|**404** | No tenant exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsUpdateTenantOauthClient**
+```typescript
+TenantOAuthClientOut tenantsUpdateTenantOauthClient(tenantOAuthClientUpdate)
+```
+
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    TenantOAuthClientUpdate
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let oauthClientId: number; // (default to undefined)
+let tenantOAuthClientUpdate: TenantOAuthClientUpdate; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsUpdateTenantOauthClient(
+    tenantId,
+    oauthClientId,
+    tenantOAuthClientUpdate,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **tenantOAuthClientUpdate** | **TenantOAuthClientUpdate**|  | |
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**TenantOAuthClientOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **tenantsUpdateTenantOauthSecret**
+```typescript
+tenantsUpdateTenantOauthSecret(secretUpdateIn)
+```
+
+
+### Example
+
+```typescript
+import {
+    Tenant,
+    Configuration,
+    SecretUpdateIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tenant(configuration);
+
+let tenantId: number; // (default to undefined)
+let oauthClientId: number; // (default to undefined)
+let secretUpdateIn: SecretUpdateIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.tenantsUpdateTenantOauthSecret(
+    tenantId,
+    oauthClientId,
+    secretUpdateIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **secretUpdateIn** | **SecretUpdateIn**|  | |
+| **tenantId** | [**number**] |  | defaults to undefined|
+| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |

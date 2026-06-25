@@ -5,21 +5,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** |  | [optional] 
-**updated_at** | **datetime** |  | [optional] 
+**created_at** | **datetime** | UTC timestamp when the record was created. | [optional] 
+**updated_at** | **datetime** | UTC timestamp when the record was last updated. | [optional] 
 **creator_user_id** | **int** |  | [optional] 
 **updater_user_id** | **int** |  | [optional] 
 **id** | **int** |  | [optional] 
-**name** | **str** |  | 
-**provider_key** | [**OAuth2ProviderEnum**](OAuth2ProviderEnum.md) |  | 
-**client_id** | **str** |  | [optional] 
+**name** | **str** | Unique human-readable name of the OAuth client. | 
+**provider_key** | [**OAuth2ProviderEnum**](OAuth2ProviderEnum.md) | OAuth provider this client uses. | 
 **description** | **str** |  | [optional] 
 **icon_url** | **str** |  | [optional] 
-**authorize_url** | **str** |  | 
-**admin_consent_url** | **str** |  | [optional] 
-**token_url** | **str** |  | 
-**logout_url** | **str** |  | [optional] 
-**redirect_uri** | **str** |  | [optional] 
+**oidc_issuer** | **str** |  | [optional] 
 
 ## Example
 

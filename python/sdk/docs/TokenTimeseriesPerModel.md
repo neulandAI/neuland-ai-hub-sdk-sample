@@ -6,8 +6,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_model** | **str** |  | 
-**timeseries** | **Dict[str, List[TokenTimeseriesPoint]]** |  | 
+**llm_model** | **str** | Catalog name of the model. | 
+**timeseries** | **Dict[str, List[TokenTimeseriesPoint]]** | Per-metric timeseries keyed by metric name (PromptTokens, CompletionTokens, TotalTokens). | 
 
 ## Example
 

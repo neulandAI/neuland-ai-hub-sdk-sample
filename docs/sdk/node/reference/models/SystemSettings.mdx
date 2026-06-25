@@ -1,0 +1,41 @@
+---
+title: "SystemSettings"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**created_at** | **string** | UTC timestamp when the record was created. | [optional] [default to undefined]
+**updated_at** | **string** | UTC timestamp when the record was last updated. | [optional] [default to undefined]
+**id** | **number** |  | [optional] [default to undefined]
+**maintenance_enabled** | **boolean** | Whether maintenance mode is currently enabled. | [optional] [default to false]
+**tracing_enabled** | **boolean** | Whether observability tracing is enabled system-wide. | [optional] [default to true]
+**inbound_guardrail_llm_settings_id** | **number** |  | [optional] [default to undefined]
+**outbound_guardrail_llm_settings_id** | **number** |  | [optional] [default to undefined]
+**embedding_llm_settings_id** | **number** |  | [optional] [default to undefined]
+**transcription_llm_settings_id** | **number** |  | [optional] [default to undefined]
+**maintenance_start_at** | **string** |  | [optional] [default to undefined]
+**maintenance_end_at** | **string** |  | [optional] [default to undefined]
+**maintenance_message** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { SystemSettings } from 'neuland-hub-sdk';
+
+const instance: SystemSettings = {
+    created_at,
+    updated_at,
+    id,
+    maintenance_enabled,
+    tracing_enabled,
+    inbound_guardrail_llm_settings_id,
+    outbound_guardrail_llm_settings_id,
+    embedding_llm_settings_id,
+    transcription_llm_settings_id,
+    maintenance_start_at,
+    maintenance_end_at,
+    maintenance_message,
+};
+```

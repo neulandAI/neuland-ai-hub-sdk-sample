@@ -1,0 +1,28 @@
+---
+title: "TenantModelBulkIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**all** | **bool** |  | [optional] 
+**tenant_ids** | **List[int]** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of TenantModelBulkIn from a JSON string
+tenant_model_bulk_in_instance = TenantModelBulkIn.from_json(json)
+# print the JSON string representation of the object
+print(TenantModelBulkIn.to_json())
+
+# convert the object into a dict
+tenant_model_bulk_in_dict = tenant_model_bulk_in_instance.to_dict()
+# create an instance of TenantModelBulkIn from a dict
+tenant_model_bulk_in_from_dict = TenantModelBulkIn.from_dict(tenant_model_bulk_in_dict)
+```

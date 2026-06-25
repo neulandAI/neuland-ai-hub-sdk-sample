@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**members** | [**List[LibraryMemberIn]**](LibraryMemberIn.md) |  | 
+**members** | [**List[LibraryMemberIn]**](LibraryMemberIn.md) | Members to add to the library. | 
 
 ## Example
 

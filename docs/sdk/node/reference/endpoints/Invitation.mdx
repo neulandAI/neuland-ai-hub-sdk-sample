@@ -1,0 +1,296 @@
+---
+title: "Invitation"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**invitationsAcceptInvitationComplete**](#invitationsacceptinvitationcomplete) | **POST** /invitations/accept | Accept an invitation|
+|[**invitationsAcceptInvitationForm**](#invitationsacceptinvitationform) | **GET** /invitations/accept | Invitation acceptance HTML form|
+|[**invitationsCreateInvitations**](#invitationscreateinvitations) | **POST** /invitations/ | Create invitations|
+|[**invitationsResendInvitation**](#invitationsresendinvitation) | **POST** /invitations/&#123;invitation_id&#125;/resend | Resend an invitation|
+|[**invitationsRevokeInvitation**](#invitationsrevokeinvitation) | **POST** /invitations/&#123;invitation_id&#125;/revoke | Revoke an invitation|
+
+## **invitationsAcceptInvitationComplete**
+```typescript
+any invitationsAcceptInvitationComplete()
+```
+
+Complete invitation acceptance and create user account.
+
+### Example
+
+```typescript
+import {
+    Invitation,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Invitation(configuration);
+
+let token: string; //Invitation JWT token (default to undefined)
+
+const { status, data } = await apiInstance.invitationsAcceptInvitationComplete(
+    token
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **token** | [**string**] | Invitation JWT token | defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **invitationsAcceptInvitationForm**
+```typescript
+string invitationsAcceptInvitationForm()
+```
+
+Fallback HTML form for accepting invitation when no frontend is available.
+
+### Example
+
+```typescript
+import {
+    Invitation,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Invitation(configuration);
+
+let token: string; //Invitation JWT token (default to undefined)
+
+const { status, data } = await apiInstance.invitationsAcceptInvitationForm(
+    token
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **token** | [**string**] | Invitation JWT token | defaults to undefined|
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/html, application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **invitationsCreateInvitations**
+```typescript
+Array<InvitationOut> invitationsCreateInvitations(invitationIn)
+```
+
+Invite the given email addresses, skipping ones already invited or registered.
+
+### Example
+
+```typescript
+import {
+    Invitation,
+    Configuration,
+    InvitationIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Invitation(configuration);
+
+let invitationIn: InvitationIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.invitationsCreateInvitations(
+    invitationIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **invitationIn** | **InvitationIn**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;InvitationOut>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin or project owner privileges required. |  -  |
+|**404** | The target tenant or project does not exist. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **invitationsResendInvitation**
+```typescript
+InvitationOut invitationsResendInvitation()
+```
+
+Resend the invitation email for a pending invitation.
+
+### Example
+
+```typescript
+import {
+    Invitation,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Invitation(configuration);
+
+let invitationId: number; //ID of the invitation to resend. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.invitationsResendInvitation(
+    invitationId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **invitationId** | [**number**] | ID of the invitation to resend. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**InvitationOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required. |  -  |
+|**404** | No invitation exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **invitationsRevokeInvitation**
+```typescript
+invitationsRevokeInvitation()
+```
+
+Revoke a pending invitation so its token can no longer be used.
+
+### Example
+
+```typescript
+import {
+    Invitation,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Invitation(configuration);
+
+let invitationId: number; //ID of the invitation to revoke. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.invitationsRevokeInvitation(
+    invitationId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **invitationId** | [**number**] | ID of the invitation to revoke. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required. |  -  |
+|**404** | No invitation exists with the given id. |  -  |
+|**422** | Validation Error |  -  |

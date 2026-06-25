@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **string** |  | [default to undefined]
-**slug** | **string** |  | [default to undefined]
+**name** | **string** | Internal name of the tenant. | [default to undefined]
+**slug** | **string** | URL-safe unique identifier for the tenant. | [default to undefined]
 **domain** | **string** |  | [optional] [default to undefined]
-**timezone** | **string** |  | [default to undefined]
-**locale** | **string** |  | [default to undefined]
+**timezone** | **string** | Default IANA timezone for the tenant. | [default to undefined]
+**locale** | **string** | Default locale for the tenant. | [default to undefined]
 **display_name** | **string** |  | [optional] [default to undefined]
 **motto** | **string** |  | [optional] [default to undefined]
 **logo_url** | **string** |  | [optional] [default to undefined]

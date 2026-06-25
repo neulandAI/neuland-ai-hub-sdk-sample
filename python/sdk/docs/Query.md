@@ -4,14 +4,16 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**query_query**](Query.md#query_query) | **GET** /query/{path} | Query
-[**query_query_rpc**](Query.md#query_query_rpc) | **GET** /query/rpc/{path} | Query Rpc
+[**query_query**](Query.md#query_query) | **GET** /query/{path} | Proxy a PostgREST query
+[**query_query_rpc**](Query.md#query_query_rpc) | **GET** /query/rpc/{path} | Proxy a PostgREST RPC call
 
 
 # **query_query**
 > object query_query(path, cookie_name=cookie_name)
 
-Query
+Proxy a PostgREST query
+
+Forward the request to the upstream PostgREST service and return its response.
 
 ### Example
 
@@ -46,11 +48,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Query(api_client)
-    path = 'path_example' # str | 
+    path = 'path_example' # str | PostgREST resource path to proxy.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Query
+        # Proxy a PostgREST query
         api_response = api_instance.query_query(path, cookie_name=cookie_name)
         print("The response of Query->query_query:\n")
         pprint(api_response)
@@ -65,7 +67,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **path** | **str**|  | 
+ **path** | **str**| PostgREST resource path to proxy. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -86,6 +88,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**502** | The upstream PostgREST service is unavailable. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -93,7 +97,9 @@ Name | Type | Description  | Notes
 # **query_query_rpc**
 > object query_query_rpc(path, cookie_name=cookie_name)
 
-Query Rpc
+Proxy a PostgREST RPC call
+
+Forward the request to an upstream PostgREST RPC endpoint and return its response.
 
 ### Example
 
@@ -128,11 +134,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Query(api_client)
-    path = 'path_example' # str | 
+    path = 'path_example' # str | PostgREST RPC function name to invoke.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Query Rpc
+        # Proxy a PostgREST RPC call
         api_response = api_instance.query_query_rpc(path, cookie_name=cookie_name)
         print("The response of Query->query_query_rpc:\n")
         pprint(api_response)
@@ -147,7 +153,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **path** | **str**|  | 
+ **path** | **str**| PostgREST RPC function name to invoke. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -168,6 +174,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**502** | The upstream PostgREST service is unavailable. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

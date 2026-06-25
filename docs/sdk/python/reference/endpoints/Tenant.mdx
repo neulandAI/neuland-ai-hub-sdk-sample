@@ -1,0 +1,1712 @@
+---
+title: "Tenant"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**tenants_add_library_to_tenants**](/sdk/python/reference/endpoints/Tenant#tenants_add_library_to_tenants) | **POST** /tenants/&#123;tenant_id&#125;/libraries/&#123;library_id&#125; | Assign a library to a tenant
+[**tenants_create_tenant**](/sdk/python/reference/endpoints/Tenant#tenants_create_tenant) | **POST** /tenants/ | Create a tenant
+[**tenants_create_tenant_connector**](/sdk/python/reference/endpoints/Tenant#tenants_create_tenant_connector) | **POST** /tenants/&#123;tenant_id&#125;/connectors/&#123;connector_id&#125; | Enable a connector for a tenant
+[**tenants_create_tenant_oauth_client**](/sdk/python/reference/endpoints/Tenant#tenants_create_tenant_oauth_client) | **POST** /tenants/&#123;tenant_id&#125;/oauth-clients/&#123;oauth_client_id&#125; | Create Tenant Oauth Client
+[**tenants_create_tenant_tool**](/sdk/python/reference/endpoints/Tenant#tenants_create_tenant_tool) | **POST** /tenants/&#123;tenant_id&#125;/tools/&#123;tool_id&#125; | Enable a tool for a tenant
+[**tenants_delete_tenant**](/sdk/python/reference/endpoints/Tenant#tenants_delete_tenant) | **DELETE** /tenants/&#123;tenant_id&#125; | Delete a tenant
+[**tenants_delete_tenant_connector**](/sdk/python/reference/endpoints/Tenant#tenants_delete_tenant_connector) | **DELETE** /tenants/&#123;tenant_id&#125;/connectors/&#123;connector_id&#125; | Disable a connector for a tenant
+[**tenants_delete_tenant_model**](/sdk/python/reference/endpoints/Tenant#tenants_delete_tenant_model) | **DELETE** /tenants/&#123;tenant_id&#125;/models/&#123;model_id&#125; | Disable a model for a tenant
+[**tenants_delete_tenant_models_bulk**](/sdk/python/reference/endpoints/Tenant#tenants_delete_tenant_models_bulk) | **DELETE** /tenants/models/&#123;model_id&#125;/bulk | Disable a model for multiple tenants
+[**tenants_delete_tenant_oauth_client**](/sdk/python/reference/endpoints/Tenant#tenants_delete_tenant_oauth_client) | **DELETE** /tenants/&#123;tenant_id&#125;/oauth-clients/&#123;oauth_client_id&#125; | Delete Tenant Oauth Client
+[**tenants_delete_tenant_tool**](/sdk/python/reference/endpoints/Tenant#tenants_delete_tenant_tool) | **DELETE** /tenants/&#123;tenant_id&#125;/tools/&#123;tool_id&#125; | Disable a tool for a tenant
+[**tenants_get_current_tenant**](/sdk/python/reference/endpoints/Tenant#tenants_get_current_tenant) | **GET** /tenants/current | Get current tenant
+[**tenants_put_tenant_model**](/sdk/python/reference/endpoints/Tenant#tenants_put_tenant_model) | **PUT** /tenants/&#123;tenant_id&#125;/models/&#123;model_id&#125; | Enable a model for a tenant
+[**tenants_put_tenant_models_bulk**](/sdk/python/reference/endpoints/Tenant#tenants_put_tenant_models_bulk) | **PUT** /tenants/models/&#123;model_id&#125;/bulk | Enable a model for multiple tenants
+[**tenants_remove_tenant_library_member**](/sdk/python/reference/endpoints/Tenant#tenants_remove_tenant_library_member) | **DELETE** /tenants/&#123;tenant_id&#125;/libraries/&#123;library_id&#125; | Unassign a library from a tenant
+[**tenants_update_current_tenant**](/sdk/python/reference/endpoints/Tenant#tenants_update_current_tenant) | **PATCH** /tenants/current | Update current tenant
+[**tenants_update_tenant**](/sdk/python/reference/endpoints/Tenant#tenants_update_tenant) | **PATCH** /tenants/&#123;tenant_id&#125; | Update a tenant
+[**tenants_update_tenant_oauth_client**](/sdk/python/reference/endpoints/Tenant#tenants_update_tenant_oauth_client) | **PATCH** /tenants/&#123;tenant_id&#125;/oauth-clients/&#123;oauth_client_id&#125; | Update Tenant Oauth Client
+[**tenants_update_tenant_oauth_secret**](/sdk/python/reference/endpoints/Tenant#tenants_update_tenant_oauth_secret) | **PUT** /tenants/&#123;tenant_id&#125;/oauth-clients/&#123;oauth_client_id&#125;/secret | Update Tenant Oauth Secret
+
+
+## **tenants_add_library_to_tenants**
+```python
+object tenants_add_library_to_tenants(library_id, tenant_id, cookie_name=cookie_name)
+```
+
+Assign a library to a tenant
+
+Assign a library to a tenant (library owner who is admin of that tenant).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    library_id = 56 # int | 
+    tenant_id = 56 # int | ID of the tenant.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Assign a library to a tenant
+        api_response = api_instance.tenants_add_library_to_tenants(library_id, tenant_id, cookie_name=cookie_name)
+        print("The response of Tenant->tenants_add_library_to_tenants:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_add_library_to_tenants: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **library_id** | **int**|  | 
+ **tenant_id** | **int**| ID of the tenant. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Library owner and tenant admin privileges required. |  -  |
+**404** | Current user not found. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_create_tenant**
+```python
+TenantOut tenants_create_tenant(tenant_in, cookie_name=cookie_name, tenant_id=tenant_id)
+```
+
+Create a tenant
+
+Create a new tenant (platform operator or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_in import TenantIn
+from neuland_hub_sdk.models.tenant_out import TenantOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_in = neuland_hub_sdk.TenantIn() # TenantIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
+
+    try:
+        # Create a tenant
+        api_response = api_instance.tenants_create_tenant(tenant_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Tenant->tenants_create_tenant:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_create_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_in** | [**TenantIn**](/sdk/python/reference/models/TenantIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+ **tenant_id** | **int**|  | [optional] 
+
+### Return type
+
+[**TenantOut**](/sdk/python/reference/models/TenantOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin privileges required, or not permitted to create this kind of tenant. |  -  |
+**404** | Current user or parent tenant not found. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_create_tenant_connector**
+```python
+object tenants_create_tenant_connector(tenant_id, connector_id, cookie_name=cookie_name)
+```
+
+Enable a connector for a tenant
+
+Enable a connector for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    connector_id = 56 # int | ID of the connector to enable.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Enable a connector for a tenant
+        api_response = api_instance.tenants_create_tenant_connector(tenant_id, connector_id, cookie_name=cookie_name)
+        print("The response of Tenant->tenants_create_tenant_connector:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_create_tenant_connector: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **connector_id** | **int**| ID of the connector to enable. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin or parent tenant admin required. |  -  |
+**404** | No connector exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_create_tenant_oauth_client**
+```python
+TenantOAuthClientOut tenants_create_tenant_oauth_client(tenant_id, oauth_client_id, tenant_o_auth_client_in, cookie_name=cookie_name)
+```
+
+Create Tenant Oauth Client
+
+Provision per-tenant SSO config + secret for a deployment-wide template.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_o_auth_client_in import TenantOAuthClientIn
+from neuland_hub_sdk.models.tenant_o_auth_client_out import TenantOAuthClientOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    oauth_client_id = 56 # int | 
+    tenant_o_auth_client_in = neuland_hub_sdk.TenantOAuthClientIn() # TenantOAuthClientIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Create Tenant Oauth Client
+        api_response = api_instance.tenants_create_tenant_oauth_client(tenant_id, oauth_client_id, tenant_o_auth_client_in, cookie_name=cookie_name)
+        print("The response of Tenant->tenants_create_tenant_oauth_client:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_create_tenant_oauth_client: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **oauth_client_id** | **int**|  | 
+ **tenant_o_auth_client_in** | [**TenantOAuthClientIn**](/sdk/python/reference/models/TenantOAuthClientIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**TenantOAuthClientOut**](/sdk/python/reference/models/TenantOAuthClientOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_create_tenant_tool**
+```python
+object tenants_create_tenant_tool(tenant_id, tool_id, cookie_name=cookie_name)
+```
+
+Enable a tool for a tenant
+
+Enable a tool for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    tool_id = 56 # int | ID of the tool to enable.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Enable a tool for a tenant
+        api_response = api_instance.tenants_create_tenant_tool(tenant_id, tool_id, cookie_name=cookie_name)
+        print("The response of Tenant->tenants_create_tenant_tool:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_create_tenant_tool: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **tool_id** | **int**| ID of the tool to enable. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin or parent tenant admin required. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_delete_tenant**
+```python
+tenants_delete_tenant(tenant_id, cookie_name=cookie_name)
+```
+
+Delete a tenant
+
+Delete a tenant by id (superadmin or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Delete a tenant
+        api_instance.tenants_delete_tenant(tenant_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_delete_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin or parent tenant admin required. |  -  |
+**404** | No tenant exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_delete_tenant_connector**
+```python
+tenants_delete_tenant_connector(tenant_id, connector_id, cookie_name=cookie_name)
+```
+
+Disable a connector for a tenant
+
+Disable a connector for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    connector_id = 56 # int | ID of the connector to disable.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Disable a connector for a tenant
+        api_instance.tenants_delete_tenant_connector(tenant_id, connector_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_delete_tenant_connector: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **connector_id** | **int**| ID of the connector to disable. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin or parent tenant admin required. |  -  |
+**404** | The connector is not enabled for the tenant. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_delete_tenant_model**
+```python
+tenants_delete_tenant_model(tenant_id, model_id, cookie_name=cookie_name)
+```
+
+Disable a model for a tenant
+
+Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    model_id = 56 # int | ID of the LLM catalog model to disable.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Disable a model for a tenant
+        api_instance.tenants_delete_tenant_model(tenant_id, model_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_delete_tenant_model: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **model_id** | **int**| ID of the LLM catalog model to disable. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin or parent tenant admin required. |  -  |
+**404** | Tenant model association not found. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_delete_tenant_models_bulk**
+```python
+tenants_delete_tenant_models_bulk(model_id, tenant_model_bulk_in, cookie_name=cookie_name)
+```
+
+Disable a model for multiple tenants
+
+Disable an LLM catalog model for all tenants or a list of tenants (superadmin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    model_id = 56 # int | ID of the LLM catalog model to disable.
+    tenant_model_bulk_in = neuland_hub_sdk.TenantModelBulkIn() # TenantModelBulkIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Disable a model for multiple tenants
+        api_instance.tenants_delete_tenant_models_bulk(model_id, tenant_model_bulk_in, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_delete_tenant_models_bulk: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model_id** | **int**| ID of the LLM catalog model to disable. | 
+ **tenant_model_bulk_in** | [**TenantModelBulkIn**](/sdk/python/reference/models/TenantModelBulkIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin privileges required. |  -  |
+**404** | Catalog model not found, or a target tenant not found. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_delete_tenant_oauth_client**
+```python
+tenants_delete_tenant_oauth_client(tenant_id, oauth_client_id, cookie_name=cookie_name)
+```
+
+Delete Tenant Oauth Client
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    oauth_client_id = 56 # int | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Delete Tenant Oauth Client
+        api_instance.tenants_delete_tenant_oauth_client(tenant_id, oauth_client_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_delete_tenant_oauth_client: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **oauth_client_id** | **int**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_delete_tenant_tool**
+```python
+tenants_delete_tenant_tool(tenant_id, tool_id, cookie_name=cookie_name)
+```
+
+Disable a tool for a tenant
+
+Disable a tool for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    tool_id = 56 # int | ID of the tool to disable.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Disable a tool for a tenant
+        api_instance.tenants_delete_tenant_tool(tenant_id, tool_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_delete_tenant_tool: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **tool_id** | **int**| ID of the tool to disable. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin or parent tenant admin required. |  -  |
+**404** | The tool is not enabled for the tenant. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_get_current_tenant**
+```python
+TenantOut tenants_get_current_tenant(cookie_name=cookie_name)
+```
+
+Get current tenant
+
+Get the tenant the current user belongs to.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_out import TenantOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Get current tenant
+        api_response = api_instance.tenants_get_current_tenant(cookie_name=cookie_name)
+        print("The response of Tenant->tenants_get_current_tenant:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_get_current_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**TenantOut**](/sdk/python/reference/models/TenantOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_put_tenant_model**
+```python
+TenantLLM tenants_put_tenant_model(tenant_id, model_id, cookie_name=cookie_name)
+```
+
+Enable a model for a tenant
+
+Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_llm import TenantLLM
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    model_id = 56 # int | ID of the LLM catalog model to enable.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Enable a model for a tenant
+        api_response = api_instance.tenants_put_tenant_model(tenant_id, model_id, cookie_name=cookie_name)
+        print("The response of Tenant->tenants_put_tenant_model:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_put_tenant_model: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **model_id** | **int**| ID of the LLM catalog model to enable. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**TenantLLM**](/sdk/python/reference/models/TenantLLM)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin or parent tenant admin required. |  -  |
+**404** | Tenant or catalog model not found. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_put_tenant_models_bulk**
+```python
+tenants_put_tenant_models_bulk(model_id, tenant_model_bulk_in, cookie_name=cookie_name)
+```
+
+Enable a model for multiple tenants
+
+Enable an LLM catalog model for all tenants or a list of tenants (superadmin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    model_id = 56 # int | ID of the LLM catalog model to enable.
+    tenant_model_bulk_in = neuland_hub_sdk.TenantModelBulkIn() # TenantModelBulkIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Enable a model for multiple tenants
+        api_instance.tenants_put_tenant_models_bulk(model_id, tenant_model_bulk_in, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_put_tenant_models_bulk: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **model_id** | **int**| ID of the LLM catalog model to enable. | 
+ **tenant_model_bulk_in** | [**TenantModelBulkIn**](/sdk/python/reference/models/TenantModelBulkIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin privileges required. |  -  |
+**404** | Catalog model not found, or a target tenant not found. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_remove_tenant_library_member**
+```python
+tenants_remove_tenant_library_member(library_id, tenant_id, cookie_name=cookie_name)
+```
+
+Unassign a library from a tenant
+
+Remove a library assignment from a tenant (library owner who is tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    library_id = 56 # int | 
+    tenant_id = 56 # int | ID of the tenant.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Unassign a library from a tenant
+        api_instance.tenants_remove_tenant_library_member(library_id, tenant_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_remove_tenant_library_member: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **library_id** | **int**|  | 
+ **tenant_id** | **int**| ID of the tenant. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Library owner and tenant admin privileges required. |  -  |
+**404** | The library is not assigned to the tenant. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_update_current_tenant**
+```python
+TenantOut tenants_update_current_tenant(tenant_update_in, cookie_name=cookie_name, tenant_id=tenant_id)
+```
+
+Update current tenant
+
+Update the current user's tenant (tenant admin; some fields superadmin-only).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_out import TenantOut
+from neuland_hub_sdk.models.tenant_update_in import TenantUpdateIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_update_in = neuland_hub_sdk.TenantUpdateIn() # TenantUpdateIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+    tenant_id = 56 # int |  (optional)
+
+    try:
+        # Update current tenant
+        api_response = api_instance.tenants_update_current_tenant(tenant_update_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        print("The response of Tenant->tenants_update_current_tenant:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_update_current_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_update_in** | [**TenantUpdateIn**](/sdk/python/reference/models/TenantUpdateIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+ **tenant_id** | **int**|  | [optional] 
+
+### Return type
+
+[**TenantOut**](/sdk/python/reference/models/TenantOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Tenant admin privileges required, or superadmin required to change protected fields. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_update_tenant**
+```python
+TenantOut tenants_update_tenant(tenant_id, tenant_update_in, cookie_name=cookie_name)
+```
+
+Update a tenant
+
+Update a tenant by id (superadmin or parent tenant admin).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_out import TenantOut
+from neuland_hub_sdk.models.tenant_update_in import TenantUpdateIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    tenant_update_in = neuland_hub_sdk.TenantUpdateIn() # TenantUpdateIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Update a tenant
+        api_response = api_instance.tenants_update_tenant(tenant_id, tenant_update_in, cookie_name=cookie_name)
+        print("The response of Tenant->tenants_update_tenant:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_update_tenant: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **tenant_update_in** | [**TenantUpdateIn**](/sdk/python/reference/models/TenantUpdateIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**TenantOut**](/sdk/python/reference/models/TenantOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin or parent tenant admin required; some fields require superadmin. |  -  |
+**404** | No tenant exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_update_tenant_oauth_client**
+```python
+TenantOAuthClientOut tenants_update_tenant_oauth_client(tenant_id, oauth_client_id, tenant_o_auth_client_update, cookie_name=cookie_name)
+```
+
+Update Tenant Oauth Client
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.tenant_o_auth_client_out import TenantOAuthClientOut
+from neuland_hub_sdk.models.tenant_o_auth_client_update import TenantOAuthClientUpdate
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    oauth_client_id = 56 # int | 
+    tenant_o_auth_client_update = neuland_hub_sdk.TenantOAuthClientUpdate() # TenantOAuthClientUpdate | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Update Tenant Oauth Client
+        api_response = api_instance.tenants_update_tenant_oauth_client(tenant_id, oauth_client_id, tenant_o_auth_client_update, cookie_name=cookie_name)
+        print("The response of Tenant->tenants_update_tenant_oauth_client:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_update_tenant_oauth_client: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **oauth_client_id** | **int**|  | 
+ **tenant_o_auth_client_update** | [**TenantOAuthClientUpdate**](/sdk/python/reference/models/TenantOAuthClientUpdate)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**TenantOAuthClientOut**](/sdk/python/reference/models/TenantOAuthClientOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+
+## **tenants_update_tenant_oauth_secret**
+```python
+tenants_update_tenant_oauth_secret(tenant_id, oauth_client_id, secret_update_in, cookie_name=cookie_name)
+```
+
+Update Tenant Oauth Secret
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.secret_update_in import SecretUpdateIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Tenant(api_client)
+    tenant_id = 56 # int | 
+    oauth_client_id = 56 # int | 
+    secret_update_in = neuland_hub_sdk.SecretUpdateIn() # SecretUpdateIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Update Tenant Oauth Secret
+        api_instance.tenants_update_tenant_oauth_secret(tenant_id, oauth_client_id, secret_update_in, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Tenant->tenants_update_tenant_oauth_secret: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tenant_id** | **int**|  | 
+ **oauth_client_id** | **int**|  | 
+ **secret_update_in** | [**SecretUpdateIn**](/sdk/python/reference/models/SecretUpdateIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |

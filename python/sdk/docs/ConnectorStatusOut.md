@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**connector_id** | **int** |  | 
-**name** | **str** |  | 
-**connected** | **bool** |  | 
-**needs_consent** | **bool** |  | 
-**missing_caps** | **List[str]** |  | 
+**connector_id** | **int** | Unique identifier of the connector. | 
+**name** | **str** | Human-readable connector name. | 
+**connected** | **bool** | Whether the current user has a valid consent for this connector. | 
+**needs_consent** | **bool** | Whether the user must (re)grant consent to use this connector. | 
+**missing_caps** | **List[Optional[str]]** | Capabilities not yet covered by the user&#39;s consent. | 
 
 ## Example
 

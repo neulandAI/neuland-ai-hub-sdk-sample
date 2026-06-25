@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**invitationsAcceptInvitationComplete**](#invitationsacceptinvitationcomplete) | **POST** /invitations/accept | Accept Invitation Complete|
-|[**invitationsAcceptInvitationForm**](#invitationsacceptinvitationform) | **GET** /invitations/accept | Accept Invitation Form|
-|[**invitationsCreateInvitations**](#invitationscreateinvitations) | **POST** /invitations/ | Create Invitations|
-|[**invitationsResendInvitation**](#invitationsresendinvitation) | **POST** /invitations/{invitation_id}/resend | Resend Invitation|
-|[**invitationsRevokeInvitation**](#invitationsrevokeinvitation) | **POST** /invitations/{invitation_id}/revoke | Revoke Invitation|
+|[**invitationsAcceptInvitationComplete**](#invitationsacceptinvitationcomplete) | **POST** /invitations/accept | Accept an invitation|
+|[**invitationsAcceptInvitationForm**](#invitationsacceptinvitationform) | **GET** /invitations/accept | Invitation acceptance HTML form|
+|[**invitationsCreateInvitations**](#invitationscreateinvitations) | **POST** /invitations/ | Create invitations|
+|[**invitationsResendInvitation**](#invitationsresendinvitation) | **POST** /invitations/{invitation_id}/resend | Resend an invitation|
+|[**invitationsRevokeInvitation**](#invitationsrevokeinvitation) | **POST** /invitations/{invitation_id}/revoke | Revoke an invitation|
 
 # **invitationsAcceptInvitationComplete**
 > any invitationsAcceptInvitationComplete()
@@ -117,6 +117,7 @@ No authorization required
 # **invitationsCreateInvitations**
 > Array<InvitationOut> invitationsCreateInvitations(invitationIn)
 
+Invite the given email addresses, skipping ones already invited or registered.
 
 ### Example
 
@@ -165,6 +166,9 @@ const { status, data } = await apiInstance.invitationsCreateInvitations(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin or project owner privileges required. |  -  |
+|**404** | The target tenant or project does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -172,7 +176,7 @@ const { status, data } = await apiInstance.invitationsCreateInvitations(
 # **invitationsResendInvitation**
 > InvitationOut invitationsResendInvitation()
 
-Resend invitation email with a new token.
+Resend the invitation email for a pending invitation.
 
 ### Example
 
@@ -185,7 +189,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
 
-let invitationId: number; // (default to undefined)
+let invitationId: number; //ID of the invitation to resend. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.invitationsResendInvitation(
@@ -198,7 +202,7 @@ const { status, data } = await apiInstance.invitationsResendInvitation(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **invitationId** | [**number**] |  | defaults to undefined|
+| **invitationId** | [**number**] | ID of the invitation to resend. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -220,6 +224,9 @@ const { status, data } = await apiInstance.invitationsResendInvitation(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required. |  -  |
+|**404** | No invitation exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -227,6 +234,7 @@ const { status, data } = await apiInstance.invitationsResendInvitation(
 # **invitationsRevokeInvitation**
 > invitationsRevokeInvitation()
 
+Revoke a pending invitation so its token can no longer be used.
 
 ### Example
 
@@ -239,7 +247,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
 
-let invitationId: number; // (default to undefined)
+let invitationId: number; //ID of the invitation to revoke. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.invitationsRevokeInvitation(
@@ -252,7 +260,7 @@ const { status, data } = await apiInstance.invitationsRevokeInvitation(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **invitationId** | [**number**] |  | defaults to undefined|
+| **invitationId** | [**number**] | ID of the invitation to revoke. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -274,6 +282,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required. |  -  |
+|**404** | No invitation exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -6,8 +6,8 @@ Represents a single point in the timeseries data.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**var_date** | **str** |  | 
-**cost** | **float** |  | 
+**var_date** | **str** | Date of the data point (YYYY-MM-DD). | 
+**cost** | **float** | Cost incurred on this date. | 
 
 ## Example
 

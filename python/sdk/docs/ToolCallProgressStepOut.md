@@ -1,0 +1,31 @@
+# ToolCallProgressStepOut
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** | Name of the progress step. | 
+**message** | **str** | Human-readable progress message. | 
+**step_index** | **int** | Zero-based order of the step within the tool call. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.tool_call_progress_step_out import ToolCallProgressStepOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ToolCallProgressStepOut from a JSON string
+tool_call_progress_step_out_instance = ToolCallProgressStepOut.from_json(json)
+# print the JSON string representation of the object
+print(ToolCallProgressStepOut.to_json())
+
+# convert the object into a dict
+tool_call_progress_step_out_dict = tool_call_progress_step_out_instance.to_dict()
+# create an instance of ToolCallProgressStepOut from a dict
+tool_call_progress_step_out_from_dict = ToolCallProgressStepOut.from_dict(tool_call_progress_step_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

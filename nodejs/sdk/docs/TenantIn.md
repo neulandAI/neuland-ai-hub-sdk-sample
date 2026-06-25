@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **string** |  | [default to undefined]
-**slug** | **string** |  | [default to undefined]
+**name** | **string** | Internal name of the tenant. | [default to undefined]
+**slug** | **string** | URL-safe unique identifier for the tenant. | [default to undefined]
 **domain** | **string** |  | [optional] [default to undefined]
 **parent_tenant_id** | **number** |  | [optional] [default to undefined]
 **subtenants_enabled** | **boolean** |  | [optional] [default to undefined]
@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **tarif_expires_at** | **string** |  | [optional] [default to undefined]
 **max_users** | **number** |  | [optional] [default to undefined]
 **max_projects** | **number** |  | [optional] [default to undefined]
+**licenses** | **number** |  | [optional] [default to undefined]
 **display_name** | **string** |  | [optional] [default to undefined]
 **motto** | **string** |  | [optional] [default to undefined]
 **logo_url** | **string** |  | [optional] [default to undefined]
@@ -47,6 +48,7 @@ const instance: TenantIn = {
     tarif_expires_at,
     max_users,
     max_projects,
+    licenses,
     display_name,
     motto,
     logo_url,

@@ -1,0 +1,29 @@
+# PromptOptimizeOut
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**content** | **str** | The rewritten, optimized prompt text. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.prompt_optimize_out import PromptOptimizeOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of PromptOptimizeOut from a JSON string
+prompt_optimize_out_instance = PromptOptimizeOut.from_json(json)
+# print the JSON string representation of the object
+print(PromptOptimizeOut.to_json())
+
+# convert the object into a dict
+prompt_optimize_out_dict = prompt_optimize_out_instance.to_dict()
+# create an instance of PromptOptimizeOut from a dict
+prompt_optimize_out_from_dict = PromptOptimizeOut.from_dict(prompt_optimize_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

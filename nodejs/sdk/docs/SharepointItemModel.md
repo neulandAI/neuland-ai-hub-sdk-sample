@@ -1,15 +1,16 @@
 # SharepointItemModel
 
+A file or folder item in a SharePoint drive.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  | [default to undefined]
-**web_url** | **string** |  | [default to undefined]
-**drive_id** | **string** |  | [default to undefined]
+**id** | **string** | Drive item id. | [default to undefined]
+**web_url** | **string** | URL to open the item in SharePoint. | [default to undefined]
+**drive_id** | **string** | Id of the drive containing the item. | [default to undefined]
 **site_id** | **string** |  | [default to undefined]
-**parent_folder_id** | **string** |  | [default to undefined]
+**parent_folder_id** | **string** | Id of the parent folder, or \&#39;root\&#39;. | [default to undefined]
 **parent_path** | **string** |  | [default to undefined]
 **name** | **string** |  | [default to undefined]
 **description** | **string** |  | [default to undefined]

@@ -1,0 +1,98 @@
+---
+title: "ToolAction"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**toolactions_send_email_from_draft**](/sdk/python/reference/endpoints/ToolAction#toolactions_send_email_from_draft) | **POST** /tool-actions/email/send | Send an email from a draft
+
+
+## **toolactions_send_email_from_draft**
+```python
+SendEmailResponse toolactions_send_email_from_draft(send_email_request, cookie_name=cookie_name)
+```
+
+Send an email from a draft
+
+Send an email from a user-approved, tool-generated draft via Microsoft Graph.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.send_email_request import SendEmailRequest
+from neuland_hub_sdk.models.send_email_response import SendEmailResponse
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.ToolAction(api_client)
+    send_email_request = neuland_hub_sdk.SendEmailRequest() # SendEmailRequest | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Send an email from a draft
+        api_response = api_instance.toolactions_send_email_from_draft(send_email_request, cookie_name=cookie_name)
+        print("The response of ToolAction->toolactions_send_email_from_draft:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ToolAction->toolactions_send_email_from_draft: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **send_email_request** | [**SendEmailRequest**](/sdk/python/reference/models/SendEmailRequest)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**SendEmailResponse**](/sdk/python/reference/models/SendEmailResponse)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**400** | No recipient provided or the mail provider rejected the send. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |

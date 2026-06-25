@@ -1,5 +1,6 @@
 # CostCompletionTokens1
 
+Cost per completion token in the billing currency.
 
 ## Properties
 

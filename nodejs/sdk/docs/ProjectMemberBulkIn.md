@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**members** | [**Array&lt;ProjectMemberIn&gt;**](ProjectMemberIn.md) |  | [default to undefined]
+**members** | [**Array&lt;ProjectMemberIn&gt;**](ProjectMemberIn.md) | List of members to add to the project. | [default to undefined]
 
 ## Example
 

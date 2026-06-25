@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**granularity** | **string** |  | [optional] [default to GranularityEnum_monthly]
+**granularity** | **string** | Aggregation window; \&#39;custom\&#39; requires date_start and date_end. | [optional] [default to GranularityEnum_monthly]
 **date_start** | **string** |  | [optional] [default to undefined]
 **date_end** | **string** |  | [optional] [default to undefined]
 **source** | **string** |  | [optional] [default to undefined]

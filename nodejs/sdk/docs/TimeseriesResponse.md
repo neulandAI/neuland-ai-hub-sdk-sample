@@ -6,8 +6,8 @@ Timeseries response model for LLM costs. Contains total cost for the current mon
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total_cost** | **number** |  | [default to undefined]
-**timeseries** | **{ [key: string]: Array&lt;TimeseriesPoint&gt;; }** |  | [default to undefined]
+**total_cost** | **number** | Total LLM cost for the current month across all models. | [default to undefined]
+**timeseries** | **{ [key: string]: Array&lt;TimeseriesPoint&gt;; }** | Cost timeseries keyed by model name. | [default to undefined]
 
 ## Example
 

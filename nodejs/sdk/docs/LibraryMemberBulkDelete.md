@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_ids** | **Array&lt;number&gt;** |  | [default to undefined]
+**user_ids** | **Array&lt;number&gt;** | IDs of the users to remove from the library. | [default to undefined]
 
 ## Example
 

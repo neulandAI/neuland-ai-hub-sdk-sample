@@ -1,0 +1,27 @@
+---
+title: "ConnectorOut"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **number** | Unique identifier of the connector. | [default to undefined]
+**name** | **string** | Human-readable connector name. | [default to undefined]
+**provider** | **string** | OAuth provider key backing the connector. | [default to undefined]
+**caps** | **Array&lt;string&gt;** | Capabilities the connector requests. | [default to undefined]
+**scopes** | **Array&lt;string&gt;** | OAuth scopes requested from the provider. | [default to undefined]
+
+## Example
+
+```typescript
+import { ConnectorOut } from 'neuland-hub-sdk';
+
+const instance: ConnectorOut = {
+    id,
+    name,
+    provider,
+    caps,
+    scopes,
+};
+```

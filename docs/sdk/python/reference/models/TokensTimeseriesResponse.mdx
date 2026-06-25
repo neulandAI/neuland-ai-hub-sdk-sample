@@ -1,0 +1,34 @@
+---
+title: "TokensTimeseriesResponse"
+---
+
+Response model for LLM tokens with timeseries data.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**total_prompt_tokens** | **float** | Total prompt tokens across all models for the current month. | 
+**total_completion_tokens** | **float** | Total completion tokens across all models for the current month. | 
+**total_requests** | **float** | Total requests across all models for the current month. | 
+**total_tokens** | **float** | Total tokens (prompt + completion) for the current month. | 
+**tokens_per_model** | [**List[TokensPerModel]**](/sdk/python/reference/models/TokensPerModel) | Current-month token summary for each model. | 
+**timeseries_per_model** | [**List[TokenTimeseriesPerModel]**](/sdk/python/reference/models/TokenTimeseriesPerModel) | Token usage timeseries for each model. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.tokens_timeseries_response import TokensTimeseriesResponse
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of TokensTimeseriesResponse from a JSON string
+tokens_timeseries_response_instance = TokensTimeseriesResponse.from_json(json)
+# print the JSON string representation of the object
+print(TokensTimeseriesResponse.to_json())
+
+# convert the object into a dict
+tokens_timeseries_response_dict = tokens_timeseries_response_instance.to_dict()
+# create an instance of TokensTimeseriesResponse from a dict
+tokens_timeseries_response_from_dict = TokensTimeseriesResponse.from_dict(tokens_timeseries_response_dict)
+```

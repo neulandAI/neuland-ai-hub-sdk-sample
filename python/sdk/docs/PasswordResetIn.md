@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**old_password** | **str** |  | 
-**new_password** | **str** |  | 
+**old_password** | **str** | Current password, required to authorize the change. | 
+**new_password** | **str** | New password to set. | 
 
 ## Example
 

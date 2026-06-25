@@ -4,98 +4,28 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**auth_azure_entra_callback**](Auth.md#auth_azure_entra_callback) | **GET** /auth/callback/azure-entra | Azure Entra Callback
-[**auth_confirm_email**](Auth.md#auth_confirm_email) | **GET** /auth/confirm-email | Confirm Email
-[**auth_exchange_token**](Auth.md#auth_exchange_token) | **POST** /auth/exchange/token | Exchange Token
-[**auth_get_entra_groups**](Auth.md#auth_get_entra_groups) | **GET** /auth/entra/groups | Get Entra Groups
-[**auth_get_entra_scopes**](Auth.md#auth_get_entra_scopes) | **GET** /auth/entra/scopes | Get Entra Scopes
-[**auth_login**](Auth.md#auth_login) | **POST** /auth/token | Login
-[**auth_logout**](Auth.md#auth_logout) | **POST** /auth/logout | Logout
-[**auth_oidc_callback**](Auth.md#auth_oidc_callback) | **GET** /auth/callback/oidc | Oidc Callback
-[**auth_request_password_reset**](Auth.md#auth_request_password_reset) | **POST** /auth/request-password-reset | Request Password Reset
-[**auth_reset_password**](Auth.md#auth_reset_password) | **POST** /auth/reset-password | Reset Password
-[**auth_reset_password_form**](Auth.md#auth_reset_password_form) | **GET** /auth/reset-password | Reset Password Form
-[**auth_send_email_confirmation**](Auth.md#auth_send_email_confirmation) | **POST** /auth/send-email-confirmation | Send Email Confirmation
+[**auth_confirm_email**](Auth.md#auth_confirm_email) | **GET** /auth/confirm-email | Confirm an email address
+[**auth_exchange_token**](Auth.md#auth_exchange_token) | **POST** /auth/exchange/token | Exchange for a service token
+[**auth_get_entra_groups**](Auth.md#auth_get_entra_groups) | **GET** /auth/entra/groups | Get Entra group names
+[**auth_get_entra_scopes**](Auth.md#auth_get_entra_scopes) | **GET** /auth/entra/scopes | List Entra scopes
+[**auth_login**](Auth.md#auth_login) | **POST** /auth/token | Log in
+[**auth_logout**](Auth.md#auth_logout) | **POST** /auth/logout | Log out
+[**auth_request_password_reset**](Auth.md#auth_request_password_reset) | **POST** /auth/request-password-reset | Request a password reset
+[**auth_reset_password**](Auth.md#auth_reset_password) | **POST** /auth/reset-password | Complete a password reset
+[**auth_reset_password_form**](Auth.md#auth_reset_password_form) | **GET** /auth/reset-password | Password reset HTML form
+[**auth_search_entra_groups**](Auth.md#auth_search_entra_groups) | **GET** /auth/entra/groups/search | Search Entra Groups
+[**auth_send_email_confirmation**](Auth.md#auth_send_email_confirmation) | **POST** /auth/send-email-confirmation | Send an email confirmation
+[**auth_sso_exchange**](Auth.md#auth_sso_exchange) | **POST** /auth/sso/{slug}/{provider}/exchange | Sso Exchange
+[**auth_sso_init**](Auth.md#auth_sso_init) | **GET** /auth/sso/{slug}/{provider}/init | Sso Init
+[**auth_sso_resolve**](Auth.md#auth_sso_resolve) | **GET** /auth/sso/resolve | Sso Resolve
 
-
-# **auth_azure_entra_callback**
-> Dict[str, object] auth_azure_entra_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
-
-Azure Entra Callback
-
-### Example
-
-
-```python
-import neuland_hub_sdk
-from neuland_hub_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
-)
-
-
-# Enter a context with an instance of the API client
-with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
-    code = 'code_example' # str | Authorization code from Azure Entra ID
-    user_agent = 'user_agent_example' # str |  (optional)
-    x_real_ip = 'x_real_ip_example' # str |  (optional)
-    x_forwarded_for = 'x_forwarded_for_example' # str |  (optional)
-    x_client_ip = 'x_client_ip_example' # str |  (optional)
-
-    try:
-        # Azure Entra Callback
-        api_response = api_instance.auth_azure_entra_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
-        print("The response of Auth->auth_azure_entra_callback:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling Auth->auth_azure_entra_callback: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **code** | **str**| Authorization code from Azure Entra ID | 
- **user_agent** | **str**|  | [optional] 
- **x_real_ip** | **str**|  | [optional] 
- **x_forwarded_for** | **str**|  | [optional] 
- **x_client_ip** | **str**|  | [optional] 
-
-### Return type
-
-**Dict[str, object]**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful Response |  -  |
-**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_confirm_email**
 > object auth_confirm_email(token, accept=accept)
 
-Confirm Email
+Confirm an email address
+
+Confirm a user's email address (or pending email change) using a token from the email link.
 
 ### Example
 
@@ -120,7 +50,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     accept = 'accept_example' # str |  (optional)
 
     try:
-        # Confirm Email
+        # Confirm an email address
         api_response = api_instance.auth_confirm_email(token, accept=accept)
         print("The response of Auth->auth_confirm_email:\n")
         pprint(api_response)
@@ -156,6 +86,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**400** | Invalid or expired confirmation link. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -163,9 +94,9 @@ No authorization required
 # **auth_exchange_token**
 > str auth_exchange_token(app_id)
 
-Exchange Token
+Exchange for a service token
 
-service token endpoint for AI applications
+Exchange the caller's token for a service token scoped to an AI application.
 
 ### Example
 
@@ -193,10 +124,10 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Auth(api_client)
-    app_id = 56 # int | 
+    app_id = 56 # int | ID of the AI application to scope the token to.
 
     try:
-        # Exchange Token
+        # Exchange for a service token
         api_response = api_instance.auth_exchange_token(app_id)
         print("The response of Auth->auth_exchange_token:\n")
         pprint(api_response)
@@ -211,7 +142,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**|  | 
+ **app_id** | **int**| ID of the AI application to scope the token to. | 
 
 ### Return type
 
@@ -231,6 +162,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | No application exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -238,9 +171,9 @@ Name | Type | Description  | Notes
 # **auth_get_entra_groups**
 > Dict[str, ResponseAuthGetEntraGroupsValue] auth_get_entra_groups()
 
-Get Entra Groups
+Get Entra group names
 
-Get Azure Entra group names for current user's groups
+Resolve Azure Entra group display names for the current user's groups.
 
 ### Example
 
@@ -271,7 +204,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Auth(api_client)
 
     try:
-        # Get Entra Groups
+        # Get Entra group names
         api_response = api_instance.auth_get_entra_groups()
         print("The response of Auth->auth_get_entra_groups:\n")
         pprint(api_response)
@@ -303,13 +236,16 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_get_entra_scopes**
 > List[Optional[str]] auth_get_entra_scopes()
 
-Get Entra Scopes
+List Entra scopes
+
+List the Azure Entra OAuth scopes the platform requests.
 
 ### Example
 
@@ -332,7 +268,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Auth(api_client)
 
     try:
-        # Get Entra Scopes
+        # List Entra scopes
         api_response = api_instance.auth_get_entra_scopes()
         print("The response of Auth->auth_get_entra_scopes:\n")
         pprint(api_response)
@@ -370,7 +306,9 @@ No authorization required
 # **auth_login**
 > TokenOut auth_login(username, password, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip, session_id=session_id, grant_type=grant_type, scope=scope, client_id=client_id, client_secret=client_secret)
 
-Login
+Log in
+
+Authenticate with username and password and return an access token.
 
 ### Example
 
@@ -405,7 +343,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     client_secret = 'client_secret_example' # str |  (optional)
 
     try:
-        # Login
+        # Log in
         api_response = api_instance.auth_login(username, password, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip, session_id=session_id, grant_type=grant_type, scope=scope, client_id=client_id, client_secret=client_secret)
         print("The response of Auth->auth_login:\n")
         pprint(api_response)
@@ -450,6 +388,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Invalid email or password. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -457,7 +396,9 @@ No authorization required
 # **auth_logout**
 > object auth_logout()
 
-Logout
+Log out
+
+Revoke the current session so its token can no longer authenticate.
 
 ### Example
 
@@ -487,7 +428,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Auth(api_client)
 
     try:
-        # Logout
+        # Log out
         api_response = api_instance.auth_logout()
         print("The response of Auth->auth_logout:\n")
         pprint(api_response)
@@ -519,90 +460,17 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **auth_oidc_callback**
-> Dict[str, object] auth_oidc_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
-
-Oidc Callback
-
-### Example
-
-
-```python
-import neuland_hub_sdk
-from neuland_hub_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
-)
-
-
-# Enter a context with an instance of the API client
-with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
-    code = 'code_example' # str | Authorization code from OIDC provider
-    user_agent = 'user_agent_example' # str |  (optional)
-    x_real_ip = 'x_real_ip_example' # str |  (optional)
-    x_forwarded_for = 'x_forwarded_for_example' # str |  (optional)
-    x_client_ip = 'x_client_ip_example' # str |  (optional)
-
-    try:
-        # Oidc Callback
-        api_response = api_instance.auth_oidc_callback(code, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
-        print("The response of Auth->auth_oidc_callback:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling Auth->auth_oidc_callback: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **code** | **str**| Authorization code from OIDC provider | 
- **user_agent** | **str**|  | [optional] 
- **x_real_ip** | **str**|  | [optional] 
- **x_forwarded_for** | **str**|  | [optional] 
- **x_client_ip** | **str**|  | [optional] 
-
-### Return type
-
-**Dict[str, object]**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful Response |  -  |
-**422** | Validation Error |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | Session not found. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_request_password_reset**
 > auth_request_password_reset(password_reset_request_in, origin=origin)
 
-Request Password Reset
+Request a password reset
 
-Request password reset. Always returns 200 OK to prevent user enumeration.
-Sends email with reset link if user exists and origin is valid.
+Send a password reset link if the account exists; always succeeds to prevent enumeration.
 
 ### Example
 
@@ -628,7 +496,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     origin = 'origin_example' # str |  (optional)
 
     try:
-        # Request Password Reset
+        # Request a password reset
         api_instance.auth_request_password_reset(password_reset_request_in, origin=origin)
     except Exception as e:
         print("Exception when calling Auth->auth_request_password_reset: %s\n" % e)
@@ -669,11 +537,9 @@ No authorization required
 # **auth_reset_password**
 > auth_reset_password(token)
 
-Reset Password
+Complete a password reset
 
-Complete password reset with token and new password.
-Validates token, updates password, and revokes all user sessions.
-Accepts both JSON (for API) and form data (for HTML fallback).
+Validate the reset token, set the new password, and revoke all of the user's sessions.
 
 ### Example
 
@@ -697,7 +563,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     token = 'token_example' # str | Password reset JWT token
 
     try:
-        # Reset Password
+        # Complete a password reset
         api_instance.auth_reset_password(token)
     except Exception as e:
         print("Exception when calling Auth->auth_reset_password: %s\n" % e)
@@ -737,11 +603,9 @@ No authorization required
 # **auth_reset_password_form**
 > str auth_reset_password_form(token)
 
-Reset Password Form
+Password reset HTML form
 
-Fallback HTML form for password reset when no frontend is available.
-Displays a secure form with basic security measures.
-Validates token before showing form.
+Render the fallback HTML password-reset form for when no frontend is available.
 
 ### Example
 
@@ -765,7 +629,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     token = 'token_example' # str | Password reset JWT token
 
     try:
-        # Reset Password Form
+        # Password reset HTML form
         api_response = api_instance.auth_reset_password_form(token)
         print("The response of Auth->auth_reset_password_form:\n")
         pprint(api_response)
@@ -804,10 +668,100 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **auth_search_entra_groups**
+> Dict[str, object] auth_search_entra_groups(q=q, cursor=cursor, tenant_id=tenant_id, cookie_name=cookie_name)
+
+Search Entra Groups
+
+Search/browse Entra directory groups (delegated) for binding to a HUB group.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Auth(api_client)
+    q = 'q_example' # str | Name/description search; empty browses alphabetically (optional)
+    cursor = 'cursor_example' # str | Page cursor from a prior response's `next` (optional)
+    tenant_id = 56 # int |  (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Search Entra Groups
+        api_response = api_instance.auth_search_entra_groups(q=q, cursor=cursor, tenant_id=tenant_id, cookie_name=cookie_name)
+        print("The response of Auth->auth_search_entra_groups:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Auth->auth_search_entra_groups: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **q** | **str**| Name/description search; empty browses alphabetically | [optional] 
+ **cursor** | **str**| Page cursor from a prior response&#39;s &#x60;next&#x60; | [optional] 
+ **tenant_id** | **int**|  | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**Dict[str, object]**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **auth_send_email_confirmation**
 > auth_send_email_confirmation(cookie_name=cookie_name)
 
-Send Email Confirmation
+Send an email confirmation
+
+Send a confirmation email to the current user unless their email is already verified.
 
 ### Example
 
@@ -845,7 +799,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Send Email Confirmation
+        # Send an email confirmation
         api_instance.auth_send_email_confirmation(cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Auth->auth_send_email_confirmation: %s\n" % e)
@@ -878,6 +832,232 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **auth_sso_exchange**
+> TokenOut auth_sso_exchange(slug, provider, sso_exchange_in, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
+
+Sso Exchange
+
+Exchange an IdP authorization code (with the signed state from init)
+for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
+
+### Example
+
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sso_exchange_in import SsoExchangeIn
+from neuland_hub_sdk.models.token_out import TokenOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Auth(api_client)
+    slug = 'slug_example' # str | 
+    provider = 'provider_example' # str | 
+    sso_exchange_in = neuland_hub_sdk.SsoExchangeIn() # SsoExchangeIn | 
+    user_agent = 'user_agent_example' # str |  (optional)
+    x_real_ip = 'x_real_ip_example' # str |  (optional)
+    x_forwarded_for = 'x_forwarded_for_example' # str |  (optional)
+    x_client_ip = 'x_client_ip_example' # str |  (optional)
+
+    try:
+        # Sso Exchange
+        api_response = api_instance.auth_sso_exchange(slug, provider, sso_exchange_in, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
+        print("The response of Auth->auth_sso_exchange:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Auth->auth_sso_exchange: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **slug** | **str**|  | 
+ **provider** | **str**|  | 
+ **sso_exchange_in** | [**SsoExchangeIn**](SsoExchangeIn.md)|  | 
+ **user_agent** | **str**|  | [optional] 
+ **x_real_ip** | **str**|  | [optional] 
+ **x_forwarded_for** | **str**|  | [optional] 
+ **x_client_ip** | **str**|  | [optional] 
+
+### Return type
+
+[**TokenOut**](TokenOut.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **auth_sso_init**
+> SsoInitOut auth_sso_init(slug, provider)
+
+Sso Init
+
+Return the IdP authorize URL + signed state token. No cookies, no redirect.
+Frontend uses the response to redirect the browser to the IdP itself.
+
+### Example
+
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sso_init_out import SsoInitOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Auth(api_client)
+    slug = 'slug_example' # str | 
+    provider = 'provider_example' # str | 
+
+    try:
+        # Sso Init
+        api_response = api_instance.auth_sso_init(slug, provider)
+        print("The response of Auth->auth_sso_init:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Auth->auth_sso_init: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **slug** | **str**|  | 
+ **provider** | **str**|  | 
+
+### Return type
+
+[**SsoInitOut**](SsoInitOut.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **auth_sso_resolve**
+> SsoResolveOut auth_sso_resolve(domain)
+
+Sso Resolve
+
+Pre-login step: resolve a tenant from its domain and
+return the routing slug and available SSO providers.
+
+### Example
+
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sso_resolve_out import SsoResolveOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Auth(api_client)
+    domain = 'domain_example' # str | 
+
+    try:
+        # Sso Resolve
+        api_response = api_instance.auth_sso_resolve(domain)
+        print("The response of Auth->auth_sso_resolve:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Auth->auth_sso_resolve: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **domain** | **str**|  | 
+
+### Return type
+
+[**SsoResolveOut**](SsoResolveOut.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

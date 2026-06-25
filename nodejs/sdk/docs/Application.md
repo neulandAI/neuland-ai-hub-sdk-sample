@@ -4,16 +4,16 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**applicationsCreateApp**](#applicationscreateapp) | **POST** /applications/ | Create App|
-|[**applicationsDeleteApp**](#applicationsdeleteapp) | **DELETE** /applications/{app_id} | Delete App|
-|[**applicationsUpdateApp**](#applicationsupdateapp) | **PATCH** /applications/{app_id} | Update App|
-|[**applicationsUpdateGroupMembership**](#applicationsupdategroupmembership) | **PUT** /applications/group/access | Update Group Membership|
-|[**applicationsUpdateUserMembership**](#applicationsupdateusermembership) | **PUT** /applications/user/access | Update User Membership|
+|[**applicationsCreateApp**](#applicationscreateapp) | **POST** /applications/ | Create an application|
+|[**applicationsDeleteApp**](#applicationsdeleteapp) | **DELETE** /applications/{app_id} | Delete an application|
+|[**applicationsUpdateApp**](#applicationsupdateapp) | **PATCH** /applications/{app_id} | Update an application|
+|[**applicationsUpdateGroupMembership**](#applicationsupdategroupmembership) | **PUT** /applications/group/access | Set application access for a user group|
+|[**applicationsUpdateUserMembership**](#applicationsupdateusermembership) | **PUT** /applications/user/access | Set application access for users|
 
 # **applicationsCreateApp**
 > any applicationsCreateApp(applicationIn)
 
-Create a new application
+Create a new application (superadmin only).
 
 ### Example
 
@@ -62,6 +62,8 @@ const { status, data } = await apiInstance.applicationsCreateApp(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -69,7 +71,7 @@ const { status, data } = await apiInstance.applicationsCreateApp(
 # **applicationsDeleteApp**
 > applicationsDeleteApp()
 
-Delete an application
+Delete an application (superadmin only).
 
 ### Example
 
@@ -82,7 +84,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);
 
-let appId: number; // (default to undefined)
+let appId: number; //ID of the application to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.applicationsDeleteApp(
@@ -95,7 +97,7 @@ const { status, data } = await apiInstance.applicationsDeleteApp(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **appId** | [**number**] |  | defaults to undefined|
+| **appId** | [**number**] | ID of the application to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -117,6 +119,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | No application exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -124,7 +129,7 @@ void (empty response body)
 # **applicationsUpdateApp**
 > Application applicationsUpdateApp(applicationIn)
 
-Update an existing application
+Update an existing application (superadmin only).
 
 ### Example
 
@@ -138,7 +143,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);
 
-let appId: number; // (default to undefined)
+let appId: number; //ID of the application to update. (default to undefined)
 let applicationIn: ApplicationIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -154,7 +159,7 @@ const { status, data } = await apiInstance.applicationsUpdateApp(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **applicationIn** | **ApplicationIn**|  | |
-| **appId** | [**number**] |  | defaults to undefined|
+| **appId** | [**number**] | ID of the application to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -176,6 +181,9 @@ const { status, data } = await apiInstance.applicationsUpdateApp(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | No application exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -183,7 +191,7 @@ const { status, data } = await apiInstance.applicationsUpdateApp(
 # **applicationsUpdateGroupMembership**
 > Array<ApplicationGroup> applicationsUpdateGroupMembership(groupAppAccessIn)
 
-Grant or update app access for a user group
+Grant or update application access for a user group (tenant admin only).
 
 ### Example
 
@@ -235,6 +243,9 @@ const { status, data } = await apiInstance.applicationsUpdateGroupMembership(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required. |  -  |
+|**404** | Application not found, or one or more groups not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -242,7 +253,7 @@ const { status, data } = await apiInstance.applicationsUpdateGroupMembership(
 # **applicationsUpdateUserMembership**
 > Array<ApplicationMember> applicationsUpdateUserMembership(applicationAccessIn)
 
-Grant or update app access for list of users
+Grant or update application access for a list of users (tenant admin only).
 
 ### Example
 
@@ -294,6 +305,9 @@ const { status, data } = await apiInstance.applicationsUpdateUserMembership(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Tenant admin privileges required. |  -  |
+|**404** | No application exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

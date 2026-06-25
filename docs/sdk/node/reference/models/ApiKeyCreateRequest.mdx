@@ -1,0 +1,23 @@
+---
+title: "ApiKeyCreateRequest"
+---
+
+Payload for creating an API key. All fields are optional.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [optional] [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { ApiKeyCreateRequest } from 'neuland-hub-sdk';
+
+const instance: ApiKeyCreateRequest = {
+    name,
+    description,
+};
+```

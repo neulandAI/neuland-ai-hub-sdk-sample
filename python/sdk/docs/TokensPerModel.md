@@ -6,12 +6,12 @@ Model for total tokens of one llm resource.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_model** | **str** |  | 
-**duration** | **str** |  | 
-**total_tokens_count** | **float** |  | 
-**prompt_token_count** | **float** |  | 
-**completion_token_count** | **float** |  | 
-**total_requests** | **float** |  | 
+**llm_model** | **str** | Catalog name of the model. | 
+**duration** | **str** | Window the totals cover. | 
+**total_tokens_count** | **float** | Total tokens (prompt + completion) in the window. | 
+**prompt_token_count** | **float** | Prompt tokens consumed in the window. | 
+**completion_token_count** | **float** | Completion tokens generated in the window. | 
+**total_requests** | **float** | Number of requests in the window. | 
 
 ## Example
 

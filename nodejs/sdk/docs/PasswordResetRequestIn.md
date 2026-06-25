@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**email** | **string** |  | [default to undefined]
+**email** | **string** | Email address of the account to send a reset link to. | [default to undefined]
 
 ## Example
 

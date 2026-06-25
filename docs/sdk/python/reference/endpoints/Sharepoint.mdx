@@ -1,0 +1,572 @@
+---
+title: "Sharepoint"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**integrations_get_item_info**](/sdk/python/reference/endpoints/Sharepoint#integrations_get_item_info) | **GET** /integrations/sharepoint/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125; | Get a drive item
+[**integrations_get_user_info**](/sdk/python/reference/endpoints/Sharepoint#integrations_get_user_info) | **GET** /integrations/sharepoint/me | Get current SharePoint user
+[**integrations_is_connected**](/sdk/python/reference/endpoints/Sharepoint#integrations_is_connected) | **GET** /integrations/sharepoint/connected | Check SharePoint connection
+[**integrations_list_all_sites**](/sdk/python/reference/endpoints/Sharepoint#integrations_list_all_sites) | **GET** /integrations/sharepoint/sites | List SharePoint sites
+[**integrations_list_children**](/sdk/python/reference/endpoints/Sharepoint#integrations_list_children) | **GET** /integrations/sharepoint/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125;/children | List children of a drive item
+[**integrations_list_drives**](/sdk/python/reference/endpoints/Sharepoint#integrations_list_drives) | **GET** /integrations/sharepoint/sites/&#123;site_id&#125;/drives | List drives in a site
+
+
+## **integrations_get_item_info**
+```python
+SharepointItemModel integrations_get_item_info(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+```
+
+Get a drive item
+
+Get a single SharePoint drive item, annotated with imported counts.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    drive_id = 'drive_id_example' # str | Id of the drive.
+    drive_item_id = 'drive_item_id_example' # str | Id of the drive item.
+    chat_id = 56 # int | Scope imported counts to this chat. (optional)
+    library_id = 56 # int | Scope imported counts to this library. (optional)
+    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
+    project_id = 56 # int | Scope imported counts to this project. (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Get a drive item
+        api_response = api_instance.integrations_get_item_info(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_get_item_info:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Sharepoint->integrations_get_item_info: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **drive_id** | **str**| Id of the drive. | 
+ **drive_item_id** | **str**| Id of the drive item. | 
+ **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **int**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**SharepointItemModel**](/sdk/python/reference/models/SharepointItemModel)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **integrations_get_user_info**
+```python
+SharepointUserModel integrations_get_user_info(cookie_name=cookie_name)
+```
+
+Get current SharePoint user
+
+Return the signed-in user's SharePoint / Microsoft Graph profile.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sharepoint_user_model import SharepointUserModel
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Get current SharePoint user
+        api_response = api_instance.integrations_get_user_info(cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_get_user_info:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Sharepoint->integrations_get_user_info: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**SharepointUserModel**](/sdk/python/reference/models/SharepointUserModel)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **integrations_is_connected**
+```python
+bool integrations_is_connected(cookie_name=cookie_name)
+```
+
+Check SharePoint connection
+
+Report whether the user has consented to the SharePoint file-read scope.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Check SharePoint connection
+        api_response = api_instance.integrations_is_connected(cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_is_connected:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Sharepoint->integrations_is_connected: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **integrations_list_all_sites**
+```python
+List[SharepointSiteModel] integrations_list_all_sites(chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+```
+
+List SharePoint sites
+
+List the SharePoint sites the user can access, with imported document counts.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sharepoint_site_model import SharepointSiteModel
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    chat_id = 56 # int | Scope imported counts to this chat. (optional)
+    library_id = 56 # int | Scope imported counts to this library. (optional)
+    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
+    project_id = 56 # int | Scope imported counts to this project. (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List SharePoint sites
+        api_response = api_instance.integrations_list_all_sites(chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_list_all_sites:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Sharepoint->integrations_list_all_sites: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **int**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[SharepointSiteModel]**](/sdk/python/reference/models/SharepointSiteModel)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **integrations_list_children**
+```python
+List[SharepointItemModel] integrations_list_children(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, recursive=recursive, cookie_name=cookie_name)
+```
+
+List children of a drive item
+
+List files and folders under a drive item, annotated with imported counts.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    drive_id = 'drive_id_example' # str | Id of the drive.
+    drive_item_id = 'drive_item_id_example' # str | Id of the parent item; empty or 'root' for the drive root.
+    chat_id = 56 # int | Scope imported counts to this chat. (optional)
+    library_id = 56 # int | Scope imported counts to this library. (optional)
+    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
+    project_id = 56 # int | Scope imported counts to this project. (optional)
+    recursive = False # bool | Recurse into subfolders, returning only files. (optional) (default to False)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List children of a drive item
+        api_response = api_instance.integrations_list_children(drive_id, drive_item_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, recursive=recursive, cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_list_children:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Sharepoint->integrations_list_children: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **drive_id** | **str**| Id of the drive. | 
+ **drive_item_id** | **str**| Id of the parent item; empty or &#39;root&#39; for the drive root. | 
+ **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **int**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **recursive** | **bool**| Recurse into subfolders, returning only files. | [optional] [default to False]
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[SharepointItemModel]**](/sdk/python/reference/models/SharepointItemModel)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **integrations_list_drives**
+```python
+List[SharepointDriveModel] integrations_list_drives(site_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+```
+
+List drives in a site
+
+List the document libraries (drives) within a SharePoint site.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.sharepoint_drive_model import SharepointDriveModel
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    site_id = 'site_id_example' # str | SharePoint site id.
+    chat_id = 56 # int | Scope imported counts to this chat. (optional)
+    library_id = 56 # int | Scope imported counts to this library. (optional)
+    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
+    project_id = 56 # int | Scope imported counts to this project. (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List drives in a site
+        api_response = api_instance.integrations_list_drives(site_id, chat_id=chat_id, library_id=library_id, assistant_id=assistant_id, project_id=project_id, cookie_name=cookie_name)
+        print("The response of Sharepoint->integrations_list_drives:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Sharepoint->integrations_list_drives: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **site_id** | **str**| SharePoint site id. | 
+ **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **int**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[SharepointDriveModel]**](/sdk/python/reference/models/SharepointDriveModel)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+**403** | User has not consented to the required SharePoint scope. |  -  |
+**422** | Validation Error |  -  |

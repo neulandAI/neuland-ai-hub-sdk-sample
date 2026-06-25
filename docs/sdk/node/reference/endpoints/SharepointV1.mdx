@@ -1,0 +1,462 @@
+---
+title: "SharepointV1"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**sharepointv1Capabilities**](#sharepointv1capabilities) | **GET** /integrations/sharepoint/v1/capabilities | Get data source capabilities|
+|[**sharepointv1GetItemInfo**](#sharepointv1getiteminfo) | **GET** /integrations/sharepoint/v1/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125; | Get a drive item|
+|[**sharepointv1GetUserInfo**](#sharepointv1getuserinfo) | **GET** /integrations/sharepoint/v1/me | Get current data source user|
+|[**sharepointv1IsConnected**](#sharepointv1isconnected) | **GET** /integrations/sharepoint/v1/connected | Check data source connection|
+|[**sharepointv1ListChildren**](#sharepointv1listchildren) | **GET** /integrations/sharepoint/v1/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125;/children | List children of a drive item|
+|[**sharepointv1ListDrives**](#sharepointv1listdrives) | **GET** /integrations/sharepoint/v1/sites/&#123;site_id&#125;/drives | List drives in a site|
+|[**sharepointv1ListRoots**](#sharepointv1listroots) | **GET** /integrations/sharepoint/v1/roots | List top-level browse entries|
+
+## **sharepointv1Capabilities**
+```typescript
+DataSourceCapabilities sharepointv1Capabilities()
+```
+
+Return the browse-hierarchy metadata for this data source.
+
+### Example
+
+```typescript
+import {
+    SharepointV1,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new SharepointV1(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.sharepointv1Capabilities(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**DataSourceCapabilities**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **sharepointv1GetItemInfo**
+```typescript
+DataSourceItemModel sharepointv1GetItemInfo()
+```
+
+Get a single data source drive item, annotated with imported counts.
+
+### Example
+
+```typescript
+import {
+    SharepointV1,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new SharepointV1(configuration);
+
+let driveId: string; //Id of the drive. (default to undefined)
+let driveItemId: string; //Id of the drive item. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.sharepointv1GetItemInfo(
+    driveId,
+    driveItemId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **driveId** | [**string**] | Id of the drive. | defaults to undefined|
+| **driveItemId** | [**string**] | Id of the drive item. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**DataSourceItemModel**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required scope. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **sharepointv1GetUserInfo**
+```typescript
+DataSourceUserModel sharepointv1GetUserInfo()
+```
+
+Return the signed-in user\'s profile on this data source.
+
+### Example
+
+```typescript
+import {
+    SharepointV1,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new SharepointV1(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.sharepointv1GetUserInfo(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**DataSourceUserModel**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required scope. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **sharepointv1IsConnected**
+```typescript
+boolean sharepointv1IsConnected()
+```
+
+Report whether the user has consented to this source\'s browse scopes.
+
+### Example
+
+```typescript
+import {
+    SharepointV1,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new SharepointV1(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.sharepointv1IsConnected(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**boolean**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **sharepointv1ListChildren**
+```typescript
+Array<DataSourceItemModel> sharepointv1ListChildren()
+```
+
+List files and folders under a drive item, annotated with imported counts.
+
+### Example
+
+```typescript
+import {
+    SharepointV1,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new SharepointV1(configuration);
+
+let driveId: string; //Id of the drive. (default to undefined)
+let driveItemId: string; //Id of the parent item; empty or \'root\' for the drive root. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let recursive: boolean; //Recurse into subfolders, returning only files. (optional) (default to false)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.sharepointv1ListChildren(
+    driveId,
+    driveItemId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    recursive,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **driveId** | [**string**] | Id of the drive. | defaults to undefined|
+| **driveItemId** | [**string**] | Id of the parent item; empty or \&#39;root\&#39; for the drive root. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **recursive** | [**boolean**] | Recurse into subfolders, returning only files. | (optional) defaults to false|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;DataSourceItemModel>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required scope. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **sharepointv1ListDrives**
+```typescript
+Array<DataSourceDriveModel> sharepointv1ListDrives()
+```
+
+List the drives under a site (or the user\'s drives for drive-rooted sources).
+
+### Example
+
+```typescript
+import {
+    SharepointV1,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new SharepointV1(configuration);
+
+let siteId: string; //Id of the site to list drives for. (default to undefined)
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.sharepointv1ListDrives(
+    siteId,
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **siteId** | [**string**] | Id of the site to list drives for. | defaults to undefined|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;DataSourceDriveModel>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required scope. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **sharepointv1ListRoots**
+```typescript
+ResponseSharepointv1ListRoots sharepointv1ListRoots()
+```
+
+List the source\'s top-level browse entries (sites or drives) with imported counts.
+
+### Example
+
+```typescript
+import {
+    SharepointV1,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new SharepointV1(configuration);
+
+let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.sharepointv1ListRoots(
+    chatId,
+    libraryId,
+    assistantId,
+    projectId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**ResponseSharepointv1ListRoots**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
+|**403** | User has not consented to the required scope. |  -  |
+|**422** | Validation Error |  -  |

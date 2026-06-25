@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **datetime** |  | [optional] 
-**updated_at** | **datetime** |  | [optional] 
-**assistant_id** | **int** |  | 
-**tool_id** | **int** |  | 
+**created_at** | **datetime** | UTC timestamp when the record was created. | [optional] 
+**updated_at** | **datetime** | UTC timestamp when the record was last updated. | [optional] 
+**assistant_id** | **int** | ID of the assistant the tool is attached to. | 
+**tool_id** | **int** | ID of the tool attached to the assistant. | 
 
 ## Example
 

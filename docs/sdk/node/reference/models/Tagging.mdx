@@ -1,0 +1,31 @@
+---
+title: "Tagging"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**created_at** | **string** | UTC timestamp when the record was created. | [optional] [default to undefined]
+**updated_at** | **string** | UTC timestamp when the record was last updated. | [optional] [default to undefined]
+**tag_id** | **number** | ID of the tag being applied. | [default to undefined]
+**taggable_type** | **string** | Resource type this tag is attached to. | [default to undefined]
+**taggable_id** | **number** | ID of the resource. | [default to undefined]
+**tenant_id** | **number** | ID of the tenant that owns the tagging. | [default to undefined]
+**creator_user_id** | **number** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { Tagging } from 'neuland-hub-sdk';
+
+const instance: Tagging = {
+    created_at,
+    updated_at,
+    tag_id,
+    taggable_type,
+    taggable_id,
+    tenant_id,
+    creator_user_id,
+};
+```

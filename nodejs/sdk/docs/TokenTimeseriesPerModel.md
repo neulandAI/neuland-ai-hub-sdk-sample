@@ -6,8 +6,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_model** | **string** |  | [default to undefined]
-**timeseries** | **{ [key: string]: Array&lt;TokenTimeseriesPoint&gt;; }** |  | [default to undefined]
+**llm_model** | **string** | Catalog name of the model. | [default to undefined]
+**timeseries** | **{ [key: string]: Array&lt;TokenTimeseriesPoint&gt;; }** | Per-metric timeseries keyed by metric name (PromptTokens, CompletionTokens, TotalTokens). | [default to undefined]
 
 ## Example
 

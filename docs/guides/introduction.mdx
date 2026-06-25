@@ -1,0 +1,32 @@
+---
+title: "Introduction"
+description: "REST API and SDK for the Neuland AI Hub platform."
+---
+
+The **Neuland AI Hub API** powers chat, retrieval-augmented document Q&A,
+assistants, and the surrounding workspace, tenant, and integration features of
+the platform.
+
+You can use the API in two ways:
+
+<CardGroup cols={2}>
+  <Card title="REST API" icon="server" href="/guides/quickstart">
+    Call the HTTP endpoints directly from any language. Browse every endpoint
+    in the <b>API Reference</b> tab.
+  </Card>
+  <Card title="SDKs" icon="cube" href="/sdk/python/installation">
+    Use the generated client libraries for typed requests and responses —
+    available for <b>Python</b> and <b>Node</b>.
+  </Card>
+</CardGroup>
+
+## Base URL
+
+```
+https://api.your-domain.com
+```
+
+## Authentication
+
+Most endpoints require an API key sent in the `X-API-KEY` header. See the
+[Quickstart](/guides/quickstart) for how to create and use one.

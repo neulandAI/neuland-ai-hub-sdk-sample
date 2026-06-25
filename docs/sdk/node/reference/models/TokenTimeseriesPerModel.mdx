@@ -1,0 +1,23 @@
+---
+title: "TokenTimeseriesPerModel"
+---
+
+\"Represents token usage timeseries for a specific LLM model.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**llm_model** | **string** | Catalog name of the model. | [default to undefined]
+**timeseries** | **&#123; [key: string]: Array&lt;TokenTimeseriesPoint&gt;; &#125;** | Per-metric timeseries keyed by metric name (PromptTokens, CompletionTokens, TotalTokens). | [default to undefined]
+
+## Example
+
+```typescript
+import { TokenTimeseriesPerModel } from 'neuland-hub-sdk';
+
+const instance: TokenTimeseriesPerModel = {
+    llm_model,
+    timeseries,
+};
+```

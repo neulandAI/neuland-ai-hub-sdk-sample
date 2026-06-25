@@ -4,18 +4,18 @@ All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**librariesAddLibraryMembers**](#librariesaddlibrarymembers) | **POST** /libraries/{library_id}/members | Add Library Members|
-|[**librariesDeleteLibrary**](#librariesdeletelibrary) | **DELETE** /libraries/{library_id} | Delete Library|
-|[**librariesLeaveLibrary**](#librariesleavelibrary) | **DELETE** /libraries/{library_id}/remove/me | Leave Library|
-|[**librariesNewLibrary**](#librariesnewlibrary) | **POST** /libraries/ | New Library|
-|[**librariesRemoveLibraryMembers**](#librariesremovelibrarymembers) | **DELETE** /libraries/{library_id}/members | Remove Library Members|
-|[**librariesRemoveSingleMember**](#librariesremovesinglemember) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove Single Member|
-|[**librariesUpdateLibrary**](#librariesupdatelibrary) | **PATCH** /libraries/{library_id} | Update Library|
+|[**librariesAddLibraryMembers**](#librariesaddlibrarymembers) | **POST** /libraries/{library_id}/members | Add library members|
+|[**librariesDeleteLibrary**](#librariesdeletelibrary) | **DELETE** /libraries/{library_id} | Delete a library|
+|[**librariesLeaveLibrary**](#librariesleavelibrary) | **DELETE** /libraries/{library_id}/remove/me | Leave a library|
+|[**librariesNewLibrary**](#librariesnewlibrary) | **POST** /libraries/ | Create a library|
+|[**librariesRemoveLibraryMembers**](#librariesremovelibrarymembers) | **DELETE** /libraries/{library_id}/members | Remove library members|
+|[**librariesRemoveSingleMember**](#librariesremovesinglemember) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove a library member|
+|[**librariesUpdateLibrary**](#librariesupdatelibrary) | **PATCH** /libraries/{library_id} | Update a library|
 
 # **librariesAddLibraryMembers**
 > Array<LibraryMember> librariesAddLibraryMembers(libraryMemberBulkIn)
 
-Adds a new member to the library
+Add one or more members to the library; owner only.
 
 ### Example
 
@@ -67,6 +67,9 @@ const { status, data } = await apiInstance.librariesAddLibraryMembers(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller is not an owner of this library. |  -  |
+|**404** | No library exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -74,7 +77,7 @@ const { status, data } = await apiInstance.librariesAddLibraryMembers(
 # **librariesDeleteLibrary**
 > librariesDeleteLibrary()
 
-Delete a library
+Delete a library; owner only.
 
 ### Example
 
@@ -122,6 +125,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller is not an owner of this library. |  -  |
+|**404** | No library exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -129,6 +135,7 @@ void (empty response body)
 # **librariesLeaveLibrary**
 > librariesLeaveLibrary()
 
+Remove the caller from the library\'s members.
 
 ### Example
 
@@ -176,6 +183,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**400** | Cannot leave while you are the sole owner of the library. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller is not a member of this library. |  -  |
+|**404** | No library exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -183,7 +194,7 @@ void (empty response body)
 # **librariesNewLibrary**
 > Library librariesNewLibrary(libraryIn)
 
-Create a new library
+Create a library owned by the caller in their tenant.
 
 ### Example
 
@@ -232,6 +243,7 @@ const { status, data } = await apiInstance.librariesNewLibrary(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -239,7 +251,7 @@ const { status, data } = await apiInstance.librariesNewLibrary(
 # **librariesRemoveLibraryMembers**
 > librariesRemoveLibraryMembers(libraryMemberBulkDelete)
 
-Deletes a member from the library
+Remove one or more members from the library; owner only.
 
 ### Example
 
@@ -291,6 +303,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**400** | Cannot remove the sole owner of the library. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller is not an owner of this library. |  -  |
+|**404** | No library exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -298,6 +314,7 @@ void (empty response body)
 # **librariesRemoveSingleMember**
 > librariesRemoveSingleMember()
 
+Remove a member from the library; owner only unless removing yourself.
 
 ### Example
 
@@ -311,7 +328,7 @@ const configuration = new Configuration();
 const apiInstance = new Library(configuration);
 
 let libraryId: number; // (default to undefined)
-let userId: number; // (default to undefined)
+let userId: number; //ID of the member to remove. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.librariesRemoveSingleMember(
@@ -326,7 +343,7 @@ const { status, data } = await apiInstance.librariesRemoveSingleMember(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **libraryId** | [**number**] |  | defaults to undefined|
-| **userId** | [**number**] |  | defaults to undefined|
+| **userId** | [**number**] | ID of the member to remove. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -348,6 +365,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**400** | Cannot remove the sole owner of the library. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller may not remove this member. |  -  |
+|**404** | No library exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -355,7 +376,7 @@ void (empty response body)
 # **librariesUpdateLibrary**
 > Library librariesUpdateLibrary(libraryUpdateIn)
 
-Update an existing library
+Update name and/or description of an existing library.
 
 ### Example
 
@@ -407,6 +428,9 @@ const { status, data } = await apiInstance.librariesUpdateLibrary(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller is not a member of this library. |  -  |
+|**404** | No library exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

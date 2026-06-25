@@ -1,0 +1,34 @@
+---
+title: "Usage"
+description: "Authenticate and make your first call with the Python SDK."
+---
+
+## Configure the client
+
+```python
+import neuland_hub_sdk
+
+configuration = neuland_hub_sdk.Configuration(
+    host="https://api.your-domain.com",
+)
+configuration.api_key["APIKeyHeader"] = "ak.<key_id>.<secret>"  # sent as X-API-KEY
+```
+
+## Make a request
+
+Each API tag (for example `Alert`, `Chat`, `User`) becomes a client class, and
+each endpoint's `operationId` becomes a method on it. The exact names are listed
+under [API Methods](/sdk/python/reference).
+
+```python
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    api_instance = neuland_hub_sdk.User(api_client)
+    me = api_instance.users_get_myself()
+    print(me)
+```
+
+<Note>
+  The per-endpoint and per-model reference pages in this section are generated
+  directly from the SDK on every release, so they always match the installed
+  package.
+</Note>

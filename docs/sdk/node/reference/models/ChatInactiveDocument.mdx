@@ -1,0 +1,25 @@
+---
+title: "ChatInactiveDocument"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**creator_user_id** | **number** | ID of the user who marked the document inactive. | [default to undefined]
+**created_at** | **string** | Timestamp when the document was marked inactive in the chat. | [optional] [default to undefined]
+**chat_id** | **number** | ID of the chat the inactive document belongs to. | [default to undefined]
+**document_id** | **number** | ID of the document marked inactive in the chat. | [default to undefined]
+
+## Example
+
+```typescript
+import { ChatInactiveDocument } from 'neuland-hub-sdk';
+
+const instance: ChatInactiveDocument = {
+    creator_user_id,
+    created_at,
+    chat_id,
+    document_id,
+};
+```

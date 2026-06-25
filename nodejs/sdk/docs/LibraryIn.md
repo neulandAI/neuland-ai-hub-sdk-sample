@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **string** |  | [default to undefined]
+**name** | **string** | Display name of the library. | [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
 
 ## Example

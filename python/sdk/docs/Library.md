@@ -4,21 +4,21 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**libraries_add_library_members**](Library.md#libraries_add_library_members) | **POST** /libraries/{library_id}/members | Add Library Members
-[**libraries_delete_library**](Library.md#libraries_delete_library) | **DELETE** /libraries/{library_id} | Delete Library
-[**libraries_leave_library**](Library.md#libraries_leave_library) | **DELETE** /libraries/{library_id}/remove/me | Leave Library
-[**libraries_new_library**](Library.md#libraries_new_library) | **POST** /libraries/ | New Library
-[**libraries_remove_library_members**](Library.md#libraries_remove_library_members) | **DELETE** /libraries/{library_id}/members | Remove Library Members
-[**libraries_remove_single_member**](Library.md#libraries_remove_single_member) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove Single Member
-[**libraries_update_library**](Library.md#libraries_update_library) | **PATCH** /libraries/{library_id} | Update Library
+[**libraries_add_library_members**](Library.md#libraries_add_library_members) | **POST** /libraries/{library_id}/members | Add library members
+[**libraries_delete_library**](Library.md#libraries_delete_library) | **DELETE** /libraries/{library_id} | Delete a library
+[**libraries_leave_library**](Library.md#libraries_leave_library) | **DELETE** /libraries/{library_id}/remove/me | Leave a library
+[**libraries_new_library**](Library.md#libraries_new_library) | **POST** /libraries/ | Create a library
+[**libraries_remove_library_members**](Library.md#libraries_remove_library_members) | **DELETE** /libraries/{library_id}/members | Remove library members
+[**libraries_remove_single_member**](Library.md#libraries_remove_single_member) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove a library member
+[**libraries_update_library**](Library.md#libraries_update_library) | **PATCH** /libraries/{library_id} | Update a library
 
 
 # **libraries_add_library_members**
 > List[LibraryMember] libraries_add_library_members(library_id, library_member_bulk_in, cookie_name=cookie_name)
 
-Add Library Members
+Add library members
 
-Adds a new member to the library
+Add one or more members to the library; owner only.
 
 ### Example
 
@@ -60,7 +60,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add Library Members
+        # Add library members
         api_response = api_instance.libraries_add_library_members(library_id, library_member_bulk_in, cookie_name=cookie_name)
         print("The response of Library->libraries_add_library_members:\n")
         pprint(api_response)
@@ -97,6 +97,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller is not an owner of this library. |  -  |
+**404** | No library exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -104,9 +107,9 @@ Name | Type | Description  | Notes
 # **libraries_delete_library**
 > libraries_delete_library(library_id, cookie_name=cookie_name)
 
-Delete Library
-
 Delete a library
+
+Delete a library; owner only.
 
 ### Example
 
@@ -145,7 +148,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Library
+        # Delete a library
         api_instance.libraries_delete_library(library_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Library->libraries_delete_library: %s\n" % e)
@@ -179,6 +182,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller is not an owner of this library. |  -  |
+**404** | No library exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -186,7 +192,9 @@ void (empty response body)
 # **libraries_leave_library**
 > libraries_leave_library(library_id, cookie_name=cookie_name)
 
-Leave Library
+Leave a library
+
+Remove the caller from the library's members.
 
 ### Example
 
@@ -225,7 +233,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Leave Library
+        # Leave a library
         api_instance.libraries_leave_library(library_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Library->libraries_leave_library: %s\n" % e)
@@ -259,6 +267,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**400** | Cannot leave while you are the sole owner of the library. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller is not a member of this library. |  -  |
+**404** | No library exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -266,9 +278,9 @@ void (empty response body)
 # **libraries_new_library**
 > Library libraries_new_library(library_in, cookie_name=cookie_name)
 
-New Library
+Create a library
 
-Create a new library
+Create a library owned by the caller in their tenant.
 
 ### Example
 
@@ -309,7 +321,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # New Library
+        # Create a library
         api_response = api_instance.libraries_new_library(library_in, cookie_name=cookie_name)
         print("The response of Library->libraries_new_library:\n")
         pprint(api_response)
@@ -345,6 +357,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -352,9 +365,9 @@ Name | Type | Description  | Notes
 # **libraries_remove_library_members**
 > libraries_remove_library_members(library_id, library_member_bulk_delete, cookie_name=cookie_name)
 
-Remove Library Members
+Remove library members
 
-Deletes a member from the library
+Remove one or more members from the library; owner only.
 
 ### Example
 
@@ -395,7 +408,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove Library Members
+        # Remove library members
         api_instance.libraries_remove_library_members(library_id, library_member_bulk_delete, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Library->libraries_remove_library_members: %s\n" % e)
@@ -430,6 +443,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**400** | Cannot remove the sole owner of the library. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller is not an owner of this library. |  -  |
+**404** | No library exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -437,7 +454,9 @@ void (empty response body)
 # **libraries_remove_single_member**
 > libraries_remove_single_member(library_id, user_id, cookie_name=cookie_name)
 
-Remove Single Member
+Remove a library member
+
+Remove a member from the library; owner only unless removing yourself.
 
 ### Example
 
@@ -473,11 +492,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Library(api_client)
     library_id = 56 # int | 
-    user_id = 56 # int | 
+    user_id = 56 # int | ID of the member to remove.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove Single Member
+        # Remove a library member
         api_instance.libraries_remove_single_member(library_id, user_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Library->libraries_remove_single_member: %s\n" % e)
@@ -491,7 +510,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **library_id** | **int**|  | 
- **user_id** | **int**|  | 
+ **user_id** | **int**| ID of the member to remove. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -512,6 +531,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**400** | Cannot remove the sole owner of the library. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller may not remove this member. |  -  |
+**404** | No library exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -519,9 +542,9 @@ void (empty response body)
 # **libraries_update_library**
 > Library libraries_update_library(library_id, library_update_in, cookie_name=cookie_name)
 
-Update Library
+Update a library
 
-Update an existing library
+Update name and/or description of an existing library.
 
 ### Example
 
@@ -563,7 +586,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Library
+        # Update a library
         api_response = api_instance.libraries_update_library(library_id, library_update_in, cookie_name=cookie_name)
         print("The response of Library->libraries_update_library:\n")
         pprint(api_response)
@@ -600,6 +623,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller is not a member of this library. |  -  |
+**404** | No library exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

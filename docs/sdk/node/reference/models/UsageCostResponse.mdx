@@ -1,0 +1,39 @@
+---
+title: "UsageCostResponse"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **string** | Start of the aggregation window. | [default to undefined]
+**end_date** | **string** | End of the aggregation window. | [default to undefined]
+**total_cost** | **number** | Total cost across the window. | [default to undefined]
+**total_tokens** | **number** | Total tokens across the window. | [default to undefined]
+**total_prompt_tokens** | **number** | Total prompt tokens across the window. | [default to undefined]
+**total_completion_tokens** | **number** | Total completion tokens across the window. | [default to undefined]
+**total_cached_tokens** | **number** | Total cached prompt tokens across the window. | [default to undefined]
+**record_count** | **number** | Total number of usage records. | [default to undefined]
+**by_source** | [**Array&lt;CostBySource&gt;**](/sdk/node/reference/models/CostBySource) | Cost breakdown grouped by source. | [default to undefined]
+**by_model** | [**Array&lt;CostByModel&gt;**](/sdk/node/reference/models/CostByModel) | Cost breakdown grouped by provider and model. | [default to undefined]
+**timeseries** | [**Array&lt;CostTimeseriesPoint&gt;**](/sdk/node/reference/models/CostTimeseriesPoint) | Daily cost timeseries across the window. | [default to undefined]
+
+## Example
+
+```typescript
+import { UsageCostResponse } from 'neuland-hub-sdk';
+
+const instance: UsageCostResponse = {
+    start_date,
+    end_date,
+    total_cost,
+    total_tokens,
+    total_prompt_tokens,
+    total_completion_tokens,
+    total_cached_tokens,
+    record_count,
+    by_source,
+    by_model,
+    timeseries,
+};
+```

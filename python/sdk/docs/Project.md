@@ -4,24 +4,24 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**projects_add_library_to_project**](Project.md#projects_add_library_to_project) | **POST** /projects/{project_id}/libraries/{library_id} | Add Library To Project
-[**projects_add_members**](Project.md#projects_add_members) | **POST** /projects/{project_id}/members | Add Members
-[**projects_create_project**](Project.md#projects_create_project) | **POST** /projects/ | Create Project
-[**projects_delete_member**](Project.md#projects_delete_member) | **DELETE** /projects/{project_id}/members/{user_id} | Delete Member
-[**projects_delete_members**](Project.md#projects_delete_members) | **DELETE** /projects/{project_id}/members | Delete Members
-[**projects_delete_project**](Project.md#projects_delete_project) | **DELETE** /projects/{project_id} | Delete Project
-[**projects_is_project_name_free**](Project.md#projects_is_project_name_free) | **GET** /projects/available | Is Project Name Free
-[**projects_leave_project**](Project.md#projects_leave_project) | **DELETE** /projects/{project_id}/remove/me | Leave Project
-[**projects_remove_library_from_project**](Project.md#projects_remove_library_from_project) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove Library From Project
-[**projects_update_project**](Project.md#projects_update_project) | **PATCH** /projects/{project_id} | Update Project
+[**projects_add_library_to_project**](Project.md#projects_add_library_to_project) | **POST** /projects/{project_id}/libraries/{library_id} | Add a library to a project
+[**projects_add_members**](Project.md#projects_add_members) | **POST** /projects/{project_id}/members | Add members to a project
+[**projects_create_project**](Project.md#projects_create_project) | **POST** /projects/ | Create a project
+[**projects_delete_member**](Project.md#projects_delete_member) | **DELETE** /projects/{project_id}/members/{user_id} | Remove a member from a project
+[**projects_delete_members**](Project.md#projects_delete_members) | **DELETE** /projects/{project_id}/members | Remove members from a project
+[**projects_delete_project**](Project.md#projects_delete_project) | **DELETE** /projects/{project_id} | Delete a project
+[**projects_is_project_name_free**](Project.md#projects_is_project_name_free) | **GET** /projects/available | Check if a project name is free
+[**projects_leave_project**](Project.md#projects_leave_project) | **DELETE** /projects/{project_id}/remove/me | Leave a project
+[**projects_remove_library_from_project**](Project.md#projects_remove_library_from_project) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove a library from a project
+[**projects_update_project**](Project.md#projects_update_project) | **PATCH** /projects/{project_id} | Update a project
 
 
 # **projects_add_library_to_project**
 > ProjectLibrary projects_add_library_to_project(project_id, library_id, cookie_name=cookie_name)
 
-Add Library To Project
+Add a library to a project
 
-Enables a library for a project by creating an association
+Enable a library for a project by creating an association.
 
 ### Example
 
@@ -62,7 +62,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add Library To Project
+        # Add a library to a project
         api_response = api_instance.projects_add_library_to_project(project_id, library_id, cookie_name=cookie_name)
         print("The response of Project->projects_add_library_to_project:\n")
         pprint(api_response)
@@ -99,6 +99,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user lacks access to the library or the project. |  -  |
+**404** | Library or project not found. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -106,7 +109,9 @@ Name | Type | Description  | Notes
 # **projects_add_members**
 > List[ProjectMember] projects_add_members(project_id, project_member_bulk_in, cookie_name=cookie_name)
 
-Add Members
+Add members to a project
+
+Add one or more members to a project (project owner only).
 
 ### Example
 
@@ -148,7 +153,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add Members
+        # Add members to a project
         api_response = api_instance.projects_add_members(project_id, project_member_bulk_in, cookie_name=cookie_name)
         print("The response of Project->projects_add_members:\n")
         pprint(api_response)
@@ -185,6 +190,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user is not an owner of the project. |  -  |
+**404** | No project exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -192,7 +200,9 @@ Name | Type | Description  | Notes
 # **projects_create_project**
 > Project projects_create_project(project_in, cookie_name=cookie_name)
 
-Create Project
+Create a project
+
+Create a project and add the current user as its owner.
 
 ### Example
 
@@ -233,7 +243,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create Project
+        # Create a project
         api_response = api_instance.projects_create_project(project_in, cookie_name=cookie_name)
         print("The response of Project->projects_create_project:\n")
         pprint(api_response)
@@ -269,6 +279,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -276,7 +287,9 @@ Name | Type | Description  | Notes
 # **projects_delete_member**
 > projects_delete_member(project_id, user_id, cookie_name=cookie_name)
 
-Delete Member
+Remove a member from a project
+
+Remove a single member from a project (project owner only).
 
 ### Example
 
@@ -312,11 +325,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
     project_id = 56 # int | 
-    user_id = 56 # int | 
+    user_id = 56 # int | ID of the user to remove.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Member
+        # Remove a member from a project
         api_instance.projects_delete_member(project_id, user_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Project->projects_delete_member: %s\n" % e)
@@ -330,7 +343,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **int**|  | 
- **user_id** | **int**|  | 
+ **user_id** | **int**| ID of the user to remove. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -351,6 +364,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user is not an owner of the project. |  -  |
+**404** | Project not found, or the user is not a member of it. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -358,7 +374,9 @@ void (empty response body)
 # **projects_delete_members**
 > projects_delete_members(project_id, project_member_bulk_delete, cookie_name=cookie_name)
 
-Delete Members
+Remove members from a project
+
+Remove multiple members from a project (project owner only).
 
 ### Example
 
@@ -399,7 +417,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Members
+        # Remove members from a project
         api_instance.projects_delete_members(project_id, project_member_bulk_delete, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Project->projects_delete_members: %s\n" % e)
@@ -434,6 +452,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user is not an owner of the project. |  -  |
+**404** | Project not found, or a user is not a member of it. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -441,7 +462,9 @@ void (empty response body)
 # **projects_delete_project**
 > projects_delete_project(project_id, cookie_name=cookie_name)
 
-Delete Project
+Delete a project
+
+Permanently delete a project (project owner only).
 
 ### Example
 
@@ -480,7 +503,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete Project
+        # Delete a project
         api_instance.projects_delete_project(project_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Project->projects_delete_project: %s\n" % e)
@@ -514,6 +537,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user is not an owner of the project. |  -  |
+**404** | No project exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -521,7 +547,9 @@ void (empty response body)
 # **projects_is_project_name_free**
 > bool projects_is_project_name_free(name, cookie_name=cookie_name)
 
-Is Project Name Free
+Check if a project name is free
+
+Return true if no project already uses the given name.
 
 ### Example
 
@@ -556,11 +584,11 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    name = 'name_example' # str | 
+    name = 'name_example' # str | Project name to check for availability.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Is Project Name Free
+        # Check if a project name is free
         api_response = api_instance.projects_is_project_name_free(name, cookie_name=cookie_name)
         print("The response of Project->projects_is_project_name_free:\n")
         pprint(api_response)
@@ -575,7 +603,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **str**|  | 
+ **name** | **str**| Project name to check for availability. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -596,6 +624,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -603,9 +632,9 @@ Name | Type | Description  | Notes
 # **projects_leave_project**
 > projects_leave_project(project_id, cookie_name=cookie_name)
 
-Leave Project
+Leave a project
 
-user can leave the project by themselves.
+Remove the current user from a project they belong to.
 
 ### Example
 
@@ -644,7 +673,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Leave Project
+        # Leave a project
         api_instance.projects_leave_project(project_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Project->projects_leave_project: %s\n" % e)
@@ -678,6 +707,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user is not a member of the project. |  -  |
+**404** | Project not found, or the user is not a member of it. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -685,9 +717,9 @@ void (empty response body)
 # **projects_remove_library_from_project**
 > projects_remove_library_from_project(project_id, library_id, cookie_name=cookie_name)
 
-Remove Library From Project
+Remove a library from a project
 
-Disables a library for a project by deleting the association
+Disable a library for a project by deleting the association.
 
 ### Example
 
@@ -723,11 +755,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
     project_id = 56 # int | 
-    library_id = 56 # int | 
+    library_id = 56 # int | ID of the library to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove Library From Project
+        # Remove a library from a project
         api_instance.projects_remove_library_from_project(project_id, library_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Project->projects_remove_library_from_project: %s\n" % e)
@@ -741,7 +773,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **int**|  | 
- **library_id** | **int**|  | 
+ **library_id** | **int**| ID of the library to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -762,6 +794,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user is not a member of the project. |  -  |
+**404** | No project exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -769,7 +804,9 @@ void (empty response body)
 # **projects_update_project**
 > Project projects_update_project(project_id, project_in, cookie_name=cookie_name)
 
-Update Project
+Update a project
+
+Update an existing project's fields (project owner only).
 
 ### Example
 
@@ -811,7 +848,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update Project
+        # Update a project
         api_response = api_instance.projects_update_project(project_id, project_in, cookie_name=cookie_name)
         print("The response of Project->projects_update_project:\n")
         pprint(api_response)
@@ -848,6 +885,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user is not an owner of the project. |  -  |
+**404** | No project exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

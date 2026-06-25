@@ -1,13 +1,14 @@
 # TemplateOut
 
+Email template as returned by the API.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **number** |  | [default to undefined]
+**id** | **number** | Unique identifier of the template. | [default to undefined]
 **name** | **string** |  | [default to undefined]
-**text_body** | **string** |  | [default to undefined]
+**text_body** | **string** | Plain-text body of the email. | [default to undefined]
 **html_body** | **string** |  | [default to undefined]
 
 ## Example

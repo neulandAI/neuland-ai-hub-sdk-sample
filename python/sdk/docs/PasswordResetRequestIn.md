@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**email** | **str** |  | 
+**email** | **str** | Email address of the account to send a reset link to. | 
 
 ## Example
 
