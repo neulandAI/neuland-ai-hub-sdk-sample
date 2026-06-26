@@ -11,7 +11,7 @@ jobs:
         runs-on: ubuntu-latest
         defaults:
             run:
-                working-directory: sample-app/sdk
+                working-directory: python/sdk
 
         steps:
             - name: Checkout repository
@@ -35,4 +35,4 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                   name: sdk-dist
-                  path: sample-app/sdk/dist/
+                  path: python/sdk/dist/
