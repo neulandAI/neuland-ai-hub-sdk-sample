@@ -10,13 +10,25 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "User Guide",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "GettingStarted"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Integration Guide",
         "groups": [
           {
             "group": "Getting Started",
             "pages": [
               "guides/introduction",
-              "guides/quickstart"
+              "guides/quickstart",
+              "guides/untitled-page"
             ]
           }
         ]
@@ -732,6 +744,12 @@
       {
         "tab": "API Reference",
         "openapi": "openapi.json"
+      },
+      {
+        "tab": "test",
+        "pages": [
+          "test"
+        ]
       }
     ]
   },
