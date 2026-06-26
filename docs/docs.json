@@ -34,6 +34,10 @@
         ]
       },
       {
+        "tab": "API Reference",
+        "openapi": "openapi.json"
+      },
+      {
         "tab": "Python SDK",
         "pages": [
           {
@@ -740,10 +744,6 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "API Reference",
-        "openapi": "openapi.json"
       }
     ]
   },
