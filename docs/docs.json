@@ -744,12 +744,6 @@
       {
         "tab": "API Reference",
         "openapi": "openapi.json"
-      },
-      {
-        "tab": "test",
-        "pages": [
-          "test"
-        ]
       }
     ]
   },
