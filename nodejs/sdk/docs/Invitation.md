@@ -1,11 +1,11 @@
 # Invitation
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**invitationsAcceptInvitationComplete**](#invitationsacceptinvitationcomplete) | **POST** /invitations/accept | Accept an invitation|
-|[**invitationsAcceptInvitationForm**](#invitationsacceptinvitationform) | **GET** /invitations/accept | Invitation acceptance HTML form|
+|[**invitationsAcceptInvitationForm**](#invitationsacceptinvitationform) | **GET** /invitations/accept | Render the invitation acceptance form|
 |[**invitationsCreateInvitations**](#invitationscreateinvitations) | **POST** /invitations/ | Create invitations|
 |[**invitationsResendInvitation**](#invitationsresendinvitation) | **POST** /invitations/{invitation_id}/resend | Resend an invitation|
 |[**invitationsRevokeInvitation**](#invitationsrevokeinvitation) | **POST** /invitations/{invitation_id}/revoke | Revoke an invitation|
@@ -13,7 +13,7 @@ All URIs are relative to *http://localhost*
 # **invitationsAcceptInvitationComplete**
 > any invitationsAcceptInvitationComplete()
 
-Complete invitation acceptance and create user account.
+Complete invitation acceptance and create the user account.
 
 ### Example
 
@@ -26,7 +26,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
 
-let token: string; //Invitation JWT token (default to undefined)
+let token: string; //Invitation JWT token from the invitation email. (default to undefined)
 
 const { status, data } = await apiInstance.invitationsAcceptInvitationComplete(
     token
@@ -37,7 +37,7 @@ const { status, data } = await apiInstance.invitationsAcceptInvitationComplete(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **token** | [**string**] | Invitation JWT token | defaults to undefined|
+| **token** | [**string**] | Invitation JWT token from the invitation email. | defaults to undefined|
 
 
 ### Return type
@@ -58,6 +58,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | The invitation token is invalid, expired, or the invitation was revoked. |  -  |
+|**404** | The invitation referenced by the token no longer exists. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -65,7 +67,7 @@ No authorization required
 # **invitationsAcceptInvitationForm**
 > string invitationsAcceptInvitationForm()
 
-Fallback HTML form for accepting invitation when no frontend is available.
+Render the fallback HTML form for accepting an invitation; token errors are shown inline in the form.
 
 ### Example
 
@@ -78,7 +80,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
 
-let token: string; //Invitation JWT token (default to undefined)
+let token: string; //Invitation JWT token from the invitation email. (default to undefined)
 
 const { status, data } = await apiInstance.invitationsAcceptInvitationForm(
     token
@@ -89,7 +91,7 @@ const { status, data } = await apiInstance.invitationsAcceptInvitationForm(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **token** | [**string**] | Invitation JWT token | defaults to undefined|
+| **token** | [**string**] | Invitation JWT token from the invitation email. | defaults to undefined|
 
 
 ### Return type
@@ -154,7 +156,7 @@ const { status, data } = await apiInstance.invitationsCreateInvitations(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -212,7 +214,7 @@ const { status, data } = await apiInstance.invitationsResendInvitation(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -270,7 +272,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

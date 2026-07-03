@@ -61,7 +61,7 @@ class OneDrive:
     ) -> DataSourceCapabilities:
         """Get data source capabilities
 
-        Return the browse-hierarchy metadata for this data source.
+        Return the browse-hierarchy metadata (root kind, depth) for this source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -129,7 +129,7 @@ class OneDrive:
     ) -> ApiResponse[DataSourceCapabilities]:
         """Get data source capabilities
 
-        Return the browse-hierarchy metadata for this data source.
+        Return the browse-hierarchy metadata (root kind, depth) for this source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -197,7 +197,7 @@ class OneDrive:
     ) -> RESTResponseType:
         """Get data source capabilities
 
-        Return the browse-hierarchy metadata for this data source.
+        Return the browse-hierarchy metadata (root kind, depth) for this source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -287,8 +287,7 @@ class OneDrive:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -313,7 +312,7 @@ class OneDrive:
     def onedrive_get_item_info(
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
-        drive_item_id: Annotated[StrictStr, Field(description="Id of the drive item.")],
+        drive_item_id: Annotated[StrictStr, Field(description="Id of the item.")],
         chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
         library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
         assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
@@ -334,11 +333,11 @@ class OneDrive:
     ) -> DataSourceItemModel:
         """Get a drive item
 
-        Get a single data source drive item, annotated with imported counts.
+        Fetch a single drive item's metadata, with imported flag/count.
 
         :param drive_id: Id of the drive. (required)
         :type drive_id: str
-        :param drive_item_id: Id of the drive item. (required)
+        :param drive_item_id: Id of the item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -390,6 +389,7 @@ class OneDrive:
             '200': "DataSourceItemModel",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -407,7 +407,7 @@ class OneDrive:
     def onedrive_get_item_info_with_http_info(
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
-        drive_item_id: Annotated[StrictStr, Field(description="Id of the drive item.")],
+        drive_item_id: Annotated[StrictStr, Field(description="Id of the item.")],
         chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
         library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
         assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
@@ -428,11 +428,11 @@ class OneDrive:
     ) -> ApiResponse[DataSourceItemModel]:
         """Get a drive item
 
-        Get a single data source drive item, annotated with imported counts.
+        Fetch a single drive item's metadata, with imported flag/count.
 
         :param drive_id: Id of the drive. (required)
         :type drive_id: str
-        :param drive_item_id: Id of the drive item. (required)
+        :param drive_item_id: Id of the item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -484,6 +484,7 @@ class OneDrive:
             '200': "DataSourceItemModel",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -501,7 +502,7 @@ class OneDrive:
     def onedrive_get_item_info_without_preload_content(
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
-        drive_item_id: Annotated[StrictStr, Field(description="Id of the drive item.")],
+        drive_item_id: Annotated[StrictStr, Field(description="Id of the item.")],
         chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
         library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
         assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
@@ -522,11 +523,11 @@ class OneDrive:
     ) -> RESTResponseType:
         """Get a drive item
 
-        Get a single data source drive item, annotated with imported counts.
+        Fetch a single drive item's metadata, with imported flag/count.
 
         :param drive_id: Id of the drive. (required)
         :type drive_id: str
-        :param drive_item_id: Id of the drive item. (required)
+        :param drive_item_id: Id of the item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -578,6 +579,7 @@ class OneDrive:
             '200': "DataSourceItemModel",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -658,8 +660,7 @@ class OneDrive:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -697,9 +698,9 @@ class OneDrive:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> DataSourceUserModel:
-        """Get current data source user
+        """Get connected user profile
 
-        Return the signed-in user's profile on this data source.
+        Return the current user's profile on the data source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -767,9 +768,9 @@ class OneDrive:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[DataSourceUserModel]:
-        """Get current data source user
+        """Get connected user profile
 
-        Return the signed-in user's profile on this data source.
+        Return the current user's profile on the data source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -837,9 +838,9 @@ class OneDrive:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get current data source user
+        """Get connected user profile
 
-        Return the signed-in user's profile on this data source.
+        Return the current user's profile on the data source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -931,8 +932,7 @@ class OneDrive:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -970,9 +970,9 @@ class OneDrive:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> bool:
-        """Check data source connection
+        """Check connection status
 
-        Report whether the user has consented to this source's browse scopes.
+        Report whether the current user has granted consent to browse this source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -1039,9 +1039,9 @@ class OneDrive:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[bool]:
-        """Check data source connection
+        """Check connection status
 
-        Report whether the user has consented to this source's browse scopes.
+        Report whether the current user has granted consent to browse this source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -1108,9 +1108,9 @@ class OneDrive:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Check data source connection
+        """Check connection status
 
-        Report whether the user has consented to this source's browse scopes.
+        Report whether the current user has granted consent to browse this source.
 
         :param cookie_name:
         :type cookie_name: str
@@ -1201,8 +1201,7 @@ class OneDrive:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1227,12 +1226,12 @@ class OneDrive:
     def onedrive_list_children(
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
-        drive_item_id: Annotated[StrictStr, Field(description="Id of the parent item; empty or 'root' for the drive root.")],
+        drive_item_id: Annotated[StrictStr, Field(description="Id of the folder item, or 'root'.")],
         chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
         library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
         assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
         project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
-        recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders, returning only files.")] = None,
+        recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders and return all descendant files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1249,11 +1248,11 @@ class OneDrive:
     ) -> List[DataSourceItemModel]:
         """List children of a drive item
 
-        List files and folders under a drive item, annotated with imported counts.
+        List the immediate children of a drive item, with imported flags/counts.
 
         :param drive_id: Id of the drive. (required)
         :type drive_id: str
-        :param drive_item_id: Id of the parent item; empty or 'root' for the drive root. (required)
+        :param drive_item_id: Id of the folder item, or 'root'. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -1263,7 +1262,7 @@ class OneDrive:
         :type assistant_id: int
         :param project_id: Scope imported counts to this project.
         :type project_id: int
-        :param recursive: Recurse into subfolders, returning only files.
+        :param recursive: Recurse into subfolders and return all descendant files.
         :type recursive: bool
         :param cookie_name:
         :type cookie_name: str
@@ -1308,6 +1307,7 @@ class OneDrive:
             '200': "List[DataSourceItemModel]",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1325,12 +1325,12 @@ class OneDrive:
     def onedrive_list_children_with_http_info(
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
-        drive_item_id: Annotated[StrictStr, Field(description="Id of the parent item; empty or 'root' for the drive root.")],
+        drive_item_id: Annotated[StrictStr, Field(description="Id of the folder item, or 'root'.")],
         chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
         library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
         assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
         project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
-        recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders, returning only files.")] = None,
+        recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders and return all descendant files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1347,11 +1347,11 @@ class OneDrive:
     ) -> ApiResponse[List[DataSourceItemModel]]:
         """List children of a drive item
 
-        List files and folders under a drive item, annotated with imported counts.
+        List the immediate children of a drive item, with imported flags/counts.
 
         :param drive_id: Id of the drive. (required)
         :type drive_id: str
-        :param drive_item_id: Id of the parent item; empty or 'root' for the drive root. (required)
+        :param drive_item_id: Id of the folder item, or 'root'. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -1361,7 +1361,7 @@ class OneDrive:
         :type assistant_id: int
         :param project_id: Scope imported counts to this project.
         :type project_id: int
-        :param recursive: Recurse into subfolders, returning only files.
+        :param recursive: Recurse into subfolders and return all descendant files.
         :type recursive: bool
         :param cookie_name:
         :type cookie_name: str
@@ -1406,6 +1406,7 @@ class OneDrive:
             '200': "List[DataSourceItemModel]",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1423,12 +1424,12 @@ class OneDrive:
     def onedrive_list_children_without_preload_content(
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
-        drive_item_id: Annotated[StrictStr, Field(description="Id of the parent item; empty or 'root' for the drive root.")],
+        drive_item_id: Annotated[StrictStr, Field(description="Id of the folder item, or 'root'.")],
         chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
         library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
         assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
         project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
-        recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders, returning only files.")] = None,
+        recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders and return all descendant files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1445,11 +1446,11 @@ class OneDrive:
     ) -> RESTResponseType:
         """List children of a drive item
 
-        List files and folders under a drive item, annotated with imported counts.
+        List the immediate children of a drive item, with imported flags/counts.
 
         :param drive_id: Id of the drive. (required)
         :type drive_id: str
-        :param drive_item_id: Id of the parent item; empty or 'root' for the drive root. (required)
+        :param drive_item_id: Id of the folder item, or 'root'. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -1459,7 +1460,7 @@ class OneDrive:
         :type assistant_id: int
         :param project_id: Scope imported counts to this project.
         :type project_id: int
-        :param recursive: Recurse into subfolders, returning only files.
+        :param recursive: Recurse into subfolders and return all descendant files.
         :type recursive: bool
         :param cookie_name:
         :type cookie_name: str
@@ -1504,6 +1505,7 @@ class OneDrive:
             '200': "List[DataSourceItemModel]",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1589,8 +1591,7 @@ class OneDrive:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1635,7 +1636,7 @@ class OneDrive:
     ) -> List[DataSourceDriveModel]:
         """List drives in a site
 
-        List the drives under a site (or the user's drives for drive-rooted sources).
+        List drives under a site, with imported counts per drive.
 
         :param site_id: Id of the site to list drives for. (required)
         :type site_id: str
@@ -1688,6 +1689,7 @@ class OneDrive:
             '200': "List[DataSourceDriveModel]",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1725,7 +1727,7 @@ class OneDrive:
     ) -> ApiResponse[List[DataSourceDriveModel]]:
         """List drives in a site
 
-        List the drives under a site (or the user's drives for drive-rooted sources).
+        List drives under a site, with imported counts per drive.
 
         :param site_id: Id of the site to list drives for. (required)
         :type site_id: str
@@ -1778,6 +1780,7 @@ class OneDrive:
             '200': "List[DataSourceDriveModel]",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1815,7 +1818,7 @@ class OneDrive:
     ) -> RESTResponseType:
         """List drives in a site
 
-        List the drives under a site (or the user's drives for drive-rooted sources).
+        List drives under a site, with imported counts per drive.
 
         :param site_id: Id of the site to list drives for. (required)
         :type site_id: str
@@ -1868,6 +1871,7 @@ class OneDrive:
             '200': "List[DataSourceDriveModel]",
             '401': None,
             '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1945,8 +1949,7 @@ class OneDrive:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1990,7 +1993,7 @@ class OneDrive:
     ) -> ResponseOnedriveListRoots:
         """List top-level browse entries
 
-        List the source's top-level browse entries (sites or drives) with imported counts.
+        List the top-level browse entries (sites or drives), with imported counts.
 
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -2076,7 +2079,7 @@ class OneDrive:
     ) -> ApiResponse[ResponseOnedriveListRoots]:
         """List top-level browse entries
 
-        List the source's top-level browse entries (sites or drives) with imported counts.
+        List the top-level browse entries (sites or drives), with imported counts.
 
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -2162,7 +2165,7 @@ class OneDrive:
     ) -> RESTResponseType:
         """List top-level browse entries
 
-        List the source's top-level browse entries (sites or drives) with imported counts.
+        List the top-level browse entries (sites or drives), with imported counts.
 
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: int
@@ -2286,8 +2289,7 @@ class OneDrive:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(

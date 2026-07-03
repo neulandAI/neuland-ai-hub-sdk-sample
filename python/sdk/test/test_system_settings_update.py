@@ -40,6 +40,7 @@ class TestSystemSettingsUpdate(unittest.TestCase):
                 inbound_guardrail_llm_settings_id = 56,
                 outbound_guardrail_llm_settings_id = 56,
                 embedding_llm_settings_id = 56,
+                transcription_llm_settings_id = 56,
                 maintenance_start_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 maintenance_end_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 maintenance_message = '',

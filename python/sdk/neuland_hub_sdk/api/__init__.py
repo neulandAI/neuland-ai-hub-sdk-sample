@@ -17,6 +17,7 @@ from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.api.llm_catalog import LlmCatalog
 from neuland_hub_sdk.api.llm_setting import LlmSetting
 from neuland_hub_sdk.api.message import Message
+from neuland_hub_sdk.api.nextcloud import Nextcloud
 from neuland_hub_sdk.api.one_drive import OneDrive
 from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.api.prompt import Prompt

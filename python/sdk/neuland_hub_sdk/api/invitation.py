@@ -42,7 +42,7 @@ class Invitation:
     @validate_call
     def invitations_accept_invitation_complete(
         self,
-        token: Annotated[StrictStr, Field(description="Invitation JWT token")],
+        token: Annotated[StrictStr, Field(description="Invitation JWT token from the invitation email.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -58,9 +58,9 @@ class Invitation:
     ) -> object:
         """Accept an invitation
 
-        Complete invitation acceptance and create user account.
+        Complete invitation acceptance and create the user account.
 
-        :param token: Invitation JWT token (required)
+        :param token: Invitation JWT token from the invitation email. (required)
         :type token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -94,6 +94,8 @@ class Invitation:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
+            '401': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -110,7 +112,7 @@ class Invitation:
     @validate_call
     def invitations_accept_invitation_complete_with_http_info(
         self,
-        token: Annotated[StrictStr, Field(description="Invitation JWT token")],
+        token: Annotated[StrictStr, Field(description="Invitation JWT token from the invitation email.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -126,9 +128,9 @@ class Invitation:
     ) -> ApiResponse[object]:
         """Accept an invitation
 
-        Complete invitation acceptance and create user account.
+        Complete invitation acceptance and create the user account.
 
-        :param token: Invitation JWT token (required)
+        :param token: Invitation JWT token from the invitation email. (required)
         :type token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -162,6 +164,8 @@ class Invitation:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
+            '401': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -178,7 +182,7 @@ class Invitation:
     @validate_call
     def invitations_accept_invitation_complete_without_preload_content(
         self,
-        token: Annotated[StrictStr, Field(description="Invitation JWT token")],
+        token: Annotated[StrictStr, Field(description="Invitation JWT token from the invitation email.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -194,9 +198,9 @@ class Invitation:
     ) -> RESTResponseType:
         """Accept an invitation
 
-        Complete invitation acceptance and create user account.
+        Complete invitation acceptance and create the user account.
 
-        :param token: Invitation JWT token (required)
+        :param token: Invitation JWT token from the invitation email. (required)
         :type token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -230,6 +234,8 @@ class Invitation:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "object",
+            '401': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -307,7 +313,7 @@ class Invitation:
     @validate_call
     def invitations_accept_invitation_form(
         self,
-        token: Annotated[StrictStr, Field(description="Invitation JWT token")],
+        token: Annotated[StrictStr, Field(description="Invitation JWT token from the invitation email.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -321,11 +327,11 @@ class Invitation:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Invitation acceptance HTML form
+        """Render the invitation acceptance form
 
-        Fallback HTML form for accepting invitation when no frontend is available.
+        Render the fallback HTML form for accepting an invitation; token errors are shown inline in the form.
 
-        :param token: Invitation JWT token (required)
+        :param token: Invitation JWT token from the invitation email. (required)
         :type token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -375,7 +381,7 @@ class Invitation:
     @validate_call
     def invitations_accept_invitation_form_with_http_info(
         self,
-        token: Annotated[StrictStr, Field(description="Invitation JWT token")],
+        token: Annotated[StrictStr, Field(description="Invitation JWT token from the invitation email.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -389,11 +395,11 @@ class Invitation:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Invitation acceptance HTML form
+        """Render the invitation acceptance form
 
-        Fallback HTML form for accepting invitation when no frontend is available.
+        Render the fallback HTML form for accepting an invitation; token errors are shown inline in the form.
 
-        :param token: Invitation JWT token (required)
+        :param token: Invitation JWT token from the invitation email. (required)
         :type token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -443,7 +449,7 @@ class Invitation:
     @validate_call
     def invitations_accept_invitation_form_without_preload_content(
         self,
-        token: Annotated[StrictStr, Field(description="Invitation JWT token")],
+        token: Annotated[StrictStr, Field(description="Invitation JWT token from the invitation email.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -457,11 +463,11 @@ class Invitation:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Invitation acceptance HTML form
+        """Render the invitation acceptance form
 
-        Fallback HTML form for accepting invitation when no frontend is available.
+        Render the fallback HTML form for accepting an invitation; token errors are shown inline in the form.
 
-        :param token: Invitation JWT token (required)
+        :param token: Invitation JWT token from the invitation email. (required)
         :type token: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -852,8 +858,7 @@ class Invitation:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1143,8 +1148,7 @@ class Invitation:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1434,8 +1438,7 @@ class Invitation:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(

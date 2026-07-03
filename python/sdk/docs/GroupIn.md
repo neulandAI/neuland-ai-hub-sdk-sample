@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Display name of the user group. | 
 **description** | **str** |  | [optional] 
-**source** | [**UserGroupSource**](UserGroupSource.md) |  | [optional] 
+**source** | [**UserGroupSource**](UserGroupSource.md) | Whether the group is managed manually or synced from an external directory. | [optional] 
 **external_id** | **str** |  | [optional] 
 
 ## Example

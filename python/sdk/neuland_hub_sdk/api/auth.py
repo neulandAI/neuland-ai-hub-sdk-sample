@@ -577,7 +577,6 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -826,7 +825,6 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1750,7 +1748,6 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2613,7 +2610,7 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Dict[str, object]:
-        """Search Entra Groups
+        """Search Entra directory groups
 
         Search/browse Entra directory groups (delegated) for binding to a HUB group.
 
@@ -2660,6 +2657,8 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2693,7 +2692,7 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Dict[str, object]]:
-        """Search Entra Groups
+        """Search Entra directory groups
 
         Search/browse Entra directory groups (delegated) for binding to a HUB group.
 
@@ -2740,6 +2739,8 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2773,7 +2774,7 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Search Entra Groups
+        """Search Entra directory groups
 
         Search/browse Entra directory groups (delegated) for binding to a HUB group.
 
@@ -2820,6 +2821,8 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, object]",
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2889,8 +2892,7 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3159,8 +3161,7 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3184,8 +3185,8 @@ class Auth:
     @validate_call
     def auth_sso_exchange(
         self,
-        slug: StrictStr,
-        provider: StrictStr,
+        slug: Annotated[StrictStr, Field(description="Tenant routing slug from sso/resolve.")],
+        provider: Annotated[StrictStr, Field(description="OAuth provider key, e.g. 'microsoft'.")],
         sso_exchange_in: SsoExchangeIn,
         user_agent: Optional[StrictStr] = None,
         x_real_ip: Optional[StrictStr] = None,
@@ -3204,13 +3205,13 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> TokenOut:
-        """Sso Exchange
+        """Complete an SSO login
 
         Exchange an IdP authorization code (with the signed state from init) for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
 
-        :param slug: (required)
+        :param slug: Tenant routing slug from sso/resolve. (required)
         :type slug: str
-        :param provider: (required)
+        :param provider: OAuth provider key, e.g. 'microsoft'. (required)
         :type provider: str
         :param sso_exchange_in: (required)
         :type sso_exchange_in: SsoExchangeIn
@@ -3260,6 +3261,10 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokenOut",
+            '400': None,
+            '403': None,
+            '404': None,
+            '503': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3276,8 +3281,8 @@ class Auth:
     @validate_call
     def auth_sso_exchange_with_http_info(
         self,
-        slug: StrictStr,
-        provider: StrictStr,
+        slug: Annotated[StrictStr, Field(description="Tenant routing slug from sso/resolve.")],
+        provider: Annotated[StrictStr, Field(description="OAuth provider key, e.g. 'microsoft'.")],
         sso_exchange_in: SsoExchangeIn,
         user_agent: Optional[StrictStr] = None,
         x_real_ip: Optional[StrictStr] = None,
@@ -3296,13 +3301,13 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[TokenOut]:
-        """Sso Exchange
+        """Complete an SSO login
 
         Exchange an IdP authorization code (with the signed state from init) for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
 
-        :param slug: (required)
+        :param slug: Tenant routing slug from sso/resolve. (required)
         :type slug: str
-        :param provider: (required)
+        :param provider: OAuth provider key, e.g. 'microsoft'. (required)
         :type provider: str
         :param sso_exchange_in: (required)
         :type sso_exchange_in: SsoExchangeIn
@@ -3352,6 +3357,10 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokenOut",
+            '400': None,
+            '403': None,
+            '404': None,
+            '503': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3368,8 +3377,8 @@ class Auth:
     @validate_call
     def auth_sso_exchange_without_preload_content(
         self,
-        slug: StrictStr,
-        provider: StrictStr,
+        slug: Annotated[StrictStr, Field(description="Tenant routing slug from sso/resolve.")],
+        provider: Annotated[StrictStr, Field(description="OAuth provider key, e.g. 'microsoft'.")],
         sso_exchange_in: SsoExchangeIn,
         user_agent: Optional[StrictStr] = None,
         x_real_ip: Optional[StrictStr] = None,
@@ -3388,13 +3397,13 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Sso Exchange
+        """Complete an SSO login
 
         Exchange an IdP authorization code (with the signed state from init) for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
 
-        :param slug: (required)
+        :param slug: Tenant routing slug from sso/resolve. (required)
         :type slug: str
-        :param provider: (required)
+        :param provider: OAuth provider key, e.g. 'microsoft'. (required)
         :type provider: str
         :param sso_exchange_in: (required)
         :type sso_exchange_in: SsoExchangeIn
@@ -3444,6 +3453,10 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TokenOut",
+            '400': None,
+            '403': None,
+            '404': None,
+            '503': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3550,8 +3563,8 @@ class Auth:
     @validate_call
     def auth_sso_init(
         self,
-        slug: StrictStr,
-        provider: StrictStr,
+        slug: Annotated[StrictStr, Field(description="Tenant routing slug from sso/resolve.")],
+        provider: Annotated[StrictStr, Field(description="OAuth provider key, e.g. 'microsoft'.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3565,13 +3578,13 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SsoInitOut:
-        """Sso Init
+        """Start an SSO login
 
         Return the IdP authorize URL + signed state token. No cookies, no redirect. Frontend uses the response to redirect the browser to the IdP itself.
 
-        :param slug: (required)
+        :param slug: Tenant routing slug from sso/resolve. (required)
         :type slug: str
-        :param provider: (required)
+        :param provider: OAuth provider key, e.g. 'microsoft'. (required)
         :type provider: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3606,6 +3619,9 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SsoInitOut",
+            '400': None,
+            '404': None,
+            '503': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3622,8 +3638,8 @@ class Auth:
     @validate_call
     def auth_sso_init_with_http_info(
         self,
-        slug: StrictStr,
-        provider: StrictStr,
+        slug: Annotated[StrictStr, Field(description="Tenant routing slug from sso/resolve.")],
+        provider: Annotated[StrictStr, Field(description="OAuth provider key, e.g. 'microsoft'.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3637,13 +3653,13 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SsoInitOut]:
-        """Sso Init
+        """Start an SSO login
 
         Return the IdP authorize URL + signed state token. No cookies, no redirect. Frontend uses the response to redirect the browser to the IdP itself.
 
-        :param slug: (required)
+        :param slug: Tenant routing slug from sso/resolve. (required)
         :type slug: str
-        :param provider: (required)
+        :param provider: OAuth provider key, e.g. 'microsoft'. (required)
         :type provider: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3678,6 +3694,9 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SsoInitOut",
+            '400': None,
+            '404': None,
+            '503': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3694,8 +3713,8 @@ class Auth:
     @validate_call
     def auth_sso_init_without_preload_content(
         self,
-        slug: StrictStr,
-        provider: StrictStr,
+        slug: Annotated[StrictStr, Field(description="Tenant routing slug from sso/resolve.")],
+        provider: Annotated[StrictStr, Field(description="OAuth provider key, e.g. 'microsoft'.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3709,13 +3728,13 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Sso Init
+        """Start an SSO login
 
         Return the IdP authorize URL + signed state token. No cookies, no redirect. Frontend uses the response to redirect the browser to the IdP itself.
 
-        :param slug: (required)
+        :param slug: Tenant routing slug from sso/resolve. (required)
         :type slug: str
-        :param provider: (required)
+        :param provider: OAuth provider key, e.g. 'microsoft'. (required)
         :type provider: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -3750,6 +3769,9 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SsoInitOut",
+            '400': None,
+            '404': None,
+            '503': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3828,7 +3850,7 @@ class Auth:
     @validate_call
     def auth_sso_resolve(
         self,
-        domain: StrictStr,
+        email: Annotated[StrictStr, Field(description="Work email whose domain identifies the tenant.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3842,12 +3864,12 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SsoResolveOut:
-        """Sso Resolve
+        """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from its domain and return the routing slug and available SSO providers.
+        Pre-login step: resolve a tenant from the email's domain and return the routing slug and available SSO providers.
 
-        :param domain: (required)
-        :type domain: str
+        :param email: Work email whose domain identifies the tenant. (required)
+        :type email: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3871,7 +3893,7 @@ class Auth:
         """ # noqa: E501
 
         _param = self._auth_sso_resolve_serialize(
-            domain=domain,
+            email=email,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3880,6 +3902,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SsoResolveOut",
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3896,7 +3919,7 @@ class Auth:
     @validate_call
     def auth_sso_resolve_with_http_info(
         self,
-        domain: StrictStr,
+        email: Annotated[StrictStr, Field(description="Work email whose domain identifies the tenant.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3910,12 +3933,12 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SsoResolveOut]:
-        """Sso Resolve
+        """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from its domain and return the routing slug and available SSO providers.
+        Pre-login step: resolve a tenant from the email's domain and return the routing slug and available SSO providers.
 
-        :param domain: (required)
-        :type domain: str
+        :param email: Work email whose domain identifies the tenant. (required)
+        :type email: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3939,7 +3962,7 @@ class Auth:
         """ # noqa: E501
 
         _param = self._auth_sso_resolve_serialize(
-            domain=domain,
+            email=email,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3948,6 +3971,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SsoResolveOut",
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3964,7 +3988,7 @@ class Auth:
     @validate_call
     def auth_sso_resolve_without_preload_content(
         self,
-        domain: StrictStr,
+        email: Annotated[StrictStr, Field(description="Work email whose domain identifies the tenant.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3978,12 +4002,12 @@ class Auth:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Sso Resolve
+        """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from its domain and return the routing slug and available SSO providers.
+        Pre-login step: resolve a tenant from the email's domain and return the routing slug and available SSO providers.
 
-        :param domain: (required)
-        :type domain: str
+        :param email: Work email whose domain identifies the tenant. (required)
+        :type email: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4007,7 +4031,7 @@ class Auth:
         """ # noqa: E501
 
         _param = self._auth_sso_resolve_serialize(
-            domain=domain,
+            email=email,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4016,6 +4040,7 @@ class Auth:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SsoResolveOut",
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4027,7 +4052,7 @@ class Auth:
 
     def _auth_sso_resolve_serialize(
         self,
-        domain,
+        email,
         _request_auth,
         _content_type,
         _headers,
@@ -4050,9 +4075,9 @@ class Auth:
 
         # process the path parameters
         # process the query parameters
-        if domain is not None:
+        if email is not None:
             
-            _query_params.append(('domain', domain))
+            _query_params.append(('email', email))
             
         # process the header parameters
         # process the form parameters

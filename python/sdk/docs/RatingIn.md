@@ -6,9 +6,9 @@ Request body for creating or updating a rating.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rateable_type** | [**RateableTypeEnum**](RateableTypeEnum.md) |  | 
-**rateable_id** | **int** |  | 
-**value** | **int** |  | 
+**rateable_type** | [**RateableTypeEnum**](RateableTypeEnum.md) | Kind of resource being rated. | 
+**rateable_id** | **int** | ID of the resource being rated. | 
+**value** | **int** | Rating score, from 1 (worst) to 5 (best). | 
 **comment** | **str** |  | [optional] 
 
 ## Example

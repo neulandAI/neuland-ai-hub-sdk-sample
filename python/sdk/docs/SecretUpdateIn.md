@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**secret** | **str** |  | 
+**secret** | **str** | New OAuth client secret to store. Write-only. | 
 
 ## Example
 

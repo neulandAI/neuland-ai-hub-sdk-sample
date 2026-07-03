@@ -43,14 +43,14 @@ class TestSharepointV1(unittest.TestCase):
     def test_sharepointv1_get_user_info(self) -> None:
         """Test case for sharepointv1_get_user_info
 
-        Get current data source user
+        Get connected user profile
         """
         pass
 
     def test_sharepointv1_is_connected(self) -> None:
         """Test case for sharepointv1_is_connected
 
-        Check data source connection
+        Check connection status
         """
         pass
 

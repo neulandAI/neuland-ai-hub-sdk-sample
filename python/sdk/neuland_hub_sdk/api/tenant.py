@@ -330,8 +330,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -651,8 +650,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -957,8 +955,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -982,8 +979,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_oauth_client(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant to configure.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client to override.")],
         tenant_o_auth_client_in: TenantOAuthClientIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -999,13 +996,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> TenantOAuthClientOut:
-        """Create Tenant Oauth Client
+        """Create a per-tenant OAuth client config
 
-        Provision per-tenant SSO config + secret for a deployment-wide template.
+        Provision per-tenant SSO config and secret for a deployment-wide template.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant to configure. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client to override. (required)
         :type oauth_client_id: int
         :param tenant_o_auth_client_in: (required)
         :type tenant_o_auth_client_in: TenantOAuthClientIn
@@ -1046,6 +1043,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "TenantOAuthClientOut",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1062,8 +1062,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_oauth_client_with_http_info(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant to configure.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client to override.")],
         tenant_o_auth_client_in: TenantOAuthClientIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1079,13 +1079,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[TenantOAuthClientOut]:
-        """Create Tenant Oauth Client
+        """Create a per-tenant OAuth client config
 
-        Provision per-tenant SSO config + secret for a deployment-wide template.
+        Provision per-tenant SSO config and secret for a deployment-wide template.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant to configure. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client to override. (required)
         :type oauth_client_id: int
         :param tenant_o_auth_client_in: (required)
         :type tenant_o_auth_client_in: TenantOAuthClientIn
@@ -1126,6 +1126,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "TenantOAuthClientOut",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1142,8 +1145,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_oauth_client_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant to configure.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client to override.")],
         tenant_o_auth_client_in: TenantOAuthClientIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1159,13 +1162,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create Tenant Oauth Client
+        """Create a per-tenant OAuth client config
 
-        Provision per-tenant SSO config + secret for a deployment-wide template.
+        Provision per-tenant SSO config and secret for a deployment-wide template.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant to configure. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client to override. (required)
         :type oauth_client_id: int
         :param tenant_o_auth_client_in: (required)
         :type tenant_o_auth_client_in: TenantOAuthClientIn
@@ -1206,6 +1209,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "TenantOAuthClientOut",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1282,8 +1288,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1585,8 +1590,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1876,8 +1880,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2182,8 +2185,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2488,8 +2490,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2807,8 +2808,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2832,8 +2832,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_oauth_client(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2848,12 +2848,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Delete Tenant Oauth Client
+        """Delete a per-tenant OAuth client config
 
+        Delete a per-tenant OAuth client configuration and its stored secret.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -2891,6 +2892,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2907,8 +2911,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_oauth_client_with_http_info(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2923,12 +2927,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Delete Tenant Oauth Client
+        """Delete a per-tenant OAuth client config
 
+        Delete a per-tenant OAuth client configuration and its stored secret.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -2966,6 +2971,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2982,8 +2990,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_oauth_client_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2998,12 +3006,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Delete Tenant Oauth Client
+        """Delete a per-tenant OAuth client config
 
+        Delete a per-tenant OAuth client configuration and its stored secret.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -3041,6 +3050,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3101,8 +3113,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3407,8 +3418,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3677,8 +3687,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3983,8 +3992,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4302,8 +4310,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4608,8 +4615,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4926,8 +4932,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -5245,8 +5250,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -5270,8 +5274,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_client(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         tenant_o_auth_client_update: TenantOAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5287,12 +5291,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> TenantOAuthClientOut:
-        """Update Tenant Oauth Client
+        """Update a per-tenant OAuth client config
 
+        Update an existing per-tenant OAuth client configuration.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param tenant_o_auth_client_update: (required)
         :type tenant_o_auth_client_update: TenantOAuthClientUpdate
@@ -5333,6 +5338,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TenantOAuthClientOut",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5349,8 +5357,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_client_with_http_info(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         tenant_o_auth_client_update: TenantOAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5366,12 +5374,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[TenantOAuthClientOut]:
-        """Update Tenant Oauth Client
+        """Update a per-tenant OAuth client config
 
+        Update an existing per-tenant OAuth client configuration.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param tenant_o_auth_client_update: (required)
         :type tenant_o_auth_client_update: TenantOAuthClientUpdate
@@ -5412,6 +5421,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TenantOAuthClientOut",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5428,8 +5440,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_client_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         tenant_o_auth_client_update: TenantOAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5445,12 +5457,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update Tenant Oauth Client
+        """Update a per-tenant OAuth client config
 
+        Update an existing per-tenant OAuth client configuration.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param tenant_o_auth_client_update: (required)
         :type tenant_o_auth_client_update: TenantOAuthClientUpdate
@@ -5491,6 +5504,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "TenantOAuthClientOut",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5567,8 +5583,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -5592,8 +5607,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_secret(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         secret_update_in: SecretUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5609,12 +5624,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Update Tenant Oauth Secret
+        """Set a per-tenant OAuth client secret
 
+        Replace the stored OAuth client secret for a per-tenant configuration.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param secret_update_in: (required)
         :type secret_update_in: SecretUpdateIn
@@ -5655,6 +5671,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5671,8 +5690,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_secret_with_http_info(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         secret_update_in: SecretUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5688,12 +5707,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Update Tenant Oauth Secret
+        """Set a per-tenant OAuth client secret
 
+        Replace the stored OAuth client secret for a per-tenant configuration.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param secret_update_in: (required)
         :type secret_update_in: SecretUpdateIn
@@ -5734,6 +5754,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5750,8 +5773,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_secret_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        oauth_client_id: StrictInt,
+        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
         secret_update_in: SecretUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5767,12 +5790,13 @@ class Tenant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update Tenant Oauth Secret
+        """Set a per-tenant OAuth client secret
 
+        Replace the stored OAuth client secret for a per-tenant configuration.
 
-        :param tenant_id: (required)
+        :param tenant_id: ID of the tenant. (required)
         :type tenant_id: int
-        :param oauth_client_id: (required)
+        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
         :type oauth_client_id: int
         :param secret_update_in: (required)
         :type secret_update_in: SecretUpdateIn
@@ -5813,6 +5837,9 @@ class Tenant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5889,8 +5916,7 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(

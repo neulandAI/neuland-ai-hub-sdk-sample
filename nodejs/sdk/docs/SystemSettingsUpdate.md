@@ -1,5 +1,6 @@
 # SystemSettingsUpdate
 
+Partial update of the platform-wide system settings. Only provided fields are changed.
 
 ## Properties
 
@@ -10,6 +11,7 @@ Name | Type | Description | Notes
 **inbound_guardrail_llm_settings_id** | **number** |  | [optional] [default to undefined]
 **outbound_guardrail_llm_settings_id** | **number** |  | [optional] [default to undefined]
 **embedding_llm_settings_id** | **number** |  | [optional] [default to undefined]
+**transcription_llm_settings_id** | **number** |  | [optional] [default to undefined]
 **maintenance_start_at** | **string** |  | [optional] [default to undefined]
 **maintenance_end_at** | **string** |  | [optional] [default to undefined]
 **maintenance_message** | **string** |  | [optional] [default to undefined]
@@ -26,6 +28,7 @@ const instance: SystemSettingsUpdate = {
     inbound_guardrail_llm_settings_id,
     outbound_guardrail_llm_settings_id,
     embedding_llm_settings_id,
+    transcription_llm_settings_id,
     maintenance_start_at,
     maintenance_end_at,
     maintenance_message,

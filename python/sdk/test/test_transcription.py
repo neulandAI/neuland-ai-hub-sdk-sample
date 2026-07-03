@@ -33,6 +33,13 @@ class TestTranscription(unittest.TestCase):
         """
         pass
 
+    def test_transcriptions_transcription_callback(self) -> None:
+        """Test case for transcriptions_transcription_callback
+
+        Receive an async transcription callback
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

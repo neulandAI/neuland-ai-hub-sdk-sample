@@ -8,9 +8,10 @@ The response format from the transcription endpoint
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**text** | **str** | Transcribed text of the audio. | 
-**language** | **str** | Detected language of the audio (ISO 639-1 or language name). | 
-**duration_seconds** | **float** | Duration of the audio in seconds. | 
+**text** | **str** | Full transcribed text of the audio. | 
+**language** | **str** |  | 
+**duration_seconds** | **float** | Duration of the transcribed audio in seconds. | 
+**segments** | [**List[TranscriptionSegment]**](/sdk/python/reference/models/TranscriptionSegment) | Time-aligned, optionally diarized transcript segments. | 
 
 ## Example
 

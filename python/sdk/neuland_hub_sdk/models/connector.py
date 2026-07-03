@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from neuland_hub_sdk.models.connector_auth_type import ConnectorAuthType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,13 +34,14 @@ class Connector(BaseModel):
     creator_user_id: Optional[StrictInt] = None
     updater_user_id: Optional[StrictInt] = None
     id: Optional[StrictInt] = None
-    oauth_client_id: StrictInt = Field(description="ID of the OAuth client backing this connector.")
-    name: StrictStr = Field(description="Name of the connector.")
+    oauth_client_id: Optional[StrictInt] = None
+    name: StrictStr = Field(description="Human-readable name of the connector.")
     description: Optional[StrictStr] = None
     scopes: Optional[List[Optional[StrictStr]]] = Field(default=None, description="OAuth scopes requested by this connector.")
-    caps: Optional[List[Optional[StrictStr]]] = Field(default=None, description="Capabilities provided by this connector.")
-    auto_attach: Optional[StrictBool] = Field(default=False, description="Whether this connector is automatically attached to new resources.")
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "oauth_client_id", "name", "description", "scopes", "caps", "auto_attach"]
+    caps: Optional[List[Optional[StrictStr]]] = Field(default=None, description="Capabilities this connector provides.")
+    auto_attach: Optional[StrictBool] = Field(default=False, description="Whether the connector is automatically attached to new chats.")
+    auth_type: Optional[ConnectorAuthType] = Field(default=None, description="Authentication mechanism the connector uses.")
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "oauth_client_id", "name", "description", "scopes", "caps", "auto_attach", "auth_type"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -95,6 +97,11 @@ class Connector(BaseModel):
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
 
+        # set to None if oauth_client_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.oauth_client_id is None and "oauth_client_id" in self.model_fields_set:
+            _dict['oauth_client_id'] = None
+
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
@@ -122,7 +129,8 @@ class Connector(BaseModel):
             "description": obj.get("description"),
             "scopes": obj.get("scopes"),
             "caps": obj.get("caps"),
-            "auto_attach": obj.get("auto_attach") if obj.get("auto_attach") is not None else False
+            "auto_attach": obj.get("auto_attach") if obj.get("auto_attach") is not None else False,
+            "auth_type": obj.get("auth_type")
         })
         return _obj
 

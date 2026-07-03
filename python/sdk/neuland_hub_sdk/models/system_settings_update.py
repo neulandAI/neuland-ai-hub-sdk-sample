@@ -26,18 +26,19 @@ from pydantic_core import to_jsonable_python
 
 class SystemSettingsUpdate(BaseModel):
     """
-    SystemSettingsUpdate
+    Partial update of the platform-wide system settings. Only provided fields are changed.
     """ # noqa: E501
     maintenance_enabled: Optional[StrictBool] = None
     tracing_enabled: Optional[StrictBool] = None
     inbound_guardrail_llm_settings_id: Optional[StrictInt] = None
     outbound_guardrail_llm_settings_id: Optional[StrictInt] = None
     embedding_llm_settings_id: Optional[StrictInt] = None
+    transcription_llm_settings_id: Optional[StrictInt] = None
     maintenance_start_at: Optional[datetime] = None
     maintenance_end_at: Optional[datetime] = None
     maintenance_message: Optional[StrictStr] = None
     reason: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["maintenance_enabled", "tracing_enabled", "inbound_guardrail_llm_settings_id", "outbound_guardrail_llm_settings_id", "embedding_llm_settings_id", "maintenance_start_at", "maintenance_end_at", "maintenance_message", "reason"]
+    __properties: ClassVar[List[str]] = ["maintenance_enabled", "tracing_enabled", "inbound_guardrail_llm_settings_id", "outbound_guardrail_llm_settings_id", "embedding_llm_settings_id", "transcription_llm_settings_id", "maintenance_start_at", "maintenance_end_at", "maintenance_message", "reason"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -103,6 +104,11 @@ class SystemSettingsUpdate(BaseModel):
         if self.embedding_llm_settings_id is None and "embedding_llm_settings_id" in self.model_fields_set:
             _dict['embedding_llm_settings_id'] = None
 
+        # set to None if transcription_llm_settings_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.transcription_llm_settings_id is None and "transcription_llm_settings_id" in self.model_fields_set:
+            _dict['transcription_llm_settings_id'] = None
+
         # set to None if maintenance_start_at (nullable) is None
         # and model_fields_set contains the field
         if self.maintenance_start_at is None and "maintenance_start_at" in self.model_fields_set:
@@ -140,6 +146,7 @@ class SystemSettingsUpdate(BaseModel):
             "inbound_guardrail_llm_settings_id": obj.get("inbound_guardrail_llm_settings_id"),
             "outbound_guardrail_llm_settings_id": obj.get("outbound_guardrail_llm_settings_id"),
             "embedding_llm_settings_id": obj.get("embedding_llm_settings_id"),
+            "transcription_llm_settings_id": obj.get("transcription_llm_settings_id"),
             "maintenance_start_at": obj.get("maintenance_start_at"),
             "maintenance_end_at": obj.get("maintenance_end_at"),
             "maintenance_message": obj.get("maintenance_message"),

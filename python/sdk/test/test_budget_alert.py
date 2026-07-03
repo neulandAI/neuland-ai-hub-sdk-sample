@@ -49,7 +49,6 @@ class TestBudgetAlert(unittest.TestCase):
         else:
             return BudgetAlert(
                 tenant_id = 56,
-                created_user_id = 56,
         )
         """
 

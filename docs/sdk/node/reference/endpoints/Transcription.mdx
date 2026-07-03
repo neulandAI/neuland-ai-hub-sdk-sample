@@ -7,13 +7,14 @@ All URIs are relative to *https://api.your-domain.com*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**transcriptionsCreateTranscription**](#transcriptionscreatetranscription) | **POST** /transcriptions/ | Transcribe an audio file|
+|[**transcriptionsTranscriptionCallback**](#transcriptionstranscriptioncallback) | **POST** /transcriptions/callback | Receive an async transcription callback|
 
 ## **transcriptionsCreateTranscription**
 ```typescript
 TranscriptionOut transcriptionsCreateTranscription()
 ```
 
-Transcribe an uploaded audio file via the configured Whisper provider.
+Transcribe an uploaded audio file and return the transcript synchronously.
 
 ### Example
 
@@ -49,7 +50,7 @@ const { status, data } = await apiInstance.transcriptionsCreateTranscription(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -64,6 +65,52 @@ const { status, data } = await apiInstance.transcriptionsCreateTranscription(
 |**401** | Missing or invalid authentication. |  -  |
 |**413** | Audio file exceeds the 25 MB limit. |  -  |
 |**415** | Unsupported audio content type. |  -  |
-|**502** | Transcription provider request failed. |  -  |
-|**503** | No transcription provider is configured or available. |  -  |
+|**502** | The transcription provider failed or returned an error. |  -  |
+|**503** | Transcription is not configured or unavailable. |  -  |
 |**422** | Validation Error |  -  |
+
+
+## **transcriptionsTranscriptionCallback**
+```typescript
+{ [key: string]: any; } transcriptionsTranscriptionCallback()
+```
+
+Accept a signed transcription result pushed back by the Whisper service.
+
+### Example
+
+```typescript
+import {
+    Transcription,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Transcription(configuration);
+
+const { status, data } = await apiInstance.transcriptionsTranscriptionCallback();
+```
+
+### Parameters
+This endpoint does not have any parameters.
+
+
+### Return type
+
+**&#123; [key: string]: any; &#125;**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**202** | Successful Response |  -  |
+|**401** | Missing or invalid HMAC signature on the callback body. |  -  |

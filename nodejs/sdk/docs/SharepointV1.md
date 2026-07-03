@@ -1,13 +1,13 @@
 # SharepointV1
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**sharepointv1Capabilities**](#sharepointv1capabilities) | **GET** /integrations/sharepoint/v1/capabilities | Get data source capabilities|
 |[**sharepointv1GetItemInfo**](#sharepointv1getiteminfo) | **GET** /integrations/sharepoint/v1/drives/{drive_id}/items/{drive_item_id} | Get a drive item|
-|[**sharepointv1GetUserInfo**](#sharepointv1getuserinfo) | **GET** /integrations/sharepoint/v1/me | Get current data source user|
-|[**sharepointv1IsConnected**](#sharepointv1isconnected) | **GET** /integrations/sharepoint/v1/connected | Check data source connection|
+|[**sharepointv1GetUserInfo**](#sharepointv1getuserinfo) | **GET** /integrations/sharepoint/v1/me | Get connected user profile|
+|[**sharepointv1IsConnected**](#sharepointv1isconnected) | **GET** /integrations/sharepoint/v1/connected | Check connection status|
 |[**sharepointv1ListChildren**](#sharepointv1listchildren) | **GET** /integrations/sharepoint/v1/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item|
 |[**sharepointv1ListDrives**](#sharepointv1listdrives) | **GET** /integrations/sharepoint/v1/sites/{site_id}/drives | List drives in a site|
 |[**sharepointv1ListRoots**](#sharepointv1listroots) | **GET** /integrations/sharepoint/v1/roots | List top-level browse entries|
@@ -15,7 +15,7 @@ All URIs are relative to *http://localhost*
 # **sharepointv1Capabilities**
 > DataSourceCapabilities sharepointv1Capabilities()
 
-Return the browse-hierarchy metadata for this data source.
+Return the browse-hierarchy metadata (root kind, depth) for this source.
 
 ### Example
 
@@ -48,7 +48,7 @@ const { status, data } = await apiInstance.sharepointv1Capabilities(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -67,7 +67,7 @@ const { status, data } = await apiInstance.sharepointv1Capabilities(
 # **sharepointv1GetItemInfo**
 > DataSourceItemModel sharepointv1GetItemInfo()
 
-Get a single data source drive item, annotated with imported counts.
+Fetch a single drive item\'s metadata, with imported flag/count.
 
 ### Example
 
@@ -81,7 +81,7 @@ const configuration = new Configuration();
 const apiInstance = new SharepointV1(configuration);
 
 let driveId: string; //Id of the drive. (default to undefined)
-let driveItemId: string; //Id of the drive item. (default to undefined)
+let driveItemId: string; //Id of the item. (default to undefined)
 let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
 let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
 let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
@@ -104,7 +104,7 @@ const { status, data } = await apiInstance.sharepointv1GetItemInfo(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **driveId** | [**string**] | Id of the drive. | defaults to undefined|
-| **driveItemId** | [**string**] | Id of the drive item. | defaults to undefined|
+| **driveItemId** | [**string**] | Id of the item. | defaults to undefined|
 | **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
 | **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
 | **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
@@ -118,7 +118,7 @@ const { status, data } = await apiInstance.sharepointv1GetItemInfo(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -130,8 +130,9 @@ const { status, data } = await apiInstance.sharepointv1GetItemInfo(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
-|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required scope. |  -  |
+|**401** | Missing authentication or connector consent required. |  -  |
+|**403** | Connector token lacks the required permissions. |  -  |
+|**404** | No drive or item exists with the given ids. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -139,7 +140,7 @@ const { status, data } = await apiInstance.sharepointv1GetItemInfo(
 # **sharepointv1GetUserInfo**
 > DataSourceUserModel sharepointv1GetUserInfo()
 
-Return the signed-in user\'s profile on this data source.
+Return the current user\'s profile on the data source.
 
 ### Example
 
@@ -172,7 +173,7 @@ const { status, data } = await apiInstance.sharepointv1GetUserInfo(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -184,8 +185,8 @@ const { status, data } = await apiInstance.sharepointv1GetUserInfo(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
-|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required scope. |  -  |
+|**401** | Missing authentication or connector consent required. |  -  |
+|**403** | Connector token lacks the required permissions. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -193,7 +194,7 @@ const { status, data } = await apiInstance.sharepointv1GetUserInfo(
 # **sharepointv1IsConnected**
 > boolean sharepointv1IsConnected()
 
-Report whether the user has consented to this source\'s browse scopes.
+Report whether the current user has granted consent to browse this source.
 
 ### Example
 
@@ -226,7 +227,7 @@ const { status, data } = await apiInstance.sharepointv1IsConnected(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -246,7 +247,7 @@ const { status, data } = await apiInstance.sharepointv1IsConnected(
 # **sharepointv1ListChildren**
 > Array<DataSourceItemModel> sharepointv1ListChildren()
 
-List files and folders under a drive item, annotated with imported counts.
+List the immediate children of a drive item, with imported flags/counts.
 
 ### Example
 
@@ -260,12 +261,12 @@ const configuration = new Configuration();
 const apiInstance = new SharepointV1(configuration);
 
 let driveId: string; //Id of the drive. (default to undefined)
-let driveItemId: string; //Id of the parent item; empty or \'root\' for the drive root. (default to undefined)
+let driveItemId: string; //Id of the folder item, or \'root\'. (default to undefined)
 let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
 let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
 let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
 let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
-let recursive: boolean; //Recurse into subfolders, returning only files. (optional) (default to false)
+let recursive: boolean; //Recurse into subfolders and return all descendant files. (optional) (default to false)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.sharepointv1ListChildren(
@@ -285,12 +286,12 @@ const { status, data } = await apiInstance.sharepointv1ListChildren(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **driveId** | [**string**] | Id of the drive. | defaults to undefined|
-| **driveItemId** | [**string**] | Id of the parent item; empty or \&#39;root\&#39; for the drive root. | defaults to undefined|
+| **driveItemId** | [**string**] | Id of the folder item, or \&#39;root\&#39;. | defaults to undefined|
 | **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
 | **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
 | **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
 | **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
-| **recursive** | [**boolean**] | Recurse into subfolders, returning only files. | (optional) defaults to false|
+| **recursive** | [**boolean**] | Recurse into subfolders and return all descendant files. | (optional) defaults to false|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -300,7 +301,7 @@ const { status, data } = await apiInstance.sharepointv1ListChildren(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -312,8 +313,9 @@ const { status, data } = await apiInstance.sharepointv1ListChildren(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
-|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required scope. |  -  |
+|**401** | Missing authentication or connector consent required. |  -  |
+|**403** | Connector token lacks the required permissions. |  -  |
+|**404** | No drive or item exists with the given ids. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -321,7 +323,7 @@ const { status, data } = await apiInstance.sharepointv1ListChildren(
 # **sharepointv1ListDrives**
 > Array<DataSourceDriveModel> sharepointv1ListDrives()
 
-List the drives under a site (or the user\'s drives for drive-rooted sources).
+List drives under a site, with imported counts per drive.
 
 ### Example
 
@@ -369,7 +371,7 @@ const { status, data } = await apiInstance.sharepointv1ListDrives(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -381,8 +383,9 @@ const { status, data } = await apiInstance.sharepointv1ListDrives(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
-|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required scope. |  -  |
+|**401** | Missing authentication or connector consent required. |  -  |
+|**403** | Connector token lacks the required permissions. |  -  |
+|**404** | No site exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -390,7 +393,7 @@ const { status, data } = await apiInstance.sharepointv1ListDrives(
 # **sharepointv1ListRoots**
 > ResponseSharepointv1ListRoots sharepointv1ListRoots()
 
-List the source\'s top-level browse entries (sites or drives) with imported counts.
+List the top-level browse entries (sites or drives), with imported counts.
 
 ### Example
 
@@ -435,7 +438,7 @@ const { status, data } = await apiInstance.sharepointv1ListRoots(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -447,8 +450,8 @@ const { status, data } = await apiInstance.sharepointv1ListRoots(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
-|**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required scope. |  -  |
+|**401** | Missing authentication or connector consent required. |  -  |
+|**403** | Connector token lacks the required permissions. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

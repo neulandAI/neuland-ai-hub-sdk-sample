@@ -43,14 +43,14 @@ class TestOneDrive(unittest.TestCase):
     def test_onedrive_get_user_info(self) -> None:
         """Test case for onedrive_get_user_info
 
-        Get current data source user
+        Get connected user profile
         """
         pass
 
     def test_onedrive_is_connected(self) -> None:
         """Test case for onedrive_is_connected
 
-        Check data source connection
+        Check connection status
         """
         pass
 

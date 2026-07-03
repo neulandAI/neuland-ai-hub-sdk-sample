@@ -37,13 +37,27 @@ class TestTranscriptionOut(unittest.TestCase):
             return TranscriptionOut(
                 text = '',
                 language = '',
-                duration_seconds = 1.337
+                duration_seconds = 1.337,
+                segments = [
+                    neuland_hub_sdk.models.transcription_segment.TranscriptionSegment(
+                        start = 1.337, 
+                        end = 1.337, 
+                        speaker = '', 
+                        text = '', )
+                    ]
             )
         else:
             return TranscriptionOut(
                 text = '',
                 language = '',
                 duration_seconds = 1.337,
+                segments = [
+                    neuland_hub_sdk.models.transcription_segment.TranscriptionSegment(
+                        start = 1.337, 
+                        end = 1.337, 
+                        speaker = '', 
+                        text = '', )
+                    ],
         )
         """
 

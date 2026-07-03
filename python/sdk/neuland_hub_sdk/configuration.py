@@ -111,7 +111,6 @@ HTTPSignatureAuthSetting = TypedDict(
 AuthSettings = TypedDict(
     "AuthSettings",
     {
-        "OAuth2PasswordBearer": OAuth2AuthSetting,
         "APIKeyHeader": APIKeyAuthSetting,
     },
     total=False,
@@ -235,7 +234,7 @@ conf = neuland_hub_sdk.Configuration(
     ) -> None:
         """Constructor
         """
-        self._base_path = "http://localhost" if host is None else host
+        self._base_path = "https://api.your-domain.com" if host is None else host
         """Default Base url
         """
         self.server_index = 0 if server_index is None and host is None else server_index
@@ -535,13 +534,6 @@ conf = neuland_hub_sdk.Configuration(
         :return: The Auth Settings information dict.
         """
         auth: AuthSettings = {}
-        if self.access_token is not None:
-            auth['OAuth2PasswordBearer'] = {
-                'type': 'oauth2',
-                'in': 'header',
-                'key': 'Authorization',
-                'value': 'Bearer ' + self.access_token
-            }
         if 'APIKeyHeader' in self.api_key:
             auth['APIKeyHeader'] = {
                 'type': 'api_key',
@@ -572,7 +564,7 @@ conf = neuland_hub_sdk.Configuration(
         """
         return [
             {
-                'url': "",
+                'url': "https://api.your-domain.com",
                 'description': "No description provided",
             }
         ]
