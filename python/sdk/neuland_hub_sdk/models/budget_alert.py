@@ -38,7 +38,7 @@ class BudgetAlert(BaseModel):
     active: Optional[StrictBool] = Field(default=True, description="If the alert is enabled")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the alert was created.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when alert was updated.")
-    created_user_id: StrictInt = Field(description="ID of the user who made the LLM request.")
+    created_user_id: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["id", "tenant_id", "name", "threshold_amount", "current_spend", "triggered", "active", "created_at", "updated_at", "created_user_id"]
 
     @field_validator('current_spend')
@@ -94,6 +94,11 @@ class BudgetAlert(BaseModel):
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
+
+        # set to None if created_user_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_user_id is None and "created_user_id" in self.model_fields_set:
+            _dict['created_user_id'] = None
 
         return _dict
 

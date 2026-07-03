@@ -6,8 +6,8 @@ All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**system_read_system_settings**](/sdk/python/reference/endpoints/System#system_read_system_settings) | **GET** /system/settings | Read System Settings
-[**system_update_system_settings**](/sdk/python/reference/endpoints/System#system_update_system_settings) | **PATCH** /system/settings | Update System Settings
+[**system_read_system_settings**](/sdk/python/reference/endpoints/System#system_read_system_settings) | **GET** /system/settings | Read system settings
+[**system_update_system_settings**](/sdk/python/reference/endpoints/System#system_update_system_settings) | **PATCH** /system/settings | Update system settings
 
 
 ## **system_read_system_settings**
@@ -15,12 +15,13 @@ Method | HTTP request | Description
 SystemSettings system_read_system_settings(cookie_name=cookie_name)
 ```
 
-Read System Settings
+Read system settings
+
+Return the current platform-wide system settings.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -45,8 +46,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -54,7 +53,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Read System Settings
+        # Read system settings
         api_response = api_instance.system_read_system_settings(cookie_name=cookie_name)
         print("The response of System->system_read_system_settings:\n")
         pprint(api_response)
@@ -77,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -89,6 +88,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -97,12 +98,13 @@ Name | Type | Description  | Notes
 SystemSettings system_update_system_settings(system_settings_update, cookie_name=cookie_name)
 ```
 
-Update System Settings
+Update system settings
+
+Apply the provided system settings changes and record an audit entry.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -128,8 +130,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -138,7 +138,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update System Settings
+        # Update system settings
         api_response = api_instance.system_update_system_settings(system_settings_update, cookie_name=cookie_name)
         print("The response of System->system_update_system_settings:\n")
         pprint(api_response)
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -174,4 +174,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**400** | No changes were provided. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Superadmin privileges required. |  -  |
 **422** | Validation Error |  -  |

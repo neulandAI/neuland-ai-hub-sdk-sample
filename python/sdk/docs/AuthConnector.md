@@ -1,40 +1,43 @@
 # neuland_hub_sdk.AuthConnector
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**auth_get_credential_template**](AuthConnector.md#auth_get_credential_template) | **GET** /auth/connectors/{connector_id}/credential/template | Get connector credential template
 [**auth_initiate_admin_consent**](AuthConnector.md#auth_initiate_admin_consent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate admin connector consent
 [**auth_initiate_consent**](AuthConnector.md#auth_initiate_consent) | **GET** /auth/connectors/{connector_id}/consent | Initiate connector consent
 [**auth_list_connector_status**](AuthConnector.md#auth_list_connector_status) | **GET** /auth/connectors/status | List connector status
 [**auth_oauth_callback**](AuthConnector.md#auth_oauth_callback) | **GET** /auth/connectors/callback | Connector OAuth callback
 [**auth_revoke_consent**](AuthConnector.md#auth_revoke_consent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke connector consent
+[**auth_set_admin_credential**](AuthConnector.md#auth_set_admin_credential) | **PUT** /auth/connectors/{connector_id}/credential/admin | Set the tenant-wide connector credential
+[**auth_set_user_credential**](AuthConnector.md#auth_set_user_credential) | **PUT** /auth/connectors/{connector_id}/credential/user | Set the caller&#39;s connector credential
 [**auth_update_connector**](AuthConnector.md#auth_update_connector) | **PATCH** /auth/connectors/{connector_id} | Update a connector
 [**auth_update_oauth_client**](AuthConnector.md#auth_update_oauth_client) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update an OAuth client
 
 
-# **auth_initiate_admin_consent**
-> ConnectorConsentOut auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
+# **auth_get_credential_template**
+> CredentialTemplateOut auth_get_credential_template(connector_id, cookie_name=cookie_name)
 
-Initiate admin connector consent
+Get connector credential template
 
-Start the admin consent flow for connectors that require organization-wide admin consent.
+The admin and/or user parts this connector needs and whether each is set.
+Never returns stored secret values — only which fields are present.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
+from neuland_hub_sdk.models.credential_template_out import CredentialTemplateOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -48,7 +51,89 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    connector_id = 56 # int | ID of the connector whose credential is being accessed.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Get connector credential template
+        api_response = api_instance.auth_get_credential_template(connector_id, cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_get_credential_template:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_get_credential_template: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connector_id** | **int**| ID of the connector whose credential is being accessed. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**CredentialTemplateOut**](CredentialTemplateOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | No connector or credential template exists for the given id. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **auth_initiate_admin_consent**
+> ConnectorConsentOut auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
+
+Initiate admin connector consent
+
+Start the admin consent flow for connectors that require organization-wide admin consent.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -84,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -109,12 +194,12 @@ Name | Type | Description  | Notes
 
 Initiate connector consent
 
-Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.
+Initiate OAuth consent flow for a connector. Returns the provider consent
+URL as JSON, or a 302 redirect when redirect=true.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -122,10 +207,10 @@ from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -138,8 +223,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -177,7 +260,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -206,7 +289,6 @@ List connectors available to the user's tenant with their per-user consent statu
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -214,10 +296,10 @@ from neuland_hub_sdk.models.connector_status_out import ConnectorStatusOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -230,8 +312,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -263,7 +343,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -296,10 +376,10 @@ import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -365,22 +445,22 @@ No authorization required
 
 Revoke connector consent
 
-Delete the current user's stored consent for a connector, if any exists.
+Disconnect a connector for the caller: revoke OAuth consent for OAuth
+connectors, or clear the caller's own credential for non-OAuth ones.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -393,8 +473,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -426,7 +504,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -443,29 +521,27 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **auth_update_connector**
-> Connector auth_update_connector(connector_id, connector_update, cookie_name=cookie_name)
+# **auth_set_admin_credential**
+> auth_set_admin_credential(connector_id, credential_in, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Update a connector
+Set the tenant-wide connector credential
 
-Update a connector (superadmin only).
+Store the tenant-wide (admin) credential fields. Admin only.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.connector import Connector
-from neuland_hub_sdk.models.connector_update import ConnectorUpdate
+from neuland_hub_sdk.models.credential_in import CredentialIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -479,7 +555,177 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    connector_id = 56 # int | ID of the connector whose credential is being accessed.
+    credential_in = neuland_hub_sdk.CredentialIn() # CredentialIn | 
+    tenant_id = 56 # int |  (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Set the tenant-wide connector credential
+        api_instance.auth_set_admin_credential(connector_id, credential_in, tenant_id=tenant_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_set_admin_credential: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connector_id** | **int**| ID of the connector whose credential is being accessed. | 
+ **credential_in** | [**CredentialIn**](CredentialIn.md)|  | 
+ **tenant_id** | **int**|  | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Administrator privileges required. |  -  |
+**404** | No connector/template exists, or it has no admin credential fields. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **auth_set_user_credential**
+> auth_set_user_credential(connector_id, credential_in, cookie_name=cookie_name)
+
+Set the caller's connector credential
+
+Store the caller's per-user credential fields.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.credential_in import CredentialIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    connector_id = 56 # int | ID of the connector whose credential is being accessed.
+    credential_in = neuland_hub_sdk.CredentialIn() # CredentialIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Set the caller's connector credential
+        api_instance.auth_set_user_credential(connector_id, credential_in, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_set_user_credential: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connector_id** | **int**| ID of the connector whose credential is being accessed. | 
+ **credential_in** | [**CredentialIn**](CredentialIn.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | No connector/template exists, or it has no per-user credential fields. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **auth_update_connector**
+> Connector auth_update_connector(connector_id, connector_update, cookie_name=cookie_name)
+
+Update a connector
+
+Update a connector (superadmin only).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.connector import Connector
+from neuland_hub_sdk.models.connector_update import ConnectorUpdate
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -515,7 +761,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -544,7 +790,6 @@ Update an OAuth client (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -553,10 +798,10 @@ from neuland_hub_sdk.models.o_auth_client_update import OAuthClientUpdate
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -569,8 +814,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -606,7 +849,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

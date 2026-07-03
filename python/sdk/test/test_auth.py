@@ -92,7 +92,7 @@ class TestAuth(unittest.TestCase):
     def test_auth_search_entra_groups(self) -> None:
         """Test case for auth_search_entra_groups
 
-        Search Entra Groups
+        Search Entra directory groups
         """
         pass
 
@@ -106,21 +106,21 @@ class TestAuth(unittest.TestCase):
     def test_auth_sso_exchange(self) -> None:
         """Test case for auth_sso_exchange
 
-        Sso Exchange
+        Complete an SSO login
         """
         pass
 
     def test_auth_sso_init(self) -> None:
         """Test case for auth_sso_init
 
-        Sso Init
+        Start an SSO login
         """
         pass
 
     def test_auth_sso_resolve(self) -> None:
         """Test case for auth_sso_resolve
 
-        Sso Resolve
+        Resolve SSO providers for an email
         """
         pass
 

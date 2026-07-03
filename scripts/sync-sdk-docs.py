@@ -435,25 +435,81 @@ def build_resource_groups(dest: str, pages: dict[str, list[str]],
     return method_pages + models_section
 
 
-def update_navigation(groups_by_tab: dict[str, list[dict]]) -> None:
-    config = json.loads(DOCS_JSON.read_text(encoding="utf-8"))
-    tabs = config["navigation"]["tabs"]
-    sdk_tabs = {sdk["tab"] for sdk in SDKS}
+def _page_exists(ref: str) -> bool:
+    return (DOCS_ROOT / (ref + ".mdx")).exists() or (DOCS_ROOT / (ref + ".md")).exists()
 
-    for tab in tabs:
-        name = tab.get("tab")
-        if name not in sdk_tabs:
-            continue
-        # Find the curated "Get Started" group wherever it currently lives
-        # (under "groups" on first run, under "pages" on a re-run).
+
+def _existing_guide_pages() -> list[str]:
+    d = DOCS_ROOT / "guides"
+    return [f"guides/{p.stem}" for p in sorted(d.glob("*.mdx"))] if d.is_dir() else []
+
+
+def _default_get_started(dest: str) -> dict:
+    pages = [f"sdk/{dest}/{n}" for n in ("installation", "usage", "streaming")
+             if _page_exists(f"sdk/{dest}/{n}")]
+    return {"group": GET_STARTED_GROUP, "pages": pages}
+
+
+def _all_refs(container: dict) -> list[str]:
+    refs: list[str] = []
+    def walk(pages):
+        for p in pages:
+            walk(p.get("pages", [])) if isinstance(p, dict) else refs.append(p)
+    for g in container.get("groups", []):
+        walk(g.get("pages", []))
+    walk(container.get("pages", []))
+    return refs
+
+
+def update_navigation(groups_by_tab: dict[str, list]) -> None:
+    """Rebuild the SDK tabs, and self-heal the overall tab structure.
+
+    The Mintlify web editor can revert `docs.json` to older states, dropping the
+    SDK tabs or breaking the Guides links. To make `openapi.json` + this script
+    enough to regenerate everything, we CREATE any missing tab (SDK tabs, API
+    Reference) and repair the Guides tab when its pages no longer resolve.
+    """
+    config = json.loads(DOCS_JSON.read_text(encoding="utf-8"))
+    tabs = config.setdefault("navigation", {}).setdefault("tabs", [])
+
+    def find(name: str):
+        return next((t for t in tabs if t.get("tab") == name), None)
+
+    # Guides tab: create a skeleton if missing, or repair it if its links broke.
+    guide_pages = _existing_guide_pages()
+    guides_tab = find("Guides")
+    has_guide_tab = guides_tab or find("User Guide") or find("Integration Guide")
+    if guides_tab is None and not has_guide_tab and guide_pages:
+        tabs.insert(0, {"tab": "Guides",
+                        "groups": [{"group": "Getting Started", "pages": guide_pages}]})
+    elif guides_tab is not None and guide_pages:
+        refs = _all_refs(guides_tab)
+        if refs and any(not _page_exists(r) for r in refs):
+            guides_tab.pop("pages", None)
+            guides_tab["groups"] = [{"group": "Getting Started", "pages": guide_pages}]
+            print("  repaired broken 'Guides' tab links")
+
+    # SDK tabs: create if missing, keep the curated Get Started group, then fill
+    # with the generated method pages + Models section.
+    for sdk in SDKS:
+        tab = find(sdk["tab"])
+        if tab is None:
+            tab = {"tab": sdk["tab"]}
+            tabs.append(tab)
+            print(f"  created missing '{sdk['tab']}' tab")
         existing = list(tab.get("groups", [])) + [
             p for p in tab.get("pages", []) if isinstance(p, dict)
         ]
         get_started = [g for g in existing if g.get("group") == GET_STARTED_GROUP]
-        # Switch the SDK tab to a flat "pages" list: Get Started group, then the
-        # loose method pages, then the Models group. No per-resource headers.
+        if not get_started:
+            get_started = [_default_get_started(sdk["dest"])]
         tab.pop("groups", None)
-        tab["pages"] = get_started + groups_by_tab[name]
+        tab["pages"] = get_started + groups_by_tab[sdk["tab"]]
+
+    # API Reference tab: create if missing (it just points at the spec).
+    if find("API Reference") is None:
+        tabs.append({"tab": "API Reference", "openapi": "openapi.json"})
+        print("  created missing 'API Reference' tab")
 
     DOCS_JSON.write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
     print(f"  updated navigation in {DOCS_JSON.relative_to(REPO_ROOT)}")

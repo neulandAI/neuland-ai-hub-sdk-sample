@@ -49,11 +49,11 @@ class TestConnector(unittest.TestCase):
                 caps = [
                     ''
                     ],
-                auto_attach = True
+                auto_attach = True,
+                auth_type = 'oauth'
             )
         else:
             return Connector(
-                oauth_client_id = 56,
                 name = '',
         )
         """

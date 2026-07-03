@@ -73,6 +73,7 @@
           "sdk/python/reference/endpoints/Transcription",
           "sdk/python/reference/endpoints/Sharepoint",
           "sdk/python/reference/endpoints/OneDrive",
+          "sdk/python/reference/endpoints/Nextcloud",
           "sdk/python/reference/endpoints/Atlassian",
           "sdk/python/reference/endpoints/Application",
           "sdk/python/reference/endpoints/ApiKey",
@@ -100,10 +101,14 @@
                 "group": "AuthConnector",
                 "pages": [
                   "sdk/python/reference/models/Connector",
+                  "sdk/python/reference/models/ConnectorAuthType",
                   "sdk/python/reference/models/ConnectorConsentOut",
                   "sdk/python/reference/models/ConnectorOut",
                   "sdk/python/reference/models/ConnectorStatusOut",
                   "sdk/python/reference/models/ConnectorUpdate",
+                  "sdk/python/reference/models/CredentialIn",
+                  "sdk/python/reference/models/CredentialPartOut",
+                  "sdk/python/reference/models/CredentialTemplateOut",
                   "sdk/python/reference/models/OAuth2ProviderEnum",
                   "sdk/python/reference/models/OAuthClient",
                   "sdk/python/reference/models/OAuthClientUpdate"
@@ -295,7 +300,8 @@
               {
                 "group": "Transcription",
                 "pages": [
-                  "sdk/python/reference/models/TranscriptionOut"
+                  "sdk/python/reference/models/TranscriptionOut",
+                  "sdk/python/reference/models/TranscriptionSegment"
                 ]
               },
               {
@@ -311,13 +317,19 @@
               {
                 "group": "OneDrive",
                 "pages": [
+                  "sdk/python/reference/models/ResponseOnedriveListRoots"
+                ]
+              },
+              {
+                "group": "Nextcloud",
+                "pages": [
                   "sdk/python/reference/models/DataSourceCapabilities",
                   "sdk/python/reference/models/DataSourceDriveModel",
                   "sdk/python/reference/models/DataSourceFolderModel",
                   "sdk/python/reference/models/DataSourceItemModel",
                   "sdk/python/reference/models/DataSourceSiteModel",
                   "sdk/python/reference/models/DataSourceUserModel",
-                  "sdk/python/reference/models/ResponseOnedriveListRoots"
+                  "sdk/python/reference/models/ResponseNextcloudListRoots"
                 ]
               },
               {
@@ -427,6 +439,7 @@
           "sdk/node/reference/endpoints/Transcription",
           "sdk/node/reference/endpoints/Sharepoint",
           "sdk/node/reference/endpoints/OneDrive",
+          "sdk/node/reference/endpoints/Nextcloud",
           "sdk/node/reference/endpoints/Atlassian",
           "sdk/node/reference/endpoints/Application",
           "sdk/node/reference/endpoints/ApiKey",
@@ -454,10 +467,14 @@
                 "group": "AuthConnector",
                 "pages": [
                   "sdk/node/reference/models/Connector",
+                  "sdk/node/reference/models/ConnectorAuthType",
                   "sdk/node/reference/models/ConnectorConsentOut",
                   "sdk/node/reference/models/ConnectorOut",
                   "sdk/node/reference/models/ConnectorStatusOut",
                   "sdk/node/reference/models/ConnectorUpdate",
+                  "sdk/node/reference/models/CredentialIn",
+                  "sdk/node/reference/models/CredentialPartOut",
+                  "sdk/node/reference/models/CredentialTemplateOut",
                   "sdk/node/reference/models/OAuth2ProviderEnum",
                   "sdk/node/reference/models/OAuthClient",
                   "sdk/node/reference/models/OAuthClientUpdate"
@@ -649,7 +666,8 @@
               {
                 "group": "Transcription",
                 "pages": [
-                  "sdk/node/reference/models/TranscriptionOut"
+                  "sdk/node/reference/models/TranscriptionOut",
+                  "sdk/node/reference/models/TranscriptionSegment"
                 ]
               },
               {
@@ -665,13 +683,19 @@
               {
                 "group": "OneDrive",
                 "pages": [
+                  "sdk/node/reference/models/ResponseOnedriveListRoots"
+                ]
+              },
+              {
+                "group": "Nextcloud",
+                "pages": [
                   "sdk/node/reference/models/DataSourceCapabilities",
                   "sdk/node/reference/models/DataSourceDriveModel",
                   "sdk/node/reference/models/DataSourceFolderModel",
                   "sdk/node/reference/models/DataSourceItemModel",
                   "sdk/node/reference/models/DataSourceSiteModel",
                   "sdk/node/reference/models/DataSourceUserModel",
-                  "sdk/node/reference/models/ResponseOnedriveListRoots"
+                  "sdk/node/reference/models/ResponseNextcloudListRoots"
                 ]
               },
               {

@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tenant_id** | **int** |  | 
-**oauth_client_id** | **int** |  | 
-**provider_key** | [**OAuth2ProviderEnum**](OAuth2ProviderEnum.md) |  | 
-**client_id** | **str** |  | 
-**authorize_url** | **str** |  | 
-**token_url** | **str** |  | 
+**tenant_id** | **int** | ID of the tenant this OAuth client configuration belongs to. | 
+**oauth_client_id** | **int** | ID of the platform OAuth client this configuration overrides. | 
+**provider_key** | [**OAuth2ProviderEnum**](OAuth2ProviderEnum.md) | OAuth provider key backing this client. | 
+**client_id** | **str** | OAuth client identifier issued by the provider. | 
+**authorize_url** | **str** | Provider authorization endpoint URL. | 
+**token_url** | **str** | Provider token endpoint URL. | 
 **revocation_url** | **str** |  | [optional] 
 **redirect_uri** | **str** |  | [optional] 
 **admin_consent_url** | **str** |  | [optional] 

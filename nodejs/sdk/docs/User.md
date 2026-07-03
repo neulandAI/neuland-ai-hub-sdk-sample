@@ -1,6 +1,6 @@
 # User
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -12,7 +12,7 @@ All URIs are relative to *http://localhost*
 |[**usersDeleteUser**](#usersdeleteuser) | **DELETE** /users/{user_id} | Delete a user|
 |[**usersGetMyself**](#usersgetmyself) | **GET** /users/me | Get current user|
 |[**usersResetPassword**](#usersresetpassword) | **POST** /users/passwd | Change own password|
-|[**usersSyncExternalGroup**](#userssyncexternalgroup) | **POST** /users/groups/{group_id}/sync | Sync External Group|
+|[**usersSyncExternalGroup**](#userssyncexternalgroup) | **POST** /users/groups/{group_id}/sync | Sync an external group\&#39;s members|
 |[**usersUpdateGroup**](#usersupdategroup) | **PATCH** /users/groups/{group_id} | Update a user group|
 |[**usersUpdateUser**](#usersupdateuser) | **PATCH** /users/{user_id} | Update a user|
 |[**usersUpsertMembers**](#usersupsertmembers) | **PUT** /users/members/{group_id} | Set user group members|
@@ -60,7 +60,7 @@ const { status, data } = await apiInstance.usersActivateUser(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -122,7 +122,7 @@ const { status, data } = await apiInstance.usersCreateGroup(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -183,7 +183,7 @@ const { status, data } = await apiInstance.usersCreateUser(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -243,7 +243,7 @@ const { status, data } = await apiInstance.usersDeactivateUser(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -304,7 +304,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -327,7 +327,7 @@ void (empty response body)
 # **usersDeleteUser**
 > usersDeleteUser()
 
-Delete a user; you cannot delete your own account.
+Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
 
 ### Example
 
@@ -366,7 +366,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -421,7 +421,7 @@ const { status, data } = await apiInstance.usersGetMyself(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -479,7 +479,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -500,7 +500,7 @@ void (empty response body)
 # **usersSyncExternalGroup**
 > GroupSyncOut usersSyncExternalGroup()
 
-Admin-triggered reconcile of an external group\'s membership: fetch the bound directory group\'s members from Graph (delegated) and match the HUB group to them, for users who already have a HUB account. Rejects manual groups with 409.
+Reconcile an external group\'s membership against its bound directory group.
 
 ### Example
 
@@ -513,7 +513,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let groupId: number; // (default to undefined)
+let groupId: number; //ID of the external group to sync. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 let tenantId: number; // (optional) (default to undefined)
 
@@ -528,7 +528,7 @@ const { status, data } = await apiInstance.usersSyncExternalGroup(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **groupId** | [**number**] |  | defaults to undefined|
+| **groupId** | [**number**] | ID of the external group to sync. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 | **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
@@ -539,7 +539,7 @@ const { status, data } = await apiInstance.usersSyncExternalGroup(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -551,6 +551,11 @@ const { status, data } = await apiInstance.usersSyncExternalGroup(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**400** | The group does not belong to the caller\&#39;s tenant. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**404** | No group exists with the given id. |  -  |
+|**409** | The group is not an external (identity-provider) group. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -601,7 +606,7 @@ const { status, data } = await apiInstance.usersUpdateGroup(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -664,7 +669,7 @@ const { status, data } = await apiInstance.usersUpdateUser(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -728,7 +733,7 @@ const { status, data } = await apiInstance.usersUpsertMembers(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -788,7 +793,7 @@ const { status, data } = await apiInstance.usersUpsertMyPreferences(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

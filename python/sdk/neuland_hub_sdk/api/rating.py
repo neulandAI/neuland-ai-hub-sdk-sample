@@ -15,9 +15,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictInt, StrictStr
-from typing import Optional
-from neuland_hub_sdk.models.rateable_type_enum import RateableTypeEnum
+from pydantic import Field, StrictInt, StrictStr
+from typing import Any, Optional
+from typing_extensions import Annotated
 from neuland_hub_sdk.models.rating import Rating
 from neuland_hub_sdk.models.rating_in import RatingIn
 
@@ -42,8 +42,8 @@ class Rating:
     @validate_call
     def ratings_remove(
         self,
-        rateable_type: RateableTypeEnum,
-        rateable_id: StrictInt,
+        rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
+        rateable_id: Annotated[StrictInt, Field(description="ID of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -58,13 +58,13 @@ class Rating:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Remove
+        """Delete a rating
 
         Delete the caller's rating for the target resource.
 
-        :param rateable_type: (required)
+        :param rateable_type: Kind of resource whose rating to delete. (required)
         :type rateable_type: RateableTypeEnum
-        :param rateable_id: (required)
+        :param rateable_id: ID of the resource whose rating to delete. (required)
         :type rateable_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -102,6 +102,8 @@ class Rating:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -118,8 +120,8 @@ class Rating:
     @validate_call
     def ratings_remove_with_http_info(
         self,
-        rateable_type: RateableTypeEnum,
-        rateable_id: StrictInt,
+        rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
+        rateable_id: Annotated[StrictInt, Field(description="ID of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -134,13 +136,13 @@ class Rating:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Remove
+        """Delete a rating
 
         Delete the caller's rating for the target resource.
 
-        :param rateable_type: (required)
+        :param rateable_type: Kind of resource whose rating to delete. (required)
         :type rateable_type: RateableTypeEnum
-        :param rateable_id: (required)
+        :param rateable_id: ID of the resource whose rating to delete. (required)
         :type rateable_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -178,6 +180,8 @@ class Rating:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -194,8 +198,8 @@ class Rating:
     @validate_call
     def ratings_remove_without_preload_content(
         self,
-        rateable_type: RateableTypeEnum,
-        rateable_id: StrictInt,
+        rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
+        rateable_id: Annotated[StrictInt, Field(description="ID of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -210,13 +214,13 @@ class Rating:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Remove
+        """Delete a rating
 
         Delete the caller's rating for the target resource.
 
-        :param rateable_type: (required)
+        :param rateable_type: Kind of resource whose rating to delete. (required)
         :type rateable_type: RateableTypeEnum
-        :param rateable_id: (required)
+        :param rateable_id: ID of the resource whose rating to delete. (required)
         :type rateable_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -254,6 +258,8 @@ class Rating:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '401': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -314,8 +320,7 @@ class Rating:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -354,7 +359,7 @@ class Rating:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Rating:
-        """Upsert
+        """Upsert a rating
 
         Upsert the caller's rating for the target resource.
 
@@ -395,6 +400,10 @@ class Rating:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Rating",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -426,7 +435,7 @@ class Rating:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Rating]:
-        """Upsert
+        """Upsert a rating
 
         Upsert the caller's rating for the target resource.
 
@@ -467,6 +476,10 @@ class Rating:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Rating",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -498,7 +511,7 @@ class Rating:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Upsert
+        """Upsert a rating
 
         Upsert the caller's rating for the target resource.
 
@@ -539,6 +552,10 @@ class Rating:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Rating",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -609,8 +626,7 @@ class Rating:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(

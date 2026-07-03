@@ -64,10 +64,10 @@ import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -80,8 +80,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 
 # Enter a context with an instance of the API client
@@ -104,7 +102,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -125,7 +123,7 @@ Class | Method | HTTP request | Description
 *Assistant* | [**assistants_create_assistant**](docs/Assistant.md#assistants_create_assistant) | **POST** /assistants/ | Create an assistant
 *Assistant* | [**assistants_delete_assistant**](docs/Assistant.md#assistants_delete_assistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant
 *Assistant* | [**assistants_delete_members**](docs/Assistant.md#assistants_delete_members) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant
-*Assistant* | [**assistants_join_assistant**](docs/Assistant.md#assistants_join_assistant) | **POST** /assistants/{assistant_id}/membership | Join Assistant
+*Assistant* | [**assistants_join_assistant**](docs/Assistant.md#assistants_join_assistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant
 *Assistant* | [**assistants_leave_assitant**](docs/Assistant.md#assistants_leave_assitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant
 *Assistant* | [**assistants_remove_library_from_assistant**](docs/Assistant.md#assistants_remove_library_from_assistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant
 *Assistant* | [**assistants_remove_member**](docs/Assistant.md#assistants_remove_member) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member
@@ -133,8 +131,8 @@ Class | Method | HTTP request | Description
 *Assistant* | [**assistants_remove_tool_from_assistant**](docs/Assistant.md#assistants_remove_tool_from_assistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant
 *Assistant* | [**assistants_submit_assistant**](docs/Assistant.md#assistants_submit_assistant) | **POST** /assistants/submit | Create an assistant with attachments
 *Assistant* | [**assistants_update_assistant**](docs/Assistant.md#assistants_update_assistant) | **PATCH** /assistants/{assistant_id} | Update an assistant
-*Assistant* | [**assistants_update_assistant_groups**](docs/Assistant.md#assistants_update_assistant_groups) | **PUT** /assistants/{assistant_id}/groups | Update Assistant Groups
-*Assistant* | [**assistants_update_assistant_visibility**](docs/Assistant.md#assistants_update_assistant_visibility) | **PATCH** /assistants/{assistant_id}/visibility | Update Assistant Visibility
+*Assistant* | [**assistants_update_assistant_groups**](docs/Assistant.md#assistants_update_assistant_groups) | **PUT** /assistants/{assistant_id}/groups | Set assistant group access
+*Assistant* | [**assistants_update_assistant_visibility**](docs/Assistant.md#assistants_update_assistant_visibility) | **PATCH** /assistants/{assistant_id}/visibility | Set assistant visibility
 *Atlassian* | [**integrations_set_atlassian_cloud_id**](docs/Atlassian.md#integrations_set_atlassian_cloud_id) | **PUT** /integrations/atlassian/{connector_id}/cloudid | Set active Atlassian cloud_id
 *Auth* | [**auth_confirm_email**](docs/Auth.md#auth_confirm_email) | **GET** /auth/confirm-email | Confirm an email address
 *Auth* | [**auth_exchange_token**](docs/Auth.md#auth_exchange_token) | **POST** /auth/exchange/token | Exchange for a service token
@@ -145,16 +143,19 @@ Class | Method | HTTP request | Description
 *Auth* | [**auth_request_password_reset**](docs/Auth.md#auth_request_password_reset) | **POST** /auth/request-password-reset | Request a password reset
 *Auth* | [**auth_reset_password**](docs/Auth.md#auth_reset_password) | **POST** /auth/reset-password | Complete a password reset
 *Auth* | [**auth_reset_password_form**](docs/Auth.md#auth_reset_password_form) | **GET** /auth/reset-password | Password reset HTML form
-*Auth* | [**auth_search_entra_groups**](docs/Auth.md#auth_search_entra_groups) | **GET** /auth/entra/groups/search | Search Entra Groups
+*Auth* | [**auth_search_entra_groups**](docs/Auth.md#auth_search_entra_groups) | **GET** /auth/entra/groups/search | Search Entra directory groups
 *Auth* | [**auth_send_email_confirmation**](docs/Auth.md#auth_send_email_confirmation) | **POST** /auth/send-email-confirmation | Send an email confirmation
-*Auth* | [**auth_sso_exchange**](docs/Auth.md#auth_sso_exchange) | **POST** /auth/sso/{slug}/{provider}/exchange | Sso Exchange
-*Auth* | [**auth_sso_init**](docs/Auth.md#auth_sso_init) | **GET** /auth/sso/{slug}/{provider}/init | Sso Init
-*Auth* | [**auth_sso_resolve**](docs/Auth.md#auth_sso_resolve) | **GET** /auth/sso/resolve | Sso Resolve
+*Auth* | [**auth_sso_exchange**](docs/Auth.md#auth_sso_exchange) | **POST** /auth/sso/{slug}/{provider}/exchange | Complete an SSO login
+*Auth* | [**auth_sso_init**](docs/Auth.md#auth_sso_init) | **GET** /auth/sso/{slug}/{provider}/init | Start an SSO login
+*Auth* | [**auth_sso_resolve**](docs/Auth.md#auth_sso_resolve) | **GET** /auth/sso/resolve | Resolve SSO providers for an email
+*AuthConnector* | [**auth_get_credential_template**](docs/AuthConnector.md#auth_get_credential_template) | **GET** /auth/connectors/{connector_id}/credential/template | Get connector credential template
 *AuthConnector* | [**auth_initiate_admin_consent**](docs/AuthConnector.md#auth_initiate_admin_consent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate admin connector consent
 *AuthConnector* | [**auth_initiate_consent**](docs/AuthConnector.md#auth_initiate_consent) | **GET** /auth/connectors/{connector_id}/consent | Initiate connector consent
 *AuthConnector* | [**auth_list_connector_status**](docs/AuthConnector.md#auth_list_connector_status) | **GET** /auth/connectors/status | List connector status
 *AuthConnector* | [**auth_oauth_callback**](docs/AuthConnector.md#auth_oauth_callback) | **GET** /auth/connectors/callback | Connector OAuth callback
 *AuthConnector* | [**auth_revoke_consent**](docs/AuthConnector.md#auth_revoke_consent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke connector consent
+*AuthConnector* | [**auth_set_admin_credential**](docs/AuthConnector.md#auth_set_admin_credential) | **PUT** /auth/connectors/{connector_id}/credential/admin | Set the tenant-wide connector credential
+*AuthConnector* | [**auth_set_user_credential**](docs/AuthConnector.md#auth_set_user_credential) | **PUT** /auth/connectors/{connector_id}/credential/user | Set the caller&#39;s connector credential
 *AuthConnector* | [**auth_update_connector**](docs/AuthConnector.md#auth_update_connector) | **PATCH** /auth/connectors/{connector_id} | Update a connector
 *AuthConnector* | [**auth_update_oauth_client**](docs/AuthConnector.md#auth_update_oauth_client) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update an OAuth client
 *Chat* | [**chats_add_library_to_chat**](docs/Chat.md#chats_add_library_to_chat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add a library to a chat
@@ -174,7 +175,7 @@ Class | Method | HTTP request | Description
 *Document* | [**documents_upload_documents**](docs/Document.md#documents_upload_documents) | **POST** /documents/ | Upload documents
 *File* | [**files_download_file**](docs/File.md#files_download_file) | **GET** /files/{file_id} | Download a file
 *Invitation* | [**invitations_accept_invitation_complete**](docs/Invitation.md#invitations_accept_invitation_complete) | **POST** /invitations/accept | Accept an invitation
-*Invitation* | [**invitations_accept_invitation_form**](docs/Invitation.md#invitations_accept_invitation_form) | **GET** /invitations/accept | Invitation acceptance HTML form
+*Invitation* | [**invitations_accept_invitation_form**](docs/Invitation.md#invitations_accept_invitation_form) | **GET** /invitations/accept | Render the invitation acceptance form
 *Invitation* | [**invitations_create_invitations**](docs/Invitation.md#invitations_create_invitations) | **POST** /invitations/ | Create invitations
 *Invitation* | [**invitations_resend_invitation**](docs/Invitation.md#invitations_resend_invitation) | **POST** /invitations/{invitation_id}/resend | Resend an invitation
 *Invitation* | [**invitations_revoke_invitation**](docs/Invitation.md#invitations_revoke_invitation) | **POST** /invitations/{invitation_id}/revoke | Revoke an invitation
@@ -200,10 +201,17 @@ Class | Method | HTTP request | Description
 *Message* | [**messages_rephrase_message**](docs/Message.md#messages_rephrase_message) | **GET** /messages/{message_id}/rephrase | Rephrase a message
 *Message* | [**messages_submit_message**](docs/Message.md#messages_submit_message) | **POST** /messages/submit | Submit a message with attachments
 *Message* | [**messages_translate_message**](docs/Message.md#messages_translate_message) | **GET** /messages/{message_id}/translate | Translate a message
+*Nextcloud* | [**nextcloud_capabilities**](docs/Nextcloud.md#nextcloud_capabilities) | **GET** /integrations/nextcloud/capabilities | Get data source capabilities
+*Nextcloud* | [**nextcloud_get_item_info**](docs/Nextcloud.md#nextcloud_get_item_info) | **GET** /integrations/nextcloud/drives/{drive_id}/items/{drive_item_id} | Get a drive item
+*Nextcloud* | [**nextcloud_get_user_info**](docs/Nextcloud.md#nextcloud_get_user_info) | **GET** /integrations/nextcloud/me | Get connected user profile
+*Nextcloud* | [**nextcloud_is_connected**](docs/Nextcloud.md#nextcloud_is_connected) | **GET** /integrations/nextcloud/connected | Check connection status
+*Nextcloud* | [**nextcloud_list_children**](docs/Nextcloud.md#nextcloud_list_children) | **GET** /integrations/nextcloud/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item
+*Nextcloud* | [**nextcloud_list_drives**](docs/Nextcloud.md#nextcloud_list_drives) | **GET** /integrations/nextcloud/sites/{site_id}/drives | List drives in a site
+*Nextcloud* | [**nextcloud_list_roots**](docs/Nextcloud.md#nextcloud_list_roots) | **GET** /integrations/nextcloud/roots | List top-level browse entries
 *OneDrive* | [**onedrive_capabilities**](docs/OneDrive.md#onedrive_capabilities) | **GET** /integrations/onedrive/capabilities | Get data source capabilities
 *OneDrive* | [**onedrive_get_item_info**](docs/OneDrive.md#onedrive_get_item_info) | **GET** /integrations/onedrive/drives/{drive_id}/items/{drive_item_id} | Get a drive item
-*OneDrive* | [**onedrive_get_user_info**](docs/OneDrive.md#onedrive_get_user_info) | **GET** /integrations/onedrive/me | Get current data source user
-*OneDrive* | [**onedrive_is_connected**](docs/OneDrive.md#onedrive_is_connected) | **GET** /integrations/onedrive/connected | Check data source connection
+*OneDrive* | [**onedrive_get_user_info**](docs/OneDrive.md#onedrive_get_user_info) | **GET** /integrations/onedrive/me | Get connected user profile
+*OneDrive* | [**onedrive_is_connected**](docs/OneDrive.md#onedrive_is_connected) | **GET** /integrations/onedrive/connected | Check connection status
 *OneDrive* | [**onedrive_list_children**](docs/OneDrive.md#onedrive_list_children) | **GET** /integrations/onedrive/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item
 *OneDrive* | [**onedrive_list_drives**](docs/OneDrive.md#onedrive_list_drives) | **GET** /integrations/onedrive/sites/{site_id}/drives | List drives in a site
 *OneDrive* | [**onedrive_list_roots**](docs/OneDrive.md#onedrive_list_roots) | **GET** /integrations/onedrive/roots | List top-level browse entries
@@ -223,8 +231,8 @@ Class | Method | HTTP request | Description
 *Prompt* | [**prompts_update_prompt**](docs/Prompt.md#prompts_update_prompt) | **PATCH** /prompts/{prompt_id} | Update a prompt
 *Query* | [**query_query**](docs/Query.md#query_query) | **GET** /query/{path} | Proxy a PostgREST query
 *Query* | [**query_query_rpc**](docs/Query.md#query_query_rpc) | **GET** /query/rpc/{path} | Proxy a PostgREST RPC call
-*Rating* | [**ratings_remove**](docs/Rating.md#ratings_remove) | **DELETE** /ratings/{rateable_type}/{rateable_id} | Remove
-*Rating* | [**ratings_upsert**](docs/Rating.md#ratings_upsert) | **POST** /ratings/ | Upsert
+*Rating* | [**ratings_remove**](docs/Rating.md#ratings_remove) | **DELETE** /ratings/{rateable_type}/{rateable_id} | Delete a rating
+*Rating* | [**ratings_upsert**](docs/Rating.md#ratings_upsert) | **POST** /ratings/ | Upsert a rating
 *Settings* | [**settings_current**](docs/Settings.md#settings_current) | **GET** /settings/current | Get current tenant settings
 *Settings* | [**settings_update_current_settings**](docs/Settings.md#settings_update_current_settings) | **PATCH** /settings/current | Update current tenant settings
 *Settings* | [**settings_update_settings**](docs/Settings.md#settings_update_settings) | **PATCH** /settings/{settings_id} | Update settings by id
@@ -236,14 +244,14 @@ Class | Method | HTTP request | Description
 *Sharepoint* | [**integrations_list_drives**](docs/Sharepoint.md#integrations_list_drives) | **GET** /integrations/sharepoint/sites/{site_id}/drives | List drives in a site
 *SharepointV1* | [**sharepointv1_capabilities**](docs/SharepointV1.md#sharepointv1_capabilities) | **GET** /integrations/sharepoint/v1/capabilities | Get data source capabilities
 *SharepointV1* | [**sharepointv1_get_item_info**](docs/SharepointV1.md#sharepointv1_get_item_info) | **GET** /integrations/sharepoint/v1/drives/{drive_id}/items/{drive_item_id} | Get a drive item
-*SharepointV1* | [**sharepointv1_get_user_info**](docs/SharepointV1.md#sharepointv1_get_user_info) | **GET** /integrations/sharepoint/v1/me | Get current data source user
-*SharepointV1* | [**sharepointv1_is_connected**](docs/SharepointV1.md#sharepointv1_is_connected) | **GET** /integrations/sharepoint/v1/connected | Check data source connection
+*SharepointV1* | [**sharepointv1_get_user_info**](docs/SharepointV1.md#sharepointv1_get_user_info) | **GET** /integrations/sharepoint/v1/me | Get connected user profile
+*SharepointV1* | [**sharepointv1_is_connected**](docs/SharepointV1.md#sharepointv1_is_connected) | **GET** /integrations/sharepoint/v1/connected | Check connection status
 *SharepointV1* | [**sharepointv1_list_children**](docs/SharepointV1.md#sharepointv1_list_children) | **GET** /integrations/sharepoint/v1/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item
 *SharepointV1* | [**sharepointv1_list_drives**](docs/SharepointV1.md#sharepointv1_list_drives) | **GET** /integrations/sharepoint/v1/sites/{site_id}/drives | List drives in a site
 *SharepointV1* | [**sharepointv1_list_roots**](docs/SharepointV1.md#sharepointv1_list_roots) | **GET** /integrations/sharepoint/v1/roots | List top-level browse entries
 *Storage* | [**storage_download_file**](docs/Storage.md#storage_download_file) | **GET** /storage/{path} | Download a file by signed token
-*System* | [**system_read_system_settings**](docs/System.md#system_read_system_settings) | **GET** /system/settings | Read System Settings
-*System* | [**system_update_system_settings**](docs/System.md#system_update_system_settings) | **PATCH** /system/settings | Update System Settings
+*System* | [**system_read_system_settings**](docs/System.md#system_read_system_settings) | **GET** /system/settings | Read system settings
+*System* | [**system_update_system_settings**](docs/System.md#system_update_system_settings) | **PATCH** /system/settings | Update system settings
 *Tag* | [**tags_delete_tag**](docs/Tag.md#tags_delete_tag) | **DELETE** /tags/{tag_id} | Delete a tag
 *Tag* | [**tags_new_tag**](docs/Tag.md#tags_new_tag) | **POST** /tags/ | Create a tag
 *Tag* | [**tags_update_tag**](docs/Tag.md#tags_update_tag) | **PATCH** /tags/{tag_id} | Rename a tag
@@ -256,13 +264,13 @@ Class | Method | HTTP request | Description
 *Tenant* | [**tenants_add_library_to_tenants**](docs/Tenant.md#tenants_add_library_to_tenants) | **POST** /tenants/{tenant_id}/libraries/{library_id} | Assign a library to a tenant
 *Tenant* | [**tenants_create_tenant**](docs/Tenant.md#tenants_create_tenant) | **POST** /tenants/ | Create a tenant
 *Tenant* | [**tenants_create_tenant_connector**](docs/Tenant.md#tenants_create_tenant_connector) | **POST** /tenants/{tenant_id}/connectors/{connector_id} | Enable a connector for a tenant
-*Tenant* | [**tenants_create_tenant_oauth_client**](docs/Tenant.md#tenants_create_tenant_oauth_client) | **POST** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Create Tenant Oauth Client
+*Tenant* | [**tenants_create_tenant_oauth_client**](docs/Tenant.md#tenants_create_tenant_oauth_client) | **POST** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Create a per-tenant OAuth client config
 *Tenant* | [**tenants_create_tenant_tool**](docs/Tenant.md#tenants_create_tenant_tool) | **POST** /tenants/{tenant_id}/tools/{tool_id} | Enable a tool for a tenant
 *Tenant* | [**tenants_delete_tenant**](docs/Tenant.md#tenants_delete_tenant) | **DELETE** /tenants/{tenant_id} | Delete a tenant
 *Tenant* | [**tenants_delete_tenant_connector**](docs/Tenant.md#tenants_delete_tenant_connector) | **DELETE** /tenants/{tenant_id}/connectors/{connector_id} | Disable a connector for a tenant
 *Tenant* | [**tenants_delete_tenant_model**](docs/Tenant.md#tenants_delete_tenant_model) | **DELETE** /tenants/{tenant_id}/models/{model_id} | Disable a model for a tenant
 *Tenant* | [**tenants_delete_tenant_models_bulk**](docs/Tenant.md#tenants_delete_tenant_models_bulk) | **DELETE** /tenants/models/{model_id}/bulk | Disable a model for multiple tenants
-*Tenant* | [**tenants_delete_tenant_oauth_client**](docs/Tenant.md#tenants_delete_tenant_oauth_client) | **DELETE** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Delete Tenant Oauth Client
+*Tenant* | [**tenants_delete_tenant_oauth_client**](docs/Tenant.md#tenants_delete_tenant_oauth_client) | **DELETE** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Delete a per-tenant OAuth client config
 *Tenant* | [**tenants_delete_tenant_tool**](docs/Tenant.md#tenants_delete_tenant_tool) | **DELETE** /tenants/{tenant_id}/tools/{tool_id} | Disable a tool for a tenant
 *Tenant* | [**tenants_get_current_tenant**](docs/Tenant.md#tenants_get_current_tenant) | **GET** /tenants/current | Get current tenant
 *Tenant* | [**tenants_put_tenant_model**](docs/Tenant.md#tenants_put_tenant_model) | **PUT** /tenants/{tenant_id}/models/{model_id} | Enable a model for a tenant
@@ -270,11 +278,12 @@ Class | Method | HTTP request | Description
 *Tenant* | [**tenants_remove_tenant_library_member**](docs/Tenant.md#tenants_remove_tenant_library_member) | **DELETE** /tenants/{tenant_id}/libraries/{library_id} | Unassign a library from a tenant
 *Tenant* | [**tenants_update_current_tenant**](docs/Tenant.md#tenants_update_current_tenant) | **PATCH** /tenants/current | Update current tenant
 *Tenant* | [**tenants_update_tenant**](docs/Tenant.md#tenants_update_tenant) | **PATCH** /tenants/{tenant_id} | Update a tenant
-*Tenant* | [**tenants_update_tenant_oauth_client**](docs/Tenant.md#tenants_update_tenant_oauth_client) | **PATCH** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Update Tenant Oauth Client
-*Tenant* | [**tenants_update_tenant_oauth_secret**](docs/Tenant.md#tenants_update_tenant_oauth_secret) | **PUT** /tenants/{tenant_id}/oauth-clients/{oauth_client_id}/secret | Update Tenant Oauth Secret
+*Tenant* | [**tenants_update_tenant_oauth_client**](docs/Tenant.md#tenants_update_tenant_oauth_client) | **PATCH** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Update a per-tenant OAuth client config
+*Tenant* | [**tenants_update_tenant_oauth_secret**](docs/Tenant.md#tenants_update_tenant_oauth_secret) | **PUT** /tenants/{tenant_id}/oauth-clients/{oauth_client_id}/secret | Set a per-tenant OAuth client secret
 *Tool* | [**tools_update_tool**](docs/Tool.md#tools_update_tool) | **PATCH** /tools/{tool_id} | Update a tool
 *ToolAction* | [**toolactions_send_email_from_draft**](docs/ToolAction.md#toolactions_send_email_from_draft) | **POST** /tool-actions/email/send | Send an email from a draft
 *Transcription* | [**transcriptions_create_transcription**](docs/Transcription.md#transcriptions_create_transcription) | **POST** /transcriptions/ | Transcribe an audio file
+*Transcription* | [**transcriptions_transcription_callback**](docs/Transcription.md#transcriptions_transcription_callback) | **POST** /transcriptions/callback | Receive an async transcription callback
 *User* | [**users_activate_user**](docs/User.md#users_activate_user) | **POST** /users/{user_id}/activate | Activate a user
 *User* | [**users_create_group**](docs/User.md#users_create_group) | **POST** /users/groups | Create a user group
 *User* | [**users_create_user**](docs/User.md#users_create_user) | **POST** /users/ | Create a user
@@ -283,7 +292,7 @@ Class | Method | HTTP request | Description
 *User* | [**users_delete_user**](docs/User.md#users_delete_user) | **DELETE** /users/{user_id} | Delete a user
 *User* | [**users_get_myself**](docs/User.md#users_get_myself) | **GET** /users/me | Get current user
 *User* | [**users_reset_password**](docs/User.md#users_reset_password) | **POST** /users/passwd | Change own password
-*User* | [**users_sync_external_group**](docs/User.md#users_sync_external_group) | **POST** /users/groups/{group_id}/sync | Sync External Group
+*User* | [**users_sync_external_group**](docs/User.md#users_sync_external_group) | **POST** /users/groups/{group_id}/sync | Sync an external group&#39;s members
 *User* | [**users_update_group**](docs/User.md#users_update_group) | **PATCH** /users/groups/{group_id} | Update a user group
 *User* | [**users_update_user**](docs/User.md#users_update_user) | **PATCH** /users/{user_id} | Update a user
 *User* | [**users_upsert_members**](docs/User.md#users_upsert_members) | **PUT** /users/members/{group_id} | Set user group members
@@ -332,6 +341,7 @@ Class | Method | HTTP request | Description
  - [ChatToolSettingsOut](docs/ChatToolSettingsOut.md)
  - [ChatToolSettingsUpdate](docs/ChatToolSettingsUpdate.md)
  - [Connector](docs/Connector.md)
+ - [ConnectorAuthType](docs/ConnectorAuthType.md)
  - [ConnectorConsentOut](docs/ConnectorConsentOut.md)
  - [ConnectorOut](docs/ConnectorOut.md)
  - [ConnectorStatusOut](docs/ConnectorStatusOut.md)
@@ -343,6 +353,9 @@ Class | Method | HTTP request | Description
  - [CostPromptTokens](docs/CostPromptTokens.md)
  - [CostPromptTokens1](docs/CostPromptTokens1.md)
  - [CostTimeseriesPoint](docs/CostTimeseriesPoint.md)
+ - [CredentialIn](docs/CredentialIn.md)
+ - [CredentialPartOut](docs/CredentialPartOut.md)
+ - [CredentialTemplateOut](docs/CredentialTemplateOut.md)
  - [DataSourceCapabilities](docs/DataSourceCapabilities.md)
  - [DataSourceDriveModel](docs/DataSourceDriveModel.md)
  - [DataSourceFolderModel](docs/DataSourceFolderModel.md)
@@ -394,6 +407,7 @@ Class | Method | HTTP request | Description
  - [RatingIn](docs/RatingIn.md)
  - [RephraseStyleEnum](docs/RephraseStyleEnum.md)
  - [ResponseAuthGetEntraGroupsValue](docs/ResponseAuthGetEntraGroupsValue.md)
+ - [ResponseNextcloudListRoots](docs/ResponseNextcloudListRoots.md)
  - [ResponseOnedriveListRoots](docs/ResponseOnedriveListRoots.md)
  - [ResponseSharepointv1ListRoots](docs/ResponseSharepointv1ListRoots.md)
  - [SecretUpdateIn](docs/SecretUpdateIn.md)
@@ -443,6 +457,7 @@ Class | Method | HTTP request | Description
  - [ToolOut](docs/ToolOut.md)
  - [ToolUpdate](docs/ToolUpdate.md)
  - [TranscriptionOut](docs/TranscriptionOut.md)
+ - [TranscriptionSegment](docs/TranscriptionSegment.md)
  - [Translation](docs/Translation.md)
  - [UsageCostRequest](docs/UsageCostRequest.md)
  - [UsageCostResponse](docs/UsageCostResponse.md)
@@ -463,14 +478,6 @@ Class | Method | HTTP request | Description
 
 
 Authentication schemes defined for the API:
-<a id="OAuth2PasswordBearer"></a>
-### OAuth2PasswordBearer
-
-- **Type**: OAuth
-- **Flow**: password
-- **Authorization URL**: 
-- **Scopes**: N/A
-
 <a id="APIKeyHeader"></a>
 ### APIKeyHeader
 

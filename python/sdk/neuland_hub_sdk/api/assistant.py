@@ -331,8 +331,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -650,8 +649,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -956,8 +954,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1262,8 +1259,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1560,8 +1556,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1851,8 +1846,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2173,8 +2167,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2198,7 +2191,7 @@ class Assistant:
     @validate_call
     def assistants_join_assistant(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[StrictInt, Field(description="ID of the assistant to join.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2213,11 +2206,11 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AssistantMember:
-        """Join Assistant
+        """Join a community assistant
 
         self-add to a tenant-shared community assistant.
 
-        :param assistant_id: (required)
+        :param assistant_id: ID of the assistant to join. (required)
         :type assistant_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -2254,6 +2247,10 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AssistantMember",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2270,7 +2267,7 @@ class Assistant:
     @validate_call
     def assistants_join_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[StrictInt, Field(description="ID of the assistant to join.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2285,11 +2282,11 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AssistantMember]:
-        """Join Assistant
+        """Join a community assistant
 
         self-add to a tenant-shared community assistant.
 
-        :param assistant_id: (required)
+        :param assistant_id: ID of the assistant to join. (required)
         :type assistant_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -2326,6 +2323,10 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AssistantMember",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2342,7 +2343,7 @@ class Assistant:
     @validate_call
     def assistants_join_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[StrictInt, Field(description="ID of the assistant to join.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2357,11 +2358,11 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Join Assistant
+        """Join a community assistant
 
         self-add to a tenant-shared community assistant.
 
-        :param assistant_id: (required)
+        :param assistant_id: ID of the assistant to join. (required)
         :type assistant_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -2398,6 +2399,10 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AssistantMember",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2455,8 +2460,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2746,8 +2750,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3052,8 +3055,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3358,8 +3360,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3664,8 +3665,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3970,8 +3970,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4437,8 +4436,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4756,8 +4754,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4797,7 +4794,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[AssistantGroup]:
-        """Update Assistant Groups
+        """Set assistant group access
 
         Grant or update assistant access for user groups (replaces the current set).
 
@@ -4841,6 +4838,9 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[AssistantGroup]",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4873,7 +4873,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[AssistantGroup]]:
-        """Update Assistant Groups
+        """Set assistant group access
 
         Grant or update assistant access for user groups (replaces the current set).
 
@@ -4917,6 +4917,9 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[AssistantGroup]",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4949,7 +4952,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update Assistant Groups
+        """Set assistant group access
 
         Grant or update assistant access for user groups (replaces the current set).
 
@@ -4993,6 +4996,9 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[AssistantGroup]",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5066,8 +5072,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -5107,7 +5112,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Assistant:
-        """Update Assistant Visibility
+        """Set assistant visibility
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
@@ -5151,6 +5156,9 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5183,7 +5191,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Assistant]:
-        """Update Assistant Visibility
+        """Set assistant visibility
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
@@ -5227,6 +5235,9 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5259,7 +5270,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update Assistant Visibility
+        """Set assistant visibility
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
@@ -5303,6 +5314,9 @@ class Assistant:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5376,8 +5390,7 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(

@@ -13,7 +13,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**assistantsCreateAssistant**](#assistantscreateassistant) | **POST** /assistants/ | Create an assistant|
 |[**assistantsDeleteAssistant**](#assistantsdeleteassistant) | **DELETE** /assistants/&#123;assistant_id&#125; | Delete an assistant|
 |[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/&#123;assistant_id&#125;/members | Remove members from an assistant|
-|[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/&#123;assistant_id&#125;/membership | Join Assistant|
+|[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/&#123;assistant_id&#125;/membership | Join a community assistant|
 |[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/&#123;assistant_id&#125;/remove/me | Leave an assistant|
 |[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/libraries/&#123;library_id&#125; | Remove a library from an assistant|
 |[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/&#123;assistant_id&#125;/members/&#123;user_id&#125; | Remove a single member|
@@ -21,8 +21,8 @@ All URIs are relative to *https://api.your-domain.com*
 |[**assistantsRemoveToolFromAssistant**](#assistantsremovetoolfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/tools/&#123;tool_id&#125; | Remove a tool from an assistant|
 |[**assistantsSubmitAssistant**](#assistantssubmitassistant) | **POST** /assistants/submit | Create an assistant with attachments|
 |[**assistantsUpdateAssistant**](#assistantsupdateassistant) | **PATCH** /assistants/&#123;assistant_id&#125; | Update an assistant|
-|[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/&#123;assistant_id&#125;/groups | Update Assistant Groups|
-|[**assistantsUpdateAssistantVisibility**](#assistantsupdateassistantvisibility) | **PATCH** /assistants/&#123;assistant_id&#125;/visibility | Update Assistant Visibility|
+|[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/&#123;assistant_id&#125;/groups | Set assistant group access|
+|[**assistantsUpdateAssistantVisibility**](#assistantsupdateassistantvisibility) | **PATCH** /assistants/&#123;assistant_id&#125;/visibility | Set assistant visibility|
 
 ## **assistantsAddLibraryToAssistant**
 ```typescript
@@ -68,7 +68,7 @@ const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -131,7 +131,7 @@ const { status, data } = await apiInstance.assistantsAddMembers(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -193,7 +193,7 @@ const { status, data } = await apiInstance.assistantsAddTagToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -255,7 +255,7 @@ const { status, data } = await apiInstance.assistantsAddToolToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -315,7 +315,7 @@ const { status, data } = await apiInstance.assistantsCreateAssistant(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -372,7 +372,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -435,7 +435,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -472,7 +472,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: number; //ID of the assistant to join. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsJoinAssistant(
@@ -485,7 +485,7 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**number**] | ID of the assistant to join. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -495,7 +495,7 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -507,6 +507,10 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Assistant is not in your tenant. |  -  |
+|**404** | No assistant exists with the given id. |  -  |
+|**409** | Assistant is not tenant-shared, is catalog-sourced, is owned by you, or is not ready for community access. |  -  |
 |**422** | Validation Error |  -  |
 
 
@@ -551,7 +555,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -613,7 +617,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -675,7 +679,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -737,7 +741,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -799,7 +803,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -891,7 +895,7 @@ const { status, data } = await apiInstance.assistantsSubmitAssistant(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -953,7 +957,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistant(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -1016,7 +1020,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantGroups(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -1028,6 +1032,9 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantGroups(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Not the creator of this assistant. |  -  |
+|**404** | Assistant does not exist, or one or more groups not found. |  -  |
 |**422** | Validation Error |  -  |
 
 
@@ -1076,7 +1083,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantVisibility(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -1088,4 +1095,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantVisibility(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Only the creator can change visibility. |  -  |
+|**404** | No assistant exists with the given id. |  -  |
 |**422** | Validation Error |  -  |

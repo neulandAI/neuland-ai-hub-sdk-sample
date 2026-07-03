@@ -37,8 +37,12 @@ class TestConnectorStatusOut(unittest.TestCase):
             return ConnectorStatusOut(
                 connector_id = 56,
                 name = '',
+                auth_type = 'oauth',
                 connected = True,
                 needs_consent = True,
+                needs_config = True,
+                needs_user_config = True,
+                has_admin_config = True,
                 missing_caps = [
                     ''
                     ]
@@ -47,8 +51,12 @@ class TestConnectorStatusOut(unittest.TestCase):
             return ConnectorStatusOut(
                 connector_id = 56,
                 name = '',
+                auth_type = 'oauth',
                 connected = True,
                 needs_consent = True,
+                needs_config = True,
+                needs_user_config = True,
+                has_admin_config = True,
                 missing_caps = [
                     ''
                     ],

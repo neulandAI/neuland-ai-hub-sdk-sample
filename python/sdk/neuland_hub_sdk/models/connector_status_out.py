@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from neuland_hub_sdk.models.connector_auth_type import ConnectorAuthType
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,10 +30,14 @@ class ConnectorStatusOut(BaseModel):
     """ # noqa: E501
     connector_id: StrictInt = Field(description="Unique identifier of the connector.")
     name: StrictStr = Field(description="Human-readable connector name.")
-    connected: StrictBool = Field(description="Whether the current user has a valid consent for this connector.")
-    needs_consent: StrictBool = Field(description="Whether the user must (re)grant consent to use this connector.")
-    missing_caps: List[Optional[StrictStr]] = Field(description="Capabilities not yet covered by the user's consent.")
-    __properties: ClassVar[List[str]] = ["connector_id", "name", "connected", "needs_consent", "missing_caps"]
+    auth_type: ConnectorAuthType = Field(description="Authentication mechanism the connector uses.")
+    connected: StrictBool = Field(description="Whether the connector is fully usable for the caller (consent granted and all required config present).")
+    needs_consent: StrictBool = Field(description="OAuth authorization is required before the connector can be used.")
+    needs_config: StrictBool = Field(description="An admin credential template part is required but not yet set.")
+    needs_user_config: StrictBool = Field(description="A per-user credential template part is required but not yet set.")
+    has_admin_config: StrictBool = Field(description="The connector has an admin-managed credential part.")
+    missing_caps: List[Optional[StrictStr]] = Field(description="Capabilities not yet granted; empty unless consent is needed.")
+    __properties: ClassVar[List[str]] = ["connector_id", "name", "auth_type", "connected", "needs_consent", "needs_config", "needs_user_config", "has_admin_config", "missing_caps"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,8 +92,12 @@ class ConnectorStatusOut(BaseModel):
         _obj = cls.model_validate({
             "connector_id": obj.get("connector_id"),
             "name": obj.get("name"),
+            "auth_type": obj.get("auth_type"),
             "connected": obj.get("connected"),
             "needs_consent": obj.get("needs_consent"),
+            "needs_config": obj.get("needs_config"),
+            "needs_user_config": obj.get("needs_user_config"),
+            "has_admin_config": obj.get("has_admin_config"),
             "missing_caps": obj.get("missing_caps")
         })
         return _obj

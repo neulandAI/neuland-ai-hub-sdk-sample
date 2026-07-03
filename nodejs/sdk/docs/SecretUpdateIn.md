@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**secret** | **string** |  | [default to undefined]
+**secret** | **string** | New OAuth client secret to store. Write-only. | [default to undefined]
 
 ## Example
 

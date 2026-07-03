@@ -50,7 +50,7 @@ class TestTenant(unittest.TestCase):
     def test_tenants_create_tenant_oauth_client(self) -> None:
         """Test case for tenants_create_tenant_oauth_client
 
-        Create Tenant Oauth Client
+        Create a per-tenant OAuth client config
         """
         pass
 
@@ -92,7 +92,7 @@ class TestTenant(unittest.TestCase):
     def test_tenants_delete_tenant_oauth_client(self) -> None:
         """Test case for tenants_delete_tenant_oauth_client
 
-        Delete Tenant Oauth Client
+        Delete a per-tenant OAuth client config
         """
         pass
 
@@ -148,14 +148,14 @@ class TestTenant(unittest.TestCase):
     def test_tenants_update_tenant_oauth_client(self) -> None:
         """Test case for tenants_update_tenant_oauth_client
 
-        Update Tenant Oauth Client
+        Update a per-tenant OAuth client config
         """
         pass
 
     def test_tenants_update_tenant_oauth_secret(self) -> None:
         """Test case for tenants_update_tenant_oauth_secret
 
-        Update Tenant Oauth Secret
+        Set a per-tenant OAuth client secret
         """
         pass
 

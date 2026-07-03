@@ -1,0 +1,28 @@
+# ResponseNextcloudListRoots
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+
+## Example
+
+```python
+from neuland_hub_sdk.models.response_nextcloud_list_roots import ResponseNextcloudListRoots
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ResponseNextcloudListRoots from a JSON string
+response_nextcloud_list_roots_instance = ResponseNextcloudListRoots.from_json(json)
+# print the JSON string representation of the object
+print(ResponseNextcloudListRoots.to_json())
+
+# convert the object into a dict
+response_nextcloud_list_roots_dict = response_nextcloud_list_roots_instance.to_dict()
+# create an instance of ResponseNextcloudListRoots from a dict
+response_nextcloud_list_roots_from_dict = ResponseNextcloudListRoots.from_dict(response_nextcloud_list_roots_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
