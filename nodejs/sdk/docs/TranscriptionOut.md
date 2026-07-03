@@ -6,9 +6,10 @@ The response format from the transcription endpoint
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**text** | **string** | Transcribed text of the audio. | [default to undefined]
-**language** | **string** | Detected language of the audio (ISO 639-1 or language name). | [default to undefined]
-**duration_seconds** | **number** | Duration of the audio in seconds. | [default to undefined]
+**text** | **string** | Full transcribed text of the audio. | [default to undefined]
+**language** | **string** |  | [default to undefined]
+**duration_seconds** | **number** | Duration of the transcribed audio in seconds. | [default to undefined]
+**segments** | [**Array&lt;TranscriptionSegment&gt;**](TranscriptionSegment.md) | Time-aligned, optionally diarized transcript segments. | [default to undefined]
 
 ## Example
 
@@ -19,6 +20,7 @@ const instance: TranscriptionOut = {
     text,
     language,
     duration_seconds,
+    segments,
 };
 ```
 

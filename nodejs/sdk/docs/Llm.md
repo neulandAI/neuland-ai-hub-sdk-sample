@@ -1,6 +1,6 @@
 # Llm
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -51,7 +51,7 @@ const { status, data } = await apiInstance.llmGetCost(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -112,7 +112,7 @@ const { status, data } = await apiInstance.llmGetUsageCosts(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -174,7 +174,7 @@ const { status, data } = await apiInstance.llmLlmTotalTokens(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

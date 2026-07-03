@@ -1,6 +1,6 @@
 # Message
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -53,7 +53,7 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -112,7 +112,7 @@ const { status, data } = await apiInstance.messagesCreateMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -170,7 +170,7 @@ const { status, data } = await apiInstance.messagesGetMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -231,7 +231,7 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -331,7 +331,7 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -392,7 +392,7 @@ const { status, data } = await apiInstance.messagesTranslateMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

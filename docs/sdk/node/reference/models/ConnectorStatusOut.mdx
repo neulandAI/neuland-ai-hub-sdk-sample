@@ -8,9 +8,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **connector_id** | **number** | Unique identifier of the connector. | [default to undefined]
 **name** | **string** | Human-readable connector name. | [default to undefined]
-**connected** | **boolean** | Whether the current user has a valid consent for this connector. | [default to undefined]
-**needs_consent** | **boolean** | Whether the user must (re)grant consent to use this connector. | [default to undefined]
-**missing_caps** | **Array&lt;string | null&gt;** | Capabilities not yet covered by the user\&#39;s consent. | [default to undefined]
+**auth_type** | [**ConnectorAuthType**](/sdk/node/reference/models/ConnectorAuthType) | Authentication mechanism the connector uses. | [default to undefined]
+**connected** | **boolean** | Whether the connector is fully usable for the caller (consent granted and all required config present). | [default to undefined]
+**needs_consent** | **boolean** | OAuth authorization is required before the connector can be used. | [default to undefined]
+**needs_config** | **boolean** | An admin credential template part is required but not yet set. | [default to undefined]
+**needs_user_config** | **boolean** | A per-user credential template part is required but not yet set. | [default to undefined]
+**has_admin_config** | **boolean** | The connector has an admin-managed credential part. | [default to undefined]
+**missing_caps** | **Array&lt;string | null&gt;** | Capabilities not yet granted; empty unless consent is needed. | [default to undefined]
 
 ## Example
 
@@ -20,8 +24,12 @@ import { ConnectorStatusOut } from 'neuland-hub-sdk';
 const instance: ConnectorStatusOut = {
     connector_id,
     name,
+    auth_type,
     connected,
     needs_consent,
+    needs_config,
+    needs_user_config,
+    has_admin_config,
     missing_caps,
 };
 ```

@@ -31,7 +31,7 @@ class GroupIn(BaseModel):
     """ # noqa: E501
     name: Annotated[str, Field(min_length=2, strict=True, max_length=96)] = Field(description="Display name of the user group.")
     description: Optional[StrictStr] = None
-    source: Optional[UserGroupSource] = None
+    source: Optional[UserGroupSource] = Field(default=None, description="Whether the group is managed manually or synced from an external directory.")
     external_id: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["name", "description", "source", "external_id"]
 

@@ -1,0 +1,31 @@
+# CredentialPartOut
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**json_schema** | **Dict[str, object]** | JSON Schema of this credential part; the frontend renders the input form from it. | 
+**configured** | **bool** | Whether this credential part has been saved. | 
+**set_fields** | **List[Optional[str]]** | Names of the fields currently stored. Never includes the values. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.credential_part_out import CredentialPartOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CredentialPartOut from a JSON string
+credential_part_out_instance = CredentialPartOut.from_json(json)
+# print the JSON string representation of the object
+print(CredentialPartOut.to_json())
+
+# convert the object into a dict
+credential_part_out_dict = credential_part_out_instance.to_dict()
+# create an instance of CredentialPartOut from a dict
+credential_part_out_from_dict = CredentialPartOut.from_dict(credential_part_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

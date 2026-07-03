@@ -36,7 +36,7 @@ class TestInvitation(unittest.TestCase):
     def test_invitations_accept_invitation_form(self) -> None:
         """Test case for invitations_accept_invitation_form
 
-        Invitation acceptance HTML form
+        Render the invitation acceptance form
         """
         pass
 

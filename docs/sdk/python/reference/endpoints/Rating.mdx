@@ -6,8 +6,8 @@ All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ratings_remove**](/sdk/python/reference/endpoints/Rating#ratings_remove) | **DELETE** /ratings/&#123;rateable_type&#125;/&#123;rateable_id&#125; | Remove
-[**ratings_upsert**](/sdk/python/reference/endpoints/Rating#ratings_upsert) | **POST** /ratings/ | Upsert
+[**ratings_remove**](/sdk/python/reference/endpoints/Rating#ratings_remove) | **DELETE** /ratings/&#123;rateable_type&#125;/&#123;rateable_id&#125; | Delete a rating
+[**ratings_upsert**](/sdk/python/reference/endpoints/Rating#ratings_upsert) | **POST** /ratings/ | Upsert a rating
 
 
 ## **ratings_remove**
@@ -15,18 +15,16 @@ Method | HTTP request | Description
 ratings_remove(rateable_type, rateable_id, cookie_name=cookie_name)
 ```
 
-Remove
+Delete a rating
 
 Delete the caller's rating for the target resource.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.rateable_type_enum import RateableTypeEnum
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -47,18 +45,16 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Rating(api_client)
-    rateable_type = neuland_hub_sdk.RateableTypeEnum() # RateableTypeEnum | 
-    rateable_id = 56 # int | 
+    rateable_type = neuland_hub_sdk.RateableTypeEnum() # RateableTypeEnum | Kind of resource whose rating to delete.
+    rateable_id = 56 # int | ID of the resource whose rating to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove
+        # Delete a rating
         api_instance.ratings_remove(rateable_type, rateable_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Rating->ratings_remove: %s\n" % e)
@@ -71,8 +67,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **rateable_type** | [**RateableTypeEnum**](/sdk/python/reference/models/RateableTypeEnum)|  | 
- **rateable_id** | **int**|  | 
+ **rateable_type** | [**RateableTypeEnum**](/sdk/python/reference/models/RateableTypeEnum)| Kind of resource whose rating to delete. | 
+ **rateable_id** | **int**| ID of the resource whose rating to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -81,7 +77,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -93,6 +89,8 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**404** | You have not rated this resource. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -101,14 +99,13 @@ void (empty response body)
 Rating ratings_upsert(rating_in, cookie_name=cookie_name)
 ```
 
-Upsert
+Upsert a rating
 
 Upsert the caller's rating for the target resource.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -134,8 +131,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -144,7 +139,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Upsert
+        # Upsert a rating
         api_response = api_instance.ratings_upsert(rating_in, cookie_name=cookie_name)
         print("The response of Rating->ratings_upsert:\n")
         pprint(api_response)
@@ -168,7 +163,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -180,4 +175,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | The target resource is not in your tenant. |  -  |
+**404** | The target resource does not exist. |  -  |
+**409** | The target resource cannot be rated (deprecated catalog item, or an assistant that is not community-shared or not ready). |  -  |
 **422** | Validation Error |  -  |

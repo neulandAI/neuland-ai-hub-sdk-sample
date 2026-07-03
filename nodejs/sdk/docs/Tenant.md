@@ -1,19 +1,19 @@
 # Tenant
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**tenantsAddLibraryToTenants**](#tenantsaddlibrarytotenants) | **POST** /tenants/{tenant_id}/libraries/{library_id} | Assign a library to a tenant|
 |[**tenantsCreateTenant**](#tenantscreatetenant) | **POST** /tenants/ | Create a tenant|
 |[**tenantsCreateTenantConnector**](#tenantscreatetenantconnector) | **POST** /tenants/{tenant_id}/connectors/{connector_id} | Enable a connector for a tenant|
-|[**tenantsCreateTenantOauthClient**](#tenantscreatetenantoauthclient) | **POST** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Create Tenant Oauth Client|
+|[**tenantsCreateTenantOauthClient**](#tenantscreatetenantoauthclient) | **POST** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Create a per-tenant OAuth client config|
 |[**tenantsCreateTenantTool**](#tenantscreatetenanttool) | **POST** /tenants/{tenant_id}/tools/{tool_id} | Enable a tool for a tenant|
 |[**tenantsDeleteTenant**](#tenantsdeletetenant) | **DELETE** /tenants/{tenant_id} | Delete a tenant|
 |[**tenantsDeleteTenantConnector**](#tenantsdeletetenantconnector) | **DELETE** /tenants/{tenant_id}/connectors/{connector_id} | Disable a connector for a tenant|
 |[**tenantsDeleteTenantModel**](#tenantsdeletetenantmodel) | **DELETE** /tenants/{tenant_id}/models/{model_id} | Disable a model for a tenant|
 |[**tenantsDeleteTenantModelsBulk**](#tenantsdeletetenantmodelsbulk) | **DELETE** /tenants/models/{model_id}/bulk | Disable a model for multiple tenants|
-|[**tenantsDeleteTenantOauthClient**](#tenantsdeletetenantoauthclient) | **DELETE** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Delete Tenant Oauth Client|
+|[**tenantsDeleteTenantOauthClient**](#tenantsdeletetenantoauthclient) | **DELETE** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Delete a per-tenant OAuth client config|
 |[**tenantsDeleteTenantTool**](#tenantsdeletetenanttool) | **DELETE** /tenants/{tenant_id}/tools/{tool_id} | Disable a tool for a tenant|
 |[**tenantsGetCurrentTenant**](#tenantsgetcurrenttenant) | **GET** /tenants/current | Get current tenant|
 |[**tenantsPutTenantModel**](#tenantsputtenantmodel) | **PUT** /tenants/{tenant_id}/models/{model_id} | Enable a model for a tenant|
@@ -21,8 +21,8 @@ All URIs are relative to *http://localhost*
 |[**tenantsRemoveTenantLibraryMember**](#tenantsremovetenantlibrarymember) | **DELETE** /tenants/{tenant_id}/libraries/{library_id} | Unassign a library from a tenant|
 |[**tenantsUpdateCurrentTenant**](#tenantsupdatecurrenttenant) | **PATCH** /tenants/current | Update current tenant|
 |[**tenantsUpdateTenant**](#tenantsupdatetenant) | **PATCH** /tenants/{tenant_id} | Update a tenant|
-|[**tenantsUpdateTenantOauthClient**](#tenantsupdatetenantoauthclient) | **PATCH** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Update Tenant Oauth Client|
-|[**tenantsUpdateTenantOauthSecret**](#tenantsupdatetenantoauthsecret) | **PUT** /tenants/{tenant_id}/oauth-clients/{oauth_client_id}/secret | Update Tenant Oauth Secret|
+|[**tenantsUpdateTenantOauthClient**](#tenantsupdatetenantoauthclient) | **PATCH** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Update a per-tenant OAuth client config|
+|[**tenantsUpdateTenantOauthSecret**](#tenantsupdatetenantoauthsecret) | **PUT** /tenants/{tenant_id}/oauth-clients/{oauth_client_id}/secret | Set a per-tenant OAuth client secret|
 
 # **tenantsAddLibraryToTenants**
 > any tenantsAddLibraryToTenants()
@@ -66,7 +66,7 @@ const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -128,7 +128,7 @@ const { status, data } = await apiInstance.tenantsCreateTenant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -189,7 +189,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantConnector(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -211,7 +211,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantConnector(
 # **tenantsCreateTenantOauthClient**
 > TenantOAuthClientOut tenantsCreateTenantOauthClient(tenantOAuthClientIn)
 
-Provision per-tenant SSO config + secret for a deployment-wide template.
+Provision per-tenant SSO config and secret for a deployment-wide template.
 
 ### Example
 
@@ -225,8 +225,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let oauthClientId: number; // (default to undefined)
+let tenantId: number; //ID of the tenant to configure. (default to undefined)
+let oauthClientId: number; //ID of the platform OAuth client to override. (default to undefined)
 let tenantOAuthClientIn: TenantOAuthClientIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -243,8 +243,8 @@ const { status, data } = await apiInstance.tenantsCreateTenantOauthClient(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantOAuthClientIn** | **TenantOAuthClientIn**|  | |
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**number**] | ID of the tenant to configure. | defaults to undefined|
+| **oauthClientId** | [**number**] | ID of the platform OAuth client to override. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -254,7 +254,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantOauthClient(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -266,6 +266,9 @@ const { status, data } = await apiInstance.tenantsCreateTenantOauthClient(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | The tenant or platform OAuth client does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -312,7 +315,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantTool(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -369,7 +372,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -430,7 +433,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -491,7 +494,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -553,7 +556,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -575,6 +578,7 @@ void (empty response body)
 # **tenantsDeleteTenantOauthClient**
 > tenantsDeleteTenantOauthClient()
 
+Delete a per-tenant OAuth client configuration and its stored secret.
 
 ### Example
 
@@ -587,8 +591,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let oauthClientId: number; // (default to undefined)
+let tenantId: number; //ID of the tenant. (default to undefined)
+let oauthClientId: number; //ID of the platform OAuth client being overridden. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsDeleteTenantOauthClient(
@@ -602,8 +606,8 @@ const { status, data } = await apiInstance.tenantsDeleteTenantOauthClient(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
+| **oauthClientId** | [**number**] | ID of the platform OAuth client being overridden. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -613,7 +617,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -625,6 +629,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | No per-tenant OAuth config exists for this tenant and OAuth client. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -671,7 +678,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -726,7 +733,7 @@ const { status, data } = await apiInstance.tenantsGetCurrentTenant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -785,7 +792,7 @@ const { status, data } = await apiInstance.tenantsPutTenantModel(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -847,7 +854,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -908,7 +915,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -970,7 +977,7 @@ const { status, data } = await apiInstance.tenantsUpdateCurrentTenant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -1031,7 +1038,7 @@ const { status, data } = await apiInstance.tenantsUpdateTenant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -1053,6 +1060,7 @@ const { status, data } = await apiInstance.tenantsUpdateTenant(
 # **tenantsUpdateTenantOauthClient**
 > TenantOAuthClientOut tenantsUpdateTenantOauthClient(tenantOAuthClientUpdate)
 
+Update an existing per-tenant OAuth client configuration.
 
 ### Example
 
@@ -1066,8 +1074,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let oauthClientId: number; // (default to undefined)
+let tenantId: number; //ID of the tenant. (default to undefined)
+let oauthClientId: number; //ID of the platform OAuth client being overridden. (default to undefined)
 let tenantOAuthClientUpdate: TenantOAuthClientUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -1084,8 +1092,8 @@ const { status, data } = await apiInstance.tenantsUpdateTenantOauthClient(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantOAuthClientUpdate** | **TenantOAuthClientUpdate**|  | |
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
+| **oauthClientId** | [**number**] | ID of the platform OAuth client being overridden. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -1095,7 +1103,7 @@ const { status, data } = await apiInstance.tenantsUpdateTenantOauthClient(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -1107,6 +1115,9 @@ const { status, data } = await apiInstance.tenantsUpdateTenantOauthClient(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | No per-tenant OAuth config exists for this tenant and OAuth client. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1114,6 +1125,7 @@ const { status, data } = await apiInstance.tenantsUpdateTenantOauthClient(
 # **tenantsUpdateTenantOauthSecret**
 > tenantsUpdateTenantOauthSecret(secretUpdateIn)
 
+Replace the stored OAuth client secret for a per-tenant configuration.
 
 ### Example
 
@@ -1127,8 +1139,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let oauthClientId: number; // (default to undefined)
+let tenantId: number; //ID of the tenant. (default to undefined)
+let oauthClientId: number; //ID of the platform OAuth client being overridden. (default to undefined)
 let secretUpdateIn: SecretUpdateIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -1145,8 +1157,8 @@ const { status, data } = await apiInstance.tenantsUpdateTenantOauthSecret(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **secretUpdateIn** | **SecretUpdateIn**|  | |
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **oauthClientId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
+| **oauthClientId** | [**number**] | ID of the platform OAuth client being overridden. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -1156,7 +1168,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -1168,6 +1180,9 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
+|**404** | No per-tenant OAuth config exists for this tenant and OAuth client. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

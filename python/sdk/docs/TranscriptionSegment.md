@@ -1,0 +1,33 @@
+# TranscriptionSegment
+
+A single time-aligned segment of a transcript.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start** | **float** |  | 
+**end** | **float** |  | 
+**speaker** | **str** |  | 
+**text** | **str** | Transcribed text for this segment. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.transcription_segment import TranscriptionSegment
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of TranscriptionSegment from a JSON string
+transcription_segment_instance = TranscriptionSegment.from_json(json)
+# print the JSON string representation of the object
+print(TranscriptionSegment.to_json())
+
+# convert the object into a dict
+transcription_segment_dict = transcription_segment_instance.to_dict()
+# create an instance of TranscriptionSegment from a dict
+transcription_segment_from_dict = TranscriptionSegment.from_dict(transcription_segment_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

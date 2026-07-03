@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Auth
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -13,11 +13,11 @@ Method | HTTP request | Description
 [**auth_request_password_reset**](Auth.md#auth_request_password_reset) | **POST** /auth/request-password-reset | Request a password reset
 [**auth_reset_password**](Auth.md#auth_reset_password) | **POST** /auth/reset-password | Complete a password reset
 [**auth_reset_password_form**](Auth.md#auth_reset_password_form) | **GET** /auth/reset-password | Password reset HTML form
-[**auth_search_entra_groups**](Auth.md#auth_search_entra_groups) | **GET** /auth/entra/groups/search | Search Entra Groups
+[**auth_search_entra_groups**](Auth.md#auth_search_entra_groups) | **GET** /auth/entra/groups/search | Search Entra directory groups
 [**auth_send_email_confirmation**](Auth.md#auth_send_email_confirmation) | **POST** /auth/send-email-confirmation | Send an email confirmation
-[**auth_sso_exchange**](Auth.md#auth_sso_exchange) | **POST** /auth/sso/{slug}/{provider}/exchange | Sso Exchange
-[**auth_sso_init**](Auth.md#auth_sso_init) | **GET** /auth/sso/{slug}/{provider}/init | Sso Init
-[**auth_sso_resolve**](Auth.md#auth_sso_resolve) | **GET** /auth/sso/resolve | Sso Resolve
+[**auth_sso_exchange**](Auth.md#auth_sso_exchange) | **POST** /auth/sso/{slug}/{provider}/exchange | Complete an SSO login
+[**auth_sso_init**](Auth.md#auth_sso_init) | **GET** /auth/sso/{slug}/{provider}/init | Start an SSO login
+[**auth_sso_resolve**](Auth.md#auth_sso_resolve) | **GET** /auth/sso/resolve | Resolve SSO providers for an email
 
 
 # **auth_confirm_email**
@@ -35,10 +35,10 @@ import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -100,25 +100,18 @@ Exchange the caller's token for a service token scoped to an AI application.
 
 ### Example
 
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -150,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+No authorization required
 
 ### HTTP request headers
 
@@ -177,7 +170,6 @@ Resolve Azure Entra group display names for the current user's groups.
 
 ### Example
 
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -185,18 +177,12 @@ from neuland_hub_sdk.models.response_auth_get_entra_groups_value import Response
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -224,7 +210,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+No authorization required
 
 ### HTTP request headers
 
@@ -255,10 +241,10 @@ import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -319,10 +305,10 @@ from neuland_hub_sdk.models.token_out import TokenOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -402,25 +388,18 @@ Revoke the current session so its token can no longer authenticate.
 
 ### Example
 
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -448,7 +427,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+No authorization required
 
 ### HTTP request headers
 
@@ -481,10 +460,10 @@ from neuland_hub_sdk.models.password_reset_request_in import PasswordResetReques
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -549,10 +528,10 @@ import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -615,10 +594,10 @@ import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -671,24 +650,23 @@ No authorization required
 # **auth_search_entra_groups**
 > Dict[str, object] auth_search_entra_groups(q=q, cursor=cursor, tenant_id=tenant_id, cookie_name=cookie_name)
 
-Search Entra Groups
+Search Entra directory groups
 
 Search/browse Entra directory groups (delegated) for binding to a HUB group.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -702,8 +680,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -714,7 +690,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Search Entra Groups
+        # Search Entra directory groups
         api_response = api_instance.auth_search_entra_groups(q=q, cursor=cursor, tenant_id=tenant_id, cookie_name=cookie_name)
         print("The response of Auth->auth_search_entra_groups:\n")
         pprint(api_response)
@@ -740,7 +716,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -752,6 +728,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**401** | Missing or invalid authentication, or not an Azure Entra session. |  -  |
+**403** | Administrator privileges required. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -766,17 +744,16 @@ Send a confirmation email to the current user unless their email is already veri
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -789,8 +766,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -820,7 +795,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -840,7 +815,7 @@ void (empty response body)
 # **auth_sso_exchange**
 > TokenOut auth_sso_exchange(slug, provider, sso_exchange_in, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
 
-Sso Exchange
+Complete an SSO login
 
 Exchange an IdP authorization code (with the signed state from init)
 for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
@@ -855,10 +830,10 @@ from neuland_hub_sdk.models.token_out import TokenOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -866,8 +841,8 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Auth(api_client)
-    slug = 'slug_example' # str | 
-    provider = 'provider_example' # str | 
+    slug = 'slug_example' # str | Tenant routing slug from sso/resolve.
+    provider = 'provider_example' # str | OAuth provider key, e.g. 'microsoft'.
     sso_exchange_in = neuland_hub_sdk.SsoExchangeIn() # SsoExchangeIn | 
     user_agent = 'user_agent_example' # str |  (optional)
     x_real_ip = 'x_real_ip_example' # str |  (optional)
@@ -875,7 +850,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     x_client_ip = 'x_client_ip_example' # str |  (optional)
 
     try:
-        # Sso Exchange
+        # Complete an SSO login
         api_response = api_instance.auth_sso_exchange(slug, provider, sso_exchange_in, user_agent=user_agent, x_real_ip=x_real_ip, x_forwarded_for=x_forwarded_for, x_client_ip=x_client_ip)
         print("The response of Auth->auth_sso_exchange:\n")
         pprint(api_response)
@@ -890,8 +865,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **slug** | **str**|  | 
- **provider** | **str**|  | 
+ **slug** | **str**| Tenant routing slug from sso/resolve. | 
+ **provider** | **str**| OAuth provider key, e.g. &#39;microsoft&#39;. | 
  **sso_exchange_in** | [**SsoExchangeIn**](SsoExchangeIn.md)|  | 
  **user_agent** | **str**|  | [optional] 
  **x_real_ip** | **str**|  | [optional] 
@@ -916,6 +891,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**400** | Unknown provider or provider does not support SSO login. |  -  |
+**403** | Invalid, expired, or mismatched SSO state token. |  -  |
+**404** | No tenant matches the slug, or the provider is not configured. |  -  |
+**503** | Token exchange with the identity provider failed. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -923,7 +902,7 @@ No authorization required
 # **auth_sso_init**
 > SsoInitOut auth_sso_init(slug, provider)
 
-Sso Init
+Start an SSO login
 
 Return the IdP authorize URL + signed state token. No cookies, no redirect.
 Frontend uses the response to redirect the browser to the IdP itself.
@@ -937,10 +916,10 @@ from neuland_hub_sdk.models.sso_init_out import SsoInitOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -948,11 +927,11 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Auth(api_client)
-    slug = 'slug_example' # str | 
-    provider = 'provider_example' # str | 
+    slug = 'slug_example' # str | Tenant routing slug from sso/resolve.
+    provider = 'provider_example' # str | OAuth provider key, e.g. 'microsoft'.
 
     try:
-        # Sso Init
+        # Start an SSO login
         api_response = api_instance.auth_sso_init(slug, provider)
         print("The response of Auth->auth_sso_init:\n")
         pprint(api_response)
@@ -967,8 +946,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **slug** | **str**|  | 
- **provider** | **str**|  | 
+ **slug** | **str**| Tenant routing slug from sso/resolve. | 
+ **provider** | **str**| OAuth provider key, e.g. &#39;microsoft&#39;. | 
 
 ### Return type
 
@@ -988,16 +967,19 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**400** | Unknown provider or provider does not support SSO login. |  -  |
+**404** | No tenant matches the slug, or the provider is not configured. |  -  |
+**503** | SSO is not configured for this tenant. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_sso_resolve**
-> SsoResolveOut auth_sso_resolve(domain)
+> SsoResolveOut auth_sso_resolve(email)
 
-Sso Resolve
+Resolve SSO providers for an email
 
-Pre-login step: resolve a tenant from its domain and
+Pre-login step: resolve a tenant from the email's domain and
 return the routing slug and available SSO providers.
 
 ### Example
@@ -1009,10 +991,10 @@ from neuland_hub_sdk.models.sso_resolve_out import SsoResolveOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
@@ -1020,11 +1002,11 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Auth(api_client)
-    domain = 'domain_example' # str | 
+    email = 'email_example' # str | Work email whose domain identifies the tenant.
 
     try:
-        # Sso Resolve
-        api_response = api_instance.auth_sso_resolve(domain)
+        # Resolve SSO providers for an email
+        api_response = api_instance.auth_sso_resolve(email)
         print("The response of Auth->auth_sso_resolve:\n")
         pprint(api_response)
     except Exception as e:
@@ -1038,7 +1020,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **domain** | **str**|  | 
+ **email** | **str**| Work email whose domain identifies the tenant. | 
 
 ### Return type
 
@@ -1058,6 +1040,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
+**404** | No tenant is registered for the email&#39;s domain. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

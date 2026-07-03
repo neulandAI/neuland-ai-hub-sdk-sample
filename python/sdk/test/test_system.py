@@ -29,14 +29,14 @@ class TestSystem(unittest.TestCase):
     def test_system_read_system_settings(self) -> None:
         """Test case for system_read_system_settings
 
-        Read System Settings
+        Read system settings
         """
         pass
 
     def test_system_update_system_settings(self) -> None:
         """Test case for system_update_system_settings
 
-        Update System Settings
+        Update system settings
         """
         pass
 

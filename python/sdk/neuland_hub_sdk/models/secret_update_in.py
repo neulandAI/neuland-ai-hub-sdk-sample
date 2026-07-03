@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class SecretUpdateIn(BaseModel):
     """
     SecretUpdateIn
     """ # noqa: E501
-    secret: StrictStr
+    secret: StrictStr = Field(description="New OAuth client secret to store. Write-only.")
     __properties: ClassVar[List[str]] = ["secret"]
 
     model_config = ConfigDict(

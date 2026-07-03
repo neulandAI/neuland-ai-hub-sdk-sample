@@ -18,7 +18,8 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Union
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from neuland_hub_sdk.models.transcription_segment import TranscriptionSegment
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,10 +28,11 @@ class TranscriptionOut(BaseModel):
     """
     The response format from the transcription endpoint
     """ # noqa: E501
-    text: StrictStr = Field(description="Transcribed text of the audio.")
-    language: StrictStr = Field(description="Detected language of the audio (ISO 639-1 or language name).")
-    duration_seconds: Union[StrictFloat, StrictInt] = Field(description="Duration of the audio in seconds.")
-    __properties: ClassVar[List[str]] = ["text", "language", "duration_seconds"]
+    text: StrictStr = Field(description="Full transcribed text of the audio.")
+    language: Optional[StrictStr]
+    duration_seconds: Union[StrictFloat, StrictInt] = Field(description="Duration of the transcribed audio in seconds.")
+    segments: List[TranscriptionSegment] = Field(description="Time-aligned, optionally diarized transcript segments.")
+    __properties: ClassVar[List[str]] = ["text", "language", "duration_seconds", "segments"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -71,6 +73,18 @@ class TranscriptionOut(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in segments (list)
+        _items = []
+        if self.segments:
+            for _item_segments in self.segments:
+                if _item_segments:
+                    _items.append(_item_segments.to_dict())
+            _dict['segments'] = _items
+        # set to None if language (nullable) is None
+        # and model_fields_set contains the field
+        if self.language is None and "language" in self.model_fields_set:
+            _dict['language'] = None
+
         return _dict
 
     @classmethod
@@ -85,7 +99,8 @@ class TranscriptionOut(BaseModel):
         _obj = cls.model_validate({
             "text": obj.get("text"),
             "language": obj.get("language"),
-            "duration_seconds": obj.get("duration_seconds")
+            "duration_seconds": obj.get("duration_seconds"),
+            "segments": [TranscriptionSegment.from_dict(_item) for _item in obj["segments"]] if obj.get("segments") is not None else None
         })
         return _obj
 

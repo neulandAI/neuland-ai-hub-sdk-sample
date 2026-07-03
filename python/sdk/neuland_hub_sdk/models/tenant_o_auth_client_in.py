@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,13 +27,13 @@ class TenantOAuthClientIn(BaseModel):
     """
     TenantOAuthClientIn
     """ # noqa: E501
-    client_id: StrictStr
-    authorize_url: StrictStr
-    token_url: StrictStr
+    client_id: StrictStr = Field(description="OAuth client identifier issued by the provider.")
+    authorize_url: StrictStr = Field(description="Provider authorization endpoint URL.")
+    token_url: StrictStr = Field(description="Provider token endpoint URL.")
     revocation_url: Optional[StrictStr] = None
     redirect_uri: Optional[StrictStr] = None
     admin_consent_url: Optional[StrictStr] = None
-    secret: StrictStr
+    secret: StrictStr = Field(description="OAuth client secret issued by the provider. Write-only.")
     __properties: ClassVar[List[str]] = ["client_id", "authorize_url", "token_url", "revocation_url", "redirect_uri", "admin_consent_url", "secret"]
 
     model_config = ConfigDict(

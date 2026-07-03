@@ -49,6 +49,7 @@ docs/ChatLibrary.md
 docs/ChatToolSettingsOut.md
 docs/ChatToolSettingsUpdate.md
 docs/Connector.md
+docs/ConnectorAuthType.md
 docs/ConnectorConsentOut.md
 docs/ConnectorOut.md
 docs/ConnectorStatusOut.md
@@ -60,6 +61,9 @@ docs/CostCompletionTokens1.md
 docs/CostPromptTokens.md
 docs/CostPromptTokens1.md
 docs/CostTimeseriesPoint.md
+docs/CredentialIn.md
+docs/CredentialPartOut.md
+docs/CredentialTemplateOut.md
 docs/DataSourceCapabilities.md
 docs/DataSourceDriveModel.md
 docs/DataSourceFolderModel.md
@@ -98,6 +102,7 @@ docs/Message.md
 docs/MessageDetailOut.md
 docs/MessageFileOut.md
 docs/MessageIn.md
+docs/Nextcloud.md
 docs/OAuth2ProviderEnum.md
 docs/OAuthClient.md
 docs/OAuthClientUpdate.md
@@ -125,6 +130,7 @@ docs/Rating.md
 docs/RatingIn.md
 docs/RephraseStyleEnum.md
 docs/ResponseAuthGetEntraGroupsValue.md
+docs/ResponseNextcloudListRoots.md
 docs/ResponseOnedriveListRoots.md
 docs/ResponseSharepointv1ListRoots.md
 docs/SecretUpdateIn.md
@@ -186,6 +192,7 @@ docs/ToolOut.md
 docs/ToolUpdate.md
 docs/Transcription.md
 docs/TranscriptionOut.md
+docs/TranscriptionSegment.md
 docs/Translation.md
 docs/UsageCostRequest.md
 docs/UsageCostResponse.md

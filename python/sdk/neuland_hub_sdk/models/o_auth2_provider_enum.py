@@ -30,7 +30,9 @@ class OAuth2ProviderEnum(str, Enum):
     MICROSOFT = 'microsoft'
     ATLASSIAN = 'atlassian'
     HUBSPOT = 'hubspot'
-    OIDC = 'oidc'
+    FIREFLIES = 'fireflies'
+    KEYCLOAK = 'keycloak'
+    OPENDESK = 'opendesk'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

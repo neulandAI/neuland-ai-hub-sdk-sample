@@ -85,7 +85,7 @@ class TestUser(unittest.TestCase):
     def test_users_sync_external_group(self) -> None:
         """Test case for users_sync_external_group
 
-        Sync External Group
+        Sync an external group's members
         """
         pass
 

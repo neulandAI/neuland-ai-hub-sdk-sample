@@ -34,6 +34,7 @@ __all__ = [
     "LlmCatalog",
     "LlmSetting",
     "Message",
+    "Nextcloud",
     "OneDrive",
     "Project",
     "Prompt",
@@ -97,6 +98,7 @@ __all__ = [
     "ChatToolSettingsOut",
     "ChatToolSettingsUpdate",
     "Connector",
+    "ConnectorAuthType",
     "ConnectorConsentOut",
     "ConnectorOut",
     "ConnectorStatusOut",
@@ -108,6 +110,9 @@ __all__ = [
     "CostPromptTokens",
     "CostPromptTokens1",
     "CostTimeseriesPoint",
+    "CredentialIn",
+    "CredentialPartOut",
+    "CredentialTemplateOut",
     "DataSourceCapabilities",
     "DataSourceDriveModel",
     "DataSourceFolderModel",
@@ -159,6 +164,7 @@ __all__ = [
     "RatingIn",
     "RephraseStyleEnum",
     "ResponseAuthGetEntraGroupsValue",
+    "ResponseNextcloudListRoots",
     "ResponseOnedriveListRoots",
     "ResponseSharepointv1ListRoots",
     "SecretUpdateIn",
@@ -208,6 +214,7 @@ __all__ = [
     "ToolOut",
     "ToolUpdate",
     "TranscriptionOut",
+    "TranscriptionSegment",
     "Translation",
     "UsageCostRequest",
     "UsageCostResponse",
@@ -240,6 +247,7 @@ from neuland_hub_sdk.api.llm import Llm as Llm
 from neuland_hub_sdk.api.llm_catalog import LlmCatalog as LlmCatalog
 from neuland_hub_sdk.api.llm_setting import LlmSetting as LlmSetting
 from neuland_hub_sdk.api.message import Message as Message
+from neuland_hub_sdk.api.nextcloud import Nextcloud as Nextcloud
 from neuland_hub_sdk.api.one_drive import OneDrive as OneDrive
 from neuland_hub_sdk.api.project import Project as Project
 from neuland_hub_sdk.api.prompt import Prompt as Prompt
@@ -307,6 +315,7 @@ from neuland_hub_sdk.models.chat_library import ChatLibrary as ChatLibrary
 from neuland_hub_sdk.models.chat_tool_settings_out import ChatToolSettingsOut as ChatToolSettingsOut
 from neuland_hub_sdk.models.chat_tool_settings_update import ChatToolSettingsUpdate as ChatToolSettingsUpdate
 from neuland_hub_sdk.models.connector import Connector as Connector
+from neuland_hub_sdk.models.connector_auth_type import ConnectorAuthType as ConnectorAuthType
 from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut as ConnectorConsentOut
 from neuland_hub_sdk.models.connector_out import ConnectorOut as ConnectorOut
 from neuland_hub_sdk.models.connector_status_out import ConnectorStatusOut as ConnectorStatusOut
@@ -318,6 +327,9 @@ from neuland_hub_sdk.models.cost_completion_tokens1 import CostCompletionTokens1
 from neuland_hub_sdk.models.cost_prompt_tokens import CostPromptTokens as CostPromptTokens
 from neuland_hub_sdk.models.cost_prompt_tokens1 import CostPromptTokens1 as CostPromptTokens1
 from neuland_hub_sdk.models.cost_timeseries_point import CostTimeseriesPoint as CostTimeseriesPoint
+from neuland_hub_sdk.models.credential_in import CredentialIn as CredentialIn
+from neuland_hub_sdk.models.credential_part_out import CredentialPartOut as CredentialPartOut
+from neuland_hub_sdk.models.credential_template_out import CredentialTemplateOut as CredentialTemplateOut
 from neuland_hub_sdk.models.data_source_capabilities import DataSourceCapabilities as DataSourceCapabilities
 from neuland_hub_sdk.models.data_source_drive_model import DataSourceDriveModel as DataSourceDriveModel
 from neuland_hub_sdk.models.data_source_folder_model import DataSourceFolderModel as DataSourceFolderModel
@@ -369,6 +381,7 @@ from neuland_hub_sdk.models.rating import Rating as Rating
 from neuland_hub_sdk.models.rating_in import RatingIn as RatingIn
 from neuland_hub_sdk.models.rephrase_style_enum import RephraseStyleEnum as RephraseStyleEnum
 from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue as ResponseAuthGetEntraGroupsValue
+from neuland_hub_sdk.models.response_nextcloud_list_roots import ResponseNextcloudListRoots as ResponseNextcloudListRoots
 from neuland_hub_sdk.models.response_onedrive_list_roots import ResponseOnedriveListRoots as ResponseOnedriveListRoots
 from neuland_hub_sdk.models.response_sharepointv1_list_roots import ResponseSharepointv1ListRoots as ResponseSharepointv1ListRoots
 from neuland_hub_sdk.models.secret_update_in import SecretUpdateIn as SecretUpdateIn
@@ -418,6 +431,7 @@ from neuland_hub_sdk.models.tool_call_progress_step_out import ToolCallProgressS
 from neuland_hub_sdk.models.tool_out import ToolOut as ToolOut
 from neuland_hub_sdk.models.tool_update import ToolUpdate as ToolUpdate
 from neuland_hub_sdk.models.transcription_out import TranscriptionOut as TranscriptionOut
+from neuland_hub_sdk.models.transcription_segment import TranscriptionSegment as TranscriptionSegment
 from neuland_hub_sdk.models.translation import Translation as Translation
 from neuland_hub_sdk.models.usage_cost_request import UsageCostRequest as UsageCostRequest
 from neuland_hub_sdk.models.usage_cost_response import UsageCostResponse as UsageCostResponse

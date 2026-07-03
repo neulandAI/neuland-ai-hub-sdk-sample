@@ -1,15 +1,16 @@
 # System
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**systemReadSystemSettings**](#systemreadsystemsettings) | **GET** /system/settings | Read System Settings|
-|[**systemUpdateSystemSettings**](#systemupdatesystemsettings) | **PATCH** /system/settings | Update System Settings|
+|[**systemReadSystemSettings**](#systemreadsystemsettings) | **GET** /system/settings | Read system settings|
+|[**systemUpdateSystemSettings**](#systemupdatesystemsettings) | **PATCH** /system/settings | Update system settings|
 
 # **systemReadSystemSettings**
 > SystemSettings systemReadSystemSettings()
 
+Return the current platform-wide system settings.
 
 ### Example
 
@@ -42,7 +43,7 @@ const { status, data } = await apiInstance.systemReadSystemSettings(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -54,6 +55,8 @@ const { status, data } = await apiInstance.systemReadSystemSettings(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -61,6 +64,7 @@ const { status, data } = await apiInstance.systemReadSystemSettings(
 # **systemUpdateSystemSettings**
 > SystemSettings systemUpdateSystemSettings(systemSettingsUpdate)
 
+Apply the provided system settings changes and record an audit entry.
 
 ### Example
 
@@ -97,7 +101,7 @@ const { status, data } = await apiInstance.systemUpdateSystemSettings(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -109,6 +113,9 @@ const { status, data } = await apiInstance.systemUpdateSystemSettings(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**400** | No changes were provided. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Superadmin privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -55,8 +55,9 @@ class System:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SystemSettings:
-        """Read System Settings
+        """Read system settings
 
+        Return the current platform-wide system settings.
 
         :param cookie_name:
         :type cookie_name: str
@@ -92,6 +93,8 @@ class System:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SystemSettings",
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -122,8 +125,9 @@ class System:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SystemSettings]:
-        """Read System Settings
+        """Read system settings
 
+        Return the current platform-wide system settings.
 
         :param cookie_name:
         :type cookie_name: str
@@ -159,6 +163,8 @@ class System:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SystemSettings",
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -189,8 +195,9 @@ class System:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Read System Settings
+        """Read system settings
 
+        Return the current platform-wide system settings.
 
         :param cookie_name:
         :type cookie_name: str
@@ -226,6 +233,8 @@ class System:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SystemSettings",
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -280,8 +289,7 @@ class System:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -320,8 +328,9 @@ class System:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SystemSettings:
-        """Update System Settings
+        """Update system settings
 
+        Apply the provided system settings changes and record an audit entry.
 
         :param system_settings_update: (required)
         :type system_settings_update: SystemSettingsUpdate
@@ -360,6 +369,9 @@ class System:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SystemSettings",
+            '400': None,
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -391,8 +403,9 @@ class System:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SystemSettings]:
-        """Update System Settings
+        """Update system settings
 
+        Apply the provided system settings changes and record an audit entry.
 
         :param system_settings_update: (required)
         :type system_settings_update: SystemSettingsUpdate
@@ -431,6 +444,9 @@ class System:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SystemSettings",
+            '400': None,
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -462,8 +478,9 @@ class System:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update System Settings
+        """Update system settings
 
+        Apply the provided system settings changes and record an audit entry.
 
         :param system_settings_update: (required)
         :type system_settings_update: SystemSettingsUpdate
@@ -502,6 +519,9 @@ class System:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SystemSettings",
+            '400': None,
+            '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -572,8 +592,7 @@ class System:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(

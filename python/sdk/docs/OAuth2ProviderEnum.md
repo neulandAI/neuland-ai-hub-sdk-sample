@@ -12,7 +12,11 @@ Enum for OAuth providers.
 
 * `HUBSPOT` (value: `'hubspot'`)
 
-* `OIDC` (value: `'oidc'`)
+* `FIREFLIES` (value: `'fireflies'`)
+
+* `KEYCLOAK` (value: `'keycloak'`)
+
+* `OPENDESK` (value: `'opendesk'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

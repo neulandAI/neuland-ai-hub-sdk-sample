@@ -26,7 +26,6 @@ Get a single SharePoint drive item, annotated with imported counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -50,8 +49,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -95,7 +92,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -124,7 +121,6 @@ Return the signed-in user's SharePoint / Microsoft Graph profile.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -148,8 +144,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -181,7 +175,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -210,7 +204,6 @@ Report whether the user has consented to the SharePoint file-read scope.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -233,8 +226,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -266,7 +257,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -294,7 +285,6 @@ List the SharePoint sites the user can access, with imported document counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -318,8 +308,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -359,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -388,7 +376,6 @@ List files and folders under a drive item, annotated with imported counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -412,8 +399,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -459,7 +444,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -488,7 +473,6 @@ List the document libraries (drives) within a SharePoint site.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -512,8 +496,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -555,7 +537,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 

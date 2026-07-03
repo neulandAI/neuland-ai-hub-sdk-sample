@@ -47,6 +47,7 @@ docs/ChatLibrary.md
 docs/ChatToolSettingsOut.md
 docs/ChatToolSettingsUpdate.md
 docs/Connector.md
+docs/ConnectorAuthType.md
 docs/ConnectorConsentOut.md
 docs/ConnectorOut.md
 docs/ConnectorStatusOut.md
@@ -58,6 +59,9 @@ docs/CostCompletionTokens1.md
 docs/CostPromptTokens.md
 docs/CostPromptTokens1.md
 docs/CostTimeseriesPoint.md
+docs/CredentialIn.md
+docs/CredentialPartOut.md
+docs/CredentialTemplateOut.md
 docs/DataSourceCapabilities.md
 docs/DataSourceDriveModel.md
 docs/DataSourceFolderModel.md
@@ -96,6 +100,7 @@ docs/Message.md
 docs/MessageDetailOut.md
 docs/MessageFileOut.md
 docs/MessageIn.md
+docs/Nextcloud.md
 docs/OAuth2ProviderEnum.md
 docs/OAuthClient.md
 docs/OAuthClientUpdate.md
@@ -123,6 +128,7 @@ docs/Rating.md
 docs/RatingIn.md
 docs/RephraseStyleEnum.md
 docs/ResponseAuthGetEntraGroupsValue.md
+docs/ResponseNextcloudListRoots.md
 docs/ResponseOnedriveListRoots.md
 docs/ResponseSharepointv1ListRoots.md
 docs/SecretUpdateIn.md
@@ -184,6 +190,7 @@ docs/ToolOut.md
 docs/ToolUpdate.md
 docs/Transcription.md
 docs/TranscriptionOut.md
+docs/TranscriptionSegment.md
 docs/Translation.md
 docs/UsageCostRequest.md
 docs/UsageCostResponse.md
@@ -218,6 +225,7 @@ neuland_hub_sdk/api/llm.py
 neuland_hub_sdk/api/llm_catalog.py
 neuland_hub_sdk/api/llm_setting.py
 neuland_hub_sdk/api/message.py
+neuland_hub_sdk/api/nextcloud.py
 neuland_hub_sdk/api/one_drive.py
 neuland_hub_sdk/api/project.py
 neuland_hub_sdk/api/prompt.py
@@ -276,6 +284,7 @@ neuland_hub_sdk/models/chat_library.py
 neuland_hub_sdk/models/chat_tool_settings_out.py
 neuland_hub_sdk/models/chat_tool_settings_update.py
 neuland_hub_sdk/models/connector.py
+neuland_hub_sdk/models/connector_auth_type.py
 neuland_hub_sdk/models/connector_consent_out.py
 neuland_hub_sdk/models/connector_out.py
 neuland_hub_sdk/models/connector_status_out.py
@@ -287,6 +296,9 @@ neuland_hub_sdk/models/cost_completion_tokens1.py
 neuland_hub_sdk/models/cost_prompt_tokens.py
 neuland_hub_sdk/models/cost_prompt_tokens1.py
 neuland_hub_sdk/models/cost_timeseries_point.py
+neuland_hub_sdk/models/credential_in.py
+neuland_hub_sdk/models/credential_part_out.py
+neuland_hub_sdk/models/credential_template_out.py
 neuland_hub_sdk/models/data_source_capabilities.py
 neuland_hub_sdk/models/data_source_drive_model.py
 neuland_hub_sdk/models/data_source_folder_model.py
@@ -338,6 +350,7 @@ neuland_hub_sdk/models/rating.py
 neuland_hub_sdk/models/rating_in.py
 neuland_hub_sdk/models/rephrase_style_enum.py
 neuland_hub_sdk/models/response_auth_get_entra_groups_value.py
+neuland_hub_sdk/models/response_nextcloud_list_roots.py
 neuland_hub_sdk/models/response_onedrive_list_roots.py
 neuland_hub_sdk/models/response_sharepointv1_list_roots.py
 neuland_hub_sdk/models/secret_update_in.py
@@ -387,6 +400,7 @@ neuland_hub_sdk/models/tool_call_progress_step_out.py
 neuland_hub_sdk/models/tool_out.py
 neuland_hub_sdk/models/tool_update.py
 neuland_hub_sdk/models/transcription_out.py
+neuland_hub_sdk/models/transcription_segment.py
 neuland_hub_sdk/models/translation.py
 neuland_hub_sdk/models/usage_cost_request.py
 neuland_hub_sdk/models/usage_cost_response.py
@@ -447,6 +461,7 @@ test/test_chat_library.py
 test/test_chat_tool_settings_out.py
 test/test_chat_tool_settings_update.py
 test/test_connector.py
+test/test_connector_auth_type.py
 test/test_connector_consent_out.py
 test/test_connector_out.py
 test/test_connector_status_out.py
@@ -458,6 +473,9 @@ test/test_cost_completion_tokens1.py
 test/test_cost_prompt_tokens.py
 test/test_cost_prompt_tokens1.py
 test/test_cost_timeseries_point.py
+test/test_credential_in.py
+test/test_credential_part_out.py
+test/test_credential_template_out.py
 test/test_data_source_capabilities.py
 test/test_data_source_drive_model.py
 test/test_data_source_folder_model.py
@@ -493,6 +511,7 @@ test/test_message.py
 test/test_message_detail_out.py
 test/test_message_file_out.py
 test/test_message_in.py
+test/test_nextcloud.py
 test/test_o_auth2_provider_enum.py
 test/test_o_auth_client.py
 test/test_o_auth_client_update.py
@@ -517,6 +536,7 @@ test/test_rating.py
 test/test_rating_in.py
 test/test_rephrase_style_enum.py
 test/test_response_auth_get_entra_groups_value.py
+test/test_response_nextcloud_list_roots.py
 test/test_response_onedrive_list_roots.py
 test/test_response_sharepointv1_list_roots.py
 test/test_secret_update_in.py
@@ -575,6 +595,7 @@ test/test_tool_out.py
 test/test_tool_update.py
 test/test_transcription.py
 test/test_transcription_out.py
+test/test_transcription_segment.py
 test/test_translation.py
 test/test_usage_cost_request.py
 test/test_usage_cost_response.py
