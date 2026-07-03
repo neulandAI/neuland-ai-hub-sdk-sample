@@ -440,10 +440,7 @@ export interface BudgetAlert {
      * Timestamp when alert was updated.
      */
     'updated_at'?: string;
-    /**
-     * ID of the user who made the LLM request.
-     */
-    'created_user_id': number;
+    'created_user_id'?: number | null;
 }
 /**
  * Payload for creating a budget alert.
@@ -644,12 +641,9 @@ export interface Connector {
     'creator_user_id'?: number | null;
     'updater_user_id'?: number | null;
     'id'?: number | null;
+    'oauth_client_id'?: number | null;
     /**
-     * ID of the OAuth client backing this connector.
-     */
-    'oauth_client_id': number;
-    /**
-     * Name of the connector.
+     * Human-readable name of the connector.
      */
     'name': string;
     'description'?: string | null;
@@ -658,14 +652,33 @@ export interface Connector {
      */
     'scopes'?: Array<string | null>;
     /**
-     * Capabilities provided by this connector.
+     * Capabilities this connector provides.
      */
     'caps'?: Array<string | null>;
     /**
-     * Whether this connector is automatically attached to new resources.
+     * Whether the connector is automatically attached to new chats.
      */
     'auto_attach'?: boolean;
+    /**
+     * Authentication mechanism the connector uses.
+     */
+    'auth_type'?: ConnectorAuthType;
 }
+
+
+/**
+ * How a connector authenticates.
+ */
+
+export const ConnectorAuthType = {
+    oauth: 'oauth',
+    basic_auth: 'basic_auth',
+    api_key: 'api_key',
+} as const;
+
+export type ConnectorAuthType = typeof ConnectorAuthType[keyof typeof ConnectorAuthType];
+
+
 export interface ConnectorConsentOut {
     /**
      * URL to redirect the user to for granting consent.
@@ -708,18 +721,36 @@ export interface ConnectorStatusOut {
      */
     'name': string;
     /**
-     * Whether the current user has a valid consent for this connector.
+     * Authentication mechanism the connector uses.
+     */
+    'auth_type': ConnectorAuthType;
+    /**
+     * Whether the connector is fully usable for the caller (consent granted and all required config present).
      */
     'connected': boolean;
     /**
-     * Whether the user must (re)grant consent to use this connector.
+     * OAuth authorization is required before the connector can be used.
      */
     'needs_consent': boolean;
     /**
-     * Capabilities not yet covered by the user\'s consent.
+     * An admin credential template part is required but not yet set.
+     */
+    'needs_config': boolean;
+    /**
+     * A per-user credential template part is required but not yet set.
+     */
+    'needs_user_config': boolean;
+    /**
+     * The connector has an admin-managed credential part.
+     */
+    'has_admin_config': boolean;
+    /**
+     * Capabilities not yet granted; empty unless consent is needed.
      */
     'missing_caps': Array<string | null>;
 }
+
+
 export interface ConnectorUpdate {
     'description'?: string | null;
 }
@@ -817,6 +848,48 @@ export interface CostTimeseriesPoint {
      */
     'record_count': number;
 }
+export interface CredentialIn {
+    /**
+     * Credential field values to store, matching the part\'s JSON Schema.
+     */
+    'config': { [key: string]: any; };
+}
+export interface CredentialPartOut {
+    /**
+     * JSON Schema of this credential part; the frontend renders the input form from it.
+     */
+    'json_schema': { [key: string]: any; };
+    /**
+     * Whether this credential part has been saved.
+     */
+    'configured': boolean;
+    /**
+     * Names of the fields currently stored. Never includes the values.
+     */
+    'set_fields': Array<string | null>;
+}
+export interface CredentialTemplateOut {
+    /**
+     * Unique identifier of the connector.
+     */
+    'connector_id': number;
+    /**
+     * Human-readable connector name.
+     */
+    'name': string;
+    /**
+     * Authentication mechanism the connector uses.
+     */
+    'auth_type': ConnectorAuthType;
+    /**
+     * Whether the caller is allowed to edit the admin credential part.
+     */
+    'is_admin': boolean;
+    'admin'?: CredentialPartOut | null;
+    'user'?: CredentialPartOut | null;
+}
+
+
 /**
  * Metadata the frontend uses to render the right browse hierarchy.
  */
@@ -1024,6 +1097,9 @@ export interface GroupIn {
      */
     'name': string;
     'description'?: string | null;
+    /**
+     * Whether the group is managed manually or synced from an external directory.
+     */
     'source'?: UserGroupSource;
     'external_id'?: string | null;
 }
@@ -1033,8 +1109,17 @@ export interface GroupIn {
  * Result of an on-demand external-group membership sync.
  */
 export interface GroupSyncOut {
+    /**
+     * Number of members found in the external directory group.
+     */
     'directory_member_count': number;
+    /**
+     * Number of members successfully synced into the group.
+     */
     'synced_member_count': number;
+    /**
+     * Number of directory members with no matching provisioned user.
+     */
     'unprovisioned_member_count': number;
 }
 export interface HTTPValidationError {
@@ -1333,7 +1418,9 @@ export const OAuth2ProviderEnum = {
     microsoft: 'microsoft',
     atlassian: 'atlassian',
     hubspot: 'hubspot',
-    oidc: 'oidc',
+    fireflies: 'fireflies',
+    keycloak: 'keycloak',
+    opendesk: 'opendesk',
 } as const;
 
 export type OAuth2ProviderEnum = typeof OAuth2ProviderEnum[keyof typeof OAuth2ProviderEnum];
@@ -1597,8 +1684,17 @@ export interface Rating {
  * Request body for creating or updating a rating.
  */
 export interface RatingIn {
+    /**
+     * Kind of resource being rated.
+     */
     'rateable_type': RateableTypeEnum;
+    /**
+     * ID of the resource being rated.
+     */
     'rateable_id': number;
+    /**
+     * Rating score, from 1 (worst) to 5 (best).
+     */
     'value': number;
     'comment'?: string | null;
 }
@@ -1616,11 +1712,16 @@ export type RephraseStyleEnum = typeof RephraseStyleEnum[keyof typeof RephraseSt
 
 export interface ResponseAuthGetEntraGroupsValue {
 }
+export interface ResponseNextcloudListRoots {
+}
 export interface ResponseOnedriveListRoots {
 }
 export interface ResponseSharepointv1ListRoots {
 }
 export interface SecretUpdateIn {
+    /**
+     * New OAuth client secret to store. Write-only.
+     */
     'secret': string;
 }
 /**
@@ -1840,12 +1941,16 @@ export interface SystemSettings {
     'maintenance_end_at'?: string | null;
     'maintenance_message'?: string | null;
 }
+/**
+ * Partial update of the platform-wide system settings. Only provided fields are changed.
+ */
 export interface SystemSettingsUpdate {
     'maintenance_enabled'?: boolean | null;
     'tracing_enabled'?: boolean | null;
     'inbound_guardrail_llm_settings_id'?: number | null;
     'outbound_guardrail_llm_settings_id'?: number | null;
     'embedding_llm_settings_id'?: number | null;
+    'transcription_llm_settings_id'?: number | null;
     'maintenance_start_at'?: string | null;
     'maintenance_end_at'?: string | null;
     'maintenance_message'?: string | null;
@@ -2075,20 +2180,50 @@ export interface TenantModelBulkIn {
     'tenant_ids'?: Array<number> | null;
 }
 export interface TenantOAuthClientIn {
+    /**
+     * OAuth client identifier issued by the provider.
+     */
     'client_id': string;
+    /**
+     * Provider authorization endpoint URL.
+     */
     'authorize_url': string;
+    /**
+     * Provider token endpoint URL.
+     */
     'token_url': string;
     'revocation_url'?: string | null;
     'redirect_uri'?: string | null;
     'admin_consent_url'?: string | null;
+    /**
+     * OAuth client secret issued by the provider. Write-only.
+     */
     'secret': string;
 }
 export interface TenantOAuthClientOut {
+    /**
+     * ID of the tenant this OAuth client configuration belongs to.
+     */
     'tenant_id': number;
+    /**
+     * ID of the platform OAuth client this configuration overrides.
+     */
     'oauth_client_id': number;
+    /**
+     * OAuth provider key backing this client.
+     */
     'provider_key': OAuth2ProviderEnum;
+    /**
+     * OAuth client identifier issued by the provider.
+     */
     'client_id': string;
+    /**
+     * Provider authorization endpoint URL.
+     */
     'authorize_url': string;
+    /**
+     * Provider token endpoint URL.
+     */
     'token_url': string;
     'revocation_url'?: string | null;
     'redirect_uri'?: string | null;
@@ -2420,17 +2555,30 @@ export interface ToolUpdate {
  */
 export interface TranscriptionOut {
     /**
-     * Transcribed text of the audio.
+     * Full transcribed text of the audio.
      */
     'text': string;
+    'language': string | null;
     /**
-     * Detected language of the audio (ISO 639-1 or language name).
-     */
-    'language': string;
-    /**
-     * Duration of the audio in seconds.
+     * Duration of the transcribed audio in seconds.
      */
     'duration_seconds': number;
+    /**
+     * Time-aligned, optionally diarized transcript segments.
+     */
+    'segments': Array<TranscriptionSegment>;
+}
+/**
+ * A single time-aligned segment of a transcript.
+ */
+export interface TranscriptionSegment {
+    'start': number | null;
+    'end': number | null;
+    'speaker': string | null;
+    /**
+     * Transcribed text for this segment.
+     */
+    'text': string;
 }
 export interface Translation {
     /**
@@ -3915,10 +4063,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -3967,10 +4111,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -4021,10 +4161,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -4227,10 +4363,6 @@ export const ApiKeyAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -4274,10 +4406,6 @@ export const ApiKeyAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -4427,10 +4555,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -4474,10 +4598,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -4524,10 +4644,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -4571,10 +4687,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -4623,10 +4735,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -4907,10 +5015,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -4955,10 +5059,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5008,10 +5108,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -5058,10 +5154,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -5102,10 +5194,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5150,10 +5238,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5200,10 +5284,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -5223,8 +5303,8 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * self-add to a tenant-shared community assistant.
-         * @summary Join Assistant
-         * @param {number} assistantId 
+         * @summary Join a community assistant
+         * @param {number} assistantId ID of the assistant to join.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5247,10 +5327,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5293,10 +5369,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5344,10 +5416,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -5393,10 +5461,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5444,10 +5508,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -5493,10 +5553,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5550,10 +5606,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5652,10 +5704,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -5675,7 +5723,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Grant or update assistant access for user groups (replaces the current set).
-         * @summary Update Assistant Groups
+         * @summary Set assistant group access
          * @param {number} assistantId 
          * @param {AssistantGroupsIn} assistantGroupsIn 
          * @param {string | null} [cookieName] 
@@ -5703,10 +5751,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -5726,7 +5770,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
-         * @summary Update Assistant Visibility
+         * @summary Set assistant visibility
          * @param {number} assistantId 
          * @param {AssistantVisibilityUpdate} assistantVisibilityUpdate 
          * @param {string | null} [cookieName] 
@@ -5753,10 +5797,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -5889,8 +5929,8 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * self-add to a tenant-shared community assistant.
-         * @summary Join Assistant
-         * @param {number} assistantId 
+         * @summary Join a community assistant
+         * @param {number} assistantId ID of the assistant to join.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6017,7 +6057,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Grant or update assistant access for user groups (replaces the current set).
-         * @summary Update Assistant Groups
+         * @summary Set assistant group access
          * @param {number} assistantId 
          * @param {AssistantGroupsIn} assistantGroupsIn 
          * @param {string | null} [cookieName] 
@@ -6032,7 +6072,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
-         * @summary Update Assistant Visibility
+         * @summary Set assistant visibility
          * @param {number} assistantId 
          * @param {AssistantVisibilityUpdate} assistantVisibilityUpdate 
          * @param {string | null} [cookieName] 
@@ -6138,8 +6178,8 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * self-add to a tenant-shared community assistant.
-         * @summary Join Assistant
-         * @param {number} assistantId 
+         * @summary Join a community assistant
+         * @param {number} assistantId ID of the assistant to join.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6242,7 +6282,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Grant or update assistant access for user groups (replaces the current set).
-         * @summary Update Assistant Groups
+         * @summary Set assistant group access
          * @param {number} assistantId 
          * @param {AssistantGroupsIn} assistantGroupsIn 
          * @param {string | null} [cookieName] 
@@ -6254,7 +6294,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
-         * @summary Update Assistant Visibility
+         * @summary Set assistant visibility
          * @param {number} assistantId 
          * @param {AssistantVisibilityUpdate} assistantVisibilityUpdate 
          * @param {string | null} [cookieName] 
@@ -6362,8 +6402,8 @@ export class Assistant extends BaseAPI {
 
     /**
      * self-add to a tenant-shared community assistant.
-     * @summary Join Assistant
-     * @param {number} assistantId 
+     * @summary Join a community assistant
+     * @param {number} assistantId ID of the assistant to join.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -6474,7 +6514,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Grant or update assistant access for user groups (replaces the current set).
-     * @summary Update Assistant Groups
+     * @summary Set assistant group access
      * @param {number} assistantId 
      * @param {AssistantGroupsIn} assistantGroupsIn 
      * @param {string | null} [cookieName] 
@@ -6487,7 +6527,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
-     * @summary Update Assistant Visibility
+     * @summary Set assistant visibility
      * @param {number} assistantId 
      * @param {AssistantVisibilityUpdate} assistantVisibilityUpdate 
      * @param {string | null} [cookieName] 
@@ -6535,10 +6575,6 @@ export const AtlassianAxiosParamCreator = function (configuration?: Configuratio
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -6693,10 +6729,6 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (appId !== undefined) {
                 localVarQueryParameter['app_id'] = appId;
             }
@@ -6730,10 +6762,6 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             localVarHeaderParameter['Accept'] = 'application/json';
 
@@ -6879,10 +6907,6 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             localVarHeaderParameter['Accept'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -7009,7 +7033,7 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
         },
         /**
          * Search/browse Entra directory groups (delegated) for binding to a HUB group.
-         * @summary Search Entra Groups
+         * @summary Search Entra directory groups
          * @param {string | null} [q] Name/description search; empty browses alphabetically
          * @param {string | null} [cursor] Page cursor from a prior response\&#39;s &#x60;next&#x60;
          * @param {number} [tenantId] 
@@ -7032,10 +7056,6 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (q !== undefined) {
                 localVarQueryParameter['q'] = q;
@@ -7087,10 +7107,6 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -7108,9 +7124,9 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
         },
         /**
          * Exchange an IdP authorization code (with the signed state from init) for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
-         * @summary Sso Exchange
-         * @param {string} slug 
-         * @param {string} provider 
+         * @summary Complete an SSO login
+         * @param {string} slug Tenant routing slug from sso/resolve.
+         * @param {string} provider OAuth provider key, e.g. \&#39;microsoft\&#39;.
          * @param {SsoExchangeIn} ssoExchangeIn 
          * @param {string} [userAgent] 
          * @param {string | null} [xRealIp] 
@@ -7167,9 +7183,9 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
         },
         /**
          * Return the IdP authorize URL + signed state token. No cookies, no redirect. Frontend uses the response to redirect the browser to the IdP itself.
-         * @summary Sso Init
-         * @param {string} slug 
-         * @param {string} provider 
+         * @summary Start an SSO login
+         * @param {string} slug Tenant routing slug from sso/resolve.
+         * @param {string} provider OAuth provider key, e.g. \&#39;microsoft\&#39;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7204,15 +7220,15 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
-         * Pre-login step: resolve a tenant from its domain and return the routing slug and available SSO providers.
-         * @summary Sso Resolve
-         * @param {string} domain 
+         * Pre-login step: resolve a tenant from the email\'s domain and return the routing slug and available SSO providers.
+         * @summary Resolve SSO providers for an email
+         * @param {string} email Work email whose domain identifies the tenant.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authSsoResolve: async (domain: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'domain' is not null or undefined
-            assertParamExists('authSsoResolve', 'domain', domain)
+        authSsoResolve: async (email: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'email' is not null or undefined
+            assertParamExists('authSsoResolve', 'email', email)
             const localVarPath = `/auth/sso/resolve`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7225,8 +7241,8 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (domain !== undefined) {
-                localVarQueryParameter['domain'] = domain;
+            if (email !== undefined) {
+                localVarQueryParameter['email'] = email;
             }
 
             localVarHeaderParameter['Accept'] = 'application/json';
@@ -7377,7 +7393,7 @@ export const AuthFp = function(configuration?: Configuration) {
         },
         /**
          * Search/browse Entra directory groups (delegated) for binding to a HUB group.
-         * @summary Search Entra Groups
+         * @summary Search Entra directory groups
          * @param {string | null} [q] Name/description search; empty browses alphabetically
          * @param {string | null} [cursor] Page cursor from a prior response\&#39;s &#x60;next&#x60;
          * @param {number} [tenantId] 
@@ -7406,9 +7422,9 @@ export const AuthFp = function(configuration?: Configuration) {
         },
         /**
          * Exchange an IdP authorization code (with the signed state from init) for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
-         * @summary Sso Exchange
-         * @param {string} slug 
-         * @param {string} provider 
+         * @summary Complete an SSO login
+         * @param {string} slug Tenant routing slug from sso/resolve.
+         * @param {string} provider OAuth provider key, e.g. \&#39;microsoft\&#39;.
          * @param {SsoExchangeIn} ssoExchangeIn 
          * @param {string} [userAgent] 
          * @param {string | null} [xRealIp] 
@@ -7425,9 +7441,9 @@ export const AuthFp = function(configuration?: Configuration) {
         },
         /**
          * Return the IdP authorize URL + signed state token. No cookies, no redirect. Frontend uses the response to redirect the browser to the IdP itself.
-         * @summary Sso Init
-         * @param {string} slug 
-         * @param {string} provider 
+         * @summary Start an SSO login
+         * @param {string} slug Tenant routing slug from sso/resolve.
+         * @param {string} provider OAuth provider key, e.g. \&#39;microsoft\&#39;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7438,14 +7454,14 @@ export const AuthFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Pre-login step: resolve a tenant from its domain and return the routing slug and available SSO providers.
-         * @summary Sso Resolve
-         * @param {string} domain 
+         * Pre-login step: resolve a tenant from the email\'s domain and return the routing slug and available SSO providers.
+         * @summary Resolve SSO providers for an email
+         * @param {string} email Work email whose domain identifies the tenant.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authSsoResolve(domain: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoResolveOut>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authSsoResolve(domain, options);
+        async authSsoResolve(email: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoResolveOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authSsoResolve(email, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Auth.authSsoResolve']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -7560,7 +7576,7 @@ export const AuthFactory = function (configuration?: Configuration, basePath?: s
         },
         /**
          * Search/browse Entra directory groups (delegated) for binding to a HUB group.
-         * @summary Search Entra Groups
+         * @summary Search Entra directory groups
          * @param {string | null} [q] Name/description search; empty browses alphabetically
          * @param {string | null} [cursor] Page cursor from a prior response\&#39;s &#x60;next&#x60;
          * @param {number} [tenantId] 
@@ -7583,9 +7599,9 @@ export const AuthFactory = function (configuration?: Configuration, basePath?: s
         },
         /**
          * Exchange an IdP authorization code (with the signed state from init) for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
-         * @summary Sso Exchange
-         * @param {string} slug 
-         * @param {string} provider 
+         * @summary Complete an SSO login
+         * @param {string} slug Tenant routing slug from sso/resolve.
+         * @param {string} provider OAuth provider key, e.g. \&#39;microsoft\&#39;.
          * @param {SsoExchangeIn} ssoExchangeIn 
          * @param {string} [userAgent] 
          * @param {string | null} [xRealIp] 
@@ -7599,9 +7615,9 @@ export const AuthFactory = function (configuration?: Configuration, basePath?: s
         },
         /**
          * Return the IdP authorize URL + signed state token. No cookies, no redirect. Frontend uses the response to redirect the browser to the IdP itself.
-         * @summary Sso Init
-         * @param {string} slug 
-         * @param {string} provider 
+         * @summary Start an SSO login
+         * @param {string} slug Tenant routing slug from sso/resolve.
+         * @param {string} provider OAuth provider key, e.g. \&#39;microsoft\&#39;.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -7609,14 +7625,14 @@ export const AuthFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.authSsoInit(slug, provider, options).then((request) => request(axios, basePath));
         },
         /**
-         * Pre-login step: resolve a tenant from its domain and return the routing slug and available SSO providers.
-         * @summary Sso Resolve
-         * @param {string} domain 
+         * Pre-login step: resolve a tenant from the email\'s domain and return the routing slug and available SSO providers.
+         * @summary Resolve SSO providers for an email
+         * @param {string} email Work email whose domain identifies the tenant.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authSsoResolve(domain: string, options?: RawAxiosRequestConfig): AxiosPromise<SsoResolveOut> {
-            return localVarFp.authSsoResolve(domain, options).then((request) => request(axios, basePath));
+        authSsoResolve(email: string, options?: RawAxiosRequestConfig): AxiosPromise<SsoResolveOut> {
+            return localVarFp.authSsoResolve(email, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -7735,7 +7751,7 @@ export class Auth extends BaseAPI {
 
     /**
      * Search/browse Entra directory groups (delegated) for binding to a HUB group.
-     * @summary Search Entra Groups
+     * @summary Search Entra directory groups
      * @param {string | null} [q] Name/description search; empty browses alphabetically
      * @param {string | null} [cursor] Page cursor from a prior response\&#39;s &#x60;next&#x60;
      * @param {number} [tenantId] 
@@ -7760,9 +7776,9 @@ export class Auth extends BaseAPI {
 
     /**
      * Exchange an IdP authorization code (with the signed state from init) for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
-     * @summary Sso Exchange
-     * @param {string} slug 
-     * @param {string} provider 
+     * @summary Complete an SSO login
+     * @param {string} slug Tenant routing slug from sso/resolve.
+     * @param {string} provider OAuth provider key, e.g. \&#39;microsoft\&#39;.
      * @param {SsoExchangeIn} ssoExchangeIn 
      * @param {string} [userAgent] 
      * @param {string | null} [xRealIp] 
@@ -7777,9 +7793,9 @@ export class Auth extends BaseAPI {
 
     /**
      * Return the IdP authorize URL + signed state token. No cookies, no redirect. Frontend uses the response to redirect the browser to the IdP itself.
-     * @summary Sso Init
-     * @param {string} slug 
-     * @param {string} provider 
+     * @summary Start an SSO login
+     * @param {string} slug Tenant routing slug from sso/resolve.
+     * @param {string} provider OAuth provider key, e.g. \&#39;microsoft\&#39;.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7788,14 +7804,14 @@ export class Auth extends BaseAPI {
     }
 
     /**
-     * Pre-login step: resolve a tenant from its domain and return the routing slug and available SSO providers.
-     * @summary Sso Resolve
-     * @param {string} domain 
+     * Pre-login step: resolve a tenant from the email\'s domain and return the routing slug and available SSO providers.
+     * @summary Resolve SSO providers for an email
+     * @param {string} email Work email whose domain identifies the tenant.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public authSsoResolve(domain: string, options?: RawAxiosRequestConfig) {
-        return AuthFp(this.configuration).authSsoResolve(domain, options).then((request) => request(this.axios, this.basePath));
+    public authSsoResolve(email: string, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authSsoResolve(email, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -7806,6 +7822,48 @@ export class Auth extends BaseAPI {
  */
 export const AuthConnectorAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * The admin and/or user parts this connector needs and whether each is set. Never returns stored secret values — only which fields are present.
+         * @summary Get connector credential template
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGetCredentialTemplate: async (connectorId: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('authGetCredentialTemplate', 'connectorId', connectorId)
+            const localVarPath = `/auth/connectors/{connector_id}/credential/template`
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Start the admin consent flow for connectors that require organization-wide admin consent.
          * @summary Initiate admin connector consent
@@ -7834,10 +7892,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenant_id'] = tenantId;
             }
@@ -7858,7 +7912,7 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.
+         * Initiate OAuth consent flow for a connector. Returns the provider consent URL as JSON, or a 302 redirect when redirect=true.
          * @summary Initiate connector consent
          * @param {number} connectorId ID of the connector to consent to.
          * @param {string | null} [returnUrl] URL to return the user to after consent.
@@ -7885,10 +7939,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (returnUrl !== undefined) {
                 localVarQueryParameter['return_url'] = returnUrl;
@@ -7935,10 +7985,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8013,7 +8059,7 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Delete the current user\'s stored consent for a connector, if any exists.
+         * Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller\'s own credential for non-OAuth ones.
          * @summary Revoke connector consent
          * @param {number} connectorId ID of the connector to revoke consent for.
          * @param {string | null} [cookieName] 
@@ -8039,10 +8085,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8052,6 +8094,105 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Store the tenant-wide (admin) credential fields. Admin only.
+         * @summary Set the tenant-wide connector credential
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {CredentialIn} credentialIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authSetAdminCredential: async (connectorId: number, credentialIn: CredentialIn, tenantId?: number, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('authSetAdminCredential', 'connectorId', connectorId)
+            // verify required parameter 'credentialIn' is not null or undefined
+            assertParamExists('authSetAdminCredential', 'credentialIn', credentialIn)
+            const localVarPath = `/auth/connectors/{connector_id}/credential/admin`
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenant_id'] = tenantId;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(credentialIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Store the caller\'s per-user credential fields.
+         * @summary Set the caller\'s connector credential
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {CredentialIn} credentialIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authSetUserCredential: async (connectorId: number, credentialIn: CredentialIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('authSetUserCredential', 'connectorId', connectorId)
+            // verify required parameter 'credentialIn' is not null or undefined
+            assertParamExists('authSetUserCredential', 'credentialIn', credentialIn)
+            const localVarPath = `/auth/connectors/{connector_id}/credential/user`
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(credentialIn, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8087,10 +8228,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8139,10 +8276,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8170,6 +8303,20 @@ export const AuthConnectorFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AuthConnectorAxiosParamCreator(configuration)
     return {
         /**
+         * The admin and/or user parts this connector needs and whether each is set. Never returns stored secret values — only which fields are present.
+         * @summary Get connector credential template
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authGetCredentialTemplate(connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CredentialTemplateOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authGetCredentialTemplate(connectorId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authGetCredentialTemplate']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Start the admin consent flow for connectors that require organization-wide admin consent.
          * @summary Initiate admin connector consent
          * @param {number} connectorId ID of the connector to consent to.
@@ -8185,7 +8332,7 @@ export const AuthConnectorFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.
+         * Initiate OAuth consent flow for a connector. Returns the provider consent URL as JSON, or a 302 redirect when redirect=true.
          * @summary Initiate connector consent
          * @param {number} connectorId ID of the connector to consent to.
          * @param {string | null} [returnUrl] URL to return the user to after consent.
@@ -8231,7 +8378,7 @@ export const AuthConnectorFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Delete the current user\'s stored consent for a connector, if any exists.
+         * Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller\'s own credential for non-OAuth ones.
          * @summary Revoke connector consent
          * @param {number} connectorId ID of the connector to revoke consent for.
          * @param {string | null} [cookieName] 
@@ -8242,6 +8389,37 @@ export const AuthConnectorFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authRevokeConsent(connectorId, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthConnector.authRevokeConsent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Store the tenant-wide (admin) credential fields. Admin only.
+         * @summary Set the tenant-wide connector credential
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {CredentialIn} credentialIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authSetAdminCredential(connectorId: number, credentialIn: CredentialIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authSetAdminCredential(connectorId, credentialIn, tenantId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authSetAdminCredential']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Store the caller\'s per-user credential fields.
+         * @summary Set the caller\'s connector credential
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {CredentialIn} credentialIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authSetUserCredential(connectorId: number, credentialIn: CredentialIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authSetUserCredential(connectorId, credentialIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authSetUserCredential']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -8284,6 +8462,17 @@ export const AuthConnectorFactory = function (configuration?: Configuration, bas
     const localVarFp = AuthConnectorFp(configuration)
     return {
         /**
+         * The admin and/or user parts this connector needs and whether each is set. Never returns stored secret values — only which fields are present.
+         * @summary Get connector credential template
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGetCredentialTemplate(connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<CredentialTemplateOut> {
+            return localVarFp.authGetCredentialTemplate(connectorId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Start the admin consent flow for connectors that require organization-wide admin consent.
          * @summary Initiate admin connector consent
          * @param {number} connectorId ID of the connector to consent to.
@@ -8296,7 +8485,7 @@ export const AuthConnectorFactory = function (configuration?: Configuration, bas
             return localVarFp.authInitiateAdminConsent(connectorId, tenantId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.
+         * Initiate OAuth consent flow for a connector. Returns the provider consent URL as JSON, or a 302 redirect when redirect=true.
          * @summary Initiate connector consent
          * @param {number} connectorId ID of the connector to consent to.
          * @param {string | null} [returnUrl] URL to return the user to after consent.
@@ -8333,7 +8522,7 @@ export const AuthConnectorFactory = function (configuration?: Configuration, bas
             return localVarFp.authOauthCallback(state, code, error, errorDescription, errorSubcode, options).then((request) => request(axios, basePath));
         },
         /**
-         * Delete the current user\'s stored consent for a connector, if any exists.
+         * Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller\'s own credential for non-OAuth ones.
          * @summary Revoke connector consent
          * @param {number} connectorId ID of the connector to revoke consent for.
          * @param {string | null} [cookieName] 
@@ -8342,6 +8531,31 @@ export const AuthConnectorFactory = function (configuration?: Configuration, bas
          */
         authRevokeConsent(connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.authRevokeConsent(connectorId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Store the tenant-wide (admin) credential fields. Admin only.
+         * @summary Set the tenant-wide connector credential
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {CredentialIn} credentialIn 
+         * @param {number} [tenantId] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authSetAdminCredential(connectorId: number, credentialIn: CredentialIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.authSetAdminCredential(connectorId, credentialIn, tenantId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Store the caller\'s per-user credential fields.
+         * @summary Set the caller\'s connector credential
+         * @param {number} connectorId ID of the connector whose credential is being accessed.
+         * @param {CredentialIn} credentialIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authSetUserCredential(connectorId: number, credentialIn: CredentialIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.authSetUserCredential(connectorId, credentialIn, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
          * Update a connector (superadmin only).
@@ -8375,6 +8589,18 @@ export const AuthConnectorFactory = function (configuration?: Configuration, bas
  */
 export class AuthConnector extends BaseAPI {
     /**
+     * The admin and/or user parts this connector needs and whether each is set. Never returns stored secret values — only which fields are present.
+     * @summary Get connector credential template
+     * @param {number} connectorId ID of the connector whose credential is being accessed.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authGetCredentialTemplate(connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authGetCredentialTemplate(connectorId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Start the admin consent flow for connectors that require organization-wide admin consent.
      * @summary Initiate admin connector consent
      * @param {number} connectorId ID of the connector to consent to.
@@ -8388,7 +8614,7 @@ export class AuthConnector extends BaseAPI {
     }
 
     /**
-     * Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.
+     * Initiate OAuth consent flow for a connector. Returns the provider consent URL as JSON, or a 302 redirect when redirect=true.
      * @summary Initiate connector consent
      * @param {number} connectorId ID of the connector to consent to.
      * @param {string | null} [returnUrl] URL to return the user to after consent.
@@ -8428,7 +8654,7 @@ export class AuthConnector extends BaseAPI {
     }
 
     /**
-     * Delete the current user\'s stored consent for a connector, if any exists.
+     * Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller\'s own credential for non-OAuth ones.
      * @summary Revoke connector consent
      * @param {number} connectorId ID of the connector to revoke consent for.
      * @param {string | null} [cookieName] 
@@ -8437,6 +8663,33 @@ export class AuthConnector extends BaseAPI {
      */
     public authRevokeConsent(connectorId: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return AuthConnectorFp(this.configuration).authRevokeConsent(connectorId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Store the tenant-wide (admin) credential fields. Admin only.
+     * @summary Set the tenant-wide connector credential
+     * @param {number} connectorId ID of the connector whose credential is being accessed.
+     * @param {CredentialIn} credentialIn 
+     * @param {number} [tenantId] 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authSetAdminCredential(connectorId: number, credentialIn: CredentialIn, tenantId?: number, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authSetAdminCredential(connectorId, credentialIn, tenantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Store the caller\'s per-user credential fields.
+     * @summary Set the caller\'s connector credential
+     * @param {number} connectorId ID of the connector whose credential is being accessed.
+     * @param {CredentialIn} credentialIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authSetUserCredential(connectorId: number, credentialIn: CredentialIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authSetUserCredential(connectorId, credentialIn, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -8504,10 +8757,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8549,10 +8798,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8599,10 +8844,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8652,10 +8893,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8701,10 +8938,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8758,10 +8991,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8803,10 +9032,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8852,10 +9077,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8907,10 +9128,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -9688,10 +9905,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -9733,10 +9946,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -9790,10 +9999,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -9871,10 +10076,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -9925,10 +10126,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -10002,10 +10199,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -10383,10 +10576,6 @@ export const FileAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10473,9 +10662,9 @@ export class File extends BaseAPI {
 export const InvitationAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Complete invitation acceptance and create user account.
+         * Complete invitation acceptance and create the user account.
          * @summary Accept an invitation
-         * @param {string} token Invitation JWT token
+         * @param {string} token Invitation JWT token from the invitation email.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10510,9 +10699,9 @@ export const InvitationAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Fallback HTML form for accepting invitation when no frontend is available.
-         * @summary Invitation acceptance HTML form
-         * @param {string} token Invitation JWT token
+         * Render the fallback HTML form for accepting an invitation; token errors are shown inline in the form.
+         * @summary Render the invitation acceptance form
+         * @param {string} token Invitation JWT token from the invitation email.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10572,10 +10761,6 @@ export const InvitationAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10620,10 +10805,6 @@ export const InvitationAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10666,10 +10847,6 @@ export const InvitationAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10695,9 +10872,9 @@ export const InvitationFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = InvitationAxiosParamCreator(configuration)
     return {
         /**
-         * Complete invitation acceptance and create user account.
+         * Complete invitation acceptance and create the user account.
          * @summary Accept an invitation
-         * @param {string} token Invitation JWT token
+         * @param {string} token Invitation JWT token from the invitation email.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10708,9 +10885,9 @@ export const InvitationFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Fallback HTML form for accepting invitation when no frontend is available.
-         * @summary Invitation acceptance HTML form
-         * @param {string} token Invitation JWT token
+         * Render the fallback HTML form for accepting an invitation; token errors are shown inline in the form.
+         * @summary Render the invitation acceptance form
+         * @param {string} token Invitation JWT token from the invitation email.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10772,9 +10949,9 @@ export const InvitationFactory = function (configuration?: Configuration, basePa
     const localVarFp = InvitationFp(configuration)
     return {
         /**
-         * Complete invitation acceptance and create user account.
+         * Complete invitation acceptance and create the user account.
          * @summary Accept an invitation
-         * @param {string} token Invitation JWT token
+         * @param {string} token Invitation JWT token from the invitation email.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10782,9 +10959,9 @@ export const InvitationFactory = function (configuration?: Configuration, basePa
             return localVarFp.invitationsAcceptInvitationComplete(token, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fallback HTML form for accepting invitation when no frontend is available.
-         * @summary Invitation acceptance HTML form
-         * @param {string} token Invitation JWT token
+         * Render the fallback HTML form for accepting an invitation; token errors are shown inline in the form.
+         * @summary Render the invitation acceptance form
+         * @param {string} token Invitation JWT token from the invitation email.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10832,9 +11009,9 @@ export const InvitationFactory = function (configuration?: Configuration, basePa
  */
 export class Invitation extends BaseAPI {
     /**
-     * Complete invitation acceptance and create user account.
+     * Complete invitation acceptance and create the user account.
      * @summary Accept an invitation
-     * @param {string} token Invitation JWT token
+     * @param {string} token Invitation JWT token from the invitation email.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -10843,9 +11020,9 @@ export class Invitation extends BaseAPI {
     }
 
     /**
-     * Fallback HTML form for accepting invitation when no frontend is available.
-     * @summary Invitation acceptance HTML form
-     * @param {string} token Invitation JWT token
+     * Render the fallback HTML form for accepting an invitation; token errors are shown inline in the form.
+     * @summary Render the invitation acceptance form
+     * @param {string} token Invitation JWT token from the invitation email.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -10927,10 +11104,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10975,10 +11148,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -11021,10 +11190,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -11065,10 +11230,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -11116,10 +11277,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -11169,10 +11326,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -11217,10 +11370,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -11570,10 +11719,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -11622,10 +11767,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -11673,10 +11814,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -11878,10 +12015,6 @@ export const LlmCatalogAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -11925,10 +12058,6 @@ export const LlmCatalogAxiosParamCreator = function (configuration?: Configurati
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -11974,10 +12103,6 @@ export const LlmCatalogAxiosParamCreator = function (configuration?: Configurati
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12169,10 +12294,6 @@ export const LlmSettingAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -12216,10 +12337,6 @@ export const LlmSettingAxiosParamCreator = function (configuration?: Configurati
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12265,10 +12382,6 @@ export const LlmSettingAxiosParamCreator = function (configuration?: Configurati
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12464,10 +12577,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (format !== undefined) {
                 localVarQueryParameter['format'] = format;
             }
@@ -12513,10 +12622,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -12560,10 +12665,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12609,10 +12710,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (style !== undefined) {
                 localVarQueryParameter['style'] = style;
@@ -12671,10 +12768,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12784,10 +12877,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (lang !== undefined) {
                 localVarQueryParameter['lang'] = lang;
@@ -13110,19 +13199,19 @@ export class Message extends BaseAPI {
 
 
 /**
- * OneDrive - axios parameter creator
+ * Nextcloud - axios parameter creator
  */
-export const OneDriveAxiosParamCreator = function (configuration?: Configuration) {
+export const NextcloudAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Return the browse-hierarchy metadata for this data source.
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
          * @summary Get data source capabilities
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        onedriveCapabilities: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/integrations/onedrive/capabilities`;
+        nextcloudCapabilities: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/nextcloud/capabilities`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -13136,10 +13225,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -13157,10 +13242,10 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Get a single data source drive item, annotated with imported counts.
+         * Fetch a single drive item\'s metadata, with imported flag/count.
          * @summary Get a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the drive item.
+         * @param {string} driveItemId Id of the item.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
@@ -13169,12 +13254,12 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        onedriveGetItemInfo: async (driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        nextcloudGetItemInfo: async (driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'driveId' is not null or undefined
-            assertParamExists('onedriveGetItemInfo', 'driveId', driveId)
+            assertParamExists('nextcloudGetItemInfo', 'driveId', driveId)
             // verify required parameter 'driveItemId' is not null or undefined
-            assertParamExists('onedriveGetItemInfo', 'driveItemId', driveItemId)
-            const localVarPath = `/integrations/onedrive/drives/{drive_id}/items/{drive_item_id}`
+            assertParamExists('nextcloudGetItemInfo', 'driveItemId', driveItemId)
+            const localVarPath = `/integrations/nextcloud/drives/{drive_id}/items/{drive_item_id}`
                 .replace(`{${"drive_id"}}`, encodeURIComponent(String(driveId)))
                 .replace(`{${"drive_item_id"}}`, encodeURIComponent(String(driveItemId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -13190,10 +13275,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -13227,14 +13308,14 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Return the signed-in user\'s profile on this data source.
-         * @summary Get current data source user
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        onedriveGetUserInfo: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/integrations/onedrive/me`;
+        nextcloudGetUserInfo: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/nextcloud/me`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -13248,10 +13329,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -13269,14 +13346,14 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Report whether the user has consented to this source\'s browse scopes.
-         * @summary Check data source connection
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        onedriveIsConnected: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/integrations/onedrive/connected`;
+        nextcloudIsConnected: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/nextcloud/connected`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -13290,10 +13367,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -13311,25 +13384,25 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * List files and folders under a drive item, annotated with imported counts.
+         * List the immediate children of a drive item, with imported flags/counts.
          * @summary List children of a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the parent item; empty or \&#39;root\&#39; for the drive root.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
          * @param {number | null} [projectId] Scope imported counts to this project.
-         * @param {boolean} [recursive] Recurse into subfolders, returning only files.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        onedriveListChildren: async (driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, recursive?: boolean, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        nextcloudListChildren: async (driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, recursive?: boolean, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'driveId' is not null or undefined
-            assertParamExists('onedriveListChildren', 'driveId', driveId)
+            assertParamExists('nextcloudListChildren', 'driveId', driveId)
             // verify required parameter 'driveItemId' is not null or undefined
-            assertParamExists('onedriveListChildren', 'driveItemId', driveItemId)
-            const localVarPath = `/integrations/onedrive/drives/{drive_id}/items/{drive_item_id}/children`
+            assertParamExists('nextcloudListChildren', 'driveItemId', driveItemId)
+            const localVarPath = `/integrations/nextcloud/drives/{drive_id}/items/{drive_item_id}/children`
                 .replace(`{${"drive_id"}}`, encodeURIComponent(String(driveId)))
                 .replace(`{${"drive_item_id"}}`, encodeURIComponent(String(driveItemId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -13345,10 +13418,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -13386,7 +13455,7 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * List the drives under a site (or the user\'s drives for drive-rooted sources).
+         * List drives under a site, with imported counts per drive.
          * @summary List drives in a site
          * @param {string} siteId Id of the site to list drives for.
          * @param {number | null} [chatId] Scope imported counts to this chat.
@@ -13397,10 +13466,10 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        onedriveListDrives: async (siteId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        nextcloudListDrives: async (siteId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'siteId' is not null or undefined
-            assertParamExists('onedriveListDrives', 'siteId', siteId)
-            const localVarPath = `/integrations/onedrive/sites/{site_id}/drives`
+            assertParamExists('nextcloudListDrives', 'siteId', siteId)
+            const localVarPath = `/integrations/nextcloud/sites/{site_id}/drives`
                 .replace(`{${"site_id"}}`, encodeURIComponent(String(siteId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -13415,10 +13484,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -13452,7 +13517,715 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * List the source\'s top-level browse entries (sites or drives) with imported counts.
+         * List the top-level browse entries (sites or drives), with imported counts.
+         * @summary List top-level browse entries
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        nextcloudListRoots: async (chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/nextcloud/roots`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (chatId !== undefined) {
+                localVarQueryParameter['chat_id'] = chatId;
+            }
+
+            if (libraryId !== undefined) {
+                localVarQueryParameter['library_id'] = libraryId;
+            }
+
+            if (assistantId !== undefined) {
+                localVarQueryParameter['assistant_id'] = assistantId;
+            }
+
+            if (projectId !== undefined) {
+                localVarQueryParameter['project_id'] = projectId;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * Nextcloud - functional programming interface
+ */
+export const NextcloudFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = NextcloudAxiosParamCreator(configuration)
+    return {
+        /**
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
+         * @summary Get data source capabilities
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async nextcloudCapabilities(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DataSourceCapabilities>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nextcloudCapabilities(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Nextcloud.nextcloudCapabilities']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Fetch a single drive item\'s metadata, with imported flag/count.
+         * @summary Get a drive item
+         * @param {string} driveId Id of the drive.
+         * @param {string} driveItemId Id of the item.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async nextcloudGetItemInfo(driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DataSourceItemModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nextcloudGetItemInfo(driveId, driveItemId, chatId, libraryId, assistantId, projectId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Nextcloud.nextcloudGetItemInfo']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async nextcloudGetUserInfo(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DataSourceUserModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nextcloudGetUserInfo(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Nextcloud.nextcloudGetUserInfo']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async nextcloudIsConnected(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nextcloudIsConnected(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Nextcloud.nextcloudIsConnected']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List the immediate children of a drive item, with imported flags/counts.
+         * @summary List children of a drive item
+         * @param {string} driveId Id of the drive.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async nextcloudListChildren(driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, recursive?: boolean, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DataSourceItemModel>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nextcloudListChildren(driveId, driveItemId, chatId, libraryId, assistantId, projectId, recursive, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Nextcloud.nextcloudListChildren']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List drives under a site, with imported counts per drive.
+         * @summary List drives in a site
+         * @param {string} siteId Id of the site to list drives for.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async nextcloudListDrives(siteId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DataSourceDriveModel>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nextcloudListDrives(siteId, chatId, libraryId, assistantId, projectId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Nextcloud.nextcloudListDrives']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List the top-level browse entries (sites or drives), with imported counts.
+         * @summary List top-level browse entries
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async nextcloudListRoots(chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResponseNextcloudListRoots>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nextcloudListRoots(chatId, libraryId, assistantId, projectId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Nextcloud.nextcloudListRoots']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * Nextcloud - factory interface
+ */
+export const NextcloudFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = NextcloudFp(configuration)
+    return {
+        /**
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
+         * @summary Get data source capabilities
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        nextcloudCapabilities(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<DataSourceCapabilities> {
+            return localVarFp.nextcloudCapabilities(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Fetch a single drive item\'s metadata, with imported flag/count.
+         * @summary Get a drive item
+         * @param {string} driveId Id of the drive.
+         * @param {string} driveItemId Id of the item.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        nextcloudGetItemInfo(driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<DataSourceItemModel> {
+            return localVarFp.nextcloudGetItemInfo(driveId, driveItemId, chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        nextcloudGetUserInfo(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<DataSourceUserModel> {
+            return localVarFp.nextcloudGetUserInfo(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        nextcloudIsConnected(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<boolean> {
+            return localVarFp.nextcloudIsConnected(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List the immediate children of a drive item, with imported flags/counts.
+         * @summary List children of a drive item
+         * @param {string} driveId Id of the drive.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        nextcloudListChildren(driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, recursive?: boolean, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<DataSourceItemModel>> {
+            return localVarFp.nextcloudListChildren(driveId, driveItemId, chatId, libraryId, assistantId, projectId, recursive, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List drives under a site, with imported counts per drive.
+         * @summary List drives in a site
+         * @param {string} siteId Id of the site to list drives for.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        nextcloudListDrives(siteId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<DataSourceDriveModel>> {
+            return localVarFp.nextcloudListDrives(siteId, chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List the top-level browse entries (sites or drives), with imported counts.
+         * @summary List top-level browse entries
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        nextcloudListRoots(chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<ResponseNextcloudListRoots> {
+            return localVarFp.nextcloudListRoots(chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Nextcloud - object-oriented interface
+ */
+export class Nextcloud extends BaseAPI {
+    /**
+     * Return the browse-hierarchy metadata (root kind, depth) for this source.
+     * @summary Get data source capabilities
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public nextcloudCapabilities(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return NextcloudFp(this.configuration).nextcloudCapabilities(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Fetch a single drive item\'s metadata, with imported flag/count.
+     * @summary Get a drive item
+     * @param {string} driveId Id of the drive.
+     * @param {string} driveItemId Id of the item.
+     * @param {number | null} [chatId] Scope imported counts to this chat.
+     * @param {number | null} [libraryId] Scope imported counts to this library.
+     * @param {number | null} [assistantId] Scope imported counts to this assistant.
+     * @param {number | null} [projectId] Scope imported counts to this project.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public nextcloudGetItemInfo(driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return NextcloudFp(this.configuration).nextcloudGetItemInfo(driveId, driveItemId, chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Return the current user\'s profile on the data source.
+     * @summary Get connected user profile
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public nextcloudGetUserInfo(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return NextcloudFp(this.configuration).nextcloudGetUserInfo(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Report whether the current user has granted consent to browse this source.
+     * @summary Check connection status
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public nextcloudIsConnected(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return NextcloudFp(this.configuration).nextcloudIsConnected(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List the immediate children of a drive item, with imported flags/counts.
+     * @summary List children of a drive item
+     * @param {string} driveId Id of the drive.
+     * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
+     * @param {number | null} [chatId] Scope imported counts to this chat.
+     * @param {number | null} [libraryId] Scope imported counts to this library.
+     * @param {number | null} [assistantId] Scope imported counts to this assistant.
+     * @param {number | null} [projectId] Scope imported counts to this project.
+     * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public nextcloudListChildren(driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, recursive?: boolean, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return NextcloudFp(this.configuration).nextcloudListChildren(driveId, driveItemId, chatId, libraryId, assistantId, projectId, recursive, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List drives under a site, with imported counts per drive.
+     * @summary List drives in a site
+     * @param {string} siteId Id of the site to list drives for.
+     * @param {number | null} [chatId] Scope imported counts to this chat.
+     * @param {number | null} [libraryId] Scope imported counts to this library.
+     * @param {number | null} [assistantId] Scope imported counts to this assistant.
+     * @param {number | null} [projectId] Scope imported counts to this project.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public nextcloudListDrives(siteId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return NextcloudFp(this.configuration).nextcloudListDrives(siteId, chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List the top-level browse entries (sites or drives), with imported counts.
+     * @summary List top-level browse entries
+     * @param {number | null} [chatId] Scope imported counts to this chat.
+     * @param {number | null} [libraryId] Scope imported counts to this library.
+     * @param {number | null} [assistantId] Scope imported counts to this assistant.
+     * @param {number | null} [projectId] Scope imported counts to this project.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public nextcloudListRoots(chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return NextcloudFp(this.configuration).nextcloudListRoots(chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * OneDrive - axios parameter creator
+ */
+export const OneDriveAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
+         * @summary Get data source capabilities
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onedriveCapabilities: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/onedrive/capabilities`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Fetch a single drive item\'s metadata, with imported flag/count.
+         * @summary Get a drive item
+         * @param {string} driveId Id of the drive.
+         * @param {string} driveItemId Id of the item.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onedriveGetItemInfo: async (driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'driveId' is not null or undefined
+            assertParamExists('onedriveGetItemInfo', 'driveId', driveId)
+            // verify required parameter 'driveItemId' is not null or undefined
+            assertParamExists('onedriveGetItemInfo', 'driveItemId', driveItemId)
+            const localVarPath = `/integrations/onedrive/drives/{drive_id}/items/{drive_item_id}`
+                .replace(`{${"drive_id"}}`, encodeURIComponent(String(driveId)))
+                .replace(`{${"drive_item_id"}}`, encodeURIComponent(String(driveItemId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (chatId !== undefined) {
+                localVarQueryParameter['chat_id'] = chatId;
+            }
+
+            if (libraryId !== undefined) {
+                localVarQueryParameter['library_id'] = libraryId;
+            }
+
+            if (assistantId !== undefined) {
+                localVarQueryParameter['assistant_id'] = assistantId;
+            }
+
+            if (projectId !== undefined) {
+                localVarQueryParameter['project_id'] = projectId;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onedriveGetUserInfo: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/onedrive/me`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onedriveIsConnected: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/integrations/onedrive/connected`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List the immediate children of a drive item, with imported flags/counts.
+         * @summary List children of a drive item
+         * @param {string} driveId Id of the drive.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onedriveListChildren: async (driveId: string, driveItemId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, recursive?: boolean, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'driveId' is not null or undefined
+            assertParamExists('onedriveListChildren', 'driveId', driveId)
+            // verify required parameter 'driveItemId' is not null or undefined
+            assertParamExists('onedriveListChildren', 'driveItemId', driveItemId)
+            const localVarPath = `/integrations/onedrive/drives/{drive_id}/items/{drive_item_id}/children`
+                .replace(`{${"drive_id"}}`, encodeURIComponent(String(driveId)))
+                .replace(`{${"drive_item_id"}}`, encodeURIComponent(String(driveItemId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (chatId !== undefined) {
+                localVarQueryParameter['chat_id'] = chatId;
+            }
+
+            if (libraryId !== undefined) {
+                localVarQueryParameter['library_id'] = libraryId;
+            }
+
+            if (assistantId !== undefined) {
+                localVarQueryParameter['assistant_id'] = assistantId;
+            }
+
+            if (projectId !== undefined) {
+                localVarQueryParameter['project_id'] = projectId;
+            }
+
+            if (recursive !== undefined) {
+                localVarQueryParameter['recursive'] = recursive;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List drives under a site, with imported counts per drive.
+         * @summary List drives in a site
+         * @param {string} siteId Id of the site to list drives for.
+         * @param {number | null} [chatId] Scope imported counts to this chat.
+         * @param {number | null} [libraryId] Scope imported counts to this library.
+         * @param {number | null} [assistantId] Scope imported counts to this assistant.
+         * @param {number | null} [projectId] Scope imported counts to this project.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onedriveListDrives: async (siteId: string, chatId?: number | null, libraryId?: number | null, assistantId?: number | null, projectId?: number | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'siteId' is not null or undefined
+            assertParamExists('onedriveListDrives', 'siteId', siteId)
+            const localVarPath = `/integrations/onedrive/sites/{site_id}/drives`
+                .replace(`{${"site_id"}}`, encodeURIComponent(String(siteId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            if (chatId !== undefined) {
+                localVarQueryParameter['chat_id'] = chatId;
+            }
+
+            if (libraryId !== undefined) {
+                localVarQueryParameter['library_id'] = libraryId;
+            }
+
+            if (assistantId !== undefined) {
+                localVarQueryParameter['assistant_id'] = assistantId;
+            }
+
+            if (projectId !== undefined) {
+                localVarQueryParameter['project_id'] = projectId;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List the top-level browse entries (sites or drives), with imported counts.
          * @summary List top-level browse entries
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
@@ -13477,10 +14250,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -13523,7 +14292,7 @@ export const OneDriveFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = OneDriveAxiosParamCreator(configuration)
     return {
         /**
-         * Return the browse-hierarchy metadata for this data source.
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
          * @summary Get data source capabilities
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -13536,10 +14305,10 @@ export const OneDriveFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Get a single data source drive item, annotated with imported counts.
+         * Fetch a single drive item\'s metadata, with imported flag/count.
          * @summary Get a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the drive item.
+         * @param {string} driveItemId Id of the item.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
@@ -13555,8 +14324,8 @@ export const OneDriveFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Return the signed-in user\'s profile on this data source.
-         * @summary Get current data source user
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13568,8 +14337,8 @@ export const OneDriveFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Report whether the user has consented to this source\'s browse scopes.
-         * @summary Check data source connection
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13581,15 +14350,15 @@ export const OneDriveFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * List files and folders under a drive item, annotated with imported counts.
+         * List the immediate children of a drive item, with imported flags/counts.
          * @summary List children of a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the parent item; empty or \&#39;root\&#39; for the drive root.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
          * @param {number | null} [projectId] Scope imported counts to this project.
-         * @param {boolean} [recursive] Recurse into subfolders, returning only files.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13601,7 +14370,7 @@ export const OneDriveFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * List the drives under a site (or the user\'s drives for drive-rooted sources).
+         * List drives under a site, with imported counts per drive.
          * @summary List drives in a site
          * @param {string} siteId Id of the site to list drives for.
          * @param {number | null} [chatId] Scope imported counts to this chat.
@@ -13619,7 +14388,7 @@ export const OneDriveFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * List the source\'s top-level browse entries (sites or drives) with imported counts.
+         * List the top-level browse entries (sites or drives), with imported counts.
          * @summary List top-level browse entries
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
@@ -13645,7 +14414,7 @@ export const OneDriveFactory = function (configuration?: Configuration, basePath
     const localVarFp = OneDriveFp(configuration)
     return {
         /**
-         * Return the browse-hierarchy metadata for this data source.
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
          * @summary Get data source capabilities
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -13655,10 +14424,10 @@ export const OneDriveFactory = function (configuration?: Configuration, basePath
             return localVarFp.onedriveCapabilities(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a single data source drive item, annotated with imported counts.
+         * Fetch a single drive item\'s metadata, with imported flag/count.
          * @summary Get a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the drive item.
+         * @param {string} driveItemId Id of the item.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
@@ -13671,8 +14440,8 @@ export const OneDriveFactory = function (configuration?: Configuration, basePath
             return localVarFp.onedriveGetItemInfo(driveId, driveItemId, chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Return the signed-in user\'s profile on this data source.
-         * @summary Get current data source user
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13681,8 +14450,8 @@ export const OneDriveFactory = function (configuration?: Configuration, basePath
             return localVarFp.onedriveGetUserInfo(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Report whether the user has consented to this source\'s browse scopes.
-         * @summary Check data source connection
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13691,15 +14460,15 @@ export const OneDriveFactory = function (configuration?: Configuration, basePath
             return localVarFp.onedriveIsConnected(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * List files and folders under a drive item, annotated with imported counts.
+         * List the immediate children of a drive item, with imported flags/counts.
          * @summary List children of a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the parent item; empty or \&#39;root\&#39; for the drive root.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
          * @param {number | null} [projectId] Scope imported counts to this project.
-         * @param {boolean} [recursive] Recurse into subfolders, returning only files.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13708,7 +14477,7 @@ export const OneDriveFactory = function (configuration?: Configuration, basePath
             return localVarFp.onedriveListChildren(driveId, driveItemId, chatId, libraryId, assistantId, projectId, recursive, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * List the drives under a site (or the user\'s drives for drive-rooted sources).
+         * List drives under a site, with imported counts per drive.
          * @summary List drives in a site
          * @param {string} siteId Id of the site to list drives for.
          * @param {number | null} [chatId] Scope imported counts to this chat.
@@ -13723,7 +14492,7 @@ export const OneDriveFactory = function (configuration?: Configuration, basePath
             return localVarFp.onedriveListDrives(siteId, chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * List the source\'s top-level browse entries (sites or drives) with imported counts.
+         * List the top-level browse entries (sites or drives), with imported counts.
          * @summary List top-level browse entries
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
@@ -13744,7 +14513,7 @@ export const OneDriveFactory = function (configuration?: Configuration, basePath
  */
 export class OneDrive extends BaseAPI {
     /**
-     * Return the browse-hierarchy metadata for this data source.
+     * Return the browse-hierarchy metadata (root kind, depth) for this source.
      * @summary Get data source capabilities
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -13755,10 +14524,10 @@ export class OneDrive extends BaseAPI {
     }
 
     /**
-     * Get a single data source drive item, annotated with imported counts.
+     * Fetch a single drive item\'s metadata, with imported flag/count.
      * @summary Get a drive item
      * @param {string} driveId Id of the drive.
-     * @param {string} driveItemId Id of the drive item.
+     * @param {string} driveItemId Id of the item.
      * @param {number | null} [chatId] Scope imported counts to this chat.
      * @param {number | null} [libraryId] Scope imported counts to this library.
      * @param {number | null} [assistantId] Scope imported counts to this assistant.
@@ -13772,8 +14541,8 @@ export class OneDrive extends BaseAPI {
     }
 
     /**
-     * Return the signed-in user\'s profile on this data source.
-     * @summary Get current data source user
+     * Return the current user\'s profile on the data source.
+     * @summary Get connected user profile
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -13783,8 +14552,8 @@ export class OneDrive extends BaseAPI {
     }
 
     /**
-     * Report whether the user has consented to this source\'s browse scopes.
-     * @summary Check data source connection
+     * Report whether the current user has granted consent to browse this source.
+     * @summary Check connection status
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -13794,15 +14563,15 @@ export class OneDrive extends BaseAPI {
     }
 
     /**
-     * List files and folders under a drive item, annotated with imported counts.
+     * List the immediate children of a drive item, with imported flags/counts.
      * @summary List children of a drive item
      * @param {string} driveId Id of the drive.
-     * @param {string} driveItemId Id of the parent item; empty or \&#39;root\&#39; for the drive root.
+     * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
      * @param {number | null} [chatId] Scope imported counts to this chat.
      * @param {number | null} [libraryId] Scope imported counts to this library.
      * @param {number | null} [assistantId] Scope imported counts to this assistant.
      * @param {number | null} [projectId] Scope imported counts to this project.
-     * @param {boolean} [recursive] Recurse into subfolders, returning only files.
+     * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -13812,7 +14581,7 @@ export class OneDrive extends BaseAPI {
     }
 
     /**
-     * List the drives under a site (or the user\'s drives for drive-rooted sources).
+     * List drives under a site, with imported counts per drive.
      * @summary List drives in a site
      * @param {string} siteId Id of the site to list drives for.
      * @param {number | null} [chatId] Scope imported counts to this chat.
@@ -13828,7 +14597,7 @@ export class OneDrive extends BaseAPI {
     }
 
     /**
-     * List the source\'s top-level browse entries (sites or drives) with imported counts.
+     * List the top-level browse entries (sites or drives), with imported counts.
      * @summary List top-level browse entries
      * @param {number | null} [chatId] Scope imported counts to this chat.
      * @param {number | null} [libraryId] Scope imported counts to this library.
@@ -13881,10 +14650,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -13930,10 +14695,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -13976,10 +14737,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -14029,10 +14786,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14078,10 +14831,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14126,10 +14875,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14170,10 +14915,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (name !== undefined) {
                 localVarQueryParameter['name'] = name;
@@ -14221,10 +14962,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14271,10 +15008,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14319,10 +15052,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -14788,10 +15517,6 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14836,10 +15561,6 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14880,10 +15601,6 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -14931,10 +15648,6 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15164,10 +15877,6 @@ export const QueryAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -15209,10 +15918,6 @@ export const QueryAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15338,9 +16043,9 @@ export const RatingAxiosParamCreator = function (configuration?: Configuration) 
     return {
         /**
          * Delete the caller\'s rating for the target resource.
-         * @summary Remove
-         * @param {RateableTypeEnum} rateableType 
-         * @param {number} rateableId 
+         * @summary Delete a rating
+         * @param {RateableTypeEnum} rateableType Kind of resource whose rating to delete.
+         * @param {number} rateableId ID of the resource whose rating to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -15367,10 +16072,6 @@ export const RatingAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -15388,7 +16089,7 @@ export const RatingAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * Upsert the caller\'s rating for the target resource.
-         * @summary Upsert
+         * @summary Upsert a rating
          * @param {RatingIn} ratingIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -15411,10 +16112,6 @@ export const RatingAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15444,9 +16141,9 @@ export const RatingFp = function(configuration?: Configuration) {
     return {
         /**
          * Delete the caller\'s rating for the target resource.
-         * @summary Remove
-         * @param {RateableTypeEnum} rateableType 
-         * @param {number} rateableId 
+         * @summary Delete a rating
+         * @param {RateableTypeEnum} rateableType Kind of resource whose rating to delete.
+         * @param {number} rateableId ID of the resource whose rating to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -15459,7 +16156,7 @@ export const RatingFp = function(configuration?: Configuration) {
         },
         /**
          * Upsert the caller\'s rating for the target resource.
-         * @summary Upsert
+         * @summary Upsert a rating
          * @param {RatingIn} ratingIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -15482,9 +16179,9 @@ export const RatingFactory = function (configuration?: Configuration, basePath?:
     return {
         /**
          * Delete the caller\'s rating for the target resource.
-         * @summary Remove
-         * @param {RateableTypeEnum} rateableType 
-         * @param {number} rateableId 
+         * @summary Delete a rating
+         * @param {RateableTypeEnum} rateableType Kind of resource whose rating to delete.
+         * @param {number} rateableId ID of the resource whose rating to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -15494,7 +16191,7 @@ export const RatingFactory = function (configuration?: Configuration, basePath?:
         },
         /**
          * Upsert the caller\'s rating for the target resource.
-         * @summary Upsert
+         * @summary Upsert a rating
          * @param {RatingIn} ratingIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -15512,9 +16209,9 @@ export const RatingFactory = function (configuration?: Configuration, basePath?:
 export class Rating extends BaseAPI {
     /**
      * Delete the caller\'s rating for the target resource.
-     * @summary Remove
-     * @param {RateableTypeEnum} rateableType 
-     * @param {number} rateableId 
+     * @summary Delete a rating
+     * @param {RateableTypeEnum} rateableType Kind of resource whose rating to delete.
+     * @param {number} rateableId ID of the resource whose rating to delete.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -15525,7 +16222,7 @@ export class Rating extends BaseAPI {
 
     /**
      * Upsert the caller\'s rating for the target resource.
-     * @summary Upsert
+     * @summary Upsert a rating
      * @param {RatingIn} ratingIn 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -15565,10 +16262,6 @@ export const SettingsAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15611,10 +16304,6 @@ export const SettingsAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15667,10 +16356,6 @@ export const SettingsAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15878,10 +16563,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -15936,10 +16617,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -15977,10 +16654,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -16023,10 +16696,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -16095,10 +16764,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -16164,10 +16829,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -16504,7 +17165,7 @@ export class Sharepoint extends BaseAPI {
 export const SharepointV1AxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Return the browse-hierarchy metadata for this data source.
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
          * @summary Get data source capabilities
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -16526,10 +17187,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -16546,10 +17203,10 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Get a single data source drive item, annotated with imported counts.
+         * Fetch a single drive item\'s metadata, with imported flag/count.
          * @summary Get a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the drive item.
+         * @param {string} driveItemId Id of the item.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
@@ -16579,10 +17236,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -16616,8 +17269,8 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Return the signed-in user\'s profile on this data source.
-         * @summary Get current data source user
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -16638,10 +17291,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -16658,8 +17307,8 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Report whether the user has consented to this source\'s browse scopes.
-         * @summary Check data source connection
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -16680,10 +17329,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -16700,15 +17345,15 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * List files and folders under a drive item, annotated with imported counts.
+         * List the immediate children of a drive item, with imported flags/counts.
          * @summary List children of a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the parent item; empty or \&#39;root\&#39; for the drive root.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
          * @param {number | null} [projectId] Scope imported counts to this project.
-         * @param {boolean} [recursive] Recurse into subfolders, returning only files.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -16734,10 +17379,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -16775,7 +17416,7 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * List the drives under a site (or the user\'s drives for drive-rooted sources).
+         * List drives under a site, with imported counts per drive.
          * @summary List drives in a site
          * @param {string} siteId Id of the site to list drives for.
          * @param {number | null} [chatId] Scope imported counts to this chat.
@@ -16804,10 +17445,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -16841,7 +17478,7 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * List the source\'s top-level browse entries (sites or drives) with imported counts.
+         * List the top-level browse entries (sites or drives), with imported counts.
          * @summary List top-level browse entries
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
@@ -16866,10 +17503,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -16912,7 +17545,7 @@ export const SharepointV1Fp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = SharepointV1AxiosParamCreator(configuration)
     return {
         /**
-         * Return the browse-hierarchy metadata for this data source.
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
          * @summary Get data source capabilities
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -16925,10 +17558,10 @@ export const SharepointV1Fp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Get a single data source drive item, annotated with imported counts.
+         * Fetch a single drive item\'s metadata, with imported flag/count.
          * @summary Get a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the drive item.
+         * @param {string} driveItemId Id of the item.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
@@ -16944,8 +17577,8 @@ export const SharepointV1Fp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Return the signed-in user\'s profile on this data source.
-         * @summary Get current data source user
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -16957,8 +17590,8 @@ export const SharepointV1Fp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Report whether the user has consented to this source\'s browse scopes.
-         * @summary Check data source connection
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -16970,15 +17603,15 @@ export const SharepointV1Fp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * List files and folders under a drive item, annotated with imported counts.
+         * List the immediate children of a drive item, with imported flags/counts.
          * @summary List children of a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the parent item; empty or \&#39;root\&#39; for the drive root.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
          * @param {number | null} [projectId] Scope imported counts to this project.
-         * @param {boolean} [recursive] Recurse into subfolders, returning only files.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -16990,7 +17623,7 @@ export const SharepointV1Fp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * List the drives under a site (or the user\'s drives for drive-rooted sources).
+         * List drives under a site, with imported counts per drive.
          * @summary List drives in a site
          * @param {string} siteId Id of the site to list drives for.
          * @param {number | null} [chatId] Scope imported counts to this chat.
@@ -17008,7 +17641,7 @@ export const SharepointV1Fp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * List the source\'s top-level browse entries (sites or drives) with imported counts.
+         * List the top-level browse entries (sites or drives), with imported counts.
          * @summary List top-level browse entries
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
@@ -17034,7 +17667,7 @@ export const SharepointV1Factory = function (configuration?: Configuration, base
     const localVarFp = SharepointV1Fp(configuration)
     return {
         /**
-         * Return the browse-hierarchy metadata for this data source.
+         * Return the browse-hierarchy metadata (root kind, depth) for this source.
          * @summary Get data source capabilities
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -17044,10 +17677,10 @@ export const SharepointV1Factory = function (configuration?: Configuration, base
             return localVarFp.sharepointv1Capabilities(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a single data source drive item, annotated with imported counts.
+         * Fetch a single drive item\'s metadata, with imported flag/count.
          * @summary Get a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the drive item.
+         * @param {string} driveItemId Id of the item.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
@@ -17060,8 +17693,8 @@ export const SharepointV1Factory = function (configuration?: Configuration, base
             return localVarFp.sharepointv1GetItemInfo(driveId, driveItemId, chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Return the signed-in user\'s profile on this data source.
-         * @summary Get current data source user
+         * Return the current user\'s profile on the data source.
+         * @summary Get connected user profile
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -17070,8 +17703,8 @@ export const SharepointV1Factory = function (configuration?: Configuration, base
             return localVarFp.sharepointv1GetUserInfo(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Report whether the user has consented to this source\'s browse scopes.
-         * @summary Check data source connection
+         * Report whether the current user has granted consent to browse this source.
+         * @summary Check connection status
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -17080,15 +17713,15 @@ export const SharepointV1Factory = function (configuration?: Configuration, base
             return localVarFp.sharepointv1IsConnected(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * List files and folders under a drive item, annotated with imported counts.
+         * List the immediate children of a drive item, with imported flags/counts.
          * @summary List children of a drive item
          * @param {string} driveId Id of the drive.
-         * @param {string} driveItemId Id of the parent item; empty or \&#39;root\&#39; for the drive root.
+         * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
          * @param {number | null} [assistantId] Scope imported counts to this assistant.
          * @param {number | null} [projectId] Scope imported counts to this project.
-         * @param {boolean} [recursive] Recurse into subfolders, returning only files.
+         * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -17097,7 +17730,7 @@ export const SharepointV1Factory = function (configuration?: Configuration, base
             return localVarFp.sharepointv1ListChildren(driveId, driveItemId, chatId, libraryId, assistantId, projectId, recursive, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * List the drives under a site (or the user\'s drives for drive-rooted sources).
+         * List drives under a site, with imported counts per drive.
          * @summary List drives in a site
          * @param {string} siteId Id of the site to list drives for.
          * @param {number | null} [chatId] Scope imported counts to this chat.
@@ -17112,7 +17745,7 @@ export const SharepointV1Factory = function (configuration?: Configuration, base
             return localVarFp.sharepointv1ListDrives(siteId, chatId, libraryId, assistantId, projectId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * List the source\'s top-level browse entries (sites or drives) with imported counts.
+         * List the top-level browse entries (sites or drives), with imported counts.
          * @summary List top-level browse entries
          * @param {number | null} [chatId] Scope imported counts to this chat.
          * @param {number | null} [libraryId] Scope imported counts to this library.
@@ -17133,7 +17766,7 @@ export const SharepointV1Factory = function (configuration?: Configuration, base
  */
 export class SharepointV1 extends BaseAPI {
     /**
-     * Return the browse-hierarchy metadata for this data source.
+     * Return the browse-hierarchy metadata (root kind, depth) for this source.
      * @summary Get data source capabilities
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -17144,10 +17777,10 @@ export class SharepointV1 extends BaseAPI {
     }
 
     /**
-     * Get a single data source drive item, annotated with imported counts.
+     * Fetch a single drive item\'s metadata, with imported flag/count.
      * @summary Get a drive item
      * @param {string} driveId Id of the drive.
-     * @param {string} driveItemId Id of the drive item.
+     * @param {string} driveItemId Id of the item.
      * @param {number | null} [chatId] Scope imported counts to this chat.
      * @param {number | null} [libraryId] Scope imported counts to this library.
      * @param {number | null} [assistantId] Scope imported counts to this assistant.
@@ -17161,8 +17794,8 @@ export class SharepointV1 extends BaseAPI {
     }
 
     /**
-     * Return the signed-in user\'s profile on this data source.
-     * @summary Get current data source user
+     * Return the current user\'s profile on the data source.
+     * @summary Get connected user profile
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -17172,8 +17805,8 @@ export class SharepointV1 extends BaseAPI {
     }
 
     /**
-     * Report whether the user has consented to this source\'s browse scopes.
-     * @summary Check data source connection
+     * Report whether the current user has granted consent to browse this source.
+     * @summary Check connection status
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -17183,15 +17816,15 @@ export class SharepointV1 extends BaseAPI {
     }
 
     /**
-     * List files and folders under a drive item, annotated with imported counts.
+     * List the immediate children of a drive item, with imported flags/counts.
      * @summary List children of a drive item
      * @param {string} driveId Id of the drive.
-     * @param {string} driveItemId Id of the parent item; empty or \&#39;root\&#39; for the drive root.
+     * @param {string} driveItemId Id of the folder item, or \&#39;root\&#39;.
      * @param {number | null} [chatId] Scope imported counts to this chat.
      * @param {number | null} [libraryId] Scope imported counts to this library.
      * @param {number | null} [assistantId] Scope imported counts to this assistant.
      * @param {number | null} [projectId] Scope imported counts to this project.
-     * @param {boolean} [recursive] Recurse into subfolders, returning only files.
+     * @param {boolean} [recursive] Recurse into subfolders and return all descendant files.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -17201,7 +17834,7 @@ export class SharepointV1 extends BaseAPI {
     }
 
     /**
-     * List the drives under a site (or the user\'s drives for drive-rooted sources).
+     * List drives under a site, with imported counts per drive.
      * @summary List drives in a site
      * @param {string} siteId Id of the site to list drives for.
      * @param {number | null} [chatId] Scope imported counts to this chat.
@@ -17217,7 +17850,7 @@ export class SharepointV1 extends BaseAPI {
     }
 
     /**
-     * List the source\'s top-level browse entries (sites or drives) with imported counts.
+     * List the top-level browse entries (sites or drives), with imported counts.
      * @summary List top-level browse entries
      * @param {number | null} [chatId] Scope imported counts to this chat.
      * @param {number | null} [libraryId] Scope imported counts to this library.
@@ -17351,8 +17984,8 @@ export class Storage extends BaseAPI {
 export const SystemAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
-         * @summary Read System Settings
+         * Return the current platform-wide system settings.
+         * @summary Read system settings
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -17373,10 +18006,6 @@ export const SystemAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -17393,8 +18022,8 @@ export const SystemAxiosParamCreator = function (configuration?: Configuration) 
             };
         },
         /**
-         * 
-         * @summary Update System Settings
+         * Apply the provided system settings changes and record an audit entry.
+         * @summary Update system settings
          * @param {SystemSettingsUpdate} systemSettingsUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -17417,10 +18046,6 @@ export const SystemAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -17449,8 +18074,8 @@ export const SystemFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = SystemAxiosParamCreator(configuration)
     return {
         /**
-         * 
-         * @summary Read System Settings
+         * Return the current platform-wide system settings.
+         * @summary Read system settings
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -17462,8 +18087,8 @@ export const SystemFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Update System Settings
+         * Apply the provided system settings changes and record an audit entry.
+         * @summary Update system settings
          * @param {SystemSettingsUpdate} systemSettingsUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -17485,8 +18110,8 @@ export const SystemFactory = function (configuration?: Configuration, basePath?:
     const localVarFp = SystemFp(configuration)
     return {
         /**
-         * 
-         * @summary Read System Settings
+         * Return the current platform-wide system settings.
+         * @summary Read system settings
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -17495,8 +18120,8 @@ export const SystemFactory = function (configuration?: Configuration, basePath?:
             return localVarFp.systemReadSystemSettings(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Update System Settings
+         * Apply the provided system settings changes and record an audit entry.
+         * @summary Update system settings
          * @param {SystemSettingsUpdate} systemSettingsUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -17513,8 +18138,8 @@ export const SystemFactory = function (configuration?: Configuration, basePath?:
  */
 export class System extends BaseAPI {
     /**
-     * 
-     * @summary Read System Settings
+     * Return the current platform-wide system settings.
+     * @summary Read system settings
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -17524,8 +18149,8 @@ export class System extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Update System Settings
+     * Apply the provided system settings changes and record an audit entry.
+     * @summary Update system settings
      * @param {SystemSettingsUpdate} systemSettingsUpdate 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -17570,10 +18195,6 @@ export const TagAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -17614,10 +18235,6 @@ export const TagAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -17665,10 +18282,6 @@ export const TagAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -17861,10 +18474,6 @@ export const TarifAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -17913,10 +18522,6 @@ export const TarifAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -17967,10 +18572,6 @@ export const TarifAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -18176,10 +18777,6 @@ export const TemplateAxiosParamCreator = function (configuration?: Configuration
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenant_id'] = tenantId;
             }
@@ -18228,10 +18825,6 @@ export const TemplateAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenant_id'] = tenantId;
@@ -18282,10 +18875,6 @@ export const TemplateAxiosParamCreator = function (configuration?: Configuration
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenant_id'] = tenantId;
@@ -18495,10 +19084,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18540,10 +19125,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -18597,10 +19178,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18617,10 +19194,10 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             };
         },
         /**
-         * Provision per-tenant SSO config + secret for a deployment-wide template.
-         * @summary Create Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Provision per-tenant SSO config and secret for a deployment-wide template.
+         * @summary Create a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant to configure.
+         * @param {number} oauthClientId ID of the platform OAuth client to override.
          * @param {TenantOAuthClientIn} tenantOAuthClientIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -18649,10 +19226,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -18702,10 +19275,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18747,10 +19316,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -18798,10 +19363,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18848,10 +19409,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18897,10 +19454,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18919,10 +19472,10 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             };
         },
         /**
-         * 
-         * @summary Delete Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Delete a per-tenant OAuth client configuration and its stored secret.
+         * @summary Delete a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -18948,10 +19501,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -18999,10 +19548,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19040,10 +19585,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19091,10 +19632,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19139,10 +19676,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19192,10 +19725,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19237,10 +19766,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19293,10 +19818,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19315,10 +19836,10 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             };
         },
         /**
-         * 
-         * @summary Update Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Update an existing per-tenant OAuth client configuration.
+         * @summary Update a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {TenantOAuthClientUpdate} tenantOAuthClientUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -19348,10 +19869,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19370,10 +19887,10 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             };
         },
         /**
-         * 
-         * @summary Update Tenant Oauth Secret
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Replace the stored OAuth client secret for a per-tenant configuration.
+         * @summary Set a per-tenant OAuth client secret
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {SecretUpdateIn} secretUpdateIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -19402,10 +19919,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19479,10 +19992,10 @@ export const TenantFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Provision per-tenant SSO config + secret for a deployment-wide template.
-         * @summary Create Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Provision per-tenant SSO config and secret for a deployment-wide template.
+         * @summary Create a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant to configure.
+         * @param {number} oauthClientId ID of the platform OAuth client to override.
          * @param {TenantOAuthClientIn} tenantOAuthClientIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -19569,10 +20082,10 @@ export const TenantFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Delete Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Delete a per-tenant OAuth client configuration and its stored secret.
+         * @summary Delete a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -19687,10 +20200,10 @@ export const TenantFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Update Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Update an existing per-tenant OAuth client configuration.
+         * @summary Update a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {TenantOAuthClientUpdate} tenantOAuthClientUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -19703,10 +20216,10 @@ export const TenantFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Update Tenant Oauth Secret
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Replace the stored OAuth client secret for a per-tenant configuration.
+         * @summary Set a per-tenant OAuth client secret
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {SecretUpdateIn} secretUpdateIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -19764,10 +20277,10 @@ export const TenantFactory = function (configuration?: Configuration, basePath?:
             return localVarFp.tenantsCreateTenantConnector(tenantId, connectorId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Provision per-tenant SSO config + secret for a deployment-wide template.
-         * @summary Create Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Provision per-tenant SSO config and secret for a deployment-wide template.
+         * @summary Create a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant to configure.
+         * @param {number} oauthClientId ID of the platform OAuth client to override.
          * @param {TenantOAuthClientIn} tenantOAuthClientIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -19836,10 +20349,10 @@ export const TenantFactory = function (configuration?: Configuration, basePath?:
             return localVarFp.tenantsDeleteTenantModelsBulk(modelId, tenantModelBulkIn, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Delete Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Delete a per-tenant OAuth client configuration and its stored secret.
+         * @summary Delete a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -19930,10 +20443,10 @@ export const TenantFactory = function (configuration?: Configuration, basePath?:
             return localVarFp.tenantsUpdateTenant(tenantId, tenantUpdateIn, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Update Tenant Oauth Client
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Update an existing per-tenant OAuth client configuration.
+         * @summary Update a per-tenant OAuth client config
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {TenantOAuthClientUpdate} tenantOAuthClientUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -19943,10 +20456,10 @@ export const TenantFactory = function (configuration?: Configuration, basePath?:
             return localVarFp.tenantsUpdateTenantOauthClient(tenantId, oauthClientId, tenantOAuthClientUpdate, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Update Tenant Oauth Secret
-         * @param {number} tenantId 
-         * @param {number} oauthClientId 
+         * Replace the stored OAuth client secret for a per-tenant configuration.
+         * @summary Set a per-tenant OAuth client secret
+         * @param {number} tenantId ID of the tenant.
+         * @param {number} oauthClientId ID of the platform OAuth client being overridden.
          * @param {SecretUpdateIn} secretUpdateIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -20002,10 +20515,10 @@ export class Tenant extends BaseAPI {
     }
 
     /**
-     * Provision per-tenant SSO config + secret for a deployment-wide template.
-     * @summary Create Tenant Oauth Client
-     * @param {number} tenantId 
-     * @param {number} oauthClientId 
+     * Provision per-tenant SSO config and secret for a deployment-wide template.
+     * @summary Create a per-tenant OAuth client config
+     * @param {number} tenantId ID of the tenant to configure.
+     * @param {number} oauthClientId ID of the platform OAuth client to override.
      * @param {TenantOAuthClientIn} tenantOAuthClientIn 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -20080,10 +20593,10 @@ export class Tenant extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Delete Tenant Oauth Client
-     * @param {number} tenantId 
-     * @param {number} oauthClientId 
+     * Delete a per-tenant OAuth client configuration and its stored secret.
+     * @summary Delete a per-tenant OAuth client config
+     * @param {number} tenantId ID of the tenant.
+     * @param {number} oauthClientId ID of the platform OAuth client being overridden.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -20182,10 +20695,10 @@ export class Tenant extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Update Tenant Oauth Client
-     * @param {number} tenantId 
-     * @param {number} oauthClientId 
+     * Update an existing per-tenant OAuth client configuration.
+     * @summary Update a per-tenant OAuth client config
+     * @param {number} tenantId ID of the tenant.
+     * @param {number} oauthClientId ID of the platform OAuth client being overridden.
      * @param {TenantOAuthClientUpdate} tenantOAuthClientUpdate 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -20196,10 +20709,10 @@ export class Tenant extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Update Tenant Oauth Secret
-     * @param {number} tenantId 
-     * @param {number} oauthClientId 
+     * Replace the stored OAuth client secret for a per-tenant configuration.
+     * @summary Set a per-tenant OAuth client secret
+     * @param {number} tenantId ID of the tenant.
+     * @param {number} oauthClientId ID of the platform OAuth client being overridden.
      * @param {SecretUpdateIn} secretUpdateIn 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -20246,10 +20759,6 @@ export const ToolAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20367,10 +20876,6 @@ export const ToolActionAxiosParamCreator = function (configuration?: Configurati
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20459,7 +20964,7 @@ export class ToolAction extends BaseAPI {
 export const TranscriptionAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Transcribe an uploaded audio file via the configured Whisper provider.
+         * Transcribe an uploaded audio file and return the transcript synchronously.
          * @summary Transcribe an audio file
          * @param {File} file 
          * @param {string | null} [cookieName] 
@@ -20485,10 +20990,6 @@ export const TranscriptionAxiosParamCreator = function (configuration?: Configur
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20510,6 +21011,36 @@ export const TranscriptionAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Accept a signed transcription result pushed back by the Whisper service.
+         * @summary Receive an async transcription callback
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        transcriptionsTranscriptionCallback: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/transcriptions/callback`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -20520,7 +21051,7 @@ export const TranscriptionFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = TranscriptionAxiosParamCreator(configuration)
     return {
         /**
-         * Transcribe an uploaded audio file via the configured Whisper provider.
+         * Transcribe an uploaded audio file and return the transcript synchronously.
          * @summary Transcribe an audio file
          * @param {File} file 
          * @param {string | null} [cookieName] 
@@ -20533,6 +21064,18 @@ export const TranscriptionFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['Transcription.transcriptionsCreateTranscription']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Accept a signed transcription result pushed back by the Whisper service.
+         * @summary Receive an async transcription callback
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async transcriptionsTranscriptionCallback(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.transcriptionsTranscriptionCallback(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Transcription.transcriptionsTranscriptionCallback']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -20543,7 +21086,7 @@ export const TranscriptionFactory = function (configuration?: Configuration, bas
     const localVarFp = TranscriptionFp(configuration)
     return {
         /**
-         * Transcribe an uploaded audio file via the configured Whisper provider.
+         * Transcribe an uploaded audio file and return the transcript synchronously.
          * @summary Transcribe an audio file
          * @param {File} file 
          * @param {string | null} [cookieName] 
@@ -20553,6 +21096,15 @@ export const TranscriptionFactory = function (configuration?: Configuration, bas
         transcriptionsCreateTranscription(file: File, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<TranscriptionOut> {
             return localVarFp.transcriptionsCreateTranscription(file, cookieName, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Accept a signed transcription result pushed back by the Whisper service.
+         * @summary Receive an async transcription callback
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        transcriptionsTranscriptionCallback(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.transcriptionsTranscriptionCallback(options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -20561,7 +21113,7 @@ export const TranscriptionFactory = function (configuration?: Configuration, bas
  */
 export class Transcription extends BaseAPI {
     /**
-     * Transcribe an uploaded audio file via the configured Whisper provider.
+     * Transcribe an uploaded audio file and return the transcript synchronously.
      * @summary Transcribe an audio file
      * @param {File} file 
      * @param {string | null} [cookieName] 
@@ -20570,6 +21122,16 @@ export class Transcription extends BaseAPI {
      */
     public transcriptionsCreateTranscription(file: File, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return TranscriptionFp(this.configuration).transcriptionsCreateTranscription(file, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Accept a signed transcription result pushed back by the Whisper service.
+     * @summary Receive an async transcription callback
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public transcriptionsTranscriptionCallback(options?: RawAxiosRequestConfig) {
+        return TranscriptionFp(this.configuration).transcriptionsTranscriptionCallback(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -20607,10 +21169,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20657,10 +21215,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20709,10 +21263,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20763,10 +21313,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20814,10 +21360,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20838,7 +21380,7 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
-         * Delete a user; you cannot delete your own account.
+         * Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
          * @summary Delete a user
          * @param {number} userId ID of the user to delete.
          * @param {string | null} [cookieName] 
@@ -20864,10 +21406,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20911,10 +21449,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20956,10 +21490,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20978,9 +21508,9 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
-         * Admin-triggered reconcile of an external group\'s membership: fetch the bound directory group\'s members from Graph (delegated) and match the HUB group to them, for users who already have a HUB account. Rejects manual groups with 409.
-         * @summary Sync External Group
-         * @param {number} groupId 
+         * Reconcile an external group\'s membership against its bound directory group.
+         * @summary Sync an external group\'s members
+         * @param {number} groupId ID of the external group to sync.
          * @param {string | null} [cookieName] 
          * @param {number} [tenantId] 
          * @param {*} [options] Override http request option.
@@ -21004,10 +21534,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -21058,10 +21584,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -21114,10 +21636,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -21166,10 +21684,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -21216,10 +21730,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
 
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -21323,7 +21833,7 @@ export const UserFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Delete a user; you cannot delete your own account.
+         * Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
          * @summary Delete a user
          * @param {number} userId ID of the user to delete.
          * @param {string | null} [cookieName] 
@@ -21365,9 +21875,9 @@ export const UserFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Admin-triggered reconcile of an external group\'s membership: fetch the bound directory group\'s members from Graph (delegated) and match the HUB group to them, for users who already have a HUB account. Rejects manual groups with 409.
-         * @summary Sync External Group
-         * @param {number} groupId 
+         * Reconcile an external group\'s membership against its bound directory group.
+         * @summary Sync an external group\'s members
+         * @param {number} groupId ID of the external group to sync.
          * @param {string | null} [cookieName] 
          * @param {number} [tenantId] 
          * @param {*} [options] Override http request option.
@@ -21510,7 +22020,7 @@ export const UserFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.usersDeleteGroup(groupId, cookieName, tenantId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Delete a user; you cannot delete your own account.
+         * Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
          * @summary Delete a user
          * @param {number} userId ID of the user to delete.
          * @param {string | null} [cookieName] 
@@ -21543,9 +22053,9 @@ export const UserFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.usersResetPassword(passwordResetIn, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Admin-triggered reconcile of an external group\'s membership: fetch the bound directory group\'s members from Graph (delegated) and match the HUB group to them, for users who already have a HUB account. Rejects manual groups with 409.
-         * @summary Sync External Group
-         * @param {number} groupId 
+         * Reconcile an external group\'s membership against its bound directory group.
+         * @summary Sync an external group\'s members
+         * @param {number} groupId ID of the external group to sync.
          * @param {string | null} [cookieName] 
          * @param {number} [tenantId] 
          * @param {*} [options] Override http request option.
@@ -21676,7 +22186,7 @@ export class User extends BaseAPI {
     }
 
     /**
-     * Delete a user; you cannot delete your own account.
+     * Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
      * @summary Delete a user
      * @param {number} userId ID of the user to delete.
      * @param {string | null} [cookieName] 
@@ -21712,9 +22222,9 @@ export class User extends BaseAPI {
     }
 
     /**
-     * Admin-triggered reconcile of an external group\'s membership: fetch the bound directory group\'s members from Graph (delegated) and match the HUB group to them, for users who already have a HUB account. Rejects manual groups with 409.
-     * @summary Sync External Group
-     * @param {number} groupId 
+     * Reconcile an external group\'s membership against its bound directory group.
+     * @summary Sync an external group\'s members
+     * @param {number} groupId ID of the external group to sync.
      * @param {string | null} [cookieName] 
      * @param {number} [tenantId] 
      * @param {*} [options] Override http request option.

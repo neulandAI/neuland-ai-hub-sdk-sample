@@ -1,6 +1,6 @@
 # Auth
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -13,11 +13,11 @@ All URIs are relative to *http://localhost*
 |[**authRequestPasswordReset**](#authrequestpasswordreset) | **POST** /auth/request-password-reset | Request a password reset|
 |[**authResetPassword**](#authresetpassword) | **POST** /auth/reset-password | Complete a password reset|
 |[**authResetPasswordForm**](#authresetpasswordform) | **GET** /auth/reset-password | Password reset HTML form|
-|[**authSearchEntraGroups**](#authsearchentragroups) | **GET** /auth/entra/groups/search | Search Entra Groups|
+|[**authSearchEntraGroups**](#authsearchentragroups) | **GET** /auth/entra/groups/search | Search Entra directory groups|
 |[**authSendEmailConfirmation**](#authsendemailconfirmation) | **POST** /auth/send-email-confirmation | Send an email confirmation|
-|[**authSsoExchange**](#authssoexchange) | **POST** /auth/sso/{slug}/{provider}/exchange | Sso Exchange|
-|[**authSsoInit**](#authssoinit) | **GET** /auth/sso/{slug}/{provider}/init | Sso Init|
-|[**authSsoResolve**](#authssoresolve) | **GET** /auth/sso/resolve | Sso Resolve|
+|[**authSsoExchange**](#authssoexchange) | **POST** /auth/sso/{slug}/{provider}/exchange | Complete an SSO login|
+|[**authSsoInit**](#authssoinit) | **GET** /auth/sso/{slug}/{provider}/init | Start an SSO login|
+|[**authSsoResolve**](#authssoresolve) | **GET** /auth/sso/resolve | Resolve SSO providers for an email|
 
 # **authConfirmEmail**
 > any authConfirmEmail()
@@ -111,7 +111,7 @@ const { status, data } = await apiInstance.authExchangeToken(
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+No authorization required
 
 ### HTTP request headers
 
@@ -158,7 +158,7 @@ This endpoint does not have any parameters.
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+No authorization required
 
 ### HTTP request headers
 
@@ -330,7 +330,7 @@ This endpoint does not have any parameters.
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+No authorization required
 
 ### HTTP request headers
 
@@ -552,7 +552,7 @@ const { status, data } = await apiInstance.authSearchEntraGroups(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -564,6 +564,8 @@ const { status, data } = await apiInstance.authSearchEntraGroups(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication, or not an Azure Entra session. |  -  |
+|**403** | Administrator privileges required. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -604,7 +606,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -638,8 +640,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
 
-let slug: string; // (default to undefined)
-let provider: string; // (default to undefined)
+let slug: string; //Tenant routing slug from sso/resolve. (default to undefined)
+let provider: string; //OAuth provider key, e.g. \'microsoft\'. (default to undefined)
 let ssoExchangeIn: SsoExchangeIn; //
 let userAgent: string; // (optional) (default to undefined)
 let xRealIp: string; // (optional) (default to undefined)
@@ -662,8 +664,8 @@ const { status, data } = await apiInstance.authSsoExchange(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **ssoExchangeIn** | **SsoExchangeIn**|  | |
-| **slug** | [**string**] |  | defaults to undefined|
-| **provider** | [**string**] |  | defaults to undefined|
+| **slug** | [**string**] | Tenant routing slug from sso/resolve. | defaults to undefined|
+| **provider** | [**string**] | OAuth provider key, e.g. \&#39;microsoft\&#39;. | defaults to undefined|
 | **userAgent** | [**string**] |  | (optional) defaults to undefined|
 | **xRealIp** | [**string**] |  | (optional) defaults to undefined|
 | **xForwardedFor** | [**string**] |  | (optional) defaults to undefined|
@@ -688,6 +690,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**400** | Unknown provider or provider does not support SSO login. |  -  |
+|**403** | Invalid, expired, or mismatched SSO state token. |  -  |
+|**404** | No tenant matches the slug, or the provider is not configured. |  -  |
+|**503** | Token exchange with the identity provider failed. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -708,8 +714,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
 
-let slug: string; // (default to undefined)
-let provider: string; // (default to undefined)
+let slug: string; //Tenant routing slug from sso/resolve. (default to undefined)
+let provider: string; //OAuth provider key, e.g. \'microsoft\'. (default to undefined)
 
 const { status, data } = await apiInstance.authSsoInit(
     slug,
@@ -721,8 +727,8 @@ const { status, data } = await apiInstance.authSsoInit(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **slug** | [**string**] |  | defaults to undefined|
-| **provider** | [**string**] |  | defaults to undefined|
+| **slug** | [**string**] | Tenant routing slug from sso/resolve. | defaults to undefined|
+| **provider** | [**string**] | OAuth provider key, e.g. \&#39;microsoft\&#39;. | defaults to undefined|
 
 
 ### Return type
@@ -743,6 +749,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**400** | Unknown provider or provider does not support SSO login. |  -  |
+|**404** | No tenant matches the slug, or the provider is not configured. |  -  |
+|**503** | SSO is not configured for this tenant. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -750,7 +759,7 @@ No authorization required
 # **authSsoResolve**
 > SsoResolveOut authSsoResolve()
 
-Pre-login step: resolve a tenant from its domain and return the routing slug and available SSO providers.
+Pre-login step: resolve a tenant from the email\'s domain and return the routing slug and available SSO providers.
 
 ### Example
 
@@ -763,10 +772,10 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
 
-let domain: string; // (default to undefined)
+let email: string; //Work email whose domain identifies the tenant. (default to undefined)
 
 const { status, data } = await apiInstance.authSsoResolve(
-    domain
+    email
 );
 ```
 
@@ -774,7 +783,7 @@ const { status, data } = await apiInstance.authSsoResolve(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **domain** | [**string**] |  | defaults to undefined|
+| **email** | [**string**] | Work email whose domain identifies the tenant. | defaults to undefined|
 
 
 ### Return type
@@ -795,6 +804,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**404** | No tenant is registered for the email\&#39;s domain. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

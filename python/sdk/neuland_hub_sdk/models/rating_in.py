@@ -29,9 +29,9 @@ class RatingIn(BaseModel):
     """
     Request body for creating or updating a rating.
     """ # noqa: E501
-    rateable_type: RateableTypeEnum
-    rateable_id: StrictInt
-    value: Annotated[int, Field(le=5, strict=True, ge=1)]
+    rateable_type: RateableTypeEnum = Field(description="Kind of resource being rated.")
+    rateable_id: StrictInt = Field(description="ID of the resource being rated.")
+    value: Annotated[int, Field(le=5, strict=True, ge=1)] = Field(description="Rating score, from 1 (worst) to 5 (best).")
     comment: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
     __properties: ClassVar[List[str]] = ["rateable_type", "rateable_id", "value", "comment"]
 

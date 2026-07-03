@@ -1,5 +1,6 @@
 # SystemSettingsUpdate
 
+Partial update of the platform-wide system settings. Only provided fields are changed.
 
 ## Properties
 
@@ -10,6 +11,7 @@ Name | Type | Description | Notes
 **inbound_guardrail_llm_settings_id** | **int** |  | [optional] 
 **outbound_guardrail_llm_settings_id** | **int** |  | [optional] 
 **embedding_llm_settings_id** | **int** |  | [optional] 
+**transcription_llm_settings_id** | **int** |  | [optional] 
 **maintenance_start_at** | **datetime** |  | [optional] 
 **maintenance_end_at** | **datetime** |  | [optional] 
 **maintenance_message** | **str** |  | [optional] 

@@ -8,8 +8,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**sharepointv1_capabilities**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_capabilities) | **GET** /integrations/sharepoint/v1/capabilities | Get data source capabilities
 [**sharepointv1_get_item_info**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_get_item_info) | **GET** /integrations/sharepoint/v1/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125; | Get a drive item
-[**sharepointv1_get_user_info**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_get_user_info) | **GET** /integrations/sharepoint/v1/me | Get current data source user
-[**sharepointv1_is_connected**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_is_connected) | **GET** /integrations/sharepoint/v1/connected | Check data source connection
+[**sharepointv1_get_user_info**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_get_user_info) | **GET** /integrations/sharepoint/v1/me | Get connected user profile
+[**sharepointv1_is_connected**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_is_connected) | **GET** /integrations/sharepoint/v1/connected | Check connection status
 [**sharepointv1_list_children**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_list_children) | **GET** /integrations/sharepoint/v1/drives/&#123;drive_id&#125;/items/&#123;drive_item_id&#125;/children | List children of a drive item
 [**sharepointv1_list_drives**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_list_drives) | **GET** /integrations/sharepoint/v1/sites/&#123;site_id&#125;/drives | List drives in a site
 [**sharepointv1_list_roots**](/sdk/python/reference/endpoints/SharepointV1#sharepointv1_list_roots) | **GET** /integrations/sharepoint/v1/roots | List top-level browse entries
@@ -22,12 +22,11 @@ DataSourceCapabilities sharepointv1_capabilities(cookie_name=cookie_name)
 
 Get data source capabilities
 
-Return the browse-hierarchy metadata for this data source.
+Return the browse-hierarchy metadata (root kind, depth) for this source.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -51,8 +50,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -84,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -106,12 +103,11 @@ DataSourceItemModel sharepointv1_get_item_info(drive_id, drive_item_id, chat_id=
 
 Get a drive item
 
-Get a single data source drive item, annotated with imported counts.
+Fetch a single drive item's metadata, with imported flag/count.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -136,14 +132,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.SharepointV1(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
-    drive_item_id = 'drive_item_id_example' # str | Id of the drive item.
+    drive_item_id = 'drive_item_id_example' # str | Id of the item.
     chat_id = 56 # int | Scope imported counts to this chat. (optional)
     library_id = 56 # int | Scope imported counts to this library. (optional)
     assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
@@ -167,7 +161,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **drive_id** | **str**| Id of the drive. | 
- **drive_item_id** | **str**| Id of the drive item. | 
+ **drive_item_id** | **str**| Id of the item. | 
  **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
  **library_id** | **int**| Scope imported counts to this library. | [optional] 
  **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
@@ -180,7 +174,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -192,8 +186,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
+**404** | No drive or item exists with the given ids. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -202,14 +197,13 @@ Name | Type | Description  | Notes
 DataSourceUserModel sharepointv1_get_user_info(cookie_name=cookie_name)
 ```
 
-Get current data source user
+Get connected user profile
 
-Return the signed-in user's profile on this data source.
+Return the current user's profile on the data source.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -234,8 +228,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -243,7 +235,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Get current data source user
+        # Get connected user profile
         api_response = api_instance.sharepointv1_get_user_info(cookie_name=cookie_name)
         print("The response of SharepointV1->sharepointv1_get_user_info:\n")
         pprint(api_response)
@@ -266,7 +258,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -278,8 +270,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -288,14 +280,13 @@ Name | Type | Description  | Notes
 bool sharepointv1_is_connected(cookie_name=cookie_name)
 ```
 
-Check data source connection
+Check connection status
 
-Report whether the user has consented to this source's browse scopes.
+Report whether the current user has granted consent to browse this source.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -319,8 +310,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -328,7 +317,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Check data source connection
+        # Check connection status
         api_response = api_instance.sharepointv1_is_connected(cookie_name=cookie_name)
         print("The response of SharepointV1->sharepointv1_is_connected:\n")
         pprint(api_response)
@@ -351,7 +340,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -374,12 +363,11 @@ List[DataSourceItemModel] sharepointv1_list_children(drive_id, drive_item_id, ch
 
 List children of a drive item
 
-List files and folders under a drive item, annotated with imported counts.
+List the immediate children of a drive item, with imported flags/counts.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -404,19 +392,17 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.SharepointV1(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
-    drive_item_id = 'drive_item_id_example' # str | Id of the parent item; empty or 'root' for the drive root.
+    drive_item_id = 'drive_item_id_example' # str | Id of the folder item, or 'root'.
     chat_id = 56 # int | Scope imported counts to this chat. (optional)
     library_id = 56 # int | Scope imported counts to this library. (optional)
     assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
     project_id = 56 # int | Scope imported counts to this project. (optional)
-    recursive = False # bool | Recurse into subfolders, returning only files. (optional) (default to False)
+    recursive = False # bool | Recurse into subfolders and return all descendant files. (optional) (default to False)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -436,12 +422,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **drive_id** | **str**| Id of the drive. | 
- **drive_item_id** | **str**| Id of the parent item; empty or &#39;root&#39; for the drive root. | 
+ **drive_item_id** | **str**| Id of the folder item, or &#39;root&#39;. | 
  **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
  **library_id** | **int**| Scope imported counts to this library. | [optional] 
  **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
  **project_id** | **int**| Scope imported counts to this project. | [optional] 
- **recursive** | **bool**| Recurse into subfolders, returning only files. | [optional] [default to False]
+ **recursive** | **bool**| Recurse into subfolders and return all descendant files. | [optional] [default to False]
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -450,7 +436,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -462,8 +448,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
+**404** | No drive or item exists with the given ids. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -474,12 +461,11 @@ List[DataSourceDriveModel] sharepointv1_list_drives(site_id, chat_id=chat_id, li
 
 List drives in a site
 
-List the drives under a site (or the user's drives for drive-rooted sources).
+List drives under a site, with imported counts per drive.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -503,8 +489,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -546,7 +530,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -558,8 +542,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
+**404** | No site exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -570,12 +555,11 @@ ResponseSharepointv1ListRoots sharepointv1_list_roots(chat_id=chat_id, library_i
 
 List top-level browse entries
 
-List the source's top-level browse entries (sites or drives) with imported counts.
+List the top-level browse entries (sites or drives), with imported counts.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -599,8 +583,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -640,7 +622,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -652,6 +634,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
 **422** | Validation Error |  -  |

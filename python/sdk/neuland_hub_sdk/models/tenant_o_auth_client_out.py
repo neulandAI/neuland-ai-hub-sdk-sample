@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from neuland_hub_sdk.models.o_auth2_provider_enum import OAuth2ProviderEnum
 from typing import Optional, Set
@@ -28,12 +28,12 @@ class TenantOAuthClientOut(BaseModel):
     """
     TenantOAuthClientOut
     """ # noqa: E501
-    tenant_id: StrictInt
-    oauth_client_id: StrictInt
-    provider_key: OAuth2ProviderEnum
-    client_id: StrictStr
-    authorize_url: StrictStr
-    token_url: StrictStr
+    tenant_id: StrictInt = Field(description="ID of the tenant this OAuth client configuration belongs to.")
+    oauth_client_id: StrictInt = Field(description="ID of the platform OAuth client this configuration overrides.")
+    provider_key: OAuth2ProviderEnum = Field(description="OAuth provider key backing this client.")
+    client_id: StrictStr = Field(description="OAuth client identifier issued by the provider.")
+    authorize_url: StrictStr = Field(description="Provider authorization endpoint URL.")
+    token_url: StrictStr = Field(description="Provider token endpoint URL.")
     revocation_url: Optional[StrictStr] = None
     redirect_uri: Optional[StrictStr] = None
     admin_consent_url: Optional[StrictStr] = None

@@ -1,16 +1,76 @@
 # AuthConnector
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**authGetCredentialTemplate**](#authgetcredentialtemplate) | **GET** /auth/connectors/{connector_id}/credential/template | Get connector credential template|
 |[**authInitiateAdminConsent**](#authinitiateadminconsent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate admin connector consent|
 |[**authInitiateConsent**](#authinitiateconsent) | **GET** /auth/connectors/{connector_id}/consent | Initiate connector consent|
 |[**authListConnectorStatus**](#authlistconnectorstatus) | **GET** /auth/connectors/status | List connector status|
 |[**authOauthCallback**](#authoauthcallback) | **GET** /auth/connectors/callback | Connector OAuth callback|
 |[**authRevokeConsent**](#authrevokeconsent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke connector consent|
+|[**authSetAdminCredential**](#authsetadmincredential) | **PUT** /auth/connectors/{connector_id}/credential/admin | Set the tenant-wide connector credential|
+|[**authSetUserCredential**](#authsetusercredential) | **PUT** /auth/connectors/{connector_id}/credential/user | Set the caller\&#39;s connector credential|
 |[**authUpdateConnector**](#authupdateconnector) | **PATCH** /auth/connectors/{connector_id} | Update a connector|
 |[**authUpdateOauthClient**](#authupdateoauthclient) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update an OAuth client|
+
+# **authGetCredentialTemplate**
+> CredentialTemplateOut authGetCredentialTemplate()
+
+The admin and/or user parts this connector needs and whether each is set. Never returns stored secret values — only which fields are present.
+
+### Example
+
+```typescript
+import {
+    AuthConnector,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AuthConnector(configuration);
+
+let connectorId: number; //ID of the connector whose credential is being accessed. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authGetCredentialTemplate(
+    connectorId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **connectorId** | [**number**] | ID of the connector whose credential is being accessed. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**CredentialTemplateOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**404** | No connector or credential template exists for the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authInitiateAdminConsent**
 > ConnectorConsentOut authInitiateAdminConsent()
@@ -54,7 +114,7 @@ const { status, data } = await apiInstance.authInitiateAdminConsent(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -77,7 +137,7 @@ const { status, data } = await apiInstance.authInitiateAdminConsent(
 # **authInitiateConsent**
 > ConnectorConsentOut authInitiateConsent()
 
-Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.
+Initiate OAuth consent flow for a connector. Returns the provider consent URL as JSON, or a 302 redirect when redirect=true.
 
 ### Example
 
@@ -119,7 +179,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -174,7 +234,7 @@ const { status, data } = await apiInstance.authListConnectorStatus(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -262,7 +322,7 @@ No authorization required
 # **authRevokeConsent**
 > authRevokeConsent()
 
-Delete the current user\'s stored consent for a connector, if any exists.
+Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller\'s own credential for non-OAuth ones.
 
 ### Example
 
@@ -298,7 +358,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -311,6 +371,132 @@ void (empty response body)
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authSetAdminCredential**
+> authSetAdminCredential(credentialIn)
+
+Store the tenant-wide (admin) credential fields. Admin only.
+
+### Example
+
+```typescript
+import {
+    AuthConnector,
+    Configuration,
+    CredentialIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AuthConnector(configuration);
+
+let connectorId: number; //ID of the connector whose credential is being accessed. (default to undefined)
+let credentialIn: CredentialIn; //
+let tenantId: number; // (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authSetAdminCredential(
+    connectorId,
+    credentialIn,
+    tenantId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **credentialIn** | **CredentialIn**|  | |
+| **connectorId** | [**number**] | ID of the connector whose credential is being accessed. | defaults to undefined|
+| **tenantId** | [**number**] |  | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Administrator privileges required. |  -  |
+|**404** | No connector/template exists, or it has no admin credential fields. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authSetUserCredential**
+> authSetUserCredential(credentialIn)
+
+Store the caller\'s per-user credential fields.
+
+### Example
+
+```typescript
+import {
+    AuthConnector,
+    Configuration,
+    CredentialIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AuthConnector(configuration);
+
+let connectorId: number; //ID of the connector whose credential is being accessed. (default to undefined)
+let credentialIn: CredentialIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authSetUserCredential(
+    connectorId,
+    credentialIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **credentialIn** | **CredentialIn**|  | |
+| **connectorId** | [**number**] | ID of the connector whose credential is being accessed. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**404** | No connector/template exists, or it has no per-user credential fields. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -358,7 +544,7 @@ const { status, data } = await apiInstance.authUpdateConnector(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -420,7 +606,7 @@ const { status, data } = await apiInstance.authUpdateOauthClient(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

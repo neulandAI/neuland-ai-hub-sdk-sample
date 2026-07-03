@@ -6,9 +6,9 @@ Result of an on-demand external-group membership sync.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**directory_member_count** | **int** |  | 
-**synced_member_count** | **int** |  | 
-**unprovisioned_member_count** | **int** |  | 
+**directory_member_count** | **int** | Number of members found in the external directory group. | 
+**synced_member_count** | **int** | Number of members successfully synced into the group. | 
+**unprovisioned_member_count** | **int** | Number of directory members with no matching provisioned user. | 
 
 ## Example
 

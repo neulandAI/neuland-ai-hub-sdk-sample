@@ -26,6 +26,13 @@ class TestAuthConnector(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_auth_get_credential_template(self) -> None:
+        """Test case for auth_get_credential_template
+
+        Get connector credential template
+        """
+        pass
+
     def test_auth_initiate_admin_consent(self) -> None:
         """Test case for auth_initiate_admin_consent
 
@@ -58,6 +65,20 @@ class TestAuthConnector(unittest.TestCase):
         """Test case for auth_revoke_consent
 
         Revoke connector consent
+        """
+        pass
+
+    def test_auth_set_admin_credential(self) -> None:
+        """Test case for auth_set_admin_credential
+
+        Set the tenant-wide connector credential
+        """
+        pass
+
+    def test_auth_set_user_credential(self) -> None:
+        """Test case for auth_set_user_credential
+
+        Set the caller's connector credential
         """
         pass
 

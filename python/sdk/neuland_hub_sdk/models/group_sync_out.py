@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,9 +27,9 @@ class GroupSyncOut(BaseModel):
     """
     Result of an on-demand external-group membership sync.
     """ # noqa: E501
-    directory_member_count: StrictInt
-    synced_member_count: StrictInt
-    unprovisioned_member_count: StrictInt
+    directory_member_count: StrictInt = Field(description="Number of members found in the external directory group.")
+    synced_member_count: StrictInt = Field(description="Number of members successfully synced into the group.")
+    unprovisioned_member_count: StrictInt = Field(description="Number of directory members with no matching provisioned user.")
     __properties: ClassVar[List[str]] = ["directory_member_count", "synced_member_count", "unprovisioned_member_count"]
 
     model_config = ConfigDict(

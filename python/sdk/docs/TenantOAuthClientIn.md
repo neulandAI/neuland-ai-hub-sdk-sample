@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**client_id** | **str** |  | 
-**authorize_url** | **str** |  | 
-**token_url** | **str** |  | 
+**client_id** | **str** | OAuth client identifier issued by the provider. | 
+**authorize_url** | **str** | Provider authorization endpoint URL. | 
+**token_url** | **str** | Provider token endpoint URL. | 
 **revocation_url** | **str** |  | [optional] 
 **redirect_uri** | **str** |  | [optional] 
 **admin_consent_url** | **str** |  | [optional] 
-**secret** | **str** |  | 
+**secret** | **str** | OAuth client secret issued by the provider. Write-only. | 
 
 ## Example
 

@@ -7,7 +7,7 @@ All URIs are relative to *https://api.your-domain.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**invitations_accept_invitation_complete**](/sdk/python/reference/endpoints/Invitation#invitations_accept_invitation_complete) | **POST** /invitations/accept | Accept an invitation
-[**invitations_accept_invitation_form**](/sdk/python/reference/endpoints/Invitation#invitations_accept_invitation_form) | **GET** /invitations/accept | Invitation acceptance HTML form
+[**invitations_accept_invitation_form**](/sdk/python/reference/endpoints/Invitation#invitations_accept_invitation_form) | **GET** /invitations/accept | Render the invitation acceptance form
 [**invitations_create_invitations**](/sdk/python/reference/endpoints/Invitation#invitations_create_invitations) | **POST** /invitations/ | Create invitations
 [**invitations_resend_invitation**](/sdk/python/reference/endpoints/Invitation#invitations_resend_invitation) | **POST** /invitations/&#123;invitation_id&#125;/resend | Resend an invitation
 [**invitations_revoke_invitation**](/sdk/python/reference/endpoints/Invitation#invitations_revoke_invitation) | **POST** /invitations/&#123;invitation_id&#125;/revoke | Revoke an invitation
@@ -20,7 +20,7 @@ object invitations_accept_invitation_complete(token)
 
 Accept an invitation
 
-Complete invitation acceptance and create user account.
+Complete invitation acceptance and create the user account.
 
 ### Example
 
@@ -41,7 +41,7 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Invitation(api_client)
-    token = 'token_example' # str | Invitation JWT token
+    token = 'token_example' # str | Invitation JWT token from the invitation email.
 
     try:
         # Accept an invitation
@@ -59,7 +59,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| Invitation JWT token | 
+ **token** | **str**| Invitation JWT token from the invitation email. | 
 
 ### Return type
 
@@ -79,6 +79,8 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
+**401** | The invitation token is invalid, expired, or the invitation was revoked. |  -  |
+**404** | The invitation referenced by the token no longer exists. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -87,9 +89,10 @@ No authorization required
 str invitations_accept_invitation_form(token)
 ```
 
-Invitation acceptance HTML form
+Render the invitation acceptance form
 
-Fallback HTML form for accepting invitation when no frontend is available.
+Render the fallback HTML form for accepting an invitation; token errors are
+shown inline in the form.
 
 ### Example
 
@@ -110,10 +113,10 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Invitation(api_client)
-    token = 'token_example' # str | Invitation JWT token
+    token = 'token_example' # str | Invitation JWT token from the invitation email.
 
     try:
-        # Invitation acceptance HTML form
+        # Render the invitation acceptance form
         api_response = api_instance.invitations_accept_invitation_form(token)
         print("The response of Invitation->invitations_accept_invitation_form:\n")
         pprint(api_response)
@@ -128,7 +131,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| Invitation JWT token | 
+ **token** | **str**| Invitation JWT token from the invitation email. | 
 
 ### Return type
 
@@ -163,7 +166,6 @@ Invite the given email addresses, skipping ones already invited or registered.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -188,8 +190,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -253,7 +253,6 @@ Resend the invitation email for a pending invitation.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -277,8 +276,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -312,7 +309,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -342,7 +339,6 @@ Revoke a pending invitation so its token can no longer be used.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -365,8 +361,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -398,7 +392,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage)
 
 ### HTTP request headers
 

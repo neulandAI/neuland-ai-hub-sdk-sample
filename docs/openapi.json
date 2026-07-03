@@ -823,7 +823,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Create Assistant",
+        "summary": "Create an assistant",
         "description": "Create an assistant from a JSON payload.",
         "operationId": "assistants_create_assistant",
         "security": [
@@ -869,6 +869,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
           },
           "422": {
             "description": "Validation Error",
@@ -1106,7 +1109,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Update Assistant Groups",
+        "summary": "Set assistant group access",
         "description": "Grant or update assistant access for user groups (replaces the current set).",
         "operationId": "assistants_update_assistant_groups",
         "security": [
@@ -1165,6 +1168,15 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Not the creator of this assistant."
+          },
+          "404": {
+            "description": "Assistant does not exist, or one or more groups not found."
           },
           "422": {
             "description": "Validation Error",
@@ -1582,7 +1594,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Join Assistant",
+        "summary": "Join a community assistant",
         "description": "self-add to a tenant-shared community assistant.",
         "operationId": "assistants_join_assistant",
         "security": [
@@ -1597,8 +1609,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the assistant to join.",
               "title": "Assistant Id"
-            }
+            },
+            "description": "ID of the assistant to join."
           },
           {
             "name": "cookie_name",
@@ -1627,6 +1641,18 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Assistant is not in your tenant."
+          },
+          "404": {
+            "description": "No assistant exists with the given id."
+          },
+          "409": {
+            "description": "Assistant is not tenant-shared, is catalog-sourced, is owned by you, or is not ready for community access."
           },
           "422": {
             "description": "Validation Error",
@@ -2026,7 +2052,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Update Assistant Visibility",
+        "summary": "Set assistant visibility",
         "description": "creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.",
         "operationId": "assistants_update_assistant_visibility",
         "security": [
@@ -2081,6 +2107,15 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Only the creator can change visibility."
+          },
+          "404": {
+            "description": "No assistant exists with the given id."
           },
           "422": {
             "description": "Validation Error",
@@ -2514,7 +2549,7 @@
           "AuthConnector"
         ],
         "summary": "Revoke connector consent",
-        "description": "Delete the current user's stored consent for a connector, if any exists.",
+        "description": "Disconnect a connector for the caller: revoke OAuth consent for OAuth\nconnectors, or clear the caller's own credential for non-OAuth ones.",
         "operationId": "auth_revoke_consent",
         "security": [
           {
@@ -2574,7 +2609,7 @@
           "AuthConnector"
         ],
         "summary": "Initiate connector consent",
-        "description": "Start the OAuth consent flow for a connector, returning (or redirecting to) the provider URL.",
+        "description": "Initiate OAuth consent flow for a connector. Returns the provider consent\nURL as JSON, or a 302 redirect when redirect=true.",
         "operationId": "auth_initiate_consent",
         "security": [
           {
@@ -2760,6 +2795,240 @@
         }
       }
     },
+    "/auth/connectors/{connector_id}/credential/admin": {
+      "put": {
+        "tags": [
+          "AuthConnector"
+        ],
+        "summary": "Set the tenant-wide connector credential",
+        "description": "Store the tenant-wide (admin) credential fields. Admin only.",
+        "operationId": "auth_set_admin_credential",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "connector_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the connector whose credential is being accessed.",
+              "title": "Connector Id"
+            },
+            "description": "ID of the connector whose credential is being accessed."
+          },
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Tenant Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredentialIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Administrator privileges required."
+          },
+          "404": {
+            "description": "No connector/template exists, or it has no admin credential fields."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/connectors/{connector_id}/credential/template": {
+      "get": {
+        "tags": [
+          "AuthConnector"
+        ],
+        "summary": "Get connector credential template",
+        "description": "The admin and/or user parts this connector needs and whether each is set.\nNever returns stored secret values \u2014 only which fields are present.",
+        "operationId": "auth_get_credential_template",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "connector_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the connector whose credential is being accessed.",
+              "title": "Connector Id"
+            },
+            "description": "ID of the connector whose credential is being accessed."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialTemplateOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "404": {
+            "description": "No connector or credential template exists for the given id."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/connectors/{connector_id}/credential/user": {
+      "put": {
+        "tags": [
+          "AuthConnector"
+        ],
+        "summary": "Set the caller's connector credential",
+        "description": "Store the caller's per-user credential fields.",
+        "operationId": "auth_set_user_credential",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "connector_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the connector whose credential is being accessed.",
+              "title": "Connector Id"
+            },
+            "description": "ID of the connector whose credential is being accessed."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredentialIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "404": {
+            "description": "No connector/template exists, or it has no per-user credential fields."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/entra/groups": {
       "get": {
         "tags": [
@@ -2792,6 +3061,114 @@
           },
           "401": {
             "description": "Missing or invalid authentication."
+          }
+        }
+      }
+    },
+    "/auth/entra/groups/search": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Search Entra directory groups",
+        "description": "Search/browse Entra directory groups (delegated) for binding to a HUB group.",
+        "operationId": "auth_search_entra_groups",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Name/description search; empty browses alphabetically",
+              "title": "Q"
+            },
+            "description": "Name/description search; empty browses alphabetically"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Page cursor from a prior response's `next`",
+              "title": "Cursor"
+            },
+            "description": "Page cursor from a prior response's `next`"
+          },
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Tenant Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Auth Search Entra Groups"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication, or not an Azure Entra session."
+          },
+          "403": {
+            "description": "Administrator privileges required."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
           }
         }
       }
@@ -3090,18 +3467,21 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Sso Resolve",
-        "description": "Pre-login step: resolve a tenant from its domain and\nreturn the routing slug and available SSO providers.",
+        "summary": "Resolve SSO providers for an email",
+        "description": "Pre-login step: resolve a tenant from the email's domain and\nreturn the routing slug and available SSO providers.",
         "operationId": "auth_sso_resolve",
         "parameters": [
           {
-            "name": "domain",
+            "name": "email",
             "in": "query",
             "required": true,
             "schema": {
               "type": "string",
-              "title": "Domain"
-            }
+              "description": "Work email whose domain identifies the tenant.",
+              "format": "email",
+              "title": "Email"
+            },
+            "description": "Work email whose domain identifies the tenant."
           }
         ],
         "responses": {
@@ -3114,6 +3494,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "No tenant is registered for the email's domain."
           },
           "422": {
             "description": "Validation Error",
@@ -3133,7 +3516,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Sso Exchange",
+        "summary": "Complete an SSO login",
         "description": "Exchange an IdP authorization code (with the signed state from init)\nfor a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.",
         "operationId": "auth_sso_exchange",
         "parameters": [
@@ -3143,8 +3526,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "Tenant routing slug from sso/resolve.",
               "title": "Slug"
-            }
+            },
+            "description": "Tenant routing slug from sso/resolve."
           },
           {
             "name": "provider",
@@ -3152,8 +3537,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "OAuth provider key, e.g. 'microsoft'.",
               "title": "Provider"
-            }
+            },
+            "description": "OAuth provider key, e.g. 'microsoft'."
           },
           {
             "name": "user-agent",
@@ -3234,6 +3621,18 @@
               }
             }
           },
+          "400": {
+            "description": "Unknown provider or provider does not support SSO login."
+          },
+          "403": {
+            "description": "Invalid, expired, or mismatched SSO state token."
+          },
+          "404": {
+            "description": "No tenant matches the slug, or the provider is not configured."
+          },
+          "503": {
+            "description": "Token exchange with the identity provider failed."
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -3252,7 +3651,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Sso Init",
+        "summary": "Start an SSO login",
         "description": "Return the IdP authorize URL + signed state token. No cookies, no redirect.\nFrontend uses the response to redirect the browser to the IdP itself.",
         "operationId": "auth_sso_init",
         "parameters": [
@@ -3262,8 +3661,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "Tenant routing slug from sso/resolve.",
               "title": "Slug"
-            }
+            },
+            "description": "Tenant routing slug from sso/resolve."
           },
           {
             "name": "provider",
@@ -3271,8 +3672,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "OAuth provider key, e.g. 'microsoft'.",
               "title": "Provider"
-            }
+            },
+            "description": "OAuth provider key, e.g. 'microsoft'."
           }
         ],
         "responses": {
@@ -3285,6 +3688,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Unknown provider or provider does not support SSO login."
+          },
+          "404": {
+            "description": "No tenant matches the slug, or the provider is not configured."
+          },
+          "503": {
+            "description": "SSO is not configured for this tenant."
           },
           "422": {
             "description": "Validation Error",
@@ -4697,14 +5109,14 @@
         }
       }
     },
-    "/integrations/onedrive/capabilities": {
+    "/integrations/nextcloud/capabilities": {
       "get": {
         "tags": [
-          "OneDrive"
+          "Nextcloud"
         ],
         "summary": "Get data source capabilities",
-        "description": "Return the browse-hierarchy metadata for this data source.",
-        "operationId": "onedrive_capabilities",
+        "description": "Return the browse-hierarchy metadata (root kind, depth) for this source.",
+        "operationId": "nextcloud_capabilities",
         "security": [
           {
             "APIKeyHeader": []
@@ -4752,14 +5164,14 @@
         }
       }
     },
-    "/integrations/onedrive/connected": {
+    "/integrations/nextcloud/connected": {
       "get": {
         "tags": [
-          "OneDrive"
+          "Nextcloud"
         ],
-        "summary": "Check data source connection",
-        "description": "Report whether the user has consented to this source's browse scopes.",
-        "operationId": "onedrive_is_connected",
+        "summary": "Check connection status",
+        "description": "Report whether the current user has granted consent to browse this source.",
+        "operationId": "nextcloud_is_connected",
         "security": [
           {
             "APIKeyHeader": []
@@ -4790,7 +5202,7 @@
               "application/json": {
                 "schema": {
                   "type": "boolean",
-                  "title": "Response Onedrive Is Connected"
+                  "title": "Response Nextcloud Is Connected"
                 }
               }
             }
@@ -4811,14 +5223,14 @@
         }
       }
     },
-    "/integrations/onedrive/drives/{drive_id}/items/{drive_item_id}": {
+    "/integrations/nextcloud/drives/{drive_id}/items/{drive_item_id}": {
       "get": {
         "tags": [
-          "OneDrive"
+          "Nextcloud"
         ],
         "summary": "Get a drive item",
-        "description": "Get a single data source drive item, annotated with imported counts.",
-        "operationId": "onedrive_get_item_info",
+        "description": "Fetch a single drive item's metadata, with imported flag/count.",
+        "operationId": "nextcloud_get_item_info",
         "security": [
           {
             "APIKeyHeader": []
@@ -4842,10 +5254,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Id of the drive item.",
+              "description": "Id of the item.",
               "title": "Drive Item Id"
             },
-            "description": "Id of the drive item."
+            "description": "Id of the item."
           },
           {
             "name": "chat_id",
@@ -4948,10 +5360,13 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No drive or item exists with the given ids."
           },
           "422": {
             "description": "Validation Error",
@@ -4966,14 +5381,14 @@
         }
       }
     },
-    "/integrations/onedrive/drives/{drive_id}/items/{drive_item_id}/children": {
+    "/integrations/nextcloud/drives/{drive_id}/items/{drive_item_id}/children": {
       "get": {
         "tags": [
-          "OneDrive"
+          "Nextcloud"
         ],
         "summary": "List children of a drive item",
-        "description": "List files and folders under a drive item, annotated with imported counts.",
-        "operationId": "onedrive_list_children",
+        "description": "List the immediate children of a drive item, with imported flags/counts.",
+        "operationId": "nextcloud_list_children",
         "security": [
           {
             "APIKeyHeader": []
@@ -4997,10 +5412,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Id of the parent item; empty or 'root' for the drive root.",
+              "description": "Id of the folder item, or 'root'.",
               "title": "Drive Item Id"
             },
-            "description": "Id of the parent item; empty or 'root' for the drive root."
+            "description": "Id of the folder item, or 'root'."
           },
           {
             "name": "chat_id",
@@ -5080,11 +5495,816 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "description": "Recurse into subfolders, returning only files.",
+              "description": "Recurse into subfolders and return all descendant files.",
               "default": false,
               "title": "Recursive"
             },
-            "description": "Recurse into subfolders, returning only files."
+            "description": "Recurse into subfolders and return all descendant files."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DataSourceItemModel"
+                  },
+                  "title": "Response Nextcloud List Children"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication or connector consent required."
+          },
+          "403": {
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No drive or item exists with the given ids."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/nextcloud/me": {
+      "get": {
+        "tags": [
+          "Nextcloud"
+        ],
+        "summary": "Get connected user profile",
+        "description": "Return the current user's profile on the data source.",
+        "operationId": "nextcloud_get_user_info",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataSourceUserModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication or connector consent required."
+          },
+          "403": {
+            "description": "Connector token lacks the required permissions."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/nextcloud/roots": {
+      "get": {
+        "tags": [
+          "Nextcloud"
+        ],
+        "summary": "List top-level browse entries",
+        "description": "List the top-level browse entries (sites or drives), with imported counts.",
+        "operationId": "nextcloud_list_roots",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this chat.",
+              "title": "Chat Id"
+            },
+            "description": "Scope imported counts to this chat."
+          },
+          {
+            "name": "library_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this library.",
+              "title": "Library Id"
+            },
+            "description": "Scope imported counts to this library."
+          },
+          {
+            "name": "assistant_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this assistant.",
+              "title": "Assistant Id"
+            },
+            "description": "Scope imported counts to this assistant."
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this project.",
+              "title": "Project Id"
+            },
+            "description": "Scope imported counts to this project."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DataSourceSiteModel"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DataSourceDriveModel"
+                      }
+                    }
+                  ],
+                  "title": "Response Nextcloud List Roots"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication or connector consent required."
+          },
+          "403": {
+            "description": "Connector token lacks the required permissions."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/nextcloud/sites/{site_id}/drives": {
+      "get": {
+        "tags": [
+          "Nextcloud"
+        ],
+        "summary": "List drives in a site",
+        "description": "List drives under a site, with imported counts per drive.",
+        "operationId": "nextcloud_list_drives",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "site_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id of the site to list drives for.",
+              "title": "Site Id"
+            },
+            "description": "Id of the site to list drives for."
+          },
+          {
+            "name": "chat_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this chat.",
+              "title": "Chat Id"
+            },
+            "description": "Scope imported counts to this chat."
+          },
+          {
+            "name": "library_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this library.",
+              "title": "Library Id"
+            },
+            "description": "Scope imported counts to this library."
+          },
+          {
+            "name": "assistant_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this assistant.",
+              "title": "Assistant Id"
+            },
+            "description": "Scope imported counts to this assistant."
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this project.",
+              "title": "Project Id"
+            },
+            "description": "Scope imported counts to this project."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DataSourceDriveModel"
+                  },
+                  "title": "Response Nextcloud List Drives"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication or connector consent required."
+          },
+          "403": {
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No site exists with the given id."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/onedrive/capabilities": {
+      "get": {
+        "tags": [
+          "OneDrive"
+        ],
+        "summary": "Get data source capabilities",
+        "description": "Return the browse-hierarchy metadata (root kind, depth) for this source.",
+        "operationId": "onedrive_capabilities",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataSourceCapabilities"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/onedrive/connected": {
+      "get": {
+        "tags": [
+          "OneDrive"
+        ],
+        "summary": "Check connection status",
+        "description": "Report whether the current user has granted consent to browse this source.",
+        "operationId": "onedrive_is_connected",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "title": "Response Onedrive Is Connected"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/onedrive/drives/{drive_id}/items/{drive_item_id}": {
+      "get": {
+        "tags": [
+          "OneDrive"
+        ],
+        "summary": "Get a drive item",
+        "description": "Fetch a single drive item's metadata, with imported flag/count.",
+        "operationId": "onedrive_get_item_info",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "drive_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id of the drive.",
+              "title": "Drive Id"
+            },
+            "description": "Id of the drive."
+          },
+          {
+            "name": "drive_item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id of the item.",
+              "title": "Drive Item Id"
+            },
+            "description": "Id of the item."
+          },
+          {
+            "name": "chat_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this chat.",
+              "title": "Chat Id"
+            },
+            "description": "Scope imported counts to this chat."
+          },
+          {
+            "name": "library_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this library.",
+              "title": "Library Id"
+            },
+            "description": "Scope imported counts to this library."
+          },
+          {
+            "name": "assistant_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this assistant.",
+              "title": "Assistant Id"
+            },
+            "description": "Scope imported counts to this assistant."
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this project.",
+              "title": "Project Id"
+            },
+            "description": "Scope imported counts to this project."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataSourceItemModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication or connector consent required."
+          },
+          "403": {
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No drive or item exists with the given ids."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/integrations/onedrive/drives/{drive_id}/items/{drive_item_id}/children": {
+      "get": {
+        "tags": [
+          "OneDrive"
+        ],
+        "summary": "List children of a drive item",
+        "description": "List the immediate children of a drive item, with imported flags/counts.",
+        "operationId": "onedrive_list_children",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "drive_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id of the drive.",
+              "title": "Drive Id"
+            },
+            "description": "Id of the drive."
+          },
+          {
+            "name": "drive_item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id of the folder item, or 'root'.",
+              "title": "Drive Item Id"
+            },
+            "description": "Id of the folder item, or 'root'."
+          },
+          {
+            "name": "chat_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this chat.",
+              "title": "Chat Id"
+            },
+            "description": "Scope imported counts to this chat."
+          },
+          {
+            "name": "library_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this library.",
+              "title": "Library Id"
+            },
+            "description": "Scope imported counts to this library."
+          },
+          {
+            "name": "assistant_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this assistant.",
+              "title": "Assistant Id"
+            },
+            "description": "Scope imported counts to this assistant."
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Scope imported counts to this project.",
+              "title": "Project Id"
+            },
+            "description": "Scope imported counts to this project."
+          },
+          {
+            "name": "recursive",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Recurse into subfolders and return all descendant files.",
+              "default": false,
+              "title": "Recursive"
+            },
+            "description": "Recurse into subfolders and return all descendant files."
           },
           {
             "name": "cookie_name",
@@ -5119,10 +6339,13 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No drive or item exists with the given ids."
           },
           "422": {
             "description": "Validation Error",
@@ -5142,8 +6365,8 @@
         "tags": [
           "OneDrive"
         ],
-        "summary": "Get current data source user",
-        "description": "Return the signed-in user's profile on this data source.",
+        "summary": "Get connected user profile",
+        "description": "Return the current user's profile on the data source.",
         "operationId": "onedrive_get_user_info",
         "security": [
           {
@@ -5180,10 +6403,10 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
           },
           "422": {
             "description": "Validation Error",
@@ -5204,7 +6427,7 @@
           "OneDrive"
         ],
         "summary": "List top-level browse entries",
-        "description": "List the source's top-level browse entries (sites or drives) with imported counts.",
+        "description": "List the top-level browse entries (sites or drives), with imported counts.",
         "operationId": "onedrive_list_roots",
         "security": [
           {
@@ -5327,10 +6550,10 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
           },
           "422": {
             "description": "Validation Error",
@@ -5351,7 +6574,7 @@
           "OneDrive"
         ],
         "summary": "List drives in a site",
-        "description": "List the drives under a site (or the user's drives for drive-rooted sources).",
+        "description": "List drives under a site, with imported counts per drive.",
         "operationId": "onedrive_list_drives",
         "security": [
           {
@@ -5475,10 +6698,13 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No site exists with the given id."
           },
           "422": {
             "description": "Validation Error",
@@ -6230,7 +7456,7 @@
           "Sharepoint v1"
         ],
         "summary": "Get data source capabilities",
-        "description": "Return the browse-hierarchy metadata for this data source.",
+        "description": "Return the browse-hierarchy metadata (root kind, depth) for this source.",
         "operationId": "sharepointv1_capabilities",
         "security": [
           {
@@ -6284,8 +7510,8 @@
         "tags": [
           "Sharepoint v1"
         ],
-        "summary": "Check data source connection",
-        "description": "Report whether the user has consented to this source's browse scopes.",
+        "summary": "Check connection status",
+        "description": "Report whether the current user has granted consent to browse this source.",
         "operationId": "sharepointv1_is_connected",
         "security": [
           {
@@ -6344,7 +7570,7 @@
           "Sharepoint v1"
         ],
         "summary": "Get a drive item",
-        "description": "Get a single data source drive item, annotated with imported counts.",
+        "description": "Fetch a single drive item's metadata, with imported flag/count.",
         "operationId": "sharepointv1_get_item_info",
         "security": [
           {
@@ -6369,10 +7595,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Id of the drive item.",
+              "description": "Id of the item.",
               "title": "Drive Item Id"
             },
-            "description": "Id of the drive item."
+            "description": "Id of the item."
           },
           {
             "name": "chat_id",
@@ -6475,10 +7701,13 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No drive or item exists with the given ids."
           },
           "422": {
             "description": "Validation Error",
@@ -6499,7 +7728,7 @@
           "Sharepoint v1"
         ],
         "summary": "List children of a drive item",
-        "description": "List files and folders under a drive item, annotated with imported counts.",
+        "description": "List the immediate children of a drive item, with imported flags/counts.",
         "operationId": "sharepointv1_list_children",
         "security": [
           {
@@ -6524,10 +7753,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Id of the parent item; empty or 'root' for the drive root.",
+              "description": "Id of the folder item, or 'root'.",
               "title": "Drive Item Id"
             },
-            "description": "Id of the parent item; empty or 'root' for the drive root."
+            "description": "Id of the folder item, or 'root'."
           },
           {
             "name": "chat_id",
@@ -6607,11 +7836,11 @@
             "required": false,
             "schema": {
               "type": "boolean",
-              "description": "Recurse into subfolders, returning only files.",
+              "description": "Recurse into subfolders and return all descendant files.",
               "default": false,
               "title": "Recursive"
             },
-            "description": "Recurse into subfolders, returning only files."
+            "description": "Recurse into subfolders and return all descendant files."
           },
           {
             "name": "cookie_name",
@@ -6646,10 +7875,13 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No drive or item exists with the given ids."
           },
           "422": {
             "description": "Validation Error",
@@ -6669,8 +7901,8 @@
         "tags": [
           "Sharepoint v1"
         ],
-        "summary": "Get current data source user",
-        "description": "Return the signed-in user's profile on this data source.",
+        "summary": "Get connected user profile",
+        "description": "Return the current user's profile on the data source.",
         "operationId": "sharepointv1_get_user_info",
         "security": [
           {
@@ -6707,10 +7939,10 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
           },
           "422": {
             "description": "Validation Error",
@@ -6731,7 +7963,7 @@
           "Sharepoint v1"
         ],
         "summary": "List top-level browse entries",
-        "description": "List the source's top-level browse entries (sites or drives) with imported counts.",
+        "description": "List the top-level browse entries (sites or drives), with imported counts.",
         "operationId": "sharepointv1_list_roots",
         "security": [
           {
@@ -6854,10 +8086,10 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
           },
           "422": {
             "description": "Validation Error",
@@ -6878,7 +8110,7 @@
           "Sharepoint v1"
         ],
         "summary": "List drives in a site",
-        "description": "List the drives under a site (or the user's drives for drive-rooted sources).",
+        "description": "List drives under a site, with imported counts per drive.",
         "operationId": "sharepointv1_list_drives",
         "security": [
           {
@@ -7002,10 +8234,13 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or no valid connector token."
+            "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "User has not consented to the required scope."
+            "description": "Connector token lacks the required permissions."
+          },
+          "404": {
+            "description": "No site exists with the given id."
           },
           "422": {
             "description": "Validation Error",
@@ -7103,8 +8338,8 @@
         "tags": [
           "Invitation"
         ],
-        "summary": "Invitation acceptance HTML form",
-        "description": "Fallback HTML form for accepting invitation when no frontend is available.",
+        "summary": "Render the invitation acceptance form",
+        "description": "Render the fallback HTML form for accepting an invitation; token errors are\nshown inline in the form.",
         "operationId": "invitations_accept_invitation_form",
         "parameters": [
           {
@@ -7113,10 +8348,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Invitation JWT token",
+              "description": "Invitation JWT token from the invitation email.",
               "title": "Token"
             },
-            "description": "Invitation JWT token"
+            "description": "Invitation JWT token from the invitation email."
           }
         ],
         "responses": {
@@ -7147,7 +8382,7 @@
           "Invitation"
         ],
         "summary": "Accept an invitation",
-        "description": "Complete invitation acceptance and create user account.",
+        "description": "Complete invitation acceptance and create the user account.",
         "operationId": "invitations_accept_invitation_complete",
         "parameters": [
           {
@@ -7156,10 +8391,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Invitation JWT token",
+              "description": "Invitation JWT token from the invitation email.",
               "title": "Token"
             },
-            "description": "Invitation JWT token"
+            "description": "Invitation JWT token from the invitation email."
           }
         ],
         "responses": {
@@ -7170,6 +8405,12 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "The invitation token is invalid, expired, or the invitation was revoked."
+          },
+          "404": {
+            "description": "The invitation referenced by the token no longer exists."
           },
           "422": {
             "description": "Validation Error",
@@ -10214,7 +11455,7 @@
         "tags": [
           "Rating"
         ],
-        "summary": "Upsert",
+        "summary": "Upsert a rating",
         "description": "Upsert the caller's rating for the target resource.",
         "operationId": "ratings_upsert",
         "security": [
@@ -10261,6 +11502,18 @@
               }
             }
           },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "The target resource is not in your tenant."
+          },
+          "404": {
+            "description": "The target resource does not exist."
+          },
+          "409": {
+            "description": "The target resource cannot be rated (deprecated catalog item, or an assistant that is not community-shared or not ready)."
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -10279,7 +11532,7 @@
         "tags": [
           "Rating"
         ],
-        "summary": "Remove",
+        "summary": "Delete a rating",
         "description": "Delete the caller's rating for the target resource.",
         "operationId": "ratings_remove",
         "security": [
@@ -10293,8 +11546,10 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/RateableTypeEnum"
-            }
+              "$ref": "#/components/schemas/RateableTypeEnum",
+              "description": "Kind of resource whose rating to delete."
+            },
+            "description": "Kind of resource whose rating to delete."
           },
           {
             "name": "rateable_id",
@@ -10302,8 +11557,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the resource whose rating to delete.",
               "title": "Rateable Id"
-            }
+            },
+            "description": "ID of the resource whose rating to delete."
           },
           {
             "name": "cookie_name",
@@ -10325,6 +11582,12 @@
         "responses": {
           "204": {
             "description": "Successful Response"
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "404": {
+            "description": "You have not rated this resource."
           },
           "422": {
             "description": "Validation Error",
@@ -10654,7 +11917,8 @@
         "tags": [
           "System"
         ],
-        "summary": "Read System Settings",
+        "summary": "Read system settings",
+        "description": "Return the current platform-wide system settings.",
         "operationId": "system_read_system_settings",
         "security": [
           {
@@ -10690,6 +11954,12 @@
               }
             }
           },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Superadmin privileges required."
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -10706,7 +11976,8 @@
         "tags": [
           "System"
         ],
-        "summary": "Update System Settings",
+        "summary": "Update system settings",
+        "description": "Apply the provided system settings changes and record an audit entry.",
         "operationId": "system_update_system_settings",
         "security": [
           {
@@ -10751,6 +12022,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "No changes were provided."
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Superadmin privileges required."
           },
           "422": {
             "description": "Validation Error",
@@ -12479,7 +13759,8 @@
         "tags": [
           "Tenant"
         ],
-        "summary": "Delete Tenant Oauth Client",
+        "summary": "Delete a per-tenant OAuth client config",
+        "description": "Delete a per-tenant OAuth client configuration and its stored secret.",
         "operationId": "tenants_delete_tenant_oauth_client",
         "security": [
           {
@@ -12493,8 +13774,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the tenant.",
               "title": "Tenant Id"
-            }
+            },
+            "description": "ID of the tenant."
           },
           {
             "name": "oauth_client_id",
@@ -12502,8 +13785,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the platform OAuth client being overridden.",
               "title": "Oauth Client Id"
-            }
+            },
+            "description": "ID of the platform OAuth client being overridden."
           },
           {
             "name": "cookie_name",
@@ -12526,6 +13811,15 @@
           "204": {
             "description": "Successful Response"
           },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Superadmin privileges required."
+          },
+          "404": {
+            "description": "No per-tenant OAuth config exists for this tenant and OAuth client."
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -12542,7 +13836,8 @@
         "tags": [
           "Tenant"
         ],
-        "summary": "Update Tenant Oauth Client",
+        "summary": "Update a per-tenant OAuth client config",
+        "description": "Update an existing per-tenant OAuth client configuration.",
         "operationId": "tenants_update_tenant_oauth_client",
         "security": [
           {
@@ -12556,8 +13851,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the tenant.",
               "title": "Tenant Id"
-            }
+            },
+            "description": "ID of the tenant."
           },
           {
             "name": "oauth_client_id",
@@ -12565,8 +13862,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the platform OAuth client being overridden.",
               "title": "Oauth Client Id"
-            }
+            },
+            "description": "ID of the platform OAuth client being overridden."
           },
           {
             "name": "cookie_name",
@@ -12606,6 +13905,15 @@
               }
             }
           },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Superadmin privileges required."
+          },
+          "404": {
+            "description": "No per-tenant OAuth config exists for this tenant and OAuth client."
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -12622,8 +13930,8 @@
         "tags": [
           "Tenant"
         ],
-        "summary": "Create Tenant Oauth Client",
-        "description": "Provision per-tenant SSO config + secret for a deployment-wide template.",
+        "summary": "Create a per-tenant OAuth client config",
+        "description": "Provision per-tenant SSO config and secret for a deployment-wide template.",
         "operationId": "tenants_create_tenant_oauth_client",
         "security": [
           {
@@ -12637,8 +13945,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the tenant to configure.",
               "title": "Tenant Id"
-            }
+            },
+            "description": "ID of the tenant to configure."
           },
           {
             "name": "oauth_client_id",
@@ -12646,8 +13956,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the platform OAuth client to override.",
               "title": "Oauth Client Id"
-            }
+            },
+            "description": "ID of the platform OAuth client to override."
           },
           {
             "name": "cookie_name",
@@ -12687,6 +13999,15 @@
               }
             }
           },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Superadmin privileges required."
+          },
+          "404": {
+            "description": "The tenant or platform OAuth client does not exist."
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -12705,7 +14026,8 @@
         "tags": [
           "Tenant"
         ],
-        "summary": "Update Tenant Oauth Secret",
+        "summary": "Set a per-tenant OAuth client secret",
+        "description": "Replace the stored OAuth client secret for a per-tenant configuration.",
         "operationId": "tenants_update_tenant_oauth_secret",
         "security": [
           {
@@ -12719,8 +14041,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the tenant.",
               "title": "Tenant Id"
-            }
+            },
+            "description": "ID of the tenant."
           },
           {
             "name": "oauth_client_id",
@@ -12728,8 +14052,10 @@
             "required": true,
             "schema": {
               "type": "integer",
+              "description": "ID of the platform OAuth client being overridden.",
               "title": "Oauth Client Id"
-            }
+            },
+            "description": "ID of the platform OAuth client being overridden."
           },
           {
             "name": "cookie_name",
@@ -12761,6 +14087,15 @@
         "responses": {
           "204": {
             "description": "Successful Response"
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Superadmin privileges required."
+          },
+          "404": {
+            "description": "No per-tenant OAuth config exists for this tenant and OAuth client."
           },
           "422": {
             "description": "Validation Error",
@@ -13138,7 +14473,7 @@
           "Transcription"
         ],
         "summary": "Transcribe an audio file",
-        "description": "Transcribe an uploaded audio file via the configured Whisper provider.",
+        "description": "Transcribe an uploaded audio file and return the transcript synchronously.",
         "operationId": "transcriptions_create_transcription",
         "security": [
           {
@@ -13194,10 +14529,10 @@
             "description": "Unsupported audio content type."
           },
           "502": {
-            "description": "Transcription provider request failed."
+            "description": "The transcription provider failed or returned an error."
           },
           "503": {
-            "description": "No transcription provider is configured or available."
+            "description": "Transcription is not configured or unavailable."
           },
           "422": {
             "description": "Validation Error",
@@ -13208,6 +14543,33 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/transcriptions/callback": {
+      "post": {
+        "tags": [
+          "Transcription"
+        ],
+        "summary": "Receive an async transcription callback",
+        "description": "Accept a signed transcription result pushed back by the Whisper service.",
+        "operationId": "transcriptions_transcription_callback",
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Transcriptions Transcription Callback"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid HMAC signature on the callback body."
           }
         }
       }
@@ -13547,6 +14909,96 @@
         }
       }
     },
+    "/users/groups/{group_id}/sync": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Sync an external group's members",
+        "description": "Reconcile an external group's membership against its bound directory group.",
+        "operationId": "users_sync_external_group",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the external group to sync.",
+              "title": "Group Id"
+            },
+            "description": "ID of the external group to sync."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          },
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "title": "Tenant Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupSyncOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The group does not belong to the caller's tenant."
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "404": {
+            "description": "No group exists with the given id."
+          },
+          "409": {
+            "description": "The group is not an external (identity-provider) group."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/me": {
       "get": {
         "tags": [
@@ -13854,7 +15306,7 @@
           "User"
         ],
         "summary": "Delete a user",
-        "description": "Delete a user; you cannot delete your own account.",
+        "description": "Schedule permanent deletion (irreversible): deactivate + flag the user and revoke\ntheir sessions synchronously, then reassign shared resources and hard-delete async.",
         "operationId": "users_delete_user",
         "security": [
           {
@@ -16159,15 +17611,21 @@
             "description": "Timestamp when alert was updated."
           },
           "created_user_id": {
-            "type": "integer",
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Created User Id",
             "description": "ID of the user who made the LLM request."
           }
         },
         "type": "object",
         "required": [
-          "tenant_id",
-          "created_user_id"
+          "tenant_id"
         ],
         "title": "BudgetAlert",
         "description": "Saves the budget alerts."
@@ -17113,9 +18571,16 @@
             ]
           },
           "oauth_client_id": {
-            "type": "integer",
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Oauth Client Id",
-            "description": "ID of the OAuth client backing this connector.",
+            "description": "ID of the OAuth client backing this connector, if OAuth-based.",
             "examples": [
               1
             ]
@@ -17123,7 +18588,7 @@
           "name": {
             "type": "string",
             "title": "Name",
-            "description": "Name of the connector.",
+            "description": "Human-readable name of the connector.",
             "examples": [
               "SharePoint"
             ]
@@ -17140,7 +18605,7 @@
             "title": "Description",
             "description": "Optional description of the connector.",
             "examples": [
-              "Connects to SharePoint document libraries"
+              "Access files stored in SharePoint"
             ]
           },
           "scopes": {
@@ -17163,30 +18628,46 @@
             },
             "type": "array",
             "title": "Caps",
-            "description": "Capabilities provided by this connector.",
+            "description": "Capabilities this connector provides.",
             "examples": [
               [
-                "read_files",
-                "list_sites"
+                "read_files"
               ]
             ]
           },
           "auto_attach": {
             "type": "boolean",
             "title": "Auto Attach",
-            "description": "Whether this connector is automatically attached to new resources.",
+            "description": "Whether the connector is automatically attached to new chats.",
             "default": false,
             "examples": [
               false
+            ]
+          },
+          "auth_type": {
+            "$ref": "#/components/schemas/ConnectorAuthType",
+            "description": "Authentication mechanism the connector uses.",
+            "default": "oauth",
+            "examples": [
+              "oauth"
             ]
           }
         },
         "type": "object",
         "required": [
-          "oauth_client_id",
           "name"
         ],
         "title": "Connector"
+      },
+      "ConnectorAuthType": {
+        "type": "string",
+        "enum": [
+          "oauth",
+          "basic_auth",
+          "api_key"
+        ],
+        "title": "ConnectorAuthType",
+        "description": "How a connector authenticates."
       },
       "ConnectorConsentOut": {
         "properties": {
@@ -17292,20 +18773,51 @@
               "OneDrive"
             ]
           },
+          "auth_type": {
+            "$ref": "#/components/schemas/ConnectorAuthType",
+            "description": "Authentication mechanism the connector uses.",
+            "examples": [
+              "oauth"
+            ]
+          },
           "connected": {
             "type": "boolean",
             "title": "Connected",
-            "description": "Whether the current user has a valid consent for this connector.",
+            "description": "Whether the connector is fully usable for the caller (consent granted and all required config present).",
             "examples": [
-              true
+              false
             ]
           },
           "needs_consent": {
             "type": "boolean",
             "title": "Needs Consent",
-            "description": "Whether the user must (re)grant consent to use this connector.",
+            "description": "OAuth authorization is required before the connector can be used.",
+            "examples": [
+              true
+            ]
+          },
+          "needs_config": {
+            "type": "boolean",
+            "title": "Needs Config",
+            "description": "An admin credential template part is required but not yet set.",
             "examples": [
               false
+            ]
+          },
+          "needs_user_config": {
+            "type": "boolean",
+            "title": "Needs User Config",
+            "description": "A per-user credential template part is required but not yet set.",
+            "examples": [
+              false
+            ]
+          },
+          "has_admin_config": {
+            "type": "boolean",
+            "title": "Has Admin Config",
+            "description": "The connector has an admin-managed credential part.",
+            "examples": [
+              true
             ]
           },
           "missing_caps": {
@@ -17314,9 +18826,11 @@
             },
             "type": "array",
             "title": "Missing Caps",
-            "description": "Capabilities not yet covered by the user's consent.",
+            "description": "Capabilities not yet granted; empty unless consent is needed.",
             "examples": [
-              []
+              [
+                "files.read"
+              ]
             ]
           }
         },
@@ -17324,8 +18838,12 @@
         "required": [
           "connector_id",
           "name",
+          "auth_type",
           "connected",
           "needs_consent",
+          "needs_config",
+          "needs_user_config",
+          "has_admin_config",
           "missing_caps"
         ],
         "title": "ConnectorStatusOut"
@@ -17527,6 +19045,139 @@
           "record_count"
         ],
         "title": "CostTimeseriesPoint"
+      },
+      "CredentialIn": {
+        "properties": {
+          "config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Config",
+            "description": "Credential field values to store, matching the part's JSON Schema.",
+            "examples": [
+              {
+                "host_url": "https://cloud.example.com"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "config"
+        ],
+        "title": "CredentialIn"
+      },
+      "CredentialPartOut": {
+        "properties": {
+          "json_schema": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Json Schema",
+            "description": "JSON Schema of this credential part; the frontend renders the input form from it.",
+            "examples": [
+              {
+                "properties": {
+                  "host_url": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "configured": {
+            "type": "boolean",
+            "title": "Configured",
+            "description": "Whether this credential part has been saved.",
+            "examples": [
+              true
+            ]
+          },
+          "set_fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Set Fields",
+            "description": "Names of the fields currently stored. Never includes the values.",
+            "examples": [
+              [
+                "host_url"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "json_schema",
+          "configured",
+          "set_fields"
+        ],
+        "title": "CredentialPartOut"
+      },
+      "CredentialTemplateOut": {
+        "properties": {
+          "connector_id": {
+            "type": "integer",
+            "title": "Connector Id",
+            "description": "Unique identifier of the connector.",
+            "examples": [
+              3
+            ]
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Human-readable connector name.",
+            "examples": [
+              "Nextcloud"
+            ]
+          },
+          "auth_type": {
+            "$ref": "#/components/schemas/ConnectorAuthType",
+            "description": "Authentication mechanism the connector uses.",
+            "examples": [
+              "basic_auth"
+            ]
+          },
+          "is_admin": {
+            "type": "boolean",
+            "title": "Is Admin",
+            "description": "Whether the caller is allowed to edit the admin credential part.",
+            "examples": [
+              false
+            ]
+          },
+          "admin": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CredentialPartOut"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Tenant-wide credential part, or null if the connector has none."
+          },
+          "user": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CredentialPartOut"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Per-user credential part, or null if the connector has none."
+          }
+        },
+        "type": "object",
+        "required": [
+          "connector_id",
+          "name",
+          "auth_type",
+          "is_admin"
+        ],
+        "title": "CredentialTemplateOut"
       },
       "DataSourceCapabilities": {
         "properties": {
@@ -18573,6 +20224,29 @@
             "examples": [
               "All engineering staff."
             ]
+          },
+          "source": {
+            "$ref": "#/components/schemas/UserGroupSource",
+            "description": "Whether the group is managed manually or synced from an external directory.",
+            "default": "manual",
+            "examples": [
+              "manual"
+            ]
+          },
+          "external_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Id",
+            "description": "Identifier of the group in the external directory; required for external groups.",
+            "examples": [
+              "group-abc-123"
+            ]
           }
         },
         "type": "object",
@@ -18581,6 +20255,42 @@
         ],
         "title": "GroupIn",
         "description": "Schema for creating a user group"
+      },
+      "GroupSyncOut": {
+        "properties": {
+          "directory_member_count": {
+            "type": "integer",
+            "title": "Directory Member Count",
+            "description": "Number of members found in the external directory group.",
+            "examples": [
+              42
+            ]
+          },
+          "synced_member_count": {
+            "type": "integer",
+            "title": "Synced Member Count",
+            "description": "Number of members successfully synced into the group.",
+            "examples": [
+              40
+            ]
+          },
+          "unprovisioned_member_count": {
+            "type": "integer",
+            "title": "Unprovisioned Member Count",
+            "description": "Number of directory members with no matching provisioned user.",
+            "examples": [
+              2
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "directory_member_count",
+          "synced_member_count",
+          "unprovisioned_member_count"
+        ],
+        "title": "GroupSyncOut",
+        "description": "Result of an on-demand external-group membership sync."
       },
       "HTTPValidationError": {
         "properties": {
@@ -19576,7 +21286,7 @@
           "role": {
             "type": "string",
             "title": "Role",
-            "description": "Role of the message author (see llama-index MessageRole values).",
+            "description": "Role of the message author (see MessageRoleEnum values).",
             "examples": [
               "user"
             ]
@@ -20134,7 +21844,9 @@
           "microsoft",
           "atlassian",
           "hubspot",
-          "oidc"
+          "fireflies",
+          "keycloak",
+          "opendesk"
         ],
         "title": "OAuth2ProviderEnum",
         "description": "Enum for OAuth providers."
@@ -20202,24 +21914,17 @@
           },
           "name": {
             "type": "string",
-            "title": "Name"
+            "title": "Name",
+            "description": "Unique human-readable name of the OAuth client.",
+            "examples": [
+              "Microsoft 365"
+            ]
           },
           "provider_key": {
-            "$ref": "#/components/schemas/OAuth2ProviderEnum"
-          },
-          "client_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Client Id",
-            "description": "OAuth application (client) ID issued by the provider.",
+            "$ref": "#/components/schemas/OAuth2ProviderEnum",
+            "description": "OAuth provider this client uses.",
             "examples": [
-              "11111111-2222-3333-4444-555555555555"
+              "microsoft"
             ]
           },
           "description": {
@@ -20231,7 +21936,11 @@
                 "type": "null"
               }
             ],
-            "title": "Description"
+            "title": "Description",
+            "description": "Optional description of the OAuth client.",
+            "examples": [
+              "Microsoft Entra ID login and connectors"
+            ]
           },
           "icon_url": {
             "anyOf": [
@@ -20242,67 +21951,10 @@
                 "type": "null"
               }
             ],
-            "title": "Icon Url"
-          },
-          "authorize_url": {
-            "type": "string",
-            "title": "Authorize Url",
-            "description": "OAuth authorization endpoint URL.",
+            "title": "Icon Url",
+            "description": "URL of the icon shown for this OAuth client.",
             "examples": [
-              "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
-            ]
-          },
-          "admin_consent_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Admin Consent Url",
-            "description": "URL for granting tenant-wide admin consent, if applicable.",
-            "examples": [
-              "https://login.microsoftonline.com/common/adminconsent"
-            ]
-          },
-          "token_url": {
-            "type": "string",
-            "title": "Token Url",
-            "description": "OAuth token endpoint URL.",
-            "examples": [
-              "https://login.microsoftonline.com/common/oauth2/v2.0/token"
-            ]
-          },
-          "logout_url": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Logout Url",
-            "description": "URL used to log the user out of the provider session.",
-            "examples": [
-              "https://login.microsoftonline.com/common/oauth2/v2.0/logout"
-            ]
-          },
-          "redirect_uri": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Redirect Uri",
-            "description": "Redirect URI registered for the OAuth callback.",
-            "examples": [
-              "https://app.example.com/auth/callback"
+              "https://cdn.example.com/microsoft.png"
             ]
           },
           "oidc_issuer": {
@@ -20321,9 +21973,7 @@
         "type": "object",
         "required": [
           "name",
-          "provider_key",
-          "authorize_url",
-          "token_url"
+          "provider_key"
         ],
         "title": "OAuthClient"
       },
@@ -20338,7 +21988,11 @@
                 "type": "null"
               }
             ],
-            "title": "Name"
+            "title": "Name",
+            "description": "New display name for the OAuth client.",
+            "examples": [
+              "Microsoft 365"
+            ]
           },
           "description": {
             "anyOf": [
@@ -20349,7 +22003,11 @@
                 "type": "null"
               }
             ],
-            "title": "Description"
+            "title": "Description",
+            "description": "New description for the OAuth client.",
+            "examples": [
+              "Shared Microsoft OAuth application."
+            ]
           },
           "icon_url": {
             "anyOf": [
@@ -20360,7 +22018,11 @@
                 "type": "null"
               }
             ],
-            "title": "Icon Url"
+            "title": "Icon Url",
+            "description": "URL of an icon representing the OAuth client.",
+            "examples": [
+              "https://cdn.example.com/icons/microsoft.svg"
+            ]
           },
           "oidc_issuer": {
             "anyOf": [
@@ -20371,7 +22033,11 @@
                 "type": "null"
               }
             ],
-            "title": "Oidc Issuer"
+            "title": "Oidc Issuer",
+            "description": "OpenID Connect issuer URL used for discovery.",
+            "examples": [
+              "https://login.microsoftonline.com/common/v2.0"
+            ]
           }
         },
         "type": "object",
@@ -21034,17 +22700,29 @@
       "RatingIn": {
         "properties": {
           "rateable_type": {
-            "$ref": "#/components/schemas/RateableTypeEnum"
+            "$ref": "#/components/schemas/RateableTypeEnum",
+            "description": "Kind of resource being rated.",
+            "examples": [
+              "COMMUNITY_ASSISTANT"
+            ]
           },
           "rateable_id": {
             "type": "integer",
-            "title": "Rateable Id"
+            "title": "Rateable Id",
+            "description": "ID of the resource being rated.",
+            "examples": [
+              42
+            ]
           },
           "value": {
             "type": "integer",
             "maximum": 5.0,
             "minimum": 1.0,
-            "title": "Value"
+            "title": "Value",
+            "description": "Rating score, from 1 (worst) to 5 (best).",
+            "examples": [
+              4
+            ]
           },
           "comment": {
             "anyOf": [
@@ -21056,7 +22734,11 @@
                 "type": "null"
               }
             ],
-            "title": "Comment"
+            "title": "Comment",
+            "description": "Optional free-text comment accompanying the rating.",
+            "examples": [
+              "Very helpful for drafting emails."
+            ]
           }
         },
         "type": "object",
@@ -21081,7 +22763,11 @@
         "properties": {
           "secret": {
             "type": "string",
-            "title": "Secret"
+            "title": "Secret",
+            "description": "New OAuth client secret to store. Write-only.",
+            "examples": [
+              "s3cr3t-value"
+            ]
           }
         },
         "type": "object",
@@ -22289,7 +23975,11 @@
                 "type": "null"
               }
             ],
-            "title": "Maintenance Enabled"
+            "title": "Maintenance Enabled",
+            "description": "Whether maintenance mode is active, blocking normal user access.",
+            "examples": [
+              false
+            ]
           },
           "tracing_enabled": {
             "anyOf": [
@@ -22300,7 +23990,11 @@
                 "type": "null"
               }
             ],
-            "title": "Tracing Enabled"
+            "title": "Tracing Enabled",
+            "description": "Whether observability tracing of requests is enabled.",
+            "examples": [
+              true
+            ]
           },
           "inbound_guardrail_llm_settings_id": {
             "anyOf": [
@@ -22311,7 +24005,11 @@
                 "type": "null"
               }
             ],
-            "title": "Inbound Guardrail Llm Settings Id"
+            "title": "Inbound Guardrail Llm Settings Id",
+            "description": "LLM settings id used for the inbound guardrail, or null to unset.",
+            "examples": [
+              12
+            ]
           },
           "outbound_guardrail_llm_settings_id": {
             "anyOf": [
@@ -22322,7 +24020,11 @@
                 "type": "null"
               }
             ],
-            "title": "Outbound Guardrail Llm Settings Id"
+            "title": "Outbound Guardrail Llm Settings Id",
+            "description": "LLM settings id used for the outbound guardrail, or null to unset.",
+            "examples": [
+              13
+            ]
           },
           "embedding_llm_settings_id": {
             "anyOf": [
@@ -22333,7 +24035,26 @@
                 "type": "null"
               }
             ],
-            "title": "Embedding Llm Settings Id"
+            "title": "Embedding Llm Settings Id",
+            "description": "LLM settings id used for embeddings; the model must support embeddings.",
+            "examples": [
+              4
+            ]
+          },
+          "transcription_llm_settings_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcription Llm Settings Id",
+            "description": "LLM settings id used for transcription; the model must support transcription.",
+            "examples": [
+              5
+            ]
           },
           "maintenance_start_at": {
             "anyOf": [
@@ -22345,7 +24066,11 @@
                 "type": "null"
               }
             ],
-            "title": "Maintenance Start At"
+            "title": "Maintenance Start At",
+            "description": "UTC timestamp when a scheduled maintenance window starts.",
+            "examples": [
+              "2026-07-04T02:00:00Z"
+            ]
           },
           "maintenance_end_at": {
             "anyOf": [
@@ -22357,7 +24082,11 @@
                 "type": "null"
               }
             ],
-            "title": "Maintenance End At"
+            "title": "Maintenance End At",
+            "description": "UTC timestamp when a scheduled maintenance window ends.",
+            "examples": [
+              "2026-07-04T04:00:00Z"
+            ]
           },
           "maintenance_message": {
             "anyOf": [
@@ -22368,7 +24097,11 @@
                 "type": "null"
               }
             ],
-            "title": "Maintenance Message"
+            "title": "Maintenance Message",
+            "description": "Message shown to users during maintenance.",
+            "examples": [
+              "Scheduled maintenance in progress."
+            ]
           },
           "reason": {
             "anyOf": [
@@ -22379,11 +24112,16 @@
                 "type": "null"
               }
             ],
-            "title": "Reason"
+            "title": "Reason",
+            "description": "Audit note recorded with this change; not stored on the settings row.",
+            "examples": [
+              "Enabling tracing for incident investigation."
+            ]
           }
         },
         "type": "object",
-        "title": "SystemSettingsUpdate"
+        "title": "SystemSettingsUpdate",
+        "description": "Partial update of the platform-wide system settings. Only provided fields\nare changed."
       },
       "Tag": {
         "properties": {
@@ -23457,15 +25195,27 @@
         "properties": {
           "client_id": {
             "type": "string",
-            "title": "Client Id"
+            "title": "Client Id",
+            "description": "OAuth client identifier issued by the provider.",
+            "examples": [
+              "11111111-2222-3333-4444-555555555555"
+            ]
           },
           "authorize_url": {
             "type": "string",
-            "title": "Authorize Url"
+            "title": "Authorize Url",
+            "description": "Provider authorization endpoint URL.",
+            "examples": [
+              "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+            ]
           },
           "token_url": {
             "type": "string",
-            "title": "Token Url"
+            "title": "Token Url",
+            "description": "Provider token endpoint URL.",
+            "examples": [
+              "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+            ]
           },
           "revocation_url": {
             "anyOf": [
@@ -23476,7 +25226,11 @@
                 "type": "null"
               }
             ],
-            "title": "Revocation Url"
+            "title": "Revocation Url",
+            "description": "Provider token revocation endpoint URL, if supported.",
+            "examples": [
+              "https://oauth2.googleapis.com/revoke"
+            ]
           },
           "redirect_uri": {
             "anyOf": [
@@ -23487,7 +25241,11 @@
                 "type": "null"
               }
             ],
-            "title": "Redirect Uri"
+            "title": "Redirect Uri",
+            "description": "Redirect URI registered with the provider for the callback.",
+            "examples": [
+              "https://hub.example.com/auth/connectors/callback"
+            ]
           },
           "admin_consent_url": {
             "anyOf": [
@@ -23498,11 +25256,19 @@
                 "type": "null"
               }
             ],
-            "title": "Admin Consent Url"
+            "title": "Admin Consent Url",
+            "description": "Provider admin consent endpoint URL, if the provider supports organization-wide admin consent.",
+            "examples": [
+              "https://login.microsoftonline.com/common/adminconsent"
+            ]
           },
           "secret": {
             "type": "string",
-            "title": "Secret"
+            "title": "Secret",
+            "description": "OAuth client secret issued by the provider. Write-only.",
+            "examples": [
+              "s3cr3t-value"
+            ]
           }
         },
         "type": "object",
@@ -23518,26 +25284,50 @@
         "properties": {
           "tenant_id": {
             "type": "integer",
-            "title": "Tenant Id"
+            "title": "Tenant Id",
+            "description": "ID of the tenant this OAuth client configuration belongs to.",
+            "examples": [
+              7
+            ]
           },
           "oauth_client_id": {
             "type": "integer",
-            "title": "Oauth Client Id"
+            "title": "Oauth Client Id",
+            "description": "ID of the platform OAuth client this configuration overrides.",
+            "examples": [
+              2
+            ]
           },
           "provider_key": {
-            "$ref": "#/components/schemas/OAuth2ProviderEnum"
+            "$ref": "#/components/schemas/OAuth2ProviderEnum",
+            "description": "OAuth provider key backing this client.",
+            "examples": [
+              "microsoft"
+            ]
           },
           "client_id": {
             "type": "string",
-            "title": "Client Id"
+            "title": "Client Id",
+            "description": "OAuth client identifier issued by the provider.",
+            "examples": [
+              "11111111-2222-3333-4444-555555555555"
+            ]
           },
           "authorize_url": {
             "type": "string",
-            "title": "Authorize Url"
+            "title": "Authorize Url",
+            "description": "Provider authorization endpoint URL.",
+            "examples": [
+              "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+            ]
           },
           "token_url": {
             "type": "string",
-            "title": "Token Url"
+            "title": "Token Url",
+            "description": "Provider token endpoint URL.",
+            "examples": [
+              "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+            ]
           },
           "revocation_url": {
             "anyOf": [
@@ -23548,7 +25338,11 @@
                 "type": "null"
               }
             ],
-            "title": "Revocation Url"
+            "title": "Revocation Url",
+            "description": "Provider token revocation endpoint URL, if supported.",
+            "examples": [
+              "https://oauth2.googleapis.com/revoke"
+            ]
           },
           "redirect_uri": {
             "anyOf": [
@@ -23559,7 +25353,11 @@
                 "type": "null"
               }
             ],
-            "title": "Redirect Uri"
+            "title": "Redirect Uri",
+            "description": "Redirect URI registered with the provider for the callback.",
+            "examples": [
+              "https://hub.example.com/auth/connectors/callback"
+            ]
           },
           "admin_consent_url": {
             "anyOf": [
@@ -23570,7 +25368,11 @@
                 "type": "null"
               }
             ],
-            "title": "Admin Consent Url"
+            "title": "Admin Consent Url",
+            "description": "Provider admin consent endpoint URL, if supported.",
+            "examples": [
+              "https://login.microsoftonline.com/common/adminconsent"
+            ]
           }
         },
         "type": "object",
@@ -23595,7 +25397,11 @@
                 "type": "null"
               }
             ],
-            "title": "Client Id"
+            "title": "Client Id",
+            "description": "OAuth client identifier issued by the provider.",
+            "examples": [
+              "11111111-2222-3333-4444-555555555555"
+            ]
           },
           "authorize_url": {
             "anyOf": [
@@ -23606,7 +25412,11 @@
                 "type": "null"
               }
             ],
-            "title": "Authorize Url"
+            "title": "Authorize Url",
+            "description": "Provider authorization endpoint URL.",
+            "examples": [
+              "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+            ]
           },
           "token_url": {
             "anyOf": [
@@ -23617,7 +25427,11 @@
                 "type": "null"
               }
             ],
-            "title": "Token Url"
+            "title": "Token Url",
+            "description": "Provider token endpoint URL.",
+            "examples": [
+              "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+            ]
           },
           "revocation_url": {
             "anyOf": [
@@ -23628,7 +25442,11 @@
                 "type": "null"
               }
             ],
-            "title": "Revocation Url"
+            "title": "Revocation Url",
+            "description": "Provider token revocation endpoint URL, if supported.",
+            "examples": [
+              "https://oauth2.googleapis.com/revoke"
+            ]
           },
           "redirect_uri": {
             "anyOf": [
@@ -23639,7 +25457,11 @@
                 "type": "null"
               }
             ],
-            "title": "Redirect Uri"
+            "title": "Redirect Uri",
+            "description": "Redirect URI registered with the provider for the callback.",
+            "examples": [
+              "https://hub.example.com/auth/connectors/callback"
+            ]
           },
           "admin_consent_url": {
             "anyOf": [
@@ -23650,7 +25472,11 @@
                 "type": "null"
               }
             ],
-            "title": "Admin Consent Url"
+            "title": "Admin Consent Url",
+            "description": "Provider admin consent endpoint URL, if supported.",
+            "examples": [
+              "https://login.microsoftonline.com/common/adminconsent"
+            ]
           }
         },
         "type": "object",
@@ -25190,36 +27016,118 @@
           "text": {
             "type": "string",
             "title": "Text",
-            "description": "Transcribed text of the audio.",
+            "description": "Full transcribed text of the audio.",
             "examples": [
-              "Hello, this is a test transcription."
+              "Hello and welcome to the meeting."
             ]
           },
           "language": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Language",
-            "description": "Detected language of the audio (ISO 639-1 or language name).",
+            "description": "Detected language of the audio, if available.",
             "examples": [
-              "english"
+              "en"
             ]
           },
           "duration_seconds": {
             "type": "number",
             "title": "Duration Seconds",
-            "description": "Duration of the audio in seconds.",
+            "description": "Duration of the transcribed audio in seconds.",
             "examples": [
-              12.5
+              123.4
             ]
+          },
+          "segments": {
+            "items": {
+              "$ref": "#/components/schemas/TranscriptionSegment"
+            },
+            "type": "array",
+            "title": "Segments",
+            "description": "Time-aligned, optionally diarized transcript segments."
           }
         },
         "type": "object",
         "required": [
           "text",
           "language",
-          "duration_seconds"
+          "duration_seconds",
+          "segments"
         ],
         "title": "TranscriptionOut",
         "description": "The response format from the transcription endpoint"
+      },
+      "TranscriptionSegment": {
+        "properties": {
+          "start": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start",
+            "description": "Start offset of the segment in seconds, if known.",
+            "examples": [
+              0.0
+            ]
+          },
+          "end": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End",
+            "description": "End offset of the segment in seconds, if known.",
+            "examples": [
+              3.5
+            ]
+          },
+          "speaker": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speaker",
+            "description": "Detected speaker label when diarization is available.",
+            "examples": [
+              "SPEAKER_00"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "title": "Text",
+            "description": "Transcribed text for this segment.",
+            "examples": [
+              "Hello and welcome to the meeting."
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "start",
+          "end",
+          "speaker",
+          "text"
+        ],
+        "title": "TranscriptionSegment",
+        "description": "A single time-aligned segment of a transcript."
       },
       "Translation": {
         "properties": {
@@ -25559,6 +27467,18 @@
             "description": "Where the group and its membership come from: 'manual' (managed in the HUB) or 'external' (synced from an identity provider).",
             "default": "manual"
           },
+          "external_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Id",
+            "description": "Stable identifier of the source group in the external identity provider (e.g. an Active Directory security-group object ID). Set only for 'external' groups; the IdP groups claim is matched against it."
+          },
           "creator_user_id": {
             "anyOf": [
               {
@@ -25625,6 +27545,15 @@
         ],
         "title": "UserGroupMember",
         "description": "Membership of a user in a group (within a tenant)."
+      },
+      "UserGroupSource": {
+        "type": "string",
+        "enum": [
+          "manual",
+          "external"
+        ],
+        "title": "UserGroupSource",
+        "description": "Origin of a user group and its membership.\n\nMANUAL groups are managed by hand in the HUB; EXTERNAL groups are synced\nfrom an identity provider (e.g. Entra, Keycloak)."
       },
       "UserIn": {
         "properties": {
@@ -27464,6 +29393,10 @@
     {
       "name": "OneDrive",
       "description": "OneDrive data source: browse and connect."
+    },
+    {
+      "name": "Nextcloud",
+      "description": "Nextcloud data source: browse and connect."
     },
     {
       "name": "Atlassian",

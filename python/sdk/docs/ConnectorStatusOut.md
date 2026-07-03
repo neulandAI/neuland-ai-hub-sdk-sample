@@ -7,9 +7,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **connector_id** | **int** | Unique identifier of the connector. | 
 **name** | **str** | Human-readable connector name. | 
-**connected** | **bool** | Whether the current user has a valid consent for this connector. | 
-**needs_consent** | **bool** | Whether the user must (re)grant consent to use this connector. | 
-**missing_caps** | **List[Optional[str]]** | Capabilities not yet covered by the user&#39;s consent. | 
+**auth_type** | [**ConnectorAuthType**](ConnectorAuthType.md) | Authentication mechanism the connector uses. | 
+**connected** | **bool** | Whether the connector is fully usable for the caller (consent granted and all required config present). | 
+**needs_consent** | **bool** | OAuth authorization is required before the connector can be used. | 
+**needs_config** | **bool** | An admin credential template part is required but not yet set. | 
+**needs_user_config** | **bool** | A per-user credential template part is required but not yet set. | 
+**has_admin_config** | **bool** | The connector has an admin-managed credential part. | 
+**missing_caps** | **List[Optional[str]]** | Capabilities not yet granted; empty unless consent is needed. | 
 
 ## Example
 

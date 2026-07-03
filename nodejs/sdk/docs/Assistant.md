@@ -1,6 +1,6 @@
 # Assistant
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -11,7 +11,7 @@ All URIs are relative to *http://localhost*
 |[**assistantsCreateAssistant**](#assistantscreateassistant) | **POST** /assistants/ | Create an assistant|
 |[**assistantsDeleteAssistant**](#assistantsdeleteassistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant|
 |[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant|
-|[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join Assistant|
+|[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant|
 |[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant|
 |[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant|
 |[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member|
@@ -19,8 +19,8 @@ All URIs are relative to *http://localhost*
 |[**assistantsRemoveToolFromAssistant**](#assistantsremovetoolfromassistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant|
 |[**assistantsSubmitAssistant**](#assistantssubmitassistant) | **POST** /assistants/submit | Create an assistant with attachments|
 |[**assistantsUpdateAssistant**](#assistantsupdateassistant) | **PATCH** /assistants/{assistant_id} | Update an assistant|
-|[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/{assistant_id}/groups | Update Assistant Groups|
-|[**assistantsUpdateAssistantVisibility**](#assistantsupdateassistantvisibility) | **PATCH** /assistants/{assistant_id}/visibility | Update Assistant Visibility|
+|[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/{assistant_id}/groups | Set assistant group access|
+|[**assistantsUpdateAssistantVisibility**](#assistantsupdateassistantvisibility) | **PATCH** /assistants/{assistant_id}/visibility | Set assistant visibility|
 
 # **assistantsAddLibraryToAssistant**
 > AssistantLibrary assistantsAddLibraryToAssistant()
@@ -64,7 +64,7 @@ const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -126,7 +126,7 @@ const { status, data } = await apiInstance.assistantsAddMembers(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -187,7 +187,7 @@ const { status, data } = await apiInstance.assistantsAddTagToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -248,7 +248,7 @@ const { status, data } = await apiInstance.assistantsAddToolToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -307,7 +307,7 @@ const { status, data } = await apiInstance.assistantsCreateAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -363,7 +363,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -425,7 +425,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -461,7 +461,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: number; //ID of the assistant to join. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsJoinAssistant(
@@ -474,7 +474,7 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**number**] | ID of the assistant to join. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -484,7 +484,7 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -496,6 +496,10 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Assistant is not in your tenant. |  -  |
+|**404** | No assistant exists with the given id. |  -  |
+|**409** | Assistant is not tenant-shared, is catalog-sourced, is owned by you, or is not ready for community access. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -539,7 +543,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -600,7 +604,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -661,7 +665,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -722,7 +726,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -783,7 +787,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -874,7 +878,7 @@ const { status, data } = await apiInstance.assistantsSubmitAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -935,7 +939,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -997,7 +1001,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantGroups(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -1009,6 +1013,9 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantGroups(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Not the creator of this assistant. |  -  |
+|**404** | Assistant does not exist, or one or more groups not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1056,7 +1063,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantVisibility(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -1068,6 +1075,9 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantVisibility(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Only the creator can change visibility. |  -  |
+|**404** | No assistant exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

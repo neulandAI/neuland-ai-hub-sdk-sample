@@ -333,8 +333,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -651,8 +650,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -969,8 +967,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1277,8 +1274,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1588,8 +1584,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -1631,7 +1626,7 @@ class User:
     ) -> None:
         """Delete a user
 
-        Delete a user; you cannot delete your own account.
+        Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
 
         :param user_id: ID of the user to delete. (required)
         :type user_id: int
@@ -1710,7 +1705,7 @@ class User:
     ) -> ApiResponse[None]:
         """Delete a user
 
-        Delete a user; you cannot delete your own account.
+        Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
 
         :param user_id: ID of the user to delete. (required)
         :type user_id: int
@@ -1789,7 +1784,7 @@ class User:
     ) -> RESTResponseType:
         """Delete a user
 
-        Delete a user; you cannot delete your own account.
+        Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
 
         :param user_id: ID of the user to delete. (required)
         :type user_id: int
@@ -1896,8 +1891,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2169,8 +2163,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2470,8 +2463,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -2495,7 +2487,7 @@ class User:
     @validate_call
     def users_sync_external_group(
         self,
-        group_id: StrictInt,
+        group_id: Annotated[StrictInt, Field(description="ID of the external group to sync.")],
         cookie_name: Optional[StrictStr] = None,
         tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
@@ -2511,11 +2503,11 @@ class User:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GroupSyncOut:
-        """Sync External Group
+        """Sync an external group's members
 
-        Admin-triggered reconcile of an external group's membership: fetch the bound directory group's members from Graph (delegated) and match the HUB group to them, for users who already have a HUB account. Rejects manual groups with 409.
+        Reconcile an external group's membership against its bound directory group.
 
-        :param group_id: (required)
+        :param group_id: ID of the external group to sync. (required)
         :type group_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -2555,6 +2547,11 @@ class User:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GroupSyncOut",
+            '400': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2571,7 +2568,7 @@ class User:
     @validate_call
     def users_sync_external_group_with_http_info(
         self,
-        group_id: StrictInt,
+        group_id: Annotated[StrictInt, Field(description="ID of the external group to sync.")],
         cookie_name: Optional[StrictStr] = None,
         tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
@@ -2587,11 +2584,11 @@ class User:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GroupSyncOut]:
-        """Sync External Group
+        """Sync an external group's members
 
-        Admin-triggered reconcile of an external group's membership: fetch the bound directory group's members from Graph (delegated) and match the HUB group to them, for users who already have a HUB account. Rejects manual groups with 409.
+        Reconcile an external group's membership against its bound directory group.
 
-        :param group_id: (required)
+        :param group_id: ID of the external group to sync. (required)
         :type group_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -2631,6 +2628,11 @@ class User:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GroupSyncOut",
+            '400': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2647,7 +2649,7 @@ class User:
     @validate_call
     def users_sync_external_group_without_preload_content(
         self,
-        group_id: StrictInt,
+        group_id: Annotated[StrictInt, Field(description="ID of the external group to sync.")],
         cookie_name: Optional[StrictStr] = None,
         tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
@@ -2663,11 +2665,11 @@ class User:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Sync External Group
+        """Sync an external group's members
 
-        Admin-triggered reconcile of an external group's membership: fetch the bound directory group's members from Graph (delegated) and match the HUB group to them, for users who already have a HUB account. Rejects manual groups with 409.
+        Reconcile an external group's membership against its bound directory group.
 
-        :param group_id: (required)
+        :param group_id: ID of the external group to sync. (required)
         :type group_id: int
         :param cookie_name:
         :type cookie_name: str
@@ -2707,6 +2709,11 @@ class User:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GroupSyncOut",
+            '400': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2769,8 +2776,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3108,8 +3114,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3427,8 +3432,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -3767,8 +3771,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -4068,8 +4071,7 @@ class User:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(

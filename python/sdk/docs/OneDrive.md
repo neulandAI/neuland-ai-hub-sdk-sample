@@ -1,13 +1,13 @@
 # neuland_hub_sdk.OneDrive
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**onedrive_capabilities**](OneDrive.md#onedrive_capabilities) | **GET** /integrations/onedrive/capabilities | Get data source capabilities
 [**onedrive_get_item_info**](OneDrive.md#onedrive_get_item_info) | **GET** /integrations/onedrive/drives/{drive_id}/items/{drive_item_id} | Get a drive item
-[**onedrive_get_user_info**](OneDrive.md#onedrive_get_user_info) | **GET** /integrations/onedrive/me | Get current data source user
-[**onedrive_is_connected**](OneDrive.md#onedrive_is_connected) | **GET** /integrations/onedrive/connected | Check data source connection
+[**onedrive_get_user_info**](OneDrive.md#onedrive_get_user_info) | **GET** /integrations/onedrive/me | Get connected user profile
+[**onedrive_is_connected**](OneDrive.md#onedrive_is_connected) | **GET** /integrations/onedrive/connected | Check connection status
 [**onedrive_list_children**](OneDrive.md#onedrive_list_children) | **GET** /integrations/onedrive/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item
 [**onedrive_list_drives**](OneDrive.md#onedrive_list_drives) | **GET** /integrations/onedrive/sites/{site_id}/drives | List drives in a site
 [**onedrive_list_roots**](OneDrive.md#onedrive_list_roots) | **GET** /integrations/onedrive/roots | List top-level browse entries
@@ -18,12 +18,11 @@ Method | HTTP request | Description
 
 Get data source capabilities
 
-Return the browse-hierarchy metadata for this data source.
+Return the browse-hierarchy metadata (root kind, depth) for this source.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -31,10 +30,10 @@ from neuland_hub_sdk.models.data_source_capabilities import DataSourceCapabiliti
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -47,8 +46,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -80,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -101,12 +98,11 @@ Name | Type | Description  | Notes
 
 Get a drive item
 
-Get a single data source drive item, annotated with imported counts.
+Fetch a single drive item's metadata, with imported flag/count.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -114,10 +110,10 @@ from neuland_hub_sdk.models.data_source_item_model import DataSourceItemModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -131,14 +127,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.OneDrive(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
-    drive_item_id = 'drive_item_id_example' # str | Id of the drive item.
+    drive_item_id = 'drive_item_id_example' # str | Id of the item.
     chat_id = 56 # int | Scope imported counts to this chat. (optional)
     library_id = 56 # int | Scope imported counts to this library. (optional)
     assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
@@ -162,7 +156,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **drive_id** | **str**| Id of the drive. | 
- **drive_item_id** | **str**| Id of the drive item. | 
+ **drive_item_id** | **str**| Id of the item. | 
  **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
  **library_id** | **int**| Scope imported counts to this library. | [optional] 
  **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
@@ -175,7 +169,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -187,8 +181,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
+**404** | No drive or item exists with the given ids. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -196,14 +191,13 @@ Name | Type | Description  | Notes
 # **onedrive_get_user_info**
 > DataSourceUserModel onedrive_get_user_info(cookie_name=cookie_name)
 
-Get current data source user
+Get connected user profile
 
-Return the signed-in user's profile on this data source.
+Return the current user's profile on the data source.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -211,10 +205,10 @@ from neuland_hub_sdk.models.data_source_user_model import DataSourceUserModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -228,8 +222,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -237,7 +229,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Get current data source user
+        # Get connected user profile
         api_response = api_instance.onedrive_get_user_info(cookie_name=cookie_name)
         print("The response of OneDrive->onedrive_get_user_info:\n")
         pprint(api_response)
@@ -260,7 +252,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -272,8 +264,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -281,24 +273,23 @@ Name | Type | Description  | Notes
 # **onedrive_is_connected**
 > bool onedrive_is_connected(cookie_name=cookie_name)
 
-Check data source connection
+Check connection status
 
-Report whether the user has consented to this source's browse scopes.
+Report whether the current user has granted consent to browse this source.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -312,8 +303,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -321,7 +310,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Check data source connection
+        # Check connection status
         api_response = api_instance.onedrive_is_connected(cookie_name=cookie_name)
         print("The response of OneDrive->onedrive_is_connected:\n")
         pprint(api_response)
@@ -344,7 +333,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -366,12 +355,11 @@ Name | Type | Description  | Notes
 
 List children of a drive item
 
-List files and folders under a drive item, annotated with imported counts.
+List the immediate children of a drive item, with imported flags/counts.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -379,10 +367,10 @@ from neuland_hub_sdk.models.data_source_item_model import DataSourceItemModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -396,19 +384,17 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.OneDrive(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
-    drive_item_id = 'drive_item_id_example' # str | Id of the parent item; empty or 'root' for the drive root.
+    drive_item_id = 'drive_item_id_example' # str | Id of the folder item, or 'root'.
     chat_id = 56 # int | Scope imported counts to this chat. (optional)
     library_id = 56 # int | Scope imported counts to this library. (optional)
     assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
     project_id = 56 # int | Scope imported counts to this project. (optional)
-    recursive = False # bool | Recurse into subfolders, returning only files. (optional) (default to False)
+    recursive = False # bool | Recurse into subfolders and return all descendant files. (optional) (default to False)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -428,12 +414,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **drive_id** | **str**| Id of the drive. | 
- **drive_item_id** | **str**| Id of the parent item; empty or &#39;root&#39; for the drive root. | 
+ **drive_item_id** | **str**| Id of the folder item, or &#39;root&#39;. | 
  **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
  **library_id** | **int**| Scope imported counts to this library. | [optional] 
  **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
  **project_id** | **int**| Scope imported counts to this project. | [optional] 
- **recursive** | **bool**| Recurse into subfolders, returning only files. | [optional] [default to False]
+ **recursive** | **bool**| Recurse into subfolders and return all descendant files. | [optional] [default to False]
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -442,7 +428,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -454,8 +440,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
+**404** | No drive or item exists with the given ids. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -465,12 +452,11 @@ Name | Type | Description  | Notes
 
 List drives in a site
 
-List the drives under a site (or the user's drives for drive-rooted sources).
+List drives under a site, with imported counts per drive.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -478,10 +464,10 @@ from neuland_hub_sdk.models.data_source_drive_model import DataSourceDriveModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -494,8 +480,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -537,7 +521,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -549,8 +533,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
+**404** | No site exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -560,12 +545,11 @@ Name | Type | Description  | Notes
 
 List top-level browse entries
 
-List the source's top-level browse entries (sites or drives) with imported counts.
+List the top-level browse entries (sites or drives), with imported counts.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -573,10 +557,10 @@ from neuland_hub_sdk.models.response_onedrive_list_roots import ResponseOnedrive
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Defining the host is optional and defaults to https://api.your-domain.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -589,8 +573,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -630,7 +612,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -642,8 +624,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required scope. |  -  |
+**401** | Missing authentication or connector consent required. |  -  |
+**403** | Connector token lacks the required permissions. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
