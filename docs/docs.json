@@ -10,14 +10,38 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "User Guide",
-        "groups": [
+        "tab": "User Handbuch",
+        "icon": "book",
+        "pages": [
+          "erste-schritte",
+          "chat",
+          "chat-einstellungen",
           {
-            "group": "Introduction",
+            "group": "Tools",
+            "icon": "stop-circle",
             "pages": [
-              "GettingStarted"
+              "web-search",
+              "deep-search",
+              "rasoning",
+              "code-and-data-analyst",
+              "bildgenerierung"
             ]
-          }
+          },
+          "projekte",
+          "assistenten",
+          "knowledge",
+          {
+            "group": "Integrationen",
+            "icon": "arrow-right-to-bracket",
+            "pages": [
+              "sharepoint",
+              "outlook-mail-und-kalender",
+              "jira",
+              "hubspot",
+              "confluence"
+            ]
+          },
+          "tips-and-tricks"
         ]
       },
       {
@@ -766,41 +790,6 @@
               }
             ]
           }
-        ]
-      },
-      {
-        "tab": "User Handbuch",
-        "icon": "book",
-        "pages": [
-          "erste-schritte",
-          "chat",
-          "chat-einstellungen",
-          {
-            "group": "Tools",
-            "icon": "stop-circle",
-            "pages": [
-              "web-search",
-              "deep-search",
-              "rasoning",
-              "code-and-data-analyst",
-              "bildgenerierung"
-            ]
-          },
-          "projekte",
-          "assistenten",
-          "knowledge",
-          {
-            "group": "Integrationen",
-            "icon": "arrow-right-to-bracket",
-            "pages": [
-              "sharepoint",
-              "outlook-mail-und-kalender",
-              "jira",
-              "hubspot",
-              "confluence"
-            ]
-          },
-          "tips-and-tricks"
         ]
       },
       {
