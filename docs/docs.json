@@ -772,7 +772,6 @@
         "tab": "User Handbuch",
         "icon": "book",
         "pages": [
-          "untitled-page",
           "erste-schritte",
           "chat",
           "chat-einstellungen",
@@ -780,7 +779,6 @@
             "group": "Tools",
             "icon": "stop-circle",
             "pages": [
-              "untitled-page",
               "web-search",
               "deep-search",
               "rasoning",
@@ -795,7 +793,6 @@
             "group": "Integrationen",
             "icon": "arrow-right-to-bracket",
             "pages": [
-              "untitled-page",
               "sharepoint",
               "outlook-mail-und-kalender",
               "jira",
@@ -809,7 +806,6 @@
       {
         "tab": "Videoanleitungen",
         "pages": [
-          "untitled-page",
           "confluence-integration",
           "hubspot-integration"
         ]
