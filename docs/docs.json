@@ -796,7 +796,8 @@
         "tab": "Videoanleitungen",
         "pages": [
           "confluence-integration",
-          "hubspot-integration"
+          "hubspot-integration",
+          "jira-integration"
         ]
       }
     ]
