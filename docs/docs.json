@@ -3,8 +3,8 @@
   "theme": "mint",
   "name": "Neuland AI Hub",
   "colors": {
-    "primary": "#0A0A0A",
-    "light": "#C4B5FD",
+    "primary": "#8A38F5",
+    "light": "#74FF40",
     "dark": "#7C3AED"
   },
   "navigation": {
@@ -767,6 +767,52 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "User Handbuch",
+        "icon": "book",
+        "pages": [
+          "untitled-page",
+          "erste-schritte",
+          "chat",
+          "chat-einstellungen",
+          {
+            "group": "Tools",
+            "icon": "stop-circle",
+            "pages": [
+              "untitled-page",
+              "web-search",
+              "deep-search",
+              "rasoning",
+              "code-and-data-analyst",
+              "bildgenerierung"
+            ]
+          },
+          "projekte",
+          "assistenten",
+          "knowledge",
+          {
+            "group": "Integrationen",
+            "icon": "arrow-right-to-bracket",
+            "pages": [
+              "untitled-page",
+              "sharepoint",
+              "outlook-mail-und-kalender",
+              "jira",
+              "hubspot",
+              "confluence"
+            ]
+          },
+          "tips-and-tricks"
+        ]
+      },
+      {
+        "tab": "Videoanleitungen",
+        "pages": [
+          "untitled-page",
+          "confluence-integration",
+          "hubspot-integration"
+        ]
       }
     ]
   },
@@ -782,5 +828,9 @@
     "socials": {
       "website": "https://neuland-hub.ai"
     }
+  },
+  "logo": {
+    "light": "/docs/images/nllogo—design&wordmark—brightpurple@2x.png",
+    "dark": "/docs/images/nllogo—design&wordmark—darkpurple@2x.png"
   }
 }

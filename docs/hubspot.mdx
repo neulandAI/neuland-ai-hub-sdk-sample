@@ -1,0 +1,73 @@
+---
+title: "Hubspot"
+---
+
+## Was ist die Hubspot-Intergration?
+
+Die HubSpot-Integration ermöglicht es, CRM-Daten direkt im neuland.ai HUB-Chat abzufragen – ohne HubSpot selbst öffnen zu müssen. Kontakte, Unternehmen, Deals und Aktivitäten stehen so unmittelbar im Gesprächskontext zur Verfügung.
+
+<Info>
+  > **Aktueller Stand:** Die Integration ist **read-only**. Lesen und Suchen ist möglich – das Erstellen, Bearbeiten oder Schreiben von Datensätzen ist derzeit noch nicht verfügbar.
+</Info>
+
+## Einrichtung 
+
+### Schritt 1 – Administrator: Freischaltung auf Unternehmensebene
+
+Der zuständige Administrator sendet eine E-Mail an [**support@neuland.ai**](mailto:support@neuland.ai) und beantragt die Freischaltung der HubSpot-Integration für die Organisation.
+
+### Schritt 2 – Jede Nutzerin / Jeder Nutzer: Persönliche Account-Verbindung
+
+Nach erfolgter Freischaltung verbindet jede Nutzerin und jeder Nutzer einmalig den eigenen HubSpot-Account:
+
+1. In den **eigenen Einstellungen** im HUB navigieren
+2. Den Menüpunkt **„Integrationen"** aufrufen
+3. HubSpot verbinden und die erforderlichen Berechtigungen bestätigen
+
+ Anschließend steht das HubSpot-Tool im Chat sowie in Assistenten zur Auswahl.
+
+## Funktionsumfang
+
+| Funktion | Beschreibung |
+| :-- | :-- |
+| **Kontakte abrufen** | Einzelne Kontakte und deren Stammdaten einsehen |
+| **Firmen abrufen** | Unternehmensprofile und zugehörige Informationen anzeigen |
+| **Deals & Pipelines abrufen** | Vertriebschancen und Pipeline-Status abfragen |
+| **Tickets & Aktivitäten abrufen** | Support-Tickets und Interaktionshistorie einsehen |
+| **CRM-Datensätze durchsuchen** | Gezielte Suche über alle CRM-Objekte hinweg |
+| **Engagement-Historie abrufen** | Kommunikationsverlauf zu Kontakten und Firmen anzeigen |
+| **Owner & Teams abrufen** | Zuständigkeiten und Teamzuordnungen ermitteln |
+| **Tasks & Notes abrufen** | Aufgaben und Notizen zu Kontakten oder Deals einsehen |
+
+---
+
+<Tip>
+  **Hinweis:** Richtige Schreibweise beachten
+
+  HubSpot ist **case-sensitive**. Das bedeutet: Namen von Firmen und Kontakten müssen **exakt so geschrieben werden**, wie sie in HubSpot hinterlegt sind – einschließlich Groß- und Kleinschreibung.
+
+  - Bitte übernehmen Sie Namen **zeichengenau** aus HubSpot
+  - Bereits kleine Abweichungen können dazu führen, dass keine oder falsche Treffer zurückgegeben werden
+
+  > **Beispiel:** Ist ein Unternehmen als `Mustermann GmbH` hinterlegt, liefert die Suche nach `mustermann gmbh` oder `MUSTERMANN GMBH` möglicherweise kein Ergebnis.
+</Tip>
+
+## Bedienung: Prompts richtig formulieren
+
+Das HubSpot-Tool wird ausschließlich dann abgefragt, wenn es **explizit im Prompt benannt** wird.
+
+**Empfohlene Formulierungen:**
+
+- _„Suchen Sie in HubSpot nach allen Deals zum Kunden Mustermann GmbH."_
+- _„Zeigen Sie mir die Kontaktdaten von Maria Schmidt aus HubSpot."_
+- _„Welche offenen Deals befinden sich aktuell in der Pipeline (HubSpot)?"_
+- _„Rufen Sie die Engagement-Historie für den Kontakt Thomas Müller aus HubSpot ab."_
+
+**Weniger geeignete Formulierungen:**
+
+- _„Suche nach allen Deals zum Kunden."_ → Kein Tool-Bezug, kein konkreter Name
+- _„Was gibt es Neues bei unserem Kunden?"_ → Zu unspezifisch
+
+## [Videoanleitung](https://mb.neuland.ai/hubfs/HubSpot%20mit%20dem%20Hub%20verbinden%20und%20nutzen.mp4)
+
+<video controls className="w-full aspect-video rounded-xl" src="https://mb.neuland.ai/hubfs/HubSpot%20mit%20dem%20Hub%20verbinden%20und%20nutzen.mp4" />

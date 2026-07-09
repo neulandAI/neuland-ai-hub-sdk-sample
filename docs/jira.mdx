@@ -1,0 +1,67 @@
+---
+title: "Jira"
+---
+
+## Was ist die Jira-Integration?
+
+Die Jira-Integration ermöglicht es, Jira-Daten direkt im neuland.ai HUB-Chat abzufragen – ohne Jira selbst öffnen zu müssen. Ticket-Status, offene Vorgänge, Epic-Details und mehr sind so direkt im Gesprächskontext verfügbar.
+
+<Info>
+  > **Aktueller Stand:** Die Integration ist **read-only**. Lesen und Suchen ist möglich – Schreiben, Erstellen oder Bearbeiten von Issues ist noch nicht verfügbar.
+</Info>
+
+## Einrichtung 
+
+### Schritt 1 – Admin: Freischaltung auf Unternehmensebene
+
+Für Support, schreiben Sie eine E-Mail an [**support@neuland.ai**](mailto:support@neuland.ai) und beantragen die Freischaltung der Jira-Integration für Ihre Organisation.
+
+### Schritt 2 – Jeder Nutzer: Persönliche Account-Verbindung
+
+Nach der Freischaltung verbindet jeder Nutzer einmalig seinen eigenen Jira-Account:
+
+1. In den **eigenen Einstellungen** im HUB navigieren
+2. Den Menüpunkt **„Integrationen"** aufrufen
+3. Jira verbinden und die erforderlichen Berechtigungen akzeptieren
+
+Danach ist das Jira-Tool im Chat und in Assistenten auswählbar.
+
+## Funktionsumfang
+
+| Funktion | Beschreibung |
+| :-- | :-- |
+| **Issues lesen** | Jira-Issues abrufen inkl. Metadaten und möglicher Transitions |
+| **Issue-Links abrufen** | Verknüpfte Issues anzeigen |
+| **JQL-Suche** | Issues per Jira Query Language (JQL) suchen |
+| **Projekte abrufen** | Alle sichtbaren Projekte auflisten |
+| **Account-IDs nachschlagen** | Atlassian Account IDs ermitteln |
+| **Nutzerbezogene Abfragen** | Offene Tickets einer bestimmten Person anzeigen |
+
+<Tip>
+  **Hinweis: Korrekter Projektschlüssel**
+
+  Der **Projektschlüssel** (z. B. `PROJ`) ist entscheidend für den Sucherfolg. Ohne den korrekten Schlüssel kann das Projekt häufig nicht gefunden werden.
+
+  - Bitte übernehmen Sie den Projektschlüssel **exakt so**, wie er in Jira hinterlegt ist (in der Regel Großbuchstaben)
+  - Ist der Schlüssel nicht bekannt, fragt der Assistent bei Bedarf nach
+</Tip>
+
+## Bedienung: Prompts richtig formulieren
+
+Das Jira-Tool wird ausschließlich dann abgefragt, wenn es **explizit im Prompt benannt** wird.
+
+**Empfohlene Formulierungen:**
+
+- _„Suchen Sie in Jira im Projekt PROJ-655 nach allen offenen Bugs."_
+- _„Welche Tickets sind Kevin in Jira aktuell zugewiesen?"_
+- _„Zeigen Sie mir alle Issues im aktuellen Sprint des Projekts DEV (Jira)."_
+- _„Fassen Sie die Details des Epics PROJ-42 aus Jira zusammen."_
+
+**Weniger geeignete Formulierungen:**
+
+- _„Zeig mir offene Tickets."_ → Kein Tool-Bezug, kein Projektschlüssel
+- _„Was gibt es Neues im Projekt?"_ → Zu unspezifisch
+
+## [Videoanleitung](https://mb.neuland.ai/hubfs/Jira%20mit%20dem%20Hub%20verbinden%20und%20nutzen.mp4)
+
+<video controls className="w-full aspect-video rounded-xl" src="https://mb.neuland.ai/hubfs/Jira%20mit%20dem%20Hub%20verbinden%20und%20nutzen.mp4" />
