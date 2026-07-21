@@ -38,7 +38,7 @@ chmod 600 ~/.netrc
 ### Python
 
 ```bash
-pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.2#subdirectory=python/sdk"
+pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sdk"
 ```
 
 ```python
@@ -56,7 +56,7 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.2#subdirectory=python/sdk
+neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sdk
 ```
 
 Requires Python 3.9+.
