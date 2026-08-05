@@ -36,6 +36,7 @@ class TestTarif(unittest.TestCase):
         if include_optional:
             return Tarif(
                 id = 56,
+                public_id = '',
                 name = '',
                 price = 1.337,
                 hard_limit = 0.0,

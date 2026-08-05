@@ -17,8 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,9 +30,10 @@ class ToolUpdate(BaseModel):
     Editable fields of a tool; only provided fields are updated.
     """ # noqa: E501
     name: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
+    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = None
     prompt: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "prompt"]
+    category_public_id: Optional[UUID] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "prompt", "category_public_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -86,6 +89,11 @@ class ToolUpdate(BaseModel):
         if self.prompt is None and "prompt" in self.model_fields_set:
             _dict['prompt'] = None
 
+        # set to None if category_public_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.category_public_id is None and "category_public_id" in self.model_fields_set:
+            _dict['category_public_id'] = None
+
         return _dict
 
     @classmethod
@@ -100,7 +108,8 @@ class ToolUpdate(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "description": obj.get("description"),
-            "prompt": obj.get("prompt")
+            "prompt": obj.get("prompt"),
+            "category_public_id": obj.get("category_public_id")
         })
         return _obj
 

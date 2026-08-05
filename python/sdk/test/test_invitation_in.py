@@ -38,9 +38,10 @@ class TestInvitationIn(unittest.TestCase):
                 emails = [
                     ''
                     ],
-                tenant_id = 56,
-                project_id = 56,
-                admin = True
+                tenant_id = '',
+                project_id = '',
+                admin = True,
+                role_id = ''
             )
         else:
             return InvitationIn(

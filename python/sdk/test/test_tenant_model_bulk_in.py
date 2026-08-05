@@ -37,7 +37,7 @@ class TestTenantModelBulkIn(unittest.TestCase):
             return TenantModelBulkIn(
                 all = True,
                 tenant_ids = [
-                    56
+                    ''
                     ]
             )
         else:

@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,7 +28,7 @@ class ProjectMemberIn(BaseModel):
     """
     ProjectMemberIn
     """ # noqa: E501
-    user_id: StrictInt = Field(description="ID of the user to add to the project.")
+    user_id: UUID = Field(description="Public id of the user to add to the project.")
     role: StrictStr = Field(description="Role to assign to the member (e.g. `owner` or `member`).")
     __properties: ClassVar[List[str]] = ["user_id", "role"]
 

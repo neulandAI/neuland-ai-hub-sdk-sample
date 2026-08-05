@@ -28,6 +28,7 @@ class RateableTypeEnum(str, Enum):
     """
     ASSISTANT_CATALOG = 'ASSISTANT_CATALOG'
     COMMUNITY_ASSISTANT = 'COMMUNITY_ASSISTANT'
+    APP_CATALOG = 'APP_CATALOG'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

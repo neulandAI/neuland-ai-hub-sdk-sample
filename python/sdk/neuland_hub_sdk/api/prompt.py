@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.prompt import Prompt
 from neuland_hub_sdk.models.prompt_in import PromptIn
 from neuland_hub_sdk.models.prompt_optimize_in import PromptOptimizeIn
@@ -344,7 +345,7 @@ class Prompt:
     @validate_call
     def prompts_delete_prompt(
         self,
-        prompt_id: Annotated[StrictInt, Field(description="ID of the prompt to delete.")],
+        prompt_id: Annotated[UUID, Field(description="Public id of the prompt to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -363,8 +364,8 @@ class Prompt:
 
         Delete a prompt owned by the current user.
 
-        :param prompt_id: ID of the prompt to delete. (required)
-        :type prompt_id: int
+        :param prompt_id: Public id of the prompt to delete. (required)
+        :type prompt_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -419,7 +420,7 @@ class Prompt:
     @validate_call
     def prompts_delete_prompt_with_http_info(
         self,
-        prompt_id: Annotated[StrictInt, Field(description="ID of the prompt to delete.")],
+        prompt_id: Annotated[UUID, Field(description="Public id of the prompt to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -438,8 +439,8 @@ class Prompt:
 
         Delete a prompt owned by the current user.
 
-        :param prompt_id: ID of the prompt to delete. (required)
-        :type prompt_id: int
+        :param prompt_id: Public id of the prompt to delete. (required)
+        :type prompt_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -494,7 +495,7 @@ class Prompt:
     @validate_call
     def prompts_delete_prompt_without_preload_content(
         self,
-        prompt_id: Annotated[StrictInt, Field(description="ID of the prompt to delete.")],
+        prompt_id: Annotated[UUID, Field(description="Public id of the prompt to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -513,8 +514,8 @@ class Prompt:
 
         Delete a prompt owned by the current user.
 
-        :param prompt_id: ID of the prompt to delete. (required)
-        :type prompt_id: int
+        :param prompt_id: Public id of the prompt to delete. (required)
+        :type prompt_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -937,7 +938,7 @@ class Prompt:
     @validate_call
     def prompts_update_prompt(
         self,
-        prompt_id: Annotated[StrictInt, Field(description="ID of the prompt to update.")],
+        prompt_id: Annotated[UUID, Field(description="Public id of the prompt to update.")],
         prompt_in: PromptIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -957,8 +958,8 @@ class Prompt:
 
         Update a prompt owned by the current user.
 
-        :param prompt_id: ID of the prompt to update. (required)
-        :type prompt_id: int
+        :param prompt_id: Public id of the prompt to update. (required)
+        :type prompt_id: UUID
         :param prompt_in: (required)
         :type prompt_in: PromptIn
         :param cookie_name:
@@ -1016,7 +1017,7 @@ class Prompt:
     @validate_call
     def prompts_update_prompt_with_http_info(
         self,
-        prompt_id: Annotated[StrictInt, Field(description="ID of the prompt to update.")],
+        prompt_id: Annotated[UUID, Field(description="Public id of the prompt to update.")],
         prompt_in: PromptIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1036,8 +1037,8 @@ class Prompt:
 
         Update a prompt owned by the current user.
 
-        :param prompt_id: ID of the prompt to update. (required)
-        :type prompt_id: int
+        :param prompt_id: Public id of the prompt to update. (required)
+        :type prompt_id: UUID
         :param prompt_in: (required)
         :type prompt_in: PromptIn
         :param cookie_name:
@@ -1095,7 +1096,7 @@ class Prompt:
     @validate_call
     def prompts_update_prompt_without_preload_content(
         self,
-        prompt_id: Annotated[StrictInt, Field(description="ID of the prompt to update.")],
+        prompt_id: Annotated[UUID, Field(description="Public id of the prompt to update.")],
         prompt_in: PromptIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1115,8 +1116,8 @@ class Prompt:
 
         Update a prompt owned by the current user.
 
-        :param prompt_id: ID of the prompt to update. (required)
-        :type prompt_id: int
+        :param prompt_id: Public id of the prompt to update. (required)
+        :type prompt_id: UUID
         :param prompt_in: (required)
         :type prompt_in: PromptIn
         :param cookie_name:

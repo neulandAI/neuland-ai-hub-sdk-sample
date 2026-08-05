@@ -40,6 +40,7 @@ class TestLibrary(unittest.TestCase):
                 creator_user_id = 56,
                 updater_user_id = 56,
                 id = 56,
+                public_id = '',
                 tenant_id = 56,
                 name = '',
                 description = ''

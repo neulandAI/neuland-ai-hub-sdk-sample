@@ -46,7 +46,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tag(api_client)
-    tag_id = 56 # int | 
+    tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -63,7 +63,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tag_id** | **int**|  | 
+ **tag_id** | **UUID**|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -214,7 +214,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tag(api_client)
-    tag_id = 56 # int | 
+    tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     tag_in = neuland_hub_sdk.TagIn() # TagIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -234,7 +234,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tag_id** | **int**|  | 
+ **tag_id** | **UUID**|  | 
  **tag_in** | [**TagIn**](TagIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

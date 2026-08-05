@@ -130,7 +130,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.LlmCatalog(api_client)
-    catalog_id = 56 # int | ID of the catalog entry to delete.
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog entry to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -147,7 +147,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **catalog_id** | **int**| ID of the catalog entry to delete. | 
+ **catalog_id** | **UUID**| Public id of the catalog entry to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -213,7 +213,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.LlmCatalog(api_client)
-    catalog_id = 56 # int | ID of the catalog entry to update.
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog entry to update.
     catalog_update = neuland_hub_sdk.CatalogUpdate() # CatalogUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -233,7 +233,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **catalog_id** | **int**| ID of the catalog entry to update. | 
+ **catalog_id** | **UUID**| Public id of the catalog entry to update. | 
  **catalog_update** | [**CatalogUpdate**](CatalogUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

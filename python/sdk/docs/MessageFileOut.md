@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | ID of the attached document. | 
+**public_id** | **UUID** | Public, non-enumerable id of the attached document. | 
 **filename** | **str** | Original file name. | 
 **content_type** | **str** |  | 
 

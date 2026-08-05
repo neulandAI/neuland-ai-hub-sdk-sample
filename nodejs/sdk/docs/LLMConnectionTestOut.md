@@ -1,0 +1,25 @@
+# LLMConnectionTestOut
+
+Result of a connection test.  `ok=False` is returned with HTTP 200 for a reachable-but-failing config (bad key, wrong endpoint, unsupported library) so the caller can tell a failed connection apart from a server error. `detail` carries the provider or configuration error message.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**ok** | **boolean** | Whether the provider responded successfully. | [default to undefined]
+**detail** | **string** | Human-readable outcome or error message. | [default to undefined]
+**sample** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { LLMConnectionTestOut } from 'neuland-hub-sdk';
+
+const instance: LLMConnectionTestOut = {
+    ok,
+    detail,
+    sample,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

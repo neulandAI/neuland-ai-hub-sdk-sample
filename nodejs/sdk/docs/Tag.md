@@ -24,7 +24,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tag(configuration);
 
-let tagId: number; // (default to undefined)
+let tagId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tagsDeleteTag(
@@ -37,7 +37,7 @@ const { status, data } = await apiInstance.tagsDeleteTag(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tagId** | [**number**] |  | defaults to undefined|
+| **tagId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -140,7 +140,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tag(configuration);
 
-let tagId: number; // (default to undefined)
+let tagId: string; // (default to undefined)
 let tagIn: TagIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -156,7 +156,7 @@ const { status, data } = await apiInstance.tagsUpdateTag(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tagIn** | **TagIn**|  | |
-| **tagId** | [**number**] |  | defaults to undefined|
+| **tagId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

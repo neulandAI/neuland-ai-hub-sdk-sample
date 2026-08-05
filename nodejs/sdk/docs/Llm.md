@@ -27,12 +27,10 @@ const apiInstance = new Llm(configuration);
 
 let usageRequest: UsageRequest; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.llmGetCost(
     usageRequest,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -42,7 +40,6 @@ const { status, data } = await apiInstance.llmGetCost(
 |------------- | ------------- | ------------- | -------------|
 | **usageRequest** | **UsageRequest**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -88,12 +85,10 @@ const apiInstance = new Llm(configuration);
 
 let usageCostRequest: UsageCostRequest; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.llmGetUsageCosts(
     usageCostRequest,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -103,7 +98,6 @@ const { status, data } = await apiInstance.llmGetUsageCosts(
 |------------- | ------------- | ------------- | -------------|
 | **usageCostRequest** | **UsageCostRequest**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -150,12 +144,10 @@ const apiInstance = new Llm(configuration);
 
 let usageRequest: UsageRequest; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.llmLlmTotalTokens(
     usageRequest,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -165,7 +157,6 @@ const { status, data } = await apiInstance.llmLlmTotalTokens(
 |------------- | ------------- | ------------- | -------------|
 | **usageRequest** | **UsageRequest**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type

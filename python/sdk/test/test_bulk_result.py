@@ -37,14 +37,14 @@ class TestBulkResult(unittest.TestCase):
             return BulkResult(
                 count = 56,
                 ids = [
-                    56
+                    ''
                     ]
             )
         else:
             return BulkResult(
                 count = 56,
                 ids = [
-                    56
+                    ''
                     ],
         )
         """

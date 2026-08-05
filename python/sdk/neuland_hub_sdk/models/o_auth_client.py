@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from neuland_hub_sdk.models.o_auth2_provider_enum import OAuth2ProviderEnum
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,12 +35,13 @@ class OAuthClient(BaseModel):
     creator_user_id: Optional[StrictInt] = None
     updater_user_id: Optional[StrictInt] = None
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the OAuth client. Exposed to clients instead of the internal integer id.")
     name: StrictStr = Field(description="Unique human-readable name of the OAuth client.")
     provider_key: OAuth2ProviderEnum = Field(description="OAuth provider this client uses.")
     description: Optional[StrictStr] = None
     icon_url: Optional[StrictStr] = None
     oidc_issuer: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "name", "provider_key", "description", "icon_url", "oidc_issuer"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "name", "provider_key", "description", "icon_url", "oidc_issuer"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -127,6 +129,7 @@ class OAuthClient(BaseModel):
             "creator_user_id": obj.get("creator_user_id"),
             "updater_user_id": obj.get("updater_user_id"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "name": obj.get("name"),
             "provider_key": obj.get("provider_key"),
             "description": obj.get("description"),

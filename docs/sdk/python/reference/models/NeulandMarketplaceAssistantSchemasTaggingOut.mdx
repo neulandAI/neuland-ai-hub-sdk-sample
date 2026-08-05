@@ -1,0 +1,33 @@
+---
+title: "NeulandMarketplaceAssistantSchemasTaggingOut"
+---
+
+A tag applied to a polymorphic resource, identifying tag and resource by public id.  `tag_id`/`taggable_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `tag_public_id`/`taggable_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**tag_id** | **int** | Internal id of the tag (deprecated; use tag_public_id). | 
+**tag_public_id** | **UUID** | Public id of the tag. | 
+**taggable_type** | [**TaggableTypeEnum**](/sdk/python/reference/models/TaggableTypeEnum) | Resource type this tag is attached to. | 
+**taggable_id** | **int** | Internal id of the tagged resource (deprecated; use taggable_public_id). | 
+**taggable_public_id** | **UUID** | Public id of the tagged resource. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.neuland_marketplace_assistant_schemas_tagging_out import NeulandMarketplaceAssistantSchemasTaggingOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of NeulandMarketplaceAssistantSchemasTaggingOut from a JSON string
+neuland_marketplace_assistant_schemas_tagging_out_instance = NeulandMarketplaceAssistantSchemasTaggingOut.from_json(json)
+# print the JSON string representation of the object
+print(NeulandMarketplaceAssistantSchemasTaggingOut.to_json())
+
+# convert the object into a dict
+neuland_marketplace_assistant_schemas_tagging_out_dict = neuland_marketplace_assistant_schemas_tagging_out_instance.to_dict()
+# create an instance of NeulandMarketplaceAssistantSchemasTaggingOut from a dict
+neuland_marketplace_assistant_schemas_tagging_out_from_dict = NeulandMarketplaceAssistantSchemasTaggingOut.from_dict(neuland_marketplace_assistant_schemas_tagging_out_dict)
+```

@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,6 +31,7 @@ class Settings(BaseModel):
     Settings
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the settings record. Exposed to clients instead of the internal integer id.")
     tenant_id: StrictInt = Field(description="ID of the tenant these settings belong to.")
     default_llm_catalog_id: Optional[StrictInt] = None
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the settings record was created.")
@@ -42,7 +44,9 @@ class Settings(BaseModel):
     errlog_webhook_url: Optional[StrictStr] = None
     default_language: Optional[Annotated[str, Field(strict=True, max_length=5)]] = Field(default='en', description="Default language code for the tenant's emails.")
     require_email_confirmation: Optional[StrictBool] = Field(default=False, description="Whether users must confirm their email before login.")
-    __properties: ClassVar[List[str]] = ["id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "system_prompt", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation"]
+    budget_alert_enabled: Optional[StrictBool] = Field(default=False, description="Whether budget-alert emails are sent when tenant spend exceeds a threshold.")
+    soft_limit_warning_enabled: Optional[StrictBool] = Field(default=False, description="Whether soft-limit warning emails are sent when a user nears their monthly limit.")
+    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "system_prompt", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -136,6 +140,7 @@ class Settings(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
             "default_llm_catalog_id": obj.get("default_llm_catalog_id"),
             "created_at": obj.get("created_at"),
@@ -147,7 +152,9 @@ class Settings(BaseModel):
             "inserted_by": obj.get("inserted_by"),
             "errlog_webhook_url": obj.get("errlog_webhook_url"),
             "default_language": obj.get("default_language") if obj.get("default_language") is not None else 'en',
-            "require_email_confirmation": obj.get("require_email_confirmation") if obj.get("require_email_confirmation") is not None else False
+            "require_email_confirmation": obj.get("require_email_confirmation") if obj.get("require_email_confirmation") is not None else False,
+            "budget_alert_enabled": obj.get("budget_alert_enabled") if obj.get("budget_alert_enabled") is not None else False,
+            "soft_limit_warning_enabled": obj.get("soft_limit_warning_enabled") if obj.get("soft_limit_warning_enabled") is not None else False
         })
         return _obj
 

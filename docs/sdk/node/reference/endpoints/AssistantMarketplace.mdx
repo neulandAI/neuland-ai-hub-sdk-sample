@@ -1,0 +1,655 @@
+---
+title: "AssistantMarketplace"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**assistantListCatalog**](#assistantlistcatalog) | **GET** /marketplace/assistant/catalog/ | List all assistant catalog items — superadmin only|
+|[**marketplaceAddTagToCatalog**](#marketplaceaddtagtocatalog) | **POST** /marketplace/assistant/catalog/&#123;catalog_id&#125;/tags/&#123;tag_id&#125; | Add Tag To Catalog|
+|[**marketplaceAttachTool**](#marketplaceattachtool) | **POST** /marketplace/assistant/catalog/&#123;catalog_id&#125;/tools/&#123;tool_id&#125; | Attach Tool|
+|[**marketplaceCreateCatalog**](#marketplacecreatecatalog) | **POST** /marketplace/assistant/catalog/ | Create Catalog|
+|[**marketplaceDetachTool**](#marketplacedetachtool) | **DELETE** /marketplace/assistant/catalog/&#123;catalog_id&#125;/tools/&#123;tool_id&#125; | Detach Tool|
+|[**marketplaceInstallFromCatalog**](#marketplaceinstallfromcatalog) | **POST** /marketplace/assistant/catalog/&#123;catalog_id&#125;/install | Install From Catalog|
+|[**marketplaceListTools**](#marketplacelisttools) | **GET** /marketplace/assistant/catalog/&#123;catalog_id&#125;/tools | List Tools|
+|[**marketplaceRemoveTagFromCatalog**](#marketplaceremovetagfromcatalog) | **DELETE** /marketplace/assistant/catalog/&#123;catalog_id&#125;/tags/&#123;tag_id&#125; | Remove Tag From Catalog|
+|[**marketplaceUninstallFromCatalog**](#marketplaceuninstallfromcatalog) | **DELETE** /marketplace/assistant/catalog/&#123;catalog_id&#125;/install | Uninstall From Catalog|
+|[**marketplaceUpdateCatalog**](#marketplaceupdatecatalog) | **PATCH** /marketplace/assistant/catalog/&#123;catalog_id&#125; | Update Catalog|
+|[**marketplaceUpdateCatalogState**](#marketplaceupdatecatalogstate) | **PATCH** /marketplace/assistant/catalog/&#123;catalog_id&#125;/state | Update Catalog State|
+
+## **assistantListCatalog**
+```typescript
+Array<AssistantCatalog> assistantListCatalog()
+```
+
+Return every assistant catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let state: MarketplaceCatalogStateEnum; //Filter by state (ACTIVE / DEPRECATED). Omit for all. (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.assistantListCatalog(
+    state,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **state** | **MarketplaceCatalogStateEnum** | Filter by state (ACTIVE / DEPRECATED). Omit for all. | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;AssistantCatalog>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceAddTagToCatalog**
+```typescript
+NeulandMarketplaceAssistantSchemasTaggingOut marketplaceAddTagToCatalog()
+```
+
+attach a tag (tenant-scoped) to a marketplace catalog item.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let tagId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceAddTagToCatalog(
+    catalogId,
+    tagId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **tagId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**NeulandMarketplaceAssistantSchemasTaggingOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceAttachTool**
+```typescript
+AssistantCatalogToolOut marketplaceAttachTool()
+```
+
+attach a tool to an assistant catalog item.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let toolId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceAttachTool(
+    catalogId,
+    toolId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **toolId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**AssistantCatalogToolOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceCreateCatalog**
+```typescript
+any marketplaceCreateCatalog(assistantCatalogIn)
+```
+
+create a new assistant catalog item.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration,
+    AssistantCatalogIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let assistantCatalogIn: AssistantCatalogIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceCreateCatalog(
+    assistantCatalogIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **assistantCatalogIn** | **AssistantCatalogIn**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceDetachTool**
+```typescript
+marketplaceDetachTool()
+```
+
+detach a tool from an assistant catalog item.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let toolId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceDetachTool(
+    catalogId,
+    toolId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **toolId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceInstallFromCatalog**
+```typescript
+Assistant marketplaceInstallFromCatalog()
+```
+
+install a marketplace catalog item into the caller\'s tenant and join as a member.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceInstallFromCatalog(
+    catalogId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Assistant**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceListTools**
+```typescript
+Array<AssistantCatalogToolOut> marketplaceListTools()
+```
+
+list the tools currently attached to an assistant catalog item.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceListTools(
+    catalogId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;AssistantCatalogToolOut>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceRemoveTagFromCatalog**
+```typescript
+marketplaceRemoveTagFromCatalog()
+```
+
+detach a tag from a marketplace catalog item.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let tagId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceRemoveTagFromCatalog(
+    catalogId,
+    tagId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **tagId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceUninstallFromCatalog**
+```typescript
+marketplaceUninstallFromCatalog()
+```
+
+remove caller\'s membership; delete the materialized assistant if last member leaves.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceUninstallFromCatalog(
+    catalogId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceUpdateCatalog**
+```typescript
+AssistantCatalog marketplaceUpdateCatalog(assistantCatalogUpdate)
+```
+
+update an existing assistant catalog item.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration,
+    AssistantCatalogUpdate
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let assistantCatalogUpdate: AssistantCatalogUpdate; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceUpdateCatalog(
+    catalogId,
+    assistantCatalogUpdate,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **assistantCatalogUpdate** | **AssistantCatalogUpdate**|  | |
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**AssistantCatalog**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **marketplaceUpdateCatalogState**
+```typescript
+AssistantCatalog marketplaceUpdateCatalogState(marketplaceCatalogStateUpdate)
+```
+
+update the state of an existing assistant catalog item.
+
+### Example
+
+```typescript
+import {
+    AssistantMarketplace,
+    Configuration,
+    MarketplaceCatalogStateUpdate
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AssistantMarketplace(configuration);
+
+let catalogId: string; // (default to undefined)
+let marketplaceCatalogStateUpdate: MarketplaceCatalogStateUpdate; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.marketplaceUpdateCatalogState(
+    catalogId,
+    marketplaceCatalogStateUpdate,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **marketplaceCatalogStateUpdate** | **MarketplaceCatalogStateUpdate**|  | |
+| **catalogId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**AssistantCatalog**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |

@@ -40,6 +40,20 @@ class TestLlmSetting(unittest.TestCase):
         """
         pass
 
+    def test_llm_test_llm_connection(self) -> None:
+        """Test case for llm_test_llm_connection
+
+        Test an LLM connection
+        """
+        pass
+
+    def test_llm_test_transcription_connection(self) -> None:
+        """Test case for llm_test_transcription_connection
+
+        Test a transcription connection with an audio file
+        """
+        pass
+
     def test_llm_update_llm_settings(self) -> None:
         """Test case for llm_update_llm_settings
 

@@ -36,13 +36,13 @@ class TestLibraryMemberBulkDelete(unittest.TestCase):
         if include_optional:
             return LibraryMemberBulkDelete(
                 user_ids = [
-                    56
+                    ''
                     ]
             )
         else:
             return LibraryMemberBulkDelete(
                 user_ids = [
-                    56
+                    ''
                     ],
         )
         """

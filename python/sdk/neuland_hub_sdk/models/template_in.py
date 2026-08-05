@@ -17,21 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from neuland_hub_sdk.models.email_template_key import EmailTemplateKey
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
 class TemplateIn(BaseModel):
     """
-    Payload for creating or updating an email template.
+    Payload for creating an email template.
     """ # noqa: E501
     name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
-    text_body: StrictStr = Field(description="Plain-text body of the email.")
-    html_body: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["name", "text_body", "html_body"]
+    subject: Optional[StrictStr] = None
+    html_body: StrictStr = Field(description="HTML body of the email.")
+    key: Optional[EmailTemplateKey] = None
+    language: Optional[Annotated[str, Field(strict=True, max_length=5)]] = Field(default='en', description="Language code the template applies to.")
+    is_draft: Optional[StrictBool] = Field(default=False, description="Whether the template is a draft rather than the published default.")
+    __properties: ClassVar[List[str]] = ["name", "subject", "html_body", "key", "language", "is_draft"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -77,10 +81,15 @@ class TemplateIn(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
-        # set to None if html_body (nullable) is None
+        # set to None if subject (nullable) is None
         # and model_fields_set contains the field
-        if self.html_body is None and "html_body" in self.model_fields_set:
-            _dict['html_body'] = None
+        if self.subject is None and "subject" in self.model_fields_set:
+            _dict['subject'] = None
+
+        # set to None if key (nullable) is None
+        # and model_fields_set contains the field
+        if self.key is None and "key" in self.model_fields_set:
+            _dict['key'] = None
 
         return _dict
 
@@ -95,8 +104,11 @@ class TemplateIn(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "text_body": obj.get("text_body"),
-            "html_body": obj.get("html_body")
+            "subject": obj.get("subject"),
+            "html_body": obj.get("html_body"),
+            "key": obj.get("key"),
+            "language": obj.get("language") if obj.get("language") is not None else 'en',
+            "is_draft": obj.get("is_draft") if obj.get("is_draft") is not None else False
         })
         return _obj
 

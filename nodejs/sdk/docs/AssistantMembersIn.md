@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_ids** | **Array&lt;number&gt;** | IDs of the users to add or remove as members. | [default to undefined]
+**user_ids** | **Array&lt;string&gt;** | Public ids of the users to add or remove as members. | [default to undefined]
 
 ## Example
 

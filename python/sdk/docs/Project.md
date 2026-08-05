@@ -54,8 +54,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    project_id = 56 # int | 
-    library_id = 56 # int | 
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -74,8 +74,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  | 
- **library_id** | **int**|  | 
+ **project_id** | **UUID**| Public id of the project. | 
+ **library_id** | **UUID**| Public id of the library to enable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -142,7 +142,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    project_id = 56 # int | 
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to add members to.
     project_member_bulk_in = neuland_hub_sdk.ProjectMemberBulkIn() # ProjectMemberBulkIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -162,7 +162,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  | 
+ **project_id** | **UUID**| Public id of the project to add members to. | 
  **project_member_bulk_in** | [**ProjectMemberBulkIn**](ProjectMemberBulkIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -312,8 +312,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    project_id = 56 # int | 
-    user_id = 56 # int | ID of the user to remove.
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to remove the member from.
+    user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to remove.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -330,8 +330,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  | 
- **user_id** | **int**| ID of the user to remove. | 
+ **project_id** | **UUID**| Public id of the project to remove the member from. | 
+ **user_id** | **UUID**| Public id of the user to remove. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -397,7 +397,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    project_id = 56 # int | 
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to remove members from.
     project_member_bulk_delete = neuland_hub_sdk.ProjectMemberBulkDelete() # ProjectMemberBulkDelete | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -415,7 +415,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  | 
+ **project_id** | **UUID**| Public id of the project to remove members from. | 
  **project_member_bulk_delete** | [**ProjectMemberBulkDelete**](ProjectMemberBulkDelete.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -481,7 +481,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    project_id = 56 # int | 
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -498,7 +498,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  | 
+ **project_id** | **UUID**| Public id of the project to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -645,7 +645,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    project_id = 56 # int | 
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to leave.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -662,7 +662,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  | 
+ **project_id** | **UUID**| Public id of the project to leave. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -727,8 +727,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    project_id = 56 # int | 
-    library_id = 56 # int | ID of the library to disable.
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -745,8 +745,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  | 
- **library_id** | **int**| ID of the library to disable. | 
+ **project_id** | **UUID**| Public id of the project. | 
+ **library_id** | **UUID**| Public id of the library to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -813,7 +813,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Project(api_client)
-    project_id = 56 # int | 
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to update.
     project_in = neuland_hub_sdk.ProjectIn() # ProjectIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -833,7 +833,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | **int**|  | 
+ **project_id** | **UUID**| Public id of the project to update. | 
  **project_in** | [**ProjectIn**](ProjectIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

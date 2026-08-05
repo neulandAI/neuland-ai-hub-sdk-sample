@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **state** | **str** |  | 
 **is_error** | **bool** |  | 
 **description** | **str** |  | 
+**parent_tool_call_id** | **int** |  | [optional] 
 **progress_steps** | [**List[ToolCallProgressStepOut]**](ToolCallProgressStepOut.md) | Ordered progress steps emitted during the call. | 
 
 ## Example

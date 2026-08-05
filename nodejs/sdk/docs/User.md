@@ -34,14 +34,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let userId: number; //ID of the user to activate. (default to undefined)
+let userId: string; //Public id of the user to activate. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersActivateUser(
     userId,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -49,9 +47,8 @@ const { status, data } = await apiInstance.usersActivateUser(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **userId** | [**number**] | ID of the user to activate. | defaults to undefined|
+| **userId** | [**string**] | Public id of the user to activate. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -98,12 +95,10 @@ const apiInstance = new User(configuration);
 
 let groupIn: GroupIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersCreateGroup(
     groupIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -113,7 +108,6 @@ const { status, data } = await apiInstance.usersCreateGroup(
 |------------- | ------------- | ------------- | -------------|
 | **groupIn** | **GroupIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -159,12 +153,10 @@ const apiInstance = new User(configuration);
 
 let userIn: UserIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersCreateUser(
     userIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -174,7 +166,6 @@ const { status, data } = await apiInstance.usersCreateUser(
 |------------- | ------------- | ------------- | -------------|
 | **userIn** | **UserIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -217,14 +208,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let userId: number; //ID of the user to deactivate. (default to undefined)
+let userId: string; //Public id of the user to deactivate. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersDeactivateUser(
     userId,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -232,9 +221,8 @@ const { status, data } = await apiInstance.usersDeactivateUser(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **userId** | [**number**] | ID of the user to deactivate. | defaults to undefined|
+| **userId** | [**string**] | Public id of the user to deactivate. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -278,14 +266,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let groupId: number; //ID of the user group to delete. (default to undefined)
+let groupId: string; //Public id of the user group to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersDeleteGroup(
     groupId,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -293,9 +279,8 @@ const { status, data } = await apiInstance.usersDeleteGroup(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **groupId** | [**number**] | ID of the user group to delete. | defaults to undefined|
+| **groupId** | [**string**] | Public id of the user group to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -340,14 +325,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let userId: number; //ID of the user to delete. (default to undefined)
+let userId: string; //Public id of the user to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersDeleteUser(
     userId,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -355,9 +338,8 @@ const { status, data } = await apiInstance.usersDeleteUser(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **userId** | [**number**] | ID of the user to delete. | defaults to undefined|
+| **userId** | [**string**] | Public id of the user to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -386,9 +368,9 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **usersGetMyself**
-> UserOut usersGetMyself()
+> UserMeOut usersGetMyself()
 
-Return the profile of the currently authenticated user.
+Return the profile of the currently authenticated user, including the effective feature-flag map for their tenant.
 
 ### Example
 
@@ -417,7 +399,7 @@ const { status, data } = await apiInstance.usersGetMyself(
 
 ### Return type
 
-**UserOut**
+**UserMeOut**
 
 ### Authorization
 
@@ -513,14 +495,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let groupId: number; //ID of the external group to sync. (default to undefined)
+let groupId: string; //Public id of the external group to sync. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersSyncExternalGroup(
     groupId,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -528,9 +508,8 @@ const { status, data } = await apiInstance.usersSyncExternalGroup(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **groupId** | [**number**] | ID of the external group to sync. | defaults to undefined|
+| **groupId** | [**string**] | Public id of the external group to sync. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -577,16 +556,14 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let groupId: number; //ID of the user group to update. (default to undefined)
+let groupId: string; //Public id of the user group to update. (default to undefined)
 let groupIn: GroupIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersUpdateGroup(
     groupId,
     groupIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -595,9 +572,8 @@ const { status, data } = await apiInstance.usersUpdateGroup(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **groupIn** | **GroupIn**|  | |
-| **groupId** | [**number**] | ID of the user group to update. | defaults to undefined|
+| **groupId** | [**string**] | Public id of the user group to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -643,7 +619,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let userId: number; //ID of the user to update. (default to undefined)
+let userId: string; //Public id of the user to update. (default to undefined)
 let userUpdateIn: UserUpdateIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -659,7 +635,7 @@ const { status, data } = await apiInstance.usersUpdateUser(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **userUpdateIn** | **UserUpdateIn**|  | |
-| **userId** | [**number**] | ID of the user to update. | defaults to undefined|
+| **userId** | [**string**] | Public id of the user to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -704,16 +680,14 @@ import {
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
 
-let groupId: number; //ID of the user group to update. (default to undefined)
-let requestBody: Array<number | null>; //
+let groupId: string; //Public id of the user group to update. (default to undefined)
+let requestBody: Array<string | null>; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.usersUpsertMembers(
     groupId,
     requestBody,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -721,10 +695,9 @@ const { status, data } = await apiInstance.usersUpsertMembers(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **requestBody** | **Array<number | null>**|  | |
-| **groupId** | [**number**] | ID of the user group to update. | defaults to undefined|
+| **requestBody** | **Array<string | null>**|  | |
+| **groupId** | [**string**] | Public id of the user group to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type

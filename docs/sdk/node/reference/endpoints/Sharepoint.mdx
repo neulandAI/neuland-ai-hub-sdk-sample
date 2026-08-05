@@ -33,10 +33,10 @@ const apiInstance = new Sharepoint(configuration);
 
 let driveId: string; //Id of the drive. (default to undefined)
 let driveItemId: string; //Id of the drive item. (default to undefined)
-let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
-let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
-let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
-let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let chatId: string; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: string; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: string; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: string; //Scope imported counts to this project. (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.integrationsGetItemInfo(
@@ -56,10 +56,10 @@ const { status, data } = await apiInstance.integrationsGetItemInfo(
 |------------- | ------------- | ------------- | -------------|
 | **driveId** | [**string**] | Id of the drive. | defaults to undefined|
 | **driveItemId** | [**string**] | Id of the drive item. | defaults to undefined|
-| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
-| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
-| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
-| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **chatId** | [**string**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**string**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**string**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**string**] | Scope imported counts to this project. | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -213,10 +213,10 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
 
-let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
-let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
-let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
-let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let chatId: string; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: string; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: string; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: string; //Scope imported counts to this project. (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.integrationsListAllSites(
@@ -232,10 +232,10 @@ const { status, data } = await apiInstance.integrationsListAllSites(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
-| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
-| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
-| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **chatId** | [**string**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**string**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**string**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**string**] | Scope imported counts to this project. | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -282,10 +282,10 @@ const apiInstance = new Sharepoint(configuration);
 
 let driveId: string; //Id of the drive. (default to undefined)
 let driveItemId: string; //Id of the parent item; empty or \'root\' for the drive root. (default to undefined)
-let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
-let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
-let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
-let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let chatId: string; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: string; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: string; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: string; //Scope imported counts to this project. (optional) (default to undefined)
 let recursive: boolean; //Recurse into subfolders, returning only files. (optional) (default to false)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -307,10 +307,10 @@ const { status, data } = await apiInstance.integrationsListChildren(
 |------------- | ------------- | ------------- | -------------|
 | **driveId** | [**string**] | Id of the drive. | defaults to undefined|
 | **driveItemId** | [**string**] | Id of the parent item; empty or \&#39;root\&#39; for the drive root. | defaults to undefined|
-| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
-| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
-| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
-| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **chatId** | [**string**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**string**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**string**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**string**] | Scope imported counts to this project. | (optional) defaults to undefined|
 | **recursive** | [**boolean**] | Recurse into subfolders, returning only files. | (optional) defaults to false|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -357,10 +357,10 @@ const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
 
 let siteId: string; //SharePoint site id. (default to undefined)
-let chatId: number; //Scope imported counts to this chat. (optional) (default to undefined)
-let libraryId: number; //Scope imported counts to this library. (optional) (default to undefined)
-let assistantId: number; //Scope imported counts to this assistant. (optional) (default to undefined)
-let projectId: number; //Scope imported counts to this project. (optional) (default to undefined)
+let chatId: string; //Scope imported counts to this chat. (optional) (default to undefined)
+let libraryId: string; //Scope imported counts to this library. (optional) (default to undefined)
+let assistantId: string; //Scope imported counts to this assistant. (optional) (default to undefined)
+let projectId: string; //Scope imported counts to this project. (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.integrationsListDrives(
@@ -378,10 +378,10 @@ const { status, data } = await apiInstance.integrationsListDrives(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **siteId** | [**string**] | SharePoint site id. | defaults to undefined|
-| **chatId** | [**number**] | Scope imported counts to this chat. | (optional) defaults to undefined|
-| **libraryId** | [**number**] | Scope imported counts to this library. | (optional) defaults to undefined|
-| **assistantId** | [**number**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
-| **projectId** | [**number**] | Scope imported counts to this project. | (optional) defaults to undefined|
+| **chatId** | [**string**] | Scope imported counts to this chat. | (optional) defaults to undefined|
+| **libraryId** | [**string**] | Scope imported counts to this library. | (optional) defaults to undefined|
+| **assistantId** | [**string**] | Scope imported counts to this assistant. | (optional) defaults to undefined|
+| **projectId** | [**string**] | Scope imported counts to this project. | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

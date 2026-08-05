@@ -83,7 +83,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Prompt(configuration);
 
-let promptId: number; //ID of the prompt to delete. (default to undefined)
+let promptId: string; //Public id of the prompt to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.promptsDeletePrompt(
@@ -96,7 +96,7 @@ const { status, data } = await apiInstance.promptsDeletePrompt(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **promptId** | [**number**] | ID of the prompt to delete. | defaults to undefined|
+| **promptId** | [**string**] | Public id of the prompt to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -201,7 +201,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Prompt(configuration);
 
-let promptId: number; //ID of the prompt to update. (default to undefined)
+let promptId: string; //Public id of the prompt to update. (default to undefined)
 let promptIn: PromptIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -217,7 +217,7 @@ const { status, data } = await apiInstance.promptsUpdatePrompt(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **promptIn** | **PromptIn**|  | |
-| **promptId** | [**number**] | ID of the prompt to update. | defaults to undefined|
+| **promptId** | [**string**] | Public id of the prompt to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

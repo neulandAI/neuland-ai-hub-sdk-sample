@@ -1,0 +1,34 @@
+# LibraryMemberOut
+
+A library membership, identifying the library and member by public id.  `library_id`/`user_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `library_public_id`/`user_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**library_id** | **int** | Internal id of the library (deprecated; use library_public_id). | 
+**library_public_id** | **UUID** | Public id of the library. | 
+**user_id** | **int** | Internal id of the member user (deprecated; use user_public_id). | 
+**user_public_id** | **UUID** | Public id of the member user. | 
+**role** | **str** | Role of the member. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.library_member_out import LibraryMemberOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of LibraryMemberOut from a JSON string
+library_member_out_instance = LibraryMemberOut.from_json(json)
+# print the JSON string representation of the object
+print(LibraryMemberOut.to_json())
+
+# convert the object into a dict
+library_member_out_dict = library_member_out_instance.to_dict()
+# create an instance of LibraryMemberOut from a dict
+library_member_out_from_dict = LibraryMemberOut.from_dict(library_member_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

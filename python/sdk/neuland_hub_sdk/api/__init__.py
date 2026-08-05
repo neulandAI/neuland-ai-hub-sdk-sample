@@ -4,13 +4,19 @@
 from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.api.api_key import ApiKey
 from neuland_hub_sdk.api.application import Application
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.api.assistant import Assistant
+from neuland_hub_sdk.api.assistant_marketplace import AssistantMarketplace
 from neuland_hub_sdk.api.atlassian import Atlassian
 from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.api.auth_connector import AuthConnector
+from neuland_hub_sdk.api.category import Category
 from neuland_hub_sdk.api.chat import Chat
 from neuland_hub_sdk.api.document import Document
+from neuland_hub_sdk.api.dropbox import Dropbox
+from neuland_hub_sdk.api.feature_flag import FeatureFlag
 from neuland_hub_sdk.api.file import File
+from neuland_hub_sdk.api.google_drive import GoogleDrive
 from neuland_hub_sdk.api.invitation import Invitation
 from neuland_hub_sdk.api.library import Library
 from neuland_hub_sdk.api.llm import Llm
@@ -23,6 +29,7 @@ from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.api.prompt import Prompt
 from neuland_hub_sdk.api.query import Query
 from neuland_hub_sdk.api.rating import Rating
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.api.settings import Settings
 from neuland_hub_sdk.api.sharepoint import Sharepoint
 from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1
@@ -36,5 +43,6 @@ from neuland_hub_sdk.api.tool import Tool
 from neuland_hub_sdk.api.tool_action import ToolAction
 from neuland_hub_sdk.api.transcription import Transcription
 from neuland_hub_sdk.api.user import User
+from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.api.default import Default
 

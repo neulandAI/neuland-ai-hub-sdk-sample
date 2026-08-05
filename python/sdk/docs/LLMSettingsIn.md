@@ -5,12 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_catalog_id** | **int** | ID of the catalog model these settings configure. | 
+**llm_catalog_id** | **UUID** | Public id of the catalog model these settings configure. | 
 **provider** | **str** | Provider backing the model. | 
 **library** | **str** | Client library used to call the provider. | 
 **max_tokens** | **int** | Maximum tokens allowed per request for this model. | 
 **cost_prompt_tokens** | [**CostPromptTokens**](CostPromptTokens.md) |  | 
 **cost_completion_tokens** | [**CostCompletionTokens**](CostCompletionTokens.md) |  | 
+**cost_cached_tokens** | [**CostCachedTokens**](CostCachedTokens.md) |  | [optional] 
+**cost_audio_per_minute** | [**CostAudioPerMinute**](CostAudioPerMinute.md) |  | [optional] 
 **region** | **str** |  | [optional] 
 **args** | **Dict[str, object]** |  | [optional] 
 **openai_resource** | **str** |  | [optional] 

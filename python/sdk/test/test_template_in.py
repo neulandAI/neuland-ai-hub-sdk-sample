@@ -36,12 +36,15 @@ class TestTemplateIn(unittest.TestCase):
         if include_optional:
             return TemplateIn(
                 name = '',
-                text_body = '',
-                html_body = ''
+                subject = '',
+                html_body = '',
+                key = 'auth.pass.reset',
+                language = 'en',
+                is_draft = True
             )
         else:
             return TemplateIn(
-                text_body = '',
+                html_body = '',
         )
         """
 

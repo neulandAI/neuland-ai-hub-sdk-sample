@@ -37,11 +37,11 @@ class TestTenantUpdateIn(unittest.TestCase):
             return TenantUpdateIn(
                 name = '',
                 domain = '',
-                parent_tenant_id = 56,
+                parent_tenant_id = '',
                 subtenants_enabled = True,
                 timezone = '',
                 locale = '',
-                tarif_id = 56,
+                tarif_id = '',
                 tarif_expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 max_users = 56,
                 max_projects = 56,

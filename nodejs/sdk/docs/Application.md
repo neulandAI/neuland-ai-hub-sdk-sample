@@ -84,7 +84,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);
 
-let appId: number; //ID of the application to delete. (default to undefined)
+let appId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.applicationsDeleteApp(
@@ -97,7 +97,7 @@ const { status, data } = await apiInstance.applicationsDeleteApp(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **appId** | [**number**] | ID of the application to delete. | defaults to undefined|
+| **appId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -121,7 +121,7 @@ void (empty response body)
 |**204** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Superadmin privileges required. |  -  |
-|**404** | No application exists with the given id. |  -  |
+|**404** | No application exists with the given public id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -143,7 +143,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);
 
-let appId: number; //ID of the application to update. (default to undefined)
+let appId: string; // (default to undefined)
 let applicationIn: ApplicationIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -159,7 +159,7 @@ const { status, data } = await apiInstance.applicationsUpdateApp(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **applicationIn** | **ApplicationIn**|  | |
-| **appId** | [**number**] | ID of the application to update. | defaults to undefined|
+| **appId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -183,13 +183,13 @@ const { status, data } = await apiInstance.applicationsUpdateApp(
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Superadmin privileges required. |  -  |
-|**404** | No application exists with the given id. |  -  |
+|**404** | No application exists with the given public id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **applicationsUpdateGroupMembership**
-> Array<ApplicationGroup> applicationsUpdateGroupMembership(groupAppAccessIn)
+> Array<ApplicationGroupOut> applicationsUpdateGroupMembership(groupAppAccessIn)
 
 Grant or update application access for a user group (tenant admin only).
 
@@ -207,12 +207,10 @@ const apiInstance = new Application(configuration);
 
 let groupAppAccessIn: GroupAppAccessIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.applicationsUpdateGroupMembership(
     groupAppAccessIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -222,12 +220,11 @@ const { status, data } = await apiInstance.applicationsUpdateGroupMembership(
 |------------- | ------------- | ------------- | -------------|
 | **groupAppAccessIn** | **GroupAppAccessIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Array<ApplicationGroup>**
+**Array<ApplicationGroupOut>**
 
 ### Authorization
 
@@ -251,7 +248,7 @@ const { status, data } = await apiInstance.applicationsUpdateGroupMembership(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **applicationsUpdateUserMembership**
-> Array<ApplicationMember> applicationsUpdateUserMembership(applicationAccessIn)
+> Array<ApplicationMemberOut> applicationsUpdateUserMembership(applicationAccessIn)
 
 Grant or update application access for a list of users (tenant admin only).
 
@@ -269,12 +266,10 @@ const apiInstance = new Application(configuration);
 
 let applicationAccessIn: ApplicationAccessIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.applicationsUpdateUserMembership(
     applicationAccessIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -284,12 +279,11 @@ const { status, data } = await apiInstance.applicationsUpdateUserMembership(
 |------------- | ------------- | ------------- | -------------|
 | **applicationAccessIn** | **ApplicationAccessIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Array<ApplicationMember>**
+**Array<ApplicationMemberOut>**
 
 ### Authorization
 

@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **count** | **number** | Number of rows affected. | [default to undefined]
-**ids** | **Array&lt;number&gt;** | IDs that were targeted by the operation. | [default to undefined]
+**ids** | **Array&lt;string&gt;** | Public ids that were targeted by the operation. | [default to undefined]
 
 ## Example
 

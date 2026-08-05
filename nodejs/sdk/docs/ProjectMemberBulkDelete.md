@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_ids** | **Array&lt;number&gt;** | IDs of the users to remove from the project. | [default to undefined]
+**user_ids** | **Array&lt;string&gt;** | Public ids of the users to remove from the project. | [default to undefined]
 
 ## Example
 

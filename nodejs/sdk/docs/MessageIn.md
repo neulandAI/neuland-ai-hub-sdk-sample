@@ -6,16 +6,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **content** | **string** |  | [optional] [default to undefined]
-**chat_id** | **number** |  | [optional] [default to undefined]
-**updated_at** | **string** |  | [optional] [default to undefined]
-**project_id** | **number** |  | [optional] [default to undefined]
+**chat_id** | **string** |  | [optional] [default to undefined]
+**project_id** | **string** |  | [optional] [default to undefined]
 **model** | **string** |  | [optional] [default to undefined]
 **temperature** | **number** |  | [optional] [default to undefined]
 **similarity_top_k** | **number** |  | [optional] [default to undefined]
 **system_prompt** | **string** |  | [optional] [default to undefined]
-**assistant_id** | **number** |  | [optional] [default to undefined]
+**assistant_id** | **string** |  | [optional] [default to undefined]
 **_private** | **boolean** |  | [optional] [default to undefined]
 **form_data** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
+**form_fields** | **Array&lt;{ [key: string]: any; }&gt;** |  | [optional] [default to undefined]
+**playground** | **boolean** | Start a playground (sandbox) chat for testing assistant settings: the given system_prompt/temperature/similarity_top_k/model override the assistant\&#39;s live config without saving it. Requires assistant_id; only the assistant\&#39;s creator may use it. | [optional] [default to false]
 
 ## Example
 
@@ -25,7 +26,6 @@ import { MessageIn } from 'neuland-hub-sdk';
 const instance: MessageIn = {
     content,
     chat_id,
-    updated_at,
     project_id,
     model,
     temperature,
@@ -34,6 +34,8 @@ const instance: MessageIn = {
     assistant_id,
     _private,
     form_data,
+    form_fields,
+    playground,
 };
 ```
 

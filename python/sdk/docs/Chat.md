@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**chats_add_library_to_chat**](Chat.md#chats_add_library_to_chat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add a library to a chat
 [**chats_cancel_message**](Chat.md#chats_cancel_message) | **POST** /chats/{chat_id}/cancel | Cancel in-progress generation
 [**chats_deactivate_documents**](Chat.md#chats_deactivate_documents) | **POST** /chats/{chat_id}/inactive-documents | Deactivate documents in a chat
+[**chats_list_chat_message_turns**](Chat.md#chats_list_chat_message_turns) | **GET** /chats/{chat_id}/turns | List message turns for a chat
 [**chats_remove_chat**](Chat.md#chats_remove_chat) | **DELETE** /chats/{chat_id} | Delete a chat
 [**chats_remove_inactive_documents**](Chat.md#chats_remove_inactive_documents) | **DELETE** /chats/{chat_id}/inactive-documents | Reactivate documents in a chat
 [**chats_remove_library_from_chat**](Chat.md#chats_remove_library_from_chat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat
@@ -53,8 +54,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
-    library_id = 56 # int | 
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the library to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -73,8 +74,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
- **library_id** | **int**|  | 
+ **chat_id** | **UUID**| ID of the chat. | 
+ **library_id** | **UUID**| ID of the library to enable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -138,7 +139,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -157,7 +158,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
+ **chat_id** | **UUID**| ID of the chat. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -185,7 +186,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **chats_deactivate_documents**
-> List[ChatInactiveDocument] chats_deactivate_documents(chat_id, document_ids, cookie_name=cookie_name)
+> List[ChatInactiveDocumentOut] chats_deactivate_documents(chat_id, document_ids, cookie_name=cookie_name)
 
 Deactivate documents in a chat
 
@@ -197,7 +198,7 @@ Exclude the given documents from the chat's retrieval context.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.chat_inactive_document import ChatInactiveDocument
+from neuland_hub_sdk.models.chat_inactive_document_out import ChatInactiveDocumentOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -222,8 +223,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
-    document_ids = [56] # List[int] | 
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat.
+    document_ids = None # List[UUID] | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -242,13 +243,13 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
- **document_ids** | [**List[int]**](int.md)|  | 
+ **chat_id** | **UUID**| ID of the chat. | 
+ **document_ids** | [**List[UUID]**](UUID.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[ChatInactiveDocument]**](ChatInactiveDocument.md)
+[**List[ChatInactiveDocumentOut]**](ChatInactiveDocumentOut.md)
 
 ### Authorization
 
@@ -267,6 +268,92 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | No access to this chat. |  -  |
 **404** | Chat or one of the documents does not exist. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **chats_list_chat_message_turns**
+> object chats_list_chat_message_turns(chat_id, limit=limit, offset=offset, cookie_name=cookie_name)
+
+List message turns for a chat
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Chat(api_client)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the chat.
+    limit = 50 # int | Max turns to return (newest first). (optional) (default to 50)
+    offset = 0 # int | Number of newest turns to skip. (optional) (default to 0)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List message turns for a chat
+        api_response = api_instance.chats_list_chat_message_turns(chat_id, limit=limit, offset=offset, cookie_name=cookie_name)
+        print("The response of Chat->chats_list_chat_message_turns:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Chat->chats_list_chat_message_turns: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **chat_id** | **UUID**| Public id of the chat. | 
+ **limit** | **int**| Max turns to return (newest first). | [optional] [default to 50]
+ **offset** | **int**| Number of newest turns to skip. | [optional] [default to 0]
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to this chat. |  -  |
+**404** | Chat does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -308,7 +395,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -325,7 +412,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
+ **chat_id** | **UUID**| ID of the chat to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -391,8 +478,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
-    document_ids = [56] # List[int] | 
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat.
+    document_ids = None # List[UUID] | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -411,8 +498,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
- **document_ids** | [**List[int]**](int.md)|  | 
+ **chat_id** | **UUID**| ID of the chat. | 
+ **document_ids** | [**List[UUID]**](UUID.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -476,8 +563,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
-    library_id = 56 # int | ID of the library to disable.
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the library to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -494,8 +581,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
- **library_id** | **int**| ID of the library to disable. | 
+ **chat_id** | **UUID**| ID of the chat. | 
+ **library_id** | **UUID**| ID of the library to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -559,7 +646,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat to summarize.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -578,7 +665,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
+ **chat_id** | **UUID**| ID of the chat to summarize. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -645,7 +732,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat to update.
     chat_in = neuland_hub_sdk.ChatIn() # ChatIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -665,7 +752,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
+ **chat_id** | **UUID**| ID of the chat to update. | 
  **chat_in** | [**ChatIn**](ChatIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -733,8 +820,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = 56 # int | 
-    tool_id = 56 # int | ID of the tool to configure.
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat.
+    tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to configure.
     chat_tool_settings_update = neuland_hub_sdk.ChatToolSettingsUpdate() # ChatToolSettingsUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -754,8 +841,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**|  | 
- **tool_id** | **int**| ID of the tool to configure. | 
+ **chat_id** | **UUID**| ID of the chat. | 
+ **tool_id** | **UUID**| Public id of the tool to configure. | 
  **chat_tool_settings_update** | [**ChatToolSettingsUpdate**](ChatToolSettingsUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

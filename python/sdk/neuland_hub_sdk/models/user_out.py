@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,6 +30,7 @@ class UserOut(BaseModel):
     UserOut
     """ # noqa: E501
     id: StrictInt = Field(description="Unique identifier of the user.")
+    public_id: UUID = Field(description="Public, non-enumerable external identifier of the user.")
     created_at: datetime = Field(description="UTC timestamp when the user was created.")
     email: StrictStr = Field(description="Current confirmed email address.")
     email_confirmed: StrictBool = Field(description="Whether the email address has been confirmed.")
@@ -36,11 +38,13 @@ class UserOut(BaseModel):
     name: Optional[StrictStr] = None
     first_name: Optional[StrictStr] = None
     last_name: Optional[StrictStr] = None
-    admin: StrictBool = Field(description="Whether the user has tenant administrator privileges.")
+    admin: Optional[StrictBool] = Field(default=False, description="Whether the user has tenant administrator privileges.")
     superadmin: Optional[StrictBool] = None
     active: StrictBool = Field(description="Whether the account is active and can authenticate.")
     tenant_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["id", "created_at", "email", "email_confirmed", "pending_email", "name", "first_name", "last_name", "admin", "superadmin", "active", "tenant_id"]
+    tenant_public_id: Optional[UUID] = None
+    permissions: Optional[List[StrictStr]] = Field(default=None, description="Effective permission keys the user holds, including those granted through group membership.")
+    __properties: ClassVar[List[str]] = ["id", "public_id", "created_at", "email", "email_confirmed", "pending_email", "name", "first_name", "last_name", "admin", "superadmin", "active", "tenant_id", "tenant_public_id", "permissions"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -111,6 +115,11 @@ class UserOut(BaseModel):
         if self.tenant_id is None and "tenant_id" in self.model_fields_set:
             _dict['tenant_id'] = None
 
+        # set to None if tenant_public_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.tenant_public_id is None and "tenant_public_id" in self.model_fields_set:
+            _dict['tenant_public_id'] = None
+
         return _dict
 
     @classmethod
@@ -124,6 +133,7 @@ class UserOut(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "created_at": obj.get("created_at"),
             "email": obj.get("email"),
             "email_confirmed": obj.get("email_confirmed"),
@@ -131,10 +141,12 @@ class UserOut(BaseModel):
             "name": obj.get("name"),
             "first_name": obj.get("first_name"),
             "last_name": obj.get("last_name"),
-            "admin": obj.get("admin"),
+            "admin": obj.get("admin") if obj.get("admin") is not None else False,
             "superadmin": obj.get("superadmin"),
             "active": obj.get("active"),
-            "tenant_id": obj.get("tenant_id")
+            "tenant_id": obj.get("tenant_id"),
+            "tenant_public_id": obj.get("tenant_public_id"),
+            "permissions": obj.get("permissions")
         })
         return _obj
 

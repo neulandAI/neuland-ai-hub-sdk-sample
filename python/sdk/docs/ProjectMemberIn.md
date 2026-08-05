@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_id** | **int** | ID of the user to add to the project. | 
+**user_id** | **UUID** | Public id of the user to add to the project. | 
 **role** | **str** | Role to assign to the member (e.g. &#x60;owner&#x60; or &#x60;member&#x60;). | 
 
 ## Example

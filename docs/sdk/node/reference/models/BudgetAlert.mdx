@@ -9,6 +9,7 @@ Saves the budget alerts.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **number** |  | [optional] [default to undefined]
+**public_id** | **string** | Public, non-enumerable external identifier for the budget alert. Exposed to clients instead of the internal integer id. | [optional] [default to undefined]
 **tenant_id** | **number** | ID of the tenant the budget alert belongs to. | [default to undefined]
 **name** | **string** | Name of the alert. | [optional] [default to undefined]
 **threshold_amount** | **number** | Budget threshold, for notification. | [optional] [default to 0]
@@ -26,6 +27,7 @@ import { BudgetAlert } from 'neuland-hub-sdk';
 
 const instance: BudgetAlert = {
     id,
+    public_id,
     tenant_id,
     name,
     threshold_amount,

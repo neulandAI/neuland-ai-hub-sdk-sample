@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** | The full secret token, in the form &#x60;ak.&lt;key_id&gt;.&lt;secret&gt;&#x60;. **Shown only once at creation** — store it securely; it cannot be retrieved again. | 
 **key_id** | **str** | Public identifier of the key. Safe to log and reference. | 
+**public_id** | **UUID** | Public, non-enumerable id of the key. Use it to revoke the key via PATCH /api/key/revoke/&#123;public_id&#125;. | 
 **expires_at** | **datetime** |  | [optional] 
 
 ## Example

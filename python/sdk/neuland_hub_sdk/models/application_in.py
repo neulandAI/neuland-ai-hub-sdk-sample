@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +30,7 @@ class ApplicationIn(BaseModel):
     """ # noqa: E501
     name: StrictStr = Field(description="Display name of the application.")
     is_active: Optional[StrictBool] = Field(default=True, description="Whether the application is active and available to users.")
-    tenant_id: StrictInt = Field(description="ID of the tenant the application belongs to.")
+    tenant_id: UUID = Field(description="Public id of the tenant the application belongs to.")
     app_url: Optional[StrictStr] = None
     is_native: Optional[StrictBool] = None
     native_app_id: Optional[StrictInt] = None

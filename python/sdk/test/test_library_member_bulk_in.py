@@ -37,7 +37,7 @@ class TestLibraryMemberBulkIn(unittest.TestCase):
             return LibraryMemberBulkIn(
                 members = [
                     neuland_hub_sdk.models.library_member_in.LibraryMemberIn(
-                        user_id = 56, 
+                        user_id = '', 
                         role = '', )
                     ]
             )
@@ -45,7 +45,7 @@ class TestLibraryMemberBulkIn(unittest.TestCase):
             return LibraryMemberBulkIn(
                 members = [
                     neuland_hub_sdk.models.library_member_in.LibraryMemberIn(
-                        user_id = 56, 
+                        user_id = '', 
                         role = '', )
                     ],
         )

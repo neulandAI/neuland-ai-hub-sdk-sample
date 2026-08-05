@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,10 +31,10 @@ class SystemSettingsUpdate(BaseModel):
     """ # noqa: E501
     maintenance_enabled: Optional[StrictBool] = None
     tracing_enabled: Optional[StrictBool] = None
-    inbound_guardrail_llm_settings_id: Optional[StrictInt] = None
-    outbound_guardrail_llm_settings_id: Optional[StrictInt] = None
-    embedding_llm_settings_id: Optional[StrictInt] = None
-    transcription_llm_settings_id: Optional[StrictInt] = None
+    inbound_guardrail_llm_settings_id: Optional[UUID] = None
+    outbound_guardrail_llm_settings_id: Optional[UUID] = None
+    embedding_llm_settings_id: Optional[UUID] = None
+    transcription_llm_settings_id: Optional[UUID] = None
     maintenance_start_at: Optional[datetime] = None
     maintenance_end_at: Optional[datetime] = None
     maintenance_message: Optional[StrictStr] = None

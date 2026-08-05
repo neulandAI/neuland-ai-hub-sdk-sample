@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **string** | The full secret token, in the form &#x60;ak.&lt;key_id&gt;.&lt;secret&gt;&#x60;. **Shown only once at creation** — store it securely; it cannot be retrieved again. | [default to undefined]
 **key_id** | **string** | Public identifier of the key. Safe to log and reference. | [default to undefined]
+**public_id** | **string** | Public, non-enumerable id of the key. Use it to revoke the key via PATCH /api/key/revoke/{public_id}. | [default to undefined]
 **expires_at** | **string** |  | [optional] [default to undefined]
 
 ## Example
@@ -18,6 +19,7 @@ import { ApiKeyCreateResponse } from 'neuland-hub-sdk';
 const instance: ApiKeyCreateResponse = {
     key,
     key_id,
+    public_id,
     expires_at,
 };
 ```

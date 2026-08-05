@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **state** | **string** |  | [default to undefined]
 **is_error** | **boolean** |  | [default to undefined]
 **description** | **string** |  | [default to undefined]
+**parent_tool_call_id** | **number** |  | [optional] [default to undefined]
 **progress_steps** | [**Array&lt;ToolCallProgressStepOut&gt;**](ToolCallProgressStepOut.md) | Ordered progress steps emitted during the call. | [default to undefined]
 
 ## Example
@@ -29,6 +30,7 @@ const instance: ToolCallOut = {
     state,
     is_error,
     description,
+    parent_tool_call_id,
     progress_steps,
 };
 ```

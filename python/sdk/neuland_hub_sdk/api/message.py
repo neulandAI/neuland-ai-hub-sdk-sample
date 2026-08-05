@@ -15,13 +15,16 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from datetime import datetime
 from pydantic import Field, StrictBool, StrictBytes, StrictFloat, StrictInt, StrictStr
 from typing import Any, List, Optional, Tuple, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.message import Message
 from neuland_hub_sdk.models.message_detail_out import MessageDetailOut
 from neuland_hub_sdk.models.message_in import MessageIn
+from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut
+from neuland_hub_sdk.models.message_turn_out import MessageTurnOut
+from neuland_hub_sdk.models.resume_in import ResumeIn
 from neuland_hub_sdk.models.translation import Translation
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
@@ -43,9 +46,302 @@ class Message:
 
 
     @validate_call
+    def messages_continue_message(
+        self,
+        message_id: Annotated[UUID, Field(description="Public id of the truncated assistant message.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> Message:
+        """Continue a truncated assistant message
+
+        Resume an assistant reply that was cut off by the output-token limit.  Reprocesses the same assistant message: the model receives the chat history ending on the truncated reply plus a continuation instruction, and the new tokens are appended to the existing content under the same message id (no extra transcript entries). Only the newest message of a chat is continuable, and only when it completed with `state_reason=MAX_OUTPUT_TOKENS`.
+
+        :param message_id: Public id of the truncated assistant message. (required)
+        :type message_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_continue_message_serialize(
+            message_id=message_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def messages_continue_message_with_http_info(
+        self,
+        message_id: Annotated[UUID, Field(description="Public id of the truncated assistant message.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[Message]:
+        """Continue a truncated assistant message
+
+        Resume an assistant reply that was cut off by the output-token limit.  Reprocesses the same assistant message: the model receives the chat history ending on the truncated reply plus a continuation instruction, and the new tokens are appended to the existing content under the same message id (no extra transcript entries). Only the newest message of a chat is continuable, and only when it completed with `state_reason=MAX_OUTPUT_TOKENS`.
+
+        :param message_id: Public id of the truncated assistant message. (required)
+        :type message_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_continue_message_serialize(
+            message_id=message_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def messages_continue_message_without_preload_content(
+        self,
+        message_id: Annotated[UUID, Field(description="Public id of the truncated assistant message.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Continue a truncated assistant message
+
+        Resume an assistant reply that was cut off by the output-token limit.  Reprocesses the same assistant message: the model receives the chat history ending on the truncated reply plus a continuation instruction, and the new tokens are appended to the existing content under the same message id (no extra transcript entries). Only the newest message of a chat is continuable, and only when it completed with `state_reason=MAX_OUTPUT_TOKENS`.
+
+        :param message_id: Public id of the truncated assistant message. (required)
+        :type message_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_continue_message_serialize(
+            message_id=message_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Message",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _messages_continue_message_serialize(
+        self,
+        message_id,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if message_id is not None:
+            _path_params['message_id'] = message_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/messages/{message_id}/continue',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def messages_convert_message(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to convert.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to convert.")],
         format: Annotated[Any, Field(description="Output format")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -66,7 +362,7 @@ class Message:
         Convert a message to various document formats.
 
         :param message_id: ID of the message to convert. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param format: Output format (required)
         :type format: OutputFormat
         :param cookie_name:
@@ -124,7 +420,7 @@ class Message:
     @validate_call
     def messages_convert_message_with_http_info(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to convert.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to convert.")],
         format: Annotated[Any, Field(description="Output format")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -145,7 +441,7 @@ class Message:
         Convert a message to various document formats.
 
         :param message_id: ID of the message to convert. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param format: Output format (required)
         :type format: OutputFormat
         :param cookie_name:
@@ -203,7 +499,7 @@ class Message:
     @validate_call
     def messages_convert_message_without_preload_content(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to convert.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to convert.")],
         format: Annotated[Any, Field(description="Output format")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -224,7 +520,7 @@ class Message:
         Convert a message to various document formats.
 
         :param message_id: ID of the message to convert. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param format: Output format (required)
         :type format: OutputFormat
         :param cookie_name:
@@ -655,7 +951,7 @@ class Message:
     @validate_call
     def messages_get_message(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to fetch.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to fetch.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -675,7 +971,7 @@ class Message:
         Canonical recovery endpoint: full composed state of a message.
 
         :param message_id: ID of the message to fetch. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -730,7 +1026,7 @@ class Message:
     @validate_call
     def messages_get_message_with_http_info(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to fetch.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to fetch.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -750,7 +1046,7 @@ class Message:
         Canonical recovery endpoint: full composed state of a message.
 
         :param message_id: ID of the message to fetch. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -805,7 +1101,7 @@ class Message:
     @validate_call
     def messages_get_message_without_preload_content(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to fetch.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to fetch.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -825,7 +1121,7 @@ class Message:
         Canonical recovery endpoint: full composed state of a message.
 
         :param message_id: ID of the message to fetch. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -943,9 +1239,299 @@ class Message:
 
 
     @validate_call
+    def messages_get_message_turn(
+        self,
+        message_id: Annotated[UUID, Field(description="Public id of any message belonging to the turn.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> MessageTurnOut:
+        """Get all step-messages for a turn
+
+        Ordered step-messages for a turn (future multi-bubble UI).
+
+        :param message_id: Public id of any message belonging to the turn. (required)
+        :type message_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_get_message_turn_serialize(
+            message_id=message_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "MessageTurnOut",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def messages_get_message_turn_with_http_info(
+        self,
+        message_id: Annotated[UUID, Field(description="Public id of any message belonging to the turn.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[MessageTurnOut]:
+        """Get all step-messages for a turn
+
+        Ordered step-messages for a turn (future multi-bubble UI).
+
+        :param message_id: Public id of any message belonging to the turn. (required)
+        :type message_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_get_message_turn_serialize(
+            message_id=message_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "MessageTurnOut",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def messages_get_message_turn_without_preload_content(
+        self,
+        message_id: Annotated[UUID, Field(description="Public id of any message belonging to the turn.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get all step-messages for a turn
+
+        Ordered step-messages for a turn (future multi-bubble UI).
+
+        :param message_id: Public id of any message belonging to the turn. (required)
+        :type message_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_get_message_turn_serialize(
+            message_id=message_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "MessageTurnOut",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _messages_get_message_turn_serialize(
+        self,
+        message_id,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if message_id is not None:
+            _path_params['message_id'] = message_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/messages/{message_id}/turn',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def messages_rephrase_message(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to rephrase.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to rephrase.")],
         style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -966,7 +1552,7 @@ class Message:
         Rephrase a message's content in the requested style.
 
         :param message_id: ID of the message to rephrase. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param style: Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer) (required)
         :type style: RephraseStyleEnum
         :param cookie_name:
@@ -1024,7 +1610,7 @@ class Message:
     @validate_call
     def messages_rephrase_message_with_http_info(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to rephrase.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to rephrase.")],
         style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1045,7 +1631,7 @@ class Message:
         Rephrase a message's content in the requested style.
 
         :param message_id: ID of the message to rephrase. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param style: Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer) (required)
         :type style: RephraseStyleEnum
         :param cookie_name:
@@ -1103,7 +1689,7 @@ class Message:
     @validate_call
     def messages_rephrase_message_without_preload_content(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to rephrase.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to rephrase.")],
         style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1124,7 +1710,7 @@ class Message:
         Rephrase a message's content in the requested style.
 
         :param message_id: ID of the message to rephrase. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param style: Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer) (required)
         :type style: RephraseStyleEnum
         :param cookie_name:
@@ -1250,24 +1836,11 @@ class Message:
 
 
     @validate_call
-    def messages_submit_message(
+    def messages_resume_message(
         self,
+        message_id: Annotated[UUID, Field(description="Public id of the assistant reply to resume.")],
+        resume_in: ResumeIn,
         cookie_name: Optional[StrictStr] = None,
-        content: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        document_ids: Optional[List[StrictInt]] = None,
-        updated_at: Optional[datetime] = None,
-        files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
-        chat_temperature: Optional[Union[StrictFloat, StrictInt]] = None,
-        chat_similarity_top_k: Optional[StrictInt] = None,
-        chat_system_prompt: Optional[StrictStr] = None,
-        assistant_id: Optional[StrictInt] = None,
-        model: Optional[StrictStr] = None,
-        tool_ids: Optional[List[StrictInt]] = None,
-        private: Optional[StrictBool] = None,
-        library_id: Optional[StrictInt] = None,
-        form_data: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1280,7 +1853,342 @@ class Message:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Message:
+    ) -> object:
+        """Resume a turn awaiting approval or user input
+
+        Approve, reject, or edit the gated tool call that paused this reply, or answer its pending clarification question(s) with 'respond'.
+
+        :param message_id: Public id of the assistant reply to resume. (required)
+        :type message_id: UUID
+        :param resume_in: (required)
+        :type resume_in: ResumeIn
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_resume_message_serialize(
+            message_id=message_id,
+            resume_in=resume_in,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '202': "object",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def messages_resume_message_with_http_info(
+        self,
+        message_id: Annotated[UUID, Field(description="Public id of the assistant reply to resume.")],
+        resume_in: ResumeIn,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Resume a turn awaiting approval or user input
+
+        Approve, reject, or edit the gated tool call that paused this reply, or answer its pending clarification question(s) with 'respond'.
+
+        :param message_id: Public id of the assistant reply to resume. (required)
+        :type message_id: UUID
+        :param resume_in: (required)
+        :type resume_in: ResumeIn
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_resume_message_serialize(
+            message_id=message_id,
+            resume_in=resume_in,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '202': "object",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def messages_resume_message_without_preload_content(
+        self,
+        message_id: Annotated[UUID, Field(description="Public id of the assistant reply to resume.")],
+        resume_in: ResumeIn,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Resume a turn awaiting approval or user input
+
+        Approve, reject, or edit the gated tool call that paused this reply, or answer its pending clarification question(s) with 'respond'.
+
+        :param message_id: Public id of the assistant reply to resume. (required)
+        :type message_id: UUID
+        :param resume_in: (required)
+        :type resume_in: ResumeIn
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._messages_resume_message_serialize(
+            message_id=message_id,
+            resume_in=resume_in,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '202': "object",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _messages_resume_message_serialize(
+        self,
+        message_id,
+        resume_in,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if message_id is not None:
+            _path_params['message_id'] = message_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if resume_in is not None:
+            _body_params = resume_in
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/messages/{message_id}/hil',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def messages_submit_message(
+        self,
+        cookie_name: Optional[StrictStr] = None,
+        content: Optional[StrictStr] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        document_ids: Optional[List[UUID]] = None,
+        files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
+        chat_temperature: Optional[Union[StrictFloat, StrictInt]] = None,
+        chat_similarity_top_k: Optional[StrictInt] = None,
+        chat_system_prompt: Optional[StrictStr] = None,
+        assistant_id: Optional[UUID] = None,
+        model: Optional[StrictStr] = None,
+        tool_ids: Optional[List[UUID]] = None,
+        private: Optional[StrictBool] = None,
+        library_id: Optional[UUID] = None,
+        form_data: Optional[StrictStr] = None,
+        form_fields: Optional[StrictStr] = None,
+        playground: Optional[StrictBool] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> MessageSubmitOut:
         """Submit a message with attachments
 
         Send a multipart message with optional file uploads and enqueue generation.
@@ -1290,13 +2198,11 @@ class Message:
         :param content:
         :type content: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param document_ids:
-        :type document_ids: List[int]
-        :param updated_at:
-        :type updated_at: datetime
+        :type document_ids: List[UUID]
         :param files:
         :type files: List[bytes]
         :param chat_temperature:
@@ -1306,17 +2212,21 @@ class Message:
         :param chat_system_prompt:
         :type chat_system_prompt: str
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param model:
         :type model: str
         :param tool_ids:
-        :type tool_ids: List[int]
+        :type tool_ids: List[UUID]
         :param private:
         :type private: bool
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param form_data:
         :type form_data: str
+        :param form_fields:
+        :type form_fields: str
+        :param playground:
+        :type playground: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1345,7 +2255,6 @@ class Message:
             project_id=project_id,
             chat_id=chat_id,
             document_ids=document_ids,
-            updated_at=updated_at,
             files=files,
             chat_temperature=chat_temperature,
             chat_similarity_top_k=chat_similarity_top_k,
@@ -1356,6 +2265,8 @@ class Message:
             private=private,
             library_id=library_id,
             form_data=form_data,
+            form_fields=form_fields,
+            playground=playground,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1363,7 +2274,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -1385,20 +2296,21 @@ class Message:
         self,
         cookie_name: Optional[StrictStr] = None,
         content: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        document_ids: Optional[List[StrictInt]] = None,
-        updated_at: Optional[datetime] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        document_ids: Optional[List[UUID]] = None,
         files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
         chat_temperature: Optional[Union[StrictFloat, StrictInt]] = None,
         chat_similarity_top_k: Optional[StrictInt] = None,
         chat_system_prompt: Optional[StrictStr] = None,
-        assistant_id: Optional[StrictInt] = None,
+        assistant_id: Optional[UUID] = None,
         model: Optional[StrictStr] = None,
-        tool_ids: Optional[List[StrictInt]] = None,
+        tool_ids: Optional[List[UUID]] = None,
         private: Optional[StrictBool] = None,
-        library_id: Optional[StrictInt] = None,
+        library_id: Optional[UUID] = None,
         form_data: Optional[StrictStr] = None,
+        form_fields: Optional[StrictStr] = None,
+        playground: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1411,7 +2323,7 @@ class Message:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Message]:
+    ) -> ApiResponse[MessageSubmitOut]:
         """Submit a message with attachments
 
         Send a multipart message with optional file uploads and enqueue generation.
@@ -1421,13 +2333,11 @@ class Message:
         :param content:
         :type content: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param document_ids:
-        :type document_ids: List[int]
-        :param updated_at:
-        :type updated_at: datetime
+        :type document_ids: List[UUID]
         :param files:
         :type files: List[bytes]
         :param chat_temperature:
@@ -1437,17 +2347,21 @@ class Message:
         :param chat_system_prompt:
         :type chat_system_prompt: str
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param model:
         :type model: str
         :param tool_ids:
-        :type tool_ids: List[int]
+        :type tool_ids: List[UUID]
         :param private:
         :type private: bool
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param form_data:
         :type form_data: str
+        :param form_fields:
+        :type form_fields: str
+        :param playground:
+        :type playground: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1476,7 +2390,6 @@ class Message:
             project_id=project_id,
             chat_id=chat_id,
             document_ids=document_ids,
-            updated_at=updated_at,
             files=files,
             chat_temperature=chat_temperature,
             chat_similarity_top_k=chat_similarity_top_k,
@@ -1487,6 +2400,8 @@ class Message:
             private=private,
             library_id=library_id,
             form_data=form_data,
+            form_fields=form_fields,
+            playground=playground,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1494,7 +2409,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -1516,20 +2431,21 @@ class Message:
         self,
         cookie_name: Optional[StrictStr] = None,
         content: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        document_ids: Optional[List[StrictInt]] = None,
-        updated_at: Optional[datetime] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        document_ids: Optional[List[UUID]] = None,
         files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
         chat_temperature: Optional[Union[StrictFloat, StrictInt]] = None,
         chat_similarity_top_k: Optional[StrictInt] = None,
         chat_system_prompt: Optional[StrictStr] = None,
-        assistant_id: Optional[StrictInt] = None,
+        assistant_id: Optional[UUID] = None,
         model: Optional[StrictStr] = None,
-        tool_ids: Optional[List[StrictInt]] = None,
+        tool_ids: Optional[List[UUID]] = None,
         private: Optional[StrictBool] = None,
-        library_id: Optional[StrictInt] = None,
+        library_id: Optional[UUID] = None,
         form_data: Optional[StrictStr] = None,
+        form_fields: Optional[StrictStr] = None,
+        playground: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1552,13 +2468,11 @@ class Message:
         :param content:
         :type content: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param document_ids:
-        :type document_ids: List[int]
-        :param updated_at:
-        :type updated_at: datetime
+        :type document_ids: List[UUID]
         :param files:
         :type files: List[bytes]
         :param chat_temperature:
@@ -1568,17 +2482,21 @@ class Message:
         :param chat_system_prompt:
         :type chat_system_prompt: str
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param model:
         :type model: str
         :param tool_ids:
-        :type tool_ids: List[int]
+        :type tool_ids: List[UUID]
         :param private:
         :type private: bool
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param form_data:
         :type form_data: str
+        :param form_fields:
+        :type form_fields: str
+        :param playground:
+        :type playground: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1607,7 +2525,6 @@ class Message:
             project_id=project_id,
             chat_id=chat_id,
             document_ids=document_ids,
-            updated_at=updated_at,
             files=files,
             chat_temperature=chat_temperature,
             chat_similarity_top_k=chat_similarity_top_k,
@@ -1618,6 +2535,8 @@ class Message:
             private=private,
             library_id=library_id,
             form_data=form_data,
+            form_fields=form_fields,
+            playground=playground,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1625,7 +2544,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -1645,7 +2564,6 @@ class Message:
         project_id,
         chat_id,
         document_ids,
-        updated_at,
         files,
         chat_temperature,
         chat_similarity_top_k,
@@ -1656,6 +2574,8 @@ class Message:
         private,
         library_id,
         form_data,
+        form_fields,
+        playground,
         _request_auth,
         _content_type,
         _headers,
@@ -1695,8 +2615,6 @@ class Message:
             _form_params.append(('chat_id', chat_id))
         if document_ids is not None:
             _form_params.append(('document_ids', document_ids))
-        if updated_at is not None:
-            _form_params.append(('updated_at', updated_at))
         if files is not None:
             _files['files'] = files
         if chat_temperature is not None:
@@ -1717,6 +2635,10 @@ class Message:
             _form_params.append(('library_id', library_id))
         if form_data is not None:
             _form_params.append(('form_data', form_data))
+        if form_fields is not None:
+            _form_params.append(('form_fields', form_fields))
+        if playground is not None:
+            _form_params.append(('playground', playground))
         # process the body parameter
 
 
@@ -1768,7 +2690,7 @@ class Message:
     @validate_call
     def messages_translate_message(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to translate.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to translate.")],
         lang: Annotated[StrictStr, Field(description="Target language. Preferably RFC 5646 format.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1789,7 +2711,7 @@ class Message:
         Translate a message's content into the requested language.
 
         :param message_id: ID of the message to translate. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param lang: Target language. Preferably RFC 5646 format. (required)
         :type lang: str
         :param cookie_name:
@@ -1847,7 +2769,7 @@ class Message:
     @validate_call
     def messages_translate_message_with_http_info(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to translate.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to translate.")],
         lang: Annotated[StrictStr, Field(description="Target language. Preferably RFC 5646 format.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1868,7 +2790,7 @@ class Message:
         Translate a message's content into the requested language.
 
         :param message_id: ID of the message to translate. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param lang: Target language. Preferably RFC 5646 format. (required)
         :type lang: str
         :param cookie_name:
@@ -1926,7 +2848,7 @@ class Message:
     @validate_call
     def messages_translate_message_without_preload_content(
         self,
-        message_id: Annotated[StrictInt, Field(description="ID of the message to translate.")],
+        message_id: Annotated[UUID, Field(description="ID of the message to translate.")],
         lang: Annotated[StrictStr, Field(description="Target language. Preferably RFC 5646 format.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1947,7 +2869,7 @@ class Message:
         Translate a message's content into the requested language.
 
         :param message_id: ID of the message to translate. (required)
-        :type message_id: int
+        :type message_id: UUID
         :param lang: Target language. Preferably RFC 5646 format. (required)
         :type lang: str
         :param cookie_name:
