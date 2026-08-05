@@ -7,11 +7,13 @@ A tool as returned by the API.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Unique identifier of the tool. | 
+**public_id** | **UUID** | Public, non-enumerable external identifier of the tool. | 
 **name** | **str** | Human-readable name of the tool. | 
 **description** | **str** |  | 
 **prompt** | **str** |  | 
 **created_at** | **datetime** | UTC timestamp when the tool was created. | 
 **updated_at** | **datetime** |  | 
+**category** | [**CategoryOut**](CategoryOut.md) |  | [optional] 
 
 ## Example
 

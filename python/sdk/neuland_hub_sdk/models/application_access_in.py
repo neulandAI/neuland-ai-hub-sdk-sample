@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,8 +28,8 @@ class ApplicationAccessIn(BaseModel):
     """
     Schema for granting app access to users
     """ # noqa: E501
-    application_id: StrictInt = Field(description="ID of the application to grant access to.")
-    user_ids: Optional[List[StrictInt]] = None
+    application_id: UUID = Field(description="Public id of the application to grant access to.")
+    user_ids: Optional[List[UUID]] = None
     __properties: ClassVar[List[str]] = ["application_id", "user_ids"]
 
     model_config = ConfigDict(

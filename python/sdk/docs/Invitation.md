@@ -274,7 +274,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Invitation(api_client)
-    invitation_id = 56 # int | ID of the invitation to resend.
+    invitation_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the invitation to resend.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -293,7 +293,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **invitation_id** | **int**| ID of the invitation to resend. | 
+ **invitation_id** | **UUID**| Public id of the invitation to resend. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -358,7 +358,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Invitation(api_client)
-    invitation_id = 56 # int | ID of the invitation to revoke.
+    invitation_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the invitation to revoke.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -375,7 +375,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **invitation_id** | **int**| ID of the invitation to revoke. | 
+ **invitation_id** | **UUID**| Public id of the invitation to revoke. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type

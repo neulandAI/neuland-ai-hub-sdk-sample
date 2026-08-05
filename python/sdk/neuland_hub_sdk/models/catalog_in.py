@@ -34,8 +34,9 @@ class CatalogIn(BaseModel):
     embedding_dimension: Optional[StrictInt] = None
     supports_embedding: Optional[StrictBool] = Field(default=False, description="Whether the model can generate embeddings.")
     supports_transcription: Optional[StrictBool] = Field(default=False, description="Whether the model can transcribe audio.")
+    supports_clarification: Optional[StrictBool] = Field(default=True, description="Whether the model reliably drives the ask_user_question clarification tool; when false it asks in plain text instead.")
     auto_seed: Optional[StrictBool] = Field(default=False, description="Whether to auto-create default settings for this catalog entry on seed.")
-    __properties: ClassVar[List[str]] = ["name", "description", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "auto_seed"]
+    __properties: ClassVar[List[str]] = ["name", "description", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_clarification", "auto_seed"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -105,6 +106,7 @@ class CatalogIn(BaseModel):
             "embedding_dimension": obj.get("embedding_dimension"),
             "supports_embedding": obj.get("supports_embedding") if obj.get("supports_embedding") is not None else False,
             "supports_transcription": obj.get("supports_transcription") if obj.get("supports_transcription") is not None else False,
+            "supports_clarification": obj.get("supports_clarification") if obj.get("supports_clarification") is not None else True,
             "auto_seed": obj.get("auto_seed") if obj.get("auto_seed") is not None else False
         })
         return _obj

@@ -5,12 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_catalog_id** | **int** |  | [optional] 
+**llm_catalog_id** | **UUID** |  | [optional] 
 **provider** | **str** |  | [optional] 
 **library** | **str** |  | [optional] 
 **max_tokens** | **int** |  | [optional] 
 **cost_prompt_tokens** | [**CostPromptTokens1**](CostPromptTokens1.md) |  | [optional] 
 **cost_completion_tokens** | [**CostCompletionTokens1**](CostCompletionTokens1.md) |  | [optional] 
+**cost_cached_tokens** | [**CostCachedTokens**](CostCachedTokens.md) |  | [optional] 
+**cost_audio_per_minute** | [**CostAudioPerMinute**](CostAudioPerMinute.md) |  | [optional] 
 **region** | **str** |  | [optional] 
 **args** | **Dict[str, object]** |  | [optional] 
 **openai_resource** | **str** |  | [optional] 

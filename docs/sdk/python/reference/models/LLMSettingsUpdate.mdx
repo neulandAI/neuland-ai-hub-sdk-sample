@@ -6,12 +6,14 @@ title: "LLMSettingsUpdate"
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**llm_catalog_id** | **int** |  | [optional] 
+**llm_catalog_id** | **UUID** |  | [optional] 
 **provider** | **str** |  | [optional] 
 **library** | **str** |  | [optional] 
 **max_tokens** | **int** |  | [optional] 
 **cost_prompt_tokens** | [**CostPromptTokens1**](/sdk/python/reference/models/CostPromptTokens1) |  | [optional] 
 **cost_completion_tokens** | [**CostCompletionTokens1**](/sdk/python/reference/models/CostCompletionTokens1) |  | [optional] 
+**cost_cached_tokens** | [**CostCachedTokens**](/sdk/python/reference/models/CostCachedTokens) |  | [optional] 
+**cost_audio_per_minute** | [**CostAudioPerMinute**](/sdk/python/reference/models/CostAudioPerMinute) |  | [optional] 
 **region** | **str** |  | [optional] 
 **args** | **Dict[str, object]** |  | [optional] 
 **openai_resource** | **str** |  | [optional] 

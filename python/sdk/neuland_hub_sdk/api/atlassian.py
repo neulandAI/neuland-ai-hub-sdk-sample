@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.set_atlassian_cloud_id_request import SetAtlassianCloudIdRequest
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
@@ -41,7 +42,7 @@ class Atlassian:
     @validate_call
     def integrations_set_atlassian_cloud_id(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the Atlassian connector to configure.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the Atlassian connector to configure.")],
         set_atlassian_cloud_id_request: SetAtlassianCloudIdRequest,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -61,8 +62,8 @@ class Atlassian:
 
         Set the active Atlassian cloud_id on this connector's consent.
 
-        :param connector_id: ID of the Atlassian connector to configure. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the Atlassian connector to configure. (required)
+        :type connector_id: UUID
         :param set_atlassian_cloud_id_request: (required)
         :type set_atlassian_cloud_id_request: SetAtlassianCloudIdRequest
         :param cookie_name:
@@ -119,7 +120,7 @@ class Atlassian:
     @validate_call
     def integrations_set_atlassian_cloud_id_with_http_info(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the Atlassian connector to configure.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the Atlassian connector to configure.")],
         set_atlassian_cloud_id_request: SetAtlassianCloudIdRequest,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -139,8 +140,8 @@ class Atlassian:
 
         Set the active Atlassian cloud_id on this connector's consent.
 
-        :param connector_id: ID of the Atlassian connector to configure. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the Atlassian connector to configure. (required)
+        :type connector_id: UUID
         :param set_atlassian_cloud_id_request: (required)
         :type set_atlassian_cloud_id_request: SetAtlassianCloudIdRequest
         :param cookie_name:
@@ -197,7 +198,7 @@ class Atlassian:
     @validate_call
     def integrations_set_atlassian_cloud_id_without_preload_content(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the Atlassian connector to configure.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the Atlassian connector to configure.")],
         set_atlassian_cloud_id_request: SetAtlassianCloudIdRequest,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -217,8 +218,8 @@ class Atlassian:
 
         Set the active Atlassian cloud_id on this connector's consent.
 
-        :param connector_id: ID of the Atlassian connector to configure. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the Atlassian connector to configure. (required)
+        :type connector_id: UUID
         :param set_atlassian_cloud_id_request: (required)
         :type set_atlassian_cloud_id_request: SetAtlassianCloudIdRequest
         :param cookie_name:

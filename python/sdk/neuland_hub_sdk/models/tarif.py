@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.tarif_status_enum import TarifStatusEnum
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,6 +32,7 @@ class Tarif(BaseModel):
     Model for creating or updating a tarif.
     """ # noqa: E501
     id: Optional[StrictInt] = Field(default=None, description="Primary key for the tarif record.")
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the tarif. Exposed to clients instead of the internal integer id.")
     name: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Name for the tarif to be created. Max 100 characters.")
     price: Union[StrictFloat, StrictInt] = Field(description="The price of the tarif. This field is required.")
     hard_limit: Optional[Union[Annotated[float, Field(strict=True, ge=0.0)], Annotated[int, Field(strict=True, ge=0)]]] = None
@@ -44,7 +46,7 @@ class Tarif(BaseModel):
     creator_user_id: Optional[StrictInt]
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the tarif was created.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the tarif was last updated.")
-    __properties: ClassVar[List[str]] = ["id", "name", "price", "hard_limit", "licenses", "monthly_limit_per_license", "soft_limit_fraction", "is_unlimited", "description", "status", "is_default", "creator_user_id", "created_at", "updated_at"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "name", "price", "hard_limit", "licenses", "monthly_limit_per_license", "soft_limit_fraction", "is_unlimited", "description", "status", "is_default", "creator_user_id", "created_at", "updated_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -128,6 +130,7 @@ class Tarif(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "name": obj.get("name"),
             "price": obj.get("price"),
             "hard_limit": obj.get("hard_limit"),

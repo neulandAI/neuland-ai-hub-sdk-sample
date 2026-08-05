@@ -15,15 +15,17 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.group_in import GroupIn
 from neuland_hub_sdk.models.group_sync_out import GroupSyncOut
 from neuland_hub_sdk.models.password_reset_in import PasswordResetIn
 from neuland_hub_sdk.models.user_group import UserGroup
 from neuland_hub_sdk.models.user_group_member import UserGroupMember
 from neuland_hub_sdk.models.user_in import UserIn
+from neuland_hub_sdk.models.user_me_out import UserMeOut
 from neuland_hub_sdk.models.user_out import UserOut
 from neuland_hub_sdk.models.user_preference_out import UserPreferenceOut
 from neuland_hub_sdk.models.user_preference_update_in import UserPreferenceUpdateIn
@@ -50,9 +52,8 @@ class User:
     @validate_call
     def users_activate_user(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to activate.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to activate.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -70,12 +71,10 @@ class User:
 
         Re-activate a user so they can authenticate again.
 
-        :param user_id: ID of the user to activate. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to activate. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -101,7 +100,6 @@ class User:
         _param = self._users_activate_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -129,9 +127,8 @@ class User:
     @validate_call
     def users_activate_user_with_http_info(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to activate.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to activate.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -149,12 +146,10 @@ class User:
 
         Re-activate a user so they can authenticate again.
 
-        :param user_id: ID of the user to activate. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to activate. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -180,7 +175,6 @@ class User:
         _param = self._users_activate_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -208,9 +202,8 @@ class User:
     @validate_call
     def users_activate_user_without_preload_content(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to activate.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to activate.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -228,12 +221,10 @@ class User:
 
         Re-activate a user so they can authenticate again.
 
-        :param user_id: ID of the user to activate. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to activate. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -259,7 +250,6 @@ class User:
         _param = self._users_activate_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -284,7 +274,6 @@ class User:
         self,
         user_id,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -312,10 +301,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -359,7 +344,6 @@ class User:
         self,
         group_in: GroupIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -381,8 +365,6 @@ class User:
         :type group_in: GroupIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -408,7 +390,6 @@ class User:
         _param = self._users_create_group_serialize(
             group_in=group_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -437,7 +418,6 @@ class User:
         self,
         group_in: GroupIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -459,8 +439,6 @@ class User:
         :type group_in: GroupIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -486,7 +464,6 @@ class User:
         _param = self._users_create_group_serialize(
             group_in=group_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -515,7 +492,6 @@ class User:
         self,
         group_in: GroupIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -537,8 +513,6 @@ class User:
         :type group_in: GroupIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -564,7 +538,6 @@ class User:
         _param = self._users_create_group_serialize(
             group_in=group_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -588,7 +561,6 @@ class User:
         self,
         group_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -614,10 +586,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -676,7 +644,6 @@ class User:
         self,
         user_in: UserIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -698,8 +665,6 @@ class User:
         :type user_in: UserIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -725,7 +690,6 @@ class User:
         _param = self._users_create_user_serialize(
             user_in=user_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -754,7 +718,6 @@ class User:
         self,
         user_in: UserIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -776,8 +739,6 @@ class User:
         :type user_in: UserIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -803,7 +764,6 @@ class User:
         _param = self._users_create_user_serialize(
             user_in=user_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -832,7 +792,6 @@ class User:
         self,
         user_in: UserIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -854,8 +813,6 @@ class User:
         :type user_in: UserIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -881,7 +838,6 @@ class User:
         _param = self._users_create_user_serialize(
             user_in=user_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -905,7 +861,6 @@ class User:
         self,
         user_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -931,10 +886,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -991,9 +942,8 @@ class User:
     @validate_call
     def users_deactivate_user(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to deactivate.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to deactivate.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1011,12 +961,10 @@ class User:
 
         Deactivate a user so they can no longer authenticate; you cannot deactivate yourself.
 
-        :param user_id: ID of the user to deactivate. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to deactivate. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1042,7 +990,6 @@ class User:
         _param = self._users_deactivate_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1070,9 +1017,8 @@ class User:
     @validate_call
     def users_deactivate_user_with_http_info(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to deactivate.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to deactivate.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1090,12 +1036,10 @@ class User:
 
         Deactivate a user so they can no longer authenticate; you cannot deactivate yourself.
 
-        :param user_id: ID of the user to deactivate. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to deactivate. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1121,7 +1065,6 @@ class User:
         _param = self._users_deactivate_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1149,9 +1092,8 @@ class User:
     @validate_call
     def users_deactivate_user_without_preload_content(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to deactivate.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to deactivate.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1169,12 +1111,10 @@ class User:
 
         Deactivate a user so they can no longer authenticate; you cannot deactivate yourself.
 
-        :param user_id: ID of the user to deactivate. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to deactivate. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1200,7 +1140,6 @@ class User:
         _param = self._users_deactivate_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1225,7 +1164,6 @@ class User:
         self,
         user_id,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -1253,10 +1191,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -1298,9 +1232,8 @@ class User:
     @validate_call
     def users_delete_group(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to delete.")],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1318,12 +1251,10 @@ class User:
 
         Delete a user group.
 
-        :param group_id: ID of the user group to delete. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to delete. (required)
+        :type group_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1349,7 +1280,6 @@ class User:
         _param = self._users_delete_group_serialize(
             group_id=group_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1378,9 +1308,8 @@ class User:
     @validate_call
     def users_delete_group_with_http_info(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to delete.")],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1398,12 +1327,10 @@ class User:
 
         Delete a user group.
 
-        :param group_id: ID of the user group to delete. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to delete. (required)
+        :type group_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1429,7 +1356,6 @@ class User:
         _param = self._users_delete_group_serialize(
             group_id=group_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1458,9 +1384,8 @@ class User:
     @validate_call
     def users_delete_group_without_preload_content(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to delete.")],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1478,12 +1403,10 @@ class User:
 
         Delete a user group.
 
-        :param group_id: ID of the user group to delete. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to delete. (required)
+        :type group_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1509,7 +1432,6 @@ class User:
         _param = self._users_delete_group_serialize(
             group_id=group_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1535,7 +1457,6 @@ class User:
         self,
         group_id,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -1563,10 +1484,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -1608,9 +1525,8 @@ class User:
     @validate_call
     def users_delete_user(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to delete.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1628,12 +1544,10 @@ class User:
 
         Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
 
-        :param user_id: ID of the user to delete. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to delete. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1659,7 +1573,6 @@ class User:
         _param = self._users_delete_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1687,9 +1600,8 @@ class User:
     @validate_call
     def users_delete_user_with_http_info(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to delete.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1707,12 +1619,10 @@ class User:
 
         Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
 
-        :param user_id: ID of the user to delete. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to delete. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1738,7 +1648,6 @@ class User:
         _param = self._users_delete_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1766,9 +1675,8 @@ class User:
     @validate_call
     def users_delete_user_without_preload_content(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to delete.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1786,12 +1694,10 @@ class User:
 
         Schedule permanent deletion (irreversible): deactivate + flag the user and revoke their sessions synchronously, then reassign shared resources and hard-delete async.
 
-        :param user_id: ID of the user to delete. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to delete. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1817,7 +1723,6 @@ class User:
         _param = self._users_delete_user_serialize(
             user_id=user_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1842,7 +1747,6 @@ class User:
         self,
         user_id,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -1870,10 +1774,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -1928,10 +1828,10 @@ class User:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> UserOut:
+    ) -> UserMeOut:
         """Get current user
 
-        Return the profile of the currently authenticated user.
+        Return the profile of the currently authenticated user, including the effective feature-flag map for their tenant.
 
         :param cookie_name:
         :type cookie_name: str
@@ -1966,7 +1866,7 @@ class User:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserOut",
+            '200': "UserMeOut",
             '401': None,
             '404': None,
             '422': "HTTPValidationError",
@@ -1998,10 +1898,10 @@ class User:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UserOut]:
+    ) -> ApiResponse[UserMeOut]:
         """Get current user
 
-        Return the profile of the currently authenticated user.
+        Return the profile of the currently authenticated user, including the effective feature-flag map for their tenant.
 
         :param cookie_name:
         :type cookie_name: str
@@ -2036,7 +1936,7 @@ class User:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserOut",
+            '200': "UserMeOut",
             '401': None,
             '404': None,
             '422': "HTTPValidationError",
@@ -2071,7 +1971,7 @@ class User:
     ) -> RESTResponseType:
         """Get current user
 
-        Return the profile of the currently authenticated user.
+        Return the profile of the currently authenticated user, including the effective feature-flag map for their tenant.
 
         :param cookie_name:
         :type cookie_name: str
@@ -2106,7 +2006,7 @@ class User:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UserOut",
+            '200': "UserMeOut",
             '401': None,
             '404': None,
             '422': "HTTPValidationError",
@@ -2487,9 +2387,8 @@ class User:
     @validate_call
     def users_sync_external_group(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the external group to sync.")],
+        group_id: Annotated[UUID, Field(description="Public id of the external group to sync.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2507,12 +2406,10 @@ class User:
 
         Reconcile an external group's membership against its bound directory group.
 
-        :param group_id: ID of the external group to sync. (required)
-        :type group_id: int
+        :param group_id: Public id of the external group to sync. (required)
+        :type group_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2538,7 +2435,6 @@ class User:
         _param = self._users_sync_external_group_serialize(
             group_id=group_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2568,9 +2464,8 @@ class User:
     @validate_call
     def users_sync_external_group_with_http_info(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the external group to sync.")],
+        group_id: Annotated[UUID, Field(description="Public id of the external group to sync.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2588,12 +2483,10 @@ class User:
 
         Reconcile an external group's membership against its bound directory group.
 
-        :param group_id: ID of the external group to sync. (required)
-        :type group_id: int
+        :param group_id: Public id of the external group to sync. (required)
+        :type group_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2619,7 +2512,6 @@ class User:
         _param = self._users_sync_external_group_serialize(
             group_id=group_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2649,9 +2541,8 @@ class User:
     @validate_call
     def users_sync_external_group_without_preload_content(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the external group to sync.")],
+        group_id: Annotated[UUID, Field(description="Public id of the external group to sync.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2669,12 +2560,10 @@ class User:
 
         Reconcile an external group's membership against its bound directory group.
 
-        :param group_id: ID of the external group to sync. (required)
-        :type group_id: int
+        :param group_id: Public id of the external group to sync. (required)
+        :type group_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2700,7 +2589,6 @@ class User:
         _param = self._users_sync_external_group_serialize(
             group_id=group_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2727,7 +2615,6 @@ class User:
         self,
         group_id,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -2755,10 +2642,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -2800,10 +2683,9 @@ class User:
     @validate_call
     def users_update_group(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to update.")],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to update.")],
         group_in: GroupIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2821,14 +2703,12 @@ class User:
 
         Update an existing user group.
 
-        :param group_id: ID of the user group to update. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to update. (required)
+        :type group_id: UUID
         :param group_in: (required)
         :type group_in: GroupIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2855,7 +2735,6 @@ class User:
             group_id=group_id,
             group_in=group_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2884,10 +2763,9 @@ class User:
     @validate_call
     def users_update_group_with_http_info(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to update.")],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to update.")],
         group_in: GroupIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2905,14 +2783,12 @@ class User:
 
         Update an existing user group.
 
-        :param group_id: ID of the user group to update. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to update. (required)
+        :type group_id: UUID
         :param group_in: (required)
         :type group_in: GroupIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2939,7 +2815,6 @@ class User:
             group_id=group_id,
             group_in=group_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2968,10 +2843,9 @@ class User:
     @validate_call
     def users_update_group_without_preload_content(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to update.")],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to update.")],
         group_in: GroupIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2989,14 +2863,12 @@ class User:
 
         Update an existing user group.
 
-        :param group_id: ID of the user group to update. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to update. (required)
+        :type group_id: UUID
         :param group_in: (required)
         :type group_in: GroupIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3023,7 +2895,6 @@ class User:
             group_id=group_id,
             group_in=group_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3050,7 +2921,6 @@ class User:
         group_id,
         group_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -3078,10 +2948,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -3138,7 +3004,7 @@ class User:
     @validate_call
     def users_update_user(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to update.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to update.")],
         user_update_in: UserUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -3158,8 +3024,8 @@ class User:
 
         Update a user's profile, role, tenant, or email; password changes are restricted.
 
-        :param user_id: ID of the user to update. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to update. (required)
+        :type user_id: UUID
         :param user_update_in: (required)
         :type user_update_in: UserUpdateIn
         :param cookie_name:
@@ -3217,7 +3083,7 @@ class User:
     @validate_call
     def users_update_user_with_http_info(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to update.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to update.")],
         user_update_in: UserUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -3237,8 +3103,8 @@ class User:
 
         Update a user's profile, role, tenant, or email; password changes are restricted.
 
-        :param user_id: ID of the user to update. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to update. (required)
+        :type user_id: UUID
         :param user_update_in: (required)
         :type user_update_in: UserUpdateIn
         :param cookie_name:
@@ -3296,7 +3162,7 @@ class User:
     @validate_call
     def users_update_user_without_preload_content(
         self,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to update.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to update.")],
         user_update_in: UserUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -3316,8 +3182,8 @@ class User:
 
         Update a user's profile, role, tenant, or email; password changes are restricted.
 
-        :param user_id: ID of the user to update. (required)
-        :type user_id: int
+        :param user_id: Public id of the user to update. (required)
+        :type user_id: UUID
         :param user_update_in: (required)
         :type user_update_in: UserUpdateIn
         :param cookie_name:
@@ -3456,10 +3322,9 @@ class User:
     @validate_call
     def users_upsert_members(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to update.")],
-        request_body: List[Optional[StrictInt]],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to update.")],
+        request_body: List[Optional[UUID]],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3477,14 +3342,12 @@ class User:
 
         Synchronize group members — add new ones and remove missing ones.
 
-        :param group_id: ID of the user group to update. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to update. (required)
+        :type group_id: UUID
         :param request_body: (required)
-        :type request_body: List[Optional[int]]
+        :type request_body: List[Optional[UUID]]
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3511,7 +3374,6 @@ class User:
             group_id=group_id,
             request_body=request_body,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3540,10 +3402,9 @@ class User:
     @validate_call
     def users_upsert_members_with_http_info(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to update.")],
-        request_body: List[Optional[StrictInt]],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to update.")],
+        request_body: List[Optional[UUID]],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3561,14 +3422,12 @@ class User:
 
         Synchronize group members — add new ones and remove missing ones.
 
-        :param group_id: ID of the user group to update. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to update. (required)
+        :type group_id: UUID
         :param request_body: (required)
-        :type request_body: List[Optional[int]]
+        :type request_body: List[Optional[UUID]]
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3595,7 +3454,6 @@ class User:
             group_id=group_id,
             request_body=request_body,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3624,10 +3482,9 @@ class User:
     @validate_call
     def users_upsert_members_without_preload_content(
         self,
-        group_id: Annotated[StrictInt, Field(description="ID of the user group to update.")],
-        request_body: List[Optional[StrictInt]],
+        group_id: Annotated[UUID, Field(description="Public id of the user group to update.")],
+        request_body: List[Optional[UUID]],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3645,14 +3502,12 @@ class User:
 
         Synchronize group members — add new ones and remove missing ones.
 
-        :param group_id: ID of the user group to update. (required)
-        :type group_id: int
+        :param group_id: Public id of the user group to update. (required)
+        :type group_id: UUID
         :param request_body: (required)
-        :type request_body: List[Optional[int]]
+        :type request_body: List[Optional[UUID]]
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3679,7 +3534,6 @@ class User:
             group_id=group_id,
             request_body=request_body,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3706,7 +3560,6 @@ class User:
         group_id,
         request_body,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -3735,10 +3588,6 @@ class User:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters

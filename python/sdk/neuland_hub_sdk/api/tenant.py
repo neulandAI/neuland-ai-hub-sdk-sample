@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Any, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.secret_update_in import SecretUpdateIn
 from neuland_hub_sdk.models.tenant_in import TenantIn
 from neuland_hub_sdk.models.tenant_llm import TenantLLM
@@ -49,8 +50,8 @@ class Tenant:
     @validate_call
     def tenants_add_library_to_tenants(
         self,
-        library_id: StrictInt,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to assign.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -69,10 +70,10 @@ class Tenant:
 
         Assign a library to a tenant (library owner who is admin of that tenant).
 
-        :param library_id: (required)
-        :type library_id: int
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
+        :param library_id: Public id of the library to assign. (required)
+        :type library_id: UUID
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -128,8 +129,8 @@ class Tenant:
     @validate_call
     def tenants_add_library_to_tenants_with_http_info(
         self,
-        library_id: StrictInt,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to assign.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -148,10 +149,10 @@ class Tenant:
 
         Assign a library to a tenant (library owner who is admin of that tenant).
 
-        :param library_id: (required)
-        :type library_id: int
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
+        :param library_id: Public id of the library to assign. (required)
+        :type library_id: UUID
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -207,8 +208,8 @@ class Tenant:
     @validate_call
     def tenants_add_library_to_tenants_without_preload_content(
         self,
-        library_id: StrictInt,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to assign.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -227,10 +228,10 @@ class Tenant:
 
         Assign a library to a tenant (library owner who is admin of that tenant).
 
-        :param library_id: (required)
-        :type library_id: int
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
+        :param library_id: Public id of the library to assign. (required)
+        :type library_id: UUID
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -356,7 +357,6 @@ class Tenant:
         self,
         tenant_in: TenantIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -378,8 +378,6 @@ class Tenant:
         :type tenant_in: TenantIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -405,7 +403,6 @@ class Tenant:
         _param = self._tenants_create_tenant_serialize(
             tenant_in=tenant_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -435,7 +432,6 @@ class Tenant:
         self,
         tenant_in: TenantIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -457,8 +453,6 @@ class Tenant:
         :type tenant_in: TenantIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -484,7 +478,6 @@ class Tenant:
         _param = self._tenants_create_tenant_serialize(
             tenant_in=tenant_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -514,7 +507,6 @@ class Tenant:
         self,
         tenant_in: TenantIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -536,8 +528,6 @@ class Tenant:
         :type tenant_in: TenantIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -563,7 +553,6 @@ class Tenant:
         _param = self._tenants_create_tenant_serialize(
             tenant_in=tenant_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -588,7 +577,6 @@ class Tenant:
         self,
         tenant_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -614,10 +602,6 @@ class Tenant:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -674,8 +658,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_connector(
         self,
-        tenant_id: StrictInt,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -694,10 +678,10 @@ class Tenant:
 
         Enable a connector for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param connector_id: ID of the connector to enable. (required)
-        :type connector_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param connector_id: Public id of the connector to enable. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -753,8 +737,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_connector_with_http_info(
         self,
-        tenant_id: StrictInt,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -773,10 +757,10 @@ class Tenant:
 
         Enable a connector for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param connector_id: ID of the connector to enable. (required)
-        :type connector_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param connector_id: Public id of the connector to enable. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -832,8 +816,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_connector_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -852,10 +836,10 @@ class Tenant:
 
         Enable a connector for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param connector_id: ID of the connector to enable. (required)
-        :type connector_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param connector_id: Public id of the connector to enable. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -979,8 +963,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_oauth_client(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant to configure.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client to override.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to configure.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client to override.")],
         tenant_o_auth_client_in: TenantOAuthClientIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1000,10 +984,10 @@ class Tenant:
 
         Provision per-tenant SSO config and secret for a deployment-wide template.
 
-        :param tenant_id: ID of the tenant to configure. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client to override. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant to configure. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client to override. (required)
+        :type oauth_client_id: UUID
         :param tenant_o_auth_client_in: (required)
         :type tenant_o_auth_client_in: TenantOAuthClientIn
         :param cookie_name:
@@ -1062,8 +1046,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_oauth_client_with_http_info(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant to configure.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client to override.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to configure.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client to override.")],
         tenant_o_auth_client_in: TenantOAuthClientIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1083,10 +1067,10 @@ class Tenant:
 
         Provision per-tenant SSO config and secret for a deployment-wide template.
 
-        :param tenant_id: ID of the tenant to configure. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client to override. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant to configure. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client to override. (required)
+        :type oauth_client_id: UUID
         :param tenant_o_auth_client_in: (required)
         :type tenant_o_auth_client_in: TenantOAuthClientIn
         :param cookie_name:
@@ -1145,8 +1129,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_oauth_client_without_preload_content(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant to configure.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client to override.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to configure.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client to override.")],
         tenant_o_auth_client_in: TenantOAuthClientIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1166,10 +1150,10 @@ class Tenant:
 
         Provision per-tenant SSO config and secret for a deployment-wide template.
 
-        :param tenant_id: ID of the tenant to configure. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client to override. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant to configure. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client to override. (required)
+        :type oauth_client_id: UUID
         :param tenant_o_auth_client_in: (required)
         :type tenant_o_auth_client_in: TenantOAuthClientIn
         :param cookie_name:
@@ -1312,8 +1296,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_tool(
         self,
-        tenant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1332,10 +1316,10 @@ class Tenant:
 
         Enable a tool for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param tool_id: ID of the tool to enable. (required)
-        :type tool_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param tool_id: Public id of the tool to enable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1390,8 +1374,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_tool_with_http_info(
         self,
-        tenant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1410,10 +1394,10 @@ class Tenant:
 
         Enable a tool for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param tool_id: ID of the tool to enable. (required)
-        :type tool_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param tool_id: Public id of the tool to enable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1468,8 +1452,8 @@ class Tenant:
     @validate_call
     def tenants_create_tenant_tool_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1488,10 +1472,10 @@ class Tenant:
 
         Enable a tool for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param tool_id: ID of the tool to enable. (required)
-        :type tool_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param tool_id: Public id of the tool to enable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1614,7 +1598,7 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant(
         self,
-        tenant_id: StrictInt,
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1633,8 +1617,8 @@ class Tenant:
 
         Delete a tenant by id (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
+        :param tenant_id: Public id of the tenant to delete. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1689,7 +1673,7 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_with_http_info(
         self,
-        tenant_id: StrictInt,
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1708,8 +1692,8 @@ class Tenant:
 
         Delete a tenant by id (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
+        :param tenant_id: Public id of the tenant to delete. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1764,7 +1748,7 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_without_preload_content(
         self,
-        tenant_id: StrictInt,
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1783,8 +1767,8 @@ class Tenant:
 
         Delete a tenant by id (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
+        :param tenant_id: Public id of the tenant to delete. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1904,8 +1888,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_connector(
         self,
-        tenant_id: StrictInt,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1924,10 +1908,10 @@ class Tenant:
 
         Disable a connector for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param connector_id: ID of the connector to disable. (required)
-        :type connector_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param connector_id: Public id of the connector to disable. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1983,8 +1967,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_connector_with_http_info(
         self,
-        tenant_id: StrictInt,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2003,10 +1987,10 @@ class Tenant:
 
         Disable a connector for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param connector_id: ID of the connector to disable. (required)
-        :type connector_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param connector_id: Public id of the connector to disable. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2062,8 +2046,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_connector_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2082,10 +2066,10 @@ class Tenant:
 
         Disable a connector for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param connector_id: ID of the connector to disable. (required)
-        :type connector_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param connector_id: Public id of the connector to disable. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2209,8 +2193,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_model(
         self,
-        tenant_id: StrictInt,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2229,10 +2213,10 @@ class Tenant:
 
         Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param model_id: ID of the LLM catalog model to disable. (required)
-        :type model_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param model_id: Public id of the LLM catalog model to disable. (required)
+        :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2288,8 +2272,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_model_with_http_info(
         self,
-        tenant_id: StrictInt,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2308,10 +2292,10 @@ class Tenant:
 
         Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param model_id: ID of the LLM catalog model to disable. (required)
-        :type model_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param model_id: Public id of the LLM catalog model to disable. (required)
+        :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2367,8 +2351,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_model_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2387,10 +2371,10 @@ class Tenant:
 
         Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param model_id: ID of the LLM catalog model to disable. (required)
-        :type model_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param model_id: Public id of the LLM catalog model to disable. (required)
+        :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2514,7 +2498,7 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_models_bulk(
         self,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to disable.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to disable.")],
         tenant_model_bulk_in: TenantModelBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2534,8 +2518,8 @@ class Tenant:
 
         Disable an LLM catalog model for all tenants or a list of tenants (superadmin).
 
-        :param model_id: ID of the LLM catalog model to disable. (required)
-        :type model_id: int
+        :param model_id: Public id of the LLM catalog model to disable. (required)
+        :type model_id: UUID
         :param tenant_model_bulk_in: (required)
         :type tenant_model_bulk_in: TenantModelBulkIn
         :param cookie_name:
@@ -2593,7 +2577,7 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_models_bulk_with_http_info(
         self,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to disable.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to disable.")],
         tenant_model_bulk_in: TenantModelBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2613,8 +2597,8 @@ class Tenant:
 
         Disable an LLM catalog model for all tenants or a list of tenants (superadmin).
 
-        :param model_id: ID of the LLM catalog model to disable. (required)
-        :type model_id: int
+        :param model_id: Public id of the LLM catalog model to disable. (required)
+        :type model_id: UUID
         :param tenant_model_bulk_in: (required)
         :type tenant_model_bulk_in: TenantModelBulkIn
         :param cookie_name:
@@ -2672,7 +2656,7 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_models_bulk_without_preload_content(
         self,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to disable.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to disable.")],
         tenant_model_bulk_in: TenantModelBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2692,8 +2676,8 @@ class Tenant:
 
         Disable an LLM catalog model for all tenants or a list of tenants (superadmin).
 
-        :param model_id: ID of the LLM catalog model to disable. (required)
-        :type model_id: int
+        :param model_id: Public id of the LLM catalog model to disable. (required)
+        :type model_id: UUID
         :param tenant_model_bulk_in: (required)
         :type tenant_model_bulk_in: TenantModelBulkIn
         :param cookie_name:
@@ -2832,8 +2816,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_oauth_client(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2852,10 +2836,10 @@ class Tenant:
 
         Delete a per-tenant OAuth client configuration and its stored secret.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2911,8 +2895,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_oauth_client_with_http_info(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2931,10 +2915,10 @@ class Tenant:
 
         Delete a per-tenant OAuth client configuration and its stored secret.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2990,8 +2974,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_oauth_client_without_preload_content(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3010,10 +2994,10 @@ class Tenant:
 
         Delete a per-tenant OAuth client configuration and its stored secret.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3137,8 +3121,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_tool(
         self,
-        tenant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3157,10 +3141,10 @@ class Tenant:
 
         Disable a tool for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param tool_id: ID of the tool to disable. (required)
-        :type tool_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param tool_id: Public id of the tool to disable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3216,8 +3200,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_tool_with_http_info(
         self,
-        tenant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3236,10 +3220,10 @@ class Tenant:
 
         Disable a tool for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param tool_id: ID of the tool to disable. (required)
-        :type tool_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param tool_id: Public id of the tool to disable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3295,8 +3279,8 @@ class Tenant:
     @validate_call
     def tenants_delete_tenant_tool_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to disable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3315,10 +3299,10 @@ class Tenant:
 
         Disable a tool for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param tool_id: ID of the tool to disable. (required)
-        :type tool_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param tool_id: Public id of the tool to disable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3711,8 +3695,8 @@ class Tenant:
     @validate_call
     def tenants_put_tenant_model(
         self,
-        tenant_id: StrictInt,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3731,10 +3715,10 @@ class Tenant:
 
         Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param model_id: ID of the LLM catalog model to enable. (required)
-        :type model_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param model_id: Public id of the LLM catalog model to enable. (required)
+        :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3790,8 +3774,8 @@ class Tenant:
     @validate_call
     def tenants_put_tenant_model_with_http_info(
         self,
-        tenant_id: StrictInt,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3810,10 +3794,10 @@ class Tenant:
 
         Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param model_id: ID of the LLM catalog model to enable. (required)
-        :type model_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param model_id: Public id of the LLM catalog model to enable. (required)
+        :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3869,8 +3853,8 @@ class Tenant:
     @validate_call
     def tenants_put_tenant_model_without_preload_content(
         self,
-        tenant_id: StrictInt,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to enable.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3889,10 +3873,10 @@ class Tenant:
 
         Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
-        :param model_id: ID of the LLM catalog model to enable. (required)
-        :type model_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param model_id: Public id of the LLM catalog model to enable. (required)
+        :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -4016,7 +4000,7 @@ class Tenant:
     @validate_call
     def tenants_put_tenant_models_bulk(
         self,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to enable.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         tenant_model_bulk_in: TenantModelBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4036,8 +4020,8 @@ class Tenant:
 
         Enable an LLM catalog model for all tenants or a list of tenants (superadmin).
 
-        :param model_id: ID of the LLM catalog model to enable. (required)
-        :type model_id: int
+        :param model_id: Public id of the LLM catalog model to enable. (required)
+        :type model_id: UUID
         :param tenant_model_bulk_in: (required)
         :type tenant_model_bulk_in: TenantModelBulkIn
         :param cookie_name:
@@ -4095,7 +4079,7 @@ class Tenant:
     @validate_call
     def tenants_put_tenant_models_bulk_with_http_info(
         self,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to enable.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         tenant_model_bulk_in: TenantModelBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4115,8 +4099,8 @@ class Tenant:
 
         Enable an LLM catalog model for all tenants or a list of tenants (superadmin).
 
-        :param model_id: ID of the LLM catalog model to enable. (required)
-        :type model_id: int
+        :param model_id: Public id of the LLM catalog model to enable. (required)
+        :type model_id: UUID
         :param tenant_model_bulk_in: (required)
         :type tenant_model_bulk_in: TenantModelBulkIn
         :param cookie_name:
@@ -4174,7 +4158,7 @@ class Tenant:
     @validate_call
     def tenants_put_tenant_models_bulk_without_preload_content(
         self,
-        model_id: Annotated[StrictInt, Field(description="ID of the LLM catalog model to enable.")],
+        model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         tenant_model_bulk_in: TenantModelBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4194,8 +4178,8 @@ class Tenant:
 
         Enable an LLM catalog model for all tenants or a list of tenants (superadmin).
 
-        :param model_id: ID of the LLM catalog model to enable. (required)
-        :type model_id: int
+        :param model_id: Public id of the LLM catalog model to enable. (required)
+        :type model_id: UUID
         :param tenant_model_bulk_in: (required)
         :type tenant_model_bulk_in: TenantModelBulkIn
         :param cookie_name:
@@ -4334,8 +4318,8 @@ class Tenant:
     @validate_call
     def tenants_remove_tenant_library_member(
         self,
-        library_id: StrictInt,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to unassign.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -4354,10 +4338,10 @@ class Tenant:
 
         Remove a library assignment from a tenant (library owner who is tenant admin).
 
-        :param library_id: (required)
-        :type library_id: int
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
+        :param library_id: Public id of the library to unassign. (required)
+        :type library_id: UUID
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -4413,8 +4397,8 @@ class Tenant:
     @validate_call
     def tenants_remove_tenant_library_member_with_http_info(
         self,
-        library_id: StrictInt,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to unassign.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -4433,10 +4417,10 @@ class Tenant:
 
         Remove a library assignment from a tenant (library owner who is tenant admin).
 
-        :param library_id: (required)
-        :type library_id: int
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
+        :param library_id: Public id of the library to unassign. (required)
+        :type library_id: UUID
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -4492,8 +4476,8 @@ class Tenant:
     @validate_call
     def tenants_remove_tenant_library_member_without_preload_content(
         self,
-        library_id: StrictInt,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to unassign.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -4512,10 +4496,10 @@ class Tenant:
 
         Remove a library assignment from a tenant (library owner who is tenant admin).
 
-        :param library_id: (required)
-        :type library_id: int
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
+        :param library_id: Public id of the library to unassign. (required)
+        :type library_id: UUID
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -4641,7 +4625,6 @@ class Tenant:
         self,
         tenant_update_in: TenantUpdateIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4663,8 +4646,6 @@ class Tenant:
         :type tenant_update_in: TenantUpdateIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4690,7 +4671,6 @@ class Tenant:
         _param = self._tenants_update_current_tenant_serialize(
             tenant_update_in=tenant_update_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4719,7 +4699,6 @@ class Tenant:
         self,
         tenant_update_in: TenantUpdateIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4741,8 +4720,6 @@ class Tenant:
         :type tenant_update_in: TenantUpdateIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4768,7 +4745,6 @@ class Tenant:
         _param = self._tenants_update_current_tenant_serialize(
             tenant_update_in=tenant_update_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4797,7 +4773,6 @@ class Tenant:
         self,
         tenant_update_in: TenantUpdateIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4819,8 +4794,6 @@ class Tenant:
         :type tenant_update_in: TenantUpdateIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4846,7 +4819,6 @@ class Tenant:
         _param = self._tenants_update_current_tenant_serialize(
             tenant_update_in=tenant_update_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4870,7 +4842,6 @@ class Tenant:
         self,
         tenant_update_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -4896,10 +4867,6 @@ class Tenant:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -4956,7 +4923,7 @@ class Tenant:
     @validate_call
     def tenants_update_tenant(
         self,
-        tenant_id: StrictInt,
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to update.")],
         tenant_update_in: TenantUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4976,8 +4943,8 @@ class Tenant:
 
         Update a tenant by id (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
+        :param tenant_id: Public id of the tenant to update. (required)
+        :type tenant_id: UUID
         :param tenant_update_in: (required)
         :type tenant_update_in: TenantUpdateIn
         :param cookie_name:
@@ -5035,7 +5002,7 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_with_http_info(
         self,
-        tenant_id: StrictInt,
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to update.")],
         tenant_update_in: TenantUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5055,8 +5022,8 @@ class Tenant:
 
         Update a tenant by id (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
+        :param tenant_id: Public id of the tenant to update. (required)
+        :type tenant_id: UUID
         :param tenant_update_in: (required)
         :type tenant_update_in: TenantUpdateIn
         :param cookie_name:
@@ -5114,7 +5081,7 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_without_preload_content(
         self,
-        tenant_id: StrictInt,
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant to update.")],
         tenant_update_in: TenantUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5134,8 +5101,8 @@ class Tenant:
 
         Update a tenant by id (superadmin or parent tenant admin).
 
-        :param tenant_id: (required)
-        :type tenant_id: int
+        :param tenant_id: Public id of the tenant to update. (required)
+        :type tenant_id: UUID
         :param tenant_update_in: (required)
         :type tenant_update_in: TenantUpdateIn
         :param cookie_name:
@@ -5274,8 +5241,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_client(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         tenant_o_auth_client_update: TenantOAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5295,10 +5262,10 @@ class Tenant:
 
         Update an existing per-tenant OAuth client configuration.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param tenant_o_auth_client_update: (required)
         :type tenant_o_auth_client_update: TenantOAuthClientUpdate
         :param cookie_name:
@@ -5357,8 +5324,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_client_with_http_info(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         tenant_o_auth_client_update: TenantOAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5378,10 +5345,10 @@ class Tenant:
 
         Update an existing per-tenant OAuth client configuration.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param tenant_o_auth_client_update: (required)
         :type tenant_o_auth_client_update: TenantOAuthClientUpdate
         :param cookie_name:
@@ -5440,8 +5407,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_client_without_preload_content(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         tenant_o_auth_client_update: TenantOAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5461,10 +5428,10 @@ class Tenant:
 
         Update an existing per-tenant OAuth client configuration.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param tenant_o_auth_client_update: (required)
         :type tenant_o_auth_client_update: TenantOAuthClientUpdate
         :param cookie_name:
@@ -5607,8 +5574,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_secret(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         secret_update_in: SecretUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5628,10 +5595,10 @@ class Tenant:
 
         Replace the stored OAuth client secret for a per-tenant configuration.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param secret_update_in: (required)
         :type secret_update_in: SecretUpdateIn
         :param cookie_name:
@@ -5690,8 +5657,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_secret_with_http_info(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         secret_update_in: SecretUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5711,10 +5678,10 @@ class Tenant:
 
         Replace the stored OAuth client secret for a per-tenant configuration.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param secret_update_in: (required)
         :type secret_update_in: SecretUpdateIn
         :param cookie_name:
@@ -5773,8 +5740,8 @@ class Tenant:
     @validate_call
     def tenants_update_tenant_oauth_secret_without_preload_content(
         self,
-        tenant_id: Annotated[StrictInt, Field(description="ID of the tenant.")],
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the platform OAuth client being overridden.")],
+        tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the platform OAuth client being overridden.")],
         secret_update_in: SecretUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5794,10 +5761,10 @@ class Tenant:
 
         Replace the stored OAuth client secret for a per-tenant configuration.
 
-        :param tenant_id: ID of the tenant. (required)
-        :type tenant_id: int
-        :param oauth_client_id: ID of the platform OAuth client being overridden. (required)
-        :type oauth_client_id: int
+        :param tenant_id: Public id of the tenant. (required)
+        :type tenant_id: UUID
+        :param oauth_client_id: Public id of the platform OAuth client being overridden. (required)
+        :type oauth_client_id: UUID
         :param secret_update_in: (required)
         :type secret_update_in: SecretUpdateIn
         :param cookie_name:

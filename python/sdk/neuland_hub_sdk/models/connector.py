@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from neuland_hub_sdk.models.connector_auth_type import ConnectorAuthType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,6 +35,7 @@ class Connector(BaseModel):
     creator_user_id: Optional[StrictInt] = None
     updater_user_id: Optional[StrictInt] = None
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the connector. Exposed to clients instead of the internal integer id.")
     oauth_client_id: Optional[StrictInt] = None
     name: StrictStr = Field(description="Human-readable name of the connector.")
     description: Optional[StrictStr] = None
@@ -41,7 +43,7 @@ class Connector(BaseModel):
     caps: Optional[List[Optional[StrictStr]]] = Field(default=None, description="Capabilities this connector provides.")
     auto_attach: Optional[StrictBool] = Field(default=False, description="Whether the connector is automatically attached to new chats.")
     auth_type: Optional[ConnectorAuthType] = Field(default=None, description="Authentication mechanism the connector uses.")
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "oauth_client_id", "name", "description", "scopes", "caps", "auto_attach", "auth_type"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "oauth_client_id", "name", "description", "scopes", "caps", "auto_attach", "auth_type"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -124,6 +126,7 @@ class Connector(BaseModel):
             "creator_user_id": obj.get("creator_user_id"),
             "updater_user_id": obj.get("updater_user_id"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "oauth_client_id": obj.get("oauth_client_id"),
             "name": obj.get("name"),
             "description": obj.get("description"),

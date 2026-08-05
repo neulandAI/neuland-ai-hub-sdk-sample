@@ -117,7 +117,7 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Auth(api_client)
-    app_id = 56 # int | ID of the AI application to scope the token to.
+    app_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the AI application to scope the token to.
 
     try:
         # Exchange for a service token
@@ -135,7 +135,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**| ID of the AI application to scope the token to. | 
+ **app_id** | **UUID**| Public id of the AI application to scope the token to. | 
 
 ### Return type
 
@@ -156,7 +156,7 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**404** | No application exists with the given id. |  -  |
+**404** | No application exists with the given public id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -648,7 +648,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_search_entra_groups**
-> Dict[str, object] auth_search_entra_groups(q=q, cursor=cursor, tenant_id=tenant_id, cookie_name=cookie_name)
+> Dict[str, object] auth_search_entra_groups(q=q, cursor=cursor, cookie_name=cookie_name)
 
 Search Entra directory groups
 
@@ -686,12 +686,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Auth(api_client)
     q = 'q_example' # str | Name/description search; empty browses alphabetically (optional)
     cursor = 'cursor_example' # str | Page cursor from a prior response's `next` (optional)
-    tenant_id = 56 # int |  (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Search Entra directory groups
-        api_response = api_instance.auth_search_entra_groups(q=q, cursor=cursor, tenant_id=tenant_id, cookie_name=cookie_name)
+        api_response = api_instance.auth_search_entra_groups(q=q, cursor=cursor, cookie_name=cookie_name)
         print("The response of Auth->auth_search_entra_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -707,7 +706,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **q** | **str**| Name/description search; empty browses alphabetically | [optional] 
  **cursor** | **str**| Page cursor from a prior response&#39;s &#x60;next&#x60; | [optional] 
- **tenant_id** | **int**|  | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -979,8 +977,8 @@ No authorization required
 
 Resolve SSO providers for an email
 
-Pre-login step: resolve a tenant from the email's domain and
-return the routing slug and available SSO providers.
+Pre-login step: resolve a tenant from the email's domain, falling back to
+the exact (unique) email, and return the routing slug and SSO providers.
 
 ### Example
 

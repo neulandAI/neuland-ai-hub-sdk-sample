@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **created_at** | **string** | UTC timestamp when the record was created. | [optional] [default to undefined]
 **updated_at** | **string** | UTC timestamp when the record was last updated. | [optional] [default to undefined]
 **id** | **number** |  | [optional] [default to undefined]
+**public_id** | **string** | Public, non-enumerable external identifier for the user group. Exposed to clients instead of the internal integer id. | [optional] [default to undefined]
 **tenant_id** | **number** | ID of the tenant. | [default to undefined]
 **name** | **string** | Name of the user group. | [optional] [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
@@ -25,6 +26,7 @@ const instance: UserGroup = {
     created_at,
     updated_at,
     id,
+    public_id,
     tenant_id,
     name,
     description,

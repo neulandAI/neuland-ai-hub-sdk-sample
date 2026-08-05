@@ -40,6 +40,7 @@ class TestOAuthClient(unittest.TestCase):
                 creator_user_id = 56,
                 updater_user_id = 56,
                 id = 56,
+                public_id = '',
                 name = '',
                 provider_key = 'azure-entra',
                 description = '',

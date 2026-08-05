@@ -15,11 +15,12 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBytes, StrictInt, StrictStr
+from pydantic import Field, StrictBytes, StrictStr
 from typing import Any, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.document import Document
+from neuland_hub_sdk.models.document_text_out import DocumentTextOut
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
 from neuland_hub_sdk.api_response import ApiResponse
@@ -42,7 +43,7 @@ class Document:
     @validate_call
     def documents_delete_chat_document(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -62,7 +63,7 @@ class Document:
         Delete a document and its associated content.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -117,7 +118,7 @@ class Document:
     @validate_call
     def documents_delete_chat_document_with_http_info(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -137,7 +138,7 @@ class Document:
         Delete a document and its associated content.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -192,7 +193,7 @@ class Document:
     @validate_call
     def documents_delete_chat_document_without_preload_content(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -212,7 +213,7 @@ class Document:
         Delete a document and its associated content.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -332,7 +333,7 @@ class Document:
     @validate_call
     def documents_get_file(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -352,7 +353,7 @@ class Document:
         Stream a document's content as an attachment to authorized callers.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -407,7 +408,7 @@ class Document:
     @validate_call
     def documents_get_file_with_http_info(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -427,7 +428,7 @@ class Document:
         Stream a document's content as an attachment to authorized callers.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -482,7 +483,7 @@ class Document:
     @validate_call
     def documents_get_file_without_preload_content(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -502,7 +503,7 @@ class Document:
         Stream a document's content as an attachment to authorized callers.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -620,17 +621,307 @@ class Document:
 
 
     @validate_call
+    def documents_get_text(
+        self,
+        document_id: UUID,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> DocumentTextOut:
+        """Get a document's extracted text
+
+        Return the text extracted from a document by the processing pipeline.  Type-agnostic: a PDF yields its extracted text, an audio/video upload yields its transcript — both are stored in the same place by the same pipeline.
+
+        :param document_id: (required)
+        :type document_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._documents_get_text_serialize(
+            document_id=document_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DocumentTextOut",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def documents_get_text_with_http_info(
+        self,
+        document_id: UUID,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[DocumentTextOut]:
+        """Get a document's extracted text
+
+        Return the text extracted from a document by the processing pipeline.  Type-agnostic: a PDF yields its extracted text, an audio/video upload yields its transcript — both are stored in the same place by the same pipeline.
+
+        :param document_id: (required)
+        :type document_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._documents_get_text_serialize(
+            document_id=document_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DocumentTextOut",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def documents_get_text_without_preload_content(
+        self,
+        document_id: UUID,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get a document's extracted text
+
+        Return the text extracted from a document by the processing pipeline.  Type-agnostic: a PDF yields its extracted text, an audio/video upload yields its transcript — both are stored in the same place by the same pipeline.
+
+        :param document_id: (required)
+        :type document_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._documents_get_text_serialize(
+            document_id=document_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DocumentTextOut",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _documents_get_text_serialize(
+        self,
+        document_id,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if document_id is not None:
+            _path_params['document_id'] = document_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/documents/{document_id}/text',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def documents_import_documents(
         self,
         src: Annotated[StrictStr, Field(description="Source type which the documents will be imported from")],
         drive_id: Annotated[StrictStr, Field(description="Drive ID")],
         drive_item_ids: Annotated[List[StrictStr], Field(description="Item IDs of the documents to be imported")],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
-        message_id: Optional[StrictInt] = None,
-        library_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
+        message_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -657,15 +948,15 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param message_id:
-        :type message_id: int
+        :type message_id: UUID
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -730,11 +1021,11 @@ class Document:
         drive_id: Annotated[StrictStr, Field(description="Drive ID")],
         drive_item_ids: Annotated[List[StrictStr], Field(description="Item IDs of the documents to be imported")],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
-        message_id: Optional[StrictInt] = None,
-        library_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
+        message_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -761,15 +1052,15 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param message_id:
-        :type message_id: int
+        :type message_id: UUID
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -834,11 +1125,11 @@ class Document:
         drive_id: Annotated[StrictStr, Field(description="Drive ID")],
         drive_item_ids: Annotated[List[StrictStr], Field(description="Item IDs of the documents to be imported")],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
-        message_id: Optional[StrictInt] = None,
-        library_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
+        message_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -865,15 +1156,15 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param message_id:
-        :type message_id: int
+        :type message_id: UUID
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1034,7 +1325,7 @@ class Document:
     @validate_call
     def documents_retry_document(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1054,7 +1345,7 @@ class Document:
         Re-run processing for a previously failed or stuck document.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1109,7 +1400,7 @@ class Document:
     @validate_call
     def documents_retry_document_with_http_info(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1129,7 +1420,7 @@ class Document:
         Re-run processing for a previously failed or stuck document.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1184,7 +1475,7 @@ class Document:
     @validate_call
     def documents_retry_document_without_preload_content(
         self,
-        document_id: StrictInt,
+        document_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1204,7 +1495,7 @@ class Document:
         Re-run processing for a previously failed or stuck document.
 
         :param document_id: (required)
-        :type document_id: int
+        :type document_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1328,9 +1619,9 @@ class Document:
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
         drive_item_ids: Annotated[List[StrictStr], Field(description="Sharepoint item IDs of the documents to be unimported")],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1357,11 +1648,11 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1424,9 +1715,9 @@ class Document:
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
         drive_item_ids: Annotated[List[StrictStr], Field(description="Sharepoint item IDs of the documents to be unimported")],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1453,11 +1744,11 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1520,9 +1811,9 @@ class Document:
         drive_id: Annotated[StrictStr, Field(description="Sharepoint drive ID")],
         drive_item_ids: Annotated[List[StrictStr], Field(description="Sharepoint item IDs of the documents to be unimported")],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1549,11 +1840,11 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1708,11 +1999,11 @@ class Document:
         self,
         files: List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
-        message_id: Optional[StrictInt] = None,
-        library_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
+        message_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1735,15 +2026,15 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param message_id:
-        :type message_id: int
+        :type message_id: UUID
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1803,11 +2094,11 @@ class Document:
         self,
         files: List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
-        message_id: Optional[StrictInt] = None,
-        library_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
+        message_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1830,15 +2121,15 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param message_id:
-        :type message_id: int
+        :type message_id: UUID
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1898,11 +2189,11 @@ class Document:
         self,
         files: List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]],
         cookie_name: Optional[StrictStr] = None,
-        project_id: Optional[StrictInt] = None,
-        chat_id: Optional[StrictInt] = None,
-        assistant_id: Optional[StrictInt] = None,
-        message_id: Optional[StrictInt] = None,
-        library_id: Optional[StrictInt] = None,
+        project_id: Optional[UUID] = None,
+        chat_id: Optional[UUID] = None,
+        assistant_id: Optional[UUID] = None,
+        message_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1925,15 +2216,15 @@ class Document:
         :param cookie_name:
         :type cookie_name: str
         :param project_id:
-        :type project_id: int
+        :type project_id: UUID
         :param chat_id:
-        :type chat_id: int
+        :type chat_id: UUID
         :param assistant_id:
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param message_id:
-        :type message_id: int
+        :type message_id: UUID
         :param library_id:
-        :type library_id: int
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of

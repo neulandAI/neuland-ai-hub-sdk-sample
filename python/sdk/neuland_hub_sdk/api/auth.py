@@ -18,6 +18,7 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictInt, StrictStr, field_validator
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.password_reset_request_in import PasswordResetRequestIn
 from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue
 from neuland_hub_sdk.models.sso_exchange_in import SsoExchangeIn
@@ -329,7 +330,7 @@ class Auth:
     @validate_call
     def auth_exchange_token(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the AI application to scope the token to.")],
+        app_id: Annotated[UUID, Field(description="Public id of the AI application to scope the token to.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -347,8 +348,8 @@ class Auth:
 
         Exchange the caller's token for a service token scoped to an AI application.
 
-        :param app_id: ID of the AI application to scope the token to. (required)
-        :type app_id: int
+        :param app_id: Public id of the AI application to scope the token to. (required)
+        :type app_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -399,7 +400,7 @@ class Auth:
     @validate_call
     def auth_exchange_token_with_http_info(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the AI application to scope the token to.")],
+        app_id: Annotated[UUID, Field(description="Public id of the AI application to scope the token to.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -417,8 +418,8 @@ class Auth:
 
         Exchange the caller's token for a service token scoped to an AI application.
 
-        :param app_id: ID of the AI application to scope the token to. (required)
-        :type app_id: int
+        :param app_id: Public id of the AI application to scope the token to. (required)
+        :type app_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -469,7 +470,7 @@ class Auth:
     @validate_call
     def auth_exchange_token_without_preload_content(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the AI application to scope the token to.")],
+        app_id: Annotated[UUID, Field(description="Public id of the AI application to scope the token to.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -487,8 +488,8 @@ class Auth:
 
         Exchange the caller's token for a service token scoped to an AI application.
 
-        :param app_id: ID of the AI application to scope the token to. (required)
-        :type app_id: int
+        :param app_id: Public id of the AI application to scope the token to. (required)
+        :type app_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2595,7 +2596,6 @@ class Auth:
         self,
         q: Annotated[Optional[StrictStr], Field(description="Name/description search; empty browses alphabetically")] = None,
         cursor: Annotated[Optional[StrictStr], Field(description="Page cursor from a prior response's `next`")] = None,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2618,8 +2618,6 @@ class Auth:
         :type q: str
         :param cursor: Page cursor from a prior response's `next`
         :type cursor: str
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2647,7 +2645,6 @@ class Auth:
         _param = self._auth_search_entra_groups_serialize(
             q=q,
             cursor=cursor,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2677,7 +2674,6 @@ class Auth:
         self,
         q: Annotated[Optional[StrictStr], Field(description="Name/description search; empty browses alphabetically")] = None,
         cursor: Annotated[Optional[StrictStr], Field(description="Page cursor from a prior response's `next`")] = None,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2700,8 +2696,6 @@ class Auth:
         :type q: str
         :param cursor: Page cursor from a prior response's `next`
         :type cursor: str
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2729,7 +2723,6 @@ class Auth:
         _param = self._auth_search_entra_groups_serialize(
             q=q,
             cursor=cursor,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2759,7 +2752,6 @@ class Auth:
         self,
         q: Annotated[Optional[StrictStr], Field(description="Name/description search; empty browses alphabetically")] = None,
         cursor: Annotated[Optional[StrictStr], Field(description="Page cursor from a prior response's `next`")] = None,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2782,8 +2774,6 @@ class Auth:
         :type q: str
         :param cursor: Page cursor from a prior response's `next`
         :type cursor: str
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2811,7 +2801,6 @@ class Auth:
         _param = self._auth_search_entra_groups_serialize(
             q=q,
             cursor=cursor,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2836,7 +2825,6 @@ class Auth:
         self,
         q,
         cursor,
-        tenant_id,
         cookie_name,
         _request_auth,
         _content_type,
@@ -2867,10 +2855,6 @@ class Auth:
         if cursor is not None:
             
             _query_params.append(('cursor', cursor))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         if cookie_name is not None:
             
@@ -3866,7 +3850,7 @@ class Auth:
     ) -> SsoResolveOut:
         """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from the email's domain and return the routing slug and available SSO providers.
+        Pre-login step: resolve a tenant from the email's domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
 
         :param email: Work email whose domain identifies the tenant. (required)
         :type email: str
@@ -3935,7 +3919,7 @@ class Auth:
     ) -> ApiResponse[SsoResolveOut]:
         """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from the email's domain and return the routing slug and available SSO providers.
+        Pre-login step: resolve a tenant from the email's domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
 
         :param email: Work email whose domain identifies the tenant. (required)
         :type email: str
@@ -4004,7 +3988,7 @@ class Auth:
     ) -> RESTResponseType:
         """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from the email's domain and return the routing slug and available SSO providers.
+        Pre-login step: resolve a tenant from the email's domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
 
         :param email: Work email whose domain identifies the tenant. (required)
         :type email: str

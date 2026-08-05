@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictInt, StrictStr
+from pydantic import Field, StrictBool, StrictStr
 from typing import Any, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.connector import Connector
 from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
 from neuland_hub_sdk.models.connector_status_out import ConnectorStatusOut
@@ -48,7 +49,7 @@ class AuthConnector:
     @validate_call
     def auth_get_credential_template(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -67,8 +68,8 @@ class AuthConnector:
 
         The admin and/or user parts this connector needs and whether each is set. Never returns stored secret values — only which fields are present.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -122,7 +123,7 @@ class AuthConnector:
     @validate_call
     def auth_get_credential_template_with_http_info(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -141,8 +142,8 @@ class AuthConnector:
 
         The admin and/or user parts this connector needs and whether each is set. Never returns stored secret values — only which fields are present.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -196,7 +197,7 @@ class AuthConnector:
     @validate_call
     def auth_get_credential_template_without_preload_content(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -215,8 +216,8 @@ class AuthConnector:
 
         The admin and/or user parts this connector needs and whether each is set. Never returns stored secret values — only which fields are present.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -335,8 +336,7 @@ class AuthConnector:
     @validate_call
     def auth_initiate_admin_consent(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to consent to.")],
-        tenant_id: Optional[StrictInt] = None,
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to consent to.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -355,10 +355,8 @@ class AuthConnector:
 
         Start the admin consent flow for connectors that require organization-wide admin consent.
 
-        :param connector_id: ID of the connector to consent to. (required)
-        :type connector_id: int
-        :param tenant_id:
-        :type tenant_id: int
+        :param connector_id: Public id of the connector to consent to. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -385,7 +383,6 @@ class AuthConnector:
 
         _param = self._auth_initiate_admin_consent_serialize(
             connector_id=connector_id,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -415,8 +412,7 @@ class AuthConnector:
     @validate_call
     def auth_initiate_admin_consent_with_http_info(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to consent to.")],
-        tenant_id: Optional[StrictInt] = None,
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to consent to.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -435,10 +431,8 @@ class AuthConnector:
 
         Start the admin consent flow for connectors that require organization-wide admin consent.
 
-        :param connector_id: ID of the connector to consent to. (required)
-        :type connector_id: int
-        :param tenant_id:
-        :type tenant_id: int
+        :param connector_id: Public id of the connector to consent to. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -465,7 +459,6 @@ class AuthConnector:
 
         _param = self._auth_initiate_admin_consent_serialize(
             connector_id=connector_id,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -495,8 +488,7 @@ class AuthConnector:
     @validate_call
     def auth_initiate_admin_consent_without_preload_content(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to consent to.")],
-        tenant_id: Optional[StrictInt] = None,
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to consent to.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -515,10 +507,8 @@ class AuthConnector:
 
         Start the admin consent flow for connectors that require organization-wide admin consent.
 
-        :param connector_id: ID of the connector to consent to. (required)
-        :type connector_id: int
-        :param tenant_id:
-        :type tenant_id: int
+        :param connector_id: Public id of the connector to consent to. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -545,7 +535,6 @@ class AuthConnector:
 
         _param = self._auth_initiate_admin_consent_serialize(
             connector_id=connector_id,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -571,7 +560,6 @@ class AuthConnector:
     def _auth_initiate_admin_consent_serialize(
         self,
         connector_id,
-        tenant_id,
         cookie_name,
         _request_auth,
         _content_type,
@@ -597,10 +585,6 @@ class AuthConnector:
         if connector_id is not None:
             _path_params['connector_id'] = connector_id
         # process the query parameters
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
-            
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
@@ -645,7 +629,7 @@ class AuthConnector:
     @validate_call
     def auth_initiate_consent(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to consent to.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to consent to.")],
         return_url: Annotated[Optional[StrictStr], Field(description="URL to return the user to after consent.")] = None,
         redirect: Annotated[Optional[StrictBool], Field(description="If true, return 302 redirect instead of JSON")] = None,
         cookie_name: Optional[StrictStr] = None,
@@ -666,8 +650,8 @@ class AuthConnector:
 
         Initiate OAuth consent flow for a connector. Returns the provider consent URL as JSON, or a 302 redirect when redirect=true.
 
-        :param connector_id: ID of the connector to consent to. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to consent to. (required)
+        :type connector_id: UUID
         :param return_url: URL to return the user to after consent.
         :type return_url: str
         :param redirect: If true, return 302 redirect instead of JSON
@@ -728,7 +712,7 @@ class AuthConnector:
     @validate_call
     def auth_initiate_consent_with_http_info(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to consent to.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to consent to.")],
         return_url: Annotated[Optional[StrictStr], Field(description="URL to return the user to after consent.")] = None,
         redirect: Annotated[Optional[StrictBool], Field(description="If true, return 302 redirect instead of JSON")] = None,
         cookie_name: Optional[StrictStr] = None,
@@ -749,8 +733,8 @@ class AuthConnector:
 
         Initiate OAuth consent flow for a connector. Returns the provider consent URL as JSON, or a 302 redirect when redirect=true.
 
-        :param connector_id: ID of the connector to consent to. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to consent to. (required)
+        :type connector_id: UUID
         :param return_url: URL to return the user to after consent.
         :type return_url: str
         :param redirect: If true, return 302 redirect instead of JSON
@@ -811,7 +795,7 @@ class AuthConnector:
     @validate_call
     def auth_initiate_consent_without_preload_content(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to consent to.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to consent to.")],
         return_url: Annotated[Optional[StrictStr], Field(description="URL to return the user to after consent.")] = None,
         redirect: Annotated[Optional[StrictBool], Field(description="If true, return 302 redirect instead of JSON")] = None,
         cookie_name: Optional[StrictStr] = None,
@@ -832,8 +816,8 @@ class AuthConnector:
 
         Initiate OAuth consent flow for a connector. Returns the provider consent URL as JSON, or a 302 redirect when redirect=true.
 
-        :param connector_id: ID of the connector to consent to. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to consent to. (required)
+        :type connector_id: UUID
         :param return_url: URL to return the user to after consent.
         :type return_url: str
         :param redirect: If true, return 302 redirect instead of JSON
@@ -1241,7 +1225,7 @@ class AuthConnector:
     @validate_call
     def auth_oauth_callback(
         self,
-        state: Annotated[StrictStr, Field(description="Opaque state token issued when consent was initiated.")],
+        state: Annotated[Optional[StrictStr], Field(description="Opaque state token issued when consent was initiated.")] = None,
         code: Optional[StrictStr] = None,
         error: Optional[StrictStr] = None,
         error_description: Optional[StrictStr] = None,
@@ -1263,7 +1247,7 @@ class AuthConnector:
 
         Handle the provider redirect after user consent and persist the granted connector tokens.
 
-        :param state: Opaque state token issued when consent was initiated. (required)
+        :param state: Opaque state token issued when consent was initiated.
         :type state: str
         :param code:
         :type code: str
@@ -1328,7 +1312,7 @@ class AuthConnector:
     @validate_call
     def auth_oauth_callback_with_http_info(
         self,
-        state: Annotated[StrictStr, Field(description="Opaque state token issued when consent was initiated.")],
+        state: Annotated[Optional[StrictStr], Field(description="Opaque state token issued when consent was initiated.")] = None,
         code: Optional[StrictStr] = None,
         error: Optional[StrictStr] = None,
         error_description: Optional[StrictStr] = None,
@@ -1350,7 +1334,7 @@ class AuthConnector:
 
         Handle the provider redirect after user consent and persist the granted connector tokens.
 
-        :param state: Opaque state token issued when consent was initiated. (required)
+        :param state: Opaque state token issued when consent was initiated.
         :type state: str
         :param code:
         :type code: str
@@ -1415,7 +1399,7 @@ class AuthConnector:
     @validate_call
     def auth_oauth_callback_without_preload_content(
         self,
-        state: Annotated[StrictStr, Field(description="Opaque state token issued when consent was initiated.")],
+        state: Annotated[Optional[StrictStr], Field(description="Opaque state token issued when consent was initiated.")] = None,
         code: Optional[StrictStr] = None,
         error: Optional[StrictStr] = None,
         error_description: Optional[StrictStr] = None,
@@ -1437,7 +1421,7 @@ class AuthConnector:
 
         Handle the provider redirect after user consent and persist the granted connector tokens.
 
-        :param state: Opaque state token issued when consent was initiated. (required)
+        :param state: Opaque state token issued when consent was initiated.
         :type state: str
         :param code:
         :type code: str
@@ -1583,7 +1567,7 @@ class AuthConnector:
     @validate_call
     def auth_revoke_consent(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to revoke consent for.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to revoke consent for.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1602,8 +1586,8 @@ class AuthConnector:
 
         Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller's own credential for non-OAuth ones.
 
-        :param connector_id: ID of the connector to revoke consent for. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to revoke consent for. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1656,7 +1640,7 @@ class AuthConnector:
     @validate_call
     def auth_revoke_consent_with_http_info(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to revoke consent for.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to revoke consent for.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1675,8 +1659,8 @@ class AuthConnector:
 
         Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller's own credential for non-OAuth ones.
 
-        :param connector_id: ID of the connector to revoke consent for. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to revoke consent for. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1729,7 +1713,7 @@ class AuthConnector:
     @validate_call
     def auth_revoke_consent_without_preload_content(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to revoke consent for.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to revoke consent for.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1748,8 +1732,8 @@ class AuthConnector:
 
         Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller's own credential for non-OAuth ones.
 
-        :param connector_id: ID of the connector to revoke consent for. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to revoke consent for. (required)
+        :type connector_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1867,9 +1851,8 @@ class AuthConnector:
     @validate_call
     def auth_set_admin_credential(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         credential_in: CredentialIn,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1888,12 +1871,10 @@ class AuthConnector:
 
         Store the tenant-wide (admin) credential fields. Admin only.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param credential_in: (required)
         :type credential_in: CredentialIn
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1921,7 +1902,6 @@ class AuthConnector:
         _param = self._auth_set_admin_credential_serialize(
             connector_id=connector_id,
             credential_in=credential_in,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1950,9 +1930,8 @@ class AuthConnector:
     @validate_call
     def auth_set_admin_credential_with_http_info(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         credential_in: CredentialIn,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1971,12 +1950,10 @@ class AuthConnector:
 
         Store the tenant-wide (admin) credential fields. Admin only.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param credential_in: (required)
         :type credential_in: CredentialIn
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2004,7 +1981,6 @@ class AuthConnector:
         _param = self._auth_set_admin_credential_serialize(
             connector_id=connector_id,
             credential_in=credential_in,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2033,9 +2009,8 @@ class AuthConnector:
     @validate_call
     def auth_set_admin_credential_without_preload_content(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         credential_in: CredentialIn,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2054,12 +2029,10 @@ class AuthConnector:
 
         Store the tenant-wide (admin) credential fields. Admin only.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param credential_in: (required)
         :type credential_in: CredentialIn
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2087,7 +2060,6 @@ class AuthConnector:
         _param = self._auth_set_admin_credential_serialize(
             connector_id=connector_id,
             credential_in=credential_in,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -2113,7 +2085,6 @@ class AuthConnector:
         self,
         connector_id,
         credential_in,
-        tenant_id,
         cookie_name,
         _request_auth,
         _content_type,
@@ -2139,10 +2110,6 @@ class AuthConnector:
         if connector_id is not None:
             _path_params['connector_id'] = connector_id
         # process the query parameters
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
-            
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
@@ -2202,7 +2169,7 @@ class AuthConnector:
     @validate_call
     def auth_set_user_credential(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         credential_in: CredentialIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2222,8 +2189,8 @@ class AuthConnector:
 
         Store the caller's per-user credential fields.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param credential_in: (required)
         :type credential_in: CredentialIn
         :param cookie_name:
@@ -2280,7 +2247,7 @@ class AuthConnector:
     @validate_call
     def auth_set_user_credential_with_http_info(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         credential_in: CredentialIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2300,8 +2267,8 @@ class AuthConnector:
 
         Store the caller's per-user credential fields.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param credential_in: (required)
         :type credential_in: CredentialIn
         :param cookie_name:
@@ -2358,7 +2325,7 @@ class AuthConnector:
     @validate_call
     def auth_set_user_credential_without_preload_content(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector whose credential is being accessed.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector whose credential is being accessed.")],
         credential_in: CredentialIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2378,8 +2345,8 @@ class AuthConnector:
 
         Store the caller's per-user credential fields.
 
-        :param connector_id: ID of the connector whose credential is being accessed. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector whose credential is being accessed. (required)
+        :type connector_id: UUID
         :param credential_in: (required)
         :type credential_in: CredentialIn
         :param cookie_name:
@@ -2517,7 +2484,7 @@ class AuthConnector:
     @validate_call
     def auth_update_connector(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to update.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to update.")],
         connector_update: ConnectorUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2537,8 +2504,8 @@ class AuthConnector:
 
         Update a connector (superadmin only).
 
-        :param connector_id: ID of the connector to update. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to update. (required)
+        :type connector_id: UUID
         :param connector_update: (required)
         :type connector_update: ConnectorUpdate
         :param cookie_name:
@@ -2596,7 +2563,7 @@ class AuthConnector:
     @validate_call
     def auth_update_connector_with_http_info(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to update.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to update.")],
         connector_update: ConnectorUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2616,8 +2583,8 @@ class AuthConnector:
 
         Update a connector (superadmin only).
 
-        :param connector_id: ID of the connector to update. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to update. (required)
+        :type connector_id: UUID
         :param connector_update: (required)
         :type connector_update: ConnectorUpdate
         :param cookie_name:
@@ -2675,7 +2642,7 @@ class AuthConnector:
     @validate_call
     def auth_update_connector_without_preload_content(
         self,
-        connector_id: Annotated[StrictInt, Field(description="ID of the connector to update.")],
+        connector_id: Annotated[UUID, Field(description="Public id of the connector to update.")],
         connector_update: ConnectorUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2695,8 +2662,8 @@ class AuthConnector:
 
         Update a connector (superadmin only).
 
-        :param connector_id: ID of the connector to update. (required)
-        :type connector_id: int
+        :param connector_id: Public id of the connector to update. (required)
+        :type connector_id: UUID
         :param connector_update: (required)
         :type connector_update: ConnectorUpdate
         :param cookie_name:
@@ -2835,7 +2802,7 @@ class AuthConnector:
     @validate_call
     def auth_update_oauth_client(
         self,
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the OAuth client to update.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the OAuth client to update.")],
         o_auth_client_update: OAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2855,8 +2822,8 @@ class AuthConnector:
 
         Update an OAuth client (superadmin only).
 
-        :param oauth_client_id: ID of the OAuth client to update. (required)
-        :type oauth_client_id: int
+        :param oauth_client_id: Public id of the OAuth client to update. (required)
+        :type oauth_client_id: UUID
         :param o_auth_client_update: (required)
         :type o_auth_client_update: OAuthClientUpdate
         :param cookie_name:
@@ -2914,7 +2881,7 @@ class AuthConnector:
     @validate_call
     def auth_update_oauth_client_with_http_info(
         self,
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the OAuth client to update.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the OAuth client to update.")],
         o_auth_client_update: OAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2934,8 +2901,8 @@ class AuthConnector:
 
         Update an OAuth client (superadmin only).
 
-        :param oauth_client_id: ID of the OAuth client to update. (required)
-        :type oauth_client_id: int
+        :param oauth_client_id: Public id of the OAuth client to update. (required)
+        :type oauth_client_id: UUID
         :param o_auth_client_update: (required)
         :type o_auth_client_update: OAuthClientUpdate
         :param cookie_name:
@@ -2993,7 +2960,7 @@ class AuthConnector:
     @validate_call
     def auth_update_oauth_client_without_preload_content(
         self,
-        oauth_client_id: Annotated[StrictInt, Field(description="ID of the OAuth client to update.")],
+        oauth_client_id: Annotated[UUID, Field(description="Public id of the OAuth client to update.")],
         o_auth_client_update: OAuthClientUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -3013,8 +2980,8 @@ class AuthConnector:
 
         Update an OAuth client (superadmin only).
 
-        :param oauth_client_id: ID of the OAuth client to update. (required)
-        :type oauth_client_id: int
+        :param oauth_client_id: Public id of the OAuth client to update. (required)
+        :type oauth_client_id: UUID
         :param o_auth_client_update: (required)
         :type o_auth_client_update: OAuthClientUpdate
         :param cookie_name:

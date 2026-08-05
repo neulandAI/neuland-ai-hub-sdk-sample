@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,7 +28,7 @@ class AssistantGroupsIn(BaseModel):
     """
     AssistantGroupsIn
     """ # noqa: E501
-    group_ids: Optional[List[StrictInt]] = None
+    group_ids: Optional[List[UUID]] = None
     __properties: ClassVar[List[str]] = ["group_ids"]
 
     model_config = ConfigDict(

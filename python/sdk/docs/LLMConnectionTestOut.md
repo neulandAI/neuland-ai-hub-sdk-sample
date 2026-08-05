@@ -1,0 +1,32 @@
+# LLMConnectionTestOut
+
+Result of a connection test.  `ok=False` is returned with HTTP 200 for a reachable-but-failing config (bad key, wrong endpoint, unsupported library) so the caller can tell a failed connection apart from a server error. `detail` carries the provider or configuration error message.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**ok** | **bool** | Whether the provider responded successfully. | 
+**detail** | **str** | Human-readable outcome or error message. | 
+**sample** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.llm_connection_test_out import LLMConnectionTestOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of LLMConnectionTestOut from a JSON string
+llm_connection_test_out_instance = LLMConnectionTestOut.from_json(json)
+# print the JSON string representation of the object
+print(LLMConnectionTestOut.to_json())
+
+# convert the object into a dict
+llm_connection_test_out_dict = llm_connection_test_out_instance.to_dict()
+# create an instance of LLMConnectionTestOut from a dict
+llm_connection_test_out_from_dict = LLMConnectionTestOut.from_dict(llm_connection_test_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**group_ids** | **Array&lt;number&gt;** |  | [optional] [default to undefined]
+**group_ids** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 

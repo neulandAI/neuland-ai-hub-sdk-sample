@@ -1,0 +1,503 @@
+---
+title: "Role"
+---
+
+All URIs are relative to *https://api.your-domain.com*
+
+|Method | HTTP request | Description|
+|------------- | ------------- | -------------|
+|[**rolesAssignRoleToGroup**](#rolesassignroletogroup) | **POST** /roles/&#123;role_id&#125;/groups/&#123;group_id&#125; | Assign a role to a group|
+|[**rolesAssignRoleToUser**](#rolesassignroletouser) | **POST** /roles/&#123;role_id&#125;/users/&#123;user_id&#125; | Assign a role to a user|
+|[**rolesCreateRole**](#rolescreaterole) | **POST** /roles/ | Create a custom role|
+|[**rolesDeleteRole**](#rolesdeleterole) | **DELETE** /roles/&#123;role_id&#125; | Delete a role|
+|[**rolesSetDefaultRole**](#rolessetdefaultrole) | **PUT** /roles/&#123;role_id&#125;/default | Set a role as the tenant default|
+|[**rolesUnassignRoleFromGroup**](#rolesunassignrolefromgroup) | **DELETE** /roles/&#123;role_id&#125;/groups/&#123;group_id&#125; | Unassign a role from a group|
+|[**rolesUnassignRoleFromUser**](#rolesunassignrolefromuser) | **DELETE** /roles/&#123;role_id&#125;/users/&#123;user_id&#125; | Unassign a role from a user|
+|[**rolesUpdateRole**](#rolesupdaterole) | **PATCH** /roles/&#123;role_id&#125; | Update a role|
+
+## **rolesAssignRoleToGroup**
+```typescript
+rolesAssignRoleToGroup()
+```
+
+Assign a role to a group; members inherit it.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to assign. (default to undefined)
+let groupId: string; //Public id of the group to assign it to. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesAssignRoleToGroup(
+    roleId,
+    groupId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleId** | [**string**] | Public id of the role to assign. | defaults to undefined|
+| **groupId** | [**string**] | Public id of the group to assign it to. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_GROUPS required, or the grant would exceed the caller\&#39;s own permissions. |  -  |
+|**404** | No such role or group. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **rolesAssignRoleToUser**
+```typescript
+rolesAssignRoleToUser()
+```
+
+Assign a role to a user, bounded by the caller\'s own permissions and rank.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to assign. (default to undefined)
+let userId: string; //Public id of the user to assign it to. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesAssignRoleToUser(
+    roleId,
+    userId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleId** | [**string**] | Public id of the role to assign. | defaults to undefined|
+| **userId** | [**string**] | Public id of the user to assign it to. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_USERS required, or the grant would exceed the caller\&#39;s own permissions. |  -  |
+|**404** | No such role or user. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **rolesCreateRole**
+```typescript
+Role rolesCreateRole(roleIn)
+```
+
+Create a tenant-scoped custom role and grant it the requested permissions.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration,
+    RoleIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleIn: RoleIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesCreateRole(
+    roleIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleIn** | **RoleIn**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Role**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_ROLES required, or permissions exceed the caller\&#39;s own. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **rolesDeleteRole**
+```typescript
+rolesDeleteRole()
+```
+
+Delete a custom role. Holders left with no role become roleless; system roles and the current default are protected.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to delete. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesDeleteRole(
+    roleId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleId** | [**string**] | Public id of the role to delete. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_ROLES required. |  -  |
+|**404** | No role exists with the given id. |  -  |
+|**422** | The Operator role and default roles cannot be deleted. |  -  |
+
+
+## **rolesSetDefaultRole**
+```typescript
+rolesSetDefaultRole()
+```
+
+Make a role the tenant\'s default: assigned to new users and used as the fallback when a user would be left with no role. Exactly one per tenant.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to make default. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesSetDefaultRole(
+    roleId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleId** | [**string**] | Public id of the role to make default. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_ROLES required. |  -  |
+|**404** | No role exists with the given id. |  -  |
+|**422** | The Operator role cannot be a tenant default. |  -  |
+
+
+## **rolesUnassignRoleFromGroup**
+```typescript
+rolesUnassignRoleFromGroup()
+```
+
+Remove a role from a group.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to remove. (default to undefined)
+let groupId: string; //Public id of the group to remove it from. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesUnassignRoleFromGroup(
+    roleId,
+    groupId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleId** | [**string**] | Public id of the role to remove. | defaults to undefined|
+| **groupId** | [**string**] | Public id of the group to remove it from. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_GROUPS required. |  -  |
+|**404** | No such role or group. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **rolesUnassignRoleFromUser**
+```typescript
+rolesUnassignRoleFromUser()
+```
+
+Remove a role from a user.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to remove. (default to undefined)
+let userId: string; //Public id of the user to remove it from. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesUnassignRoleFromUser(
+    roleId,
+    userId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleId** | [**string**] | Public id of the role to remove. | defaults to undefined|
+| **userId** | [**string**] | Public id of the user to remove it from. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_USERS required. |  -  |
+|**404** | No such role or user. |  -  |
+|**422** | Cannot remove the last platform super administrator. |  -  |
+
+
+## **rolesUpdateRole**
+```typescript
+Role rolesUpdateRole(roleUpdateIn)
+```
+
+Edit a role\'s name and/or permission set.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration,
+    RoleUpdateIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to update. (default to undefined)
+let roleUpdateIn: RoleUpdateIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesUpdateRole(
+    roleId,
+    roleUpdateIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleUpdateIn** | **RoleUpdateIn**|  | |
+| **roleId** | [**string**] | Public id of the role to update. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Role**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_ROLES required, or permissions exceed the caller\&#39;s own. |  -  |
+|**404** | No role exists with the given id. |  -  |
+|**422** | Validation Error |  -  |

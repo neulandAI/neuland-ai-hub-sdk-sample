@@ -4,12 +4,74 @@ All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**messagesContinueMessage**](#messagescontinuemessage) | **POST** /messages/{message_id}/continue | Continue a truncated assistant message|
 |[**messagesConvertMessage**](#messagesconvertmessage) | **GET** /messages/{message_id}/convert | Convert a message to a document|
 |[**messagesCreateMessage**](#messagescreatemessage) | **POST** /messages/ | Create a message|
 |[**messagesGetMessage**](#messagesgetmessage) | **GET** /messages/{message_id} | Get a message|
+|[**messagesGetMessageTurn**](#messagesgetmessageturn) | **GET** /messages/{message_id}/turn | Get all step-messages for a turn|
 |[**messagesRephraseMessage**](#messagesrephrasemessage) | **GET** /messages/{message_id}/rephrase | Rephrase a message|
+|[**messagesResumeMessage**](#messagesresumemessage) | **POST** /messages/{message_id}/hil | Resume a turn awaiting approval or user input|
 |[**messagesSubmitMessage**](#messagessubmitmessage) | **POST** /messages/submit | Submit a message with attachments|
 |[**messagesTranslateMessage**](#messagestranslatemessage) | **GET** /messages/{message_id}/translate | Translate a message|
+
+# **messagesContinueMessage**
+> Message messagesContinueMessage()
+
+Resume an assistant reply that was cut off by the output-token limit.  Reprocesses the same assistant message: the model receives the chat history ending on the truncated reply plus a continuation instruction, and the new tokens are appended to the existing content under the same message id (no extra transcript entries). Only the newest message of a chat is continuable, and only when it completed with `state_reason=MAX_OUTPUT_TOKENS`.
+
+### Example
+
+```typescript
+import {
+    Message,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Message(configuration);
+
+let messageId: string; //Public id of the truncated assistant message. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.messagesContinueMessage(
+    messageId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **messageId** | [**string**] | Public id of the truncated assistant message. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Message**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat, or usage budget exceeded. |  -  |
+|**404** | Message does not exist. |  -  |
+|**409** | Message is not continuable (wrong role/state/reason, or not the latest message of the chat). |  -  |
+|**422** | The chat is busy with another generation. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **messagesConvertMessage**
 > any messagesConvertMessage()
@@ -27,7 +89,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
-let messageId: number; //ID of the message to convert. (default to undefined)
+let messageId: string; //ID of the message to convert. (default to undefined)
 let format: OutputFormat; //Output format (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -42,7 +104,7 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **messageId** | [**number**] | ID of the message to convert. | defaults to undefined|
+| **messageId** | [**string**] | ID of the message to convert. | defaults to undefined|
 | **format** | **OutputFormat** | Output format | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -147,7 +209,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
-let messageId: number; //ID of the message to fetch. (default to undefined)
+let messageId: string; //ID of the message to fetch. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.messagesGetMessage(
@@ -160,13 +222,71 @@ const { status, data } = await apiInstance.messagesGetMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **messageId** | [**number**] | ID of the message to fetch. | defaults to undefined|
+| **messageId** | [**string**] | ID of the message to fetch. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
 **MessageDetailOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat the message belongs to. |  -  |
+|**404** | Message or its chat does not exist. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **messagesGetMessageTurn**
+> MessageTurnOut messagesGetMessageTurn()
+
+Ordered step-messages for a turn (future multi-bubble UI).
+
+### Example
+
+```typescript
+import {
+    Message,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Message(configuration);
+
+let messageId: string; //Public id of any message belonging to the turn. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.messagesGetMessageTurn(
+    messageId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **messageId** | [**string**] | Public id of any message belonging to the turn. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**MessageTurnOut**
 
 ### Authorization
 
@@ -205,7 +325,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
-let messageId: number; //ID of the message to rephrase. (default to undefined)
+let messageId: string; //ID of the message to rephrase. (default to undefined)
 let style: RephraseStyleEnum; //Style of rephrasing: \'same\' (same length), \'short\' (shorter), or \'long\' (longer) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -220,7 +340,7 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **messageId** | [**number**] | ID of the message to rephrase. | defaults to undefined|
+| **messageId** | [**string**] | ID of the message to rephrase. | defaults to undefined|
 | **style** | **RephraseStyleEnum** | Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer) | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -250,8 +370,71 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **messagesResumeMessage**
+> any messagesResumeMessage(resumeIn)
+
+Approve, reject, or edit the gated tool call that paused this reply, or answer its pending clarification question(s) with \'respond\'.
+
+### Example
+
+```typescript
+import {
+    Message,
+    Configuration,
+    ResumeIn
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Message(configuration);
+
+let messageId: string; //Public id of the assistant reply to resume. (default to undefined)
+let resumeIn: ResumeIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.messagesResumeMessage(
+    messageId,
+    resumeIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **resumeIn** | **ResumeIn**|  | |
+| **messageId** | [**string**] | Public id of the assistant reply to resume. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**202** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to the chat the message belongs to. |  -  |
+|**404** | Message or its chat does not exist. |  -  |
+|**409** | Message is not an assistant reply awaiting approval or user input. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **messagesSubmitMessage**
-> Message messagesSubmitMessage()
+> MessageSubmitOut messagesSubmitMessage()
 
 Send a multipart message with optional file uploads and enqueue generation.
 
@@ -268,20 +451,21 @@ const apiInstance = new Message(configuration);
 
 let cookieName: string; // (optional) (default to undefined)
 let content: string; // (optional) (default to undefined)
-let projectId: number; // (optional) (default to undefined)
-let chatId: number; // (optional) (default to undefined)
-let documentIds: Array<number>; // (optional) (default to undefined)
-let updatedAt: string; // (optional) (default to undefined)
+let projectId: string; // (optional) (default to undefined)
+let chatId: string; // (optional) (default to undefined)
+let documentIds: Array<string>; // (optional) (default to undefined)
 let files: Array<File>; // (optional) (default to undefined)
 let chatTemperature: number; // (optional) (default to undefined)
 let chatSimilarityTopK: number; // (optional) (default to undefined)
 let chatSystemPrompt: string; // (optional) (default to undefined)
-let assistantId: number; // (optional) (default to undefined)
+let assistantId: string; // (optional) (default to undefined)
 let model: string; // (optional) (default to undefined)
-let toolIds: Array<number>; // (optional) (default to undefined)
+let toolIds: Array<string>; // (optional) (default to undefined)
 let _private: boolean; // (optional) (default to false)
-let libraryId: number; // (optional) (default to undefined)
+let libraryId: string; // (optional) (default to undefined)
 let formData: string; // (optional) (default to undefined)
+let formFields: string; // (optional) (default to undefined)
+let playground: boolean; // (optional) (default to false)
 
 const { status, data } = await apiInstance.messagesSubmitMessage(
     cookieName,
@@ -289,7 +473,6 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
     projectId,
     chatId,
     documentIds,
-    updatedAt,
     files,
     chatTemperature,
     chatSimilarityTopK,
@@ -299,7 +482,9 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
     toolIds,
     _private,
     libraryId,
-    formData
+    formData,
+    formFields,
+    playground
 );
 ```
 
@@ -309,25 +494,26 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 |------------- | ------------- | ------------- | -------------|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 | **content** | [**string**] |  | (optional) defaults to undefined|
-| **projectId** | [**number**] |  | (optional) defaults to undefined|
-| **chatId** | [**number**] |  | (optional) defaults to undefined|
-| **documentIds** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
-| **updatedAt** | [**string**] |  | (optional) defaults to undefined|
+| **projectId** | [**string**] |  | (optional) defaults to undefined|
+| **chatId** | [**string**] |  | (optional) defaults to undefined|
+| **documentIds** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **files** | **Array&lt;File&gt;** |  | (optional) defaults to undefined|
 | **chatTemperature** | [**number**] |  | (optional) defaults to undefined|
 | **chatSimilarityTopK** | [**number**] |  | (optional) defaults to undefined|
 | **chatSystemPrompt** | [**string**] |  | (optional) defaults to undefined|
-| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+| **assistantId** | [**string**] |  | (optional) defaults to undefined|
 | **model** | [**string**] |  | (optional) defaults to undefined|
-| **toolIds** | **Array&lt;number&gt;** |  | (optional) defaults to undefined|
+| **toolIds** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **_private** | [**boolean**] |  | (optional) defaults to false|
-| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+| **libraryId** | [**string**] |  | (optional) defaults to undefined|
 | **formData** | [**string**] |  | (optional) defaults to undefined|
+| **formFields** | [**string**] |  | (optional) defaults to undefined|
+| **playground** | [**boolean**] |  | (optional) defaults to false|
 
 
 ### Return type
 
-**Message**
+**MessageSubmitOut**
 
 ### Authorization
 
@@ -366,7 +552,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
-let messageId: number; //ID of the message to translate. (default to undefined)
+let messageId: string; //ID of the message to translate. (default to undefined)
 let lang: string; //Target language. Preferably RFC 5646 format. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -381,7 +567,7 @@ const { status, data } = await apiInstance.messagesTranslateMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **messageId** | [**number**] | ID of the message to translate. | defaults to undefined|
+| **messageId** | [**string**] | ID of the message to translate. | defaults to undefined|
 | **lang** | [**string**] | Target language. Preferably RFC 5646 format. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 

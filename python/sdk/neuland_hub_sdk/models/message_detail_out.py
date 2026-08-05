@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from neuland_hub_sdk.models.message_file_out import MessageFileOut
 from neuland_hub_sdk.models.tool_call_out import ToolCallOut
 from typing import Optional, Set
@@ -31,11 +32,13 @@ class MessageDetailOut(BaseModel):
     Composed message state — the recovery contract for dropped SSE streams.  See backend/docs/streaming-architecture.md §6 requirement 4.
     """ # noqa: E501
     id: StrictInt = Field(description="ID of the message.")
-    chat_id: StrictInt = Field(description="ID of the chat the message belongs to.")
-    parent_id: Optional[StrictInt]
+    public_id: UUID = Field(description="Public, non-enumerable external id of the message.")
+    chat_id: UUID = Field(description="Public id of the chat the message belongs to.")
+    parent_id: Optional[UUID]
     role: StrictStr = Field(description="Role of the message author.")
     content: StrictStr = Field(description="Text content of the message.")
     state: Optional[StrictStr]
+    state_reason: Optional[StrictStr] = None
     error: Optional[StrictStr]
     hint: Optional[StrictStr]
     created_at: datetime = Field(description="When the message was created.")
@@ -43,7 +46,11 @@ class MessageDetailOut(BaseModel):
     usage: Optional[Dict[str, Any]]
     tool_calls: List[ToolCallOut] = Field(description="Tool calls made while generating the message.")
     files: List[MessageFileOut] = Field(description="Files attached to the message.")
-    __properties: ClassVar[List[str]] = ["id", "chat_id", "parent_id", "role", "content", "state", "error", "hint", "created_at", "updated_at", "usage", "tool_calls", "files"]
+    interrupt: Optional[Dict[str, Any]] = None
+    reasoning: Optional[List[Dict[str, Any]]] = None
+    turn_step_index: Optional[StrictInt] = None
+    is_final_step: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["id", "public_id", "chat_id", "parent_id", "role", "content", "state", "state_reason", "error", "hint", "created_at", "updated_at", "usage", "tool_calls", "files", "interrupt", "reasoning", "turn_step_index", "is_final_step"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -108,6 +115,11 @@ class MessageDetailOut(BaseModel):
         if self.state is None and "state" in self.model_fields_set:
             _dict['state'] = None
 
+        # set to None if state_reason (nullable) is None
+        # and model_fields_set contains the field
+        if self.state_reason is None and "state_reason" in self.model_fields_set:
+            _dict['state_reason'] = None
+
         # set to None if error (nullable) is None
         # and model_fields_set contains the field
         if self.error is None and "error" in self.model_fields_set:
@@ -123,6 +135,26 @@ class MessageDetailOut(BaseModel):
         if self.usage is None and "usage" in self.model_fields_set:
             _dict['usage'] = None
 
+        # set to None if interrupt (nullable) is None
+        # and model_fields_set contains the field
+        if self.interrupt is None and "interrupt" in self.model_fields_set:
+            _dict['interrupt'] = None
+
+        # set to None if reasoning (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning is None and "reasoning" in self.model_fields_set:
+            _dict['reasoning'] = None
+
+        # set to None if turn_step_index (nullable) is None
+        # and model_fields_set contains the field
+        if self.turn_step_index is None and "turn_step_index" in self.model_fields_set:
+            _dict['turn_step_index'] = None
+
+        # set to None if is_final_step (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_final_step is None and "is_final_step" in self.model_fields_set:
+            _dict['is_final_step'] = None
+
         return _dict
 
     @classmethod
@@ -136,18 +168,24 @@ class MessageDetailOut(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "chat_id": obj.get("chat_id"),
             "parent_id": obj.get("parent_id"),
             "role": obj.get("role"),
             "content": obj.get("content"),
             "state": obj.get("state"),
+            "state_reason": obj.get("state_reason"),
             "error": obj.get("error"),
             "hint": obj.get("hint"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "usage": obj.get("usage"),
             "tool_calls": [ToolCallOut.from_dict(_item) for _item in obj["tool_calls"]] if obj.get("tool_calls") is not None else None,
-            "files": [MessageFileOut.from_dict(_item) for _item in obj["files"]] if obj.get("files") is not None else None
+            "files": [MessageFileOut.from_dict(_item) for _item in obj["files"]] if obj.get("files") is not None else None,
+            "interrupt": obj.get("interrupt"),
+            "reasoning": obj.get("reasoning"),
+            "turn_step_index": obj.get("turn_step_index"),
+            "is_final_step": obj.get("is_final_step")
         })
         return _obj
 

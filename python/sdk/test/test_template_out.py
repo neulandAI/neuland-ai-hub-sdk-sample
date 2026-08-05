@@ -36,16 +36,24 @@ class TestTemplateOut(unittest.TestCase):
         if include_optional:
             return TemplateOut(
                 id = 56,
+                public_id = '',
                 name = '',
-                text_body = '',
-                html_body = ''
+                subject = '',
+                html_body = '',
+                key = '',
+                language = '',
+                is_draft = True
             )
         else:
             return TemplateOut(
                 id = 56,
+                public_id = '',
                 name = '',
-                text_body = '',
+                subject = '',
                 html_body = '',
+                key = '',
+                language = '',
+                is_draft = True,
         )
         """
 

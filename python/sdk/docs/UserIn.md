@@ -11,7 +11,8 @@ Name | Type | Description | Notes
 **password** | **str** | Initial password; the user is prompted to change it on first login. | 
 **admin** | **bool** |  | [optional] 
 **superadmin** | **bool** |  | [optional] 
-**tenant_id** | **int** |  | [optional] 
+**tenant_id** | **UUID** |  | [optional] 
+**role_id** | **UUID** |  | [optional] 
 
 ## Example
 

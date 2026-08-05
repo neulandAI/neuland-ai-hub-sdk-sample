@@ -1,0 +1,45 @@
+# UserMeOut
+
+The current user's own profile (/users/me), extended with the effective feature-flag map for their tenant. Kept separate from ``UserOut`` so list endpoints don't resolve flags per row.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **int** | Unique identifier of the user. | 
+**public_id** | **UUID** | Public, non-enumerable external identifier of the user. | 
+**created_at** | **datetime** | UTC timestamp when the user was created. | 
+**email** | **str** | Current confirmed email address. | 
+**email_confirmed** | **bool** | Whether the email address has been confirmed. | 
+**pending_email** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**first_name** | **str** |  | [optional] 
+**last_name** | **str** |  | [optional] 
+**admin** | **bool** | Whether the user has tenant administrator privileges. | [optional] [default to False]
+**superadmin** | **bool** |  | [optional] 
+**active** | **bool** | Whether the account is active and can authenticate. | 
+**tenant_id** | **int** |  | [optional] 
+**tenant_public_id** | **UUID** |  | [optional] 
+**permissions** | **List[str]** | Effective permission keys the user holds, including those granted through group membership. | [optional] 
+**features** | **Dict[str, Optional[bool]]** | Effective feature-flag values for the user&#39;s tenant. | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.user_me_out import UserMeOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UserMeOut from a JSON string
+user_me_out_instance = UserMeOut.from_json(json)
+# print the JSON string representation of the object
+print(UserMeOut.to_json())
+
+# convert the object into a dict
+user_me_out_dict = user_me_out_instance.to_dict()
+# create an instance of UserMeOut from a dict
+user_me_out_from_dict = UserMeOut.from_dict(user_me_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

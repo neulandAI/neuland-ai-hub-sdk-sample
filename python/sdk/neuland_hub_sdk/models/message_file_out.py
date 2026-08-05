@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,9 +29,10 @@ class MessageFileOut(BaseModel):
     MessageFileOut
     """ # noqa: E501
     id: StrictInt = Field(description="ID of the attached document.")
+    public_id: UUID = Field(description="Public, non-enumerable id of the attached document.")
     filename: StrictStr = Field(description="Original file name.")
     content_type: Optional[StrictStr]
-    __properties: ClassVar[List[str]] = ["id", "filename", "content_type"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "filename", "content_type"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -89,6 +91,7 @@ class MessageFileOut(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "filename": obj.get("filename"),
             "content_type": obj.get("content_type")
         })

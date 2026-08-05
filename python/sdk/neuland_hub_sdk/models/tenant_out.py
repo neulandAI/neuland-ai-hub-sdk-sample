@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,6 +30,7 @@ class TenantOut(BaseModel):
     TenantOut
     """ # noqa: E501
     id: StrictInt = Field(description="Unique identifier of the tenant.")
+    public_id: UUID = Field(description="Public, non-enumerable external identifier of the tenant.")
     created_at: datetime = Field(description="UTC timestamp when the tenant was created.")
     creator_user_id: Optional[StrictInt] = None
     name: StrictStr = Field(description="Internal name of the tenant.")
@@ -56,7 +58,7 @@ class TenantOut(BaseModel):
     state: Optional[StrictStr] = None
     upstream_tenant_id: Optional[StrictStr] = None
     upstream_oidc_issuer: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "created_at", "creator_user_id", "name", "slug", "domain", "parent_tenant_id", "subtenants_enabled", "timezone", "locale", "tarif_id", "max_users", "max_projects", "licenses", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "state", "upstream_tenant_id", "upstream_oidc_issuer"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "created_at", "creator_user_id", "name", "slug", "domain", "parent_tenant_id", "subtenants_enabled", "timezone", "locale", "tarif_id", "max_users", "max_projects", "licenses", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "state", "upstream_tenant_id", "upstream_oidc_issuer"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -215,6 +217,7 @@ class TenantOut(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "created_at": obj.get("created_at"),
             "creator_user_id": obj.get("creator_user_id"),
             "name": obj.get("name"),

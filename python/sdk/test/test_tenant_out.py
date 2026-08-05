@@ -36,6 +36,7 @@ class TestTenantOut(unittest.TestCase):
         if include_optional:
             return TenantOut(
                 id = 56,
+                public_id = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 creator_user_id = 56,
                 name = '',
@@ -67,6 +68,7 @@ class TestTenantOut(unittest.TestCase):
         else:
             return TenantOut(
                 id = 56,
+                public_id = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 name = '',
                 slug = '',

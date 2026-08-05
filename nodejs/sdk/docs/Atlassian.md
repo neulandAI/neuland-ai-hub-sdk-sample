@@ -23,7 +23,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Atlassian(configuration);
 
-let connectorId: number; //ID of the Atlassian connector to configure. (default to undefined)
+let connectorId: string; //Public id of the Atlassian connector to configure. (default to undefined)
 let setAtlassianCloudIdRequest: SetAtlassianCloudIdRequest; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -39,7 +39,7 @@ const { status, data } = await apiInstance.integrationsSetAtlassianCloudId(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **setAtlassianCloudIdRequest** | **SetAtlassianCloudIdRequest**|  | |
-| **connectorId** | [**number**] | ID of the Atlassian connector to configure. | defaults to undefined|
+| **connectorId** | [**string**] | Public id of the Atlassian connector to configure. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

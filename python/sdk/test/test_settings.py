@@ -36,6 +36,7 @@ class TestSettings(unittest.TestCase):
         if include_optional:
             return Settings(
                 id = 56,
+                public_id = '',
                 tenant_id = 56,
                 default_llm_catalog_id = 56,
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
@@ -47,7 +48,9 @@ class TestSettings(unittest.TestCase):
                 inserted_by = '',
                 errlog_webhook_url = '',
                 default_language = 'en',
-                require_email_confirmation = True
+                require_email_confirmation = True,
+                budget_alert_enabled = True,
+                soft_limit_warning_enabled = True
             )
         else:
             return Settings(

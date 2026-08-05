@@ -1,0 +1,29 @@
+# NeulandAssistantsTaggingOut
+
+A tagging, identifying the tag and taggable resource by public id.  `tag_id`/`taggable_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `tag_public_id`/`taggable_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**tag_id** | **number** | Internal id of the tag (deprecated; use tag_public_id). | [default to undefined]
+**tag_public_id** | **string** | Public id of the tag being applied. | [default to undefined]
+**taggable_type** | **string** | Resource type this tag is attached to. | [default to undefined]
+**taggable_id** | **number** | Internal id of the resource (deprecated; use taggable_public_id). | [default to undefined]
+**taggable_public_id** | **string** | Public id of the tagged resource. | [default to undefined]
+
+## Example
+
+```typescript
+import { NeulandAssistantsTaggingOut } from 'neuland-hub-sdk';
+
+const instance: NeulandAssistantsTaggingOut = {
+    tag_id,
+    tag_public_id,
+    taggable_type,
+    taggable_id,
+    taggable_public_id,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

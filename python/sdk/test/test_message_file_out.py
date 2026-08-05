@@ -36,12 +36,14 @@ class TestMessageFileOut(unittest.TestCase):
         if include_optional:
             return MessageFileOut(
                 id = 56,
+                public_id = '',
                 filename = '',
                 content_type = ''
             )
         else:
             return MessageFileOut(
                 id = 56,
+                public_id = '',
                 filename = '',
                 content_type = '',
         )

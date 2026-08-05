@@ -1,0 +1,29 @@
+# LibraryMemberOut
+
+A library membership, identifying the library and member by public id.  `library_id`/`user_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `library_public_id`/`user_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**library_id** | **number** | Internal id of the library (deprecated; use library_public_id). | [default to undefined]
+**library_public_id** | **string** | Public id of the library. | [default to undefined]
+**user_id** | **number** | Internal id of the member user (deprecated; use user_public_id). | [default to undefined]
+**user_public_id** | **string** | Public id of the member user. | [default to undefined]
+**role** | **string** | Role of the member. | [default to undefined]
+
+## Example
+
+```typescript
+import { LibraryMemberOut } from 'neuland-hub-sdk';
+
+const instance: LibraryMemberOut = {
+    library_id,
+    library_public_id,
+    user_id,
+    user_public_id,
+    role,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,7 +29,7 @@ class TenantModelBulkIn(BaseModel):
     TenantModelBulkIn
     """ # noqa: E501
     all: Optional[StrictBool] = None
-    tenant_ids: Optional[List[StrictInt]] = None
+    tenant_ids: Optional[List[UUID]] = None
     __properties: ClassVar[List[str]] = ["all", "tenant_ids"]
 
     model_config = ConfigDict(

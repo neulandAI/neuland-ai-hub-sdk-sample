@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** | Display name of the application. | [default to undefined]
 **is_active** | **boolean** | Whether the application is active and available to users. | [optional] [default to true]
-**tenant_id** | **number** | ID of the tenant the application belongs to. | [default to undefined]
+**tenant_id** | **string** | Public id of the tenant the application belongs to. | [default to undefined]
 **app_url** | **string** |  | [optional] [default to undefined]
 **is_native** | **boolean** |  | [optional] [default to undefined]
 **native_app_id** | **number** |  | [optional] [default to undefined]

@@ -1,0 +1,33 @@
+---
+title: "ApplicationCatalogIn"
+---
+
+Payload for creating a catalog item (superadmin).
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** | Display name; unique across the catalog. Max 100 characters. | 
+**description** | **str** |  | [optional] 
+**avatar** | **str** |  | [optional] 
+**app_url** | **str** | Canonical URL of the application; unique across the catalog. Max 100 characters. | 
+**version** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.application_catalog_in import ApplicationCatalogIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ApplicationCatalogIn from a JSON string
+application_catalog_in_instance = ApplicationCatalogIn.from_json(json)
+# print the JSON string representation of the object
+print(ApplicationCatalogIn.to_json())
+
+# convert the object into a dict
+application_catalog_in_dict = application_catalog_in_instance.to_dict()
+# create an instance of ApplicationCatalogIn from a dict
+application_catalog_in_from_dict = ApplicationCatalogIn.from_dict(application_catalog_in_dict)
+```

@@ -13,7 +13,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**librariesUpdateLibrary**](#librariesupdatelibrary) | **PATCH** /libraries/{library_id} | Update a library|
 
 # **librariesAddLibraryMembers**
-> Array<LibraryMember> librariesAddLibraryMembers(libraryMemberBulkIn)
+> Array<LibraryMemberOut> librariesAddLibraryMembers(libraryMemberBulkIn)
 
 Add one or more members to the library; owner only.
 
@@ -29,7 +29,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
 
-let libraryId: number; // (default to undefined)
+let libraryId: string; //Public id of the library to add members to. (default to undefined)
 let libraryMemberBulkIn: LibraryMemberBulkIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -45,13 +45,13 @@ const { status, data } = await apiInstance.librariesAddLibraryMembers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **libraryMemberBulkIn** | **LibraryMemberBulkIn**|  | |
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to add members to. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Array<LibraryMember>**
+**Array<LibraryMemberOut>**
 
 ### Authorization
 
@@ -90,7 +90,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
 
-let libraryId: number; // (default to undefined)
+let libraryId: string; //Public id of the library to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.librariesDeleteLibrary(
@@ -103,7 +103,7 @@ const { status, data } = await apiInstance.librariesDeleteLibrary(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -148,7 +148,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
 
-let libraryId: number; // (default to undefined)
+let libraryId: string; //Public id of the library to leave. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.librariesLeaveLibrary(
@@ -161,7 +161,7 @@ const { status, data } = await apiInstance.librariesLeaveLibrary(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to leave. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -265,7 +265,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
 
-let libraryId: number; // (default to undefined)
+let libraryId: string; //Public id of the library to remove members from. (default to undefined)
 let libraryMemberBulkDelete: LibraryMemberBulkDelete; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -281,7 +281,7 @@ const { status, data } = await apiInstance.librariesRemoveLibraryMembers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **libraryMemberBulkDelete** | **LibraryMemberBulkDelete**|  | |
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to remove members from. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -327,8 +327,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
 
-let libraryId: number; // (default to undefined)
-let userId: number; //ID of the member to remove. (default to undefined)
+let libraryId: string; //Public id of the library. (default to undefined)
+let userId: string; //Public id of the member to remove. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.librariesRemoveSingleMember(
@@ -342,8 +342,8 @@ const { status, data } = await apiInstance.librariesRemoveSingleMember(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **libraryId** | [**number**] |  | defaults to undefined|
-| **userId** | [**number**] | ID of the member to remove. | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library. | defaults to undefined|
+| **userId** | [**string**] | Public id of the member to remove. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -390,7 +390,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
 
-let libraryId: number; // (default to undefined)
+let libraryId: string; //Public id of the library to update. (default to undefined)
 let libraryUpdateIn: LibraryUpdateIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -406,7 +406,7 @@ const { status, data } = await apiInstance.librariesUpdateLibrary(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **libraryUpdateIn** | **LibraryUpdateIn**|  | |
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

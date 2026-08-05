@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,6 +31,7 @@ class BudgetAlert(BaseModel):
     Saves the budget alerts.
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the budget alert. Exposed to clients instead of the internal integer id.")
     tenant_id: StrictInt = Field(description="ID of the tenant the budget alert belongs to.")
     name: Optional[StrictStr] = Field(default=None, description="Name of the alert.")
     threshold_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="Budget threshold, for notification.")
@@ -39,7 +41,7 @@ class BudgetAlert(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the alert was created.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when alert was updated.")
     created_user_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["id", "tenant_id", "name", "threshold_amount", "current_spend", "triggered", "active", "created_at", "updated_at", "created_user_id"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "name", "threshold_amount", "current_spend", "triggered", "active", "created_at", "updated_at", "created_user_id"]
 
     @field_validator('current_spend')
     def current_spend_validate_regular_expression(cls, value):
@@ -113,6 +115,7 @@ class BudgetAlert(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
             "name": obj.get("name"),
             "threshold_amount": obj.get("threshold_amount") if obj.get("threshold_amount") is not None else 0,

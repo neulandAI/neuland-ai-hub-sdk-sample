@@ -14,20 +14,26 @@
 """  # noqa: E501
 
 
-__version__ = "1.0.3"
+__version__ = "1.0.0"
 
 # Define package exports
 __all__ = [
     "Alert",
     "ApiKey",
     "Application",
+    "ApplicationMarketplace",
     "Assistant",
+    "AssistantMarketplace",
     "Atlassian",
     "Auth",
     "AuthConnector",
+    "Category",
     "Chat",
     "Document",
+    "Dropbox",
+    "FeatureFlag",
     "File",
+    "GoogleDrive",
     "Invitation",
     "Library",
     "Llm",
@@ -40,6 +46,7 @@ __all__ = [
     "Prompt",
     "Query",
     "Rating",
+    "Role",
     "Settings",
     "Sharepoint",
     "SharepointV1",
@@ -53,6 +60,7 @@ __all__ = [
     "ToolAction",
     "Transcription",
     "User",
+    "Workflow",
     "Default",
     "ApiResponse",
     "ApiClient",
@@ -63,22 +71,28 @@ __all__ = [
     "ApiKeyError",
     "ApiAttributeError",
     "ApiException",
-    "ApiKey",
     "ApiKeyCreateRequest",
     "ApiKeyCreateResponse",
     "Application",
     "ApplicationAccessIn",
-    "ApplicationGroup",
+    "ApplicationCatalog",
+    "ApplicationCatalogIn",
+    "ApplicationCatalogUpdate",
+    "ApplicationGroupOut",
     "ApplicationIn",
-    "ApplicationMember",
+    "ApplicationMemberOut",
     "Assistant",
-    "AssistantGroup",
+    "AssistantCatalog",
+    "AssistantCatalogIn",
+    "AssistantCatalogToolOut",
+    "AssistantCatalogUpdate",
+    "AssistantGroupOut",
     "AssistantGroupsIn",
     "AssistantIn",
     "AssistantInputTypeEnum",
     "AssistantLibrary",
-    "AssistantMember",
     "AssistantMemberGrantedViaEnum",
+    "AssistantMemberOut",
     "AssistantMembersIn",
     "AssistantTool",
     "AssistantVisibilityEnum",
@@ -90,21 +104,25 @@ __all__ = [
     "BulkResult",
     "CatalogIn",
     "CatalogUpdate",
+    "CategoryOut",
     "Cc",
     "Chat",
     "ChatIn",
-    "ChatInactiveDocument",
+    "ChatInactiveDocumentOut",
     "ChatLibrary",
     "ChatToolSettingsOut",
     "ChatToolSettingsUpdate",
+    "ClarificationAnswer",
     "Connector",
     "ConnectorAuthType",
     "ConnectorConsentOut",
     "ConnectorOut",
     "ConnectorStatusOut",
     "ConnectorUpdate",
+    "CostAudioPerMinute",
     "CostByModel",
     "CostBySource",
+    "CostCachedTokens",
     "CostCompletionTokens",
     "CostCompletionTokens1",
     "CostPromptTokens",
@@ -120,6 +138,13 @@ __all__ = [
     "DataSourceSiteModel",
     "DataSourceUserModel",
     "Document",
+    "DocumentTextOut",
+    "EmailCatalogOut",
+    "EmailSpec",
+    "EmailTemplateKey",
+    "Example",
+    "FeatureFlagOut",
+    "FeatureFlagSetIn",
     "FormField",
     "FormFieldTypeEnum",
     "GroupAppAccessIn",
@@ -128,20 +153,28 @@ __all__ = [
     "HTTPValidationError",
     "InvitationIn",
     "InvitationOut",
+    "LLMConnectionTestIn",
+    "LLMConnectionTestOut",
     "LLMSettingsIn",
     "LLMSettingsUpdate",
     "Library",
     "LibraryIn",
-    "LibraryMember",
     "LibraryMemberBulkDelete",
     "LibraryMemberBulkIn",
     "LibraryMemberIn",
+    "LibraryMemberOut",
     "LibraryUpdateIn",
     "LocationInner",
+    "MarketplaceCatalogStateEnum",
+    "MarketplaceCatalogStateUpdate",
     "Message",
     "MessageDetailOut",
     "MessageFileOut",
     "MessageIn",
+    "MessageSubmitOut",
+    "MessageTurnOut",
+    "NeulandAssistantsTaggingOut",
+    "NeulandMarketplaceAssistantSchemasTaggingOut",
     "OAuth2ProviderEnum",
     "OAuthClient",
     "OAuthClientUpdate",
@@ -164,9 +197,16 @@ __all__ = [
     "RatingIn",
     "RephraseStyleEnum",
     "ResponseAuthGetEntraGroupsValue",
+    "ResponseDropboxListRoots",
+    "ResponseGoogledriveListRoots",
     "ResponseNextcloudListRoots",
     "ResponseOnedriveListRoots",
     "ResponseSharepointv1ListRoots",
+    "ResumeIn",
+    "Role",
+    "RoleIn",
+    "RoleUpdateIn",
+    "RunCreateOut",
     "SecretUpdateIn",
     "SendEmailRequest",
     "SendEmailResponse",
@@ -181,16 +221,19 @@ __all__ = [
     "SsoExchangeIn",
     "SsoInitOut",
     "SsoResolveOut",
+    "StreamTokenOut",
     "SystemSettings",
     "SystemSettingsUpdate",
     "Tag",
     "TagIn",
+    "TaggableTypeEnum",
     "Tagging",
     "Tarif",
     "TarifIn",
     "TarifStatusEnum",
     "TemplateIn",
     "TemplateOut",
+    "TemplateUpdate",
     "TenantIn",
     "TenantLLM",
     "TenantModelBulkIn",
@@ -211,6 +254,7 @@ __all__ = [
     "TokensTimeseriesResponse",
     "ToolCallOut",
     "ToolCallProgressStepOut",
+    "ToolCreate",
     "ToolOut",
     "ToolUpdate",
     "TranscriptionOut",
@@ -223,24 +267,37 @@ __all__ = [
     "UserGroupMember",
     "UserGroupSource",
     "UserIn",
+    "UserMeOut",
     "UserOut",
     "UserPreferenceOut",
     "UserPreferenceUpdateIn",
     "UserUpdateIn",
     "ValidationError",
+    "VariableSpec",
+    "Workflow",
+    "WorkflowChatIn",
+    "WorkflowChatOut",
+    "WorkflowIn",
+    "WorkflowUpdateIn",
 ]
 
 # import apis into sdk package
 from neuland_hub_sdk.api.alert import Alert as Alert
 from neuland_hub_sdk.api.api_key import ApiKey as ApiKey
 from neuland_hub_sdk.api.application import Application as Application
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace as ApplicationMarketplace
 from neuland_hub_sdk.api.assistant import Assistant as Assistant
+from neuland_hub_sdk.api.assistant_marketplace import AssistantMarketplace as AssistantMarketplace
 from neuland_hub_sdk.api.atlassian import Atlassian as Atlassian
 from neuland_hub_sdk.api.auth import Auth as Auth
 from neuland_hub_sdk.api.auth_connector import AuthConnector as AuthConnector
+from neuland_hub_sdk.api.category import Category as Category
 from neuland_hub_sdk.api.chat import Chat as Chat
 from neuland_hub_sdk.api.document import Document as Document
+from neuland_hub_sdk.api.dropbox import Dropbox as Dropbox
+from neuland_hub_sdk.api.feature_flag import FeatureFlag as FeatureFlag
 from neuland_hub_sdk.api.file import File as File
+from neuland_hub_sdk.api.google_drive import GoogleDrive as GoogleDrive
 from neuland_hub_sdk.api.invitation import Invitation as Invitation
 from neuland_hub_sdk.api.library import Library as Library
 from neuland_hub_sdk.api.llm import Llm as Llm
@@ -253,6 +310,7 @@ from neuland_hub_sdk.api.project import Project as Project
 from neuland_hub_sdk.api.prompt import Prompt as Prompt
 from neuland_hub_sdk.api.query import Query as Query
 from neuland_hub_sdk.api.rating import Rating as Rating
+from neuland_hub_sdk.api.role import Role as Role
 from neuland_hub_sdk.api.settings import Settings as Settings
 from neuland_hub_sdk.api.sharepoint import Sharepoint as Sharepoint
 from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1 as SharepointV1
@@ -266,6 +324,7 @@ from neuland_hub_sdk.api.tool import Tool as Tool
 from neuland_hub_sdk.api.tool_action import ToolAction as ToolAction
 from neuland_hub_sdk.api.transcription import Transcription as Transcription
 from neuland_hub_sdk.api.user import User as User
+from neuland_hub_sdk.api.workflow import Workflow as Workflow
 from neuland_hub_sdk.api.default import Default as Default
 
 # import ApiClient
@@ -280,22 +339,28 @@ from neuland_hub_sdk.exceptions import ApiAttributeError as ApiAttributeError
 from neuland_hub_sdk.exceptions import ApiException as ApiException
 
 # import models into sdk package
-from neuland_hub_sdk.models.api_key import ApiKey as ApiKey
 from neuland_hub_sdk.models.api_key_create_request import ApiKeyCreateRequest as ApiKeyCreateRequest
 from neuland_hub_sdk.models.api_key_create_response import ApiKeyCreateResponse as ApiKeyCreateResponse
 from neuland_hub_sdk.models.application import Application as Application
 from neuland_hub_sdk.models.application_access_in import ApplicationAccessIn as ApplicationAccessIn
-from neuland_hub_sdk.models.application_group import ApplicationGroup as ApplicationGroup
+from neuland_hub_sdk.models.application_catalog import ApplicationCatalog as ApplicationCatalog
+from neuland_hub_sdk.models.application_catalog_in import ApplicationCatalogIn as ApplicationCatalogIn
+from neuland_hub_sdk.models.application_catalog_update import ApplicationCatalogUpdate as ApplicationCatalogUpdate
+from neuland_hub_sdk.models.application_group_out import ApplicationGroupOut as ApplicationGroupOut
 from neuland_hub_sdk.models.application_in import ApplicationIn as ApplicationIn
-from neuland_hub_sdk.models.application_member import ApplicationMember as ApplicationMember
+from neuland_hub_sdk.models.application_member_out import ApplicationMemberOut as ApplicationMemberOut
 from neuland_hub_sdk.models.assistant import Assistant as Assistant
-from neuland_hub_sdk.models.assistant_group import AssistantGroup as AssistantGroup
+from neuland_hub_sdk.models.assistant_catalog import AssistantCatalog as AssistantCatalog
+from neuland_hub_sdk.models.assistant_catalog_in import AssistantCatalogIn as AssistantCatalogIn
+from neuland_hub_sdk.models.assistant_catalog_tool_out import AssistantCatalogToolOut as AssistantCatalogToolOut
+from neuland_hub_sdk.models.assistant_catalog_update import AssistantCatalogUpdate as AssistantCatalogUpdate
+from neuland_hub_sdk.models.assistant_group_out import AssistantGroupOut as AssistantGroupOut
 from neuland_hub_sdk.models.assistant_groups_in import AssistantGroupsIn as AssistantGroupsIn
 from neuland_hub_sdk.models.assistant_in import AssistantIn as AssistantIn
 from neuland_hub_sdk.models.assistant_input_type_enum import AssistantInputTypeEnum as AssistantInputTypeEnum
 from neuland_hub_sdk.models.assistant_library import AssistantLibrary as AssistantLibrary
-from neuland_hub_sdk.models.assistant_member import AssistantMember as AssistantMember
 from neuland_hub_sdk.models.assistant_member_granted_via_enum import AssistantMemberGrantedViaEnum as AssistantMemberGrantedViaEnum
+from neuland_hub_sdk.models.assistant_member_out import AssistantMemberOut as AssistantMemberOut
 from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn as AssistantMembersIn
 from neuland_hub_sdk.models.assistant_tool import AssistantTool as AssistantTool
 from neuland_hub_sdk.models.assistant_visibility_enum import AssistantVisibilityEnum as AssistantVisibilityEnum
@@ -307,21 +372,25 @@ from neuland_hub_sdk.models.budget_alert_update import BudgetAlertUpdate as Budg
 from neuland_hub_sdk.models.bulk_result import BulkResult as BulkResult
 from neuland_hub_sdk.models.catalog_in import CatalogIn as CatalogIn
 from neuland_hub_sdk.models.catalog_update import CatalogUpdate as CatalogUpdate
+from neuland_hub_sdk.models.category_out import CategoryOut as CategoryOut
 from neuland_hub_sdk.models.cc import Cc as Cc
 from neuland_hub_sdk.models.chat import Chat as Chat
 from neuland_hub_sdk.models.chat_in import ChatIn as ChatIn
-from neuland_hub_sdk.models.chat_inactive_document import ChatInactiveDocument as ChatInactiveDocument
+from neuland_hub_sdk.models.chat_inactive_document_out import ChatInactiveDocumentOut as ChatInactiveDocumentOut
 from neuland_hub_sdk.models.chat_library import ChatLibrary as ChatLibrary
 from neuland_hub_sdk.models.chat_tool_settings_out import ChatToolSettingsOut as ChatToolSettingsOut
 from neuland_hub_sdk.models.chat_tool_settings_update import ChatToolSettingsUpdate as ChatToolSettingsUpdate
+from neuland_hub_sdk.models.clarification_answer import ClarificationAnswer as ClarificationAnswer
 from neuland_hub_sdk.models.connector import Connector as Connector
 from neuland_hub_sdk.models.connector_auth_type import ConnectorAuthType as ConnectorAuthType
 from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut as ConnectorConsentOut
 from neuland_hub_sdk.models.connector_out import ConnectorOut as ConnectorOut
 from neuland_hub_sdk.models.connector_status_out import ConnectorStatusOut as ConnectorStatusOut
 from neuland_hub_sdk.models.connector_update import ConnectorUpdate as ConnectorUpdate
+from neuland_hub_sdk.models.cost_audio_per_minute import CostAudioPerMinute as CostAudioPerMinute
 from neuland_hub_sdk.models.cost_by_model import CostByModel as CostByModel
 from neuland_hub_sdk.models.cost_by_source import CostBySource as CostBySource
+from neuland_hub_sdk.models.cost_cached_tokens import CostCachedTokens as CostCachedTokens
 from neuland_hub_sdk.models.cost_completion_tokens import CostCompletionTokens as CostCompletionTokens
 from neuland_hub_sdk.models.cost_completion_tokens1 import CostCompletionTokens1 as CostCompletionTokens1
 from neuland_hub_sdk.models.cost_prompt_tokens import CostPromptTokens as CostPromptTokens
@@ -337,6 +406,13 @@ from neuland_hub_sdk.models.data_source_item_model import DataSourceItemModel as
 from neuland_hub_sdk.models.data_source_site_model import DataSourceSiteModel as DataSourceSiteModel
 from neuland_hub_sdk.models.data_source_user_model import DataSourceUserModel as DataSourceUserModel
 from neuland_hub_sdk.models.document import Document as Document
+from neuland_hub_sdk.models.document_text_out import DocumentTextOut as DocumentTextOut
+from neuland_hub_sdk.models.email_catalog_out import EmailCatalogOut as EmailCatalogOut
+from neuland_hub_sdk.models.email_spec import EmailSpec as EmailSpec
+from neuland_hub_sdk.models.email_template_key import EmailTemplateKey as EmailTemplateKey
+from neuland_hub_sdk.models.example import Example as Example
+from neuland_hub_sdk.models.feature_flag_out import FeatureFlagOut as FeatureFlagOut
+from neuland_hub_sdk.models.feature_flag_set_in import FeatureFlagSetIn as FeatureFlagSetIn
 from neuland_hub_sdk.models.form_field import FormField as FormField
 from neuland_hub_sdk.models.form_field_type_enum import FormFieldTypeEnum as FormFieldTypeEnum
 from neuland_hub_sdk.models.group_app_access_in import GroupAppAccessIn as GroupAppAccessIn
@@ -345,20 +421,28 @@ from neuland_hub_sdk.models.group_sync_out import GroupSyncOut as GroupSyncOut
 from neuland_hub_sdk.models.http_validation_error import HTTPValidationError as HTTPValidationError
 from neuland_hub_sdk.models.invitation_in import InvitationIn as InvitationIn
 from neuland_hub_sdk.models.invitation_out import InvitationOut as InvitationOut
+from neuland_hub_sdk.models.llm_connection_test_in import LLMConnectionTestIn as LLMConnectionTestIn
+from neuland_hub_sdk.models.llm_connection_test_out import LLMConnectionTestOut as LLMConnectionTestOut
 from neuland_hub_sdk.models.llm_settings_in import LLMSettingsIn as LLMSettingsIn
 from neuland_hub_sdk.models.llm_settings_update import LLMSettingsUpdate as LLMSettingsUpdate
 from neuland_hub_sdk.models.library import Library as Library
 from neuland_hub_sdk.models.library_in import LibraryIn as LibraryIn
-from neuland_hub_sdk.models.library_member import LibraryMember as LibraryMember
 from neuland_hub_sdk.models.library_member_bulk_delete import LibraryMemberBulkDelete as LibraryMemberBulkDelete
 from neuland_hub_sdk.models.library_member_bulk_in import LibraryMemberBulkIn as LibraryMemberBulkIn
 from neuland_hub_sdk.models.library_member_in import LibraryMemberIn as LibraryMemberIn
+from neuland_hub_sdk.models.library_member_out import LibraryMemberOut as LibraryMemberOut
 from neuland_hub_sdk.models.library_update_in import LibraryUpdateIn as LibraryUpdateIn
 from neuland_hub_sdk.models.location_inner import LocationInner as LocationInner
+from neuland_hub_sdk.models.marketplace_catalog_state_enum import MarketplaceCatalogStateEnum as MarketplaceCatalogStateEnum
+from neuland_hub_sdk.models.marketplace_catalog_state_update import MarketplaceCatalogStateUpdate as MarketplaceCatalogStateUpdate
 from neuland_hub_sdk.models.message import Message as Message
 from neuland_hub_sdk.models.message_detail_out import MessageDetailOut as MessageDetailOut
 from neuland_hub_sdk.models.message_file_out import MessageFileOut as MessageFileOut
 from neuland_hub_sdk.models.message_in import MessageIn as MessageIn
+from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut as MessageSubmitOut
+from neuland_hub_sdk.models.message_turn_out import MessageTurnOut as MessageTurnOut
+from neuland_hub_sdk.models.neuland_assistants_tagging_out import NeulandAssistantsTaggingOut as NeulandAssistantsTaggingOut
+from neuland_hub_sdk.models.neuland_marketplace_assistant_schemas_tagging_out import NeulandMarketplaceAssistantSchemasTaggingOut as NeulandMarketplaceAssistantSchemasTaggingOut
 from neuland_hub_sdk.models.o_auth2_provider_enum import OAuth2ProviderEnum as OAuth2ProviderEnum
 from neuland_hub_sdk.models.o_auth_client import OAuthClient as OAuthClient
 from neuland_hub_sdk.models.o_auth_client_update import OAuthClientUpdate as OAuthClientUpdate
@@ -381,9 +465,16 @@ from neuland_hub_sdk.models.rating import Rating as Rating
 from neuland_hub_sdk.models.rating_in import RatingIn as RatingIn
 from neuland_hub_sdk.models.rephrase_style_enum import RephraseStyleEnum as RephraseStyleEnum
 from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue as ResponseAuthGetEntraGroupsValue
+from neuland_hub_sdk.models.response_dropbox_list_roots import ResponseDropboxListRoots as ResponseDropboxListRoots
+from neuland_hub_sdk.models.response_googledrive_list_roots import ResponseGoogledriveListRoots as ResponseGoogledriveListRoots
 from neuland_hub_sdk.models.response_nextcloud_list_roots import ResponseNextcloudListRoots as ResponseNextcloudListRoots
 from neuland_hub_sdk.models.response_onedrive_list_roots import ResponseOnedriveListRoots as ResponseOnedriveListRoots
 from neuland_hub_sdk.models.response_sharepointv1_list_roots import ResponseSharepointv1ListRoots as ResponseSharepointv1ListRoots
+from neuland_hub_sdk.models.resume_in import ResumeIn as ResumeIn
+from neuland_hub_sdk.models.role import Role as Role
+from neuland_hub_sdk.models.role_in import RoleIn as RoleIn
+from neuland_hub_sdk.models.role_update_in import RoleUpdateIn as RoleUpdateIn
+from neuland_hub_sdk.models.run_create_out import RunCreateOut as RunCreateOut
 from neuland_hub_sdk.models.secret_update_in import SecretUpdateIn as SecretUpdateIn
 from neuland_hub_sdk.models.send_email_request import SendEmailRequest as SendEmailRequest
 from neuland_hub_sdk.models.send_email_response import SendEmailResponse as SendEmailResponse
@@ -398,16 +489,19 @@ from neuland_hub_sdk.models.sharepoint_user_model import SharepointUserModel as 
 from neuland_hub_sdk.models.sso_exchange_in import SsoExchangeIn as SsoExchangeIn
 from neuland_hub_sdk.models.sso_init_out import SsoInitOut as SsoInitOut
 from neuland_hub_sdk.models.sso_resolve_out import SsoResolveOut as SsoResolveOut
+from neuland_hub_sdk.models.stream_token_out import StreamTokenOut as StreamTokenOut
 from neuland_hub_sdk.models.system_settings import SystemSettings as SystemSettings
 from neuland_hub_sdk.models.system_settings_update import SystemSettingsUpdate as SystemSettingsUpdate
 from neuland_hub_sdk.models.tag import Tag as Tag
 from neuland_hub_sdk.models.tag_in import TagIn as TagIn
+from neuland_hub_sdk.models.taggable_type_enum import TaggableTypeEnum as TaggableTypeEnum
 from neuland_hub_sdk.models.tagging import Tagging as Tagging
 from neuland_hub_sdk.models.tarif import Tarif as Tarif
 from neuland_hub_sdk.models.tarif_in import TarifIn as TarifIn
 from neuland_hub_sdk.models.tarif_status_enum import TarifStatusEnum as TarifStatusEnum
 from neuland_hub_sdk.models.template_in import TemplateIn as TemplateIn
 from neuland_hub_sdk.models.template_out import TemplateOut as TemplateOut
+from neuland_hub_sdk.models.template_update import TemplateUpdate as TemplateUpdate
 from neuland_hub_sdk.models.tenant_in import TenantIn as TenantIn
 from neuland_hub_sdk.models.tenant_llm import TenantLLM as TenantLLM
 from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn as TenantModelBulkIn
@@ -428,6 +522,7 @@ from neuland_hub_sdk.models.tokens_per_model import TokensPerModel as TokensPerM
 from neuland_hub_sdk.models.tokens_timeseries_response import TokensTimeseriesResponse as TokensTimeseriesResponse
 from neuland_hub_sdk.models.tool_call_out import ToolCallOut as ToolCallOut
 from neuland_hub_sdk.models.tool_call_progress_step_out import ToolCallProgressStepOut as ToolCallProgressStepOut
+from neuland_hub_sdk.models.tool_create import ToolCreate as ToolCreate
 from neuland_hub_sdk.models.tool_out import ToolOut as ToolOut
 from neuland_hub_sdk.models.tool_update import ToolUpdate as ToolUpdate
 from neuland_hub_sdk.models.transcription_out import TranscriptionOut as TranscriptionOut
@@ -440,9 +535,16 @@ from neuland_hub_sdk.models.user_group import UserGroup as UserGroup
 from neuland_hub_sdk.models.user_group_member import UserGroupMember as UserGroupMember
 from neuland_hub_sdk.models.user_group_source import UserGroupSource as UserGroupSource
 from neuland_hub_sdk.models.user_in import UserIn as UserIn
+from neuland_hub_sdk.models.user_me_out import UserMeOut as UserMeOut
 from neuland_hub_sdk.models.user_out import UserOut as UserOut
 from neuland_hub_sdk.models.user_preference_out import UserPreferenceOut as UserPreferenceOut
 from neuland_hub_sdk.models.user_preference_update_in import UserPreferenceUpdateIn as UserPreferenceUpdateIn
 from neuland_hub_sdk.models.user_update_in import UserUpdateIn as UserUpdateIn
 from neuland_hub_sdk.models.validation_error import ValidationError as ValidationError
+from neuland_hub_sdk.models.variable_spec import VariableSpec as VariableSpec
+from neuland_hub_sdk.models.workflow import Workflow as Workflow
+from neuland_hub_sdk.models.workflow_chat_in import WorkflowChatIn as WorkflowChatIn
+from neuland_hub_sdk.models.workflow_chat_out import WorkflowChatOut as WorkflowChatOut
+from neuland_hub_sdk.models.workflow_in import WorkflowIn as WorkflowIn
+from neuland_hub_sdk.models.workflow_update_in import WorkflowUpdateIn as WorkflowUpdateIn
 

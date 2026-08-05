@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -32,11 +33,12 @@ class Tag(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="UTC timestamp when the record was created.")
     updated_at: Optional[datetime] = Field(default=None, description="UTC timestamp when the record was last updated.")
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the tag. Exposed to clients instead of the internal integer id.")
     tenant_id: StrictInt = Field(description="ID of the tenant that owns the tag.")
     name: Annotated[str, Field(strict=True, max_length=50)] = Field(description="Name of the tag.")
     creator_user_id: Optional[StrictInt] = None
     updater_user_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "tenant_id", "name", "creator_user_id", "updater_user_id"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "public_id", "tenant_id", "name", "creator_user_id", "updater_user_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -107,6 +109,7 @@ class Tag(BaseModel):
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
             "name": obj.get("name"),
             "creator_user_id": obj.get("creator_user_id"),

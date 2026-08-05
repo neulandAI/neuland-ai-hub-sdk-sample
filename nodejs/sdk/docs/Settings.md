@@ -80,12 +80,10 @@ const apiInstance = new Settings(configuration);
 
 let settingsIn: SettingsIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.settingsUpdateCurrentSettings(
     settingsIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -95,7 +93,6 @@ const { status, data } = await apiInstance.settingsUpdateCurrentSettings(
 |------------- | ------------- | ------------- | -------------|
 | **settingsIn** | **SettingsIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -139,16 +136,14 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Settings(configuration);
 
-let settingsId: number; //ID of the settings record to update. (default to undefined)
+let settingsId: string; //Public id of the settings record to update. (default to undefined)
 let settingsIn: SettingsIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.settingsUpdateSettings(
     settingsId,
     settingsIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -157,9 +152,8 @@ const { status, data } = await apiInstance.settingsUpdateSettings(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **settingsIn** | **SettingsIn**|  | |
-| **settingsId** | [**number**] | ID of the settings record to update. | defaults to undefined|
+| **settingsId** | [**string**] | Public id of the settings record to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type

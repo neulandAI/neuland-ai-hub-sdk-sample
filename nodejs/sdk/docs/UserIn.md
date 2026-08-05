@@ -11,7 +11,8 @@ Name | Type | Description | Notes
 **password** | **string** | Initial password; the user is prompted to change it on first login. | [default to undefined]
 **admin** | **boolean** |  | [optional] [default to undefined]
 **superadmin** | **boolean** |  | [optional] [default to undefined]
-**tenant_id** | **number** |  | [optional] [default to undefined]
+**tenant_id** | **string** |  | [optional] [default to undefined]
+**role_id** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -26,6 +27,7 @@ const instance: UserIn = {
     admin,
     superadmin,
     tenant_id,
+    role_id,
 };
 ```
 

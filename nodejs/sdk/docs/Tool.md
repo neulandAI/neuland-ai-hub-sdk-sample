@@ -4,7 +4,125 @@ All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**toolsCreateTool**](#toolscreatetool) | **POST** /tools/ | Create a tool|
+|[**toolsDeleteTool**](#toolsdeletetool) | **DELETE** /tools/{tool_id} | Delete a tool|
 |[**toolsUpdateTool**](#toolsupdatetool) | **PATCH** /tools/{tool_id} | Update a tool|
+
+# **toolsCreateTool**
+> ToolOut toolsCreateTool(toolCreate)
+
+Create a new tool (superadmin only).
+
+### Example
+
+```typescript
+import {
+    Tool,
+    Configuration,
+    ToolCreate
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tool(configuration);
+
+let toolCreate: ToolCreate; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.toolsCreateTool(
+    toolCreate,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **toolCreate** | **ToolCreate**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**ToolOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller is not a superadmin. |  -  |
+|**422** | Invalid payload, an unknown or inactive category public_id, or a tool with the given name already exists. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **toolsDeleteTool**
+> toolsDeleteTool()
+
+Delete a tool (superadmin only).
+
+### Example
+
+```typescript
+import {
+    Tool,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Tool(configuration);
+
+let toolId: string; //Public id of the tool to delete. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.toolsDeleteTool(
+    toolId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **toolId** | [**string**] | Public id of the tool to delete. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller is not a superadmin. |  -  |
+|**404** | No tool exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **toolsUpdateTool**
 > ToolOut toolsUpdateTool(toolUpdate)
@@ -23,7 +141,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tool(configuration);
 
-let toolId: number; //ID of the tool to update. (default to undefined)
+let toolId: string; //Public id of the tool to update. (default to undefined)
 let toolUpdate: ToolUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -39,7 +157,7 @@ const { status, data } = await apiInstance.toolsUpdateTool(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **toolUpdate** | **ToolUpdate**|  | |
-| **toolId** | [**number**] | ID of the tool to update. | defaults to undefined|
+| **toolId** | [**string**] | Public id of the tool to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -64,7 +182,7 @@ const { status, data } = await apiInstance.toolsUpdateTool(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Caller is not a superadmin. |  -  |
 |**404** | No tool exists with the given id. |  -  |
-|**422** | Validation Error |  -  |
+|**422** | Invalid payload, or an unknown or inactive category public_id. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

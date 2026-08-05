@@ -30,10 +30,11 @@ class Document(BaseModel):
     Document
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the document. Exposed to clients instead of the internal integer id.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the document was created.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the document was last updated.")
-    creator_user_id: StrictInt
-    tenant_id: StrictInt
+    creator_user_id: StrictInt = Field(description="ID of the user who created the document.")
+    tenant_id: StrictInt = Field(description="ID of the tenant that owns the document.")
     project_id: Optional[StrictInt]
     chat_id: Optional[StrictInt]
     assistant_id: Optional[StrictInt] = None
@@ -57,7 +58,7 @@ class Document(BaseModel):
     import_started_at: Optional[datetime]
     import_finished_at: Optional[datetime]
     import_error: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "created_at", "updated_at", "creator_user_id", "tenant_id", "project_id", "chat_id", "assistant_id", "message_id", "library_id", "filename", "content_type", "description", "content_id", "src", "url", "sp_site_id", "sp_drive_id", "sp_drive_item_id", "sp_parent_folder_id", "sp_parent_path", "sp_last_modified_date_time", "sp_import_folder_id", "autosync", "import_token", "import_started_at", "import_finished_at", "import_error"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "created_at", "updated_at", "creator_user_id", "tenant_id", "project_id", "chat_id", "assistant_id", "message_id", "library_id", "filename", "content_type", "description", "content_id", "src", "url", "sp_site_id", "sp_drive_id", "sp_drive_item_id", "sp_parent_folder_id", "sp_parent_path", "sp_last_modified_date_time", "sp_import_folder_id", "autosync", "import_token", "import_started_at", "import_finished_at", "import_error"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -221,6 +222,7 @@ class Document(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "creator_user_id": obj.get("creator_user_id"),

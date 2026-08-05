@@ -61,6 +61,14 @@ Class | Method | HTTP request | Description
 *Application* | [**applicationsUpdateApp**](docs/Application.md#applicationsupdateapp) | **PATCH** /applications/{app_id} | Update an application
 *Application* | [**applicationsUpdateGroupMembership**](docs/Application.md#applicationsupdategroupmembership) | **PUT** /applications/group/access | Set application access for a user group
 *Application* | [**applicationsUpdateUserMembership**](docs/Application.md#applicationsupdateusermembership) | **PUT** /applications/user/access | Set application access for users
+*ApplicationMarketplace* | [**applicationAddTagToCatalog**](docs/ApplicationMarketplace.md#applicationaddtagtocatalog) | **POST** /marketplace/application/catalog/{catalog_id}/tags/{tag_id} | Attach a tag to a marketplace application
+*ApplicationMarketplace* | [**applicationCreateCatalog**](docs/ApplicationMarketplace.md#applicationcreatecatalog) | **POST** /marketplace/application/catalog/ | Publish a marketplace application
+*ApplicationMarketplace* | [**applicationInstallFromCatalog**](docs/ApplicationMarketplace.md#applicationinstallfromcatalog) | **POST** /marketplace/application/catalog/{catalog_id}/install | Install a marketplace application into the caller\&#39;s tenant
+*ApplicationMarketplace* | [**applicationListCatalog**](docs/ApplicationMarketplace.md#applicationlistcatalog) | **GET** /marketplace/application/catalog/ | List all application catalog items — superadmin only
+*ApplicationMarketplace* | [**applicationRemoveTagFromCatalog**](docs/ApplicationMarketplace.md#applicationremovetagfromcatalog) | **DELETE** /marketplace/application/catalog/{catalog_id}/tags/{tag_id} | Detach a tag from a marketplace application
+*ApplicationMarketplace* | [**applicationUninstallFromCatalog**](docs/ApplicationMarketplace.md#applicationuninstallfromcatalog) | **DELETE** /marketplace/application/catalog/{catalog_id}/install | Uninstall a marketplace application for the caller
+*ApplicationMarketplace* | [**applicationUpdateCatalog**](docs/ApplicationMarketplace.md#applicationupdatecatalog) | **PATCH** /marketplace/application/catalog/{catalog_id} | Update a marketplace application\&#39;s metadata
+*ApplicationMarketplace* | [**applicationUpdateCatalogState**](docs/ApplicationMarketplace.md#applicationupdatecatalogstate) | **PATCH** /marketplace/application/catalog/{catalog_id}/state | Toggle a marketplace application\&#39;s lifecycle state
 *Assistant* | [**assistantsAddLibraryToAssistant**](docs/Assistant.md#assistantsaddlibrarytoassistant) | **POST** /assistants/{assistant_id}/libraries/{library_id} | Add a library to an assistant
 *Assistant* | [**assistantsAddMembers**](docs/Assistant.md#assistantsaddmembers) | **POST** /assistants/{assistant_id}/members | Add members to an assistant
 *Assistant* | [**assistantsAddTagToAssistant**](docs/Assistant.md#assistantsaddtagtoassistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant
@@ -74,10 +82,22 @@ Class | Method | HTTP request | Description
 *Assistant* | [**assistantsRemoveMember**](docs/Assistant.md#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member
 *Assistant* | [**assistantsRemoveTagFromAssistant**](docs/Assistant.md#assistantsremovetagfromassistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant
 *Assistant* | [**assistantsRemoveToolFromAssistant**](docs/Assistant.md#assistantsremovetoolfromassistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant
+*Assistant* | [**assistantsRestoreAssistantVersion**](docs/Assistant.md#assistantsrestoreassistantversion) | **POST** /assistants/{assistant_id}/versions/{version}/restore | Restore an assistant version
 *Assistant* | [**assistantsSubmitAssistant**](docs/Assistant.md#assistantssubmitassistant) | **POST** /assistants/submit | Create an assistant with attachments
 *Assistant* | [**assistantsUpdateAssistant**](docs/Assistant.md#assistantsupdateassistant) | **PATCH** /assistants/{assistant_id} | Update an assistant
 *Assistant* | [**assistantsUpdateAssistantGroups**](docs/Assistant.md#assistantsupdateassistantgroups) | **PUT** /assistants/{assistant_id}/groups | Set assistant group access
 *Assistant* | [**assistantsUpdateAssistantVisibility**](docs/Assistant.md#assistantsupdateassistantvisibility) | **PATCH** /assistants/{assistant_id}/visibility | Set assistant visibility
+*AssistantMarketplace* | [**assistantListCatalog**](docs/AssistantMarketplace.md#assistantlistcatalog) | **GET** /marketplace/assistant/catalog/ | List all assistant catalog items — superadmin only
+*AssistantMarketplace* | [**marketplaceAddTagToCatalog**](docs/AssistantMarketplace.md#marketplaceaddtagtocatalog) | **POST** /marketplace/assistant/catalog/{catalog_id}/tags/{tag_id} | Add Tag To Catalog
+*AssistantMarketplace* | [**marketplaceAttachTool**](docs/AssistantMarketplace.md#marketplaceattachtool) | **POST** /marketplace/assistant/catalog/{catalog_id}/tools/{tool_id} | Attach Tool
+*AssistantMarketplace* | [**marketplaceCreateCatalog**](docs/AssistantMarketplace.md#marketplacecreatecatalog) | **POST** /marketplace/assistant/catalog/ | Create Catalog
+*AssistantMarketplace* | [**marketplaceDetachTool**](docs/AssistantMarketplace.md#marketplacedetachtool) | **DELETE** /marketplace/assistant/catalog/{catalog_id}/tools/{tool_id} | Detach Tool
+*AssistantMarketplace* | [**marketplaceInstallFromCatalog**](docs/AssistantMarketplace.md#marketplaceinstallfromcatalog) | **POST** /marketplace/assistant/catalog/{catalog_id}/install | Install From Catalog
+*AssistantMarketplace* | [**marketplaceListTools**](docs/AssistantMarketplace.md#marketplacelisttools) | **GET** /marketplace/assistant/catalog/{catalog_id}/tools | List Tools
+*AssistantMarketplace* | [**marketplaceRemoveTagFromCatalog**](docs/AssistantMarketplace.md#marketplaceremovetagfromcatalog) | **DELETE** /marketplace/assistant/catalog/{catalog_id}/tags/{tag_id} | Remove Tag From Catalog
+*AssistantMarketplace* | [**marketplaceUninstallFromCatalog**](docs/AssistantMarketplace.md#marketplaceuninstallfromcatalog) | **DELETE** /marketplace/assistant/catalog/{catalog_id}/install | Uninstall From Catalog
+*AssistantMarketplace* | [**marketplaceUpdateCatalog**](docs/AssistantMarketplace.md#marketplaceupdatecatalog) | **PATCH** /marketplace/assistant/catalog/{catalog_id} | Update Catalog
+*AssistantMarketplace* | [**marketplaceUpdateCatalogState**](docs/AssistantMarketplace.md#marketplaceupdatecatalogstate) | **PATCH** /marketplace/assistant/catalog/{catalog_id}/state | Update Catalog State
 *Atlassian* | [**integrationsSetAtlassianCloudId**](docs/Atlassian.md#integrationssetatlassiancloudid) | **PUT** /integrations/atlassian/{connector_id}/cloudid | Set active Atlassian cloud_id
 *Auth* | [**authConfirmEmail**](docs/Auth.md#authconfirmemail) | **GET** /auth/confirm-email | Confirm an email address
 *Auth* | [**authExchangeToken**](docs/Auth.md#authexchangetoken) | **POST** /auth/exchange/token | Exchange for a service token
@@ -103,9 +123,11 @@ Class | Method | HTTP request | Description
 *AuthConnector* | [**authSetUserCredential**](docs/AuthConnector.md#authsetusercredential) | **PUT** /auth/connectors/{connector_id}/credential/user | Set the caller\&#39;s connector credential
 *AuthConnector* | [**authUpdateConnector**](docs/AuthConnector.md#authupdateconnector) | **PATCH** /auth/connectors/{connector_id} | Update a connector
 *AuthConnector* | [**authUpdateOauthClient**](docs/AuthConnector.md#authupdateoauthclient) | **PATCH** /auth/connectors/oauth-clients/{oauth_client_id} | Update an OAuth client
+*Category* | [**categoriesListCategories**](docs/Category.md#categorieslistcategories) | **GET** /categories/ | List categories
 *Chat* | [**chatsAddLibraryToChat**](docs/Chat.md#chatsaddlibrarytochat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add a library to a chat
 *Chat* | [**chatsCancelMessage**](docs/Chat.md#chatscancelmessage) | **POST** /chats/{chat_id}/cancel | Cancel in-progress generation
 *Chat* | [**chatsDeactivateDocuments**](docs/Chat.md#chatsdeactivatedocuments) | **POST** /chats/{chat_id}/inactive-documents | Deactivate documents in a chat
+*Chat* | [**chatsListChatMessageTurns**](docs/Chat.md#chatslistchatmessageturns) | **GET** /chats/{chat_id}/turns | List message turns for a chat
 *Chat* | [**chatsRemoveChat**](docs/Chat.md#chatsremovechat) | **DELETE** /chats/{chat_id} | Delete a chat
 *Chat* | [**chatsRemoveInactiveDocuments**](docs/Chat.md#chatsremoveinactivedocuments) | **DELETE** /chats/{chat_id}/inactive-documents | Reactivate documents in a chat
 *Chat* | [**chatsRemoveLibraryFromChat**](docs/Chat.md#chatsremovelibraryfromchat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat
@@ -119,11 +141,29 @@ Class | Method | HTTP request | Description
 *Default* | [**versionVersion**](docs/Default.md#versionversion) | **GET** /version | Version
 *Document* | [**documentsDeleteChatDocument**](docs/Document.md#documentsdeletechatdocument) | **DELETE** /documents/{document_id} | Delete a document
 *Document* | [**documentsGetFile**](docs/Document.md#documentsgetfile) | **GET** /documents/{document_id} | Download a document
+*Document* | [**documentsGetText**](docs/Document.md#documentsgettext) | **GET** /documents/{document_id}/text | Get a document\&#39;s extracted text
 *Document* | [**documentsImportDocuments**](docs/Document.md#documentsimportdocuments) | **POST** /documents/import | Import documents from a connected source
 *Document* | [**documentsRetryDocument**](docs/Document.md#documentsretrydocument) | **POST** /documents/{document_id}/retry | Retry document processing
 *Document* | [**documentsUnimportDocuments**](docs/Document.md#documentsunimportdocuments) | **DELETE** /documents/import | Remove imported documents
 *Document* | [**documentsUploadDocuments**](docs/Document.md#documentsuploaddocuments) | **POST** /documents/ | Upload documents
+*Dropbox* | [**dropboxCapabilities**](docs/Dropbox.md#dropboxcapabilities) | **GET** /integrations/dropbox/capabilities | Get data source capabilities
+*Dropbox* | [**dropboxGetItemInfo**](docs/Dropbox.md#dropboxgetiteminfo) | **GET** /integrations/dropbox/drives/{drive_id}/items/{drive_item_id} | Get a drive item
+*Dropbox* | [**dropboxGetUserInfo**](docs/Dropbox.md#dropboxgetuserinfo) | **GET** /integrations/dropbox/me | Get connected user profile
+*Dropbox* | [**dropboxIsConnected**](docs/Dropbox.md#dropboxisconnected) | **GET** /integrations/dropbox/connected | Check connection status
+*Dropbox* | [**dropboxListChildren**](docs/Dropbox.md#dropboxlistchildren) | **GET** /integrations/dropbox/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item
+*Dropbox* | [**dropboxListDrives**](docs/Dropbox.md#dropboxlistdrives) | **GET** /integrations/dropbox/sites/{site_id}/drives | List drives in a site
+*Dropbox* | [**dropboxListRoots**](docs/Dropbox.md#dropboxlistroots) | **GET** /integrations/dropbox/roots | List top-level browse entries
+*FeatureFlag* | [**featureClearTenantFeatureFlag**](docs/FeatureFlag.md#featurecleartenantfeatureflag) | **DELETE** /feature/flags/tenants/{tenant_id}/{flag_key} | Clear a tenant\&#39;s feature-flag override
+*FeatureFlag* | [**featureListTenantFeatureFlags**](docs/FeatureFlag.md#featurelisttenantfeatureflags) | **GET** /feature/flags/tenants/{tenant_id} | List effective feature flags for a tenant
+*FeatureFlag* | [**featureSetTenantFeatureFlag**](docs/FeatureFlag.md#featuresettenantfeatureflag) | **PUT** /feature/flags/tenants/{tenant_id}/{flag_key} | Set a tenant\&#39;s feature-flag override
 *File* | [**filesDownloadFile**](docs/File.md#filesdownloadfile) | **GET** /files/{file_id} | Download a file
+*GoogleDrive* | [**googledriveCapabilities**](docs/GoogleDrive.md#googledrivecapabilities) | **GET** /integrations/googledrive/capabilities | Get data source capabilities
+*GoogleDrive* | [**googledriveGetItemInfo**](docs/GoogleDrive.md#googledrivegetiteminfo) | **GET** /integrations/googledrive/drives/{drive_id}/items/{drive_item_id} | Get a drive item
+*GoogleDrive* | [**googledriveGetUserInfo**](docs/GoogleDrive.md#googledrivegetuserinfo) | **GET** /integrations/googledrive/me | Get connected user profile
+*GoogleDrive* | [**googledriveIsConnected**](docs/GoogleDrive.md#googledriveisconnected) | **GET** /integrations/googledrive/connected | Check connection status
+*GoogleDrive* | [**googledriveListChildren**](docs/GoogleDrive.md#googledrivelistchildren) | **GET** /integrations/googledrive/drives/{drive_id}/items/{drive_item_id}/children | List children of a drive item
+*GoogleDrive* | [**googledriveListDrives**](docs/GoogleDrive.md#googledrivelistdrives) | **GET** /integrations/googledrive/sites/{site_id}/drives | List drives in a site
+*GoogleDrive* | [**googledriveListRoots**](docs/GoogleDrive.md#googledrivelistroots) | **GET** /integrations/googledrive/roots | List top-level browse entries
 *Invitation* | [**invitationsAcceptInvitationComplete**](docs/Invitation.md#invitationsacceptinvitationcomplete) | **POST** /invitations/accept | Accept an invitation
 *Invitation* | [**invitationsAcceptInvitationForm**](docs/Invitation.md#invitationsacceptinvitationform) | **GET** /invitations/accept | Render the invitation acceptance form
 *Invitation* | [**invitationsCreateInvitations**](docs/Invitation.md#invitationscreateinvitations) | **POST** /invitations/ | Create invitations
@@ -144,11 +184,16 @@ Class | Method | HTTP request | Description
 *LlmCatalog* | [**llmUpdateCatalog**](docs/LlmCatalog.md#llmupdatecatalog) | **PATCH** /llm/catalog/{catalog_id} | Update a catalog entry
 *LlmSetting* | [**llmCreateLlmSettings**](docs/LlmSetting.md#llmcreatellmsettings) | **POST** /llm/settings | Create LLM settings
 *LlmSetting* | [**llmDeleteLlmSettings**](docs/LlmSetting.md#llmdeletellmsettings) | **DELETE** /llm/settings/{settings_id} | Delete LLM settings
+*LlmSetting* | [**llmTestLlmConnection**](docs/LlmSetting.md#llmtestllmconnection) | **POST** /llm/settings/test | Test an LLM connection
+*LlmSetting* | [**llmTestTranscriptionConnection**](docs/LlmSetting.md#llmtesttranscriptionconnection) | **POST** /llm/settings/test/transcription | Test a transcription connection with an audio file
 *LlmSetting* | [**llmUpdateLlmSettings**](docs/LlmSetting.md#llmupdatellmsettings) | **PATCH** /llm/settings/{settings_id} | Update LLM settings
+*Message* | [**messagesContinueMessage**](docs/Message.md#messagescontinuemessage) | **POST** /messages/{message_id}/continue | Continue a truncated assistant message
 *Message* | [**messagesConvertMessage**](docs/Message.md#messagesconvertmessage) | **GET** /messages/{message_id}/convert | Convert a message to a document
 *Message* | [**messagesCreateMessage**](docs/Message.md#messagescreatemessage) | **POST** /messages/ | Create a message
 *Message* | [**messagesGetMessage**](docs/Message.md#messagesgetmessage) | **GET** /messages/{message_id} | Get a message
+*Message* | [**messagesGetMessageTurn**](docs/Message.md#messagesgetmessageturn) | **GET** /messages/{message_id}/turn | Get all step-messages for a turn
 *Message* | [**messagesRephraseMessage**](docs/Message.md#messagesrephrasemessage) | **GET** /messages/{message_id}/rephrase | Rephrase a message
+*Message* | [**messagesResumeMessage**](docs/Message.md#messagesresumemessage) | **POST** /messages/{message_id}/hil | Resume a turn awaiting approval or user input
 *Message* | [**messagesSubmitMessage**](docs/Message.md#messagessubmitmessage) | **POST** /messages/submit | Submit a message with attachments
 *Message* | [**messagesTranslateMessage**](docs/Message.md#messagestranslatemessage) | **GET** /messages/{message_id}/translate | Translate a message
 *Nextcloud* | [**nextcloudCapabilities**](docs/Nextcloud.md#nextcloudcapabilities) | **GET** /integrations/nextcloud/capabilities | Get data source capabilities
@@ -183,6 +228,14 @@ Class | Method | HTTP request | Description
 *Query* | [**queryQueryRpc**](docs/Query.md#queryqueryrpc) | **GET** /query/rpc/{path} | Proxy a PostgREST RPC call
 *Rating* | [**ratingsRemove**](docs/Rating.md#ratingsremove) | **DELETE** /ratings/{rateable_type}/{rateable_id} | Delete a rating
 *Rating* | [**ratingsUpsert**](docs/Rating.md#ratingsupsert) | **POST** /ratings/ | Upsert a rating
+*Role* | [**rolesAssignRoleToGroup**](docs/Role.md#rolesassignroletogroup) | **POST** /roles/{role_id}/groups/{group_id} | Assign a role to a group
+*Role* | [**rolesAssignRoleToUser**](docs/Role.md#rolesassignroletouser) | **POST** /roles/{role_id}/users/{user_id} | Assign a role to a user
+*Role* | [**rolesCreateRole**](docs/Role.md#rolescreaterole) | **POST** /roles/ | Create a custom role
+*Role* | [**rolesDeleteRole**](docs/Role.md#rolesdeleterole) | **DELETE** /roles/{role_id} | Delete a role
+*Role* | [**rolesSetDefaultRole**](docs/Role.md#rolessetdefaultrole) | **PUT** /roles/{role_id}/default | Set a role as the tenant default
+*Role* | [**rolesUnassignRoleFromGroup**](docs/Role.md#rolesunassignrolefromgroup) | **DELETE** /roles/{role_id}/groups/{group_id} | Unassign a role from a group
+*Role* | [**rolesUnassignRoleFromUser**](docs/Role.md#rolesunassignrolefromuser) | **DELETE** /roles/{role_id}/users/{user_id} | Unassign a role from a user
+*Role* | [**rolesUpdateRole**](docs/Role.md#rolesupdaterole) | **PATCH** /roles/{role_id} | Update a role
 *Settings* | [**settingsCurrent**](docs/Settings.md#settingscurrent) | **GET** /settings/current | Get current tenant settings
 *Settings* | [**settingsUpdateCurrentSettings**](docs/Settings.md#settingsupdatecurrentsettings) | **PATCH** /settings/current | Update current tenant settings
 *Settings* | [**settingsUpdateSettings**](docs/Settings.md#settingsupdatesettings) | **PATCH** /settings/{settings_id} | Update settings by id
@@ -210,6 +263,7 @@ Class | Method | HTTP request | Description
 *Tarif* | [**tarifsUpdateTarif**](docs/Tarif.md#tarifsupdatetarif) | **PATCH** /tarifs/{tarif_id} | Update a tarif plan
 *Template* | [**templatesCreate**](docs/Template.md#templatescreate) | **POST** /templates/ | Create an email template
 *Template* | [**templatesDelete**](docs/Template.md#templatesdelete) | **DELETE** /templates/{template_id} | Delete an email template
+*Template* | [**templatesGetEmailCatalog**](docs/Template.md#templatesgetemailcatalog) | **GET** /templates/email-catalog | List customizable emails and their variables
 *Template* | [**templatesUpdate**](docs/Template.md#templatesupdate) | **PATCH** /templates/{template_id} | Update an email template
 *Tenant* | [**tenantsAddLibraryToTenants**](docs/Tenant.md#tenantsaddlibrarytotenants) | **POST** /tenants/{tenant_id}/libraries/{library_id} | Assign a library to a tenant
 *Tenant* | [**tenantsCreateTenant**](docs/Tenant.md#tenantscreatetenant) | **POST** /tenants/ | Create a tenant
@@ -230,6 +284,8 @@ Class | Method | HTTP request | Description
 *Tenant* | [**tenantsUpdateTenant**](docs/Tenant.md#tenantsupdatetenant) | **PATCH** /tenants/{tenant_id} | Update a tenant
 *Tenant* | [**tenantsUpdateTenantOauthClient**](docs/Tenant.md#tenantsupdatetenantoauthclient) | **PATCH** /tenants/{tenant_id}/oauth-clients/{oauth_client_id} | Update a per-tenant OAuth client config
 *Tenant* | [**tenantsUpdateTenantOauthSecret**](docs/Tenant.md#tenantsupdatetenantoauthsecret) | **PUT** /tenants/{tenant_id}/oauth-clients/{oauth_client_id}/secret | Set a per-tenant OAuth client secret
+*Tool* | [**toolsCreateTool**](docs/Tool.md#toolscreatetool) | **POST** /tools/ | Create a tool
+*Tool* | [**toolsDeleteTool**](docs/Tool.md#toolsdeletetool) | **DELETE** /tools/{tool_id} | Delete a tool
 *Tool* | [**toolsUpdateTool**](docs/Tool.md#toolsupdatetool) | **PATCH** /tools/{tool_id} | Update a tool
 *ToolAction* | [**toolactionsSendEmailFromDraft**](docs/ToolAction.md#toolactionssendemailfromdraft) | **POST** /tool-actions/email/send | Send an email from a draft
 *Transcription* | [**transcriptionsCreateTranscription**](docs/Transcription.md#transcriptionscreatetranscription) | **POST** /transcriptions/ | Transcribe an audio file
@@ -247,26 +303,39 @@ Class | Method | HTTP request | Description
 *User* | [**usersUpdateUser**](docs/User.md#usersupdateuser) | **PATCH** /users/{user_id} | Update a user
 *User* | [**usersUpsertMembers**](docs/User.md#usersupsertmembers) | **PUT** /users/members/{group_id} | Set user group members
 *User* | [**usersUpsertMyPreferences**](docs/User.md#usersupsertmypreferences) | **PATCH** /users/me/preferences | Update own preferences
+*Workflow* | [**workflowsCreateRun**](docs/Workflow.md#workflowscreaterun) | **POST** /workflows/{workflow_id}/runs | Create Run
+*Workflow* | [**workflowsCreateRunStreamToken**](docs/Workflow.md#workflowscreaterunstreamtoken) | **POST** /workflows/{workflow_id}/runs/{run_id}/stream-token | Create Run Stream Token
+*Workflow* | [**workflowsCreateWorkflow**](docs/Workflow.md#workflowscreateworkflow) | **POST** /workflows/ | Create Workflow
+*Workflow* | [**workflowsDeleteWorkflow**](docs/Workflow.md#workflowsdeleteworkflow) | **DELETE** /workflows/{workflow_id} | Delete Workflow
+*Workflow* | [**workflowsRefineWorkflow**](docs/Workflow.md#workflowsrefineworkflow) | **POST** /workflows/{workflow_id}/chat | Refine Workflow
+*Workflow* | [**workflowsStreamRunEvents**](docs/Workflow.md#workflowsstreamrunevents) | **POST** /workflows/{workflow_id}/runs/{run_id}/events | Stream Run Events
+*Workflow* | [**workflowsUpdateWorkflow**](docs/Workflow.md#workflowsupdateworkflow) | **PATCH** /workflows/{workflow_id} | Update Workflow
 
 
 ### Documentation For Models
 
- - [ApiKey](docs/ApiKey.md)
  - [ApiKeyCreateRequest](docs/ApiKeyCreateRequest.md)
  - [ApiKeyCreateResponse](docs/ApiKeyCreateResponse.md)
  - [Application](docs/Application.md)
  - [ApplicationAccessIn](docs/ApplicationAccessIn.md)
- - [ApplicationGroup](docs/ApplicationGroup.md)
+ - [ApplicationCatalog](docs/ApplicationCatalog.md)
+ - [ApplicationCatalogIn](docs/ApplicationCatalogIn.md)
+ - [ApplicationCatalogUpdate](docs/ApplicationCatalogUpdate.md)
+ - [ApplicationGroupOut](docs/ApplicationGroupOut.md)
  - [ApplicationIn](docs/ApplicationIn.md)
- - [ApplicationMember](docs/ApplicationMember.md)
+ - [ApplicationMemberOut](docs/ApplicationMemberOut.md)
  - [Assistant](docs/Assistant.md)
- - [AssistantGroup](docs/AssistantGroup.md)
+ - [AssistantCatalog](docs/AssistantCatalog.md)
+ - [AssistantCatalogIn](docs/AssistantCatalogIn.md)
+ - [AssistantCatalogToolOut](docs/AssistantCatalogToolOut.md)
+ - [AssistantCatalogUpdate](docs/AssistantCatalogUpdate.md)
+ - [AssistantGroupOut](docs/AssistantGroupOut.md)
  - [AssistantGroupsIn](docs/AssistantGroupsIn.md)
  - [AssistantIn](docs/AssistantIn.md)
  - [AssistantInputTypeEnum](docs/AssistantInputTypeEnum.md)
  - [AssistantLibrary](docs/AssistantLibrary.md)
- - [AssistantMember](docs/AssistantMember.md)
  - [AssistantMemberGrantedViaEnum](docs/AssistantMemberGrantedViaEnum.md)
+ - [AssistantMemberOut](docs/AssistantMemberOut.md)
  - [AssistantMembersIn](docs/AssistantMembersIn.md)
  - [AssistantTool](docs/AssistantTool.md)
  - [AssistantVisibilityEnum](docs/AssistantVisibilityEnum.md)
@@ -278,21 +347,25 @@ Class | Method | HTTP request | Description
  - [BulkResult](docs/BulkResult.md)
  - [CatalogIn](docs/CatalogIn.md)
  - [CatalogUpdate](docs/CatalogUpdate.md)
+ - [CategoryOut](docs/CategoryOut.md)
  - [Cc](docs/Cc.md)
  - [Chat](docs/Chat.md)
  - [ChatIn](docs/ChatIn.md)
- - [ChatInactiveDocument](docs/ChatInactiveDocument.md)
+ - [ChatInactiveDocumentOut](docs/ChatInactiveDocumentOut.md)
  - [ChatLibrary](docs/ChatLibrary.md)
  - [ChatToolSettingsOut](docs/ChatToolSettingsOut.md)
  - [ChatToolSettingsUpdate](docs/ChatToolSettingsUpdate.md)
+ - [ClarificationAnswer](docs/ClarificationAnswer.md)
  - [Connector](docs/Connector.md)
  - [ConnectorAuthType](docs/ConnectorAuthType.md)
  - [ConnectorConsentOut](docs/ConnectorConsentOut.md)
  - [ConnectorOut](docs/ConnectorOut.md)
  - [ConnectorStatusOut](docs/ConnectorStatusOut.md)
  - [ConnectorUpdate](docs/ConnectorUpdate.md)
+ - [CostAudioPerMinute](docs/CostAudioPerMinute.md)
  - [CostByModel](docs/CostByModel.md)
  - [CostBySource](docs/CostBySource.md)
+ - [CostCachedTokens](docs/CostCachedTokens.md)
  - [CostCompletionTokens](docs/CostCompletionTokens.md)
  - [CostCompletionTokens1](docs/CostCompletionTokens1.md)
  - [CostPromptTokens](docs/CostPromptTokens.md)
@@ -308,6 +381,13 @@ Class | Method | HTTP request | Description
  - [DataSourceSiteModel](docs/DataSourceSiteModel.md)
  - [DataSourceUserModel](docs/DataSourceUserModel.md)
  - [Document](docs/Document.md)
+ - [DocumentTextOut](docs/DocumentTextOut.md)
+ - [EmailCatalogOut](docs/EmailCatalogOut.md)
+ - [EmailSpec](docs/EmailSpec.md)
+ - [EmailTemplateKey](docs/EmailTemplateKey.md)
+ - [Example](docs/Example.md)
+ - [FeatureFlagOut](docs/FeatureFlagOut.md)
+ - [FeatureFlagSetIn](docs/FeatureFlagSetIn.md)
  - [FormField](docs/FormField.md)
  - [FormFieldTypeEnum](docs/FormFieldTypeEnum.md)
  - [GroupAppAccessIn](docs/GroupAppAccessIn.md)
@@ -316,20 +396,28 @@ Class | Method | HTTP request | Description
  - [HTTPValidationError](docs/HTTPValidationError.md)
  - [InvitationIn](docs/InvitationIn.md)
  - [InvitationOut](docs/InvitationOut.md)
+ - [LLMConnectionTestIn](docs/LLMConnectionTestIn.md)
+ - [LLMConnectionTestOut](docs/LLMConnectionTestOut.md)
  - [LLMSettingsIn](docs/LLMSettingsIn.md)
  - [LLMSettingsUpdate](docs/LLMSettingsUpdate.md)
  - [Library](docs/Library.md)
  - [LibraryIn](docs/LibraryIn.md)
- - [LibraryMember](docs/LibraryMember.md)
  - [LibraryMemberBulkDelete](docs/LibraryMemberBulkDelete.md)
  - [LibraryMemberBulkIn](docs/LibraryMemberBulkIn.md)
  - [LibraryMemberIn](docs/LibraryMemberIn.md)
+ - [LibraryMemberOut](docs/LibraryMemberOut.md)
  - [LibraryUpdateIn](docs/LibraryUpdateIn.md)
  - [LocationInner](docs/LocationInner.md)
+ - [MarketplaceCatalogStateEnum](docs/MarketplaceCatalogStateEnum.md)
+ - [MarketplaceCatalogStateUpdate](docs/MarketplaceCatalogStateUpdate.md)
  - [Message](docs/Message.md)
  - [MessageDetailOut](docs/MessageDetailOut.md)
  - [MessageFileOut](docs/MessageFileOut.md)
  - [MessageIn](docs/MessageIn.md)
+ - [MessageSubmitOut](docs/MessageSubmitOut.md)
+ - [MessageTurnOut](docs/MessageTurnOut.md)
+ - [NeulandAssistantsTaggingOut](docs/NeulandAssistantsTaggingOut.md)
+ - [NeulandMarketplaceAssistantSchemasTaggingOut](docs/NeulandMarketplaceAssistantSchemasTaggingOut.md)
  - [OAuth2ProviderEnum](docs/OAuth2ProviderEnum.md)
  - [OAuthClient](docs/OAuthClient.md)
  - [OAuthClientUpdate](docs/OAuthClientUpdate.md)
@@ -352,9 +440,16 @@ Class | Method | HTTP request | Description
  - [RatingIn](docs/RatingIn.md)
  - [RephraseStyleEnum](docs/RephraseStyleEnum.md)
  - [ResponseAuthGetEntraGroupsValue](docs/ResponseAuthGetEntraGroupsValue.md)
+ - [ResponseDropboxListRoots](docs/ResponseDropboxListRoots.md)
+ - [ResponseGoogledriveListRoots](docs/ResponseGoogledriveListRoots.md)
  - [ResponseNextcloudListRoots](docs/ResponseNextcloudListRoots.md)
  - [ResponseOnedriveListRoots](docs/ResponseOnedriveListRoots.md)
  - [ResponseSharepointv1ListRoots](docs/ResponseSharepointv1ListRoots.md)
+ - [ResumeIn](docs/ResumeIn.md)
+ - [Role](docs/Role.md)
+ - [RoleIn](docs/RoleIn.md)
+ - [RoleUpdateIn](docs/RoleUpdateIn.md)
+ - [RunCreateOut](docs/RunCreateOut.md)
  - [SecretUpdateIn](docs/SecretUpdateIn.md)
  - [SendEmailRequest](docs/SendEmailRequest.md)
  - [SendEmailResponse](docs/SendEmailResponse.md)
@@ -369,16 +464,19 @@ Class | Method | HTTP request | Description
  - [SsoExchangeIn](docs/SsoExchangeIn.md)
  - [SsoInitOut](docs/SsoInitOut.md)
  - [SsoResolveOut](docs/SsoResolveOut.md)
+ - [StreamTokenOut](docs/StreamTokenOut.md)
  - [SystemSettings](docs/SystemSettings.md)
  - [SystemSettingsUpdate](docs/SystemSettingsUpdate.md)
  - [Tag](docs/Tag.md)
  - [TagIn](docs/TagIn.md)
+ - [TaggableTypeEnum](docs/TaggableTypeEnum.md)
  - [Tagging](docs/Tagging.md)
  - [Tarif](docs/Tarif.md)
  - [TarifIn](docs/TarifIn.md)
  - [TarifStatusEnum](docs/TarifStatusEnum.md)
  - [TemplateIn](docs/TemplateIn.md)
  - [TemplateOut](docs/TemplateOut.md)
+ - [TemplateUpdate](docs/TemplateUpdate.md)
  - [TenantIn](docs/TenantIn.md)
  - [TenantLLM](docs/TenantLLM.md)
  - [TenantModelBulkIn](docs/TenantModelBulkIn.md)
@@ -399,6 +497,7 @@ Class | Method | HTTP request | Description
  - [TokensTimeseriesResponse](docs/TokensTimeseriesResponse.md)
  - [ToolCallOut](docs/ToolCallOut.md)
  - [ToolCallProgressStepOut](docs/ToolCallProgressStepOut.md)
+ - [ToolCreate](docs/ToolCreate.md)
  - [ToolOut](docs/ToolOut.md)
  - [ToolUpdate](docs/ToolUpdate.md)
  - [TranscriptionOut](docs/TranscriptionOut.md)
@@ -411,11 +510,18 @@ Class | Method | HTTP request | Description
  - [UserGroupMember](docs/UserGroupMember.md)
  - [UserGroupSource](docs/UserGroupSource.md)
  - [UserIn](docs/UserIn.md)
+ - [UserMeOut](docs/UserMeOut.md)
  - [UserOut](docs/UserOut.md)
  - [UserPreferenceOut](docs/UserPreferenceOut.md)
  - [UserPreferenceUpdateIn](docs/UserPreferenceUpdateIn.md)
  - [UserUpdateIn](docs/UserUpdateIn.md)
  - [ValidationError](docs/ValidationError.md)
+ - [VariableSpec](docs/VariableSpec.md)
+ - [Workflow](docs/Workflow.md)
+ - [WorkflowChatIn](docs/WorkflowChatIn.md)
+ - [WorkflowChatOut](docs/WorkflowChatOut.md)
+ - [WorkflowIn](docs/WorkflowIn.md)
+ - [WorkflowUpdateIn](docs/WorkflowUpdateIn.md)
 
 
 <a id="documentation-for-authorization"></a>

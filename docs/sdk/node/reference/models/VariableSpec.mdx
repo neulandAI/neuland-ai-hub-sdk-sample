@@ -1,0 +1,27 @@
+---
+title: "VariableSpec"
+---
+
+A single variable an email template may reference.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** | Placeholder name, used as &#123;&#123; name &#125;&#125; in the body. | [default to undefined]
+**required** | **boolean** | Whether the template must reference this variable. | [optional] [default to false]
+**description** | **string** | What the variable renders to. | [default to undefined]
+**example** | [**Example**](/sdk/node/reference/models/Example) |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { VariableSpec } from 'neuland-hub-sdk';
+
+const instance: VariableSpec = {
+    name,
+    required,
+    description,
+    example,
+};
+```

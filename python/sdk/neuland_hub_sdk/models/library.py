@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,10 +34,11 @@ class Library(BaseModel):
     creator_user_id: StrictInt = Field(description="ID of the user who created the record.")
     updater_user_id: Optional[StrictInt] = None
     id: Optional[StrictInt] = Field(default=None, description="Primary key for the library.")
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the library. Exposed to clients instead of the internal integer id.")
     tenant_id: StrictInt = Field(description="ID of the tenant that owns the library.")
     name: StrictStr = Field(description="Name of the library.")
     description: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "tenant_id", "name", "description"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "tenant_id", "name", "description"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -104,6 +106,7 @@ class Library(BaseModel):
             "creator_user_id": obj.get("creator_user_id"),
             "updater_user_id": obj.get("updater_user_id"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
             "name": obj.get("name"),
             "description": obj.get("description")

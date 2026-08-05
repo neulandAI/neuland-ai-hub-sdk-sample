@@ -15,13 +15,14 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Any, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.bulk_result import BulkResult
 from neuland_hub_sdk.models.chat import Chat
 from neuland_hub_sdk.models.chat_in import ChatIn
-from neuland_hub_sdk.models.chat_inactive_document import ChatInactiveDocument
+from neuland_hub_sdk.models.chat_inactive_document_out import ChatInactiveDocumentOut
 from neuland_hub_sdk.models.chat_library import ChatLibrary
 from neuland_hub_sdk.models.chat_tool_settings_out import ChatToolSettingsOut
 from neuland_hub_sdk.models.chat_tool_settings_update import ChatToolSettingsUpdate
@@ -47,8 +48,8 @@ class Chat:
     @validate_call
     def chats_add_library_to_chat(
         self,
-        chat_id: StrictInt,
-        library_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        library_id: Annotated[UUID, Field(description="ID of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -67,10 +68,10 @@ class Chat:
 
         Enables a library in a chat by creating a new association
 
-        :param chat_id: (required)
-        :type chat_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
+        :param library_id: ID of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -125,8 +126,8 @@ class Chat:
     @validate_call
     def chats_add_library_to_chat_with_http_info(
         self,
-        chat_id: StrictInt,
-        library_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        library_id: Annotated[UUID, Field(description="ID of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -145,10 +146,10 @@ class Chat:
 
         Enables a library in a chat by creating a new association
 
-        :param chat_id: (required)
-        :type chat_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
+        :param library_id: ID of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -203,8 +204,8 @@ class Chat:
     @validate_call
     def chats_add_library_to_chat_without_preload_content(
         self,
-        chat_id: StrictInt,
-        library_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        library_id: Annotated[UUID, Field(description="ID of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -223,10 +224,10 @@ class Chat:
 
         Enables a library in a chat by creating a new association
 
-        :param chat_id: (required)
-        :type chat_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
+        :param library_id: ID of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -349,7 +350,7 @@ class Chat:
     @validate_call
     def chats_cancel_message(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -368,8 +369,8 @@ class Chat:
 
         Cancel any pending or streaming message generation in the chat.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -423,7 +424,7 @@ class Chat:
     @validate_call
     def chats_cancel_message_with_http_info(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -442,8 +443,8 @@ class Chat:
 
         Cancel any pending or streaming message generation in the chat.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -497,7 +498,7 @@ class Chat:
     @validate_call
     def chats_cancel_message_without_preload_content(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -516,8 +517,8 @@ class Chat:
 
         Cancel any pending or streaming message generation in the chat.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -636,8 +637,8 @@ class Chat:
     @validate_call
     def chats_deactivate_documents(
         self,
-        chat_id: StrictInt,
-        document_ids: List[StrictInt],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        document_ids: List[UUID],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -651,15 +652,15 @@ class Chat:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[ChatInactiveDocument]:
+    ) -> List[ChatInactiveDocumentOut]:
         """Deactivate documents in a chat
 
         Exclude the given documents from the chat's retrieval context.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param document_ids: (required)
-        :type document_ids: List[int]
+        :type document_ids: List[UUID]
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -695,7 +696,7 @@ class Chat:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[ChatInactiveDocument]",
+            '201': "List[ChatInactiveDocumentOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -715,8 +716,8 @@ class Chat:
     @validate_call
     def chats_deactivate_documents_with_http_info(
         self,
-        chat_id: StrictInt,
-        document_ids: List[StrictInt],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        document_ids: List[UUID],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -730,15 +731,15 @@ class Chat:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[ChatInactiveDocument]]:
+    ) -> ApiResponse[List[ChatInactiveDocumentOut]]:
         """Deactivate documents in a chat
 
         Exclude the given documents from the chat's retrieval context.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param document_ids: (required)
-        :type document_ids: List[int]
+        :type document_ids: List[UUID]
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -774,7 +775,7 @@ class Chat:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[ChatInactiveDocument]",
+            '201': "List[ChatInactiveDocumentOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -794,8 +795,8 @@ class Chat:
     @validate_call
     def chats_deactivate_documents_without_preload_content(
         self,
-        chat_id: StrictInt,
-        document_ids: List[StrictInt],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        document_ids: List[UUID],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -814,10 +815,10 @@ class Chat:
 
         Exclude the given documents from the chat's retrieval context.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param document_ids: (required)
-        :type document_ids: List[int]
+        :type document_ids: List[UUID]
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -853,7 +854,7 @@ class Chat:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[ChatInactiveDocument]",
+            '201': "List[ChatInactiveDocumentOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -953,9 +954,330 @@ class Chat:
 
 
     @validate_call
+    def chats_list_chat_message_turns(
+        self,
+        chat_id: Annotated[UUID, Field(description="Public id of the chat.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Max turns to return (newest first).")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Number of newest turns to skip.")] = None,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """List message turns for a chat
+
+
+        :param chat_id: Public id of the chat. (required)
+        :type chat_id: UUID
+        :param limit: Max turns to return (newest first).
+        :type limit: int
+        :param offset: Number of newest turns to skip.
+        :type offset: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._chats_list_chat_message_turns_serialize(
+            chat_id=chat_id,
+            limit=limit,
+            offset=offset,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def chats_list_chat_message_turns_with_http_info(
+        self,
+        chat_id: Annotated[UUID, Field(description="Public id of the chat.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Max turns to return (newest first).")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Number of newest turns to skip.")] = None,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """List message turns for a chat
+
+
+        :param chat_id: Public id of the chat. (required)
+        :type chat_id: UUID
+        :param limit: Max turns to return (newest first).
+        :type limit: int
+        :param offset: Number of newest turns to skip.
+        :type offset: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._chats_list_chat_message_turns_serialize(
+            chat_id=chat_id,
+            limit=limit,
+            offset=offset,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def chats_list_chat_message_turns_without_preload_content(
+        self,
+        chat_id: Annotated[UUID, Field(description="Public id of the chat.")],
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Max turns to return (newest first).")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Number of newest turns to skip.")] = None,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List message turns for a chat
+
+
+        :param chat_id: Public id of the chat. (required)
+        :type chat_id: UUID
+        :param limit: Max turns to return (newest first).
+        :type limit: int
+        :param offset: Number of newest turns to skip.
+        :type offset: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._chats_list_chat_message_turns_serialize(
+            chat_id=chat_id,
+            limit=limit,
+            offset=offset,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _chats_list_chat_message_turns_serialize(
+        self,
+        chat_id,
+        limit,
+        offset,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if chat_id is not None:
+            _path_params['chat_id'] = chat_id
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/chats/{chat_id}/turns',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def chats_remove_chat(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -974,8 +1296,8 @@ class Chat:
 
         Delete a chat and its messages.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to delete. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1030,7 +1352,7 @@ class Chat:
     @validate_call
     def chats_remove_chat_with_http_info(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1049,8 +1371,8 @@ class Chat:
 
         Delete a chat and its messages.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to delete. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1105,7 +1427,7 @@ class Chat:
     @validate_call
     def chats_remove_chat_without_preload_content(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1124,8 +1446,8 @@ class Chat:
 
         Delete a chat and its messages.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to delete. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1245,8 +1567,8 @@ class Chat:
     @validate_call
     def chats_remove_inactive_documents(
         self,
-        chat_id: StrictInt,
-        document_ids: List[StrictInt],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        document_ids: List[UUID],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1265,10 +1587,10 @@ class Chat:
 
         Re-include previously deactivated documents in the chat's retrieval context.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param document_ids: (required)
-        :type document_ids: List[int]
+        :type document_ids: List[UUID]
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1323,8 +1645,8 @@ class Chat:
     @validate_call
     def chats_remove_inactive_documents_with_http_info(
         self,
-        chat_id: StrictInt,
-        document_ids: List[StrictInt],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        document_ids: List[UUID],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1343,10 +1665,10 @@ class Chat:
 
         Re-include previously deactivated documents in the chat's retrieval context.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param document_ids: (required)
-        :type document_ids: List[int]
+        :type document_ids: List[UUID]
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1401,8 +1723,8 @@ class Chat:
     @validate_call
     def chats_remove_inactive_documents_without_preload_content(
         self,
-        chat_id: StrictInt,
-        document_ids: List[StrictInt],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        document_ids: List[UUID],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1421,10 +1743,10 @@ class Chat:
 
         Re-include previously deactivated documents in the chat's retrieval context.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param document_ids: (required)
-        :type document_ids: List[int]
+        :type document_ids: List[UUID]
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1561,8 +1883,8 @@ class Chat:
     @validate_call
     def chats_remove_library_from_chat(
         self,
-        chat_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        library_id: Annotated[UUID, Field(description="ID of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1581,10 +1903,10 @@ class Chat:
 
         Disables a library from a chat by removing the association
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1639,8 +1961,8 @@ class Chat:
     @validate_call
     def chats_remove_library_from_chat_with_http_info(
         self,
-        chat_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        library_id: Annotated[UUID, Field(description="ID of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1659,10 +1981,10 @@ class Chat:
 
         Disables a library from a chat by removing the association
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1717,8 +2039,8 @@ class Chat:
     @validate_call
     def chats_remove_library_from_chat_without_preload_content(
         self,
-        chat_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        library_id: Annotated[UUID, Field(description="ID of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1737,10 +2059,10 @@ class Chat:
 
         Disables a library from a chat by removing the association
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
         :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1863,7 +2185,7 @@ class Chat:
     @validate_call
     def chats_summerize_chat(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to summarize.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1882,8 +2204,8 @@ class Chat:
 
         Generate a short LLM summary of the chat's recent conversation.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to summarize. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1938,7 +2260,7 @@ class Chat:
     @validate_call
     def chats_summerize_chat_with_http_info(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to summarize.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1957,8 +2279,8 @@ class Chat:
 
         Generate a short LLM summary of the chat's recent conversation.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to summarize. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2013,7 +2335,7 @@ class Chat:
     @validate_call
     def chats_summerize_chat_without_preload_content(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to summarize.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2032,8 +2354,8 @@ class Chat:
 
         Generate a short LLM summary of the chat's recent conversation.
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to summarize. (required)
+        :type chat_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2153,7 +2475,7 @@ class Chat:
     @validate_call
     def chats_update_chat(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to update.")],
         chat_in: ChatIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2173,8 +2495,8 @@ class Chat:
 
         Update settings of an existing chat (name, model, temperature, etc.).
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to update. (required)
+        :type chat_id: UUID
         :param chat_in: (required)
         :type chat_in: ChatIn
         :param cookie_name:
@@ -2232,7 +2554,7 @@ class Chat:
     @validate_call
     def chats_update_chat_with_http_info(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to update.")],
         chat_in: ChatIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2252,8 +2574,8 @@ class Chat:
 
         Update settings of an existing chat (name, model, temperature, etc.).
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to update. (required)
+        :type chat_id: UUID
         :param chat_in: (required)
         :type chat_in: ChatIn
         :param cookie_name:
@@ -2311,7 +2633,7 @@ class Chat:
     @validate_call
     def chats_update_chat_without_preload_content(
         self,
-        chat_id: StrictInt,
+        chat_id: Annotated[UUID, Field(description="ID of the chat to update.")],
         chat_in: ChatIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2331,8 +2653,8 @@ class Chat:
 
         Update settings of an existing chat (name, model, temperature, etc.).
 
-        :param chat_id: (required)
-        :type chat_id: int
+        :param chat_id: ID of the chat to update. (required)
+        :type chat_id: UUID
         :param chat_in: (required)
         :type chat_in: ChatIn
         :param cookie_name:
@@ -2471,8 +2793,8 @@ class Chat:
     @validate_call
     def chats_update_chat_tool_settings(
         self,
-        chat_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to configure.")],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to configure.")],
         chat_tool_settings_update: ChatToolSettingsUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2492,10 +2814,10 @@ class Chat:
 
         Enable or disable a tool for a chat, creating the setting if needed.
 
-        :param chat_id: (required)
-        :type chat_id: int
-        :param tool_id: ID of the tool to configure. (required)
-        :type tool_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
+        :param tool_id: Public id of the tool to configure. (required)
+        :type tool_id: UUID
         :param chat_tool_settings_update: (required)
         :type chat_tool_settings_update: ChatToolSettingsUpdate
         :param cookie_name:
@@ -2554,8 +2876,8 @@ class Chat:
     @validate_call
     def chats_update_chat_tool_settings_with_http_info(
         self,
-        chat_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to configure.")],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to configure.")],
         chat_tool_settings_update: ChatToolSettingsUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2575,10 +2897,10 @@ class Chat:
 
         Enable or disable a tool for a chat, creating the setting if needed.
 
-        :param chat_id: (required)
-        :type chat_id: int
-        :param tool_id: ID of the tool to configure. (required)
-        :type tool_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
+        :param tool_id: Public id of the tool to configure. (required)
+        :type tool_id: UUID
         :param chat_tool_settings_update: (required)
         :type chat_tool_settings_update: ChatToolSettingsUpdate
         :param cookie_name:
@@ -2637,8 +2959,8 @@ class Chat:
     @validate_call
     def chats_update_chat_tool_settings_without_preload_content(
         self,
-        chat_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to configure.")],
+        chat_id: Annotated[UUID, Field(description="ID of the chat.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to configure.")],
         chat_tool_settings_update: ChatToolSettingsUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2658,10 +2980,10 @@ class Chat:
 
         Enable or disable a tool for a chat, creating the setting if needed.
 
-        :param chat_id: (required)
-        :type chat_id: int
-        :param tool_id: ID of the tool to configure. (required)
-        :type tool_id: int
+        :param chat_id: ID of the chat. (required)
+        :type chat_id: UUID
+        :param tool_id: Public id of the tool to configure. (required)
+        :type tool_id: UUID
         :param chat_tool_settings_update: (required)
         :type chat_tool_settings_update: ChatToolSettingsUpdate
         :param cookie_name:

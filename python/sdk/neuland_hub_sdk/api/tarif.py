@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.tarif import Tarif
 from neuland_hub_sdk.models.tarif_in import TarifIn
 
@@ -44,7 +45,6 @@ class Tarif:
         self,
         tarif_in: TarifIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -66,8 +66,6 @@ class Tarif:
         :type tarif_in: TarifIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -93,7 +91,6 @@ class Tarif:
         _param = self._tarifs_create_tarif_serialize(
             tarif_in=tarif_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -122,7 +119,6 @@ class Tarif:
         self,
         tarif_in: TarifIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -144,8 +140,6 @@ class Tarif:
         :type tarif_in: TarifIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -171,7 +165,6 @@ class Tarif:
         _param = self._tarifs_create_tarif_serialize(
             tarif_in=tarif_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -200,7 +193,6 @@ class Tarif:
         self,
         tarif_in: TarifIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -222,8 +214,6 @@ class Tarif:
         :type tarif_in: TarifIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -249,7 +239,6 @@ class Tarif:
         _param = self._tarifs_create_tarif_serialize(
             tarif_in=tarif_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -273,7 +262,6 @@ class Tarif:
         self,
         tarif_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -299,10 +287,6 @@ class Tarif:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -359,9 +343,8 @@ class Tarif:
     @validate_call
     def tarifs_delete_tarif(
         self,
-        tarif_id: Annotated[StrictInt, Field(description="ID of the tarif to delete.")],
+        tarif_id: Annotated[UUID, Field(description="Public id of the tarif to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -379,12 +362,10 @@ class Tarif:
 
         Delete a tarif plan.
 
-        :param tarif_id: ID of the tarif to delete. (required)
-        :type tarif_id: int
+        :param tarif_id: Public id of the tarif to delete. (required)
+        :type tarif_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -410,7 +391,6 @@ class Tarif:
         _param = self._tarifs_delete_tarif_serialize(
             tarif_id=tarif_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -439,9 +419,8 @@ class Tarif:
     @validate_call
     def tarifs_delete_tarif_with_http_info(
         self,
-        tarif_id: Annotated[StrictInt, Field(description="ID of the tarif to delete.")],
+        tarif_id: Annotated[UUID, Field(description="Public id of the tarif to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -459,12 +438,10 @@ class Tarif:
 
         Delete a tarif plan.
 
-        :param tarif_id: ID of the tarif to delete. (required)
-        :type tarif_id: int
+        :param tarif_id: Public id of the tarif to delete. (required)
+        :type tarif_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -490,7 +467,6 @@ class Tarif:
         _param = self._tarifs_delete_tarif_serialize(
             tarif_id=tarif_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -519,9 +495,8 @@ class Tarif:
     @validate_call
     def tarifs_delete_tarif_without_preload_content(
         self,
-        tarif_id: Annotated[StrictInt, Field(description="ID of the tarif to delete.")],
+        tarif_id: Annotated[UUID, Field(description="Public id of the tarif to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -539,12 +514,10 @@ class Tarif:
 
         Delete a tarif plan.
 
-        :param tarif_id: ID of the tarif to delete. (required)
-        :type tarif_id: int
+        :param tarif_id: Public id of the tarif to delete. (required)
+        :type tarif_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -570,7 +543,6 @@ class Tarif:
         _param = self._tarifs_delete_tarif_serialize(
             tarif_id=tarif_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -596,7 +568,6 @@ class Tarif:
         self,
         tarif_id,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -624,10 +595,6 @@ class Tarif:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -669,10 +636,9 @@ class Tarif:
     @validate_call
     def tarifs_update_tarif(
         self,
-        tarif_id: Annotated[StrictInt, Field(description="ID of the tarif to update.")],
+        tarif_id: Annotated[UUID, Field(description="Public id of the tarif to update.")],
         tarif_in: TarifIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -690,14 +656,12 @@ class Tarif:
 
         Update an existing tarif plan.
 
-        :param tarif_id: ID of the tarif to update. (required)
-        :type tarif_id: int
+        :param tarif_id: Public id of the tarif to update. (required)
+        :type tarif_id: UUID
         :param tarif_in: (required)
         :type tarif_in: TarifIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -724,7 +688,6 @@ class Tarif:
             tarif_id=tarif_id,
             tarif_in=tarif_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -752,10 +715,9 @@ class Tarif:
     @validate_call
     def tarifs_update_tarif_with_http_info(
         self,
-        tarif_id: Annotated[StrictInt, Field(description="ID of the tarif to update.")],
+        tarif_id: Annotated[UUID, Field(description="Public id of the tarif to update.")],
         tarif_in: TarifIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -773,14 +735,12 @@ class Tarif:
 
         Update an existing tarif plan.
 
-        :param tarif_id: ID of the tarif to update. (required)
-        :type tarif_id: int
+        :param tarif_id: Public id of the tarif to update. (required)
+        :type tarif_id: UUID
         :param tarif_in: (required)
         :type tarif_in: TarifIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -807,7 +767,6 @@ class Tarif:
             tarif_id=tarif_id,
             tarif_in=tarif_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -835,10 +794,9 @@ class Tarif:
     @validate_call
     def tarifs_update_tarif_without_preload_content(
         self,
-        tarif_id: Annotated[StrictInt, Field(description="ID of the tarif to update.")],
+        tarif_id: Annotated[UUID, Field(description="Public id of the tarif to update.")],
         tarif_in: TarifIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -856,14 +814,12 @@ class Tarif:
 
         Update an existing tarif plan.
 
-        :param tarif_id: ID of the tarif to update. (required)
-        :type tarif_id: int
+        :param tarif_id: Public id of the tarif to update. (required)
+        :type tarif_id: UUID
         :param tarif_in: (required)
         :type tarif_in: TarifIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -890,7 +846,6 @@ class Tarif:
             tarif_id=tarif_id,
             tarif_in=tarif_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -916,7 +871,6 @@ class Tarif:
         tarif_id,
         tarif_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -944,10 +898,6 @@ class Tarif:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters

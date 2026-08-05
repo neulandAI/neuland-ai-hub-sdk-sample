@@ -20,6 +20,9 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from uuid import UUID
+from neuland_hub_sdk.models.category_out import CategoryOut
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,12 +32,14 @@ class ToolOut(BaseModel):
     A tool as returned by the API.
     """ # noqa: E501
     id: StrictInt = Field(description="Unique identifier of the tool.")
+    public_id: UUID = Field(description="Public, non-enumerable external identifier of the tool.")
     name: StrictStr = Field(description="Human-readable name of the tool.")
-    description: Optional[StrictStr]
+    description: Optional[Annotated[str, Field(strict=True, max_length=500)]]
     prompt: Optional[StrictStr]
     created_at: datetime = Field(description="UTC timestamp when the tool was created.")
     updated_at: Optional[datetime]
-    __properties: ClassVar[List[str]] = ["id", "name", "description", "prompt", "created_at", "updated_at"]
+    category: Optional[CategoryOut] = None
+    __properties: ClassVar[List[str]] = ["id", "public_id", "name", "description", "prompt", "created_at", "updated_at", "category"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -75,6 +80,9 @@ class ToolOut(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of category
+        if self.category:
+            _dict['category'] = self.category.to_dict()
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
@@ -90,6 +98,11 @@ class ToolOut(BaseModel):
         if self.updated_at is None and "updated_at" in self.model_fields_set:
             _dict['updated_at'] = None
 
+        # set to None if category (nullable) is None
+        # and model_fields_set contains the field
+        if self.category is None and "category" in self.model_fields_set:
+            _dict['category'] = None
+
         return _dict
 
     @classmethod
@@ -103,11 +116,13 @@ class ToolOut(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "name": obj.get("name"),
             "description": obj.get("description"),
             "prompt": obj.get("prompt"),
             "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at")
+            "updated_at": obj.get("updated_at"),
+            "category": CategoryOut.from_dict(obj["category"]) if obj.get("category") is not None else None
         })
         return _obj
 

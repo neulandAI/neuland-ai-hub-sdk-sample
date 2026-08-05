@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **creator_user_id** | **int** |  | [optional] 
 **updater_user_id** | **int** |  | [optional] 
 **id** | **int** |  | [optional] 
+**public_id** | **UUID** | Public, non-enumerable external identifier for the OAuth client. Exposed to clients instead of the internal integer id. | [optional] 
 **name** | **str** | Unique human-readable name of the OAuth client. | 
 **provider_key** | [**OAuth2ProviderEnum**](OAuth2ProviderEnum.md) | OAuth provider this client uses. | 
 **description** | **str** |  | [optional] 

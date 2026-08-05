@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Any, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.invitation_in import InvitationIn
 from neuland_hub_sdk.models.invitation_out import InvitationOut
 
@@ -882,7 +883,7 @@ class Invitation:
     @validate_call
     def invitations_resend_invitation(
         self,
-        invitation_id: Annotated[StrictInt, Field(description="ID of the invitation to resend.")],
+        invitation_id: Annotated[UUID, Field(description="Public id of the invitation to resend.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -901,8 +902,8 @@ class Invitation:
 
         Resend the invitation email for a pending invitation.
 
-        :param invitation_id: ID of the invitation to resend. (required)
-        :type invitation_id: int
+        :param invitation_id: Public id of the invitation to resend. (required)
+        :type invitation_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -957,7 +958,7 @@ class Invitation:
     @validate_call
     def invitations_resend_invitation_with_http_info(
         self,
-        invitation_id: Annotated[StrictInt, Field(description="ID of the invitation to resend.")],
+        invitation_id: Annotated[UUID, Field(description="Public id of the invitation to resend.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -976,8 +977,8 @@ class Invitation:
 
         Resend the invitation email for a pending invitation.
 
-        :param invitation_id: ID of the invitation to resend. (required)
-        :type invitation_id: int
+        :param invitation_id: Public id of the invitation to resend. (required)
+        :type invitation_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1032,7 +1033,7 @@ class Invitation:
     @validate_call
     def invitations_resend_invitation_without_preload_content(
         self,
-        invitation_id: Annotated[StrictInt, Field(description="ID of the invitation to resend.")],
+        invitation_id: Annotated[UUID, Field(description="Public id of the invitation to resend.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1051,8 +1052,8 @@ class Invitation:
 
         Resend the invitation email for a pending invitation.
 
-        :param invitation_id: ID of the invitation to resend. (required)
-        :type invitation_id: int
+        :param invitation_id: Public id of the invitation to resend. (required)
+        :type invitation_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1172,7 +1173,7 @@ class Invitation:
     @validate_call
     def invitations_revoke_invitation(
         self,
-        invitation_id: Annotated[StrictInt, Field(description="ID of the invitation to revoke.")],
+        invitation_id: Annotated[UUID, Field(description="Public id of the invitation to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1191,8 +1192,8 @@ class Invitation:
 
         Revoke a pending invitation so its token can no longer be used.
 
-        :param invitation_id: ID of the invitation to revoke. (required)
-        :type invitation_id: int
+        :param invitation_id: Public id of the invitation to revoke. (required)
+        :type invitation_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1247,7 +1248,7 @@ class Invitation:
     @validate_call
     def invitations_revoke_invitation_with_http_info(
         self,
-        invitation_id: Annotated[StrictInt, Field(description="ID of the invitation to revoke.")],
+        invitation_id: Annotated[UUID, Field(description="Public id of the invitation to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1266,8 +1267,8 @@ class Invitation:
 
         Revoke a pending invitation so its token can no longer be used.
 
-        :param invitation_id: ID of the invitation to revoke. (required)
-        :type invitation_id: int
+        :param invitation_id: Public id of the invitation to revoke. (required)
+        :type invitation_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1322,7 +1323,7 @@ class Invitation:
     @validate_call
     def invitations_revoke_invitation_without_preload_content(
         self,
-        invitation_id: Annotated[StrictInt, Field(description="ID of the invitation to revoke.")],
+        invitation_id: Annotated[UUID, Field(description="Public id of the invitation to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1341,8 +1342,8 @@ class Invitation:
 
         Revoke a pending invitation so its token can no longer be used.
 
-        :param invitation_id: ID of the invitation to revoke. (required)
-        :type invitation_id: int
+        :param invitation_id: Public id of the invitation to revoke. (required)
+        :type invitation_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one

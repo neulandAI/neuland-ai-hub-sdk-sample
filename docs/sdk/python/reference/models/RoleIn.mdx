@@ -1,0 +1,30 @@
+---
+title: "RoleIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** | Display name of the role. | 
+**description** | **str** |  | [optional] 
+**permissions** | **List[str]** | Permission keys the role grants. | [optional] 
+**tenant_id** | **UUID** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.role_in import RoleIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of RoleIn from a JSON string
+role_in_instance = RoleIn.from_json(json)
+# print the JSON string representation of the object
+print(RoleIn.to_json())
+
+# convert the object into a dict
+role_in_dict = role_in_instance.to_dict()
+# create an instance of RoleIn from a dict
+role_in_from_dict = RoleIn.from_dict(role_in_dict)
+```
