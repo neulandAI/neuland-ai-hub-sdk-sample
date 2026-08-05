@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **embedding_dimension** | **int** |  | [optional] 
 **supports_embedding** | **bool** |  | [optional] 
 **supports_transcription** | **bool** |  | [optional] 
+**supports_clarification** | **bool** |  | [optional] 
 **auto_seed** | **bool** |  | [optional] 
 
 ## Example

@@ -37,7 +37,7 @@ class TestApplicationIn(unittest.TestCase):
             return ApplicationIn(
                 name = '',
                 is_active = True,
-                tenant_id = 56,
+                tenant_id = '',
                 app_url = '',
                 is_native = True,
                 native_app_id = 56,
@@ -48,7 +48,7 @@ class TestApplicationIn(unittest.TestCase):
         else:
             return ApplicationIn(
                 name = '',
-                tenant_id = 56,
+                tenant_id = '',
         )
         """
 

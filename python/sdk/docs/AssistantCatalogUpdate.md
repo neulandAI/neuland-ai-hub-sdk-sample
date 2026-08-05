@@ -1,0 +1,37 @@
+# AssistantCatalogUpdate
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**avatar** | **str** |  | [optional] 
+**instructions** | **str** |  | [optional] 
+**llm_catalog_id** | **UUID** |  | [optional] 
+**temperature** | **float** |  | [optional] 
+**similarity_top_k** | **int** |  | [optional] 
+**version** | **str** |  | [optional] 
+**predefined_prompts** | **List[str]** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.assistant_catalog_update import AssistantCatalogUpdate
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of AssistantCatalogUpdate from a JSON string
+assistant_catalog_update_instance = AssistantCatalogUpdate.from_json(json)
+# print the JSON string representation of the object
+print(AssistantCatalogUpdate.to_json())
+
+# convert the object into a dict
+assistant_catalog_update_dict = assistant_catalog_update_instance.to_dict()
+# create an instance of AssistantCatalogUpdate from a dict
+assistant_catalog_update_from_dict = AssistantCatalogUpdate.from_dict(assistant_catalog_update_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

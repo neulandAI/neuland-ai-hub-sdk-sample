@@ -1,0 +1,30 @@
+---
+title: "WorkflowChatOut"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**content** | **str** |  | 
+**spec** | **Dict[str, object]** |  | [optional] 
+**saved** | **bool** |  | [optional] [default to False]
+**errors** | **List[str]** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.workflow_chat_out import WorkflowChatOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of WorkflowChatOut from a JSON string
+workflow_chat_out_instance = WorkflowChatOut.from_json(json)
+# print the JSON string representation of the object
+print(WorkflowChatOut.to_json())
+
+# convert the object into a dict
+workflow_chat_out_dict = workflow_chat_out_instance.to_dict()
+# create an instance of WorkflowChatOut from a dict
+workflow_chat_out_from_dict = WorkflowChatOut.from_dict(workflow_chat_out_dict)
+```

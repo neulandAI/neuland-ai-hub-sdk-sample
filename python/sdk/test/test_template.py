@@ -40,6 +40,13 @@ class TestTemplate(unittest.TestCase):
         """
         pass
 
+    def test_templates_get_email_catalog(self) -> None:
+        """Test case for templates_get_email_catalog
+
+        List customizable emails and their variables
+        """
+        pass
+
     def test_templates_update(self) -> None:
         """Test case for templates_update
 

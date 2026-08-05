@@ -35,12 +35,14 @@ class TestLLMSettingsUpdate(unittest.TestCase):
         model = LLMSettingsUpdate()
         if include_optional:
             return LLMSettingsUpdate(
-                llm_catalog_id = 56,
+                llm_catalog_id = '',
                 provider = '',
                 library = '',
                 max_tokens = 56,
                 cost_prompt_tokens = None,
                 cost_completion_tokens = None,
+                cost_cached_tokens = None,
+                cost_audio_per_minute = None,
                 region = '',
                 args = { },
                 openai_resource = '',

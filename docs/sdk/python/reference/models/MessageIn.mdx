@@ -7,16 +7,17 @@ title: "MessageIn"
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **content** | **str** |  | [optional] 
-**chat_id** | **int** |  | [optional] 
-**updated_at** | **datetime** |  | [optional] 
-**project_id** | **int** |  | [optional] 
+**chat_id** | **UUID** |  | [optional] 
+**project_id** | **UUID** |  | [optional] 
 **model** | **str** |  | [optional] 
 **temperature** | **float** |  | [optional] 
 **similarity_top_k** | **int** |  | [optional] 
 **system_prompt** | **str** |  | [optional] 
-**assistant_id** | **int** |  | [optional] 
+**assistant_id** | **UUID** |  | [optional] 
 **private** | **bool** |  | [optional] 
 **form_data** | **Dict[str, object]** |  | [optional] 
+**form_fields** | **List[Dict[str, object]]** |  | [optional] 
+**playground** | **bool** | Start a playground (sandbox) chat for testing assistant settings: the given system_prompt/temperature/similarity_top_k/model override the assistant&#39;s live config without saving it. Requires assistant_id; only the assistant&#39;s creator may use it. | [optional] [default to False]
 
 ## Example
 

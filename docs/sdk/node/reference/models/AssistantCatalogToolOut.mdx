@@ -1,0 +1,27 @@
+---
+title: "AssistantCatalogToolOut"
+---
+
+A catalog-tool attachment, identifying the catalog and tool by public id.  `assistant_catalog_id`/`tool_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `assistant_catalog_public_id`/`tool_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**assistant_catalog_id** | **number** | Internal id of the catalog item (deprecated; use assistant_catalog_public_id). | [default to undefined]
+**assistant_catalog_public_id** | **string** | Public id of the catalog item. | [default to undefined]
+**tool_id** | **number** | Internal id of the tool (deprecated; use tool_public_id). | [default to undefined]
+**tool_public_id** | **string** | Public id of the tool. | [default to undefined]
+
+## Example
+
+```typescript
+import { AssistantCatalogToolOut } from 'neuland-hub-sdk';
+
+const instance: AssistantCatalogToolOut = {
+    assistant_catalog_id,
+    assistant_catalog_public_id,
+    tool_id,
+    tool_public_id,
+};
+```

@@ -35,12 +35,12 @@ class TestLibraryMemberIn(unittest.TestCase):
         model = LibraryMemberIn()
         if include_optional:
             return LibraryMemberIn(
-                user_id = 56,
+                user_id = '',
                 role = ''
             )
         else:
             return LibraryMemberIn(
-                user_id = 56,
+                user_id = '',
                 role = '',
         )
         """

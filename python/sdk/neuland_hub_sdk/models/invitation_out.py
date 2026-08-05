@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,15 +30,19 @@ class InvitationOut(BaseModel):
     InvitationOut
     """ # noqa: E501
     id: StrictInt = Field(description="Unique identifier of the invitation.")
+    public_id: UUID = Field(description="Public, non-enumerable external identifier of the invitation.")
     email: StrictStr = Field(description="Email address the invitation was sent to.")
-    tenant_id: StrictInt = Field(description="Identifier of the tenant the invite belongs to.")
+    tenant_id: StrictInt = Field(description="Internal id of the tenant (deprecated; use tenant_public_id).")
+    tenant_public_id: Optional[UUID] = None
     project_id: Optional[StrictInt]
+    project_public_id: Optional[UUID] = None
     status: StrictStr = Field(description="Current invitation status.")
     created_at: datetime = Field(description="UTC timestamp when the invitation was created.")
     accepted_at: Optional[datetime]
     revoked_at: Optional[datetime]
-    creator_user_id: StrictInt = Field(description="Identifier of the user who created the invitation.")
-    __properties: ClassVar[List[str]] = ["id", "email", "tenant_id", "project_id", "status", "created_at", "accepted_at", "revoked_at", "creator_user_id"]
+    creator_user_id: StrictInt = Field(description="Internal id of the creating user (deprecated; use creator_user_public_id).")
+    creator_user_public_id: Optional[UUID] = None
+    __properties: ClassVar[List[str]] = ["id", "public_id", "email", "tenant_id", "tenant_public_id", "project_id", "project_public_id", "status", "created_at", "accepted_at", "revoked_at", "creator_user_id", "creator_user_public_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -78,10 +83,20 @@ class InvitationOut(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if tenant_public_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.tenant_public_id is None and "tenant_public_id" in self.model_fields_set:
+            _dict['tenant_public_id'] = None
+
         # set to None if project_id (nullable) is None
         # and model_fields_set contains the field
         if self.project_id is None and "project_id" in self.model_fields_set:
             _dict['project_id'] = None
+
+        # set to None if project_public_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.project_public_id is None and "project_public_id" in self.model_fields_set:
+            _dict['project_public_id'] = None
 
         # set to None if accepted_at (nullable) is None
         # and model_fields_set contains the field
@@ -92,6 +107,11 @@ class InvitationOut(BaseModel):
         # and model_fields_set contains the field
         if self.revoked_at is None and "revoked_at" in self.model_fields_set:
             _dict['revoked_at'] = None
+
+        # set to None if creator_user_public_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.creator_user_public_id is None and "creator_user_public_id" in self.model_fields_set:
+            _dict['creator_user_public_id'] = None
 
         return _dict
 
@@ -106,14 +126,18 @@ class InvitationOut(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "email": obj.get("email"),
             "tenant_id": obj.get("tenant_id"),
+            "tenant_public_id": obj.get("tenant_public_id"),
             "project_id": obj.get("project_id"),
+            "project_public_id": obj.get("project_public_id"),
             "status": obj.get("status"),
             "created_at": obj.get("created_at"),
             "accepted_at": obj.get("accepted_at"),
             "revoked_at": obj.get("revoked_at"),
-            "creator_user_id": obj.get("creator_user_id")
+            "creator_user_id": obj.get("creator_user_id"),
+            "creator_user_public_id": obj.get("creator_user_public_id")
         })
         return _obj
 

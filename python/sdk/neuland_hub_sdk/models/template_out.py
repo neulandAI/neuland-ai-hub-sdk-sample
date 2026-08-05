@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,10 +29,14 @@ class TemplateOut(BaseModel):
     Email template as returned by the API.
     """ # noqa: E501
     id: StrictInt = Field(description="Unique identifier of the template.")
+    public_id: UUID = Field(description="Public, non-enumerable external identifier of the template.")
     name: Optional[StrictStr]
-    text_body: StrictStr = Field(description="Plain-text body of the email.")
+    subject: Optional[StrictStr]
     html_body: Optional[StrictStr]
-    __properties: ClassVar[List[str]] = ["id", "name", "text_body", "html_body"]
+    key: Optional[StrictStr]
+    language: StrictStr = Field(description="Language code the template applies to.")
+    is_draft: StrictBool = Field(description="Whether the template is a draft rather than the published default.")
+    __properties: ClassVar[List[str]] = ["id", "public_id", "name", "subject", "html_body", "key", "language", "is_draft"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -77,10 +82,20 @@ class TemplateOut(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
+        # set to None if subject (nullable) is None
+        # and model_fields_set contains the field
+        if self.subject is None and "subject" in self.model_fields_set:
+            _dict['subject'] = None
+
         # set to None if html_body (nullable) is None
         # and model_fields_set contains the field
         if self.html_body is None and "html_body" in self.model_fields_set:
             _dict['html_body'] = None
+
+        # set to None if key (nullable) is None
+        # and model_fields_set contains the field
+        if self.key is None and "key" in self.model_fields_set:
+            _dict['key'] = None
 
         return _dict
 
@@ -95,9 +110,13 @@ class TemplateOut(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "name": obj.get("name"),
-            "text_body": obj.get("text_body"),
-            "html_body": obj.get("html_body")
+            "subject": obj.get("subject"),
+            "html_body": obj.get("html_body"),
+            "key": obj.get("key"),
+            "language": obj.get("language"),
+            "is_draft": obj.get("is_draft")
         })
         return _obj
 

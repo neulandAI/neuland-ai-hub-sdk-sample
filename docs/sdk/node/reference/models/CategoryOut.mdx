@@ -1,0 +1,33 @@
+---
+title: "CategoryOut"
+---
+
+A category as returned by the API (external fields only).
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **number** | Internal identifier; correlates with tools.category_id so clients can group tools by category. | [default to undefined]
+**public_id** | **string** | Public, non-enumerable external identifier of the category. | [default to undefined]
+**name** | **string** | Display name of the category. | [default to undefined]
+**slug** | **string** | Stable, URL-safe identifier for the category. | [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+**sort_order** | **number** | Position used to order categories in listings. | [default to undefined]
+**is_active** | **boolean** | Whether the category is active and selectable. | [default to undefined]
+
+## Example
+
+```typescript
+import { CategoryOut } from 'neuland-hub-sdk';
+
+const instance: CategoryOut = {
+    id,
+    public_id,
+    name,
+    slug,
+    description,
+    sort_order,
+    is_active,
+};
+```

@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,8 +31,9 @@ class ApiKeyCreateResponse(BaseModel):
     """ # noqa: E501
     key: StrictStr = Field(description="The full secret token, in the form `ak.<key_id>.<secret>`. **Shown only once at creation** — store it securely; it cannot be retrieved again.")
     key_id: StrictStr = Field(description="Public identifier of the key. Safe to log and reference.")
+    public_id: UUID = Field(description="Public, non-enumerable id of the key. Use it to revoke the key via PATCH /api/key/revoke/{public_id}.")
     expires_at: Optional[datetime] = None
-    __properties: ClassVar[List[str]] = ["key", "key_id", "expires_at"]
+    __properties: ClassVar[List[str]] = ["key", "key_id", "public_id", "expires_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -91,6 +93,7 @@ class ApiKeyCreateResponse(BaseModel):
         _obj = cls.model_validate({
             "key": obj.get("key"),
             "key_id": obj.get("key_id"),
+            "public_id": obj.get("public_id"),
             "expires_at": obj.get("expires_at")
         })
         return _obj

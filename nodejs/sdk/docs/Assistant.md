@@ -17,6 +17,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member|
 |[**assistantsRemoveTagFromAssistant**](#assistantsremovetagfromassistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant|
 |[**assistantsRemoveToolFromAssistant**](#assistantsremovetoolfromassistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant|
+|[**assistantsRestoreAssistantVersion**](#assistantsrestoreassistantversion) | **POST** /assistants/{assistant_id}/versions/{version}/restore | Restore an assistant version|
 |[**assistantsSubmitAssistant**](#assistantssubmitassistant) | **POST** /assistants/submit | Create an assistant with attachments|
 |[**assistantsUpdateAssistant**](#assistantsupdateassistant) | **PATCH** /assistants/{assistant_id} | Update an assistant|
 |[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/{assistant_id}/groups | Set assistant group access|
@@ -38,8 +39,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
-let libraryId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let libraryId: string; //Public id of the library to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
@@ -53,8 +54,8 @@ const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -84,7 +85,7 @@ const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistantsAddMembers**
-> Array<AssistantMember> assistantsAddMembers(assistantMembersIn)
+> Array<AssistantMemberOut> assistantsAddMembers(assistantMembersIn)
 
 Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn\'t exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 
@@ -100,7 +101,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
 let assistantMembersIn: AssistantMembersIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -116,13 +117,13 @@ const { status, data } = await apiInstance.assistantsAddMembers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **assistantMembersIn** | **AssistantMembersIn**|  | |
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Array<AssistantMember>**
+**Array<AssistantMemberOut>**
 
 ### Authorization
 
@@ -146,7 +147,7 @@ const { status, data } = await apiInstance.assistantsAddMembers(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistantsAddTagToAssistant**
-> Tagging assistantsAddTagToAssistant()
+> NeulandAssistantsTaggingOut assistantsAddTagToAssistant()
 
 Attach a tag to an assistant.
 
@@ -161,8 +162,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
-let tagId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let tagId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsAddTagToAssistant(
@@ -176,14 +177,14 @@ const { status, data } = await apiInstance.assistantsAddTagToAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
-| **tagId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **tagId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Tagging**
+**NeulandAssistantsTaggingOut**
 
 ### Authorization
 
@@ -222,8 +223,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
-let toolId: number; //ID of the tool to enable. (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let toolId: string; //Public id of the tool to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsAddToolToAssistant(
@@ -237,8 +238,8 @@ const { status, data } = await apiInstance.assistantsAddToolToAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
-| **toolId** | [**number**] | ID of the tool to enable. | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **toolId** | [**string**] | Public id of the tool to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -340,7 +341,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsDeleteAssistant(
@@ -353,7 +354,7 @@ const { status, data } = await apiInstance.assistantsDeleteAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -399,7 +400,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
 let assistantMembersIn: AssistantMembersIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -415,7 +416,7 @@ const { status, data } = await apiInstance.assistantsDeleteMembers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **assistantMembersIn** | **AssistantMembersIn**|  | |
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -446,7 +447,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistantsJoinAssistant**
-> AssistantMember assistantsJoinAssistant()
+> AssistantMemberOut assistantsJoinAssistant()
 
 self-add to a tenant-shared community assistant.
 
@@ -461,7 +462,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; //ID of the assistant to join. (default to undefined)
+let assistantId: string; //Public id of the assistant to join. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsJoinAssistant(
@@ -474,13 +475,13 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] | ID of the assistant to join. | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant to join. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**AssistantMember**
+**AssistantMemberOut**
 
 ### Authorization
 
@@ -520,7 +521,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant to leave. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsLeaveAssitant(
@@ -533,7 +534,7 @@ const { status, data } = await apiInstance.assistantsLeaveAssitant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant to leave. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -578,8 +579,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
-let libraryId: number; //ID of the library to disable. (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let libraryId: string; //Public id of the library to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsRemoveLibraryFromAssistant(
@@ -593,8 +594,8 @@ const { status, data } = await apiInstance.assistantsRemoveLibraryFromAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
-| **libraryId** | [**number**] | ID of the library to disable. | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -639,8 +640,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
-let userId: number; //ID of the member to remove. (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let userId: string; //Public id of the member to remove. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsRemoveMember(
@@ -654,8 +655,8 @@ const { status, data } = await apiInstance.assistantsRemoveMember(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
-| **userId** | [**number**] | ID of the member to remove. | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **userId** | [**string**] | Public id of the member to remove. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -700,8 +701,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
-let tagId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let tagId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsRemoveTagFromAssistant(
@@ -715,8 +716,8 @@ const { status, data } = await apiInstance.assistantsRemoveTagFromAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
-| **tagId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **tagId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -761,8 +762,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
-let toolId: number; //ID of the tool to disable. (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let toolId: string; //Public id of the tool to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantsRemoveToolFromAssistant(
@@ -776,8 +777,8 @@ const { status, data } = await apiInstance.assistantsRemoveToolFromAssistant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **assistantId** | [**number**] |  | defaults to undefined|
-| **toolId** | [**number**] | ID of the tool to disable. | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **toolId** | [**string**] | Public id of the tool to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -802,6 +803,67 @@ void (empty response body)
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Not the creator of this assistant. |  -  |
 |**404** | No assistant exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **assistantsRestoreAssistantVersion**
+> Assistant assistantsRestoreAssistantVersion()
+
+Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
+
+### Example
+
+```typescript
+import {
+    Assistant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Assistant(configuration);
+
+let assistantId: string; //Public id of the assistant to restore. (default to undefined)
+let version: number; //Version number to restore. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.assistantsRestoreAssistantVersion(
+    assistantId,
+    version,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **assistantId** | [**string**] | Public id of the assistant to restore. | defaults to undefined|
+| **version** | [**number**] | Version number to restore. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Assistant**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Not the creator of this assistant. |  -  |
+|**404** | No assistant or version exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -913,7 +975,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant to update. (default to undefined)
 let assistantIn: AssistantIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -929,7 +991,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistant(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **assistantIn** | **AssistantIn**|  | |
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -959,7 +1021,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistant(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistantsUpdateAssistantGroups**
-> Array<AssistantGroup> assistantsUpdateAssistantGroups(assistantGroupsIn)
+> Array<AssistantGroupOut> assistantsUpdateAssistantGroups(assistantGroupsIn)
 
 Grant or update assistant access for user groups (replaces the current set).
 
@@ -975,7 +1037,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
 let assistantGroupsIn: AssistantGroupsIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -991,13 +1053,13 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantGroups(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **assistantGroupsIn** | **AssistantGroupsIn**|  | |
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Array<AssistantGroup>**
+**Array<AssistantGroupOut>**
 
 ### Authorization
 
@@ -1037,7 +1099,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
 
-let assistantId: number; // (default to undefined)
+let assistantId: string; //Public id of the assistant. (default to undefined)
 let assistantVisibilityUpdate: AssistantVisibilityUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -1053,7 +1115,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantVisibility(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **assistantVisibilityUpdate** | **AssistantVisibilityUpdate**|  | |
-| **assistantId** | [**number**] |  | defaults to undefined|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

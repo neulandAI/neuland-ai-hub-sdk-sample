@@ -36,6 +36,7 @@ class TestBudgetAlert(unittest.TestCase):
         if include_optional:
             return BudgetAlert(
                 id = 56,
+                public_id = '',
                 tenant_id = 56,
                 name = '',
                 threshold_amount = 1.337,

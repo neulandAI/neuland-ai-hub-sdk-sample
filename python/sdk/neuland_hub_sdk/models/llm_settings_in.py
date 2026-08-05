@@ -19,6 +19,9 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
+from neuland_hub_sdk.models.cost_audio_per_minute import CostAudioPerMinute
+from neuland_hub_sdk.models.cost_cached_tokens import CostCachedTokens
 from neuland_hub_sdk.models.cost_completion_tokens import CostCompletionTokens
 from neuland_hub_sdk.models.cost_prompt_tokens import CostPromptTokens
 from typing import Optional, Set
@@ -29,12 +32,14 @@ class LLMSettingsIn(BaseModel):
     """
     LLMSettingsIn
     """ # noqa: E501
-    llm_catalog_id: StrictInt = Field(description="ID of the catalog model these settings configure.")
+    llm_catalog_id: UUID = Field(description="Public id of the catalog model these settings configure.")
     provider: StrictStr = Field(description="Provider backing the model.")
     library: StrictStr = Field(description="Client library used to call the provider.")
     max_tokens: StrictInt = Field(description="Maximum tokens allowed per request for this model.")
     cost_prompt_tokens: CostPromptTokens
     cost_completion_tokens: CostCompletionTokens
+    cost_cached_tokens: Optional[CostCachedTokens] = None
+    cost_audio_per_minute: Optional[CostAudioPerMinute] = None
     region: Optional[StrictStr] = None
     args: Optional[Dict[str, Any]] = None
     openai_resource: Optional[StrictStr] = None
@@ -42,7 +47,7 @@ class LLMSettingsIn(BaseModel):
     deployment_name: Optional[StrictStr] = None
     endpoint: Optional[StrictStr] = None
     api_key: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["llm_catalog_id", "provider", "library", "max_tokens", "cost_prompt_tokens", "cost_completion_tokens", "region", "args", "openai_resource", "api_version", "deployment_name", "endpoint", "api_key"]
+    __properties: ClassVar[List[str]] = ["llm_catalog_id", "provider", "library", "max_tokens", "cost_prompt_tokens", "cost_completion_tokens", "cost_cached_tokens", "cost_audio_per_minute", "region", "args", "openai_resource", "api_version", "deployment_name", "endpoint", "api_key"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -89,6 +94,22 @@ class LLMSettingsIn(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of cost_completion_tokens
         if self.cost_completion_tokens:
             _dict['cost_completion_tokens'] = self.cost_completion_tokens.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cost_cached_tokens
+        if self.cost_cached_tokens:
+            _dict['cost_cached_tokens'] = self.cost_cached_tokens.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cost_audio_per_minute
+        if self.cost_audio_per_minute:
+            _dict['cost_audio_per_minute'] = self.cost_audio_per_minute.to_dict()
+        # set to None if cost_cached_tokens (nullable) is None
+        # and model_fields_set contains the field
+        if self.cost_cached_tokens is None and "cost_cached_tokens" in self.model_fields_set:
+            _dict['cost_cached_tokens'] = None
+
+        # set to None if cost_audio_per_minute (nullable) is None
+        # and model_fields_set contains the field
+        if self.cost_audio_per_minute is None and "cost_audio_per_minute" in self.model_fields_set:
+            _dict['cost_audio_per_minute'] = None
+
         # set to None if region (nullable) is None
         # and model_fields_set contains the field
         if self.region is None and "region" in self.model_fields_set:
@@ -142,6 +163,8 @@ class LLMSettingsIn(BaseModel):
             "max_tokens": obj.get("max_tokens"),
             "cost_prompt_tokens": CostPromptTokens.from_dict(obj["cost_prompt_tokens"]) if obj.get("cost_prompt_tokens") is not None else None,
             "cost_completion_tokens": CostCompletionTokens.from_dict(obj["cost_completion_tokens"]) if obj.get("cost_completion_tokens") is not None else None,
+            "cost_cached_tokens": CostCachedTokens.from_dict(obj["cost_cached_tokens"]) if obj.get("cost_cached_tokens") is not None else None,
+            "cost_audio_per_minute": CostAudioPerMinute.from_dict(obj["cost_audio_per_minute"]) if obj.get("cost_audio_per_minute") is not None else None,
             "region": obj.get("region"),
             "args": obj.get("args"),
             "openai_resource": obj.get("openai_resource"),

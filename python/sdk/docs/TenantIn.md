@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 **name** | **str** | Internal name of the tenant. | 
 **slug** | **str** | URL-safe unique identifier for the tenant. | 
 **domain** | **str** |  | [optional] 
-**parent_tenant_id** | **int** |  | [optional] 
+**parent_tenant_id** | **UUID** |  | [optional] 
 **subtenants_enabled** | **bool** |  | [optional] 
 **timezone** | **str** |  | [optional] 
 **locale** | **str** |  | [optional] 
-**tarif_id** | **int** |  | [optional] 
+**tarif_id** | **UUID** |  | [optional] 
 **tarif_expires_at** | **datetime** |  | [optional] 
 **max_users** | **int** |  | [optional] 
 **max_projects** | **int** |  | [optional] 

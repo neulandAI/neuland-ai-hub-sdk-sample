@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,13 +32,14 @@ class UserGroup(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="UTC timestamp when the record was created.")
     updated_at: Optional[datetime] = Field(default=None, description="UTC timestamp when the record was last updated.")
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the user group. Exposed to clients instead of the internal integer id.")
     tenant_id: StrictInt = Field(description="ID of the tenant.")
     name: Optional[StrictStr] = Field(default=None, description="Name of the user group.")
     description: Optional[StrictStr] = None
     source: Optional[StrictStr] = Field(default='manual', description="Where the group and its membership come from: 'manual' (managed in the HUB) or 'external' (synced from an identity provider).")
     external_id: Optional[StrictStr] = None
     creator_user_id: Optional[StrictInt]
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "tenant_id", "name", "description", "source", "external_id", "creator_user_id"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "public_id", "tenant_id", "name", "description", "source", "external_id", "creator_user_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -113,6 +115,7 @@ class UserGroup(BaseModel):
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
             "name": obj.get("name"),
             "description": obj.get("description"),

@@ -1,0 +1,29 @@
+---
+title: "AssistantMemberOut"
+---
+
+An assistant membership, identifying the assistant and member by public id.  `assistant_id`/`user_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `assistant_public_id`/`user_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**assistant_id** | **number** | Internal id of the assistant (deprecated; use assistant_public_id). | [default to undefined]
+**assistant_public_id** | **string** | Public id of the assistant. | [default to undefined]
+**user_id** | **number** | Internal id of the member user (deprecated; use user_public_id). | [default to undefined]
+**user_public_id** | **string** | Public id of the member user. | [default to undefined]
+**granted_via** | [**AssistantMemberGrantedViaEnum**](/sdk/node/reference/models/AssistantMemberGrantedViaEnum) | How the membership was granted. | [default to undefined]
+
+## Example
+
+```typescript
+import { AssistantMemberOut } from 'neuland-hub-sdk';
+
+const instance: AssistantMemberOut = {
+    assistant_id,
+    assistant_public_id,
+    user_id,
+    user_public_id,
+    granted_via,
+};
+```

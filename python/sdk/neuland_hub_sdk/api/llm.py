@@ -15,7 +15,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictInt, StrictStr
+from pydantic import StrictStr
 from typing import Optional
 from neuland_hub_sdk.models.timeseries_response import TimeseriesResponse
 from neuland_hub_sdk.models.tokens_timeseries_response import TokensTimeseriesResponse
@@ -46,7 +46,6 @@ class Llm:
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -68,8 +67,6 @@ class Llm:
         :type usage_request: UsageRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -95,7 +92,6 @@ class Llm:
         _param = self._llm_get_cost_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -124,7 +120,6 @@ class Llm:
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -146,8 +141,6 @@ class Llm:
         :type usage_request: UsageRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -173,7 +166,6 @@ class Llm:
         _param = self._llm_get_cost_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -202,7 +194,6 @@ class Llm:
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -224,8 +215,6 @@ class Llm:
         :type usage_request: UsageRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -251,7 +240,6 @@ class Llm:
         _param = self._llm_get_cost_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -275,7 +263,6 @@ class Llm:
         self,
         usage_request,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -301,10 +288,6 @@ class Llm:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -363,7 +346,6 @@ class Llm:
         self,
         usage_cost_request: UsageCostRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -385,8 +367,6 @@ class Llm:
         :type usage_cost_request: UsageCostRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -412,7 +392,6 @@ class Llm:
         _param = self._llm_get_usage_costs_serialize(
             usage_cost_request=usage_cost_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -442,7 +421,6 @@ class Llm:
         self,
         usage_cost_request: UsageCostRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -464,8 +442,6 @@ class Llm:
         :type usage_cost_request: UsageCostRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -491,7 +467,6 @@ class Llm:
         _param = self._llm_get_usage_costs_serialize(
             usage_cost_request=usage_cost_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -521,7 +496,6 @@ class Llm:
         self,
         usage_cost_request: UsageCostRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -543,8 +517,6 @@ class Llm:
         :type usage_cost_request: UsageCostRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -570,7 +542,6 @@ class Llm:
         _param = self._llm_get_usage_costs_serialize(
             usage_cost_request=usage_cost_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -595,7 +566,6 @@ class Llm:
         self,
         usage_cost_request,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -621,10 +591,6 @@ class Llm:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -683,7 +649,6 @@ class Llm:
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -705,8 +670,6 @@ class Llm:
         :type usage_request: UsageRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -732,7 +695,6 @@ class Llm:
         _param = self._llm_llm_total_tokens_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -761,7 +723,6 @@ class Llm:
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -783,8 +744,6 @@ class Llm:
         :type usage_request: UsageRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -810,7 +769,6 @@ class Llm:
         _param = self._llm_llm_total_tokens_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -839,7 +797,6 @@ class Llm:
         self,
         usage_request: UsageRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -861,8 +818,6 @@ class Llm:
         :type usage_request: UsageRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -888,7 +843,6 @@ class Llm:
         _param = self._llm_llm_total_tokens_serialize(
             usage_request=usage_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -912,7 +866,6 @@ class Llm:
         self,
         usage_request,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -938,10 +891,6 @@ class Llm:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters

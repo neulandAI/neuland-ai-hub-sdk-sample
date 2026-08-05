@@ -1,0 +1,21 @@
+---
+title: "MarketplaceCatalogStateUpdate"
+---
+
+Payload for the `/{catalog_id}/state` toggle endpoint.  Shared across every marketplace catalog type since the state machine (ACTIVE &lt;-> DEPRECATED) is identical everywhere.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**state** | [**MarketplaceCatalogStateEnum**](/sdk/node/reference/models/MarketplaceCatalogStateEnum) | Target lifecycle state. DEPRECATED hides the item from the marketplace and blocks new installs. | [default to undefined]
+
+## Example
+
+```typescript
+import { MarketplaceCatalogStateUpdate } from 'neuland-hub-sdk';
+
+const instance: MarketplaceCatalogStateUpdate = {
+    state,
+};
+```

@@ -27,12 +27,10 @@ const apiInstance = new Tarif(configuration);
 
 let tarifIn: TarifIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tarifsCreateTarif(
     tarifIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -42,7 +40,6 @@ const { status, data } = await apiInstance.tarifsCreateTarif(
 |------------- | ------------- | ------------- | -------------|
 | **tarifIn** | **TarifIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -85,14 +82,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tarif(configuration);
 
-let tarifId: number; //ID of the tarif to delete. (default to undefined)
+let tarifId: string; //Public id of the tarif to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tarifsDeleteTarif(
     tarifId,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -100,9 +95,8 @@ const { status, data } = await apiInstance.tarifsDeleteTarif(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tarifId** | [**number**] | ID of the tarif to delete. | defaults to undefined|
+| **tarifId** | [**string**] | Public id of the tarif to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -148,16 +142,14 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tarif(configuration);
 
-let tarifId: number; //ID of the tarif to update. (default to undefined)
+let tarifId: string; //Public id of the tarif to update. (default to undefined)
 let tarifIn: TarifIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tarifsUpdateTarif(
     tarifId,
     tarifIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -166,9 +158,8 @@ const { status, data } = await apiInstance.tarifsUpdateTarif(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tarifIn** | **TarifIn**|  | |
-| **tarifId** | [**number**] | ID of the tarif to update. | defaults to undefined|
+| **tarifId** | [**string**] | Public id of the tarif to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type

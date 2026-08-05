@@ -36,18 +36,23 @@ class TestInvitationOut(unittest.TestCase):
         if include_optional:
             return InvitationOut(
                 id = 56,
+                public_id = '',
                 email = '',
                 tenant_id = 56,
+                tenant_public_id = '',
                 project_id = 56,
+                project_public_id = '',
                 status = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 accepted_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 revoked_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                creator_user_id = 56
+                creator_user_id = 56,
+                creator_user_public_id = ''
             )
         else:
             return InvitationOut(
                 id = 56,
+                public_id = '',
                 email = '',
                 tenant_id = 56,
                 project_id = 56,

@@ -30,9 +30,16 @@ class OAuth2ProviderEnum(str, Enum):
     MICROSOFT = 'microsoft'
     ATLASSIAN = 'atlassian'
     HUBSPOT = 'hubspot'
+    SALESFORCE = 'salesforce'
     FIREFLIES = 'fireflies'
+    GITHUB = 'github'
+    SLACK = 'slack'
     KEYCLOAK = 'keycloak'
     OPENDESK = 'opendesk'
+    NEXTCLOUD = 'nextcloud'
+    ABAS = 'abas'
+    GOOGLE = 'google'
+    DROPBOX = 'dropbox'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -8,6 +8,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**llm_create_llm_settings**](/sdk/python/reference/endpoints/LlmSetting#llm_create_llm_settings) | **POST** /llm/settings | Create LLM settings
 [**llm_delete_llm_settings**](/sdk/python/reference/endpoints/LlmSetting#llm_delete_llm_settings) | **DELETE** /llm/settings/&#123;settings_id&#125; | Delete LLM settings
+[**llm_test_llm_connection**](/sdk/python/reference/endpoints/LlmSetting#llm_test_llm_connection) | **POST** /llm/settings/test | Test an LLM connection
+[**llm_test_transcription_connection**](/sdk/python/reference/endpoints/LlmSetting#llm_test_transcription_connection) | **POST** /llm/settings/test/transcription | Test a transcription connection with an audio file
 [**llm_update_llm_settings**](/sdk/python/reference/endpoints/LlmSetting#llm_update_llm_settings) | **PATCH** /llm/settings/&#123;settings_id&#125; | Update LLM settings
 
 
@@ -135,7 +137,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.LlmSetting(api_client)
-    settings_id = 56 # int | ID of the LLM settings entry to delete.
+    settings_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM settings entry to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -152,7 +154,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **settings_id** | **int**| ID of the LLM settings entry to delete. | 
+ **settings_id** | **UUID**| Public id of the LLM settings entry to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -176,6 +178,207 @@ void (empty response body)
 **401** | Missing or invalid authentication. |  -  |
 **403** | Platform operator privileges required. |  -  |
 **404** | No LLM settings exist with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **llm_test_llm_connection**
+```python
+LLMConnectionTestOut llm_test_llm_connection(llm_connection_test_in, cookie_name=cookie_name)
+```
+
+Test an LLM connection
+
+Verify a (possibly unsaved) chat or embedding config reaches its provider.
+
+A lightweight probe stripped of tools, history, streaming and budget
+tracking: chat models get a one-word `achat` probe, embedding models a
+single embed. Each probe is bounded by the client's own timeout. A
+reachable-but-failing config returns `ok=false` with HTTP 200 so the caller
+can distinguish it from a server error.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.llm_connection_test_in import LLMConnectionTestIn
+from neuland_hub_sdk.models.llm_connection_test_out import LLMConnectionTestOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.LlmSetting(api_client)
+    llm_connection_test_in = neuland_hub_sdk.LLMConnectionTestIn() # LLMConnectionTestIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Test an LLM connection
+        api_response = api_instance.llm_test_llm_connection(llm_connection_test_in, cookie_name=cookie_name)
+        print("The response of LlmSetting->llm_test_llm_connection:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling LlmSetting->llm_test_llm_connection: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **llm_connection_test_in** | [**LLMConnectionTestIn**](/sdk/python/reference/models/LLMConnectionTestIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**LLMConnectionTestOut**](/sdk/python/reference/models/LLMConnectionTestOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **llm_test_transcription_connection**
+```python
+LLMConnectionTestOut llm_test_transcription_connection(file, model_name, provider, library, cookie_name=cookie_name, api_key=api_key, endpoint=endpoint, deployment_name=deployment_name, api_version=api_version, args=args)
+```
+
+Test a transcription connection with an audio file
+
+Verify a (possibly unsaved) transcription config by transcribing an upload.
+
+Mirrors the real transcription route (`read_audio_file` + a real
+`transcribe` call), but builds the client from the submitted fields so a
+not-yet-saved model can be tested. `args` is an optional JSON string for
+provider extras (e.g. gateway `default_headers`). A reachable-but-failing
+config returns `ok=false` with HTTP 200.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.llm_connection_test_out import LLMConnectionTestOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.LlmSetting(api_client)
+    file = None # bytes | 
+    model_name = 'model_name_example' # str | 
+    provider = 'provider_example' # str | 
+    library = 'library_example' # str | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+    api_key = 'api_key_example' # str |  (optional)
+    endpoint = 'endpoint_example' # str |  (optional)
+    deployment_name = 'deployment_name_example' # str |  (optional)
+    api_version = 'api_version_example' # str |  (optional)
+    args = 'args_example' # str |  (optional)
+
+    try:
+        # Test a transcription connection with an audio file
+        api_response = api_instance.llm_test_transcription_connection(file, model_name, provider, library, cookie_name=cookie_name, api_key=api_key, endpoint=endpoint, deployment_name=deployment_name, api_version=api_version, args=args)
+        print("The response of LlmSetting->llm_test_transcription_connection:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling LlmSetting->llm_test_transcription_connection: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **bytes**|  | 
+ **model_name** | **str**|  | 
+ **provider** | **str**|  | 
+ **library** | **str**|  | 
+ **cookie_name** | **str**|  | [optional] 
+ **api_key** | **str**|  | [optional] 
+ **endpoint** | **str**|  | [optional] 
+ **deployment_name** | **str**|  | [optional] 
+ **api_version** | **str**|  | [optional] 
+ **args** | **str**|  | [optional] 
+
+### Return type
+
+[**LLMConnectionTestOut**](/sdk/python/reference/models/LLMConnectionTestOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
+**413** | Audio file exceeds the 25 MB limit. |  -  |
+**415** | Unsupported audio content type. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -219,7 +422,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.LlmSetting(api_client)
-    settings_id = 56 # int | ID of the LLM settings entry to update.
+    settings_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM settings entry to update.
     llm_settings_update = neuland_hub_sdk.LLMSettingsUpdate() # LLMSettingsUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -239,7 +442,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **settings_id** | **int**| ID of the LLM settings entry to update. | 
+ **settings_id** | **UUID**| Public id of the LLM settings entry to update. | 
  **llm_settings_update** | [**LLMSettingsUpdate**](/sdk/python/reference/models/LLMSettingsUpdate)|  | 
  **cookie_name** | **str**|  | [optional] 
 

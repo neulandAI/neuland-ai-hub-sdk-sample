@@ -15,10 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
-from neuland_hub_sdk.models.api_key import ApiKey
+from uuid import UUID
 from neuland_hub_sdk.models.api_key_create_request import ApiKeyCreateRequest
 from neuland_hub_sdk.models.api_key_create_response import ApiKeyCreateResponse
 
@@ -340,7 +340,7 @@ class ApiKey:
     @validate_call
     def api_revoke_api_key(
         self,
-        api_key_id: Annotated[StrictInt, Field(description="ID of the API key to revoke.")],
+        api_key_id: Annotated[UUID, Field(description="Public id of the API key to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -354,13 +354,13 @@ class ApiKey:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiKey:
+    ) -> None:
         """Revoke an API key
 
-        Deactivate an API key so it can no longer authenticate requests.
+        Deactivate an API key so it can no longer authenticate requests.  API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key created by a user in that key's tenant (an Operator, any key). This is the path an admin uses to clean up keys left by members who can no longer hold them.
 
-        :param api_key_id: ID of the API key to revoke. (required)
-        :type api_key_id: int
+        :param api_key_id: Public id of the API key to revoke. (required)
+        :type api_key_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -395,7 +395,7 @@ class ApiKey:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ApiKey",
+            '204': None,
             '401': None,
             '404': None,
             '422': "HTTPValidationError",
@@ -414,7 +414,7 @@ class ApiKey:
     @validate_call
     def api_revoke_api_key_with_http_info(
         self,
-        api_key_id: Annotated[StrictInt, Field(description="ID of the API key to revoke.")],
+        api_key_id: Annotated[UUID, Field(description="Public id of the API key to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -428,13 +428,13 @@ class ApiKey:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ApiKey]:
+    ) -> ApiResponse[None]:
         """Revoke an API key
 
-        Deactivate an API key so it can no longer authenticate requests.
+        Deactivate an API key so it can no longer authenticate requests.  API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key created by a user in that key's tenant (an Operator, any key). This is the path an admin uses to clean up keys left by members who can no longer hold them.
 
-        :param api_key_id: ID of the API key to revoke. (required)
-        :type api_key_id: int
+        :param api_key_id: Public id of the API key to revoke. (required)
+        :type api_key_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -469,7 +469,7 @@ class ApiKey:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ApiKey",
+            '204': None,
             '401': None,
             '404': None,
             '422': "HTTPValidationError",
@@ -488,7 +488,7 @@ class ApiKey:
     @validate_call
     def api_revoke_api_key_without_preload_content(
         self,
-        api_key_id: Annotated[StrictInt, Field(description="ID of the API key to revoke.")],
+        api_key_id: Annotated[UUID, Field(description="Public id of the API key to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -505,10 +505,10 @@ class ApiKey:
     ) -> RESTResponseType:
         """Revoke an API key
 
-        Deactivate an API key so it can no longer authenticate requests.
+        Deactivate an API key so it can no longer authenticate requests.  API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key created by a user in that key's tenant (an Operator, any key). This is the path an admin uses to clean up keys left by members who can no longer hold them.
 
-        :param api_key_id: ID of the API key to revoke. (required)
-        :type api_key_id: int
+        :param api_key_id: Public id of the API key to revoke. (required)
+        :type api_key_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -543,7 +543,7 @@ class ApiKey:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ApiKey",
+            '204': None,
             '401': None,
             '404': None,
             '422': "HTTPValidationError",

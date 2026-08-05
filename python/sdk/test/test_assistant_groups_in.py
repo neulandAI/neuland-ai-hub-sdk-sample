@@ -36,7 +36,7 @@ class TestAssistantGroupsIn(unittest.TestCase):
         if include_optional:
             return AssistantGroupsIn(
                 group_ids = [
-                    56
+                    ''
                     ]
             )
         else:

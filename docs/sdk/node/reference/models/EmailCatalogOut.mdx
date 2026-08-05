@@ -1,0 +1,25 @@
+---
+title: "EmailCatalogOut"
+---
+
+Static metadata for authoring custom email templates.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**supported_languages** | **Array&lt;string&gt;** | Language codes emails can be authored in. | [default to undefined]
+**global_variables** | [**Array&lt;VariableSpec&gt;**](/sdk/node/reference/models/VariableSpec) | Variables available in every email. | [default to undefined]
+**emails** | [**Array&lt;EmailSpec&gt;**](/sdk/node/reference/models/EmailSpec) | Customizable emails and their available variables. | [default to undefined]
+
+## Example
+
+```typescript
+import { EmailCatalogOut } from 'neuland-hub-sdk';
+
+const instance: EmailCatalogOut = {
+    supported_languages,
+    global_variables,
+    emails,
+};
+```

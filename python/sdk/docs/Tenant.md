@@ -62,8 +62,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    library_id = 56 # int | 
-    tenant_id = 56 # int | ID of the tenant.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to assign.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -82,8 +82,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **int**|  | 
- **tenant_id** | **int**| ID of the tenant. | 
+ **library_id** | **UUID**| Public id of the library to assign. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **tenants_create_tenant**
-> TenantOut tenants_create_tenant(tenant_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> TenantOut tenants_create_tenant(tenant_in, cookie_name=cookie_name)
 
 Create a tenant
 
@@ -152,11 +152,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Tenant(api_client)
     tenant_in = neuland_hub_sdk.TenantIn() # TenantIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Create a tenant
-        api_response = api_instance.tenants_create_tenant(tenant_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.tenants_create_tenant(tenant_in, cookie_name=cookie_name)
         print("The response of Tenant->tenants_create_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -172,7 +171,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant_in** | [**TenantIn**](TenantIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -236,8 +234,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | 
-    connector_id = 56 # int | ID of the connector to enable.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -256,8 +254,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**|  | 
- **connector_id** | **int**| ID of the connector to enable. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **connector_id** | **UUID**| Public id of the connector to enable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -324,8 +322,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | ID of the tenant to configure.
-    oauth_client_id = 56 # int | ID of the platform OAuth client to override.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant to configure.
+    oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the platform OAuth client to override.
     tenant_o_auth_client_in = neuland_hub_sdk.TenantOAuthClientIn() # TenantOAuthClientIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -345,8 +343,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**| ID of the tenant to configure. | 
- **oauth_client_id** | **int**| ID of the platform OAuth client to override. | 
+ **tenant_id** | **UUID**| Public id of the tenant to configure. | 
+ **oauth_client_id** | **UUID**| Public id of the platform OAuth client to override. | 
  **tenant_o_auth_client_in** | [**TenantOAuthClientIn**](TenantOAuthClientIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -412,8 +410,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | 
-    tool_id = 56 # int | ID of the tool to enable.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -432,8 +430,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**|  | 
- **tool_id** | **int**| ID of the tool to enable. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **tool_id** | **UUID**| Public id of the tool to enable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -497,7 +495,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | 
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -514,7 +512,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**|  | 
+ **tenant_id** | **UUID**| Public id of the tenant to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -579,8 +577,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | 
-    connector_id = 56 # int | ID of the connector to disable.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -597,8 +595,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**|  | 
- **connector_id** | **int**| ID of the connector to disable. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **connector_id** | **UUID**| Public id of the connector to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -663,8 +661,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | 
-    model_id = 56 # int | ID of the LLM catalog model to disable.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM catalog model to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -681,8 +679,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**|  | 
- **model_id** | **int**| ID of the LLM catalog model to disable. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **model_id** | **UUID**| Public id of the LLM catalog model to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -748,7 +746,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    model_id = 56 # int | ID of the LLM catalog model to disable.
+    model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM catalog model to disable.
     tenant_model_bulk_in = neuland_hub_sdk.TenantModelBulkIn() # TenantModelBulkIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -766,7 +764,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **model_id** | **int**| ID of the LLM catalog model to disable. | 
+ **model_id** | **UUID**| Public id of the LLM catalog model to disable. | 
  **tenant_model_bulk_in** | [**TenantModelBulkIn**](TenantModelBulkIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -832,8 +830,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | ID of the tenant.
-    oauth_client_id = 56 # int | ID of the platform OAuth client being overridden.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the platform OAuth client being overridden.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -850,8 +848,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**| ID of the tenant. | 
- **oauth_client_id** | **int**| ID of the platform OAuth client being overridden. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **oauth_client_id** | **UUID**| Public id of the platform OAuth client being overridden. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -916,8 +914,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | 
-    tool_id = 56 # int | ID of the tool to disable.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -934,8 +932,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**|  | 
- **tool_id** | **int**| ID of the tool to disable. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **tool_id** | **UUID**| Public id of the tool to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -1082,8 +1080,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | 
-    model_id = 56 # int | ID of the LLM catalog model to enable.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM catalog model to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -1102,8 +1100,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**|  | 
- **model_id** | **int**| ID of the LLM catalog model to enable. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **model_id** | **UUID**| Public id of the LLM catalog model to enable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -1169,7 +1167,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    model_id = 56 # int | ID of the LLM catalog model to enable.
+    model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM catalog model to enable.
     tenant_model_bulk_in = neuland_hub_sdk.TenantModelBulkIn() # TenantModelBulkIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1187,7 +1185,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **model_id** | **int**| ID of the LLM catalog model to enable. | 
+ **model_id** | **UUID**| Public id of the LLM catalog model to enable. | 
  **tenant_model_bulk_in** | [**TenantModelBulkIn**](TenantModelBulkIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -1253,8 +1251,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    library_id = 56 # int | 
-    tenant_id = 56 # int | ID of the tenant.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to unassign.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -1271,8 +1269,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **int**|  | 
- **tenant_id** | **int**| ID of the tenant. | 
+ **library_id** | **UUID**| Public id of the library to unassign. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -1301,7 +1299,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **tenants_update_current_tenant**
-> TenantOut tenants_update_current_tenant(tenant_update_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> TenantOut tenants_update_current_tenant(tenant_update_in, cookie_name=cookie_name)
 
 Update current tenant
 
@@ -1341,11 +1339,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Tenant(api_client)
     tenant_update_in = neuland_hub_sdk.TenantUpdateIn() # TenantUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Update current tenant
-        api_response = api_instance.tenants_update_current_tenant(tenant_update_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.tenants_update_current_tenant(tenant_update_in, cookie_name=cookie_name)
         print("The response of Tenant->tenants_update_current_tenant:\n")
         pprint(api_response)
     except Exception as e:
@@ -1361,7 +1358,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tenant_update_in** | [**TenantUpdateIn**](TenantUpdateIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -1426,7 +1422,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | 
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant to update.
     tenant_update_in = neuland_hub_sdk.TenantUpdateIn() # TenantUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1446,7 +1442,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**|  | 
+ **tenant_id** | **UUID**| Public id of the tenant to update. | 
  **tenant_update_in** | [**TenantUpdateIn**](TenantUpdateIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -1514,8 +1510,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | ID of the tenant.
-    oauth_client_id = 56 # int | ID of the platform OAuth client being overridden.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the platform OAuth client being overridden.
     tenant_o_auth_client_update = neuland_hub_sdk.TenantOAuthClientUpdate() # TenantOAuthClientUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1535,8 +1531,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**| ID of the tenant. | 
- **oauth_client_id** | **int**| ID of the platform OAuth client being overridden. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **oauth_client_id** | **UUID**| Public id of the platform OAuth client being overridden. | 
  **tenant_o_auth_client_update** | [**TenantOAuthClientUpdate**](TenantOAuthClientUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -1603,8 +1599,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tenant(api_client)
-    tenant_id = 56 # int | ID of the tenant.
-    oauth_client_id = 56 # int | ID of the platform OAuth client being overridden.
+    tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
+    oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the platform OAuth client being overridden.
     secret_update_in = neuland_hub_sdk.SecretUpdateIn() # SecretUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1622,8 +1618,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tenant_id** | **int**| ID of the tenant. | 
- **oauth_client_id** | **int**| ID of the platform OAuth client being overridden. | 
+ **tenant_id** | **UUID**| Public id of the tenant. | 
+ **oauth_client_id** | **UUID**| Public id of the platform OAuth client being overridden. | 
  **secret_update_in** | [**SecretUpdateIn**](SecretUpdateIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

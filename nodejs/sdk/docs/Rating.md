@@ -24,7 +24,7 @@ const configuration = new Configuration();
 const apiInstance = new Rating(configuration);
 
 let rateableType: RateableTypeEnum; //Kind of resource whose rating to delete. (default to undefined)
-let rateableId: number; //ID of the resource whose rating to delete. (default to undefined)
+let rateableId: string; //Public id of the resource whose rating to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.ratingsRemove(
@@ -39,7 +39,7 @@ const { status, data } = await apiInstance.ratingsRemove(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **rateableType** | **RateableTypeEnum** | Kind of resource whose rating to delete. | defaults to undefined|
-| **rateableId** | [**number**] | ID of the resource whose rating to delete. | defaults to undefined|
+| **rateableId** | [**string**] | Public id of the resource whose rating to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

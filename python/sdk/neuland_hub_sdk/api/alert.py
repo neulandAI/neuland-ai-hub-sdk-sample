@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.budget_alert import BudgetAlert
 from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest
 from neuland_hub_sdk.models.budget_alert_update import BudgetAlertUpdate
@@ -45,7 +46,6 @@ class Alert:
         self,
         budget_alert_request: BudgetAlertRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -67,8 +67,6 @@ class Alert:
         :type budget_alert_request: BudgetAlertRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -94,7 +92,6 @@ class Alert:
         _param = self._alerts_create_alert_serialize(
             budget_alert_request=budget_alert_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -123,7 +120,6 @@ class Alert:
         self,
         budget_alert_request: BudgetAlertRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -145,8 +141,6 @@ class Alert:
         :type budget_alert_request: BudgetAlertRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -172,7 +166,6 @@ class Alert:
         _param = self._alerts_create_alert_serialize(
             budget_alert_request=budget_alert_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -201,7 +194,6 @@ class Alert:
         self,
         budget_alert_request: BudgetAlertRequest,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -223,8 +215,6 @@ class Alert:
         :type budget_alert_request: BudgetAlertRequest
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -250,7 +240,6 @@ class Alert:
         _param = self._alerts_create_alert_serialize(
             budget_alert_request=budget_alert_request,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -274,7 +263,6 @@ class Alert:
         self,
         budget_alert_request,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -300,10 +288,6 @@ class Alert:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -360,9 +344,8 @@ class Alert:
     @validate_call
     def alerts_delete_alert(
         self,
-        alert_id: Annotated[StrictInt, Field(description="ID of the budget alert to delete.")],
+        alert_id: Annotated[UUID, Field(description="Public id of the budget alert to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -380,12 +363,10 @@ class Alert:
 
         Delete an existing budget alert.
 
-        :param alert_id: ID of the budget alert to delete. (required)
-        :type alert_id: int
+        :param alert_id: Public id of the budget alert to delete. (required)
+        :type alert_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -411,7 +392,6 @@ class Alert:
         _param = self._alerts_delete_alert_serialize(
             alert_id=alert_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -439,9 +419,8 @@ class Alert:
     @validate_call
     def alerts_delete_alert_with_http_info(
         self,
-        alert_id: Annotated[StrictInt, Field(description="ID of the budget alert to delete.")],
+        alert_id: Annotated[UUID, Field(description="Public id of the budget alert to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -459,12 +438,10 @@ class Alert:
 
         Delete an existing budget alert.
 
-        :param alert_id: ID of the budget alert to delete. (required)
-        :type alert_id: int
+        :param alert_id: Public id of the budget alert to delete. (required)
+        :type alert_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -490,7 +467,6 @@ class Alert:
         _param = self._alerts_delete_alert_serialize(
             alert_id=alert_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -518,9 +494,8 @@ class Alert:
     @validate_call
     def alerts_delete_alert_without_preload_content(
         self,
-        alert_id: Annotated[StrictInt, Field(description="ID of the budget alert to delete.")],
+        alert_id: Annotated[UUID, Field(description="Public id of the budget alert to delete.")],
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -538,12 +513,10 @@ class Alert:
 
         Delete an existing budget alert.
 
-        :param alert_id: ID of the budget alert to delete. (required)
-        :type alert_id: int
+        :param alert_id: Public id of the budget alert to delete. (required)
+        :type alert_id: UUID
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -569,7 +542,6 @@ class Alert:
         _param = self._alerts_delete_alert_serialize(
             alert_id=alert_id,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -594,7 +566,6 @@ class Alert:
         self,
         alert_id,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -622,10 +593,6 @@ class Alert:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -667,10 +634,9 @@ class Alert:
     @validate_call
     def alerts_update_alert(
         self,
-        alert_id: Annotated[StrictInt, Field(description="ID of the budget alert to update.")],
+        alert_id: Annotated[UUID, Field(description="Public id of the budget alert to update.")],
         budget_alert_update: BudgetAlertUpdate,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -688,14 +654,12 @@ class Alert:
 
         Update an existing budget alert.
 
-        :param alert_id: ID of the budget alert to update. (required)
-        :type alert_id: int
+        :param alert_id: Public id of the budget alert to update. (required)
+        :type alert_id: UUID
         :param budget_alert_update: (required)
         :type budget_alert_update: BudgetAlertUpdate
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -722,7 +686,6 @@ class Alert:
             alert_id=alert_id,
             budget_alert_update=budget_alert_update,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -750,10 +713,9 @@ class Alert:
     @validate_call
     def alerts_update_alert_with_http_info(
         self,
-        alert_id: Annotated[StrictInt, Field(description="ID of the budget alert to update.")],
+        alert_id: Annotated[UUID, Field(description="Public id of the budget alert to update.")],
         budget_alert_update: BudgetAlertUpdate,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -771,14 +733,12 @@ class Alert:
 
         Update an existing budget alert.
 
-        :param alert_id: ID of the budget alert to update. (required)
-        :type alert_id: int
+        :param alert_id: Public id of the budget alert to update. (required)
+        :type alert_id: UUID
         :param budget_alert_update: (required)
         :type budget_alert_update: BudgetAlertUpdate
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -805,7 +765,6 @@ class Alert:
             alert_id=alert_id,
             budget_alert_update=budget_alert_update,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -833,10 +792,9 @@ class Alert:
     @validate_call
     def alerts_update_alert_without_preload_content(
         self,
-        alert_id: Annotated[StrictInt, Field(description="ID of the budget alert to update.")],
+        alert_id: Annotated[UUID, Field(description="Public id of the budget alert to update.")],
         budget_alert_update: BudgetAlertUpdate,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -854,14 +812,12 @@ class Alert:
 
         Update an existing budget alert.
 
-        :param alert_id: ID of the budget alert to update. (required)
-        :type alert_id: int
+        :param alert_id: Public id of the budget alert to update. (required)
+        :type alert_id: UUID
         :param budget_alert_update: (required)
         :type budget_alert_update: BudgetAlertUpdate
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -888,7 +844,6 @@ class Alert:
             alert_id=alert_id,
             budget_alert_update=budget_alert_update,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -914,7 +869,6 @@ class Alert:
         alert_id,
         budget_alert_update,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -942,10 +896,6 @@ class Alert:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters

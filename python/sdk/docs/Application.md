@@ -132,7 +132,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Application(api_client)
-    app_id = 56 # int | ID of the application to delete.
+    app_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -149,7 +149,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**| ID of the application to delete. | 
+ **app_id** | **UUID**|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -172,7 +172,7 @@ void (empty response body)
 **204** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
 **403** | Superadmin privileges required. |  -  |
-**404** | No application exists with the given id. |  -  |
+**404** | No application exists with the given public id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -216,7 +216,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Application(api_client)
-    app_id = 56 # int | ID of the application to update.
+    app_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     application_in = neuland_hub_sdk.ApplicationIn() # ApplicationIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -236,7 +236,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **app_id** | **int**| ID of the application to update. | 
+ **app_id** | **UUID**|  | 
  **application_in** | [**ApplicationIn**](ApplicationIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -260,13 +260,13 @@ Name | Type | Description  | Notes
 **200** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
 **403** | Superadmin privileges required. |  -  |
-**404** | No application exists with the given id. |  -  |
+**404** | No application exists with the given public id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **applications_update_group_membership**
-> List[ApplicationGroup] applications_update_group_membership(group_app_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> List[ApplicationGroupOut] applications_update_group_membership(group_app_access_in, cookie_name=cookie_name)
 
 Set application access for a user group
 
@@ -278,7 +278,7 @@ Grant or update application access for a user group (tenant admin only).
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.application_group import ApplicationGroup
+from neuland_hub_sdk.models.application_group_out import ApplicationGroupOut
 from neuland_hub_sdk.models.group_app_access_in import GroupAppAccessIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -306,11 +306,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Application(api_client)
     group_app_access_in = neuland_hub_sdk.GroupAppAccessIn() # GroupAppAccessIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Set application access for a user group
-        api_response = api_instance.applications_update_group_membership(group_app_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.applications_update_group_membership(group_app_access_in, cookie_name=cookie_name)
         print("The response of Application->applications_update_group_membership:\n")
         pprint(api_response)
     except Exception as e:
@@ -326,11 +325,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **group_app_access_in** | [**GroupAppAccessIn**](GroupAppAccessIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
-[**List[ApplicationGroup]**](ApplicationGroup.md)
+[**List[ApplicationGroupOut]**](ApplicationGroupOut.md)
 
 ### Authorization
 
@@ -354,7 +352,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **applications_update_user_membership**
-> List[ApplicationMember] applications_update_user_membership(application_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> List[ApplicationMemberOut] applications_update_user_membership(application_access_in, cookie_name=cookie_name)
 
 Set application access for users
 
@@ -367,7 +365,7 @@ Grant or update application access for a list of users (tenant admin only).
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.models.application_access_in import ApplicationAccessIn
-from neuland_hub_sdk.models.application_member import ApplicationMember
+from neuland_hub_sdk.models.application_member_out import ApplicationMemberOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -394,11 +392,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Application(api_client)
     application_access_in = neuland_hub_sdk.ApplicationAccessIn() # ApplicationAccessIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Set application access for users
-        api_response = api_instance.applications_update_user_membership(application_access_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.applications_update_user_membership(application_access_in, cookie_name=cookie_name)
         print("The response of Application->applications_update_user_membership:\n")
         pprint(api_response)
     except Exception as e:
@@ -414,11 +411,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **application_access_in** | [**ApplicationAccessIn**](ApplicationAccessIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
-[**List[ApplicationMember]**](ApplicationMember.md)
+[**List[ApplicationMemberOut]**](ApplicationMemberOut.md)
 
 ### Authorization
 

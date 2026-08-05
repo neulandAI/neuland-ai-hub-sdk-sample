@@ -37,7 +37,7 @@ class TestProjectMemberBulkIn(unittest.TestCase):
             return ProjectMemberBulkIn(
                 members = [
                     neuland_hub_sdk.models.project_member_in.ProjectMemberIn(
-                        user_id = 56, 
+                        user_id = '', 
                         role = '', )
                     ]
             )
@@ -45,7 +45,7 @@ class TestProjectMemberBulkIn(unittest.TestCase):
             return ProjectMemberBulkIn(
                 members = [
                     neuland_hub_sdk.models.project_member_in.ProjectMemberIn(
-                        user_id = 56, 
+                        user_id = '', 
                         role = '', )
                     ],
         )

@@ -34,8 +34,9 @@ class CatalogUpdate(BaseModel):
     embedding_dimension: Optional[StrictInt] = None
     supports_embedding: Optional[StrictBool] = None
     supports_transcription: Optional[StrictBool] = None
+    supports_clarification: Optional[StrictBool] = None
     auto_seed: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "auto_seed"]
+    __properties: ClassVar[List[str]] = ["name", "description", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_clarification", "auto_seed"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -111,6 +112,11 @@ class CatalogUpdate(BaseModel):
         if self.supports_transcription is None and "supports_transcription" in self.model_fields_set:
             _dict['supports_transcription'] = None
 
+        # set to None if supports_clarification (nullable) is None
+        # and model_fields_set contains the field
+        if self.supports_clarification is None and "supports_clarification" in self.model_fields_set:
+            _dict['supports_clarification'] = None
+
         # set to None if auto_seed (nullable) is None
         # and model_fields_set contains the field
         if self.auto_seed is None and "auto_seed" in self.model_fields_set:
@@ -135,6 +141,7 @@ class CatalogUpdate(BaseModel):
             "embedding_dimension": obj.get("embedding_dimension"),
             "supports_embedding": obj.get("supports_embedding"),
             "supports_transcription": obj.get("supports_transcription"),
+            "supports_clarification": obj.get("supports_clarification"),
             "auto_seed": obj.get("auto_seed")
         })
         return _obj

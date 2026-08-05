@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **alerts_create_alert**
-> BudgetAlert alerts_create_alert(budget_alert_request, cookie_name=cookie_name, tenant_id=tenant_id)
+> BudgetAlert alerts_create_alert(budget_alert_request, cookie_name=cookie_name)
 
 Create a budget alert
 
@@ -50,11 +50,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Alert(api_client)
     budget_alert_request = neuland_hub_sdk.BudgetAlertRequest() # BudgetAlertRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Create a budget alert
-        api_response = api_instance.alerts_create_alert(budget_alert_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.alerts_create_alert(budget_alert_request, cookie_name=cookie_name)
         print("The response of Alert->alerts_create_alert:\n")
         pprint(api_response)
     except Exception as e:
@@ -70,7 +69,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **budget_alert_request** | [**BudgetAlertRequest**](BudgetAlertRequest.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -97,7 +95,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **alerts_delete_alert**
-> alerts_delete_alert(alert_id, cookie_name=cookie_name, tenant_id=tenant_id)
+> alerts_delete_alert(alert_id, cookie_name=cookie_name)
 
 Delete a budget alert
 
@@ -133,13 +131,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Alert(api_client)
-    alert_id = 56 # int | ID of the budget alert to delete.
+    alert_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the budget alert to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Delete a budget alert
-        api_instance.alerts_delete_alert(alert_id, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_instance.alerts_delete_alert(alert_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Alert->alerts_delete_alert: %s\n" % e)
 ```
@@ -151,9 +148,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **alert_id** | **int**| ID of the budget alert to delete. | 
+ **alert_id** | **UUID**| Public id of the budget alert to delete. | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -181,7 +177,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **alerts_update_alert**
-> BudgetAlert alerts_update_alert(alert_id, budget_alert_update, cookie_name=cookie_name, tenant_id=tenant_id)
+> BudgetAlert alerts_update_alert(alert_id, budget_alert_update, cookie_name=cookie_name)
 
 Update a budget alert
 
@@ -219,14 +215,13 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Alert(api_client)
-    alert_id = 56 # int | ID of the budget alert to update.
+    alert_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the budget alert to update.
     budget_alert_update = neuland_hub_sdk.BudgetAlertUpdate() # BudgetAlertUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Update a budget alert
-        api_response = api_instance.alerts_update_alert(alert_id, budget_alert_update, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.alerts_update_alert(alert_id, budget_alert_update, cookie_name=cookie_name)
         print("The response of Alert->alerts_update_alert:\n")
         pprint(api_response)
     except Exception as e:
@@ -240,10 +235,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **alert_id** | **int**| ID of the budget alert to update. | 
+ **alert_id** | **UUID**| Public id of the budget alert to update. | 
  **budget_alert_update** | [**BudgetAlertUpdate**](BudgetAlertUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 

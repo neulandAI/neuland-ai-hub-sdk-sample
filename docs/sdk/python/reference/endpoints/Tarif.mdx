@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## **tarifs_create_tarif**
 ```python
-Tarif tarifs_create_tarif(tarif_in, cookie_name=cookie_name, tenant_id=tenant_id)
+Tarif tarifs_create_tarif(tarif_in, cookie_name=cookie_name)
 ```
 
 Create a tarif plan
@@ -54,11 +54,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Tarif(api_client)
     tarif_in = neuland_hub_sdk.TarifIn() # TarifIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Create a tarif plan
-        api_response = api_instance.tarifs_create_tarif(tarif_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.tarifs_create_tarif(tarif_in, cookie_name=cookie_name)
         print("The response of Tarif->tarifs_create_tarif:\n")
         pprint(api_response)
     except Exception as e:
@@ -74,7 +73,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tarif_in** | [**TarifIn**](/sdk/python/reference/models/TarifIn)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -101,7 +99,7 @@ Name | Type | Description  | Notes
 
 ## **tarifs_delete_tarif**
 ```python
-tarifs_delete_tarif(tarif_id, cookie_name=cookie_name, tenant_id=tenant_id)
+tarifs_delete_tarif(tarif_id, cookie_name=cookie_name)
 ```
 
 Delete a tarif plan
@@ -138,13 +136,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tarif(api_client)
-    tarif_id = 56 # int | ID of the tarif to delete.
+    tarif_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tarif to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Delete a tarif plan
-        api_instance.tarifs_delete_tarif(tarif_id, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_instance.tarifs_delete_tarif(tarif_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Tarif->tarifs_delete_tarif: %s\n" % e)
 ```
@@ -156,9 +153,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tarif_id** | **int**| ID of the tarif to delete. | 
+ **tarif_id** | **UUID**| Public id of the tarif to delete. | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -187,7 +183,7 @@ void (empty response body)
 
 ## **tarifs_update_tarif**
 ```python
-Tarif tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name, tenant_id=tenant_id)
+Tarif tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name)
 ```
 
 Update a tarif plan
@@ -226,14 +222,13 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Tarif(api_client)
-    tarif_id = 56 # int | ID of the tarif to update.
+    tarif_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tarif to update.
     tarif_in = neuland_hub_sdk.TarifIn() # TarifIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Update a tarif plan
-        api_response = api_instance.tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.tarifs_update_tarif(tarif_id, tarif_in, cookie_name=cookie_name)
         print("The response of Tarif->tarifs_update_tarif:\n")
         pprint(api_response)
     except Exception as e:
@@ -247,10 +242,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tarif_id** | **int**| ID of the tarif to update. | 
+ **tarif_id** | **UUID**| Public id of the tarif to update. | 
  **tarif_in** | [**TarifIn**](/sdk/python/reference/models/TarifIn)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 

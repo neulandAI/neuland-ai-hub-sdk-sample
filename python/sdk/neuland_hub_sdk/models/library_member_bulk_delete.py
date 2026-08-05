@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,7 +28,7 @@ class LibraryMemberBulkDelete(BaseModel):
     """
     LibraryMemberBulkDelete
     """ # noqa: E501
-    user_ids: List[StrictInt] = Field(description="IDs of the users to remove from the library.")
+    user_ids: List[UUID] = Field(description="Public ids of the users to remove from the library.")
     __properties: ClassVar[List[str]] = ["user_ids"]
 
     model_config = ConfigDict(

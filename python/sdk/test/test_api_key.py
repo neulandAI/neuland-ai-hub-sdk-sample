@@ -14,52 +14,32 @@
 
 import unittest
 
-from neuland_hub_sdk.models.api_key import ApiKey
+from neuland_hub_sdk.api.api_key import ApiKey
+
 
 class TestApiKey(unittest.TestCase):
     """ApiKey unit test stubs"""
 
-    def setUp(self):
+    def setUp(self) -> None:
+        self.api = ApiKey()
+
+    def tearDown(self) -> None:
         pass
 
-    def tearDown(self):
+    def test_api_create_key(self) -> None:
+        """Test case for api_create_key
+
+        Create an API key
+        """
         pass
 
-    def make_instance(self, include_optional) -> ApiKey:
-        """Test ApiKey
-            include_optional is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # uncomment below to create an instance of `ApiKey`
-        """
-        model = ApiKey()
-        if include_optional:
-            return ApiKey(
-                id = 56,
-                name = '',
-                description = '',
-                key_id = '',
-                environment = '',
-                hashed_secret = '',
-                active = True,
-                version = 'v1',
-                creator_user_id = 56,
-                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                last_used_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
-            )
-        else:
-            return ApiKey(
-                key_id = '',
-                hashed_secret = '',
-                creator_user_id = 56,
-        )
-        """
+    def test_api_revoke_api_key(self) -> None:
+        """Test case for api_revoke_api_key
 
-    def testApiKey(self):
-        """Test ApiKey"""
-        # inst_req_only = self.make_instance(include_optional=False)
-        # inst_req_and_optional = self.make_instance(include_optional=True)
+        Revoke an API key
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

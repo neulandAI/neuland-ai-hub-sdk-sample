@@ -41,7 +41,8 @@ class TestUserIn(unittest.TestCase):
                 password = '',
                 admin = True,
                 superadmin = True,
-                tenant_id = 56
+                tenant_id = '',
+                role_id = ''
             )
         else:
             return UserIn(

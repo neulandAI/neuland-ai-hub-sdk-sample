@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **number** | Unique identifier of the tenant. | [default to undefined]
+**public_id** | **string** | Public, non-enumerable external identifier of the tenant. | [default to undefined]
 **created_at** | **string** | UTC timestamp when the tenant was created. | [default to undefined]
 **creator_user_id** | **number** |  | [optional] [default to undefined]
 **name** | **string** | Internal name of the tenant. | [default to undefined]
@@ -41,6 +42,7 @@ import { TenantOut } from 'neuland-hub-sdk';
 
 const instance: TenantOut = {
     id,
+    public_id,
     created_at,
     creator_user_id,
     name,

@@ -36,14 +36,14 @@ class TestRatingIn(unittest.TestCase):
         if include_optional:
             return RatingIn(
                 rateable_type = 'ASSISTANT_CATALOG',
-                rateable_id = 56,
+                rateable_id = '',
                 value = 1.0,
                 comment = ''
             )
         else:
             return RatingIn(
                 rateable_type = 'ASSISTANT_CATALOG',
-                rateable_id = 56,
+                rateable_id = '',
                 value = 1.0,
         )
         """

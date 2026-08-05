@@ -39,6 +39,7 @@ class TestChat(unittest.TestCase):
                 state_reason = '',
                 state_changed_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 id = 56,
+                public_id = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 creator_user_id = 56,
@@ -52,6 +53,7 @@ class TestChat(unittest.TestCase):
                 llm_settings_id = 56,
                 assistant_id = 56,
                 private = True,
+                playground = True,
                 consumed_tokens = 56,
                 form_data = { }
             )

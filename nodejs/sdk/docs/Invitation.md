@@ -191,7 +191,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
 
-let invitationId: number; //ID of the invitation to resend. (default to undefined)
+let invitationId: string; //Public id of the invitation to resend. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.invitationsResendInvitation(
@@ -204,7 +204,7 @@ const { status, data } = await apiInstance.invitationsResendInvitation(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **invitationId** | [**number**] | ID of the invitation to resend. | defaults to undefined|
+| **invitationId** | [**string**] | Public id of the invitation to resend. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -249,7 +249,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
 
-let invitationId: number; //ID of the invitation to revoke. (default to undefined)
+let invitationId: string; //Public id of the invitation to revoke. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.invitationsRevokeInvitation(
@@ -262,7 +262,7 @@ const { status, data } = await apiInstance.invitationsRevokeInvitation(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **invitationId** | [**number**] | ID of the invitation to revoke. | defaults to undefined|
+| **invitationId** | [**string**] | Public id of the invitation to revoke. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

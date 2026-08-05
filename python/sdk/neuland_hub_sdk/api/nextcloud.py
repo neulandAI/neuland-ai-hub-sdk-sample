@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictInt, StrictStr
+from pydantic import Field, StrictBool, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.data_source_capabilities import DataSourceCapabilities
 from neuland_hub_sdk.models.data_source_drive_model import DataSourceDriveModel
 from neuland_hub_sdk.models.data_source_item_model import DataSourceItemModel
@@ -313,10 +314,10 @@ class Nextcloud:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the item.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -340,13 +341,13 @@ class Nextcloud:
         :param drive_item_id: Id of the item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -408,10 +409,10 @@ class Nextcloud:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the item.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -435,13 +436,13 @@ class Nextcloud:
         :param drive_item_id: Id of the item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -503,10 +504,10 @@ class Nextcloud:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the item.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -530,13 +531,13 @@ class Nextcloud:
         :param drive_item_id: Id of the item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1227,10 +1228,10 @@ class Nextcloud:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the folder item, or 'root'.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders and return all descendant files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1255,13 +1256,13 @@ class Nextcloud:
         :param drive_item_id: Id of the folder item, or 'root'. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param recursive: Recurse into subfolders and return all descendant files.
         :type recursive: bool
         :param cookie_name:
@@ -1326,10 +1327,10 @@ class Nextcloud:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the folder item, or 'root'.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders and return all descendant files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1354,13 +1355,13 @@ class Nextcloud:
         :param drive_item_id: Id of the folder item, or 'root'. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param recursive: Recurse into subfolders and return all descendant files.
         :type recursive: bool
         :param cookie_name:
@@ -1425,10 +1426,10 @@ class Nextcloud:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the folder item, or 'root'.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders and return all descendant files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1453,13 +1454,13 @@ class Nextcloud:
         :param drive_item_id: Id of the folder item, or 'root'. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param recursive: Recurse into subfolders and return all descendant files.
         :type recursive: bool
         :param cookie_name:
@@ -1616,10 +1617,10 @@ class Nextcloud:
     def nextcloud_list_drives(
         self,
         site_id: Annotated[StrictStr, Field(description="Id of the site to list drives for.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1641,13 +1642,13 @@ class Nextcloud:
         :param site_id: Id of the site to list drives for. (required)
         :type site_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1707,10 +1708,10 @@ class Nextcloud:
     def nextcloud_list_drives_with_http_info(
         self,
         site_id: Annotated[StrictStr, Field(description="Id of the site to list drives for.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1732,13 +1733,13 @@ class Nextcloud:
         :param site_id: Id of the site to list drives for. (required)
         :type site_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1798,10 +1799,10 @@ class Nextcloud:
     def nextcloud_list_drives_without_preload_content(
         self,
         site_id: Annotated[StrictStr, Field(description="Id of the site to list drives for.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1823,13 +1824,13 @@ class Nextcloud:
         :param site_id: Id of the site to list drives for. (required)
         :type site_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1973,10 +1974,10 @@ class Nextcloud:
     @validate_call
     def nextcloud_list_roots(
         self,
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1996,13 +1997,13 @@ class Nextcloud:
         List the top-level browse entries (sites or drives), with imported counts.
 
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2059,10 +2060,10 @@ class Nextcloud:
     @validate_call
     def nextcloud_list_roots_with_http_info(
         self,
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2082,13 +2083,13 @@ class Nextcloud:
         List the top-level browse entries (sites or drives), with imported counts.
 
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2145,10 +2146,10 @@ class Nextcloud:
     @validate_call
     def nextcloud_list_roots_without_preload_content(
         self,
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2168,13 +2169,13 @@ class Nextcloud:
         List the top-level browse entries (sites or drives), with imported counts.
 
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one

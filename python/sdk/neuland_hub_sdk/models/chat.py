@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -32,11 +33,12 @@ class Chat(BaseModel):
     state_reason: Optional[StrictStr] = None
     state_changed_at: Optional[datetime] = None
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the chat. Exposed to clients instead of the internal integer id.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the chat was created.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the chat was last updated.")
-    creator_user_id: StrictInt
+    creator_user_id: StrictInt = Field(description="ID of the user who created the chat.")
     project_id: Optional[StrictInt]
-    name: StrictStr
+    name: StrictStr = Field(description="Name/title of the chat.")
     busy: StrictBool = Field(description="DEPRECATED. Whether the chat is currently busy processing.")
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     similarity_top_k: Optional[StrictInt] = None
@@ -45,9 +47,10 @@ class Chat(BaseModel):
     llm_settings_id: Optional[StrictInt] = None
     assistant_id: Optional[StrictInt] = None
     private: Optional[StrictBool] = Field(default=False, description="Whether the chat is private to its creator within the project.")
+    playground: Optional[StrictBool] = Field(default=False, description="Whether this is a playground (sandbox) chat for testing assistant settings.")
     consumed_tokens: Optional[StrictInt] = None
     form_data: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "created_at", "updated_at", "creator_user_id", "project_id", "name", "busy", "temperature", "similarity_top_k", "system_prompt", "llm_catalog_id", "llm_settings_id", "assistant_id", "private", "consumed_tokens", "form_data"]
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "created_at", "updated_at", "creator_user_id", "project_id", "name", "busy", "temperature", "similarity_top_k", "system_prompt", "llm_catalog_id", "llm_settings_id", "assistant_id", "private", "playground", "consumed_tokens", "form_data"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -169,6 +172,7 @@ class Chat(BaseModel):
             "state_reason": obj.get("state_reason"),
             "state_changed_at": obj.get("state_changed_at"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "creator_user_id": obj.get("creator_user_id"),
@@ -182,6 +186,7 @@ class Chat(BaseModel):
             "llm_settings_id": obj.get("llm_settings_id"),
             "assistant_id": obj.get("assistant_id"),
             "private": obj.get("private") if obj.get("private") is not None else False,
+            "playground": obj.get("playground") if obj.get("playground") is not None else False,
             "consumed_tokens": obj.get("consumed_tokens"),
             "form_data": obj.get("form_data")
         })

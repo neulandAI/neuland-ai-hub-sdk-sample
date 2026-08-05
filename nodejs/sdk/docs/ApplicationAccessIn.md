@@ -6,8 +6,8 @@ Schema for granting app access to users
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**application_id** | **number** | ID of the application to grant access to. | [default to undefined]
-**user_ids** | **Array&lt;number&gt;** |  | [optional] [default to undefined]
+**application_id** | **string** | Public id of the application to grant access to. | [default to undefined]
+**user_ids** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 

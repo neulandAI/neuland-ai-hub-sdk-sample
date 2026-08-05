@@ -15,14 +15,15 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.library import Library
 from neuland_hub_sdk.models.library_in import LibraryIn
-from neuland_hub_sdk.models.library_member import LibraryMember
 from neuland_hub_sdk.models.library_member_bulk_delete import LibraryMemberBulkDelete
 from neuland_hub_sdk.models.library_member_bulk_in import LibraryMemberBulkIn
+from neuland_hub_sdk.models.library_member_out import LibraryMemberOut
 from neuland_hub_sdk.models.library_update_in import LibraryUpdateIn
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
@@ -46,7 +47,7 @@ class Library:
     @validate_call
     def libraries_add_library_members(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to add members to.")],
         library_member_bulk_in: LibraryMemberBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -61,13 +62,13 @@ class Library:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[LibraryMember]:
+    ) -> List[LibraryMemberOut]:
         """Add library members
 
         Add one or more members to the library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to add members to. (required)
+        :type library_id: UUID
         :param library_member_bulk_in: (required)
         :type library_member_bulk_in: LibraryMemberBulkIn
         :param cookie_name:
@@ -105,7 +106,7 @@ class Library:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[LibraryMember]",
+            '201': "List[LibraryMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -125,7 +126,7 @@ class Library:
     @validate_call
     def libraries_add_library_members_with_http_info(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to add members to.")],
         library_member_bulk_in: LibraryMemberBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -140,13 +141,13 @@ class Library:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[LibraryMember]]:
+    ) -> ApiResponse[List[LibraryMemberOut]]:
         """Add library members
 
         Add one or more members to the library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to add members to. (required)
+        :type library_id: UUID
         :param library_member_bulk_in: (required)
         :type library_member_bulk_in: LibraryMemberBulkIn
         :param cookie_name:
@@ -184,7 +185,7 @@ class Library:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[LibraryMember]",
+            '201': "List[LibraryMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -204,7 +205,7 @@ class Library:
     @validate_call
     def libraries_add_library_members_without_preload_content(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to add members to.")],
         library_member_bulk_in: LibraryMemberBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -224,8 +225,8 @@ class Library:
 
         Add one or more members to the library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to add members to. (required)
+        :type library_id: UUID
         :param library_member_bulk_in: (required)
         :type library_member_bulk_in: LibraryMemberBulkIn
         :param cookie_name:
@@ -263,7 +264,7 @@ class Library:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[LibraryMember]",
+            '201': "List[LibraryMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -364,7 +365,7 @@ class Library:
     @validate_call
     def libraries_delete_library(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -383,8 +384,8 @@ class Library:
 
         Delete a library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to delete. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -439,7 +440,7 @@ class Library:
     @validate_call
     def libraries_delete_library_with_http_info(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -458,8 +459,8 @@ class Library:
 
         Delete a library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to delete. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -514,7 +515,7 @@ class Library:
     @validate_call
     def libraries_delete_library_without_preload_content(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -533,8 +534,8 @@ class Library:
 
         Delete a library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to delete. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -654,7 +655,7 @@ class Library:
     @validate_call
     def libraries_leave_library(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -673,8 +674,8 @@ class Library:
 
         Remove the caller from the library's members.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to leave. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -730,7 +731,7 @@ class Library:
     @validate_call
     def libraries_leave_library_with_http_info(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -749,8 +750,8 @@ class Library:
 
         Remove the caller from the library's members.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to leave. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -806,7 +807,7 @@ class Library:
     @validate_call
     def libraries_leave_library_without_preload_content(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -825,8 +826,8 @@ class Library:
 
         Remove the caller from the library's members.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to leave. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1244,7 +1245,7 @@ class Library:
     @validate_call
     def libraries_remove_library_members(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to remove members from.")],
         library_member_bulk_delete: LibraryMemberBulkDelete,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1264,8 +1265,8 @@ class Library:
 
         Remove one or more members from the library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to remove members from. (required)
+        :type library_id: UUID
         :param library_member_bulk_delete: (required)
         :type library_member_bulk_delete: LibraryMemberBulkDelete
         :param cookie_name:
@@ -1324,7 +1325,7 @@ class Library:
     @validate_call
     def libraries_remove_library_members_with_http_info(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to remove members from.")],
         library_member_bulk_delete: LibraryMemberBulkDelete,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1344,8 +1345,8 @@ class Library:
 
         Remove one or more members from the library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to remove members from. (required)
+        :type library_id: UUID
         :param library_member_bulk_delete: (required)
         :type library_member_bulk_delete: LibraryMemberBulkDelete
         :param cookie_name:
@@ -1404,7 +1405,7 @@ class Library:
     @validate_call
     def libraries_remove_library_members_without_preload_content(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to remove members from.")],
         library_member_bulk_delete: LibraryMemberBulkDelete,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1424,8 +1425,8 @@ class Library:
 
         Remove one or more members from the library; owner only.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to remove members from. (required)
+        :type library_id: UUID
         :param library_member_bulk_delete: (required)
         :type library_member_bulk_delete: LibraryMemberBulkDelete
         :param cookie_name:
@@ -1565,8 +1566,8 @@ class Library:
     @validate_call
     def libraries_remove_single_member(
         self,
-        library_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the member to remove.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library.")],
+        user_id: Annotated[UUID, Field(description="Public id of the member to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1585,10 +1586,10 @@ class Library:
 
         Remove a member from the library; owner only unless removing yourself.
 
-        :param library_id: (required)
-        :type library_id: int
-        :param user_id: ID of the member to remove. (required)
-        :type user_id: int
+        :param library_id: Public id of the library. (required)
+        :type library_id: UUID
+        :param user_id: Public id of the member to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1645,8 +1646,8 @@ class Library:
     @validate_call
     def libraries_remove_single_member_with_http_info(
         self,
-        library_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the member to remove.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library.")],
+        user_id: Annotated[UUID, Field(description="Public id of the member to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1665,10 +1666,10 @@ class Library:
 
         Remove a member from the library; owner only unless removing yourself.
 
-        :param library_id: (required)
-        :type library_id: int
-        :param user_id: ID of the member to remove. (required)
-        :type user_id: int
+        :param library_id: Public id of the library. (required)
+        :type library_id: UUID
+        :param user_id: Public id of the member to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1725,8 +1726,8 @@ class Library:
     @validate_call
     def libraries_remove_single_member_without_preload_content(
         self,
-        library_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the member to remove.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library.")],
+        user_id: Annotated[UUID, Field(description="Public id of the member to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1745,10 +1746,10 @@ class Library:
 
         Remove a member from the library; owner only unless removing yourself.
 
-        :param library_id: (required)
-        :type library_id: int
-        :param user_id: ID of the member to remove. (required)
-        :type user_id: int
+        :param library_id: Public id of the library. (required)
+        :type library_id: UUID
+        :param user_id: Public id of the member to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1873,7 +1874,7 @@ class Library:
     @validate_call
     def libraries_update_library(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to update.")],
         library_update_in: LibraryUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1893,8 +1894,8 @@ class Library:
 
         Update name and/or description of an existing library.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to update. (required)
+        :type library_id: UUID
         :param library_update_in: (required)
         :type library_update_in: LibraryUpdateIn
         :param cookie_name:
@@ -1952,7 +1953,7 @@ class Library:
     @validate_call
     def libraries_update_library_with_http_info(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to update.")],
         library_update_in: LibraryUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1972,8 +1973,8 @@ class Library:
 
         Update name and/or description of an existing library.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to update. (required)
+        :type library_id: UUID
         :param library_update_in: (required)
         :type library_update_in: LibraryUpdateIn
         :param cookie_name:
@@ -2031,7 +2032,7 @@ class Library:
     @validate_call
     def libraries_update_library_without_preload_content(
         self,
-        library_id: StrictInt,
+        library_id: Annotated[UUID, Field(description="Public id of the library to update.")],
         library_update_in: LibraryUpdateIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2051,8 +2052,8 @@ class Library:
 
         Update name and/or description of an existing library.
 
-        :param library_id: (required)
-        :type library_id: int
+        :param library_id: Public id of the library to update. (required)
+        :type library_id: UUID
         :param library_update_in: (required)
         :type library_update_in: LibraryUpdateIn
         :param cookie_name:

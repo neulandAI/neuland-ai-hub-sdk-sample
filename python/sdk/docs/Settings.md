@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **settings_update_current_settings**
-> Settings settings_update_current_settings(settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> Settings settings_update_current_settings(settings_in, cookie_name=cookie_name)
 
 Update current tenant settings
 
@@ -131,11 +131,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Settings(api_client)
     settings_in = neuland_hub_sdk.SettingsIn() # SettingsIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Update current tenant settings
-        api_response = api_instance.settings_update_current_settings(settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.settings_update_current_settings(settings_in, cookie_name=cookie_name)
         print("The response of Settings->settings_update_current_settings:\n")
         pprint(api_response)
     except Exception as e:
@@ -151,7 +150,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **settings_in** | [**SettingsIn**](SettingsIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -178,7 +176,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **settings_update_settings**
-> Settings settings_update_settings(settings_id, settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> Settings settings_update_settings(settings_id, settings_in, cookie_name=cookie_name)
 
 Update settings by id
 
@@ -216,14 +214,13 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Settings(api_client)
-    settings_id = 56 # int | ID of the settings record to update.
+    settings_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the settings record to update.
     settings_in = neuland_hub_sdk.SettingsIn() # SettingsIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Update settings by id
-        api_response = api_instance.settings_update_settings(settings_id, settings_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.settings_update_settings(settings_id, settings_in, cookie_name=cookie_name)
         print("The response of Settings->settings_update_settings:\n")
         pprint(api_response)
     except Exception as e:
@@ -237,10 +234,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **settings_id** | **int**| ID of the settings record to update. | 
+ **settings_id** | **UUID**| Public id of the settings record to update. | 
  **settings_in** | [**SettingsIn**](SettingsIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
