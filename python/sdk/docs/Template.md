@@ -6,11 +6,12 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**templates_create**](Template.md#templates_create) | **POST** /templates/ | Create an email template
 [**templates_delete**](Template.md#templates_delete) | **DELETE** /templates/{template_id} | Delete an email template
+[**templates_get_email_catalog**](Template.md#templates_get_email_catalog) | **GET** /templates/email-catalog | List customizable emails and their variables
 [**templates_update**](Template.md#templates_update) | **PATCH** /templates/{template_id} | Update an email template
 
 
 # **templates_create**
-> TemplateOut templates_create(template_in, tenant_id=tenant_id, cookie_name=cookie_name)
+> TemplateOut templates_create(template_in, cookie_name=cookie_name)
 
 Create an email template
 
@@ -49,12 +50,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Template(api_client)
     template_in = neuland_hub_sdk.TemplateIn() # TemplateIn | 
-    tenant_id = 56 # int |  (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Create an email template
-        api_response = api_instance.templates_create(template_in, tenant_id=tenant_id, cookie_name=cookie_name)
+        api_response = api_instance.templates_create(template_in, cookie_name=cookie_name)
         print("The response of Template->templates_create:\n")
         pprint(api_response)
     except Exception as e:
@@ -69,7 +69,6 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **template_in** | [**TemplateIn**](TemplateIn.md)|  | 
- **tenant_id** | **int**|  | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -97,7 +96,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **templates_delete**
-> templates_delete(template_id, tenant_id=tenant_id, cookie_name=cookie_name)
+> templates_delete(template_id, cookie_name=cookie_name)
 
 Delete an email template
 
@@ -133,13 +132,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Template(api_client)
-    template_id = 56 # int | ID of the template to delete.
-    tenant_id = 56 # int |  (optional)
+    template_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the template to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Delete an email template
-        api_instance.templates_delete(template_id, tenant_id=tenant_id, cookie_name=cookie_name)
+        api_instance.templates_delete(template_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Template->templates_delete: %s\n" % e)
 ```
@@ -151,8 +149,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **template_id** | **int**| ID of the template to delete. | 
- **tenant_id** | **int**|  | [optional] 
+ **template_id** | **UUID**| Public id of the template to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -180,12 +177,12 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **templates_update**
-> TemplateOut templates_update(template_id, template_in, tenant_id=tenant_id, cookie_name=cookie_name)
+# **templates_get_email_catalog**
+> EmailCatalogOut templates_get_email_catalog(cookie_name=cookie_name)
 
-Update an email template
+List customizable emails and their variables
 
-Update an existing email template.
+Return the email catalog the authoring UI needs.
 
 ### Example
 
@@ -193,8 +190,7 @@ Update an existing email template.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.template_in import TemplateIn
-from neuland_hub_sdk.models.template_out import TemplateOut
+from neuland_hub_sdk.models.email_catalog_out import EmailCatalogOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -219,14 +215,96 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Template(api_client)
-    template_id = 56 # int | ID of the template to update.
-    template_in = neuland_hub_sdk.TemplateIn() # TemplateIn | 
-    tenant_id = 56 # int |  (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List customizable emails and their variables
+        api_response = api_instance.templates_get_email_catalog(cookie_name=cookie_name)
+        print("The response of Template->templates_get_email_catalog:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Template->templates_get_email_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**EmailCatalogOut**](EmailCatalogOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **templates_update**
+> TemplateOut templates_update(template_id, template_update, cookie_name=cookie_name)
+
+Update an email template
+
+Update an existing email template.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.template_out import TemplateOut
+from neuland_hub_sdk.models.template_update import TemplateUpdate
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Template(api_client)
+    template_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the template to update.
+    template_update = neuland_hub_sdk.TemplateUpdate() # TemplateUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Update an email template
-        api_response = api_instance.templates_update(template_id, template_in, tenant_id=tenant_id, cookie_name=cookie_name)
+        api_response = api_instance.templates_update(template_id, template_update, cookie_name=cookie_name)
         print("The response of Template->templates_update:\n")
         pprint(api_response)
     except Exception as e:
@@ -240,9 +318,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **template_id** | **int**| ID of the template to update. | 
- **template_in** | [**TemplateIn**](TemplateIn.md)|  | 
- **tenant_id** | **int**|  | [optional] 
+ **template_id** | **UUID**| Public id of the template to update. | 
+ **template_update** | [**TemplateUpdate**](TemplateUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type

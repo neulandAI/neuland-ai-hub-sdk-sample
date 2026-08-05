@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,11 +32,11 @@ class TenantIn(BaseModel):
     name: StrictStr = Field(description="Internal name of the tenant.")
     slug: StrictStr = Field(description="URL-safe unique identifier for the tenant.")
     domain: Optional[StrictStr] = None
-    parent_tenant_id: Optional[StrictInt] = None
+    parent_tenant_id: Optional[UUID] = None
     subtenants_enabled: Optional[StrictBool] = None
     timezone: Optional[StrictStr] = None
     locale: Optional[StrictStr] = None
-    tarif_id: Optional[StrictInt] = None
+    tarif_id: Optional[UUID] = None
     tarif_expires_at: Optional[datetime] = None
     max_users: Optional[StrictInt] = None
     max_projects: Optional[StrictInt] = None

@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictInt, StrictStr
+from pydantic import Field, StrictBool, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.sharepoint_drive_model import SharepointDriveModel
 from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel
 from neuland_hub_sdk.models.sharepoint_site_model import SharepointSiteModel
@@ -46,10 +47,10 @@ class Sharepoint:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the drive item.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -73,13 +74,13 @@ class Sharepoint:
         :param drive_item_id: Id of the drive item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -140,10 +141,10 @@ class Sharepoint:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the drive item.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -167,13 +168,13 @@ class Sharepoint:
         :param drive_item_id: Id of the drive item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -234,10 +235,10 @@ class Sharepoint:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the drive item.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -261,13 +262,13 @@ class Sharepoint:
         :param drive_item_id: Id of the drive item. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -955,10 +956,10 @@ class Sharepoint:
     @validate_call
     def integrations_list_all_sites(
         self,
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -978,13 +979,13 @@ class Sharepoint:
         List the SharePoint sites the user can access, with imported document counts.
 
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1041,10 +1042,10 @@ class Sharepoint:
     @validate_call
     def integrations_list_all_sites_with_http_info(
         self,
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1064,13 +1065,13 @@ class Sharepoint:
         List the SharePoint sites the user can access, with imported document counts.
 
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1127,10 +1128,10 @@ class Sharepoint:
     @validate_call
     def integrations_list_all_sites_without_preload_content(
         self,
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1150,13 +1151,13 @@ class Sharepoint:
         List the SharePoint sites the user can access, with imported document counts.
 
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1297,10 +1298,10 @@ class Sharepoint:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the parent item; empty or 'root' for the drive root.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders, returning only files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1325,13 +1326,13 @@ class Sharepoint:
         :param drive_item_id: Id of the parent item; empty or 'root' for the drive root. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param recursive: Recurse into subfolders, returning only files.
         :type recursive: bool
         :param cookie_name:
@@ -1395,10 +1396,10 @@ class Sharepoint:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the parent item; empty or 'root' for the drive root.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders, returning only files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1423,13 +1424,13 @@ class Sharepoint:
         :param drive_item_id: Id of the parent item; empty or 'root' for the drive root. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param recursive: Recurse into subfolders, returning only files.
         :type recursive: bool
         :param cookie_name:
@@ -1493,10 +1494,10 @@ class Sharepoint:
         self,
         drive_id: Annotated[StrictStr, Field(description="Id of the drive.")],
         drive_item_id: Annotated[StrictStr, Field(description="Id of the parent item; empty or 'root' for the drive root.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         recursive: Annotated[Optional[StrictBool], Field(description="Recurse into subfolders, returning only files.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1521,13 +1522,13 @@ class Sharepoint:
         :param drive_item_id: Id of the parent item; empty or 'root' for the drive root. (required)
         :type drive_item_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param recursive: Recurse into subfolders, returning only files.
         :type recursive: bool
         :param cookie_name:
@@ -1683,10 +1684,10 @@ class Sharepoint:
     def integrations_list_drives(
         self,
         site_id: Annotated[StrictStr, Field(description="SharePoint site id.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1708,13 +1709,13 @@ class Sharepoint:
         :param site_id: SharePoint site id. (required)
         :type site_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1773,10 +1774,10 @@ class Sharepoint:
     def integrations_list_drives_with_http_info(
         self,
         site_id: Annotated[StrictStr, Field(description="SharePoint site id.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1798,13 +1799,13 @@ class Sharepoint:
         :param site_id: SharePoint site id. (required)
         :type site_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1863,10 +1864,10 @@ class Sharepoint:
     def integrations_list_drives_without_preload_content(
         self,
         site_id: Annotated[StrictStr, Field(description="SharePoint site id.")],
-        chat_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this chat.")] = None,
-        library_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this library.")] = None,
-        assistant_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this assistant.")] = None,
-        project_id: Annotated[Optional[StrictInt], Field(description="Scope imported counts to this project.")] = None,
+        chat_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this chat.")] = None,
+        library_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this library.")] = None,
+        assistant_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this assistant.")] = None,
+        project_id: Annotated[Optional[UUID], Field(description="Scope imported counts to this project.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1888,13 +1889,13 @@ class Sharepoint:
         :param site_id: SharePoint site id. (required)
         :type site_id: str
         :param chat_id: Scope imported counts to this chat.
-        :type chat_id: int
+        :type chat_id: UUID
         :param library_id: Scope imported counts to this library.
-        :type library_id: int
+        :type library_id: UUID
         :param assistant_id: Scope imported counts to this assistant.
-        :type assistant_id: int
+        :type assistant_id: UUID
         :param project_id: Scope imported counts to this project.
-        :type project_id: int
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one

@@ -36,15 +36,25 @@ class TestToolOut(unittest.TestCase):
         if include_optional:
             return ToolOut(
                 id = 56,
+                public_id = '',
                 name = '',
                 description = '',
                 prompt = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                category = neuland_hub_sdk.models.category_out.CategoryOut(
+                    id = 56, 
+                    public_id = '', 
+                    name = '', 
+                    slug = '', 
+                    description = '', 
+                    sort_order = 56, 
+                    is_active = True, )
             )
         else:
             return ToolOut(
                 id = 56,
+                public_id = '',
                 name = '',
                 description = '',
                 prompt = '',

@@ -38,6 +38,7 @@ class TestApplication(unittest.TestCase):
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 id = 56,
+                public_id = '',
                 name = '',
                 tenant_id = 56,
                 is_active = True,
@@ -47,7 +48,8 @@ class TestApplication(unittest.TestCase):
                 description = '',
                 version = '',
                 avatar = '',
-                creator_user_id = 56
+                creator_user_id = 56,
+                app_catalog_id = 56
             )
         else:
             return Application(

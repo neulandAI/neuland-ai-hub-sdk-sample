@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,13 +30,14 @@ class Project(BaseModel):
     Project
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the project. Exposed to clients instead of the internal integer id.")
     tenant_id: StrictInt = Field(description="ID of the tenant that owns the project.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the project was created.")
     creator_user_id: StrictInt = Field(description="ID of the user who created the project.")
     name: StrictStr = Field(description="Name of the project.")
     description: Optional[StrictStr]
     description_show_in_chat: Optional[StrictBool] = Field(default=False, description="Whether the project description is shown in the chat UI.")
-    __properties: ClassVar[List[str]] = ["id", "tenant_id", "created_at", "creator_user_id", "name", "description", "description_show_in_chat"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "created_at", "creator_user_id", "name", "description", "description_show_in_chat"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -99,6 +101,7 @@ class Project(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
             "created_at": obj.get("created_at"),
             "creator_user_id": obj.get("creator_user_id"),

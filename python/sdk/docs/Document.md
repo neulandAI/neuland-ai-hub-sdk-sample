@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**documents_delete_chat_document**](Document.md#documents_delete_chat_document) | **DELETE** /documents/{document_id} | Delete a document
 [**documents_get_file**](Document.md#documents_get_file) | **GET** /documents/{document_id} | Download a document
+[**documents_get_text**](Document.md#documents_get_text) | **GET** /documents/{document_id}/text | Get a document&#39;s extracted text
 [**documents_import_documents**](Document.md#documents_import_documents) | **POST** /documents/import | Import documents from a connected source
 [**documents_retry_document**](Document.md#documents_retry_document) | **POST** /documents/{document_id}/retry | Retry document processing
 [**documents_unimport_documents**](Document.md#documents_unimport_documents) | **DELETE** /documents/import | Remove imported documents
@@ -49,7 +50,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Document(api_client)
-    document_id = 56 # int | 
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -66,7 +67,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **document_id** | **int**|  | 
+ **document_id** | **UUID**|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -131,7 +132,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Document(api_client)
-    document_id = 56 # int | 
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -150,7 +151,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **document_id** | **int**|  | 
+ **document_id** | **UUID**|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -174,6 +175,94 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | Caller may not access this document. |  -  |
 **404** | No document exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **documents_get_text**
+> DocumentTextOut documents_get_text(document_id, cookie_name=cookie_name)
+
+Get a document's extracted text
+
+Return the text extracted from a document by the processing pipeline.
+
+Type-agnostic: a PDF yields its extracted text, an audio/video upload yields
+its transcript — both are stored in the same place by the same pipeline.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.document_text_out import DocumentTextOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Document(api_client)
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Get a document's extracted text
+        api_response = api_instance.documents_get_text(document_id, cookie_name=cookie_name)
+        print("The response of Document->documents_get_text:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Document->documents_get_text: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **document_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**DocumentTextOut**](DocumentTextOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller may not access this document. |  -  |
+**404** | No such document, or its text is not extracted yet. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -219,11 +308,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     drive_id = 'drive_id_example' # str | Drive ID
     drive_item_ids = ['drive_item_ids_example'] # List[str] | Item IDs of the documents to be imported
     cookie_name = 'cookie_name_example' # str |  (optional)
-    project_id = 56 # int |  (optional)
-    chat_id = 56 # int |  (optional)
-    assistant_id = 56 # int |  (optional)
-    message_id = 56 # int |  (optional)
-    library_id = 56 # int |  (optional)
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
 
     try:
         # Import documents from a connected source
@@ -245,11 +334,11 @@ Name | Type | Description  | Notes
  **drive_id** | **str**| Drive ID | 
  **drive_item_ids** | [**List[str]**](str.md)| Item IDs of the documents to be imported | 
  **cookie_name** | **str**|  | [optional] 
- **project_id** | **int**|  | [optional] 
- **chat_id** | **int**|  | [optional] 
- **assistant_id** | **int**|  | [optional] 
- **message_id** | **int**|  | [optional] 
- **library_id** | **int**|  | [optional] 
+ **project_id** | **UUID**|  | [optional] 
+ **chat_id** | **UUID**|  | [optional] 
+ **assistant_id** | **UUID**|  | [optional] 
+ **message_id** | **UUID**|  | [optional] 
+ **library_id** | **UUID**|  | [optional] 
 
 ### Return type
 
@@ -314,7 +403,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Document(api_client)
-    document_id = 56 # int | 
+    document_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -331,7 +420,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **document_id** | **int**|  | 
+ **document_id** | **UUID**|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -400,9 +489,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     drive_id = 'drive_id_example' # str | Sharepoint drive ID
     drive_item_ids = ['drive_item_ids_example'] # List[str] | Sharepoint item IDs of the documents to be unimported
     cookie_name = 'cookie_name_example' # str |  (optional)
-    project_id = 56 # int |  (optional)
-    chat_id = 56 # int |  (optional)
-    assistant_id = 56 # int |  (optional)
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
 
     try:
         # Remove imported documents
@@ -422,9 +511,9 @@ Name | Type | Description  | Notes
  **drive_id** | **str**| Sharepoint drive ID | 
  **drive_item_ids** | [**List[str]**](str.md)| Sharepoint item IDs of the documents to be unimported | 
  **cookie_name** | **str**|  | [optional] 
- **project_id** | **int**|  | [optional] 
- **chat_id** | **int**|  | [optional] 
- **assistant_id** | **int**|  | [optional] 
+ **project_id** | **UUID**|  | [optional] 
+ **chat_id** | **UUID**|  | [optional] 
+ **assistant_id** | **UUID**|  | [optional] 
 
 ### Return type
 
@@ -492,11 +581,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Document(api_client)
     files = None # List[bytes] | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    project_id = 56 # int |  (optional)
-    chat_id = 56 # int |  (optional)
-    assistant_id = 56 # int |  (optional)
-    message_id = 56 # int |  (optional)
-    library_id = 56 # int |  (optional)
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
 
     try:
         # Upload documents
@@ -516,11 +605,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **files** | **List[bytes]**|  | 
  **cookie_name** | **str**|  | [optional] 
- **project_id** | **int**|  | [optional] 
- **chat_id** | **int**|  | [optional] 
- **assistant_id** | **int**|  | [optional] 
- **message_id** | **int**|  | [optional] 
- **library_id** | **int**|  | [optional] 
+ **project_id** | **UUID**|  | [optional] 
+ **chat_id** | **UUID**|  | [optional] 
+ **assistant_id** | **UUID**|  | [optional] 
+ **message_id** | **UUID**|  | [optional] 
+ **library_id** | **UUID**|  | [optional] 
 
 ### Return type
 

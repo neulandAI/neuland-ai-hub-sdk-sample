@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Unique identifier of the tenant. | 
+**public_id** | **UUID** | Public, non-enumerable external identifier of the tenant. | 
 **created_at** | **datetime** | UTC timestamp when the tenant was created. | 
 **creator_user_id** | **int** |  | [optional] 
 **name** | **str** | Internal name of the tenant. | 

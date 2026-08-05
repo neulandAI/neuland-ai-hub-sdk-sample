@@ -7,6 +7,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**chatsAddLibraryToChat**](#chatsaddlibrarytochat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add a library to a chat|
 |[**chatsCancelMessage**](#chatscancelmessage) | **POST** /chats/{chat_id}/cancel | Cancel in-progress generation|
 |[**chatsDeactivateDocuments**](#chatsdeactivatedocuments) | **POST** /chats/{chat_id}/inactive-documents | Deactivate documents in a chat|
+|[**chatsListChatMessageTurns**](#chatslistchatmessageturns) | **GET** /chats/{chat_id}/turns | List message turns for a chat|
 |[**chatsRemoveChat**](#chatsremovechat) | **DELETE** /chats/{chat_id} | Delete a chat|
 |[**chatsRemoveInactiveDocuments**](#chatsremoveinactivedocuments) | **DELETE** /chats/{chat_id}/inactive-documents | Reactivate documents in a chat|
 |[**chatsRemoveLibraryFromChat**](#chatsremovelibraryfromchat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat|
@@ -30,8 +31,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
-let libraryId: number; // (default to undefined)
+let chatId: string; //ID of the chat. (default to undefined)
+let libraryId: string; //ID of the library to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.chatsAddLibraryToChat(
@@ -45,8 +46,8 @@ const { status, data } = await apiInstance.chatsAddLibraryToChat(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] |  | defaults to undefined|
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat. | defaults to undefined|
+| **libraryId** | [**string**] | ID of the library to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -90,7 +91,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
+let chatId: string; //ID of the chat. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.chatsCancelMessage(
@@ -103,7 +104,7 @@ const { status, data } = await apiInstance.chatsCancelMessage(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] |  | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -132,7 +133,7 @@ const { status, data } = await apiInstance.chatsCancelMessage(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **chatsDeactivateDocuments**
-> Array<ChatInactiveDocument> chatsDeactivateDocuments()
+> Array<ChatInactiveDocumentOut> chatsDeactivateDocuments()
 
 Exclude the given documents from the chat\'s retrieval context.
 
@@ -147,8 +148,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
-let documentIds: Array<number>; // (default to undefined)
+let chatId: string; //ID of the chat. (default to undefined)
+let documentIds: Array<string>; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.chatsDeactivateDocuments(
@@ -162,14 +163,14 @@ const { status, data } = await apiInstance.chatsDeactivateDocuments(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] |  | defaults to undefined|
-| **documentIds** | **Array&lt;number&gt;** |  | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat. | defaults to undefined|
+| **documentIds** | **Array&lt;string&gt;** |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**Array<ChatInactiveDocument>**
+**Array<ChatInactiveDocumentOut>**
 
 ### Authorization
 
@@ -192,6 +193,69 @@ const { status, data } = await apiInstance.chatsDeactivateDocuments(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **chatsListChatMessageTurns**
+> any chatsListChatMessageTurns()
+
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: string; //Public id of the chat. (default to undefined)
+let limit: number; //Max turns to return (newest first). (optional) (default to 50)
+let offset: number; //Number of newest turns to skip. (optional) (default to 0)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsListChatMessageTurns(
+    chatId,
+    limit,
+    offset,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**string**] | Public id of the chat. | defaults to undefined|
+| **limit** | [**number**] | Max turns to return (newest first). | (optional) defaults to 50|
+| **offset** | [**number**] | Number of newest turns to skip. | (optional) defaults to 0|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to this chat. |  -  |
+|**404** | Chat does not exist. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **chatsRemoveChat**
 > chatsRemoveChat()
 
@@ -208,7 +272,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
+let chatId: string; //ID of the chat to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.chatsRemoveChat(
@@ -221,7 +285,7 @@ const { status, data } = await apiInstance.chatsRemoveChat(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] |  | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -266,8 +330,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
-let documentIds: Array<number>; // (default to undefined)
+let chatId: string; //ID of the chat. (default to undefined)
+let documentIds: Array<string>; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.chatsRemoveInactiveDocuments(
@@ -281,8 +345,8 @@ const { status, data } = await apiInstance.chatsRemoveInactiveDocuments(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] |  | defaults to undefined|
-| **documentIds** | **Array&lt;number&gt;** |  | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat. | defaults to undefined|
+| **documentIds** | **Array&lt;string&gt;** |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -326,8 +390,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
-let libraryId: number; //ID of the library to disable. (default to undefined)
+let chatId: string; //ID of the chat. (default to undefined)
+let libraryId: string; //ID of the library to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.chatsRemoveLibraryFromChat(
@@ -341,8 +405,8 @@ const { status, data } = await apiInstance.chatsRemoveLibraryFromChat(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] |  | defaults to undefined|
-| **libraryId** | [**number**] | ID of the library to disable. | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat. | defaults to undefined|
+| **libraryId** | [**string**] | ID of the library to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -386,7 +450,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
+let chatId: string; //ID of the chat to summarize. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.chatsSummerizeChat(
@@ -399,7 +463,7 @@ const { status, data } = await apiInstance.chatsSummerizeChat(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **chatId** | [**number**] |  | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat to summarize. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -445,7 +509,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
+let chatId: string; //ID of the chat to update. (default to undefined)
 let chatIn: ChatIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -461,7 +525,7 @@ const { status, data } = await apiInstance.chatsUpdateChat(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **chatIn** | **ChatIn**|  | |
-| **chatId** | [**number**] |  | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -507,8 +571,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
 
-let chatId: number; // (default to undefined)
-let toolId: number; //ID of the tool to configure. (default to undefined)
+let chatId: string; //ID of the chat. (default to undefined)
+let toolId: string; //Public id of the tool to configure. (default to undefined)
 let chatToolSettingsUpdate: ChatToolSettingsUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -525,8 +589,8 @@ const { status, data } = await apiInstance.chatsUpdateChatToolSettings(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **chatToolSettingsUpdate** | **ChatToolSettingsUpdate**|  | |
-| **chatId** | [**number**] |  | defaults to undefined|
-| **toolId** | [**number**] | ID of the tool to configure. | defaults to undefined|
+| **chatId** | [**string**] | ID of the chat. | defaults to undefined|
+| **toolId** | [**string**] | Public id of the tool to configure. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

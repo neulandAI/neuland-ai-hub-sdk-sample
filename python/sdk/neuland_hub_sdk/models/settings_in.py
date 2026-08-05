@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,17 +28,19 @@ class SettingsIn(BaseModel):
     """
     SettingsIn
     """ # noqa: E501
-    default_llm_catalog_id: Optional[StrictInt] = None
+    default_llm_catalog_id: Optional[UUID] = None
     guardrails_enabled: Optional[StrictBool] = None
     sharepoint_enabled: Optional[StrictBool] = None
     inbound_guardrail: Optional[StrictStr] = None
     outbound_guardrail: Optional[StrictStr] = None
-    welcome_email_template_id: Optional[StrictInt] = None
-    project_member_added_email_template_id: Optional[StrictInt] = None
+    welcome_email_template_id: Optional[UUID] = None
+    project_member_added_email_template_id: Optional[UUID] = None
     system_prompt: Optional[StrictStr] = None
     errlog_webhook_url: Optional[StrictStr] = None
     require_email_confirmation: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "errlog_webhook_url", "require_email_confirmation"]
+    budget_alert_enabled: Optional[StrictBool] = None
+    soft_limit_warning_enabled: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "errlog_webhook_url", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -128,6 +131,16 @@ class SettingsIn(BaseModel):
         if self.require_email_confirmation is None and "require_email_confirmation" in self.model_fields_set:
             _dict['require_email_confirmation'] = None
 
+        # set to None if budget_alert_enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.budget_alert_enabled is None and "budget_alert_enabled" in self.model_fields_set:
+            _dict['budget_alert_enabled'] = None
+
+        # set to None if soft_limit_warning_enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.soft_limit_warning_enabled is None and "soft_limit_warning_enabled" in self.model_fields_set:
+            _dict['soft_limit_warning_enabled'] = None
+
         return _dict
 
     @classmethod
@@ -149,7 +162,9 @@ class SettingsIn(BaseModel):
             "project_member_added_email_template_id": obj.get("project_member_added_email_template_id"),
             "system_prompt": obj.get("system_prompt"),
             "errlog_webhook_url": obj.get("errlog_webhook_url"),
-            "require_email_confirmation": obj.get("require_email_confirmation")
+            "require_email_confirmation": obj.get("require_email_confirmation"),
+            "budget_alert_enabled": obj.get("budget_alert_enabled"),
+            "soft_limit_warning_enabled": obj.get("soft_limit_warning_enabled")
         })
         return _obj
 

@@ -132,7 +132,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Prompt(api_client)
-    prompt_id = 56 # int | ID of the prompt to delete.
+    prompt_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the prompt to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -149,7 +149,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **prompt_id** | **int**| ID of the prompt to delete. | 
+ **prompt_id** | **UUID**| Public id of the prompt to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -302,7 +302,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Prompt(api_client)
-    prompt_id = 56 # int | ID of the prompt to update.
+    prompt_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the prompt to update.
     prompt_in = neuland_hub_sdk.PromptIn() # PromptIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -322,7 +322,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **prompt_id** | **int**| ID of the prompt to update. | 
+ **prompt_id** | **UUID**| Public id of the prompt to update. | 
  **prompt_in** | [**PromptIn**](PromptIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

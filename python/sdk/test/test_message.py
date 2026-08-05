@@ -39,6 +39,7 @@ class TestMessage(unittest.TestCase):
                 state_reason = '',
                 state_changed_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 id = 56,
+                public_id = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 creator_user_id = 56,
@@ -47,12 +48,20 @@ class TestMessage(unittest.TestCase):
                 content = '',
                 sent_user_msg = '',
                 parent_id = 56,
+                turn_step_index = 56,
+                is_final_step = True,
+                model_fallback = True,
+                fallback_from_model = '',
                 completed = True,
                 error = '',
                 hint = '',
                 llm_catalog_id = 56,
                 llm_settings_id = 56,
                 usage = { },
+                reasoning = [
+                    { }
+                    ],
+                interrupt = { },
                 celery_task_id = ''
             )
         else:

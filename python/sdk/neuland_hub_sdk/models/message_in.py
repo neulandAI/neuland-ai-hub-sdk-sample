@@ -17,9 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,17 +29,18 @@ class MessageIn(BaseModel):
     MessageIn
     """ # noqa: E501
     content: Optional[StrictStr] = None
-    chat_id: Optional[StrictInt] = None
-    updated_at: Optional[datetime] = None
-    project_id: Optional[StrictInt] = None
+    chat_id: Optional[UUID] = None
+    project_id: Optional[UUID] = None
     model: Optional[StrictStr] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
-    assistant_id: Optional[StrictInt] = None
+    assistant_id: Optional[UUID] = None
     private: Optional[StrictBool] = None
     form_data: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["content", "chat_id", "updated_at", "project_id", "model", "temperature", "similarity_top_k", "system_prompt", "assistant_id", "private", "form_data"]
+    form_fields: Optional[List[Dict[str, Any]]] = None
+    playground: Optional[StrictBool] = Field(default=False, description="Start a playground (sandbox) chat for testing assistant settings: the given system_prompt/temperature/similarity_top_k/model override the assistant's live config without saving it. Requires assistant_id; only the assistant's creator may use it.")
+    __properties: ClassVar[List[str]] = ["content", "chat_id", "project_id", "model", "temperature", "similarity_top_k", "system_prompt", "assistant_id", "private", "form_data", "form_fields", "playground"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -90,11 +91,6 @@ class MessageIn(BaseModel):
         if self.chat_id is None and "chat_id" in self.model_fields_set:
             _dict['chat_id'] = None
 
-        # set to None if updated_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.updated_at is None and "updated_at" in self.model_fields_set:
-            _dict['updated_at'] = None
-
         # set to None if project_id (nullable) is None
         # and model_fields_set contains the field
         if self.project_id is None and "project_id" in self.model_fields_set:
@@ -135,6 +131,11 @@ class MessageIn(BaseModel):
         if self.form_data is None and "form_data" in self.model_fields_set:
             _dict['form_data'] = None
 
+        # set to None if form_fields (nullable) is None
+        # and model_fields_set contains the field
+        if self.form_fields is None and "form_fields" in self.model_fields_set:
+            _dict['form_fields'] = None
+
         return _dict
 
     @classmethod
@@ -149,7 +150,6 @@ class MessageIn(BaseModel):
         _obj = cls.model_validate({
             "content": obj.get("content"),
             "chat_id": obj.get("chat_id"),
-            "updated_at": obj.get("updated_at"),
             "project_id": obj.get("project_id"),
             "model": obj.get("model"),
             "temperature": obj.get("temperature"),
@@ -157,7 +157,9 @@ class MessageIn(BaseModel):
             "system_prompt": obj.get("system_prompt"),
             "assistant_id": obj.get("assistant_id"),
             "private": obj.get("private"),
-            "form_data": obj.get("form_data")
+            "form_data": obj.get("form_data"),
+            "form_fields": obj.get("form_fields"),
+            "playground": obj.get("playground") if obj.get("playground") is not None else False
         })
         return _obj
 

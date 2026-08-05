@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 
 # **users_activate_user**
-> UserOut users_activate_user(user_id, cookie_name=cookie_name, tenant_id=tenant_id)
+> UserOut users_activate_user(user_id, cookie_name=cookie_name)
 
 Activate a user
 
@@ -57,13 +57,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.User(api_client)
-    user_id = 56 # int | ID of the user to activate.
+    user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to activate.
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Activate a user
-        api_response = api_instance.users_activate_user(user_id, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.users_activate_user(user_id, cookie_name=cookie_name)
         print("The response of User->users_activate_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -77,9 +76,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **int**| ID of the user to activate. | 
+ **user_id** | **UUID**| Public id of the user to activate. | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -107,7 +105,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_create_group**
-> UserGroup users_create_group(group_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> UserGroup users_create_group(group_in, cookie_name=cookie_name)
 
 Create a user group
 
@@ -147,11 +145,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.User(api_client)
     group_in = neuland_hub_sdk.GroupIn() # GroupIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Create a user group
-        api_response = api_instance.users_create_group(group_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.users_create_group(group_in, cookie_name=cookie_name)
         print("The response of User->users_create_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -167,7 +164,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **group_in** | [**GroupIn**](GroupIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -194,7 +190,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_create_user**
-> UserOut users_create_user(user_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> UserOut users_create_user(user_in, cookie_name=cookie_name)
 
 Create a user
 
@@ -234,11 +230,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.User(api_client)
     user_in = neuland_hub_sdk.UserIn() # UserIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Create a user
-        api_response = api_instance.users_create_user(user_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.users_create_user(user_in, cookie_name=cookie_name)
         print("The response of User->users_create_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -254,7 +249,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_in** | [**UserIn**](UserIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -281,7 +275,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_deactivate_user**
-> UserOut users_deactivate_user(user_id, cookie_name=cookie_name, tenant_id=tenant_id)
+> UserOut users_deactivate_user(user_id, cookie_name=cookie_name)
 
 Deactivate a user
 
@@ -318,13 +312,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.User(api_client)
-    user_id = 56 # int | ID of the user to deactivate.
+    user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to deactivate.
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Deactivate a user
-        api_response = api_instance.users_deactivate_user(user_id, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.users_deactivate_user(user_id, cookie_name=cookie_name)
         print("The response of User->users_deactivate_user:\n")
         pprint(api_response)
     except Exception as e:
@@ -338,9 +331,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **int**| ID of the user to deactivate. | 
+ **user_id** | **UUID**| Public id of the user to deactivate. | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -368,7 +360,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_delete_group**
-> users_delete_group(group_id, cookie_name=cookie_name, tenant_id=tenant_id)
+> users_delete_group(group_id, cookie_name=cookie_name)
 
 Delete a user group
 
@@ -404,13 +396,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.User(api_client)
-    group_id = 56 # int | ID of the user group to delete.
+    group_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user group to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Delete a user group
-        api_instance.users_delete_group(group_id, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_instance.users_delete_group(group_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling User->users_delete_group: %s\n" % e)
 ```
@@ -422,9 +413,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **group_id** | **int**| ID of the user group to delete. | 
+ **group_id** | **UUID**| Public id of the user group to delete. | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -453,7 +443,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_delete_user**
-> users_delete_user(user_id, cookie_name=cookie_name, tenant_id=tenant_id)
+> users_delete_user(user_id, cookie_name=cookie_name)
 
 Delete a user
 
@@ -490,13 +480,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.User(api_client)
-    user_id = 56 # int | ID of the user to delete.
+    user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Delete a user
-        api_instance.users_delete_user(user_id, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_instance.users_delete_user(user_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling User->users_delete_user: %s\n" % e)
 ```
@@ -508,9 +497,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **int**| ID of the user to delete. | 
+ **user_id** | **UUID**| Public id of the user to delete. | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -538,11 +526,12 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_get_myself**
-> UserOut users_get_myself(cookie_name=cookie_name)
+> UserMeOut users_get_myself(cookie_name=cookie_name)
 
 Get current user
 
-Return the profile of the currently authenticated user.
+Return the profile of the currently authenticated user, including the
+effective feature-flag map for their tenant.
 
 ### Example
 
@@ -550,7 +539,7 @@ Return the profile of the currently authenticated user.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.user_out import UserOut
+from neuland_hub_sdk.models.user_me_out import UserMeOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -597,7 +586,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserOut**](UserOut.md)
+[**UserMeOut**](UserMeOut.md)
 
 ### Authorization
 
@@ -702,7 +691,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_sync_external_group**
-> GroupSyncOut users_sync_external_group(group_id, cookie_name=cookie_name, tenant_id=tenant_id)
+> GroupSyncOut users_sync_external_group(group_id, cookie_name=cookie_name)
 
 Sync an external group's members
 
@@ -739,13 +728,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.User(api_client)
-    group_id = 56 # int | ID of the external group to sync.
+    group_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the external group to sync.
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Sync an external group's members
-        api_response = api_instance.users_sync_external_group(group_id, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.users_sync_external_group(group_id, cookie_name=cookie_name)
         print("The response of User->users_sync_external_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -759,9 +747,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **group_id** | **int**| ID of the external group to sync. | 
+ **group_id** | **UUID**| Public id of the external group to sync. | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -791,7 +778,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_update_group**
-> UserGroup users_update_group(group_id, group_in, cookie_name=cookie_name, tenant_id=tenant_id)
+> UserGroup users_update_group(group_id, group_in, cookie_name=cookie_name)
 
 Update a user group
 
@@ -829,14 +816,13 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.User(api_client)
-    group_id = 56 # int | ID of the user group to update.
+    group_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user group to update.
     group_in = neuland_hub_sdk.GroupIn() # GroupIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Update a user group
-        api_response = api_instance.users_update_group(group_id, group_in, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.users_update_group(group_id, group_in, cookie_name=cookie_name)
         print("The response of User->users_update_group:\n")
         pprint(api_response)
     except Exception as e:
@@ -850,10 +836,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **group_id** | **int**| ID of the user group to update. | 
+ **group_id** | **UUID**| Public id of the user group to update. | 
  **group_in** | [**GroupIn**](GroupIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -920,7 +905,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.User(api_client)
-    user_id = 56 # int | ID of the user to update.
+    user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to update.
     user_update_in = neuland_hub_sdk.UserUpdateIn() # UserUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -940,7 +925,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user_id** | **int**| ID of the user to update. | 
+ **user_id** | **UUID**| Public id of the user to update. | 
  **user_update_in** | [**UserUpdateIn**](UserUpdateIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -970,7 +955,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **users_upsert_members**
-> List[UserGroupMember] users_upsert_members(group_id, request_body, cookie_name=cookie_name, tenant_id=tenant_id)
+> List[UserGroupMember] users_upsert_members(group_id, request_body, cookie_name=cookie_name)
 
 Set user group members
 
@@ -1007,14 +992,13 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.User(api_client)
-    group_id = 56 # int | ID of the user group to update.
-    request_body = [56] # List[Optional[int]] | 
+    group_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user group to update.
+    request_body = None # List[Optional[UUID]] | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Set user group members
-        api_response = api_instance.users_upsert_members(group_id, request_body, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.users_upsert_members(group_id, request_body, cookie_name=cookie_name)
         print("The response of User->users_upsert_members:\n")
         pprint(api_response)
     except Exception as e:
@@ -1028,10 +1012,9 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **group_id** | **int**| ID of the user group to update. | 
- **request_body** | [**List[Optional[int]]**](int.md)|  | 
+ **group_id** | **UUID**| Public id of the user group to update. | 
+ **request_body** | [**List[Optional[UUID]]**](UUID.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 

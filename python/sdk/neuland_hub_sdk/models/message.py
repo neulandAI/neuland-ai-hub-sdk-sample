@@ -20,6 +20,8 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -32,6 +34,7 @@ class Message(BaseModel):
     state_reason: Optional[StrictStr] = None
     state_changed_at: Optional[datetime] = None
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the message. Exposed to clients instead of the internal integer id.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the message was created.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when the message was last updated.")
     creator_user_id: StrictInt = Field(description="ID of the user who created the message.")
@@ -40,14 +43,20 @@ class Message(BaseModel):
     content: StrictStr = Field(description="Rendered content of the message.")
     sent_user_msg: Optional[StrictStr]
     parent_id: Optional[StrictInt]
+    turn_step_index: Optional[StrictInt] = None
+    is_final_step: Optional[StrictBool] = None
+    model_fallback: Optional[StrictBool] = False
+    fallback_from_model: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     completed: Optional[StrictBool] = Field(default=False, description="DEPRECATED. Whether the message has finished processing.")
     error: Optional[StrictStr]
     hint: Optional[StrictStr]
     llm_catalog_id: Optional[StrictInt] = None
     llm_settings_id: Optional[StrictInt] = None
     usage: Optional[Dict[str, Any]] = None
+    reasoning: Optional[List[Optional[Dict[str, Any]]]] = None
+    interrupt: Optional[Dict[str, Any]] = None
     celery_task_id: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "created_at", "updated_at", "creator_user_id", "chat_id", "role", "content", "sent_user_msg", "parent_id", "completed", "error", "hint", "llm_catalog_id", "llm_settings_id", "usage", "celery_task_id"]
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "created_at", "updated_at", "creator_user_id", "chat_id", "role", "content", "sent_user_msg", "parent_id", "turn_step_index", "is_final_step", "model_fallback", "fallback_from_model", "completed", "error", "hint", "llm_catalog_id", "llm_settings_id", "usage", "reasoning", "interrupt", "celery_task_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -118,6 +127,21 @@ class Message(BaseModel):
         if self.parent_id is None and "parent_id" in self.model_fields_set:
             _dict['parent_id'] = None
 
+        # set to None if turn_step_index (nullable) is None
+        # and model_fields_set contains the field
+        if self.turn_step_index is None and "turn_step_index" in self.model_fields_set:
+            _dict['turn_step_index'] = None
+
+        # set to None if is_final_step (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_final_step is None and "is_final_step" in self.model_fields_set:
+            _dict['is_final_step'] = None
+
+        # set to None if fallback_from_model (nullable) is None
+        # and model_fields_set contains the field
+        if self.fallback_from_model is None and "fallback_from_model" in self.model_fields_set:
+            _dict['fallback_from_model'] = None
+
         # set to None if error (nullable) is None
         # and model_fields_set contains the field
         if self.error is None and "error" in self.model_fields_set:
@@ -143,6 +167,16 @@ class Message(BaseModel):
         if self.usage is None and "usage" in self.model_fields_set:
             _dict['usage'] = None
 
+        # set to None if reasoning (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning is None and "reasoning" in self.model_fields_set:
+            _dict['reasoning'] = None
+
+        # set to None if interrupt (nullable) is None
+        # and model_fields_set contains the field
+        if self.interrupt is None and "interrupt" in self.model_fields_set:
+            _dict['interrupt'] = None
+
         # set to None if celery_task_id (nullable) is None
         # and model_fields_set contains the field
         if self.celery_task_id is None and "celery_task_id" in self.model_fields_set:
@@ -164,6 +198,7 @@ class Message(BaseModel):
             "state_reason": obj.get("state_reason"),
             "state_changed_at": obj.get("state_changed_at"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "creator_user_id": obj.get("creator_user_id"),
@@ -172,12 +207,18 @@ class Message(BaseModel):
             "content": obj.get("content"),
             "sent_user_msg": obj.get("sent_user_msg"),
             "parent_id": obj.get("parent_id"),
+            "turn_step_index": obj.get("turn_step_index"),
+            "is_final_step": obj.get("is_final_step"),
+            "model_fallback": obj.get("model_fallback") if obj.get("model_fallback") is not None else False,
+            "fallback_from_model": obj.get("fallback_from_model"),
             "completed": obj.get("completed") if obj.get("completed") is not None else False,
             "error": obj.get("error"),
             "hint": obj.get("hint"),
             "llm_catalog_id": obj.get("llm_catalog_id"),
             "llm_settings_id": obj.get("llm_settings_id"),
             "usage": obj.get("usage"),
+            "reasoning": obj.get("reasoning"),
+            "interrupt": obj.get("interrupt"),
             "celery_task_id": obj.get("celery_task_id")
         })
         return _obj

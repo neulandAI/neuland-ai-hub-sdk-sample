@@ -15,11 +15,14 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
+from uuid import UUID
+from neuland_hub_sdk.models.email_catalog_out import EmailCatalogOut
 from neuland_hub_sdk.models.template_in import TemplateIn
 from neuland_hub_sdk.models.template_out import TemplateOut
+from neuland_hub_sdk.models.template_update import TemplateUpdate
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
 from neuland_hub_sdk.api_response import ApiResponse
@@ -43,7 +46,6 @@ class Template:
     def templates_create(
         self,
         template_in: TemplateIn,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -64,8 +66,6 @@ class Template:
 
         :param template_in: (required)
         :type template_in: TemplateIn
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -92,7 +92,6 @@ class Template:
 
         _param = self._templates_create_serialize(
             template_in=template_in,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -121,7 +120,6 @@ class Template:
     def templates_create_with_http_info(
         self,
         template_in: TemplateIn,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -142,8 +140,6 @@ class Template:
 
         :param template_in: (required)
         :type template_in: TemplateIn
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -170,7 +166,6 @@ class Template:
 
         _param = self._templates_create_serialize(
             template_in=template_in,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -199,7 +194,6 @@ class Template:
     def templates_create_without_preload_content(
         self,
         template_in: TemplateIn,
-        tenant_id: Optional[StrictInt] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -220,8 +214,6 @@ class Template:
 
         :param template_in: (required)
         :type template_in: TemplateIn
-        :param tenant_id:
-        :type tenant_id: int
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -248,7 +240,6 @@ class Template:
 
         _param = self._templates_create_serialize(
             template_in=template_in,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -272,7 +263,6 @@ class Template:
     def _templates_create_serialize(
         self,
         template_in,
-        tenant_id,
         cookie_name,
         _request_auth,
         _content_type,
@@ -296,10 +286,6 @@ class Template:
 
         # process the path parameters
         # process the query parameters
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
-            
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
@@ -359,8 +345,7 @@ class Template:
     @validate_call
     def templates_delete(
         self,
-        template_id: Annotated[StrictInt, Field(description="ID of the template to delete.")],
-        tenant_id: Optional[StrictInt] = None,
+        template_id: Annotated[UUID, Field(description="Public id of the template to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -379,10 +364,8 @@ class Template:
 
         Delete an email template.
 
-        :param template_id: ID of the template to delete. (required)
-        :type template_id: int
-        :param tenant_id:
-        :type tenant_id: int
+        :param template_id: Public id of the template to delete. (required)
+        :type template_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -409,7 +392,6 @@ class Template:
 
         _param = self._templates_delete_serialize(
             template_id=template_id,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -438,8 +420,7 @@ class Template:
     @validate_call
     def templates_delete_with_http_info(
         self,
-        template_id: Annotated[StrictInt, Field(description="ID of the template to delete.")],
-        tenant_id: Optional[StrictInt] = None,
+        template_id: Annotated[UUID, Field(description="Public id of the template to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -458,10 +439,8 @@ class Template:
 
         Delete an email template.
 
-        :param template_id: ID of the template to delete. (required)
-        :type template_id: int
-        :param tenant_id:
-        :type tenant_id: int
+        :param template_id: Public id of the template to delete. (required)
+        :type template_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -488,7 +467,6 @@ class Template:
 
         _param = self._templates_delete_serialize(
             template_id=template_id,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -517,8 +495,7 @@ class Template:
     @validate_call
     def templates_delete_without_preload_content(
         self,
-        template_id: Annotated[StrictInt, Field(description="ID of the template to delete.")],
-        tenant_id: Optional[StrictInt] = None,
+        template_id: Annotated[UUID, Field(description="Public id of the template to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -537,10 +514,8 @@ class Template:
 
         Delete an email template.
 
-        :param template_id: ID of the template to delete. (required)
-        :type template_id: int
-        :param tenant_id:
-        :type tenant_id: int
+        :param template_id: Public id of the template to delete. (required)
+        :type template_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -567,7 +542,6 @@ class Template:
 
         _param = self._templates_delete_serialize(
             template_id=template_id,
-            tenant_id=tenant_id,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -592,7 +566,6 @@ class Template:
     def _templates_delete_serialize(
         self,
         template_id,
-        tenant_id,
         cookie_name,
         _request_auth,
         _content_type,
@@ -618,10 +591,6 @@ class Template:
         if template_id is not None:
             _path_params['template_id'] = template_id
         # process the query parameters
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
-            
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
@@ -664,11 +633,282 @@ class Template:
 
 
     @validate_call
+    def templates_get_email_catalog(
+        self,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> EmailCatalogOut:
+        """List customizable emails and their variables
+
+        Return the email catalog the authoring UI needs.
+
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._templates_get_email_catalog_serialize(
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "EmailCatalogOut",
+            '401': None,
+            '403': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def templates_get_email_catalog_with_http_info(
+        self,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[EmailCatalogOut]:
+        """List customizable emails and their variables
+
+        Return the email catalog the authoring UI needs.
+
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._templates_get_email_catalog_serialize(
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "EmailCatalogOut",
+            '401': None,
+            '403': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def templates_get_email_catalog_without_preload_content(
+        self,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List customizable emails and their variables
+
+        Return the email catalog the authoring UI needs.
+
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._templates_get_email_catalog_serialize(
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "EmailCatalogOut",
+            '401': None,
+            '403': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _templates_get_email_catalog_serialize(
+        self,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/templates/email-catalog',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def templates_update(
         self,
-        template_id: Annotated[StrictInt, Field(description="ID of the template to update.")],
-        template_in: TemplateIn,
-        tenant_id: Optional[StrictInt] = None,
+        template_id: Annotated[UUID, Field(description="Public id of the template to update.")],
+        template_update: TemplateUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -687,12 +927,10 @@ class Template:
 
         Update an existing email template.
 
-        :param template_id: ID of the template to update. (required)
-        :type template_id: int
-        :param template_in: (required)
-        :type template_in: TemplateIn
-        :param tenant_id:
-        :type tenant_id: int
+        :param template_id: Public id of the template to update. (required)
+        :type template_id: UUID
+        :param template_update: (required)
+        :type template_update: TemplateUpdate
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -719,8 +957,7 @@ class Template:
 
         _param = self._templates_update_serialize(
             template_id=template_id,
-            template_in=template_in,
-            tenant_id=tenant_id,
+            template_update=template_update,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -749,9 +986,8 @@ class Template:
     @validate_call
     def templates_update_with_http_info(
         self,
-        template_id: Annotated[StrictInt, Field(description="ID of the template to update.")],
-        template_in: TemplateIn,
-        tenant_id: Optional[StrictInt] = None,
+        template_id: Annotated[UUID, Field(description="Public id of the template to update.")],
+        template_update: TemplateUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -770,12 +1006,10 @@ class Template:
 
         Update an existing email template.
 
-        :param template_id: ID of the template to update. (required)
-        :type template_id: int
-        :param template_in: (required)
-        :type template_in: TemplateIn
-        :param tenant_id:
-        :type tenant_id: int
+        :param template_id: Public id of the template to update. (required)
+        :type template_id: UUID
+        :param template_update: (required)
+        :type template_update: TemplateUpdate
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -802,8 +1036,7 @@ class Template:
 
         _param = self._templates_update_serialize(
             template_id=template_id,
-            template_in=template_in,
-            tenant_id=tenant_id,
+            template_update=template_update,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -832,9 +1065,8 @@ class Template:
     @validate_call
     def templates_update_without_preload_content(
         self,
-        template_id: Annotated[StrictInt, Field(description="ID of the template to update.")],
-        template_in: TemplateIn,
-        tenant_id: Optional[StrictInt] = None,
+        template_id: Annotated[UUID, Field(description="Public id of the template to update.")],
+        template_update: TemplateUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -853,12 +1085,10 @@ class Template:
 
         Update an existing email template.
 
-        :param template_id: ID of the template to update. (required)
-        :type template_id: int
-        :param template_in: (required)
-        :type template_in: TemplateIn
-        :param tenant_id:
-        :type tenant_id: int
+        :param template_id: Public id of the template to update. (required)
+        :type template_id: UUID
+        :param template_update: (required)
+        :type template_update: TemplateUpdate
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -885,8 +1115,7 @@ class Template:
 
         _param = self._templates_update_serialize(
             template_id=template_id,
-            template_in=template_in,
-            tenant_id=tenant_id,
+            template_update=template_update,
             cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -911,8 +1140,7 @@ class Template:
     def _templates_update_serialize(
         self,
         template_id,
-        template_in,
-        tenant_id,
+        template_update,
         cookie_name,
         _request_auth,
         _content_type,
@@ -938,10 +1166,6 @@ class Template:
         if template_id is not None:
             _path_params['template_id'] = template_id
         # process the query parameters
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
-            
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
@@ -949,8 +1173,8 @@ class Template:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if template_in is not None:
-            _body_params = template_in
+        if template_update is not None:
+            _body_params = template_update
 
 
         # set the HTTP header `Accept`

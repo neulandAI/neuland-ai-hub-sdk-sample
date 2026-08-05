@@ -15,8 +15,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictInt, StrictStr
+from pydantic import StrictStr
 from typing import Any, Optional
+from uuid import UUID
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
 from neuland_hub_sdk.api_response import ApiResponse
@@ -39,7 +40,7 @@ class File:
     @validate_call
     def files_download_file(
         self,
-        file_id: StrictInt,
+        file_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -59,7 +60,7 @@ class File:
         Stream a stored file as an attachment to authorized callers.
 
         :param file_id: (required)
-        :type file_id: int
+        :type file_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -114,7 +115,7 @@ class File:
     @validate_call
     def files_download_file_with_http_info(
         self,
-        file_id: StrictInt,
+        file_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -134,7 +135,7 @@ class File:
         Stream a stored file as an attachment to authorized callers.
 
         :param file_id: (required)
-        :type file_id: int
+        :type file_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -189,7 +190,7 @@ class File:
     @validate_call
     def files_download_file_without_preload_content(
         self,
-        file_id: StrictInt,
+        file_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -209,7 +210,7 @@ class File:
         Stream a stored file as an attachment to authorized callers.
 
         :param file_id: (required)
-        :type file_id: int
+        :type file_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one

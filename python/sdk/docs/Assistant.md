@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**assistants_remove_member**](Assistant.md#assistants_remove_member) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member
 [**assistants_remove_tag_from_assistant**](Assistant.md#assistants_remove_tag_from_assistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant
 [**assistants_remove_tool_from_assistant**](Assistant.md#assistants_remove_tool_from_assistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant
+[**assistants_restore_assistant_version**](Assistant.md#assistants_restore_assistant_version) | **POST** /assistants/{assistant_id}/versions/{version}/restore | Restore an assistant version
 [**assistants_submit_assistant**](Assistant.md#assistants_submit_assistant) | **POST** /assistants/submit | Create an assistant with attachments
 [**assistants_update_assistant**](Assistant.md#assistants_update_assistant) | **PATCH** /assistants/{assistant_id} | Update an assistant
 [**assistants_update_assistant_groups**](Assistant.md#assistants_update_assistant_groups) | **PUT** /assistants/{assistant_id}/groups | Set assistant group access
@@ -61,8 +62,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
-    library_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -81,8 +82,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
- **library_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **library_id** | **UUID**| Public id of the library to enable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -111,7 +112,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistants_add_members**
-> List[AssistantMember] assistants_add_members(assistant_id, assistant_members_in, cookie_name=cookie_name)
+> List[AssistantMemberOut] assistants_add_members(assistant_id, assistant_members_in, cookie_name=cookie_name)
 
 Add members to an assistant
 
@@ -128,7 +129,7 @@ DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.assistant_member import AssistantMember
+from neuland_hub_sdk.models.assistant_member_out import AssistantMemberOut
 from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -154,7 +155,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     assistant_members_in = neuland_hub_sdk.AssistantMembersIn() # AssistantMembersIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -174,13 +175,13 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
  **assistant_members_in** | [**AssistantMembersIn**](AssistantMembersIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[AssistantMember]**](AssistantMember.md)
+[**List[AssistantMemberOut]**](AssistantMemberOut.md)
 
 ### Authorization
 
@@ -204,7 +205,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistants_add_tag_to_assistant**
-> Tagging assistants_add_tag_to_assistant(assistant_id, tag_id, cookie_name=cookie_name)
+> NeulandAssistantsTaggingOut assistants_add_tag_to_assistant(assistant_id, tag_id, cookie_name=cookie_name)
 
 Add a tag to an assistant
 
@@ -216,7 +217,7 @@ Attach a tag to an assistant.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.tagging import Tagging
+from neuland_hub_sdk.models.neuland_assistants_tagging_out import NeulandAssistantsTaggingOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -241,8 +242,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
-    tag_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -261,13 +262,13 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
- **tag_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **tag_id** | **UUID**|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**Tagging**](Tagging.md)
+[**NeulandAssistantsTaggingOut**](NeulandAssistantsTaggingOut.md)
 
 ### Authorization
 
@@ -328,8 +329,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
-    tool_id = 56 # int | ID of the tool to enable.
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -348,8 +349,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
- **tool_id** | **int**| ID of the tool to enable. | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **tool_id** | **UUID**| Public id of the tool to enable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -498,7 +499,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -515,7 +516,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -581,7 +582,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     assistant_members_in = neuland_hub_sdk.AssistantMembersIn() # AssistantMembersIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -599,7 +600,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
  **assistant_members_in** | [**AssistantMembersIn**](AssistantMembersIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -630,7 +631,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistants_join_assistant**
-> AssistantMember assistants_join_assistant(assistant_id, cookie_name=cookie_name)
+> AssistantMemberOut assistants_join_assistant(assistant_id, cookie_name=cookie_name)
 
 Join a community assistant
 
@@ -642,7 +643,7 @@ self-add to a tenant-shared community assistant.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.assistant_member import AssistantMember
+from neuland_hub_sdk.models.assistant_member_out import AssistantMemberOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -667,7 +668,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | ID of the assistant to join.
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to join.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -686,12 +687,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**| ID of the assistant to join. | 
+ **assistant_id** | **UUID**| Public id of the assistant to join. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**AssistantMember**](AssistantMember.md)
+[**AssistantMemberOut**](AssistantMemberOut.md)
 
 ### Authorization
 
@@ -752,7 +753,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to leave.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -769,7 +770,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant to leave. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -834,8 +835,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
-    library_id = 56 # int | ID of the library to disable.
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -852,8 +853,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
- **library_id** | **int**| ID of the library to disable. | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **library_id** | **UUID**| Public id of the library to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -918,8 +919,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
-    user_id = 56 # int | ID of the member to remove.
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the member to remove.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -936,8 +937,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
- **user_id** | **int**| ID of the member to remove. | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **user_id** | **UUID**| Public id of the member to remove. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -1002,8 +1003,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
-    tag_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -1020,8 +1021,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
- **tag_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **tag_id** | **UUID**|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -1086,8 +1087,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
-    tool_id = 56 # int | ID of the tool to disable.
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -1104,8 +1105,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
- **tool_id** | **int**| ID of the tool to disable. | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **tool_id** | **UUID**| Public id of the tool to disable. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -1129,6 +1130,96 @@ void (empty response body)
 **401** | Missing or invalid authentication. |  -  |
 **403** | Not the creator of this assistant. |  -  |
 **404** | No assistant exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **assistants_restore_assistant_version**
+> Assistant assistants_restore_assistant_version(assistant_id, version, cookie_name=cookie_name)
+
+Restore an assistant version
+
+Copy a version snapshot onto the live assistant and append a new version.
+
+Restoring a version identical to the live config is a no-op: nothing is
+written and no version is appended, mirroring update semantics.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant import Assistant
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Assistant(api_client)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to restore.
+    version = 56 # int | Version number to restore.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Restore an assistant version
+        api_response = api_instance.assistants_restore_assistant_version(assistant_id, version, cookie_name=cookie_name)
+        print("The response of Assistant->assistants_restore_assistant_version:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Assistant->assistants_restore_assistant_version: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assistant_id** | **UUID**| Public id of the assistant to restore. | 
+ **version** | **int**| Version number to restore. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**Assistant**](Assistant.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Not the creator of this assistant. |  -  |
+**404** | No assistant or version exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1278,7 +1369,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to update.
     assistant_in = neuland_hub_sdk.AssistantIn() # AssistantIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1298,7 +1389,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant to update. | 
  **assistant_in** | [**AssistantIn**](AssistantIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -1328,7 +1419,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistants_update_assistant_groups**
-> List[AssistantGroup] assistants_update_assistant_groups(assistant_id, assistant_groups_in, cookie_name=cookie_name)
+> List[AssistantGroupOut] assistants_update_assistant_groups(assistant_id, assistant_groups_in, cookie_name=cookie_name)
 
 Set assistant group access
 
@@ -1340,7 +1431,7 @@ Grant or update assistant access for user groups (replaces the current set).
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.assistant_group import AssistantGroup
+from neuland_hub_sdk.models.assistant_group_out import AssistantGroupOut
 from neuland_hub_sdk.models.assistant_groups_in import AssistantGroupsIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -1366,7 +1457,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     assistant_groups_in = neuland_hub_sdk.AssistantGroupsIn() # AssistantGroupsIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1386,13 +1477,13 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
  **assistant_groups_in** | [**AssistantGroupsIn**](AssistantGroupsIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[AssistantGroup]**](AssistantGroup.md)
+[**List[AssistantGroupOut]**](AssistantGroupOut.md)
 
 ### Authorization
 
@@ -1454,7 +1545,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Assistant(api_client)
-    assistant_id = 56 # int | 
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     assistant_visibility_update = neuland_hub_sdk.AssistantVisibilityUpdate() # AssistantVisibilityUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1474,7 +1565,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assistant_id** | **int**|  | 
+ **assistant_id** | **UUID**| Public id of the assistant. | 
  **assistant_visibility_update** | [**AssistantVisibilityUpdate**](AssistantVisibilityUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

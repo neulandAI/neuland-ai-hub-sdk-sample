@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **libraries_add_library_members**
-> List[LibraryMember] libraries_add_library_members(library_id, library_member_bulk_in, cookie_name=cookie_name)
+> List[LibraryMemberOut] libraries_add_library_members(library_id, library_member_bulk_in, cookie_name=cookie_name)
 
 Add library members
 
@@ -26,8 +26,8 @@ Add one or more members to the library; owner only.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.library_member import LibraryMember
 from neuland_hub_sdk.models.library_member_bulk_in import LibraryMemberBulkIn
+from neuland_hub_sdk.models.library_member_out import LibraryMemberOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -52,7 +52,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Library(api_client)
-    library_id = 56 # int | 
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to add members to.
     library_member_bulk_in = neuland_hub_sdk.LibraryMemberBulkIn() # LibraryMemberBulkIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -72,13 +72,13 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **int**|  | 
+ **library_id** | **UUID**| Public id of the library to add members to. | 
  **library_member_bulk_in** | [**LibraryMemberBulkIn**](LibraryMemberBulkIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[LibraryMember]**](LibraryMember.md)
+[**List[LibraryMemberOut]**](LibraryMemberOut.md)
 
 ### Authorization
 
@@ -138,7 +138,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Library(api_client)
-    library_id = 56 # int | 
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -155,7 +155,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **int**|  | 
+ **library_id** | **UUID**| Public id of the library to delete. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -220,7 +220,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Library(api_client)
-    library_id = 56 # int | 
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to leave.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -237,7 +237,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **int**|  | 
+ **library_id** | **UUID**| Public id of the library to leave. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -388,7 +388,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Library(api_client)
-    library_id = 56 # int | 
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to remove members from.
     library_member_bulk_delete = neuland_hub_sdk.LibraryMemberBulkDelete() # LibraryMemberBulkDelete | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -406,7 +406,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **int**|  | 
+ **library_id** | **UUID**| Public id of the library to remove members from. | 
  **library_member_bulk_delete** | [**LibraryMemberBulkDelete**](LibraryMemberBulkDelete.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -473,8 +473,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Library(api_client)
-    library_id = 56 # int | 
-    user_id = 56 # int | ID of the member to remove.
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library.
+    user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the member to remove.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -491,8 +491,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **int**|  | 
- **user_id** | **int**| ID of the member to remove. | 
+ **library_id** | **UUID**| Public id of the library. | 
+ **user_id** | **UUID**| Public id of the member to remove. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -560,7 +560,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Library(api_client)
-    library_id = 56 # int | 
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to update.
     library_update_in = neuland_hub_sdk.LibraryUpdateIn() # LibraryUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -580,7 +580,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **int**|  | 
+ **library_id** | **UUID**| Public id of the library to update. | 
  **library_update_in** | [**LibraryUpdateIn**](LibraryUpdateIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

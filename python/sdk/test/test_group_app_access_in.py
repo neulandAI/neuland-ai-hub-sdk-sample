@@ -35,14 +35,14 @@ class TestGroupAppAccessIn(unittest.TestCase):
         model = GroupAppAccessIn()
         if include_optional:
             return GroupAppAccessIn(
-                application_id = 56,
+                application_id = '',
                 group_ids = [
-                    56
+                    ''
                     ]
             )
         else:
             return GroupAppAccessIn(
-                application_id = 56,
+                application_id = '',
         )
         """
 

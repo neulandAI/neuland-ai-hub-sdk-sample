@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,7 +29,7 @@ class BulkResult(BaseModel):
     BulkResult
     """ # noqa: E501
     count: StrictInt = Field(description="Number of rows affected.")
-    ids: List[StrictInt] = Field(description="IDs that were targeted by the operation.")
+    ids: List[UUID] = Field(description="Public ids that were targeted by the operation.")
     __properties: ClassVar[List[str]] = ["count", "ids"]
 
     model_config = ConfigDict(

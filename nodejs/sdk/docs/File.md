@@ -22,7 +22,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new File(configuration);
 
-let fileId: number; // (default to undefined)
+let fileId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.filesDownloadFile(
@@ -35,7 +35,7 @@ const { status, data } = await apiInstance.filesDownloadFile(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **fileId** | [**number**] |  | defaults to undefined|
+| **fileId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

@@ -1,0 +1,31 @@
+---
+title: "AssistantGroupOut"
+---
+
+A group\'s access to an assistant, identifying assistant and group by public id.  `assistant_id`/`group_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `assistant_public_id`/`group_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**assistant_id** | **number** | Internal id of the assistant (deprecated; use assistant_public_id). | [default to undefined]
+**assistant_public_id** | **string** | Public id of the assistant. | [default to undefined]
+**group_id** | **number** | Internal id of the user group (deprecated; use group_public_id). | [default to undefined]
+**group_public_id** | **string** | Public id of the user group. | [default to undefined]
+**tenant_id** | **number** | Internal id of the tenant the grant belongs to. | [default to undefined]
+**created_at** | **string** | Timestamp when access was granted. | [default to undefined]
+
+## Example
+
+```typescript
+import { AssistantGroupOut } from 'neuland-hub-sdk';
+
+const instance: AssistantGroupOut = {
+    assistant_id,
+    assistant_public_id,
+    group_id,
+    group_public_id,
+    tenant_id,
+    created_at,
+};
+```

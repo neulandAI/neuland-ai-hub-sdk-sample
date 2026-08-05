@@ -36,6 +36,7 @@ class TestConnectorOut(unittest.TestCase):
         if include_optional:
             return ConnectorOut(
                 id = 56,
+                public_id = '',
                 name = '',
                 provider = '',
                 caps = [
@@ -48,6 +49,7 @@ class TestConnectorOut(unittest.TestCase):
         else:
             return ConnectorOut(
                 id = 56,
+                public_id = '',
                 name = '',
                 provider = '',
                 caps = [

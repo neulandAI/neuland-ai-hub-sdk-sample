@@ -55,7 +55,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | ID of the connector whose credential is being accessed.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector whose credential is being accessed.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -74,7 +74,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**| ID of the connector whose credential is being accessed. | 
+ **connector_id** | **UUID**| Public id of the connector whose credential is being accessed. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_initiate_admin_consent**
-> ConnectorConsentOut auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
+> ConnectorConsentOut auth_initiate_admin_consent(connector_id, cookie_name=cookie_name)
 
 Initiate admin connector consent
 
@@ -139,13 +139,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | ID of the connector to consent to.
-    tenant_id = 56 # int |  (optional)
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to consent to.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Initiate admin connector consent
-        api_response = api_instance.auth_initiate_admin_consent(connector_id, tenant_id=tenant_id, cookie_name=cookie_name)
+        api_response = api_instance.auth_initiate_admin_consent(connector_id, cookie_name=cookie_name)
         print("The response of AuthConnector->auth_initiate_admin_consent:\n")
         pprint(api_response)
     except Exception as e:
@@ -159,8 +158,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**| ID of the connector to consent to. | 
- **tenant_id** | **int**|  | [optional] 
+ **connector_id** | **UUID**| Public id of the connector to consent to. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -228,7 +226,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | ID of the connector to consent to.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to consent to.
     return_url = 'return_url_example' # str | URL to return the user to after consent. (optional)
     redirect = False # bool | If true, return 302 redirect instead of JSON (optional) (default to False)
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -249,7 +247,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**| ID of the connector to consent to. | 
+ **connector_id** | **UUID**| Public id of the connector to consent to. | 
  **return_url** | **str**| URL to return the user to after consent. | [optional] 
  **redirect** | **bool**| If true, return 302 redirect instead of JSON | [optional] [default to False]
  **cookie_name** | **str**|  | [optional] 
@@ -362,7 +360,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_oauth_callback**
-> object auth_oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
+> object auth_oauth_callback(state=state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
 
 Connector OAuth callback
 
@@ -387,7 +385,7 @@ configuration = neuland_hub_sdk.Configuration(
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    state = 'state_example' # str | Opaque state token issued when consent was initiated.
+    state = 'state_example' # str | Opaque state token issued when consent was initiated. (optional)
     code = 'code_example' # str |  (optional)
     error = 'error_example' # str |  (optional)
     error_description = 'error_description_example' # str |  (optional)
@@ -395,7 +393,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Connector OAuth callback
-        api_response = api_instance.auth_oauth_callback(state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
+        api_response = api_instance.auth_oauth_callback(state=state, code=code, error=error, error_description=error_description, error_subcode=error_subcode)
         print("The response of AuthConnector->auth_oauth_callback:\n")
         pprint(api_response)
     except Exception as e:
@@ -409,7 +407,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **state** | **str**| Opaque state token issued when consent was initiated. | 
+ **state** | **str**| Opaque state token issued when consent was initiated. | [optional] 
  **code** | **str**|  | [optional] 
  **error** | **str**|  | [optional] 
  **error_description** | **str**|  | [optional] 
@@ -478,7 +476,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | ID of the connector to revoke consent for.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to revoke consent for.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -495,7 +493,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**| ID of the connector to revoke consent for. | 
+ **connector_id** | **UUID**| Public id of the connector to revoke consent for. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -522,7 +520,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_set_admin_credential**
-> auth_set_admin_credential(connector_id, credential_in, tenant_id=tenant_id, cookie_name=cookie_name)
+> auth_set_admin_credential(connector_id, credential_in, cookie_name=cookie_name)
 
 Set the tenant-wide connector credential
 
@@ -559,14 +557,13 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | ID of the connector whose credential is being accessed.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector whose credential is being accessed.
     credential_in = neuland_hub_sdk.CredentialIn() # CredentialIn | 
-    tenant_id = 56 # int |  (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Set the tenant-wide connector credential
-        api_instance.auth_set_admin_credential(connector_id, credential_in, tenant_id=tenant_id, cookie_name=cookie_name)
+        api_instance.auth_set_admin_credential(connector_id, credential_in, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling AuthConnector->auth_set_admin_credential: %s\n" % e)
 ```
@@ -578,9 +575,8 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**| ID of the connector whose credential is being accessed. | 
+ **connector_id** | **UUID**| Public id of the connector whose credential is being accessed. | 
  **credential_in** | [**CredentialIn**](CredentialIn.md)|  | 
- **tenant_id** | **int**|  | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -646,7 +642,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | ID of the connector whose credential is being accessed.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector whose credential is being accessed.
     credential_in = neuland_hub_sdk.CredentialIn() # CredentialIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -664,7 +660,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**| ID of the connector whose credential is being accessed. | 
+ **connector_id** | **UUID**| Public id of the connector whose credential is being accessed. | 
  **credential_in** | [**CredentialIn**](CredentialIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -731,7 +727,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    connector_id = 56 # int | ID of the connector to update.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to update.
     connector_update = neuland_hub_sdk.ConnectorUpdate() # ConnectorUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -751,7 +747,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**| ID of the connector to update. | 
+ **connector_id** | **UUID**| Public id of the connector to update. | 
  **connector_update** | [**ConnectorUpdate**](ConnectorUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -819,7 +815,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.AuthConnector(api_client)
-    oauth_client_id = 56 # int | ID of the OAuth client to update.
+    oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the OAuth client to update.
     o_auth_client_update = neuland_hub_sdk.OAuthClientUpdate() # OAuthClientUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -839,7 +835,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **oauth_client_id** | **int**| ID of the OAuth client to update. | 
+ **oauth_client_id** | **UUID**| Public id of the OAuth client to update. | 
  **o_auth_client_update** | [**OAuthClientUpdate**](OAuthClientUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

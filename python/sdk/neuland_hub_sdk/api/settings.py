@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.settings import Settings
 from neuland_hub_sdk.models.settings_in import SettingsIn
 
@@ -313,7 +314,6 @@ class Settings:
         self,
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -335,8 +335,6 @@ class Settings:
         :type settings_in: SettingsIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -362,7 +360,6 @@ class Settings:
         _param = self._settings_update_current_settings_serialize(
             settings_in=settings_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -391,7 +388,6 @@ class Settings:
         self,
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -413,8 +409,6 @@ class Settings:
         :type settings_in: SettingsIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -440,7 +434,6 @@ class Settings:
         _param = self._settings_update_current_settings_serialize(
             settings_in=settings_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -469,7 +462,6 @@ class Settings:
         self,
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -491,8 +483,6 @@ class Settings:
         :type settings_in: SettingsIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -518,7 +508,6 @@ class Settings:
         _param = self._settings_update_current_settings_serialize(
             settings_in=settings_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -542,7 +531,6 @@ class Settings:
         self,
         settings_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -568,10 +556,6 @@ class Settings:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -628,10 +612,9 @@ class Settings:
     @validate_call
     def settings_update_settings(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the settings record to update.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the settings record to update.")],
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -649,14 +632,12 @@ class Settings:
 
         Update a tenant's settings by id (tenant admin; some fields superadmin-only).
 
-        :param settings_id: ID of the settings record to update. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the settings record to update. (required)
+        :type settings_id: UUID
         :param settings_in: (required)
         :type settings_in: SettingsIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -683,7 +664,6 @@ class Settings:
             settings_id=settings_id,
             settings_in=settings_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -711,10 +691,9 @@ class Settings:
     @validate_call
     def settings_update_settings_with_http_info(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the settings record to update.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the settings record to update.")],
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -732,14 +711,12 @@ class Settings:
 
         Update a tenant's settings by id (tenant admin; some fields superadmin-only).
 
-        :param settings_id: ID of the settings record to update. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the settings record to update. (required)
+        :type settings_id: UUID
         :param settings_in: (required)
         :type settings_in: SettingsIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -766,7 +743,6 @@ class Settings:
             settings_id=settings_id,
             settings_in=settings_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -794,10 +770,9 @@ class Settings:
     @validate_call
     def settings_update_settings_without_preload_content(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the settings record to update.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the settings record to update.")],
         settings_in: SettingsIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -815,14 +790,12 @@ class Settings:
 
         Update a tenant's settings by id (tenant admin; some fields superadmin-only).
 
-        :param settings_id: ID of the settings record to update. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the settings record to update. (required)
+        :type settings_id: UUID
         :param settings_in: (required)
         :type settings_in: SettingsIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -849,7 +822,6 @@ class Settings:
             settings_id=settings_id,
             settings_in=settings_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -875,7 +847,6 @@ class Settings:
         settings_id,
         settings_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -903,10 +874,6 @@ class Settings:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters

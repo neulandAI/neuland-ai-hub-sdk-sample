@@ -42,6 +42,7 @@ class TestCatalogIn(unittest.TestCase):
                 embedding_dimension = 56,
                 supports_embedding = True,
                 supports_transcription = True,
+                supports_clarification = True,
                 auto_seed = True
             )
         else:

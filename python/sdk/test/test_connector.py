@@ -40,6 +40,7 @@ class TestConnector(unittest.TestCase):
                 creator_user_id = 56,
                 updater_user_id = 56,
                 id = 56,
+                public_id = '',
                 oauth_client_id = 56,
                 name = '',
                 description = '',

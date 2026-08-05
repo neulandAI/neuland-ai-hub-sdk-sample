@@ -15,14 +15,14 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import StrictStr
 from typing import Any, List, Optional
-from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.application import Application
 from neuland_hub_sdk.models.application_access_in import ApplicationAccessIn
-from neuland_hub_sdk.models.application_group import ApplicationGroup
+from neuland_hub_sdk.models.application_group_out import ApplicationGroupOut
 from neuland_hub_sdk.models.application_in import ApplicationIn
-from neuland_hub_sdk.models.application_member import ApplicationMember
+from neuland_hub_sdk.models.application_member_out import ApplicationMemberOut
 from neuland_hub_sdk.models.group_app_access_in import GroupAppAccessIn
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
@@ -346,7 +346,7 @@ class Application:
     @validate_call
     def applications_delete_app(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the application to delete.")],
+        app_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -365,8 +365,8 @@ class Application:
 
         Delete an application (superadmin only).
 
-        :param app_id: ID of the application to delete. (required)
-        :type app_id: int
+        :param app_id: (required)
+        :type app_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -421,7 +421,7 @@ class Application:
     @validate_call
     def applications_delete_app_with_http_info(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the application to delete.")],
+        app_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -440,8 +440,8 @@ class Application:
 
         Delete an application (superadmin only).
 
-        :param app_id: ID of the application to delete. (required)
-        :type app_id: int
+        :param app_id: (required)
+        :type app_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -496,7 +496,7 @@ class Application:
     @validate_call
     def applications_delete_app_without_preload_content(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the application to delete.")],
+        app_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -515,8 +515,8 @@ class Application:
 
         Delete an application (superadmin only).
 
-        :param app_id: ID of the application to delete. (required)
-        :type app_id: int
+        :param app_id: (required)
+        :type app_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -636,7 +636,7 @@ class Application:
     @validate_call
     def applications_update_app(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the application to update.")],
+        app_id: UUID,
         application_in: ApplicationIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -656,8 +656,8 @@ class Application:
 
         Update an existing application (superadmin only).
 
-        :param app_id: ID of the application to update. (required)
-        :type app_id: int
+        :param app_id: (required)
+        :type app_id: UUID
         :param application_in: (required)
         :type application_in: ApplicationIn
         :param cookie_name:
@@ -715,7 +715,7 @@ class Application:
     @validate_call
     def applications_update_app_with_http_info(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the application to update.")],
+        app_id: UUID,
         application_in: ApplicationIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -735,8 +735,8 @@ class Application:
 
         Update an existing application (superadmin only).
 
-        :param app_id: ID of the application to update. (required)
-        :type app_id: int
+        :param app_id: (required)
+        :type app_id: UUID
         :param application_in: (required)
         :type application_in: ApplicationIn
         :param cookie_name:
@@ -794,7 +794,7 @@ class Application:
     @validate_call
     def applications_update_app_without_preload_content(
         self,
-        app_id: Annotated[StrictInt, Field(description="ID of the application to update.")],
+        app_id: UUID,
         application_in: ApplicationIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -814,8 +814,8 @@ class Application:
 
         Update an existing application (superadmin only).
 
-        :param app_id: ID of the application to update. (required)
-        :type app_id: int
+        :param app_id: (required)
+        :type app_id: UUID
         :param application_in: (required)
         :type application_in: ApplicationIn
         :param cookie_name:
@@ -956,7 +956,6 @@ class Application:
         self,
         group_app_access_in: GroupAppAccessIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -969,7 +968,7 @@ class Application:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[ApplicationGroup]:
+    ) -> List[ApplicationGroupOut]:
         """Set application access for a user group
 
         Grant or update application access for a user group (tenant admin only).
@@ -978,8 +977,6 @@ class Application:
         :type group_app_access_in: GroupAppAccessIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1005,7 +1002,6 @@ class Application:
         _param = self._applications_update_group_membership_serialize(
             group_app_access_in=group_app_access_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1013,7 +1009,7 @@ class Application:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApplicationGroup]",
+            '200': "List[ApplicationGroupOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -1035,7 +1031,6 @@ class Application:
         self,
         group_app_access_in: GroupAppAccessIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1048,7 +1043,7 @@ class Application:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[ApplicationGroup]]:
+    ) -> ApiResponse[List[ApplicationGroupOut]]:
         """Set application access for a user group
 
         Grant or update application access for a user group (tenant admin only).
@@ -1057,8 +1052,6 @@ class Application:
         :type group_app_access_in: GroupAppAccessIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1084,7 +1077,6 @@ class Application:
         _param = self._applications_update_group_membership_serialize(
             group_app_access_in=group_app_access_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1092,7 +1084,7 @@ class Application:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApplicationGroup]",
+            '200': "List[ApplicationGroupOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -1114,7 +1106,6 @@ class Application:
         self,
         group_app_access_in: GroupAppAccessIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1136,8 +1127,6 @@ class Application:
         :type group_app_access_in: GroupAppAccessIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1163,7 +1152,6 @@ class Application:
         _param = self._applications_update_group_membership_serialize(
             group_app_access_in=group_app_access_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1171,7 +1159,7 @@ class Application:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApplicationGroup]",
+            '200': "List[ApplicationGroupOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -1188,7 +1176,6 @@ class Application:
         self,
         group_app_access_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -1214,10 +1201,6 @@ class Application:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters
@@ -1276,7 +1259,6 @@ class Application:
         self,
         application_access_in: ApplicationAccessIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1289,7 +1271,7 @@ class Application:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[ApplicationMember]:
+    ) -> List[ApplicationMemberOut]:
         """Set application access for users
 
         Grant or update application access for a list of users (tenant admin only).
@@ -1298,8 +1280,6 @@ class Application:
         :type application_access_in: ApplicationAccessIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1325,7 +1305,6 @@ class Application:
         _param = self._applications_update_user_membership_serialize(
             application_access_in=application_access_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1333,7 +1312,7 @@ class Application:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApplicationMember]",
+            '200': "List[ApplicationMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -1355,7 +1334,6 @@ class Application:
         self,
         application_access_in: ApplicationAccessIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1368,7 +1346,7 @@ class Application:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[ApplicationMember]]:
+    ) -> ApiResponse[List[ApplicationMemberOut]]:
         """Set application access for users
 
         Grant or update application access for a list of users (tenant admin only).
@@ -1377,8 +1355,6 @@ class Application:
         :type application_access_in: ApplicationAccessIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1404,7 +1380,6 @@ class Application:
         _param = self._applications_update_user_membership_serialize(
             application_access_in=application_access_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1412,7 +1387,7 @@ class Application:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApplicationMember]",
+            '200': "List[ApplicationMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -1434,7 +1409,6 @@ class Application:
         self,
         application_access_in: ApplicationAccessIn,
         cookie_name: Optional[StrictStr] = None,
-        tenant_id: Optional[StrictInt] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1456,8 +1430,6 @@ class Application:
         :type application_access_in: ApplicationAccessIn
         :param cookie_name:
         :type cookie_name: str
-        :param tenant_id:
-        :type tenant_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1483,7 +1455,6 @@ class Application:
         _param = self._applications_update_user_membership_serialize(
             application_access_in=application_access_in,
             cookie_name=cookie_name,
-            tenant_id=tenant_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1491,7 +1462,7 @@ class Application:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[ApplicationMember]",
+            '200': "List[ApplicationMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -1508,7 +1479,6 @@ class Application:
         self,
         application_access_in,
         cookie_name,
-        tenant_id,
         _request_auth,
         _content_type,
         _headers,
@@ -1534,10 +1504,6 @@ class Application:
         if cookie_name is not None:
             
             _query_params.append(('cookie_name', cookie_name))
-            
-        if tenant_id is not None:
-            
-            _query_params.append(('tenant_id', tenant_id))
             
         # process the header parameters
         # process the form parameters

@@ -36,8 +36,9 @@ class ToolCallOut(BaseModel):
     state: Optional[StrictStr]
     is_error: Optional[StrictBool]
     description: Optional[StrictStr]
+    parent_tool_call_id: Optional[StrictInt] = None
     progress_steps: List[ToolCallProgressStepOut] = Field(description="Ordered progress steps emitted during the call.")
-    __properties: ClassVar[List[str]] = ["id", "call_id", "tool_name", "call_group", "call_index", "state", "is_error", "description", "progress_steps"]
+    __properties: ClassVar[List[str]] = ["id", "call_id", "tool_name", "call_group", "call_index", "state", "is_error", "description", "parent_tool_call_id", "progress_steps"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -100,6 +101,11 @@ class ToolCallOut(BaseModel):
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
+        # set to None if parent_tool_call_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.parent_tool_call_id is None and "parent_tool_call_id" in self.model_fields_set:
+            _dict['parent_tool_call_id'] = None
+
         return _dict
 
     @classmethod
@@ -120,6 +126,7 @@ class ToolCallOut(BaseModel):
             "state": obj.get("state"),
             "is_error": obj.get("is_error"),
             "description": obj.get("description"),
+            "parent_tool_call_id": obj.get("parent_tool_call_id"),
             "progress_steps": [ToolCallProgressStepOut.from_dict(_item) for _item in obj["progress_steps"]] if obj.get("progress_steps") is not None else None
         })
         return _obj

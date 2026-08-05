@@ -6,16 +6,18 @@ title: "SettingsIn"
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**default_llm_catalog_id** | **number** |  | [optional] [default to undefined]
+**default_llm_catalog_id** | **string** |  | [optional] [default to undefined]
 **guardrails_enabled** | **boolean** |  | [optional] [default to undefined]
 **sharepoint_enabled** | **boolean** |  | [optional] [default to undefined]
 **inbound_guardrail** | **string** |  | [optional] [default to undefined]
 **outbound_guardrail** | **string** |  | [optional] [default to undefined]
-**welcome_email_template_id** | **number** |  | [optional] [default to undefined]
-**project_member_added_email_template_id** | **number** |  | [optional] [default to undefined]
+**welcome_email_template_id** | **string** |  | [optional] [default to undefined]
+**project_member_added_email_template_id** | **string** |  | [optional] [default to undefined]
 **system_prompt** | **string** |  | [optional] [default to undefined]
 **errlog_webhook_url** | **string** |  | [optional] [default to undefined]
 **require_email_confirmation** | **boolean** |  | [optional] [default to undefined]
+**budget_alert_enabled** | **boolean** |  | [optional] [default to undefined]
+**soft_limit_warning_enabled** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -33,5 +35,7 @@ const instance: SettingsIn = {
     system_prompt,
     errlog_webhook_url,
     require_email_confirmation,
+    budget_alert_enabled,
+    soft_limit_warning_enabled,
 };
 ```

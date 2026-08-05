@@ -1,0 +1,27 @@
+---
+title: "FeatureFlagSetIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**enabled** | **bool** | Whether the feature is enabled for the tenant. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.feature_flag_set_in import FeatureFlagSetIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of FeatureFlagSetIn from a JSON string
+feature_flag_set_in_instance = FeatureFlagSetIn.from_json(json)
+# print the JSON string representation of the object
+print(FeatureFlagSetIn.to_json())
+
+# convert the object into a dict
+feature_flag_set_in_dict = feature_flag_set_in_instance.to_dict()
+# create an instance of FeatureFlagSetIn from a dict
+feature_flag_set_in_from_dict = FeatureFlagSetIn.from_dict(feature_flag_set_in_dict)
+```

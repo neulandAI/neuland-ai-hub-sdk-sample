@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,11 +29,12 @@ class ConnectorOut(BaseModel):
     ConnectorOut
     """ # noqa: E501
     id: StrictInt = Field(description="Unique identifier of the connector.")
+    public_id: UUID = Field(description="Public, non-enumerable external identifier of the connector.")
     name: StrictStr = Field(description="Human-readable connector name.")
     provider: StrictStr = Field(description="OAuth provider key backing the connector.")
     caps: List[StrictStr] = Field(description="Capabilities the connector requests.")
     scopes: List[StrictStr] = Field(description="OAuth scopes requested from the provider.")
-    __properties: ClassVar[List[str]] = ["id", "name", "provider", "caps", "scopes"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "name", "provider", "caps", "scopes"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -86,6 +88,7 @@ class ConnectorOut(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "name": obj.get("name"),
             "provider": obj.get("provider"),
             "caps": obj.get("caps"),

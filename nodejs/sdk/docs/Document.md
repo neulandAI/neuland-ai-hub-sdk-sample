@@ -6,6 +6,7 @@ All URIs are relative to *https://api.your-domain.com*
 |------------- | ------------- | -------------|
 |[**documentsDeleteChatDocument**](#documentsdeletechatdocument) | **DELETE** /documents/{document_id} | Delete a document|
 |[**documentsGetFile**](#documentsgetfile) | **GET** /documents/{document_id} | Download a document|
+|[**documentsGetText**](#documentsgettext) | **GET** /documents/{document_id}/text | Get a document\&#39;s extracted text|
 |[**documentsImportDocuments**](#documentsimportdocuments) | **POST** /documents/import | Import documents from a connected source|
 |[**documentsRetryDocument**](#documentsretrydocument) | **POST** /documents/{document_id}/retry | Retry document processing|
 |[**documentsUnimportDocuments**](#documentsunimportdocuments) | **DELETE** /documents/import | Remove imported documents|
@@ -27,7 +28,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
 
-let documentId: number; // (default to undefined)
+let documentId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.documentsDeleteChatDocument(
@@ -40,7 +41,7 @@ const { status, data } = await apiInstance.documentsDeleteChatDocument(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **documentId** | [**number**] |  | defaults to undefined|
+| **documentId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -85,7 +86,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
 
-let documentId: number; // (default to undefined)
+let documentId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.documentsGetFile(
@@ -98,7 +99,7 @@ const { status, data } = await apiInstance.documentsGetFile(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **documentId** | [**number**] |  | defaults to undefined|
+| **documentId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -127,6 +128,64 @@ const { status, data } = await apiInstance.documentsGetFile(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **documentsGetText**
+> DocumentTextOut documentsGetText()
+
+Return the text extracted from a document by the processing pipeline.  Type-agnostic: a PDF yields its extracted text, an audio/video upload yields its transcript — both are stored in the same place by the same pipeline.
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let documentId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsGetText(
+    documentId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **documentId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**DocumentTextOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller may not access this document. |  -  |
+|**404** | No such document, or its text is not extracted yet. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **documentsImportDocuments**
 > string documentsImportDocuments()
 
@@ -147,11 +206,11 @@ let src: string; //Source type which the documents will be imported from (defaul
 let driveId: string; //Drive ID (default to undefined)
 let driveItemIds: Array<string>; //Item IDs of the documents to be imported (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let projectId: number; // (optional) (default to undefined)
-let chatId: number; // (optional) (default to undefined)
-let assistantId: number; // (optional) (default to undefined)
-let messageId: number; // (optional) (default to undefined)
-let libraryId: number; // (optional) (default to undefined)
+let projectId: string; // (optional) (default to undefined)
+let chatId: string; // (optional) (default to undefined)
+let assistantId: string; // (optional) (default to undefined)
+let messageId: string; // (optional) (default to undefined)
+let libraryId: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.documentsImportDocuments(
     src,
@@ -174,11 +233,11 @@ const { status, data } = await apiInstance.documentsImportDocuments(
 | **driveId** | [**string**] | Drive ID | defaults to undefined|
 | **driveItemIds** | **Array&lt;string&gt;** | Item IDs of the documents to be imported | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **projectId** | [**number**] |  | (optional) defaults to undefined|
-| **chatId** | [**number**] |  | (optional) defaults to undefined|
-| **assistantId** | [**number**] |  | (optional) defaults to undefined|
-| **messageId** | [**number**] |  | (optional) defaults to undefined|
-| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+| **projectId** | [**string**] |  | (optional) defaults to undefined|
+| **chatId** | [**string**] |  | (optional) defaults to undefined|
+| **assistantId** | [**string**] |  | (optional) defaults to undefined|
+| **messageId** | [**string**] |  | (optional) defaults to undefined|
+| **libraryId** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -223,7 +282,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
 
-let documentId: number; // (default to undefined)
+let documentId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.documentsRetryDocument(
@@ -236,7 +295,7 @@ const { status, data } = await apiInstance.documentsRetryDocument(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **documentId** | [**number**] |  | defaults to undefined|
+| **documentId** | [**string**] |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -285,9 +344,9 @@ let src: string; //Source type which the documents will be imported from (defaul
 let driveId: string; //Sharepoint drive ID (default to undefined)
 let driveItemIds: Array<string>; //Sharepoint item IDs of the documents to be unimported (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let projectId: number; // (optional) (default to undefined)
-let chatId: number; // (optional) (default to undefined)
-let assistantId: number; // (optional) (default to undefined)
+let projectId: string; // (optional) (default to undefined)
+let chatId: string; // (optional) (default to undefined)
+let assistantId: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.documentsUnimportDocuments(
     src,
@@ -308,9 +367,9 @@ const { status, data } = await apiInstance.documentsUnimportDocuments(
 | **driveId** | [**string**] | Sharepoint drive ID | defaults to undefined|
 | **driveItemIds** | **Array&lt;string&gt;** | Sharepoint item IDs of the documents to be unimported | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **projectId** | [**number**] |  | (optional) defaults to undefined|
-| **chatId** | [**number**] |  | (optional) defaults to undefined|
-| **assistantId** | [**number**] |  | (optional) defaults to undefined|
+| **projectId** | [**string**] |  | (optional) defaults to undefined|
+| **chatId** | [**string**] |  | (optional) defaults to undefined|
+| **assistantId** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -357,11 +416,11 @@ const apiInstance = new Document(configuration);
 
 let files: Array<File>; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let projectId: number; // (optional) (default to undefined)
-let chatId: number; // (optional) (default to undefined)
-let assistantId: number; // (optional) (default to undefined)
-let messageId: number; // (optional) (default to undefined)
-let libraryId: number; // (optional) (default to undefined)
+let projectId: string; // (optional) (default to undefined)
+let chatId: string; // (optional) (default to undefined)
+let assistantId: string; // (optional) (default to undefined)
+let messageId: string; // (optional) (default to undefined)
+let libraryId: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.documentsUploadDocuments(
     files,
@@ -380,11 +439,11 @@ const { status, data } = await apiInstance.documentsUploadDocuments(
 |------------- | ------------- | ------------- | -------------|
 | **files** | **Array&lt;File&gt;** |  | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **projectId** | [**number**] |  | (optional) defaults to undefined|
-| **chatId** | [**number**] |  | (optional) defaults to undefined|
-| **assistantId** | [**number**] |  | (optional) defaults to undefined|
-| **messageId** | [**number**] |  | (optional) defaults to undefined|
-| **libraryId** | [**number**] |  | (optional) defaults to undefined|
+| **projectId** | [**string**] |  | (optional) defaults to undefined|
+| **chatId** | [**string**] |  | (optional) defaults to undefined|
+| **assistantId** | [**string**] |  | (optional) defaults to undefined|
+| **messageId** | [**string**] |  | (optional) defaults to undefined|
+| **libraryId** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type

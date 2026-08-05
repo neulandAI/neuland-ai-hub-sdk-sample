@@ -133,10 +133,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Nextcloud(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
     drive_item_id = 'drive_item_id_example' # str | Id of the item.
-    chat_id = 56 # int | Scope imported counts to this chat. (optional)
-    library_id = 56 # int | Scope imported counts to this library. (optional)
-    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
-    project_id = 56 # int | Scope imported counts to this project. (optional)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this library. (optional)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this assistant. (optional)
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this project. (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -157,10 +157,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **drive_id** | **str**| Id of the drive. | 
  **drive_item_id** | **str**| Id of the item. | 
- **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
- **library_id** | **int**| Scope imported counts to this library. | [optional] 
- **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
- **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **chat_id** | **UUID**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **UUID**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **UUID**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **UUID**| Scope imported counts to this project. | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -390,10 +390,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Nextcloud(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
     drive_item_id = 'drive_item_id_example' # str | Id of the folder item, or 'root'.
-    chat_id = 56 # int | Scope imported counts to this chat. (optional)
-    library_id = 56 # int | Scope imported counts to this library. (optional)
-    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
-    project_id = 56 # int | Scope imported counts to this project. (optional)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this library. (optional)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this assistant. (optional)
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this project. (optional)
     recursive = False # bool | Recurse into subfolders and return all descendant files. (optional) (default to False)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -415,10 +415,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **drive_id** | **str**| Id of the drive. | 
  **drive_item_id** | **str**| Id of the folder item, or &#39;root&#39;. | 
- **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
- **library_id** | **int**| Scope imported counts to this library. | [optional] 
- **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
- **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **chat_id** | **UUID**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **UUID**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **UUID**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **UUID**| Scope imported counts to this project. | [optional] 
  **recursive** | **bool**| Recurse into subfolders and return all descendant files. | [optional] [default to False]
  **cookie_name** | **str**|  | [optional] 
 
@@ -486,10 +486,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Nextcloud(api_client)
     site_id = 'site_id_example' # str | Id of the site to list drives for.
-    chat_id = 56 # int | Scope imported counts to this chat. (optional)
-    library_id = 56 # int | Scope imported counts to this library. (optional)
-    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
-    project_id = 56 # int | Scope imported counts to this project. (optional)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this library. (optional)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this assistant. (optional)
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this project. (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -509,10 +509,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **site_id** | **str**| Id of the site to list drives for. | 
- **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
- **library_id** | **int**| Scope imported counts to this library. | [optional] 
- **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
- **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **chat_id** | **UUID**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **UUID**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **UUID**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **UUID**| Scope imported counts to this project. | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -578,10 +578,10 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Nextcloud(api_client)
-    chat_id = 56 # int | Scope imported counts to this chat. (optional)
-    library_id = 56 # int | Scope imported counts to this library. (optional)
-    assistant_id = 56 # int | Scope imported counts to this assistant. (optional)
-    project_id = 56 # int | Scope imported counts to this project. (optional)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this library. (optional)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this assistant. (optional)
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this project. (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -600,10 +600,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chat_id** | **int**| Scope imported counts to this chat. | [optional] 
- **library_id** | **int**| Scope imported counts to this library. | [optional] 
- **assistant_id** | **int**| Scope imported counts to this assistant. | [optional] 
- **project_id** | **int**| Scope imported counts to this project. | [optional] 
+ **chat_id** | **UUID**| Scope imported counts to this chat. | [optional] 
+ **library_id** | **UUID**| Scope imported counts to this library. | [optional] 
+ **assistant_id** | **UUID**| Scope imported counts to this assistant. | [optional] 
+ **project_id** | **UUID**| Scope imported counts to this project. | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type

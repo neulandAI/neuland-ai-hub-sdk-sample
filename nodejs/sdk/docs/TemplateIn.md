@@ -1,14 +1,17 @@
 # TemplateIn
 
-Payload for creating or updating an email template.
+Payload for creating an email template.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] [default to undefined]
-**text_body** | **string** | Plain-text body of the email. | [default to undefined]
-**html_body** | **string** |  | [optional] [default to undefined]
+**subject** | **string** |  | [optional] [default to undefined]
+**html_body** | **string** | HTML body of the email. | [default to undefined]
+**key** | [**EmailTemplateKey**](EmailTemplateKey.md) |  | [optional] [default to undefined]
+**language** | **string** | Language code the template applies to. | [optional] [default to 'en']
+**is_draft** | **boolean** | Whether the template is a draft rather than the published default. | [optional] [default to false]
 
 ## Example
 
@@ -17,8 +20,11 @@ import { TemplateIn } from 'neuland-hub-sdk';
 
 const instance: TemplateIn = {
     name,
-    text_body,
+    subject,
     html_body,
+    key,
+    language,
+    is_draft,
 };
 ```
 

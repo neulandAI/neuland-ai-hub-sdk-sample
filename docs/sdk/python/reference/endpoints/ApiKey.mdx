@@ -97,12 +97,17 @@ Name | Type | Description  | Notes
 
 ## **api_revoke_api_key**
 ```python
-ApiKey api_revoke_api_key(api_key_id, cookie_name=cookie_name)
+api_revoke_api_key(api_key_id, cookie_name=cookie_name)
 ```
 
 Revoke an API key
 
 Deactivate an API key so it can no longer authenticate requests.
+
+API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key
+created by a user in that key's tenant (an Operator, any key). This is the
+path an admin uses to clean up keys left by members who can no longer hold
+them.
 
 ### Example
 
@@ -110,7 +115,6 @@ Deactivate an API key so it can no longer authenticate requests.
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.api_key import ApiKey
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -135,14 +139,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.ApiKey(api_client)
-    api_key_id = 56 # int | ID of the API key to revoke.
+    api_key_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the API key to revoke.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Revoke an API key
-        api_response = api_instance.api_revoke_api_key(api_key_id, cookie_name=cookie_name)
-        print("The response of ApiKey->api_revoke_api_key:\n")
-        pprint(api_response)
+        api_instance.api_revoke_api_key(api_key_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling ApiKey->api_revoke_api_key: %s\n" % e)
 ```
@@ -154,12 +156,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **api_key_id** | **int**| ID of the API key to revoke. | 
+ **api_key_id** | **UUID**| Public id of the API key to revoke. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-[**ApiKey**](/sdk/python/reference/endpoints/ApiKey)
+void (empty response body)
 
 ### Authorization
 
@@ -174,7 +176,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful Response |  -  |
+**204** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
 **404** | No API key exists with the given id. |  -  |
 **422** | Validation Error |  -  |

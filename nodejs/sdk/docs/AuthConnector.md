@@ -31,7 +31,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let connectorId: number; //ID of the connector whose credential is being accessed. (default to undefined)
+let connectorId: string; //Public id of the connector whose credential is being accessed. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.authGetCredentialTemplate(
@@ -44,7 +44,7 @@ const { status, data } = await apiInstance.authGetCredentialTemplate(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **connectorId** | [**number**] | ID of the connector whose credential is being accessed. | defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector whose credential is being accessed. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -88,13 +88,11 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let connectorId: number; //ID of the connector to consent to. (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
+let connectorId: string; //Public id of the connector to consent to. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.authInitiateAdminConsent(
     connectorId,
-    tenantId,
     cookieName
 );
 ```
@@ -103,8 +101,7 @@ const { status, data } = await apiInstance.authInitiateAdminConsent(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **connectorId** | [**number**] | ID of the connector to consent to. | defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector to consent to. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -150,7 +147,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let connectorId: number; //ID of the connector to consent to. (default to undefined)
+let connectorId: string; //Public id of the connector to consent to. (default to undefined)
 let returnUrl: string; //URL to return the user to after consent. (optional) (default to undefined)
 let redirect: boolean; //If true, return 302 redirect instead of JSON (optional) (default to false)
 let cookieName: string; // (optional) (default to undefined)
@@ -167,7 +164,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **connectorId** | [**number**] | ID of the connector to consent to. | defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector to consent to. | defaults to undefined|
 | **returnUrl** | [**string**] | URL to return the user to after consent. | (optional) defaults to undefined|
 | **redirect** | [**boolean**] | If true, return 302 redirect instead of JSON | (optional) defaults to false|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
@@ -268,7 +265,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let state: string; //Opaque state token issued when consent was initiated. (default to undefined)
+let state: string; //Opaque state token issued when consent was initiated. (optional) (default to undefined)
 let code: string; // (optional) (default to undefined)
 let error: string; // (optional) (default to undefined)
 let errorDescription: string; // (optional) (default to undefined)
@@ -287,7 +284,7 @@ const { status, data } = await apiInstance.authOauthCallback(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **state** | [**string**] | Opaque state token issued when consent was initiated. | defaults to undefined|
+| **state** | [**string**] | Opaque state token issued when consent was initiated. | (optional) defaults to undefined|
 | **code** | [**string**] |  | (optional) defaults to undefined|
 | **error** | [**string**] |  | (optional) defaults to undefined|
 | **errorDescription** | [**string**] |  | (optional) defaults to undefined|
@@ -335,7 +332,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let connectorId: number; //ID of the connector to revoke consent for. (default to undefined)
+let connectorId: string; //Public id of the connector to revoke consent for. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.authRevokeConsent(
@@ -348,7 +345,7 @@ const { status, data } = await apiInstance.authRevokeConsent(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **connectorId** | [**number**] | ID of the connector to revoke consent for. | defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector to revoke consent for. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -392,15 +389,13 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let connectorId: number; //ID of the connector whose credential is being accessed. (default to undefined)
+let connectorId: string; //Public id of the connector whose credential is being accessed. (default to undefined)
 let credentialIn: CredentialIn; //
-let tenantId: number; // (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.authSetAdminCredential(
     connectorId,
     credentialIn,
-    tenantId,
     cookieName
 );
 ```
@@ -410,8 +405,7 @@ const { status, data } = await apiInstance.authSetAdminCredential(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **credentialIn** | **CredentialIn**|  | |
-| **connectorId** | [**number**] | ID of the connector whose credential is being accessed. | defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector whose credential is being accessed. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -457,7 +451,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let connectorId: number; //ID of the connector whose credential is being accessed. (default to undefined)
+let connectorId: string; //Public id of the connector whose credential is being accessed. (default to undefined)
 let credentialIn: CredentialIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -473,7 +467,7 @@ const { status, data } = await apiInstance.authSetUserCredential(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **credentialIn** | **CredentialIn**|  | |
-| **connectorId** | [**number**] | ID of the connector whose credential is being accessed. | defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector whose credential is being accessed. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -518,7 +512,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let connectorId: number; //ID of the connector to update. (default to undefined)
+let connectorId: string; //Public id of the connector to update. (default to undefined)
 let connectorUpdate: ConnectorUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -534,7 +528,7 @@ const { status, data } = await apiInstance.authUpdateConnector(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **connectorUpdate** | **ConnectorUpdate**|  | |
-| **connectorId** | [**number**] | ID of the connector to update. | defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -580,7 +574,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
 
-let oauthClientId: number; //ID of the OAuth client to update. (default to undefined)
+let oauthClientId: string; //Public id of the OAuth client to update. (default to undefined)
 let oAuthClientUpdate: OAuthClientUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -596,7 +590,7 @@ const { status, data } = await apiInstance.authUpdateOauthClient(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **oAuthClientUpdate** | **OAuthClientUpdate**|  | |
-| **oauthClientId** | [**number**] | ID of the OAuth client to update. | defaults to undefined|
+| **oauthClientId** | [**string**] | Public id of the OAuth client to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

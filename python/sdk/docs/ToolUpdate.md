@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **prompt** | **str** |  | [optional] 
+**category_public_id** | **UUID** |  | [optional] 
 
 ## Example
 

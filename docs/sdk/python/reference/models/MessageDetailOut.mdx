@@ -9,11 +9,13 @@ Composed message state — the recovery contract for dropped SSE streams.  See b
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | ID of the message. | 
-**chat_id** | **int** | ID of the chat the message belongs to. | 
-**parent_id** | **int** |  | 
+**public_id** | **UUID** | Public, non-enumerable external id of the message. | 
+**chat_id** | **UUID** | Public id of the chat the message belongs to. | 
+**parent_id** | **UUID** |  | 
 **role** | **str** | Role of the message author. | 
 **content** | **str** | Text content of the message. | 
 **state** | **str** |  | 
+**state_reason** | **str** |  | [optional] 
 **error** | **str** |  | 
 **hint** | **str** |  | 
 **created_at** | **datetime** | When the message was created. | 
@@ -21,6 +23,10 @@ Name | Type | Description | Notes
 **usage** | **Dict[str, object]** |  | 
 **tool_calls** | [**List[ToolCallOut]**](/sdk/python/reference/models/ToolCallOut) | Tool calls made while generating the message. | 
 **files** | [**List[MessageFileOut]**](/sdk/python/reference/models/MessageFileOut) | Files attached to the message. | 
+**interrupt** | **Dict[str, object]** |  | [optional] 
+**reasoning** | **List[Dict[str, object]]** |  | [optional] 
+**turn_step_index** | **int** |  | [optional] 
+**is_final_step** | **bool** |  | [optional] 
 
 ## Example
 

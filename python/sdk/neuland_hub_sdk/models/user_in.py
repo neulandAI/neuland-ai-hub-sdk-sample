@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,8 +34,9 @@ class UserIn(BaseModel):
     password: StrictStr = Field(description="Initial password; the user is prompted to change it on first login.")
     admin: Optional[StrictBool] = None
     superadmin: Optional[StrictBool] = None
-    tenant_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["first_name", "last_name", "email", "password", "admin", "superadmin", "tenant_id"]
+    tenant_id: Optional[UUID] = None
+    role_id: Optional[UUID] = None
+    __properties: ClassVar[List[str]] = ["first_name", "last_name", "email", "password", "admin", "superadmin", "tenant_id", "role_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -90,6 +92,11 @@ class UserIn(BaseModel):
         if self.tenant_id is None and "tenant_id" in self.model_fields_set:
             _dict['tenant_id'] = None
 
+        # set to None if role_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.role_id is None and "role_id" in self.model_fields_set:
+            _dict['role_id'] = None
+
         return _dict
 
     @classmethod
@@ -108,7 +115,8 @@ class UserIn(BaseModel):
             "password": obj.get("password"),
             "admin": obj.get("admin"),
             "superadmin": obj.get("superadmin"),
-            "tenant_id": obj.get("tenant_id")
+            "tenant_id": obj.get("tenant_id"),
+            "role_id": obj.get("role_id")
         })
         return _obj
 

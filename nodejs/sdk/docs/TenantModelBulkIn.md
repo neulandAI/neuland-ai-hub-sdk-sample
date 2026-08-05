@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **all** | **boolean** |  | [optional] [default to undefined]
-**tenant_ids** | **Array&lt;number&gt;** |  | [optional] [default to undefined]
+**tenant_ids** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 

@@ -5,7 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**connector_id** | **number** | Unique identifier of the connector. | [default to undefined]
+**connector_id** | **number** | Internal id of the connector (deprecated; use connector_public_id). | [default to undefined]
+**connector_public_id** | **string** | Public id of the connector. Use it for the consent, credential, and config endpoints (which are keyed by public id). | [default to undefined]
 **name** | **string** | Human-readable connector name. | [default to undefined]
 **auth_type** | [**ConnectorAuthType**](ConnectorAuthType.md) | Authentication mechanism the connector uses. | [default to undefined]
 **connected** | **boolean** | Whether the connector is fully usable for the caller (consent granted and all required config present). | [default to undefined]
@@ -22,6 +23,7 @@ import { ConnectorStatusOut } from 'neuland-hub-sdk';
 
 const instance: ConnectorStatusOut = {
     connector_id,
+    connector_public_id,
     name,
     auth_type,
     connected,

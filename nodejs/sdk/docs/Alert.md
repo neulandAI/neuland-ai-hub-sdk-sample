@@ -27,12 +27,10 @@ const apiInstance = new Alert(configuration);
 
 let budgetAlertRequest: BudgetAlertRequest; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.alertsCreateAlert(
     budgetAlertRequest,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -42,7 +40,6 @@ const { status, data } = await apiInstance.alertsCreateAlert(
 |------------- | ------------- | ------------- | -------------|
 | **budgetAlertRequest** | **BudgetAlertRequest**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -85,14 +82,12 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
 
-let alertId: number; //ID of the budget alert to delete. (default to undefined)
+let alertId: string; //Public id of the budget alert to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.alertsDeleteAlert(
     alertId,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -100,9 +95,8 @@ const { status, data } = await apiInstance.alertsDeleteAlert(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **alertId** | [**number**] | ID of the budget alert to delete. | defaults to undefined|
+| **alertId** | [**string**] | Public id of the budget alert to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -147,16 +141,14 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
 
-let alertId: number; //ID of the budget alert to update. (default to undefined)
+let alertId: string; //Public id of the budget alert to update. (default to undefined)
 let budgetAlertUpdate: BudgetAlertUpdate; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.alertsUpdateAlert(
     alertId,
     budgetAlertUpdate,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -165,9 +157,8 @@ const { status, data } = await apiInstance.alertsUpdateAlert(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **budgetAlertUpdate** | **BudgetAlertUpdate**|  | |
-| **alertId** | [**number**] | ID of the budget alert to update. | defaults to undefined|
+| **alertId** | [**string**] | Public id of the budget alert to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type

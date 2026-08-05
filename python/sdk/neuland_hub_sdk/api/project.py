@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictInt, StrictStr
+from pydantic import Field, StrictBool, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.project import Project
 from neuland_hub_sdk.models.project_in import ProjectIn
 from neuland_hub_sdk.models.project_library import ProjectLibrary
@@ -46,8 +47,8 @@ class Project:
     @validate_call
     def projects_add_library_to_project(
         self,
-        project_id: StrictInt,
-        library_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -66,10 +67,10 @@ class Project:
 
         Enable a library for a project by creating an association.
 
-        :param project_id: (required)
-        :type project_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param project_id: Public id of the project. (required)
+        :type project_id: UUID
+        :param library_id: Public id of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -125,8 +126,8 @@ class Project:
     @validate_call
     def projects_add_library_to_project_with_http_info(
         self,
-        project_id: StrictInt,
-        library_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -145,10 +146,10 @@ class Project:
 
         Enable a library for a project by creating an association.
 
-        :param project_id: (required)
-        :type project_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param project_id: Public id of the project. (required)
+        :type project_id: UUID
+        :param library_id: Public id of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -204,8 +205,8 @@ class Project:
     @validate_call
     def projects_add_library_to_project_without_preload_content(
         self,
-        project_id: StrictInt,
-        library_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -224,10 +225,10 @@ class Project:
 
         Enable a library for a project by creating an association.
 
-        :param project_id: (required)
-        :type project_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param project_id: Public id of the project. (required)
+        :type project_id: UUID
+        :param library_id: Public id of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -351,7 +352,7 @@ class Project:
     @validate_call
     def projects_add_members(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to add members to.")],
         project_member_bulk_in: ProjectMemberBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -371,8 +372,8 @@ class Project:
 
         Add one or more members to a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to add members to. (required)
+        :type project_id: UUID
         :param project_member_bulk_in: (required)
         :type project_member_bulk_in: ProjectMemberBulkIn
         :param cookie_name:
@@ -430,7 +431,7 @@ class Project:
     @validate_call
     def projects_add_members_with_http_info(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to add members to.")],
         project_member_bulk_in: ProjectMemberBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -450,8 +451,8 @@ class Project:
 
         Add one or more members to a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to add members to. (required)
+        :type project_id: UUID
         :param project_member_bulk_in: (required)
         :type project_member_bulk_in: ProjectMemberBulkIn
         :param cookie_name:
@@ -509,7 +510,7 @@ class Project:
     @validate_call
     def projects_add_members_without_preload_content(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to add members to.")],
         project_member_bulk_in: ProjectMemberBulkIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -529,8 +530,8 @@ class Project:
 
         Add one or more members to a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to add members to. (required)
+        :type project_id: UUID
         :param project_member_bulk_in: (required)
         :type project_member_bulk_in: ProjectMemberBulkIn
         :param cookie_name:
@@ -966,8 +967,8 @@ class Project:
     @validate_call
     def projects_delete_member(
         self,
-        project_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to remove.")],
+        project_id: Annotated[UUID, Field(description="Public id of the project to remove the member from.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -986,10 +987,10 @@ class Project:
 
         Remove a single member from a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
-        :param user_id: ID of the user to remove. (required)
-        :type user_id: int
+        :param project_id: Public id of the project to remove the member from. (required)
+        :type project_id: UUID
+        :param user_id: Public id of the user to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1045,8 +1046,8 @@ class Project:
     @validate_call
     def projects_delete_member_with_http_info(
         self,
-        project_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to remove.")],
+        project_id: Annotated[UUID, Field(description="Public id of the project to remove the member from.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1065,10 +1066,10 @@ class Project:
 
         Remove a single member from a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
-        :param user_id: ID of the user to remove. (required)
-        :type user_id: int
+        :param project_id: Public id of the project to remove the member from. (required)
+        :type project_id: UUID
+        :param user_id: Public id of the user to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1124,8 +1125,8 @@ class Project:
     @validate_call
     def projects_delete_member_without_preload_content(
         self,
-        project_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the user to remove.")],
+        project_id: Annotated[UUID, Field(description="Public id of the project to remove the member from.")],
+        user_id: Annotated[UUID, Field(description="Public id of the user to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1144,10 +1145,10 @@ class Project:
 
         Remove a single member from a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
-        :param user_id: ID of the user to remove. (required)
-        :type user_id: int
+        :param project_id: Public id of the project to remove the member from. (required)
+        :type project_id: UUID
+        :param user_id: Public id of the user to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1271,7 +1272,7 @@ class Project:
     @validate_call
     def projects_delete_members(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to remove members from.")],
         project_member_bulk_delete: ProjectMemberBulkDelete,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1291,8 +1292,8 @@ class Project:
 
         Remove multiple members from a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to remove members from. (required)
+        :type project_id: UUID
         :param project_member_bulk_delete: (required)
         :type project_member_bulk_delete: ProjectMemberBulkDelete
         :param cookie_name:
@@ -1350,7 +1351,7 @@ class Project:
     @validate_call
     def projects_delete_members_with_http_info(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to remove members from.")],
         project_member_bulk_delete: ProjectMemberBulkDelete,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1370,8 +1371,8 @@ class Project:
 
         Remove multiple members from a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to remove members from. (required)
+        :type project_id: UUID
         :param project_member_bulk_delete: (required)
         :type project_member_bulk_delete: ProjectMemberBulkDelete
         :param cookie_name:
@@ -1429,7 +1430,7 @@ class Project:
     @validate_call
     def projects_delete_members_without_preload_content(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to remove members from.")],
         project_member_bulk_delete: ProjectMemberBulkDelete,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1449,8 +1450,8 @@ class Project:
 
         Remove multiple members from a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to remove members from. (required)
+        :type project_id: UUID
         :param project_member_bulk_delete: (required)
         :type project_member_bulk_delete: ProjectMemberBulkDelete
         :param cookie_name:
@@ -1589,7 +1590,7 @@ class Project:
     @validate_call
     def projects_delete_project(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1608,8 +1609,8 @@ class Project:
 
         Permanently delete a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to delete. (required)
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1664,7 +1665,7 @@ class Project:
     @validate_call
     def projects_delete_project_with_http_info(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1683,8 +1684,8 @@ class Project:
 
         Permanently delete a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to delete. (required)
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1739,7 +1740,7 @@ class Project:
     @validate_call
     def projects_delete_project_without_preload_content(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1758,8 +1759,8 @@ class Project:
 
         Permanently delete a project (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to delete. (required)
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2165,7 +2166,7 @@ class Project:
     @validate_call
     def projects_leave_project(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2184,8 +2185,8 @@ class Project:
 
         Remove the current user from a project they belong to.
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to leave. (required)
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2240,7 +2241,7 @@ class Project:
     @validate_call
     def projects_leave_project_with_http_info(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2259,8 +2260,8 @@ class Project:
 
         Remove the current user from a project they belong to.
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to leave. (required)
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2315,7 +2316,7 @@ class Project:
     @validate_call
     def projects_leave_project_without_preload_content(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2334,8 +2335,8 @@ class Project:
 
         Remove the current user from a project they belong to.
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to leave. (required)
+        :type project_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2455,8 +2456,8 @@ class Project:
     @validate_call
     def projects_remove_library_from_project(
         self,
-        project_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        project_id: Annotated[UUID, Field(description="Public id of the project.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2475,10 +2476,10 @@ class Project:
 
         Disable a library for a project by deleting the association.
 
-        :param project_id: (required)
-        :type project_id: int
-        :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :param project_id: Public id of the project. (required)
+        :type project_id: UUID
+        :param library_id: Public id of the library to disable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2534,8 +2535,8 @@ class Project:
     @validate_call
     def projects_remove_library_from_project_with_http_info(
         self,
-        project_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        project_id: Annotated[UUID, Field(description="Public id of the project.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2554,10 +2555,10 @@ class Project:
 
         Disable a library for a project by deleting the association.
 
-        :param project_id: (required)
-        :type project_id: int
-        :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :param project_id: Public id of the project. (required)
+        :type project_id: UUID
+        :param library_id: Public id of the library to disable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2613,8 +2614,8 @@ class Project:
     @validate_call
     def projects_remove_library_from_project_without_preload_content(
         self,
-        project_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        project_id: Annotated[UUID, Field(description="Public id of the project.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2633,10 +2634,10 @@ class Project:
 
         Disable a library for a project by deleting the association.
 
-        :param project_id: (required)
-        :type project_id: int
-        :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :param project_id: Public id of the project. (required)
+        :type project_id: UUID
+        :param library_id: Public id of the library to disable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2760,7 +2761,7 @@ class Project:
     @validate_call
     def projects_update_project(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to update.")],
         project_in: ProjectIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2780,8 +2781,8 @@ class Project:
 
         Update an existing project's fields (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to update. (required)
+        :type project_id: UUID
         :param project_in: (required)
         :type project_in: ProjectIn
         :param cookie_name:
@@ -2839,7 +2840,7 @@ class Project:
     @validate_call
     def projects_update_project_with_http_info(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to update.")],
         project_in: ProjectIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2859,8 +2860,8 @@ class Project:
 
         Update an existing project's fields (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to update. (required)
+        :type project_id: UUID
         :param project_in: (required)
         :type project_in: ProjectIn
         :param cookie_name:
@@ -2918,7 +2919,7 @@ class Project:
     @validate_call
     def projects_update_project_without_preload_content(
         self,
-        project_id: StrictInt,
+        project_id: Annotated[UUID, Field(description="Public id of the project to update.")],
         project_in: ProjectIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2938,8 +2939,8 @@ class Project:
 
         Update an existing project's fields (project owner only).
 
-        :param project_id: (required)
-        :type project_id: int
+        :param project_id: Public id of the project to update. (required)
+        :type project_id: UUID
         :param project_in: (required)
         :type project_in: ProjectIn
         :param cookie_name:

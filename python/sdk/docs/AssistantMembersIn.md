@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_ids** | **List[int]** | IDs of the users to add or remove as members. | 
+**user_ids** | **List[UUID]** | Public ids of the users to add or remove as members. | 
 
 ## Example
 

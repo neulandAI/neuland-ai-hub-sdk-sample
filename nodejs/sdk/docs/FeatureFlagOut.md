@@ -1,0 +1,28 @@
+# FeatureFlagOut
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**key** | **string** | Catalog key of the feature flag. | [default to undefined]
+**description** | **string** | What the flag controls. | [default to undefined]
+**enabled** | **boolean** | Effective value for the tenant (override if set, else default). | [default to undefined]
+**_default** | **boolean** | Catalog default applied when the tenant has no override. | [default to undefined]
+**overridden** | **boolean** | Whether an explicit per-tenant override row exists. | [default to undefined]
+
+## Example
+
+```typescript
+import { FeatureFlagOut } from 'neuland-hub-sdk';
+
+const instance: FeatureFlagOut = {
+    key,
+    description,
+    enabled,
+    _default,
+    overridden,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

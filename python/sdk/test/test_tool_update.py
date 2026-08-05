@@ -37,7 +37,8 @@ class TestToolUpdate(unittest.TestCase):
             return ToolUpdate(
                 name = '',
                 description = '',
-                prompt = ''
+                prompt = '',
+                category_public_id = ''
             )
         else:
             return ToolUpdate(

@@ -36,13 +36,13 @@ class TestProjectMemberBulkDelete(unittest.TestCase):
         if include_optional:
             return ProjectMemberBulkDelete(
                 user_ids = [
-                    56
+                    ''
                     ]
             )
         else:
             return ProjectMemberBulkDelete(
                 user_ids = [
-                    56
+                    ''
                     ],
         )
         """

@@ -15,8 +15,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictInt, StrictStr
+from pydantic import StrictStr
 from typing import Optional
+from uuid import UUID
 from neuland_hub_sdk.models.tag import Tag
 from neuland_hub_sdk.models.tag_in import TagIn
 
@@ -41,7 +42,7 @@ class Tag:
     @validate_call
     def tags_delete_tag(
         self,
-        tag_id: StrictInt,
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -61,7 +62,7 @@ class Tag:
         Delete a tag. CASCADE removes all taggings.
 
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -116,7 +117,7 @@ class Tag:
     @validate_call
     def tags_delete_tag_with_http_info(
         self,
-        tag_id: StrictInt,
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -136,7 +137,7 @@ class Tag:
         Delete a tag. CASCADE removes all taggings.
 
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -191,7 +192,7 @@ class Tag:
     @validate_call
     def tags_delete_tag_without_preload_content(
         self,
-        tag_id: StrictInt,
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -211,7 +212,7 @@ class Tag:
         Delete a tag. CASCADE removes all taggings.
 
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -628,7 +629,7 @@ class Tag:
     @validate_call
     def tags_update_tag(
         self,
-        tag_id: StrictInt,
+        tag_id: UUID,
         tag_in: TagIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -649,7 +650,7 @@ class Tag:
         Rename a tag in the caller's tenant.
 
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param tag_in: (required)
         :type tag_in: TagIn
         :param cookie_name:
@@ -707,7 +708,7 @@ class Tag:
     @validate_call
     def tags_update_tag_with_http_info(
         self,
-        tag_id: StrictInt,
+        tag_id: UUID,
         tag_in: TagIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -728,7 +729,7 @@ class Tag:
         Rename a tag in the caller's tenant.
 
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param tag_in: (required)
         :type tag_in: TagIn
         :param cookie_name:
@@ -786,7 +787,7 @@ class Tag:
     @validate_call
     def tags_update_tag_without_preload_content(
         self,
-        tag_id: StrictInt,
+        tag_id: UUID,
         tag_in: TagIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -807,7 +808,7 @@ class Tag:
         Rename a tag in the caller's tenant.
 
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param tag_in: (required)
         :type tag_in: TagIn
         :param cookie_name:

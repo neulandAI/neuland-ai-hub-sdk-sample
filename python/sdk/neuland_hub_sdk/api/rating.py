@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Any, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.rating import Rating
 from neuland_hub_sdk.models.rating_in import RatingIn
 
@@ -43,7 +44,7 @@ class Rating:
     def ratings_remove(
         self,
         rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
-        rateable_id: Annotated[StrictInt, Field(description="ID of the resource whose rating to delete.")],
+        rateable_id: Annotated[UUID, Field(description="Public id of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -64,8 +65,8 @@ class Rating:
 
         :param rateable_type: Kind of resource whose rating to delete. (required)
         :type rateable_type: RateableTypeEnum
-        :param rateable_id: ID of the resource whose rating to delete. (required)
-        :type rateable_id: int
+        :param rateable_id: Public id of the resource whose rating to delete. (required)
+        :type rateable_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -121,7 +122,7 @@ class Rating:
     def ratings_remove_with_http_info(
         self,
         rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
-        rateable_id: Annotated[StrictInt, Field(description="ID of the resource whose rating to delete.")],
+        rateable_id: Annotated[UUID, Field(description="Public id of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -142,8 +143,8 @@ class Rating:
 
         :param rateable_type: Kind of resource whose rating to delete. (required)
         :type rateable_type: RateableTypeEnum
-        :param rateable_id: ID of the resource whose rating to delete. (required)
-        :type rateable_id: int
+        :param rateable_id: Public id of the resource whose rating to delete. (required)
+        :type rateable_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -199,7 +200,7 @@ class Rating:
     def ratings_remove_without_preload_content(
         self,
         rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
-        rateable_id: Annotated[StrictInt, Field(description="ID of the resource whose rating to delete.")],
+        rateable_id: Annotated[UUID, Field(description="Public id of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -220,8 +221,8 @@ class Rating:
 
         :param rateable_type: Kind of resource whose rating to delete. (required)
         :type rateable_type: RateableTypeEnum
-        :param rateable_id: ID of the resource whose rating to delete. (required)
-        :type rateable_id: int
+        :param rateable_id: Public id of the resource whose rating to delete. (required)
+        :type rateable_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one

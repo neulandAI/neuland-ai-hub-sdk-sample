@@ -1,0 +1,34 @@
+# ApplicationCatalogUpdate
+
+Partial update for catalog metadata; state lives on its own endpoint.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**avatar** | **str** |  | [optional] 
+**app_url** | **str** |  | [optional] 
+**version** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.application_catalog_update import ApplicationCatalogUpdate
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ApplicationCatalogUpdate from a JSON string
+application_catalog_update_instance = ApplicationCatalogUpdate.from_json(json)
+# print the JSON string representation of the object
+print(ApplicationCatalogUpdate.to_json())
+
+# convert the object into a dict
+application_catalog_update_dict = application_catalog_update_instance.to_dict()
+# create an instance of ApplicationCatalogUpdate from a dict
+application_catalog_update_from_dict = ApplicationCatalogUpdate.from_dict(application_catalog_update_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
