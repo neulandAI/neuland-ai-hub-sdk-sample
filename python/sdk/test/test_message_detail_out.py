@@ -36,11 +36,13 @@ class TestMessageDetailOut(unittest.TestCase):
         if include_optional:
             return MessageDetailOut(
                 id = 56,
-                chat_id = 56,
-                parent_id = 56,
+                public_id = '',
+                chat_id = '',
+                parent_id = '',
                 role = '',
                 content = '',
                 state = '',
+                state_reason = '',
                 error = '',
                 hint = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
@@ -56,6 +58,7 @@ class TestMessageDetailOut(unittest.TestCase):
                         state = '', 
                         is_error = True, 
                         description = '', 
+                        parent_tool_call_id = 56, 
                         progress_steps = [
                             neuland_hub_sdk.models.tool_call_progress_step_out.ToolCallProgressStepOut(
                                 name = '', 
@@ -66,15 +69,23 @@ class TestMessageDetailOut(unittest.TestCase):
                 files = [
                     neuland_hub_sdk.models.message_file_out.MessageFileOut(
                         id = 56, 
+                        public_id = '', 
                         filename = '', 
                         content_type = '', )
-                    ]
+                    ],
+                interrupt = { },
+                reasoning = [
+                    { }
+                    ],
+                turn_step_index = 56,
+                is_final_step = True
             )
         else:
             return MessageDetailOut(
                 id = 56,
-                chat_id = 56,
-                parent_id = 56,
+                public_id = '',
+                chat_id = '',
+                parent_id = '',
                 role = '',
                 content = '',
                 state = '',
@@ -93,6 +104,7 @@ class TestMessageDetailOut(unittest.TestCase):
                         state = '', 
                         is_error = True, 
                         description = '', 
+                        parent_tool_call_id = 56, 
                         progress_steps = [
                             neuland_hub_sdk.models.tool_call_progress_step_out.ToolCallProgressStepOut(
                                 name = '', 
@@ -103,6 +115,7 @@ class TestMessageDetailOut(unittest.TestCase):
                 files = [
                     neuland_hub_sdk.models.message_file_out.MessageFileOut(
                         id = 56, 
+                        public_id = '', 
                         filename = '', 
                         content_type = '', )
                     ],

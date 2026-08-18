@@ -36,6 +36,7 @@ class TestUserOut(unittest.TestCase):
         if include_optional:
             return UserOut(
                 id = 56,
+                public_id = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 email = '',
                 email_confirmed = True,
@@ -46,15 +47,19 @@ class TestUserOut(unittest.TestCase):
                 admin = True,
                 superadmin = True,
                 active = True,
-                tenant_id = 56
+                tenant_id = 56,
+                tenant_public_id = '',
+                permissions = [
+                    ''
+                    ]
             )
         else:
             return UserOut(
                 id = 56,
+                public_id = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 email = '',
                 email_confirmed = True,
-                admin = True,
                 active = True,
         )
         """

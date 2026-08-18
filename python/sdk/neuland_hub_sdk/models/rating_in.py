@@ -17,9 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.rateable_type_enum import RateableTypeEnum
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +31,7 @@ class RatingIn(BaseModel):
     Request body for creating or updating a rating.
     """ # noqa: E501
     rateable_type: RateableTypeEnum = Field(description="Kind of resource being rated.")
-    rateable_id: StrictInt = Field(description="ID of the resource being rated.")
+    rateable_id: UUID = Field(description="Public id of the resource being rated.")
     value: Annotated[int, Field(le=5, strict=True, ge=1)] = Field(description="Rating score, from 1 (worst) to 5 (best).")
     comment: Optional[Annotated[str, Field(strict=True, max_length=2000)]] = None
     __properties: ClassVar[List[str]] = ["rateable_type", "rateable_id", "value", "comment"]

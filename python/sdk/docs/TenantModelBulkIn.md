@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **all** | **bool** |  | [optional] 
-**tenant_ids** | **List[int]** |  | [optional] 
+**tenant_ids** | **List[UUID]** |  | [optional] 
 
 ## Example
 

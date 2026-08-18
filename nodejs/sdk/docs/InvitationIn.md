@@ -6,9 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **emails** | **Array&lt;string | null&gt;** | Email addresses to invite; already-invited or existing users are skipped. | [default to undefined]
-**tenant_id** | **number** |  | [optional] [default to undefined]
-**project_id** | **number** |  | [optional] [default to undefined]
+**tenant_id** | **string** |  | [optional] [default to undefined]
+**project_id** | **string** |  | [optional] [default to undefined]
 **admin** | **boolean** |  | [optional] [default to undefined]
+**role_id** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -20,6 +21,7 @@ const instance: InvitationIn = {
     tenant_id,
     project_id,
     admin,
+    role_id,
 };
 ```
 

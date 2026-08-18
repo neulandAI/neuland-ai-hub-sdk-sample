@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **creator_user_id** | **number** |  | [optional] [default to undefined]
 **updater_user_id** | **number** |  | [optional] [default to undefined]
 **id** | **number** |  | [optional] [default to undefined]
+**public_id** | **string** | Public, non-enumerable external identifier for the connector. Exposed to clients instead of the internal integer id. | [optional] [default to undefined]
 **oauth_client_id** | **number** |  | [optional] [default to undefined]
 **name** | **string** | Human-readable name of the connector. | [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
@@ -30,6 +31,7 @@ const instance: Connector = {
     creator_user_id,
     updater_user_id,
     id,
+    public_id,
     oauth_client_id,
     name,
     description,

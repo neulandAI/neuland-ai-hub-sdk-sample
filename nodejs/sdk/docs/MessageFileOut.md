@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **number** | ID of the attached document. | [default to undefined]
+**public_id** | **string** | Public, non-enumerable id of the attached document. | [default to undefined]
 **filename** | **string** | Original file name. | [default to undefined]
 **content_type** | **string** |  | [default to undefined]
 
@@ -16,6 +17,7 @@ import { MessageFileOut } from 'neuland-hub-sdk';
 
 const instance: MessageFileOut = {
     id,
+    public_id,
     filename,
     content_type,
 };

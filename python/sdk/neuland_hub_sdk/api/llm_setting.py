@@ -15,9 +15,12 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
-from typing import Any, Optional
+from pydantic import Field, StrictBytes, StrictStr
+from typing import Any, Optional, Tuple, Union
 from typing_extensions import Annotated
+from uuid import UUID
+from neuland_hub_sdk.models.llm_connection_test_in import LLMConnectionTestIn
+from neuland_hub_sdk.models.llm_connection_test_out import LLMConnectionTestOut
 from neuland_hub_sdk.models.llm_settings_in import LLMSettingsIn
 from neuland_hub_sdk.models.llm_settings_update import LLMSettingsUpdate
 
@@ -342,7 +345,7 @@ class LlmSetting:
     @validate_call
     def llm_delete_llm_settings(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the LLM settings entry to delete.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the LLM settings entry to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -361,8 +364,8 @@ class LlmSetting:
 
         Remove an LLM settings entry permanently.
 
-        :param settings_id: ID of the LLM settings entry to delete. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the LLM settings entry to delete. (required)
+        :type settings_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -417,7 +420,7 @@ class LlmSetting:
     @validate_call
     def llm_delete_llm_settings_with_http_info(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the LLM settings entry to delete.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the LLM settings entry to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -436,8 +439,8 @@ class LlmSetting:
 
         Remove an LLM settings entry permanently.
 
-        :param settings_id: ID of the LLM settings entry to delete. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the LLM settings entry to delete. (required)
+        :type settings_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -492,7 +495,7 @@ class LlmSetting:
     @validate_call
     def llm_delete_llm_settings_without_preload_content(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the LLM settings entry to delete.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the LLM settings entry to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -511,8 +514,8 @@ class LlmSetting:
 
         Remove an LLM settings entry permanently.
 
-        :param settings_id: ID of the LLM settings entry to delete. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the LLM settings entry to delete. (required)
+        :type settings_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -630,9 +633,735 @@ class LlmSetting:
 
 
     @validate_call
+    def llm_test_llm_connection(
+        self,
+        llm_connection_test_in: LLMConnectionTestIn,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LLMConnectionTestOut:
+        """Test an LLM connection
+
+        Verify a (possibly unsaved) chat or embedding config reaches its provider.  A lightweight probe stripped of tools, history, streaming and budget tracking: chat models get a one-word `achat` probe, embedding models a single embed. Each probe is bounded by the client's own timeout. A reachable-but-failing config returns `ok=false` with HTTP 200 so the caller can distinguish it from a server error.
+
+        :param llm_connection_test_in: (required)
+        :type llm_connection_test_in: LLMConnectionTestIn
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._llm_test_llm_connection_serialize(
+            llm_connection_test_in=llm_connection_test_in,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LLMConnectionTestOut",
+            '401': None,
+            '403': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def llm_test_llm_connection_with_http_info(
+        self,
+        llm_connection_test_in: LLMConnectionTestIn,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LLMConnectionTestOut]:
+        """Test an LLM connection
+
+        Verify a (possibly unsaved) chat or embedding config reaches its provider.  A lightweight probe stripped of tools, history, streaming and budget tracking: chat models get a one-word `achat` probe, embedding models a single embed. Each probe is bounded by the client's own timeout. A reachable-but-failing config returns `ok=false` with HTTP 200 so the caller can distinguish it from a server error.
+
+        :param llm_connection_test_in: (required)
+        :type llm_connection_test_in: LLMConnectionTestIn
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._llm_test_llm_connection_serialize(
+            llm_connection_test_in=llm_connection_test_in,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LLMConnectionTestOut",
+            '401': None,
+            '403': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def llm_test_llm_connection_without_preload_content(
+        self,
+        llm_connection_test_in: LLMConnectionTestIn,
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Test an LLM connection
+
+        Verify a (possibly unsaved) chat or embedding config reaches its provider.  A lightweight probe stripped of tools, history, streaming and budget tracking: chat models get a one-word `achat` probe, embedding models a single embed. Each probe is bounded by the client's own timeout. A reachable-but-failing config returns `ok=false` with HTTP 200 so the caller can distinguish it from a server error.
+
+        :param llm_connection_test_in: (required)
+        :type llm_connection_test_in: LLMConnectionTestIn
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._llm_test_llm_connection_serialize(
+            llm_connection_test_in=llm_connection_test_in,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LLMConnectionTestOut",
+            '401': None,
+            '403': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _llm_test_llm_connection_serialize(
+        self,
+        llm_connection_test_in,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if llm_connection_test_in is not None:
+            _body_params = llm_connection_test_in
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/llm/settings/test',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def llm_test_transcription_connection(
+        self,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        model_name: StrictStr,
+        provider: StrictStr,
+        library: StrictStr,
+        cookie_name: Optional[StrictStr] = None,
+        api_key: Optional[StrictStr] = None,
+        endpoint: Optional[StrictStr] = None,
+        deployment_name: Optional[StrictStr] = None,
+        api_version: Optional[StrictStr] = None,
+        args: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LLMConnectionTestOut:
+        """Test a transcription connection with an audio file
+
+        Verify a (possibly unsaved) transcription config by transcribing an upload.  Mirrors the real transcription route (`read_audio_file` + a real `transcribe` call), but builds the client from the submitted fields so a not-yet-saved model can be tested. `args` is an optional JSON string for provider extras (e.g. gateway `default_headers`). A reachable-but-failing config returns `ok=false` with HTTP 200.
+
+        :param file: (required)
+        :type file: bytes
+        :param model_name: (required)
+        :type model_name: str
+        :param provider: (required)
+        :type provider: str
+        :param library: (required)
+        :type library: str
+        :param cookie_name:
+        :type cookie_name: str
+        :param api_key:
+        :type api_key: str
+        :param endpoint:
+        :type endpoint: str
+        :param deployment_name:
+        :type deployment_name: str
+        :param api_version:
+        :type api_version: str
+        :param args:
+        :type args: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._llm_test_transcription_connection_serialize(
+            file=file,
+            model_name=model_name,
+            provider=provider,
+            library=library,
+            cookie_name=cookie_name,
+            api_key=api_key,
+            endpoint=endpoint,
+            deployment_name=deployment_name,
+            api_version=api_version,
+            args=args,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LLMConnectionTestOut",
+            '401': None,
+            '403': None,
+            '413': None,
+            '415': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def llm_test_transcription_connection_with_http_info(
+        self,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        model_name: StrictStr,
+        provider: StrictStr,
+        library: StrictStr,
+        cookie_name: Optional[StrictStr] = None,
+        api_key: Optional[StrictStr] = None,
+        endpoint: Optional[StrictStr] = None,
+        deployment_name: Optional[StrictStr] = None,
+        api_version: Optional[StrictStr] = None,
+        args: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LLMConnectionTestOut]:
+        """Test a transcription connection with an audio file
+
+        Verify a (possibly unsaved) transcription config by transcribing an upload.  Mirrors the real transcription route (`read_audio_file` + a real `transcribe` call), but builds the client from the submitted fields so a not-yet-saved model can be tested. `args` is an optional JSON string for provider extras (e.g. gateway `default_headers`). A reachable-but-failing config returns `ok=false` with HTTP 200.
+
+        :param file: (required)
+        :type file: bytes
+        :param model_name: (required)
+        :type model_name: str
+        :param provider: (required)
+        :type provider: str
+        :param library: (required)
+        :type library: str
+        :param cookie_name:
+        :type cookie_name: str
+        :param api_key:
+        :type api_key: str
+        :param endpoint:
+        :type endpoint: str
+        :param deployment_name:
+        :type deployment_name: str
+        :param api_version:
+        :type api_version: str
+        :param args:
+        :type args: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._llm_test_transcription_connection_serialize(
+            file=file,
+            model_name=model_name,
+            provider=provider,
+            library=library,
+            cookie_name=cookie_name,
+            api_key=api_key,
+            endpoint=endpoint,
+            deployment_name=deployment_name,
+            api_version=api_version,
+            args=args,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LLMConnectionTestOut",
+            '401': None,
+            '403': None,
+            '413': None,
+            '415': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def llm_test_transcription_connection_without_preload_content(
+        self,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        model_name: StrictStr,
+        provider: StrictStr,
+        library: StrictStr,
+        cookie_name: Optional[StrictStr] = None,
+        api_key: Optional[StrictStr] = None,
+        endpoint: Optional[StrictStr] = None,
+        deployment_name: Optional[StrictStr] = None,
+        api_version: Optional[StrictStr] = None,
+        args: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Test a transcription connection with an audio file
+
+        Verify a (possibly unsaved) transcription config by transcribing an upload.  Mirrors the real transcription route (`read_audio_file` + a real `transcribe` call), but builds the client from the submitted fields so a not-yet-saved model can be tested. `args` is an optional JSON string for provider extras (e.g. gateway `default_headers`). A reachable-but-failing config returns `ok=false` with HTTP 200.
+
+        :param file: (required)
+        :type file: bytes
+        :param model_name: (required)
+        :type model_name: str
+        :param provider: (required)
+        :type provider: str
+        :param library: (required)
+        :type library: str
+        :param cookie_name:
+        :type cookie_name: str
+        :param api_key:
+        :type api_key: str
+        :param endpoint:
+        :type endpoint: str
+        :param deployment_name:
+        :type deployment_name: str
+        :param api_version:
+        :type api_version: str
+        :param args:
+        :type args: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._llm_test_transcription_connection_serialize(
+            file=file,
+            model_name=model_name,
+            provider=provider,
+            library=library,
+            cookie_name=cookie_name,
+            api_key=api_key,
+            endpoint=endpoint,
+            deployment_name=deployment_name,
+            api_version=api_version,
+            args=args,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LLMConnectionTestOut",
+            '401': None,
+            '403': None,
+            '413': None,
+            '415': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _llm_test_transcription_connection_serialize(
+        self,
+        file,
+        model_name,
+        provider,
+        library,
+        cookie_name,
+        api_key,
+        endpoint,
+        deployment_name,
+        api_version,
+        args,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        if file is not None:
+            _files['file'] = file
+        if model_name is not None:
+            _form_params.append(('model_name', model_name))
+        if provider is not None:
+            _form_params.append(('provider', provider))
+        if library is not None:
+            _form_params.append(('library', library))
+        if api_key is not None:
+            _form_params.append(('api_key', api_key))
+        if endpoint is not None:
+            _form_params.append(('endpoint', endpoint))
+        if deployment_name is not None:
+            _form_params.append(('deployment_name', deployment_name))
+        if api_version is not None:
+            _form_params.append(('api_version', api_version))
+        if args is not None:
+            _form_params.append(('args', args))
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'multipart/form-data'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/llm/settings/test/transcription',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def llm_update_llm_settings(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the LLM settings entry to update.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the LLM settings entry to update.")],
         llm_settings_update: LLMSettingsUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -652,8 +1381,8 @@ class LlmSetting:
 
         Update fields of an existing LLM settings entry.
 
-        :param settings_id: ID of the LLM settings entry to update. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the LLM settings entry to update. (required)
+        :type settings_id: UUID
         :param llm_settings_update: (required)
         :type llm_settings_update: LLMSettingsUpdate
         :param cookie_name:
@@ -711,7 +1440,7 @@ class LlmSetting:
     @validate_call
     def llm_update_llm_settings_with_http_info(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the LLM settings entry to update.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the LLM settings entry to update.")],
         llm_settings_update: LLMSettingsUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -731,8 +1460,8 @@ class LlmSetting:
 
         Update fields of an existing LLM settings entry.
 
-        :param settings_id: ID of the LLM settings entry to update. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the LLM settings entry to update. (required)
+        :type settings_id: UUID
         :param llm_settings_update: (required)
         :type llm_settings_update: LLMSettingsUpdate
         :param cookie_name:
@@ -790,7 +1519,7 @@ class LlmSetting:
     @validate_call
     def llm_update_llm_settings_without_preload_content(
         self,
-        settings_id: Annotated[StrictInt, Field(description="ID of the LLM settings entry to update.")],
+        settings_id: Annotated[UUID, Field(description="Public id of the LLM settings entry to update.")],
         llm_settings_update: LLMSettingsUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -810,8 +1539,8 @@ class LlmSetting:
 
         Update fields of an existing LLM settings entry.
 
-        :param settings_id: ID of the LLM settings entry to update. (required)
-        :type settings_id: int
+        :param settings_id: Public id of the LLM settings entry to update. (required)
+        :type settings_id: UUID
         :param llm_settings_update: (required)
         :type llm_settings_update: LLMSettingsUpdate
         :param cookie_name:

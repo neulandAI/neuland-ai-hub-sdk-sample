@@ -1,0 +1,930 @@
+# neuland_hub_sdk.AssistantMarketplace
+
+All URIs are relative to *https://api.your-domain.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**assistant_list_catalog**](AssistantMarketplace.md#assistant_list_catalog) | **GET** /marketplace/assistant/catalog/ | List all assistant catalog items — superadmin only
+[**marketplace_add_tag_to_catalog**](AssistantMarketplace.md#marketplace_add_tag_to_catalog) | **POST** /marketplace/assistant/catalog/{catalog_id}/tags/{tag_id} | Add Tag To Catalog
+[**marketplace_attach_tool**](AssistantMarketplace.md#marketplace_attach_tool) | **POST** /marketplace/assistant/catalog/{catalog_id}/tools/{tool_id} | Attach Tool
+[**marketplace_create_catalog**](AssistantMarketplace.md#marketplace_create_catalog) | **POST** /marketplace/assistant/catalog/ | Create Catalog
+[**marketplace_detach_tool**](AssistantMarketplace.md#marketplace_detach_tool) | **DELETE** /marketplace/assistant/catalog/{catalog_id}/tools/{tool_id} | Detach Tool
+[**marketplace_install_from_catalog**](AssistantMarketplace.md#marketplace_install_from_catalog) | **POST** /marketplace/assistant/catalog/{catalog_id}/install | Install From Catalog
+[**marketplace_list_tools**](AssistantMarketplace.md#marketplace_list_tools) | **GET** /marketplace/assistant/catalog/{catalog_id}/tools | List Tools
+[**marketplace_remove_tag_from_catalog**](AssistantMarketplace.md#marketplace_remove_tag_from_catalog) | **DELETE** /marketplace/assistant/catalog/{catalog_id}/tags/{tag_id} | Remove Tag From Catalog
+[**marketplace_uninstall_from_catalog**](AssistantMarketplace.md#marketplace_uninstall_from_catalog) | **DELETE** /marketplace/assistant/catalog/{catalog_id}/install | Uninstall From Catalog
+[**marketplace_update_catalog**](AssistantMarketplace.md#marketplace_update_catalog) | **PATCH** /marketplace/assistant/catalog/{catalog_id} | Update Catalog
+[**marketplace_update_catalog_state**](AssistantMarketplace.md#marketplace_update_catalog_state) | **PATCH** /marketplace/assistant/catalog/{catalog_id}/state | Update Catalog State
+
+
+# **assistant_list_catalog**
+> List[AssistantCatalog] assistant_list_catalog(state=state, cookie_name=cookie_name)
+
+List all assistant catalog items — superadmin only
+
+Return every assistant catalog row (both ACTIVE and DEPRECATED).
+
+The public marketplace view filters DEPRECATED items out; this endpoint
+exposes them so a superadmin UI can render them with a "Deprecated" badge
+and PATCH the state back to ACTIVE when needed.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant_catalog import AssistantCatalog
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    state = neuland_hub_sdk.MarketplaceCatalogStateEnum() # MarketplaceCatalogStateEnum | Filter by state (ACTIVE / DEPRECATED). Omit for all. (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List all assistant catalog items — superadmin only
+        api_response = api_instance.assistant_list_catalog(state=state, cookie_name=cookie_name)
+        print("The response of AssistantMarketplace->assistant_list_catalog:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->assistant_list_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **state** | [**MarketplaceCatalogStateEnum**](.md)| Filter by state (ACTIVE / DEPRECATED). Omit for all. | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[AssistantCatalog]**](AssistantCatalog.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_add_tag_to_catalog**
+> NeulandMarketplaceAssistantSchemasTaggingOut marketplace_add_tag_to_catalog(catalog_id, tag_id, cookie_name=cookie_name)
+
+Add Tag To Catalog
+
+attach a tag (tenant-scoped) to a marketplace catalog item.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.neuland_marketplace_assistant_schemas_tagging_out import NeulandMarketplaceAssistantSchemasTaggingOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Add Tag To Catalog
+        api_response = api_instance.marketplace_add_tag_to_catalog(catalog_id, tag_id, cookie_name=cookie_name)
+        print("The response of AssistantMarketplace->marketplace_add_tag_to_catalog:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_add_tag_to_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **tag_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**NeulandMarketplaceAssistantSchemasTaggingOut**](NeulandMarketplaceAssistantSchemasTaggingOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_attach_tool**
+> AssistantCatalogToolOut marketplace_attach_tool(catalog_id, tool_id, cookie_name=cookie_name)
+
+Attach Tool
+
+attach a tool to an assistant catalog item.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant_catalog_tool_out import AssistantCatalogToolOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Attach Tool
+        api_response = api_instance.marketplace_attach_tool(catalog_id, tool_id, cookie_name=cookie_name)
+        print("The response of AssistantMarketplace->marketplace_attach_tool:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_attach_tool: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **tool_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**AssistantCatalogToolOut**](AssistantCatalogToolOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_create_catalog**
+> object marketplace_create_catalog(assistant_catalog_in, cookie_name=cookie_name)
+
+Create Catalog
+
+create a new assistant catalog item.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant_catalog_in import AssistantCatalogIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    assistant_catalog_in = neuland_hub_sdk.AssistantCatalogIn() # AssistantCatalogIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Create Catalog
+        api_response = api_instance.marketplace_create_catalog(assistant_catalog_in, cookie_name=cookie_name)
+        print("The response of AssistantMarketplace->marketplace_create_catalog:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_create_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assistant_catalog_in** | [**AssistantCatalogIn**](AssistantCatalogIn.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_detach_tool**
+> marketplace_detach_tool(catalog_id, tool_id, cookie_name=cookie_name)
+
+Detach Tool
+
+detach a tool from an assistant catalog item.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Detach Tool
+        api_instance.marketplace_detach_tool(catalog_id, tool_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_detach_tool: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **tool_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_install_from_catalog**
+> Assistant marketplace_install_from_catalog(catalog_id, cookie_name=cookie_name)
+
+Install From Catalog
+
+install a marketplace catalog item into the caller's tenant and join as a member.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant import Assistant
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Install From Catalog
+        api_response = api_instance.marketplace_install_from_catalog(catalog_id, cookie_name=cookie_name)
+        print("The response of AssistantMarketplace->marketplace_install_from_catalog:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_install_from_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**Assistant**](Assistant.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_list_tools**
+> List[AssistantCatalogToolOut] marketplace_list_tools(catalog_id, cookie_name=cookie_name)
+
+List Tools
+
+list the tools currently attached to an assistant catalog item.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant_catalog_tool_out import AssistantCatalogToolOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List Tools
+        api_response = api_instance.marketplace_list_tools(catalog_id, cookie_name=cookie_name)
+        print("The response of AssistantMarketplace->marketplace_list_tools:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_list_tools: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[AssistantCatalogToolOut]**](AssistantCatalogToolOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_remove_tag_from_catalog**
+> marketplace_remove_tag_from_catalog(catalog_id, tag_id, cookie_name=cookie_name)
+
+Remove Tag From Catalog
+
+detach a tag from a marketplace catalog item.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Remove Tag From Catalog
+        api_instance.marketplace_remove_tag_from_catalog(catalog_id, tag_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_remove_tag_from_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **tag_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_uninstall_from_catalog**
+> marketplace_uninstall_from_catalog(catalog_id, cookie_name=cookie_name)
+
+Uninstall From Catalog
+
+remove caller's membership; delete the materialized assistant if last member leaves.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Uninstall From Catalog
+        api_instance.marketplace_uninstall_from_catalog(catalog_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_uninstall_from_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_update_catalog**
+> AssistantCatalog marketplace_update_catalog(catalog_id, assistant_catalog_update, cookie_name=cookie_name)
+
+Update Catalog
+
+update an existing assistant catalog item.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant_catalog import AssistantCatalog
+from neuland_hub_sdk.models.assistant_catalog_update import AssistantCatalogUpdate
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    assistant_catalog_update = neuland_hub_sdk.AssistantCatalogUpdate() # AssistantCatalogUpdate | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Update Catalog
+        api_response = api_instance.marketplace_update_catalog(catalog_id, assistant_catalog_update, cookie_name=cookie_name)
+        print("The response of AssistantMarketplace->marketplace_update_catalog:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_update_catalog: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **assistant_catalog_update** | [**AssistantCatalogUpdate**](AssistantCatalogUpdate.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**AssistantCatalog**](AssistantCatalog.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **marketplace_update_catalog_state**
+> AssistantCatalog marketplace_update_catalog_state(catalog_id, marketplace_catalog_state_update, cookie_name=cookie_name)
+
+Update Catalog State
+
+update the state of an existing assistant catalog item.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant_catalog import AssistantCatalog
+from neuland_hub_sdk.models.marketplace_catalog_state_update import MarketplaceCatalogStateUpdate
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.your-domain.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.AssistantMarketplace(api_client)
+    catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    marketplace_catalog_state_update = neuland_hub_sdk.MarketplaceCatalogStateUpdate() # MarketplaceCatalogStateUpdate | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Update Catalog State
+        api_response = api_instance.marketplace_update_catalog_state(catalog_id, marketplace_catalog_state_update, cookie_name=cookie_name)
+        print("The response of AssistantMarketplace->marketplace_update_catalog_state:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AssistantMarketplace->marketplace_update_catalog_state: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalog_id** | **UUID**|  | 
+ **marketplace_catalog_state_update** | [**MarketplaceCatalogStateUpdate**](MarketplaceCatalogStateUpdate.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**AssistantCatalog**](AssistantCatalog.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

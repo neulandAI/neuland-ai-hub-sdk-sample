@@ -18,16 +18,17 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictBool, StrictBytes, StrictFloat, StrictInt, StrictStr
 from typing import Any, List, Optional, Tuple, Union
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.assistant import Assistant
-from neuland_hub_sdk.models.assistant_group import AssistantGroup
+from neuland_hub_sdk.models.assistant_group_out import AssistantGroupOut
 from neuland_hub_sdk.models.assistant_groups_in import AssistantGroupsIn
 from neuland_hub_sdk.models.assistant_in import AssistantIn
 from neuland_hub_sdk.models.assistant_library import AssistantLibrary
-from neuland_hub_sdk.models.assistant_member import AssistantMember
+from neuland_hub_sdk.models.assistant_member_out import AssistantMemberOut
 from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn
 from neuland_hub_sdk.models.assistant_tool import AssistantTool
 from neuland_hub_sdk.models.assistant_visibility_update import AssistantVisibilityUpdate
-from neuland_hub_sdk.models.tagging import Tagging
+from neuland_hub_sdk.models.neuland_assistants_tagging_out import NeulandAssistantsTaggingOut
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
 from neuland_hub_sdk.api_response import ApiResponse
@@ -50,8 +51,8 @@ class Assistant:
     @validate_call
     def assistants_add_library_to_assistant(
         self,
-        assistant_id: StrictInt,
-        library_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -70,10 +71,10 @@ class Assistant:
 
         Enables a library for a assistant by creating a new association
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param library_id: Public id of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -129,8 +130,8 @@ class Assistant:
     @validate_call
     def assistants_add_library_to_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
-        library_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -149,10 +150,10 @@ class Assistant:
 
         Enables a library for a assistant by creating a new association
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param library_id: Public id of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -208,8 +209,8 @@ class Assistant:
     @validate_call
     def assistants_add_library_to_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
-        library_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -228,10 +229,10 @@ class Assistant:
 
         Enables a library for a assistant by creating a new association
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: (required)
-        :type library_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param library_id: Public id of the library to enable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -355,7 +356,7 @@ class Assistant:
     @validate_call
     def assistants_add_members(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_members_in: AssistantMembersIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -370,13 +371,13 @@ class Assistant:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[AssistantMember]:
+    ) -> List[AssistantMemberOut]:
         """Add members to an assistant
 
         Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn't exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_members_in: (required)
         :type assistant_members_in: AssistantMembersIn
         :param cookie_name:
@@ -414,7 +415,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[AssistantMember]",
+            '201': "List[AssistantMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -434,7 +435,7 @@ class Assistant:
     @validate_call
     def assistants_add_members_with_http_info(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_members_in: AssistantMembersIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -449,13 +450,13 @@ class Assistant:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[AssistantMember]]:
+    ) -> ApiResponse[List[AssistantMemberOut]]:
         """Add members to an assistant
 
         Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn't exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_members_in: (required)
         :type assistant_members_in: AssistantMembersIn
         :param cookie_name:
@@ -493,7 +494,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[AssistantMember]",
+            '201': "List[AssistantMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -513,7 +514,7 @@ class Assistant:
     @validate_call
     def assistants_add_members_without_preload_content(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_members_in: AssistantMembersIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -533,8 +534,8 @@ class Assistant:
 
         Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn't exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_members_in: (required)
         :type assistant_members_in: AssistantMembersIn
         :param cookie_name:
@@ -572,7 +573,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "List[AssistantMember]",
+            '201': "List[AssistantMemberOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -673,8 +674,8 @@ class Assistant:
     @validate_call
     def assistants_add_tag_to_assistant(
         self,
-        assistant_id: StrictInt,
-        tag_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -688,15 +689,15 @@ class Assistant:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Tagging:
+    ) -> NeulandAssistantsTaggingOut:
         """Add a tag to an assistant
 
         Attach a tag to an assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -732,7 +733,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "Tagging",
+            '201': "NeulandAssistantsTaggingOut",
             '401': None,
             '403': None,
             '404': None,
@@ -752,8 +753,8 @@ class Assistant:
     @validate_call
     def assistants_add_tag_to_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
-        tag_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -767,15 +768,15 @@ class Assistant:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Tagging]:
+    ) -> ApiResponse[NeulandAssistantsTaggingOut]:
         """Add a tag to an assistant
 
         Attach a tag to an assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -811,7 +812,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "Tagging",
+            '201': "NeulandAssistantsTaggingOut",
             '401': None,
             '403': None,
             '404': None,
@@ -831,8 +832,8 @@ class Assistant:
     @validate_call
     def assistants_add_tag_to_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
-        tag_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -851,10 +852,10 @@ class Assistant:
 
         Attach a tag to an assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -890,7 +891,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "Tagging",
+            '201': "NeulandAssistantsTaggingOut",
             '401': None,
             '403': None,
             '404': None,
@@ -978,8 +979,8 @@ class Assistant:
     @validate_call
     def assistants_add_tool_to_assistant(
         self,
-        assistant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to enable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -998,10 +999,10 @@ class Assistant:
 
         Enable a tenant tool for the assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param tool_id: ID of the tool to enable. (required)
-        :type tool_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param tool_id: Public id of the tool to enable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1057,8 +1058,8 @@ class Assistant:
     @validate_call
     def assistants_add_tool_to_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to enable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1077,10 +1078,10 @@ class Assistant:
 
         Enable a tenant tool for the assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param tool_id: ID of the tool to enable. (required)
-        :type tool_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param tool_id: Public id of the tool to enable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1136,8 +1137,8 @@ class Assistant:
     @validate_call
     def assistants_add_tool_to_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to enable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to enable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1156,10 +1157,10 @@ class Assistant:
 
         Enable a tenant tool for the assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param tool_id: ID of the tool to enable. (required)
-        :type tool_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param tool_id: Public id of the tool to enable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1580,7 +1581,7 @@ class Assistant:
     @validate_call
     def assistants_delete_assistant(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1599,8 +1600,8 @@ class Assistant:
 
         Delete an assistant and orphan its associated chats.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to delete. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1655,7 +1656,7 @@ class Assistant:
     @validate_call
     def assistants_delete_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1674,8 +1675,8 @@ class Assistant:
 
         Delete an assistant and orphan its associated chats.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to delete. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1730,7 +1731,7 @@ class Assistant:
     @validate_call
     def assistants_delete_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1749,8 +1750,8 @@ class Assistant:
 
         Delete an assistant and orphan its associated chats.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to delete. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1870,7 +1871,7 @@ class Assistant:
     @validate_call
     def assistants_delete_members(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_members_in: AssistantMembersIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1890,8 +1891,8 @@ class Assistant:
 
         Remove one or more users from the assistant's membership.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_members_in: (required)
         :type assistant_members_in: AssistantMembersIn
         :param cookie_name:
@@ -1950,7 +1951,7 @@ class Assistant:
     @validate_call
     def assistants_delete_members_with_http_info(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_members_in: AssistantMembersIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1970,8 +1971,8 @@ class Assistant:
 
         Remove one or more users from the assistant's membership.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_members_in: (required)
         :type assistant_members_in: AssistantMembersIn
         :param cookie_name:
@@ -2030,7 +2031,7 @@ class Assistant:
     @validate_call
     def assistants_delete_members_without_preload_content(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_members_in: AssistantMembersIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -2050,8 +2051,8 @@ class Assistant:
 
         Remove one or more users from the assistant's membership.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_members_in: (required)
         :type assistant_members_in: AssistantMembersIn
         :param cookie_name:
@@ -2191,7 +2192,7 @@ class Assistant:
     @validate_call
     def assistants_join_assistant(
         self,
-        assistant_id: Annotated[StrictInt, Field(description="ID of the assistant to join.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to join.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2205,13 +2206,13 @@ class Assistant:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AssistantMember:
+    ) -> AssistantMemberOut:
         """Join a community assistant
 
         self-add to a tenant-shared community assistant.
 
-        :param assistant_id: ID of the assistant to join. (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to join. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2246,7 +2247,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AssistantMember",
+            '201': "AssistantMemberOut",
             '401': None,
             '403': None,
             '404': None,
@@ -2267,7 +2268,7 @@ class Assistant:
     @validate_call
     def assistants_join_assistant_with_http_info(
         self,
-        assistant_id: Annotated[StrictInt, Field(description="ID of the assistant to join.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to join.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2281,13 +2282,13 @@ class Assistant:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AssistantMember]:
+    ) -> ApiResponse[AssistantMemberOut]:
         """Join a community assistant
 
         self-add to a tenant-shared community assistant.
 
-        :param assistant_id: ID of the assistant to join. (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to join. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2322,7 +2323,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AssistantMember",
+            '201': "AssistantMemberOut",
             '401': None,
             '403': None,
             '404': None,
@@ -2343,7 +2344,7 @@ class Assistant:
     @validate_call
     def assistants_join_assistant_without_preload_content(
         self,
-        assistant_id: Annotated[StrictInt, Field(description="ID of the assistant to join.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to join.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2362,8 +2363,8 @@ class Assistant:
 
         self-add to a tenant-shared community assistant.
 
-        :param assistant_id: ID of the assistant to join. (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to join. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2398,7 +2399,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '201': "AssistantMember",
+            '201': "AssistantMemberOut",
             '401': None,
             '403': None,
             '404': None,
@@ -2484,7 +2485,7 @@ class Assistant:
     @validate_call
     def assistants_leave_assitant(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2503,8 +2504,8 @@ class Assistant:
 
         user can leave the assistant by themselves.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to leave. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2559,7 +2560,7 @@ class Assistant:
     @validate_call
     def assistants_leave_assitant_with_http_info(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2578,8 +2579,8 @@ class Assistant:
 
         user can leave the assistant by themselves.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to leave. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2634,7 +2635,7 @@ class Assistant:
     @validate_call
     def assistants_leave_assitant_without_preload_content(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to leave.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2653,8 +2654,8 @@ class Assistant:
 
         user can leave the assistant by themselves.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to leave. (required)
+        :type assistant_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2774,8 +2775,8 @@ class Assistant:
     @validate_call
     def assistants_remove_library_from_assistant(
         self,
-        assistant_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2794,10 +2795,10 @@ class Assistant:
 
         Disables a library from an assistant by removing the association
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param library_id: Public id of the library to disable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2853,8 +2854,8 @@ class Assistant:
     @validate_call
     def assistants_remove_library_from_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2873,10 +2874,10 @@ class Assistant:
 
         Disables a library from an assistant by removing the association
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param library_id: Public id of the library to disable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -2932,8 +2933,8 @@ class Assistant:
     @validate_call
     def assistants_remove_library_from_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
-        library_id: Annotated[StrictInt, Field(description="ID of the library to disable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        library_id: Annotated[UUID, Field(description="Public id of the library to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -2952,10 +2953,10 @@ class Assistant:
 
         Disables a library from an assistant by removing the association
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param library_id: ID of the library to disable. (required)
-        :type library_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param library_id: Public id of the library to disable. (required)
+        :type library_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3079,8 +3080,8 @@ class Assistant:
     @validate_call
     def assistants_remove_member(
         self,
-        assistant_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the member to remove.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        user_id: Annotated[UUID, Field(description="Public id of the member to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3099,10 +3100,10 @@ class Assistant:
 
         Remove a specific user from the assistant's membership.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param user_id: ID of the member to remove. (required)
-        :type user_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param user_id: Public id of the member to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3158,8 +3159,8 @@ class Assistant:
     @validate_call
     def assistants_remove_member_with_http_info(
         self,
-        assistant_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the member to remove.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        user_id: Annotated[UUID, Field(description="Public id of the member to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3178,10 +3179,10 @@ class Assistant:
 
         Remove a specific user from the assistant's membership.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param user_id: ID of the member to remove. (required)
-        :type user_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param user_id: Public id of the member to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3237,8 +3238,8 @@ class Assistant:
     @validate_call
     def assistants_remove_member_without_preload_content(
         self,
-        assistant_id: StrictInt,
-        user_id: Annotated[StrictInt, Field(description="ID of the member to remove.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        user_id: Annotated[UUID, Field(description="Public id of the member to remove.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3257,10 +3258,10 @@ class Assistant:
 
         Remove a specific user from the assistant's membership.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param user_id: ID of the member to remove. (required)
-        :type user_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param user_id: Public id of the member to remove. (required)
+        :type user_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3384,8 +3385,8 @@ class Assistant:
     @validate_call
     def assistants_remove_tag_from_assistant(
         self,
-        assistant_id: StrictInt,
-        tag_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3404,10 +3405,10 @@ class Assistant:
 
         Detach a tag from an assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3463,8 +3464,8 @@ class Assistant:
     @validate_call
     def assistants_remove_tag_from_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
-        tag_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3483,10 +3484,10 @@ class Assistant:
 
         Detach a tag from an assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3542,8 +3543,8 @@ class Assistant:
     @validate_call
     def assistants_remove_tag_from_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
-        tag_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tag_id: UUID,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3562,10 +3563,10 @@ class Assistant:
 
         Detach a tag from an assistant.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param tag_id: (required)
-        :type tag_id: int
+        :type tag_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3689,8 +3690,8 @@ class Assistant:
     @validate_call
     def assistants_remove_tool_from_assistant(
         self,
-        assistant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to disable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3709,10 +3710,10 @@ class Assistant:
 
         Disable a tool for the assistant by removing the association.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param tool_id: ID of the tool to disable. (required)
-        :type tool_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param tool_id: Public id of the tool to disable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3768,8 +3769,8 @@ class Assistant:
     @validate_call
     def assistants_remove_tool_from_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to disable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3788,10 +3789,10 @@ class Assistant:
 
         Disable a tool for the assistant by removing the association.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param tool_id: ID of the tool to disable. (required)
-        :type tool_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param tool_id: Public id of the tool to disable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3847,8 +3848,8 @@ class Assistant:
     @validate_call
     def assistants_remove_tool_from_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
-        tool_id: Annotated[StrictInt, Field(description="ID of the tool to disable.")],
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        tool_id: Annotated[UUID, Field(description="Public id of the tool to disable.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -3867,10 +3868,10 @@ class Assistant:
 
         Disable a tool for the assistant by removing the association.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
-        :param tool_id: ID of the tool to disable. (required)
-        :type tool_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param tool_id: Public id of the tool to disable. (required)
+        :type tool_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -3976,6 +3977,311 @@ class Assistant:
         return self.api_client.param_serialize(
             method='DELETE',
             resource_path='/assistants/{assistant_id}/tools/{tool_id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def assistants_restore_assistant_version(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to restore.")],
+        version: Annotated[StrictInt, Field(description="Version number to restore.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> Assistant:
+        """Restore an assistant version
+
+        Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
+
+        :param assistant_id: Public id of the assistant to restore. (required)
+        :type assistant_id: UUID
+        :param version: Version number to restore. (required)
+        :type version: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_restore_assistant_version_serialize(
+            assistant_id=assistant_id,
+            version=version,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def assistants_restore_assistant_version_with_http_info(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to restore.")],
+        version: Annotated[StrictInt, Field(description="Version number to restore.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[Assistant]:
+        """Restore an assistant version
+
+        Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
+
+        :param assistant_id: Public id of the assistant to restore. (required)
+        :type assistant_id: UUID
+        :param version: Version number to restore. (required)
+        :type version: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_restore_assistant_version_serialize(
+            assistant_id=assistant_id,
+            version=version,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def assistants_restore_assistant_version_without_preload_content(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to restore.")],
+        version: Annotated[StrictInt, Field(description="Version number to restore.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Restore an assistant version
+
+        Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
+
+        :param assistant_id: Public id of the assistant to restore. (required)
+        :type assistant_id: UUID
+        :param version: Version number to restore. (required)
+        :type version: int
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_restore_assistant_version_serialize(
+            assistant_id=assistant_id,
+            version=version,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _assistants_restore_assistant_version_serialize(
+        self,
+        assistant_id,
+        version,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if assistant_id is not None:
+            _path_params['assistant_id'] = assistant_id
+        if version is not None:
+            _path_params['version'] = version
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/assistants/{assistant_id}/versions/{version}/restore',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4460,7 +4766,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to update.")],
         assistant_in: AssistantIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4480,8 +4786,8 @@ class Assistant:
 
         Update an assistant's configuration.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to update. (required)
+        :type assistant_id: UUID
         :param assistant_in: (required)
         :type assistant_in: AssistantIn
         :param cookie_name:
@@ -4539,7 +4845,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant_with_http_info(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to update.")],
         assistant_in: AssistantIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4559,8 +4865,8 @@ class Assistant:
 
         Update an assistant's configuration.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to update. (required)
+        :type assistant_id: UUID
         :param assistant_in: (required)
         :type assistant_in: AssistantIn
         :param cookie_name:
@@ -4618,7 +4924,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant_without_preload_content(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant to update.")],
         assistant_in: AssistantIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4638,8 +4944,8 @@ class Assistant:
 
         Update an assistant's configuration.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant to update. (required)
+        :type assistant_id: UUID
         :param assistant_in: (required)
         :type assistant_in: AssistantIn
         :param cookie_name:
@@ -4778,7 +5084,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant_groups(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_groups_in: AssistantGroupsIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4793,13 +5099,13 @@ class Assistant:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[AssistantGroup]:
+    ) -> List[AssistantGroupOut]:
         """Set assistant group access
 
         Grant or update assistant access for user groups (replaces the current set).
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_groups_in: (required)
         :type assistant_groups_in: AssistantGroupsIn
         :param cookie_name:
@@ -4837,7 +5143,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[AssistantGroup]",
+            '200': "List[AssistantGroupOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -4857,7 +5163,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant_groups_with_http_info(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_groups_in: AssistantGroupsIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4872,13 +5178,13 @@ class Assistant:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[AssistantGroup]]:
+    ) -> ApiResponse[List[AssistantGroupOut]]:
         """Set assistant group access
 
         Grant or update assistant access for user groups (replaces the current set).
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_groups_in: (required)
         :type assistant_groups_in: AssistantGroupsIn
         :param cookie_name:
@@ -4916,7 +5222,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[AssistantGroup]",
+            '200': "List[AssistantGroupOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -4936,7 +5242,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant_groups_without_preload_content(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_groups_in: AssistantGroupsIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -4956,8 +5262,8 @@ class Assistant:
 
         Grant or update assistant access for user groups (replaces the current set).
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_groups_in: (required)
         :type assistant_groups_in: AssistantGroupsIn
         :param cookie_name:
@@ -4995,7 +5301,7 @@ class Assistant:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[AssistantGroup]",
+            '200': "List[AssistantGroupOut]",
             '401': None,
             '403': None,
             '404': None,
@@ -5096,7 +5402,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant_visibility(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_visibility_update: AssistantVisibilityUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5116,8 +5422,8 @@ class Assistant:
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_visibility_update: (required)
         :type assistant_visibility_update: AssistantVisibilityUpdate
         :param cookie_name:
@@ -5175,7 +5481,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant_visibility_with_http_info(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_visibility_update: AssistantVisibilityUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5195,8 +5501,8 @@ class Assistant:
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_visibility_update: (required)
         :type assistant_visibility_update: AssistantVisibilityUpdate
         :param cookie_name:
@@ -5254,7 +5560,7 @@ class Assistant:
     @validate_call
     def assistants_update_assistant_visibility_without_preload_content(
         self,
-        assistant_id: StrictInt,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
         assistant_visibility_update: AssistantVisibilityUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -5274,8 +5580,8 @@ class Assistant:
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
-        :param assistant_id: (required)
-        :type assistant_id: int
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
         :param assistant_visibility_update: (required)
         :type assistant_visibility_update: AssistantVisibilityUpdate
         :param cookie_name:

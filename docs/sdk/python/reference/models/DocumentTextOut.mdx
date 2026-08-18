@@ -1,0 +1,29 @@
+---
+title: "DocumentTextOut"
+---
+
+A document's extracted text — for audio, that text *is* the transcript.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**text** | **str** | Extracted text, chunks joined by blank lines. Audio transcripts carry inline &#x60;[2:05] SPEAKER_00:&#x60; turn labels when diarization was available. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.document_text_out import DocumentTextOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of DocumentTextOut from a JSON string
+document_text_out_instance = DocumentTextOut.from_json(json)
+# print the JSON string representation of the object
+print(DocumentTextOut.to_json())
+
+# convert the object into a dict
+document_text_out_dict = document_text_out_instance.to_dict()
+# create an instance of DocumentTextOut from a dict
+document_text_out_from_dict = DocumentTextOut.from_dict(document_text_out_dict)
+```

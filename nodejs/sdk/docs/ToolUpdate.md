@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **name** | **string** |  | [optional] [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
 **prompt** | **string** |  | [optional] [default to undefined]
+**category_public_id** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -19,6 +20,7 @@ const instance: ToolUpdate = {
     name,
     description,
     prompt,
+    category_public_id,
 };
 ```
 

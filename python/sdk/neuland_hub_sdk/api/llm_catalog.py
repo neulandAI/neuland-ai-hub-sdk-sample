@@ -15,9 +15,10 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictStr
 from typing import Any, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from neuland_hub_sdk.models.catalog_in import CatalogIn
 from neuland_hub_sdk.models.catalog_update import CatalogUpdate
 
@@ -342,7 +343,7 @@ class LlmCatalog:
     @validate_call
     def llm_delete_catalog(
         self,
-        catalog_id: Annotated[StrictInt, Field(description="ID of the catalog entry to delete.")],
+        catalog_id: Annotated[UUID, Field(description="Public id of the catalog entry to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -361,8 +362,8 @@ class LlmCatalog:
 
         Remove a catalog entry permanently.
 
-        :param catalog_id: ID of the catalog entry to delete. (required)
-        :type catalog_id: int
+        :param catalog_id: Public id of the catalog entry to delete. (required)
+        :type catalog_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -417,7 +418,7 @@ class LlmCatalog:
     @validate_call
     def llm_delete_catalog_with_http_info(
         self,
-        catalog_id: Annotated[StrictInt, Field(description="ID of the catalog entry to delete.")],
+        catalog_id: Annotated[UUID, Field(description="Public id of the catalog entry to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -436,8 +437,8 @@ class LlmCatalog:
 
         Remove a catalog entry permanently.
 
-        :param catalog_id: ID of the catalog entry to delete. (required)
-        :type catalog_id: int
+        :param catalog_id: Public id of the catalog entry to delete. (required)
+        :type catalog_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -492,7 +493,7 @@ class LlmCatalog:
     @validate_call
     def llm_delete_catalog_without_preload_content(
         self,
-        catalog_id: Annotated[StrictInt, Field(description="ID of the catalog entry to delete.")],
+        catalog_id: Annotated[UUID, Field(description="Public id of the catalog entry to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -511,8 +512,8 @@ class LlmCatalog:
 
         Remove a catalog entry permanently.
 
-        :param catalog_id: ID of the catalog entry to delete. (required)
-        :type catalog_id: int
+        :param catalog_id: Public id of the catalog entry to delete. (required)
+        :type catalog_id: UUID
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -632,7 +633,7 @@ class LlmCatalog:
     @validate_call
     def llm_update_catalog(
         self,
-        catalog_id: Annotated[StrictInt, Field(description="ID of the catalog entry to update.")],
+        catalog_id: Annotated[UUID, Field(description="Public id of the catalog entry to update.")],
         catalog_update: CatalogUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -652,8 +653,8 @@ class LlmCatalog:
 
         Update fields of an existing catalog entry.
 
-        :param catalog_id: ID of the catalog entry to update. (required)
-        :type catalog_id: int
+        :param catalog_id: Public id of the catalog entry to update. (required)
+        :type catalog_id: UUID
         :param catalog_update: (required)
         :type catalog_update: CatalogUpdate
         :param cookie_name:
@@ -711,7 +712,7 @@ class LlmCatalog:
     @validate_call
     def llm_update_catalog_with_http_info(
         self,
-        catalog_id: Annotated[StrictInt, Field(description="ID of the catalog entry to update.")],
+        catalog_id: Annotated[UUID, Field(description="Public id of the catalog entry to update.")],
         catalog_update: CatalogUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -731,8 +732,8 @@ class LlmCatalog:
 
         Update fields of an existing catalog entry.
 
-        :param catalog_id: ID of the catalog entry to update. (required)
-        :type catalog_id: int
+        :param catalog_id: Public id of the catalog entry to update. (required)
+        :type catalog_id: UUID
         :param catalog_update: (required)
         :type catalog_update: CatalogUpdate
         :param cookie_name:
@@ -790,7 +791,7 @@ class LlmCatalog:
     @validate_call
     def llm_update_catalog_without_preload_content(
         self,
-        catalog_id: Annotated[StrictInt, Field(description="ID of the catalog entry to update.")],
+        catalog_id: Annotated[UUID, Field(description="Public id of the catalog entry to update.")],
         catalog_update: CatalogUpdate,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -810,8 +811,8 @@ class LlmCatalog:
 
         Update fields of an existing catalog entry.
 
-        :param catalog_id: ID of the catalog entry to update. (required)
-        :type catalog_id: int
+        :param catalog_id: Public id of the catalog entry to update. (required)
+        :type catalog_id: UUID
         :param catalog_update: (required)
         :type catalog_update: CatalogUpdate
         :param cookie_name:

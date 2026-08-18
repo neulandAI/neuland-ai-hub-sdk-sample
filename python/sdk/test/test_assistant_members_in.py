@@ -36,13 +36,13 @@ class TestAssistantMembersIn(unittest.TestCase):
         if include_optional:
             return AssistantMembersIn(
                 user_ids = [
-                    56
+                    ''
                     ]
             )
         else:
             return AssistantMembersIn(
                 user_ids = [
-                    56
+                    ''
                     ],
         )
         """

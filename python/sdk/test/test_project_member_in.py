@@ -35,12 +35,12 @@ class TestProjectMemberIn(unittest.TestCase):
         model = ProjectMemberIn()
         if include_optional:
             return ProjectMemberIn(
-                user_id = 56,
+                user_id = '',
                 role = ''
             )
         else:
             return ProjectMemberIn(
-                user_id = 56,
+                user_id = '',
                 role = '',
         )
         """

@@ -1,0 +1,28 @@
+---
+title: "MessageTurnOut"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**parent** | [**MessageDetailOut**](/sdk/python/reference/models/MessageDetailOut) |  | 
+**steps** | [**List[MessageDetailOut]**](/sdk/python/reference/models/MessageDetailOut) |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.message_turn_out import MessageTurnOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of MessageTurnOut from a JSON string
+message_turn_out_instance = MessageTurnOut.from_json(json)
+# print the JSON string representation of the object
+print(MessageTurnOut.to_json())
+
+# convert the object into a dict
+message_turn_out_dict = message_turn_out_instance.to_dict()
+# create an instance of MessageTurnOut from a dict
+message_turn_out_from_dict = MessageTurnOut.from_dict(message_turn_out_dict)
+```

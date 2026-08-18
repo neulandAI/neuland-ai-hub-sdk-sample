@@ -31,8 +31,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let projectId: number; // (default to undefined)
-let libraryId: number; // (default to undefined)
+let projectId: string; //Public id of the project. (default to undefined)
+let libraryId: string; //Public id of the library to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.projectsAddLibraryToProject(
@@ -46,8 +46,8 @@ const { status, data } = await apiInstance.projectsAddLibraryToProject(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **projectId** | [**number**] |  | defaults to undefined|
-| **libraryId** | [**number**] |  | defaults to undefined|
+| **projectId** | [**string**] | Public id of the project. | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -93,7 +93,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let projectId: number; // (default to undefined)
+let projectId: string; //Public id of the project to add members to. (default to undefined)
 let projectMemberBulkIn: ProjectMemberBulkIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -109,7 +109,7 @@ const { status, data } = await apiInstance.projectsAddMembers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **projectMemberBulkIn** | **ProjectMemberBulkIn**|  | |
-| **projectId** | [**number**] |  | defaults to undefined|
+| **projectId** | [**string**] | Public id of the project to add members to. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -211,8 +211,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let projectId: number; // (default to undefined)
-let userId: number; //ID of the user to remove. (default to undefined)
+let projectId: string; //Public id of the project to remove the member from. (default to undefined)
+let userId: string; //Public id of the user to remove. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.projectsDeleteMember(
@@ -226,8 +226,8 @@ const { status, data } = await apiInstance.projectsDeleteMember(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **projectId** | [**number**] |  | defaults to undefined|
-| **userId** | [**number**] | ID of the user to remove. | defaults to undefined|
+| **projectId** | [**string**] | Public id of the project to remove the member from. | defaults to undefined|
+| **userId** | [**string**] | Public id of the user to remove. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -273,7 +273,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let projectId: number; // (default to undefined)
+let projectId: string; //Public id of the project to remove members from. (default to undefined)
 let projectMemberBulkDelete: ProjectMemberBulkDelete; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -289,7 +289,7 @@ const { status, data } = await apiInstance.projectsDeleteMembers(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **projectMemberBulkDelete** | **ProjectMemberBulkDelete**|  | |
-| **projectId** | [**number**] |  | defaults to undefined|
+| **projectId** | [**string**] | Public id of the project to remove members from. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -334,7 +334,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let projectId: number; // (default to undefined)
+let projectId: string; //Public id of the project to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.projectsDeleteProject(
@@ -347,7 +347,7 @@ const { status, data } = await apiInstance.projectsDeleteProject(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **projectId** | [**number**] |  | defaults to undefined|
+| **projectId** | [**string**] | Public id of the project to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -448,7 +448,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let projectId: number; // (default to undefined)
+let projectId: string; //Public id of the project to leave. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.projectsLeaveProject(
@@ -461,7 +461,7 @@ const { status, data } = await apiInstance.projectsLeaveProject(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **projectId** | [**number**] |  | defaults to undefined|
+| **projectId** | [**string**] | Public id of the project to leave. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -506,8 +506,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let projectId: number; // (default to undefined)
-let libraryId: number; //ID of the library to disable. (default to undefined)
+let projectId: string; //Public id of the project. (default to undefined)
+let libraryId: string; //Public id of the library to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.projectsRemoveLibraryFromProject(
@@ -521,8 +521,8 @@ const { status, data } = await apiInstance.projectsRemoveLibraryFromProject(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **projectId** | [**number**] |  | defaults to undefined|
-| **libraryId** | [**number**] | ID of the library to disable. | defaults to undefined|
+| **projectId** | [**string**] | Public id of the project. | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -568,7 +568,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
 
-let projectId: number; // (default to undefined)
+let projectId: string; //Public id of the project to update. (default to undefined)
 let projectIn: ProjectIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -584,7 +584,7 @@ const { status, data } = await apiInstance.projectsUpdateProject(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **projectIn** | **ProjectIn**|  | |
-| **projectId** | [**number**] |  | defaults to undefined|
+| **projectId** | [**string**] | Public id of the project to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

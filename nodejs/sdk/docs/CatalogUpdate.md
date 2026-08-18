@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **embedding_dimension** | **number** |  | [optional] [default to undefined]
 **supports_embedding** | **boolean** |  | [optional] [default to undefined]
 **supports_transcription** | **boolean** |  | [optional] [default to undefined]
+**supports_clarification** | **boolean** |  | [optional] [default to undefined]
 **auto_seed** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
@@ -27,6 +28,7 @@ const instance: CatalogUpdate = {
     embedding_dimension,
     supports_embedding,
     supports_transcription,
+    supports_clarification,
     auto_seed,
 };
 ```

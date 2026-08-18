@@ -1,0 +1,29 @@
+# ApplicationCatalogUpdate
+
+Partial update for catalog metadata; state lives on its own endpoint.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [optional] [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+**avatar** | **string** |  | [optional] [default to undefined]
+**app_url** | **string** |  | [optional] [default to undefined]
+**version** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { ApplicationCatalogUpdate } from 'neuland-hub-sdk';
+
+const instance: ApplicationCatalogUpdate = {
+    name,
+    description,
+    avatar,
+    app_url,
+    version,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

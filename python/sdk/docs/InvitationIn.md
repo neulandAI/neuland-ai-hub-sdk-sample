@@ -6,9 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **emails** | **List[Optional[str]]** | Email addresses to invite; already-invited or existing users are skipped. | 
-**tenant_id** | **int** |  | [optional] 
-**project_id** | **int** |  | [optional] 
+**tenant_id** | **UUID** |  | [optional] 
+**project_id** | **UUID** |  | [optional] 
 **admin** | **bool** |  | [optional] 
+**role_id** | **UUID** |  | [optional] 
 
 ## Example
 

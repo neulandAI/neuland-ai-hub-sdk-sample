@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **creator_user_id** | **number** |  | [optional] [default to undefined]
 **updater_user_id** | **number** |  | [optional] [default to undefined]
 **id** | **number** |  | [optional] [default to undefined]
+**public_id** | **string** | Public, non-enumerable external identifier for the OAuth client. Exposed to clients instead of the internal integer id. | [optional] [default to undefined]
 **name** | **string** | Unique human-readable name of the OAuth client. | [default to undefined]
 **provider_key** | [**OAuth2ProviderEnum**](OAuth2ProviderEnum.md) | OAuth provider this client uses. | [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
@@ -27,6 +28,7 @@ const instance: OAuthClient = {
     creator_user_id,
     updater_user_id,
     id,
+    public_id,
     name,
     provider_key,
     description,

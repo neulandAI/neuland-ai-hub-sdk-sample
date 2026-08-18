@@ -6,8 +6,8 @@ Schema for granting app access to a group
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**application_id** | **int** | ID of the application to grant access to. | 
-**group_ids** | **List[int]** |  | [optional] 
+**application_id** | **UUID** | Public id of the application to grant access to. | 
+**group_ids** | **List[UUID]** |  | [optional] 
 
 ## Example
 

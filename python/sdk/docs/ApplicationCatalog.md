@@ -1,0 +1,41 @@
+# ApplicationCatalog
+
+Marketplace catalog for Applications (operator-owned: outlives its superadmin creator).
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**created_at** | **datetime** | UTC timestamp when the record was created. | [optional] 
+**updated_at** | **datetime** | UTC timestamp when the record was last updated. | [optional] 
+**creator_user_id** | **int** |  | [optional] 
+**updater_user_id** | **int** |  | [optional] 
+**id** | **int** |  | [optional] 
+**public_id** | **UUID** | Public, non-enumerable external identifier for the application catalog item. Exposed to clients instead of the internal integer id. | [optional] 
+**name** | **str** | Display name of the catalog application; unique across the platform. | 
+**description** | **str** |  | [optional] 
+**avatar** | **str** |  | [optional] 
+**app_url** | **str** | Canonical URL of the application; unique across the catalog. | 
+**version** | **str** |  | [optional] 
+**state** | [**MarketplaceCatalogStateEnum**](MarketplaceCatalogStateEnum.md) | Lifecycle state; DEPRECATED items are hidden from the marketplace and reject new installs. | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.application_catalog import ApplicationCatalog
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ApplicationCatalog from a JSON string
+application_catalog_instance = ApplicationCatalog.from_json(json)
+# print the JSON string representation of the object
+print(ApplicationCatalog.to_json())
+
+# convert the object into a dict
+application_catalog_dict = application_catalog_instance.to_dict()
+# create an instance of ApplicationCatalog from a dict
+application_catalog_from_dict = ApplicationCatalog.from_dict(application_catalog_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

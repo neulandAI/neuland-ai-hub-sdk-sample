@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,6 +31,7 @@ class Prompt(BaseModel):
     Prompt
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the prompt. Exposed to clients instead of the internal integer id.")
     tenant_id: StrictInt = Field(description="ID of the tenant that owns the prompt.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the prompt was created.")
     creator_user_id: StrictInt = Field(description="ID of the user who created the prompt.")
@@ -37,7 +39,7 @@ class Prompt(BaseModel):
     prompt: StrictStr = Field(description="Prompt text content.")
     is_public: Optional[StrictBool] = Field(default=False, description="Whether the prompt is shared publicly within the tenant.")
     description: Optional[StrictStr]
-    __properties: ClassVar[List[str]] = ["id", "tenant_id", "created_at", "creator_user_id", "name", "prompt", "is_public", "description"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "created_at", "creator_user_id", "name", "prompt", "is_public", "description"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -106,6 +108,7 @@ class Prompt(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
             "created_at": obj.get("created_at"),
             "creator_user_id": obj.get("creator_user_id"),

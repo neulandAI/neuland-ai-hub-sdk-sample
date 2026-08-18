@@ -36,16 +36,19 @@ class TestMessageIn(unittest.TestCase):
         if include_optional:
             return MessageIn(
                 content = '',
-                chat_id = 56,
-                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                project_id = 56,
+                chat_id = '',
+                project_id = '',
                 model = '',
                 temperature = 1.337,
                 similarity_top_k = 56,
                 system_prompt = '',
-                assistant_id = 56,
+                assistant_id = '',
                 private = True,
-                form_data = { }
+                form_data = { },
+                form_fields = [
+                    { }
+                    ],
+                playground = True
             )
         else:
             return MessageIn(

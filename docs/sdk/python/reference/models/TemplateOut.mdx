@@ -9,9 +9,13 @@ Email template as returned by the API.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Unique identifier of the template. | 
+**public_id** | **UUID** | Public, non-enumerable external identifier of the template. | 
 **name** | **str** |  | 
-**text_body** | **str** | Plain-text body of the email. | 
+**subject** | **str** |  | 
 **html_body** | **str** |  | 
+**key** | **str** |  | 
+**language** | **str** | Language code the template applies to. | 
+**is_draft** | **bool** | Whether the template is a draft rather than the published default. | 
 
 ## Example
 

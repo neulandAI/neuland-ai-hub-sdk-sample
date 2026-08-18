@@ -35,16 +35,18 @@ class TestSettingsIn(unittest.TestCase):
         model = SettingsIn()
         if include_optional:
             return SettingsIn(
-                default_llm_catalog_id = 56,
+                default_llm_catalog_id = '',
                 guardrails_enabled = True,
                 sharepoint_enabled = True,
                 inbound_guardrail = '',
                 outbound_guardrail = '',
-                welcome_email_template_id = 56,
-                project_member_added_email_template_id = 56,
+                welcome_email_template_id = '',
+                project_member_added_email_template_id = '',
                 system_prompt = '',
                 errlog_webhook_url = '',
-                require_email_confirmation = True
+                require_email_confirmation = True,
+                budget_alert_enabled = True,
+                soft_limit_warning_enabled = True
             )
         else:
             return SettingsIn(

@@ -1,14 +1,17 @@
 # TemplateIn
 
-Payload for creating or updating an email template.
+Payload for creating an email template.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
-**text_body** | **str** | Plain-text body of the email. | 
-**html_body** | **str** |  | [optional] 
+**subject** | **str** |  | [optional] 
+**html_body** | **str** | HTML body of the email. | 
+**key** | [**EmailTemplateKey**](EmailTemplateKey.md) |  | [optional] 
+**language** | **str** | Language code the template applies to. | [optional] [default to 'en']
+**is_draft** | **bool** | Whether the template is a draft rather than the published default. | [optional] [default to False]
 
 ## Example
 

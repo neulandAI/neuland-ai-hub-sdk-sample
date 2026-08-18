@@ -105,8 +105,16 @@
           "sdk/python/reference/endpoints/Alert",
           "sdk/python/reference/endpoints/Settings",
           "sdk/python/reference/endpoints/System",
+          "sdk/python/reference/endpoints/ApplicationMarketplace",
+          "sdk/python/reference/endpoints/AssistantMarketplace",
+          "sdk/python/reference/endpoints/Category",
           "sdk/python/reference/endpoints/Default",
+          "sdk/python/reference/endpoints/Dropbox",
+          "sdk/python/reference/endpoints/FeatureFlag",
+          "sdk/python/reference/endpoints/GoogleDrive",
+          "sdk/python/reference/endpoints/Role",
           "sdk/python/reference/endpoints/SharepointV1",
+          "sdk/python/reference/endpoints/Workflow",
           {
             "group": "Models",
             "pages": [
@@ -149,6 +157,7 @@
                   "sdk/python/reference/models/UserGroupMember",
                   "sdk/python/reference/models/UserGroupSource",
                   "sdk/python/reference/models/UserIn",
+                  "sdk/python/reference/models/UserMeOut",
                   "sdk/python/reference/models/UserOut",
                   "sdk/python/reference/models/UserPreferenceOut",
                   "sdk/python/reference/models/UserPreferenceUpdateIn",
@@ -192,7 +201,7 @@
                 "pages": [
                   "sdk/python/reference/models/BulkResult",
                   "sdk/python/reference/models/ChatIn",
-                  "sdk/python/reference/models/ChatInactiveDocument",
+                  "sdk/python/reference/models/ChatInactiveDocumentOut",
                   "sdk/python/reference/models/ChatLibrary",
                   "sdk/python/reference/models/ChatToolSettingsOut",
                   "sdk/python/reference/models/ChatToolSettingsUpdate"
@@ -201,11 +210,15 @@
               {
                 "group": "Message",
                 "pages": [
+                  "sdk/python/reference/models/ClarificationAnswer",
                   "sdk/python/reference/models/MessageDetailOut",
                   "sdk/python/reference/models/MessageFileOut",
                   "sdk/python/reference/models/MessageIn",
+                  "sdk/python/reference/models/MessageSubmitOut",
+                  "sdk/python/reference/models/MessageTurnOut",
                   "sdk/python/reference/models/OutputFormat",
                   "sdk/python/reference/models/RephraseStyleEnum",
+                  "sdk/python/reference/models/ResumeIn",
                   "sdk/python/reference/models/ToolCallOut",
                   "sdk/python/reference/models/ToolCallProgressStepOut",
                   "sdk/python/reference/models/Translation"
@@ -219,13 +232,19 @@
                 ]
               },
               {
+                "group": "Document",
+                "pages": [
+                  "sdk/python/reference/models/DocumentTextOut"
+                ]
+              },
+              {
                 "group": "Library",
                 "pages": [
                   "sdk/python/reference/models/LibraryIn",
-                  "sdk/python/reference/models/LibraryMember",
                   "sdk/python/reference/models/LibraryMemberBulkDelete",
                   "sdk/python/reference/models/LibraryMemberBulkIn",
                   "sdk/python/reference/models/LibraryMemberIn",
+                  "sdk/python/reference/models/LibraryMemberOut",
                   "sdk/python/reference/models/LibraryUpdateIn"
                 ]
               },
@@ -238,20 +257,20 @@
               {
                 "group": "Assistant",
                 "pages": [
-                  "sdk/python/reference/models/AssistantGroup",
+                  "sdk/python/reference/models/AssistantGroupOut",
                   "sdk/python/reference/models/AssistantGroupsIn",
                   "sdk/python/reference/models/AssistantIn",
                   "sdk/python/reference/models/AssistantInputTypeEnum",
                   "sdk/python/reference/models/AssistantLibrary",
-                  "sdk/python/reference/models/AssistantMember",
                   "sdk/python/reference/models/AssistantMemberGrantedViaEnum",
+                  "sdk/python/reference/models/AssistantMemberOut",
                   "sdk/python/reference/models/AssistantMembersIn",
                   "sdk/python/reference/models/AssistantTool",
                   "sdk/python/reference/models/AssistantVisibilityEnum",
                   "sdk/python/reference/models/AssistantVisibilityUpdate",
                   "sdk/python/reference/models/FormField",
                   "sdk/python/reference/models/FormFieldTypeEnum",
-                  "sdk/python/reference/models/Tagging"
+                  "sdk/python/reference/models/NeulandAssistantsTaggingOut"
                 ]
               },
               {
@@ -265,13 +284,20 @@
               {
                 "group": "Template",
                 "pages": [
+                  "sdk/python/reference/models/EmailCatalogOut",
+                  "sdk/python/reference/models/EmailSpec",
+                  "sdk/python/reference/models/EmailTemplateKey",
+                  "sdk/python/reference/models/Example",
                   "sdk/python/reference/models/TemplateIn",
-                  "sdk/python/reference/models/TemplateOut"
+                  "sdk/python/reference/models/TemplateOut",
+                  "sdk/python/reference/models/TemplateUpdate",
+                  "sdk/python/reference/models/VariableSpec"
                 ]
               },
               {
                 "group": "Tool",
                 "pages": [
+                  "sdk/python/reference/models/ToolCreate",
                   "sdk/python/reference/models/ToolOut",
                   "sdk/python/reference/models/ToolUpdate"
                 ]
@@ -313,10 +339,14 @@
               {
                 "group": "LlmSetting",
                 "pages": [
+                  "sdk/python/reference/models/CostAudioPerMinute",
+                  "sdk/python/reference/models/CostCachedTokens",
                   "sdk/python/reference/models/CostCompletionTokens",
                   "sdk/python/reference/models/CostCompletionTokens1",
                   "sdk/python/reference/models/CostPromptTokens",
                   "sdk/python/reference/models/CostPromptTokens1",
+                  "sdk/python/reference/models/LLMConnectionTestIn",
+                  "sdk/python/reference/models/LLMConnectionTestOut",
                   "sdk/python/reference/models/LLMSettingsIn",
                   "sdk/python/reference/models/LLMSettingsUpdate"
                 ]
@@ -347,12 +377,6 @@
               {
                 "group": "Nextcloud",
                 "pages": [
-                  "sdk/python/reference/models/DataSourceCapabilities",
-                  "sdk/python/reference/models/DataSourceDriveModel",
-                  "sdk/python/reference/models/DataSourceFolderModel",
-                  "sdk/python/reference/models/DataSourceItemModel",
-                  "sdk/python/reference/models/DataSourceSiteModel",
-                  "sdk/python/reference/models/DataSourceUserModel",
                   "sdk/python/reference/models/ResponseNextcloudListRoots"
                 ]
               },
@@ -366,9 +390,9 @@
                 "group": "Application",
                 "pages": [
                   "sdk/python/reference/models/ApplicationAccessIn",
-                  "sdk/python/reference/models/ApplicationGroup",
+                  "sdk/python/reference/models/ApplicationGroupOut",
                   "sdk/python/reference/models/ApplicationIn",
-                  "sdk/python/reference/models/ApplicationMember",
+                  "sdk/python/reference/models/ApplicationMemberOut",
                   "sdk/python/reference/models/GroupAppAccessIn"
                 ]
               },
@@ -411,15 +435,86 @@
                 ]
               },
               {
+                "group": "ApplicationMarketplace",
+                "pages": [
+                  "sdk/python/reference/models/ApplicationCatalog",
+                  "sdk/python/reference/models/ApplicationCatalogIn",
+                  "sdk/python/reference/models/ApplicationCatalogUpdate",
+                  "sdk/python/reference/models/MarketplaceCatalogStateEnum",
+                  "sdk/python/reference/models/MarketplaceCatalogStateUpdate",
+                  "sdk/python/reference/models/Tagging"
+                ]
+              },
+              {
+                "group": "AssistantMarketplace",
+                "pages": [
+                  "sdk/python/reference/models/AssistantCatalog",
+                  "sdk/python/reference/models/AssistantCatalogIn",
+                  "sdk/python/reference/models/AssistantCatalogToolOut",
+                  "sdk/python/reference/models/AssistantCatalogUpdate",
+                  "sdk/python/reference/models/NeulandMarketplaceAssistantSchemasTaggingOut",
+                  "sdk/python/reference/models/TaggableTypeEnum"
+                ]
+              },
+              {
+                "group": "Category",
+                "pages": [
+                  "sdk/python/reference/models/CategoryOut"
+                ]
+              },
+              {
                 "group": "Default",
                 "pages": [
                   "sdk/python/reference/models/TenantThemeOut"
                 ]
               },
               {
+                "group": "Dropbox",
+                "pages": [
+                  "sdk/python/reference/models/DataSourceCapabilities",
+                  "sdk/python/reference/models/DataSourceDriveModel",
+                  "sdk/python/reference/models/DataSourceFolderModel",
+                  "sdk/python/reference/models/DataSourceItemModel",
+                  "sdk/python/reference/models/DataSourceSiteModel",
+                  "sdk/python/reference/models/DataSourceUserModel",
+                  "sdk/python/reference/models/ResponseDropboxListRoots"
+                ]
+              },
+              {
+                "group": "FeatureFlag",
+                "pages": [
+                  "sdk/python/reference/models/FeatureFlagOut",
+                  "sdk/python/reference/models/FeatureFlagSetIn"
+                ]
+              },
+              {
+                "group": "GoogleDrive",
+                "pages": [
+                  "sdk/python/reference/models/ResponseGoogledriveListRoots"
+                ]
+              },
+              {
+                "group": "Role",
+                "pages": [
+                  "sdk/python/reference/models/RoleIn",
+                  "sdk/python/reference/models/RoleUpdateIn"
+                ]
+              },
+              {
                 "group": "SharepointV1",
                 "pages": [
                   "sdk/python/reference/models/ResponseSharepointv1ListRoots"
+                ]
+              },
+              {
+                "group": "Workflow",
+                "pages": [
+                  "sdk/python/reference/models/RunCreateOut",
+                  "sdk/python/reference/models/StreamTokenOut",
+                  "sdk/python/reference/models/WorkflowChatIn",
+                  "sdk/python/reference/models/WorkflowChatOut",
+                  "sdk/python/reference/models/WorkflowIn",
+                  "sdk/python/reference/models/WorkflowUpdateIn"
                 ]
               }
             ]
@@ -471,8 +566,16 @@
           "sdk/node/reference/endpoints/Alert",
           "sdk/node/reference/endpoints/Settings",
           "sdk/node/reference/endpoints/System",
+          "sdk/node/reference/endpoints/ApplicationMarketplace",
+          "sdk/node/reference/endpoints/AssistantMarketplace",
+          "sdk/node/reference/endpoints/Category",
           "sdk/node/reference/endpoints/Default",
+          "sdk/node/reference/endpoints/Dropbox",
+          "sdk/node/reference/endpoints/FeatureFlag",
+          "sdk/node/reference/endpoints/GoogleDrive",
+          "sdk/node/reference/endpoints/Role",
           "sdk/node/reference/endpoints/SharepointV1",
+          "sdk/node/reference/endpoints/Workflow",
           {
             "group": "Models",
             "pages": [
@@ -515,6 +618,7 @@
                   "sdk/node/reference/models/UserGroupMember",
                   "sdk/node/reference/models/UserGroupSource",
                   "sdk/node/reference/models/UserIn",
+                  "sdk/node/reference/models/UserMeOut",
                   "sdk/node/reference/models/UserOut",
                   "sdk/node/reference/models/UserPreferenceOut",
                   "sdk/node/reference/models/UserPreferenceUpdateIn",
@@ -558,7 +662,7 @@
                 "pages": [
                   "sdk/node/reference/models/BulkResult",
                   "sdk/node/reference/models/ChatIn",
-                  "sdk/node/reference/models/ChatInactiveDocument",
+                  "sdk/node/reference/models/ChatInactiveDocumentOut",
                   "sdk/node/reference/models/ChatLibrary",
                   "sdk/node/reference/models/ChatToolSettingsOut",
                   "sdk/node/reference/models/ChatToolSettingsUpdate"
@@ -567,11 +671,15 @@
               {
                 "group": "Message",
                 "pages": [
+                  "sdk/node/reference/models/ClarificationAnswer",
                   "sdk/node/reference/models/MessageDetailOut",
                   "sdk/node/reference/models/MessageFileOut",
                   "sdk/node/reference/models/MessageIn",
+                  "sdk/node/reference/models/MessageSubmitOut",
+                  "sdk/node/reference/models/MessageTurnOut",
                   "sdk/node/reference/models/OutputFormat",
                   "sdk/node/reference/models/RephraseStyleEnum",
+                  "sdk/node/reference/models/ResumeIn",
                   "sdk/node/reference/models/ToolCallOut",
                   "sdk/node/reference/models/ToolCallProgressStepOut",
                   "sdk/node/reference/models/Translation"
@@ -585,13 +693,19 @@
                 ]
               },
               {
+                "group": "Document",
+                "pages": [
+                  "sdk/node/reference/models/DocumentTextOut"
+                ]
+              },
+              {
                 "group": "Library",
                 "pages": [
                   "sdk/node/reference/models/LibraryIn",
-                  "sdk/node/reference/models/LibraryMember",
                   "sdk/node/reference/models/LibraryMemberBulkDelete",
                   "sdk/node/reference/models/LibraryMemberBulkIn",
                   "sdk/node/reference/models/LibraryMemberIn",
+                  "sdk/node/reference/models/LibraryMemberOut",
                   "sdk/node/reference/models/LibraryUpdateIn"
                 ]
               },
@@ -604,20 +718,20 @@
               {
                 "group": "Assistant",
                 "pages": [
-                  "sdk/node/reference/models/AssistantGroup",
+                  "sdk/node/reference/models/AssistantGroupOut",
                   "sdk/node/reference/models/AssistantGroupsIn",
                   "sdk/node/reference/models/AssistantIn",
                   "sdk/node/reference/models/AssistantInputTypeEnum",
                   "sdk/node/reference/models/AssistantLibrary",
-                  "sdk/node/reference/models/AssistantMember",
                   "sdk/node/reference/models/AssistantMemberGrantedViaEnum",
+                  "sdk/node/reference/models/AssistantMemberOut",
                   "sdk/node/reference/models/AssistantMembersIn",
                   "sdk/node/reference/models/AssistantTool",
                   "sdk/node/reference/models/AssistantVisibilityEnum",
                   "sdk/node/reference/models/AssistantVisibilityUpdate",
                   "sdk/node/reference/models/FormField",
                   "sdk/node/reference/models/FormFieldTypeEnum",
-                  "sdk/node/reference/models/Tagging"
+                  "sdk/node/reference/models/NeulandAssistantsTaggingOut"
                 ]
               },
               {
@@ -631,13 +745,20 @@
               {
                 "group": "Template",
                 "pages": [
+                  "sdk/node/reference/models/EmailCatalogOut",
+                  "sdk/node/reference/models/EmailSpec",
+                  "sdk/node/reference/models/EmailTemplateKey",
+                  "sdk/node/reference/models/Example",
                   "sdk/node/reference/models/TemplateIn",
-                  "sdk/node/reference/models/TemplateOut"
+                  "sdk/node/reference/models/TemplateOut",
+                  "sdk/node/reference/models/TemplateUpdate",
+                  "sdk/node/reference/models/VariableSpec"
                 ]
               },
               {
                 "group": "Tool",
                 "pages": [
+                  "sdk/node/reference/models/ToolCreate",
                   "sdk/node/reference/models/ToolOut",
                   "sdk/node/reference/models/ToolUpdate"
                 ]
@@ -679,10 +800,14 @@
               {
                 "group": "LlmSetting",
                 "pages": [
+                  "sdk/node/reference/models/CostAudioPerMinute",
+                  "sdk/node/reference/models/CostCachedTokens",
                   "sdk/node/reference/models/CostCompletionTokens",
                   "sdk/node/reference/models/CostCompletionTokens1",
                   "sdk/node/reference/models/CostPromptTokens",
                   "sdk/node/reference/models/CostPromptTokens1",
+                  "sdk/node/reference/models/LLMConnectionTestIn",
+                  "sdk/node/reference/models/LLMConnectionTestOut",
                   "sdk/node/reference/models/LLMSettingsIn",
                   "sdk/node/reference/models/LLMSettingsUpdate"
                 ]
@@ -713,12 +838,6 @@
               {
                 "group": "Nextcloud",
                 "pages": [
-                  "sdk/node/reference/models/DataSourceCapabilities",
-                  "sdk/node/reference/models/DataSourceDriveModel",
-                  "sdk/node/reference/models/DataSourceFolderModel",
-                  "sdk/node/reference/models/DataSourceItemModel",
-                  "sdk/node/reference/models/DataSourceSiteModel",
-                  "sdk/node/reference/models/DataSourceUserModel",
                   "sdk/node/reference/models/ResponseNextcloudListRoots"
                 ]
               },
@@ -732,9 +851,9 @@
                 "group": "Application",
                 "pages": [
                   "sdk/node/reference/models/ApplicationAccessIn",
-                  "sdk/node/reference/models/ApplicationGroup",
+                  "sdk/node/reference/models/ApplicationGroupOut",
                   "sdk/node/reference/models/ApplicationIn",
-                  "sdk/node/reference/models/ApplicationMember",
+                  "sdk/node/reference/models/ApplicationMemberOut",
                   "sdk/node/reference/models/GroupAppAccessIn"
                 ]
               },
@@ -777,15 +896,86 @@
                 ]
               },
               {
+                "group": "ApplicationMarketplace",
+                "pages": [
+                  "sdk/node/reference/models/ApplicationCatalog",
+                  "sdk/node/reference/models/ApplicationCatalogIn",
+                  "sdk/node/reference/models/ApplicationCatalogUpdate",
+                  "sdk/node/reference/models/MarketplaceCatalogStateEnum",
+                  "sdk/node/reference/models/MarketplaceCatalogStateUpdate",
+                  "sdk/node/reference/models/Tagging"
+                ]
+              },
+              {
+                "group": "AssistantMarketplace",
+                "pages": [
+                  "sdk/node/reference/models/AssistantCatalog",
+                  "sdk/node/reference/models/AssistantCatalogIn",
+                  "sdk/node/reference/models/AssistantCatalogToolOut",
+                  "sdk/node/reference/models/AssistantCatalogUpdate",
+                  "sdk/node/reference/models/NeulandMarketplaceAssistantSchemasTaggingOut",
+                  "sdk/node/reference/models/TaggableTypeEnum"
+                ]
+              },
+              {
+                "group": "Category",
+                "pages": [
+                  "sdk/node/reference/models/CategoryOut"
+                ]
+              },
+              {
                 "group": "Default",
                 "pages": [
                   "sdk/node/reference/models/TenantThemeOut"
                 ]
               },
               {
+                "group": "Dropbox",
+                "pages": [
+                  "sdk/node/reference/models/DataSourceCapabilities",
+                  "sdk/node/reference/models/DataSourceDriveModel",
+                  "sdk/node/reference/models/DataSourceFolderModel",
+                  "sdk/node/reference/models/DataSourceItemModel",
+                  "sdk/node/reference/models/DataSourceSiteModel",
+                  "sdk/node/reference/models/DataSourceUserModel",
+                  "sdk/node/reference/models/ResponseDropboxListRoots"
+                ]
+              },
+              {
+                "group": "FeatureFlag",
+                "pages": [
+                  "sdk/node/reference/models/FeatureFlagOut",
+                  "sdk/node/reference/models/FeatureFlagSetIn"
+                ]
+              },
+              {
+                "group": "GoogleDrive",
+                "pages": [
+                  "sdk/node/reference/models/ResponseGoogledriveListRoots"
+                ]
+              },
+              {
+                "group": "Role",
+                "pages": [
+                  "sdk/node/reference/models/RoleIn",
+                  "sdk/node/reference/models/RoleUpdateIn"
+                ]
+              },
+              {
                 "group": "SharepointV1",
                 "pages": [
                   "sdk/node/reference/models/ResponseSharepointv1ListRoots"
+                ]
+              },
+              {
+                "group": "Workflow",
+                "pages": [
+                  "sdk/node/reference/models/RunCreateOut",
+                  "sdk/node/reference/models/StreamTokenOut",
+                  "sdk/node/reference/models/WorkflowChatIn",
+                  "sdk/node/reference/models/WorkflowChatOut",
+                  "sdk/node/reference/models/WorkflowIn",
+                  "sdk/node/reference/models/WorkflowUpdateIn"
                 ]
               }
             ]

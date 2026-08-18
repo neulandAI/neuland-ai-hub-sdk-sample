@@ -37,12 +37,14 @@ class TestApiKeyCreateResponse(unittest.TestCase):
             return ApiKeyCreateResponse(
                 key = '',
                 key_id = '',
+                public_id = '',
                 expires_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else:
             return ApiKeyCreateResponse(
                 key = '',
                 key_id = '',
+                public_id = '',
         )
         """
 

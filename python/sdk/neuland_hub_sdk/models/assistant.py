@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from uuid import UUID
 from neuland_hub_sdk.models.assistant_visibility_enum import AssistantVisibilityEnum
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,6 +34,7 @@ class Assistant(BaseModel):
     state_reason: Optional[StrictStr] = None
     state_changed_at: Optional[datetime] = None
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the assistant. Exposed to clients instead of the internal integer id.")
     tenant_id: StrictInt = Field(description="ID of the tenant that owns the assistant.")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the assistant was created.")
     updated_at: Optional[datetime] = None
@@ -46,11 +48,11 @@ class Assistant(BaseModel):
     llm_catalog_id: Optional[StrictInt] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     similarity_top_k: Optional[StrictInt] = None
-    input_type: Optional[StrictStr] = 'prompt'
+    input_type: Optional[StrictStr] = Field(default='prompt', description="Input type for the assistant (e.g. prompt or form).")
     form_fields: Optional[List[Any]] = None
     assistant_catalog_id: Optional[StrictInt] = None
     visibility: Optional[AssistantVisibilityEnum] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "tenant_id", "created_at", "updated_at", "creator_user_id", "name", "avatar", "description", "description_show_in_chat", "predefined_prompts", "instructions", "llm_catalog_id", "temperature", "similarity_top_k", "input_type", "form_fields", "assistant_catalog_id", "visibility"]
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "tenant_id", "created_at", "updated_at", "creator_user_id", "name", "avatar", "description", "description_show_in_chat", "predefined_prompts", "instructions", "llm_catalog_id", "temperature", "similarity_top_k", "input_type", "form_fields", "assistant_catalog_id", "visibility"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -177,6 +179,7 @@ class Assistant(BaseModel):
             "state_reason": obj.get("state_reason"),
             "state_changed_at": obj.get("state_changed_at"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),

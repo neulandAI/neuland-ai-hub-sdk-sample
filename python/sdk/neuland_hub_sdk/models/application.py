@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,6 +32,7 @@ class Application(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="UTC timestamp when the record was created.")
     updated_at: Optional[datetime] = Field(default=None, description="UTC timestamp when the record was last updated.")
     id: Optional[StrictInt] = None
+    public_id: Optional[UUID] = Field(default=None, description="Public, non-enumerable external identifier for the application. Exposed to clients instead of the internal integer id.")
     name: Optional[StrictStr] = Field(default=None, description="Name of the application.")
     tenant_id: StrictInt = Field(description="ID of the tenant that owns the application.")
     is_active: Optional[StrictBool] = Field(default=True, description="Whether the application is active.")
@@ -41,7 +43,8 @@ class Application(BaseModel):
     version: Optional[StrictStr] = None
     avatar: Optional[StrictStr] = None
     creator_user_id: Optional[StrictInt]
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "name", "tenant_id", "is_active", "is_native", "app_url", "native_app_id", "description", "version", "avatar", "creator_user_id"]
+    app_catalog_id: Optional[StrictInt] = None
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "public_id", "name", "tenant_id", "is_active", "is_native", "app_url", "native_app_id", "description", "version", "avatar", "creator_user_id", "app_catalog_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -112,6 +115,11 @@ class Application(BaseModel):
         if self.creator_user_id is None and "creator_user_id" in self.model_fields_set:
             _dict['creator_user_id'] = None
 
+        # set to None if app_catalog_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.app_catalog_id is None and "app_catalog_id" in self.model_fields_set:
+            _dict['app_catalog_id'] = None
+
         return _dict
 
     @classmethod
@@ -127,6 +135,7 @@ class Application(BaseModel):
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
+            "public_id": obj.get("public_id"),
             "name": obj.get("name"),
             "tenant_id": obj.get("tenant_id"),
             "is_active": obj.get("is_active") if obj.get("is_active") is not None else True,
@@ -136,7 +145,8 @@ class Application(BaseModel):
             "description": obj.get("description"),
             "version": obj.get("version"),
             "avatar": obj.get("avatar"),
-            "creator_user_id": obj.get("creator_user_id")
+            "creator_user_id": obj.get("creator_user_id"),
+            "app_catalog_id": obj.get("app_catalog_id")
         })
         return _obj
 

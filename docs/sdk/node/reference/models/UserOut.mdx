@@ -7,6 +7,7 @@ title: "UserOut"
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **number** | Unique identifier of the user. | [default to undefined]
+**public_id** | **string** | Public, non-enumerable external identifier of the user. | [default to undefined]
 **created_at** | **string** | UTC timestamp when the user was created. | [default to undefined]
 **email** | **string** | Current confirmed email address. | [default to undefined]
 **email_confirmed** | **boolean** | Whether the email address has been confirmed. | [default to undefined]
@@ -14,10 +15,12 @@ Name | Type | Description | Notes
 **name** | **string** |  | [optional] [default to undefined]
 **first_name** | **string** |  | [optional] [default to undefined]
 **last_name** | **string** |  | [optional] [default to undefined]
-**admin** | **boolean** | Whether the user has tenant administrator privileges. | [default to undefined]
+**admin** | **boolean** | Whether the user has tenant administrator privileges. | [optional] [default to false]
 **superadmin** | **boolean** |  | [optional] [default to undefined]
 **active** | **boolean** | Whether the account is active and can authenticate. | [default to undefined]
 **tenant_id** | **number** |  | [optional] [default to undefined]
+**tenant_public_id** | **string** |  | [optional] [default to undefined]
+**permissions** | **Array&lt;string&gt;** | Effective permission keys the user holds, including those granted through group membership. | [optional] [default to undefined]
 
 ## Example
 
@@ -26,6 +29,7 @@ import { UserOut } from 'neuland-hub-sdk';
 
 const instance: UserOut = {
     id,
+    public_id,
     created_at,
     email,
     email_confirmed,
@@ -37,5 +41,7 @@ const instance: UserOut = {
     superadmin,
     active,
     tenant_id,
+    tenant_public_id,
+    permissions,
 };
 ```

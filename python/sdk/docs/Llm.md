@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **llm_get_cost**
-> TimeseriesResponse llm_get_cost(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
+> TimeseriesResponse llm_get_cost(usage_request, cookie_name=cookie_name)
 
 Get LLM cost metrics
 
@@ -50,11 +50,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Llm(api_client)
     usage_request = neuland_hub_sdk.UsageRequest() # UsageRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Get LLM cost metrics
-        api_response = api_instance.llm_get_cost(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.llm_get_cost(usage_request, cookie_name=cookie_name)
         print("The response of Llm->llm_get_cost:\n")
         pprint(api_response)
     except Exception as e:
@@ -70,7 +69,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **usage_request** | [**UsageRequest**](UsageRequest.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -97,7 +95,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **llm_get_usage_costs**
-> UsageCostResponse llm_get_usage_costs(usage_cost_request, cookie_name=cookie_name, tenant_id=tenant_id)
+> UsageCostResponse llm_get_usage_costs(usage_cost_request, cookie_name=cookie_name)
 
 Get external service usage costs
 
@@ -137,11 +135,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Llm(api_client)
     usage_cost_request = neuland_hub_sdk.UsageCostRequest() # UsageCostRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Get external service usage costs
-        api_response = api_instance.llm_get_usage_costs(usage_cost_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.llm_get_usage_costs(usage_cost_request, cookie_name=cookie_name)
         print("The response of Llm->llm_get_usage_costs:\n")
         pprint(api_response)
     except Exception as e:
@@ -157,7 +154,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **usage_cost_request** | [**UsageCostRequest**](UsageCostRequest.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -185,7 +181,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **llm_llm_total_tokens**
-> TokensTimeseriesResponse llm_llm_total_tokens(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
+> TokensTimeseriesResponse llm_llm_total_tokens(usage_request, cookie_name=cookie_name)
 
 Get token usage metrics
 
@@ -225,11 +221,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     api_instance = neuland_hub_sdk.Llm(api_client)
     usage_request = neuland_hub_sdk.UsageRequest() # UsageRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
-    tenant_id = 56 # int |  (optional)
 
     try:
         # Get token usage metrics
-        api_response = api_instance.llm_llm_total_tokens(usage_request, cookie_name=cookie_name, tenant_id=tenant_id)
+        api_response = api_instance.llm_llm_total_tokens(usage_request, cookie_name=cookie_name)
         print("The response of Llm->llm_llm_total_tokens:\n")
         pprint(api_response)
     except Exception as e:
@@ -245,7 +240,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **usage_request** | [**UsageRequest**](UsageRequest.md)|  | 
  **cookie_name** | **str**|  | [optional] 
- **tenant_id** | **int**|  | [optional] 
 
 ### Return type
 

@@ -36,6 +36,7 @@ class TestConnectorStatusOut(unittest.TestCase):
         if include_optional:
             return ConnectorStatusOut(
                 connector_id = 56,
+                connector_public_id = '',
                 name = '',
                 auth_type = 'oauth',
                 connected = True,
@@ -50,6 +51,7 @@ class TestConnectorStatusOut(unittest.TestCase):
         else:
             return ConnectorStatusOut(
                 connector_id = 56,
+                connector_public_id = '',
                 name = '',
                 auth_type = 'oauth',
                 connected = True,

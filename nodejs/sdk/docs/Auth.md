@@ -91,7 +91,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
 
-let appId: number; //ID of the AI application to scope the token to. (default to undefined)
+let appId: string; //Public id of the AI application to scope the token to. (default to undefined)
 
 const { status, data } = await apiInstance.authExchangeToken(
     appId
@@ -102,7 +102,7 @@ const { status, data } = await apiInstance.authExchangeToken(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **appId** | [**number**] | ID of the AI application to scope the token to. | defaults to undefined|
+| **appId** | [**string**] | Public id of the AI application to scope the token to. | defaults to undefined|
 
 
 ### Return type
@@ -124,7 +124,7 @@ No authorization required
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**404** | No application exists with the given id. |  -  |
+|**404** | No application exists with the given public id. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -525,13 +525,11 @@ const apiInstance = new Auth(configuration);
 
 let q: string; //Name/description search; empty browses alphabetically (optional) (default to undefined)
 let cursor: string; //Page cursor from a prior response\'s `next` (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.authSearchEntraGroups(
     q,
     cursor,
-    tenantId,
     cookieName
 );
 ```
@@ -542,7 +540,6 @@ const { status, data } = await apiInstance.authSearchEntraGroups(
 |------------- | ------------- | ------------- | -------------|
 | **q** | [**string**] | Name/description search; empty browses alphabetically | (optional) defaults to undefined|
 | **cursor** | [**string**] | Page cursor from a prior response\&#39;s &#x60;next&#x60; | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -759,7 +756,7 @@ No authorization required
 # **authSsoResolve**
 > SsoResolveOut authSsoResolve()
 
-Pre-login step: resolve a tenant from the email\'s domain and return the routing slug and available SSO providers.
+Pre-login step: resolve a tenant from the email\'s domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
 
 ### Example
 

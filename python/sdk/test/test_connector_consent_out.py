@@ -38,6 +38,7 @@ class TestConnectorConsentOut(unittest.TestCase):
                 consent_url = '',
                 connector = neuland_hub_sdk.models.connector_out.ConnectorOut(
                     id = 56, 
+                    public_id = '', 
                     name = '', 
                     provider = '', 
                     caps = [
@@ -52,6 +53,7 @@ class TestConnectorConsentOut(unittest.TestCase):
                 consent_url = '',
                 connector = neuland_hub_sdk.models.connector_out.ConnectorOut(
                     id = 56, 
+                    public_id = '', 
                     name = '', 
                     provider = '', 
                     caps = [

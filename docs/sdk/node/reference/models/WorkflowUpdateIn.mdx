@@ -1,0 +1,27 @@
+---
+title: "WorkflowUpdateIn"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [optional] [default to undefined]
+**description** | **string** |  | [optional] [default to undefined]
+**spec** | **&#123; [key: string]: any; &#125;** |  | [optional] [default to undefined]
+**is_enabled** | **boolean** |  | [optional] [default to true]
+**timezone** | **string** |  | [optional] [default to 'UTC']
+
+## Example
+
+```typescript
+import { WorkflowUpdateIn } from 'neuland-hub-sdk';
+
+const instance: WorkflowUpdateIn = {
+    name,
+    description,
+    spec,
+    is_enabled,
+    timezone,
+};
+```

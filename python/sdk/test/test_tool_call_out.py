@@ -43,6 +43,7 @@ class TestToolCallOut(unittest.TestCase):
                 state = '',
                 is_error = True,
                 description = '',
+                parent_tool_call_id = 56,
                 progress_steps = [
                     neuland_hub_sdk.models.tool_call_progress_step_out.ToolCallProgressStepOut(
                         name = '', 

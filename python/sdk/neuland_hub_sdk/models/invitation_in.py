@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,10 +29,11 @@ class InvitationIn(BaseModel):
     InvitationIn
     """ # noqa: E501
     emails: List[Optional[StrictStr]] = Field(description="Email addresses to invite; already-invited or existing users are skipped.")
-    tenant_id: Optional[StrictInt] = None
-    project_id: Optional[StrictInt] = None
+    tenant_id: Optional[UUID] = None
+    project_id: Optional[UUID] = None
     admin: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["emails", "tenant_id", "project_id", "admin"]
+    role_id: Optional[UUID] = None
+    __properties: ClassVar[List[str]] = ["emails", "tenant_id", "project_id", "admin", "role_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,6 +89,11 @@ class InvitationIn(BaseModel):
         if self.admin is None and "admin" in self.model_fields_set:
             _dict['admin'] = None
 
+        # set to None if role_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.role_id is None and "role_id" in self.model_fields_set:
+            _dict['role_id'] = None
+
         return _dict
 
     @classmethod
@@ -102,7 +109,8 @@ class InvitationIn(BaseModel):
             "emails": obj.get("emails"),
             "tenant_id": obj.get("tenant_id"),
             "project_id": obj.get("project_id"),
-            "admin": obj.get("admin")
+            "admin": obj.get("admin"),
+            "role_id": obj.get("role_id")
         })
         return _obj
 

@@ -65,9 +65,9 @@ const { status, data } = await apiInstance.apiCreateKey(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiRevokeApiKey**
-> ApiKey apiRevokeApiKey()
+> apiRevokeApiKey()
 
-Deactivate an API key so it can no longer authenticate requests.
+Deactivate an API key so it can no longer authenticate requests.  API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key created by a user in that key\'s tenant (an Operator, any key). This is the path an admin uses to clean up keys left by members who can no longer hold them.
 
 ### Example
 
@@ -80,7 +80,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new ApiKey(configuration);
 
-let apiKeyId: number; //ID of the API key to revoke. (default to undefined)
+let apiKeyId: string; //Public id of the API key to revoke. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.apiRevokeApiKey(
@@ -93,13 +93,13 @@ const { status, data } = await apiInstance.apiRevokeApiKey(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **apiKeyId** | [**number**] | ID of the API key to revoke. | defaults to undefined|
+| **apiKeyId** | [**string**] | Public id of the API key to revoke. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**ApiKey**
+void (empty response body)
 
 ### Authorization
 
@@ -114,7 +114,7 @@ const { status, data } = await apiInstance.apiRevokeApiKey(
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-|**200** | Successful Response |  -  |
+|**204** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
 |**404** | No API key exists with the given id. |  -  |
 |**422** | Validation Error |  -  |

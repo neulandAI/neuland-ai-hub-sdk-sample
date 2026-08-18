@@ -1,0 +1,34 @@
+# WorkflowIn
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** |  | 
+**description** | **str** |  | [optional] [default to '']
+**spec** | **Dict[str, object]** |  | [optional] 
+**chat_id** | **int** |  | [optional] 
+**timezone** | **str** |  | [optional] [default to 'UTC']
+**is_enabled** | **bool** |  | [optional] [default to True]
+
+## Example
+
+```python
+from neuland_hub_sdk.models.workflow_in import WorkflowIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of WorkflowIn from a JSON string
+workflow_in_instance = WorkflowIn.from_json(json)
+# print the JSON string representation of the object
+print(WorkflowIn.to_json())
+
+# convert the object into a dict
+workflow_in_dict = workflow_in_instance.to_dict()
+# create an instance of WorkflowIn from a dict
+workflow_in_from_dict = WorkflowIn.from_dict(workflow_in_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

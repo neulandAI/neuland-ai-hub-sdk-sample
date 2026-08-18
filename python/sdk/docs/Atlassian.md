@@ -45,7 +45,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Atlassian(api_client)
-    connector_id = 56 # int | ID of the Atlassian connector to configure.
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the Atlassian connector to configure.
     set_atlassian_cloud_id_request = neuland_hub_sdk.SetAtlassianCloudIdRequest() # SetAtlassianCloudIdRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -63,7 +63,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connector_id** | **int**| ID of the Atlassian connector to configure. | 
+ **connector_id** | **UUID**| Public id of the Atlassian connector to configure. | 
  **set_atlassian_cloud_id_request** | [**SetAtlassianCloudIdRequest**](SetAtlassianCloudIdRequest.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

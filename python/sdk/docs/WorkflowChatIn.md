@@ -1,0 +1,29 @@
+# WorkflowChatIn
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**message** | **str** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.workflow_chat_in import WorkflowChatIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of WorkflowChatIn from a JSON string
+workflow_chat_in_instance = WorkflowChatIn.from_json(json)
+# print the JSON string representation of the object
+print(WorkflowChatIn.to_json())
+
+# convert the object into a dict
+workflow_chat_in_dict = workflow_chat_in_instance.to_dict()
+# create an instance of WorkflowChatIn from a dict
+workflow_chat_in_from_dict = WorkflowChatIn.from_dict(workflow_chat_in_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

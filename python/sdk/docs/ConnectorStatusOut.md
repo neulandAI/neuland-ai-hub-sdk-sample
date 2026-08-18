@@ -5,7 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**connector_id** | **int** | Unique identifier of the connector. | 
+**connector_id** | **int** | Internal id of the connector (deprecated; use connector_public_id). | 
+**connector_public_id** | **UUID** | Public id of the connector. Use it for the consent, credential, and config endpoints (which are keyed by public id). | 
 **name** | **str** | Human-readable connector name. | 
 **auth_type** | [**ConnectorAuthType**](ConnectorAuthType.md) | Authentication mechanism the connector uses. | 
 **connected** | **bool** | Whether the connector is fully usable for the caller (consent granted and all required config present). | 

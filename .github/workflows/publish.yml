@@ -26,16 +26,13 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   fetch-depth: 0
 
-            - name: Setup Python
-              uses: actions/setup-python@v5
-              with:
-                  python-version: "3.13"
-
             - name: Bump version
               id: bump
               working-directory: python/sdk
               run: |
-                  CURRENT=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+                  LATEST_TAG=$(git tag -l "sdk-v*" --sort=-v:refname | head -n1)
+                  CURRENT="${LATEST_TAG#sdk-v}"
+                  CURRENT="${CURRENT:-0.0.0}"
                   IFS='.' read -r MAJ MIN PATCH <<< "$CURRENT"
                   case "${{ github.event.inputs.version }}" in
                       patch) PATCH=$((PATCH+1)) ;;
@@ -50,15 +47,23 @@ jobs:
                   sed -i "s|SDK Package Version: [0-9][0-9.]*|SDK Package Version: $NEW|" neuland_hub_sdk/configuration.py
                   echo "new_version=$NEW" >> "$GITHUB_OUTPUT"
 
+            - name: Sync install tag in docs
+              run: |
+                  sed -E -i "s|sdk-v[0-9]+\.[0-9]+\.[0-9]+|sdk-v${{ steps.bump.outputs.new_version }}|g" \
+                      README.md \
+                      docs/sdk/python/installation.mdx
+
             - name: Commit, tag, push
               run: |
                   git config user.name "GitHub Actions"
                   git config user.email "actions@github.com"
-                  git add  python/sdk/pyproject.toml \
+                  git add python/sdk/pyproject.toml \
                           python/sdk/setup.py \
                           python/sdk/neuland_hub_sdk/__init__.py \
                           python/sdk/neuland_hub_sdk/api_client.py \
-                          python/sdk/neuland_hub_sdk/configuration.py
+                          python/sdk/neuland_hub_sdk/configuration.py \
+                          README.md \
+                          docs/sdk/python/installation.mdx
                   git commit --no-gpg-sign -m "Release SDK v${{ steps.bump.outputs.new_version }}"
                   git tag "sdk-v${{ steps.bump.outputs.new_version }}"
                   git push && git push --tags

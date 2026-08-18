@@ -82,7 +82,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new LlmCatalog(configuration);
 
-let catalogId: number; //ID of the catalog entry to delete. (default to undefined)
+let catalogId: string; //Public id of the catalog entry to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.llmDeleteCatalog(
@@ -95,7 +95,7 @@ const { status, data } = await apiInstance.llmDeleteCatalog(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **catalogId** | [**number**] | ID of the catalog entry to delete. | defaults to undefined|
+| **catalogId** | [**string**] | Public id of the catalog entry to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -141,7 +141,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new LlmCatalog(configuration);
 
-let catalogId: number; //ID of the catalog entry to update. (default to undefined)
+let catalogId: string; //Public id of the catalog entry to update. (default to undefined)
 let catalogUpdate: CatalogUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -157,7 +157,7 @@ const { status, data } = await apiInstance.llmUpdateCatalog(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **catalogUpdate** | **CatalogUpdate**|  | |
-| **catalogId** | [**number**] | ID of the catalog entry to update. | defaults to undefined|
+| **catalogId** | [**string**] | Public id of the catalog entry to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

@@ -6,14 +6,18 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | Unique identifier of the invitation. | 
+**public_id** | **UUID** | Public, non-enumerable external identifier of the invitation. | 
 **email** | **str** | Email address the invitation was sent to. | 
-**tenant_id** | **int** | Identifier of the tenant the invite belongs to. | 
+**tenant_id** | **int** | Internal id of the tenant (deprecated; use tenant_public_id). | 
+**tenant_public_id** | **UUID** |  | [optional] 
 **project_id** | **int** |  | 
+**project_public_id** | **UUID** |  | [optional] 
 **status** | **str** | Current invitation status. | 
 **created_at** | **datetime** | UTC timestamp when the invitation was created. | 
 **accepted_at** | **datetime** |  | 
 **revoked_at** | **datetime** |  | 
-**creator_user_id** | **int** | Identifier of the user who created the invitation. | 
+**creator_user_id** | **int** | Internal id of the creating user (deprecated; use creator_user_public_id). | 
+**creator_user_public_id** | **UUID** |  | [optional] 
 
 ## Example
 

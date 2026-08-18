@@ -40,8 +40,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let libraryId: number; // (default to undefined)
-let tenantId: number; //ID of the tenant. (default to undefined)
+let libraryId: string; //Public id of the library to assign. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
@@ -55,8 +55,8 @@ const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **libraryId** | [**number**] |  | defaults to undefined|
-| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to assign. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -104,12 +104,10 @@ const apiInstance = new Tenant(configuration);
 
 let tenantIn: TenantIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsCreateTenant(
     tenantIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -119,7 +117,6 @@ const { status, data } = await apiInstance.tenantsCreateTenant(
 |------------- | ------------- | ------------- | -------------|
 | **tenantIn** | **TenantIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -163,8 +160,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let connectorId: number; //ID of the connector to enable. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let connectorId: string; //Public id of the connector to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsCreateTenantConnector(
@@ -178,8 +175,8 @@ const { status, data } = await apiInstance.tenantsCreateTenantConnector(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **connectorId** | [**number**] | ID of the connector to enable. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -225,8 +222,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; //ID of the tenant to configure. (default to undefined)
-let oauthClientId: number; //ID of the platform OAuth client to override. (default to undefined)
+let tenantId: string; //Public id of the tenant to configure. (default to undefined)
+let oauthClientId: string; //Public id of the platform OAuth client to override. (default to undefined)
 let tenantOAuthClientIn: TenantOAuthClientIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -243,8 +240,8 @@ const { status, data } = await apiInstance.tenantsCreateTenantOauthClient(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantOAuthClientIn** | **TenantOAuthClientIn**|  | |
-| **tenantId** | [**number**] | ID of the tenant to configure. | defaults to undefined|
-| **oauthClientId** | [**number**] | ID of the platform OAuth client to override. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant to configure. | defaults to undefined|
+| **oauthClientId** | [**string**] | Public id of the platform OAuth client to override. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -289,8 +286,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let toolId: number; //ID of the tool to enable. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let toolId: string; //Public id of the tool to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsCreateTenantTool(
@@ -304,8 +301,8 @@ const { status, data } = await apiInstance.tenantsCreateTenantTool(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **toolId** | [**number**] | ID of the tool to enable. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **toolId** | [**string**] | Public id of the tool to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -349,7 +346,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
+let tenantId: string; //Public id of the tenant to delete. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsDeleteTenant(
@@ -362,7 +359,7 @@ const { status, data } = await apiInstance.tenantsDeleteTenant(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant to delete. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -407,8 +404,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let connectorId: number; //ID of the connector to disable. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let connectorId: string; //Public id of the connector to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsDeleteTenantConnector(
@@ -422,8 +419,8 @@ const { status, data } = await apiInstance.tenantsDeleteTenantConnector(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **connectorId** | [**number**] | ID of the connector to disable. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **connectorId** | [**string**] | Public id of the connector to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -468,8 +465,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let modelId: number; //ID of the LLM catalog model to disable. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let modelId: string; //Public id of the LLM catalog model to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsDeleteTenantModel(
@@ -483,8 +480,8 @@ const { status, data } = await apiInstance.tenantsDeleteTenantModel(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **modelId** | [**number**] | ID of the LLM catalog model to disable. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **modelId** | [**string**] | Public id of the LLM catalog model to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -530,7 +527,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let modelId: number; //ID of the LLM catalog model to disable. (default to undefined)
+let modelId: string; //Public id of the LLM catalog model to disable. (default to undefined)
 let tenantModelBulkIn: TenantModelBulkIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -546,7 +543,7 @@ const { status, data } = await apiInstance.tenantsDeleteTenantModelsBulk(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantModelBulkIn** | **TenantModelBulkIn**|  | |
-| **modelId** | [**number**] | ID of the LLM catalog model to disable. | defaults to undefined|
+| **modelId** | [**string**] | Public id of the LLM catalog model to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -591,8 +588,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; //ID of the tenant. (default to undefined)
-let oauthClientId: number; //ID of the platform OAuth client being overridden. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let oauthClientId: string; //Public id of the platform OAuth client being overridden. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsDeleteTenantOauthClient(
@@ -606,8 +603,8 @@ const { status, data } = await apiInstance.tenantsDeleteTenantOauthClient(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
-| **oauthClientId** | [**number**] | ID of the platform OAuth client being overridden. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **oauthClientId** | [**string**] | Public id of the platform OAuth client being overridden. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -652,8 +649,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let toolId: number; //ID of the tool to disable. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let toolId: string; //Public id of the tool to disable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsDeleteTenantTool(
@@ -667,8 +664,8 @@ const { status, data } = await apiInstance.tenantsDeleteTenantTool(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **toolId** | [**number**] | ID of the tool to disable. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **toolId** | [**string**] | Public id of the tool to disable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -766,8 +763,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
-let modelId: number; //ID of the LLM catalog model to enable. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let modelId: string; //Public id of the LLM catalog model to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsPutTenantModel(
@@ -781,8 +778,8 @@ const { status, data } = await apiInstance.tenantsPutTenantModel(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **tenantId** | [**number**] |  | defaults to undefined|
-| **modelId** | [**number**] | ID of the LLM catalog model to enable. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **modelId** | [**string**] | Public id of the LLM catalog model to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -828,7 +825,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let modelId: number; //ID of the LLM catalog model to enable. (default to undefined)
+let modelId: string; //Public id of the LLM catalog model to enable. (default to undefined)
 let tenantModelBulkIn: TenantModelBulkIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -844,7 +841,7 @@ const { status, data } = await apiInstance.tenantsPutTenantModelsBulk(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantModelBulkIn** | **TenantModelBulkIn**|  | |
-| **modelId** | [**number**] | ID of the LLM catalog model to enable. | defaults to undefined|
+| **modelId** | [**string**] | Public id of the LLM catalog model to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -889,8 +886,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let libraryId: number; // (default to undefined)
-let tenantId: number; //ID of the tenant. (default to undefined)
+let libraryId: string; //Public id of the library to unassign. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsRemoveTenantLibraryMember(
@@ -904,8 +901,8 @@ const { status, data } = await apiInstance.tenantsRemoveTenantLibraryMember(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **libraryId** | [**number**] |  | defaults to undefined|
-| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
+| **libraryId** | [**string**] | Public id of the library to unassign. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -953,12 +950,10 @@ const apiInstance = new Tenant(configuration);
 
 let tenantUpdateIn: TenantUpdateIn; //
 let cookieName: string; // (optional) (default to undefined)
-let tenantId: number; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.tenantsUpdateCurrentTenant(
     tenantUpdateIn,
-    cookieName,
-    tenantId
+    cookieName
 );
 ```
 
@@ -968,7 +963,6 @@ const { status, data } = await apiInstance.tenantsUpdateCurrentTenant(
 |------------- | ------------- | ------------- | -------------|
 | **tenantUpdateIn** | **TenantUpdateIn**|  | |
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
-| **tenantId** | [**number**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -1012,7 +1006,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; // (default to undefined)
+let tenantId: string; //Public id of the tenant to update. (default to undefined)
 let tenantUpdateIn: TenantUpdateIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -1028,7 +1022,7 @@ const { status, data } = await apiInstance.tenantsUpdateTenant(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantUpdateIn** | **TenantUpdateIn**|  | |
-| **tenantId** | [**number**] |  | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant to update. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -1074,8 +1068,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; //ID of the tenant. (default to undefined)
-let oauthClientId: number; //ID of the platform OAuth client being overridden. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let oauthClientId: string; //Public id of the platform OAuth client being overridden. (default to undefined)
 let tenantOAuthClientUpdate: TenantOAuthClientUpdate; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -1092,8 +1086,8 @@ const { status, data } = await apiInstance.tenantsUpdateTenantOauthClient(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **tenantOAuthClientUpdate** | **TenantOAuthClientUpdate**|  | |
-| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
-| **oauthClientId** | [**number**] | ID of the platform OAuth client being overridden. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **oauthClientId** | [**string**] | Public id of the platform OAuth client being overridden. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
@@ -1139,8 +1133,8 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
 
-let tenantId: number; //ID of the tenant. (default to undefined)
-let oauthClientId: number; //ID of the platform OAuth client being overridden. (default to undefined)
+let tenantId: string; //Public id of the tenant. (default to undefined)
+let oauthClientId: string; //Public id of the platform OAuth client being overridden. (default to undefined)
 let secretUpdateIn: SecretUpdateIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -1157,8 +1151,8 @@ const { status, data } = await apiInstance.tenantsUpdateTenantOauthSecret(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **secretUpdateIn** | **SecretUpdateIn**|  | |
-| **tenantId** | [**number**] | ID of the tenant. | defaults to undefined|
-| **oauthClientId** | [**number**] | ID of the platform OAuth client being overridden. | defaults to undefined|
+| **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
+| **oauthClientId** | [**string**] | Public id of the platform OAuth client being overridden. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
