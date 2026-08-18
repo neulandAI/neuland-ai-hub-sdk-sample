@@ -1017,7 +1017,7 @@
     }
   },
   "logo": {
-    "light": "/docs/images/nllogo—design&wordmark—darkpurple@2x4.png",
-    "dark": "/docs/images/nllogo—design&wordmark—darkpurple@2x.png"
+    "light": "/docs/images/nllogo\u2014design&wordmark\u2014darkpurple@2x4.png",
+    "dark": "/docs/images/nllogo\u2014design&wordmark\u2014darkpurple@2x.png"
   }
 }
