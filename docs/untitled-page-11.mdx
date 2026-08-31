@@ -2,15 +2,15 @@
 title: "Assistenten"
 ---
 
-## **Videoanleitung**
-
 <video controls className="w-full aspect-video rounded-xl" src="https://mb.neuland.ai/hubfs/Assistenten%20anlegen.mp4" />
 
 ## **Was ist ein Assistent?**
 
 Ein Assistent ist eine **dauerhaft gespeicherte und wiederverwendbare KI-Rolle**, die immer nach dem gleichen Muster arbeitet – unabhängig davon, welche Dokumente oder Fragen im jeweiligen Chat eingegeben werden. Die Arbeitsanweisung wird einmalig definiert; nur die Eingabe (Prompt, Dokument, Screenshot etc.) ändert sich von Nutzung zu Nutzung.
 
-> **Abgrenzung zu Projekten:** Projekte bündeln viele Dokumente und Informationen für kollaboratives Arbeiten. Assistenten hingegen übernehmen immer dieselbe, klar definierte Aufgabe.
+<Info>
+  **Abgrenzung zu Projekten:** Projekte bündeln viele Dokumente und Informationen für kollaboratives Arbeiten. Assistenten hingegen übernehmen immer dieselbe, klar definierte Aufgabe.
+</Info>
 
 ## **Wann lohnt sich ein Assistent?**
 
@@ -48,42 +48,61 @@ Ergänzend zum Fragenkatalog wird später ein **Anweisungs-Prompt** definiert we
 <Columns cols={2}>
   <Column>
     <Frame>
-      ![Image](/images/image-5.png)
-
-      _Konfigurationsansicht des Eingabetyp "Prompt"_
+      <img
+        src="https://mintcdn.com/handbuch/M_p3wRq_8eGUfnIq/images/beispiel-konfiguration-prompts.png?fit=max&auto=format&n=M_p3wRq_8eGUfnIq&q=85&s=a2913b51fcd58c9af79109521529bb29"
+        alt="Beispiel Konfiguration Prompts"
+        width="1160"
+        height="718"
+        data-path="images/beispiel-konfiguration-prompts.png"
+      />
     </Frame>
   </Column>
   <Column>
     <Frame>
-      ![Image](/images/image-6.png)
-
-      _Ansicht eines fertigerstellten Assistenten mit zwei hinterlegten Prompts._
+      <img
+        src="https://mintcdn.com/handbuch/M_p3wRq_8eGUfnIq/images/beispiel-prompts.png?fit=max&auto=format&n=M_p3wRq_8eGUfnIq&q=85&s=e5e670ce1325602bc0be179c867f591e"
+        alt="Beispiel Prompts"
+        width="2260"
+        height="1380"
+        data-path="images/beispiel-prompts.png"
+      />
     </Frame>
   </Column>
 </Columns>
 
 #### **<u>1.2. Formular</u>**
 
-Der Eingabetyp „Formular" ermöglicht es, strukturierte Eingabemasken mit spezifischen Feldern zu konfigurieren. Folgende Feldtypen stehen zur Verfügung: Text (Freitexteingabe), Auswahl (Dropdown), Zahl (Numerische Eingabe), E-Mail (E-Mail-Adresse), Checkbox (Ja/Nein-Auswahl) oder Datum (Datumsauswahl per Kalender).
+Der Eingabetyp „Formular" ermöglicht es, strukturierte Eingabemasken mit spezifischen Feldern zu konfigurieren. Folgende Feldtypen stehen zur Verfügung: Text (Freitexteingabe), Auswahl (Dropdown), Zahl (Numerische Eingabe), E-Mail (E-Mail-Adresse), Checkbox (Ja/Nein-Auswahl) oder Datum (Datumsauswahl per Kalender)
 
 <Columns cols={2}>
   <Column>
     <Frame>
-      ![Image](/images/image-7.png)
-
-      _Beispiel für einen Assistenten mit mehreren Formularfeldern._
+      <img
+        src="https://mintcdn.com/handbuch/gykTtaBeK1_SBkdn/images/image-5.png?fit=max&auto=format&n=gykTtaBeK1_SBkdn&q=85&s=97e8fe237d7479d4f2adcb66c12d8b9c"
+        alt="Image"
+        width="497"
+        height="776"
+        data-path="images/image-5.png"
+      />
     </Frame>
   </Column>
   <Column>
     Felder können als **Pflichtfelder** markiert werden, um sicherzustellen, dass alle notwendigen Informationen vollständig erfasst werden:
 
     <Frame>
-      ![Image](/images/image-8.png)
+      <img
+        src="https://mintcdn.com/handbuch/gykTtaBeK1_SBkdn/images/image-6.png?fit=max&auto=format&n=gykTtaBeK1_SBkdn&q=85&s=bdebdd2601c1fda968cba63bb16793de"
+        alt="Image"
+        width="121"
+        height="47"
+        data-path="images/image-6.png"
+      />
     </Frame>
   </Column>
+  <Column>
+    Dieser Eingabetyp eignet sich besonders für **komplexe, wiederkehrende Aufgaben**, die eine strukturierte Dateneingabe erfordern – beispielsweise eine Reisekostenabrechnung.
+  </Column>
 </Columns>
-
-Dieser Eingabetyp eignet sich besonders für **komplexe, wiederkehrende Aufgaben**, die eine strukturierte Dateneingabe erfordern – beispielsweise eine Reisekostenabrechnung.
 
 In Kombination mit einem Anweisungs-Prompt und ausgewählten Tools weiß der Assistent genau, was zu tun ist, und kann auf Basis der eingegebenen Daten automatisch:
 
@@ -99,7 +118,13 @@ In Kombination mit einem Anweisungs-Prompt und ausgewählten Tools weiß der Ass
 ### **3. Tags & Avatar**
 
 <Frame>
-  ![Image](/images/image-10.png)
+  <img
+    src="https://mintcdn.com/handbuch/gykTtaBeK1_SBkdn/images/image-8.png?fit=max&auto=format&n=gykTtaBeK1_SBkdn&q=85&s=e703cebdb585a7ea3d5084593fa235b2"
+    alt="Image"
+    width="783"
+    height="159"
+    data-path="images/image-8.png"
+  />
 </Frame>
 
 - Tags zur Kategorisierung vergeben
@@ -143,25 +168,28 @@ Prüfen Sie noch einmal alle Eingaben und klicken Sie abschließend auf **„Ass
 
 ## **Assistenten teilen**
 
-<Frame>
-  ![Image](/images/image-11.png)
-</Frame>
+Assistenten können anderen Mitgliedern oder Gruppen freigegeben werden. Über die Funktion "Mit der Community teilen" wird der Assistent für andere Personen innerhalb der Organisation im Marketplace sichtbar und kann dort gefunden und genutzt werden.
 
-Über die Übersicht kann ein Assistent mit Kolleg:innen geteilt werden.
+<Info>
+  Geteilte Assistenten können von anderen Nutzern in den Einstellungen nicht bearbeitet werden.
+</Info>
+
+<img
+  src="https://mintcdn.com/handbuch/AiMWXPD8MsVVMbTE/images/Assistent-teilen-Assistenten-U%CC%88bersicht.png?fit=max&auto=format&n=AiMWXPD8MsVVMbTE&q=85&s=f2f705b959d7369572bd8475516c5d15"
+  alt="Assistent Teilen Assistenten Übersicht"
+  title="Assistent Teilen Assistenten Übersicht"
+  className="mx-auto"
+  style={{ width:"45%" }}
+  width="360"
+  height="194"
+  data-path="images/Assistent-teilen-Assistenten-Übersicht.png"
+/>
 
 <Note>
   **Wichtiger Hinweis:**
 
   Wenn vertrauliche Dokumente oder Informationen im Assistenten hinterlegt sind, sollte man vorab prüfen, ob die eingeladenen Personen darauf Zugriff haben dürfen.
 </Note>
-
-## **Datenquellen verwalten**
-
-<Frame>
-  ![Image](/images/image-12.png)
-
-  In der Assistenten-Übersicht können jederzeit **Datenquellen hinzugefügt, geändert oder überprüft** werden.
-</Frame>
 
 <Tip>
   ## **Tipps für die Praxis**

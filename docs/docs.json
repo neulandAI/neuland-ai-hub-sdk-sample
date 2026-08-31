@@ -28,7 +28,14 @@
             ]
           },
           "projekte",
-          "assistenten",
+          {
+            "group": "Assistenten",
+            "pages": [
+              "untitled-page-11",
+              "untitled-page-12",
+              "untitled-page-13"
+            ]
+          },
           "untitled-page-10",
           "knowledge",
           {
