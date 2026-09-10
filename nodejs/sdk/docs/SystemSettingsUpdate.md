@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **tracing_enabled** | **boolean** |  | [optional] [default to undefined]
 **inbound_guardrail_llm_settings_id** | **string** |  | [optional] [default to undefined]
 **outbound_guardrail_llm_settings_id** | **string** |  | [optional] [default to undefined]
+**title_llm_settings_id** | **string** |  | [optional] [default to undefined]
 **embedding_llm_settings_id** | **string** |  | [optional] [default to undefined]
 **transcription_llm_settings_id** | **string** |  | [optional] [default to undefined]
 **maintenance_start_at** | **string** |  | [optional] [default to undefined]
@@ -27,6 +28,7 @@ const instance: SystemSettingsUpdate = {
     tracing_enabled,
     inbound_guardrail_llm_settings_id,
     outbound_guardrail_llm_settings_id,
+    title_llm_settings_id,
     embedding_llm_settings_id,
     transcription_llm_settings_id,
     maintenance_start_at,

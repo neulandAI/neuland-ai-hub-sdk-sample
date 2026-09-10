@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **predefined_prompts** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **instructions** | **string** |  | [optional] [default to undefined]
 **temperature** | **number** |  | [optional] [default to undefined]
+**reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md) |  | [optional] [default to undefined]
 **similarity_top_k** | **number** |  | [optional] [default to undefined]
 **input_type** | [**AssistantInputTypeEnum**](AssistantInputTypeEnum.md) | Input mode: free-text prompt or structured form. | [optional] [default to undefined]
 **form_fields** | [**Array&lt;FormField&gt;**](FormField.md) |  | [optional] [default to undefined]
@@ -31,6 +32,7 @@ const instance: AssistantIn = {
     predefined_prompts,
     instructions,
     temperature,
+    reasoning_effort,
     similarity_top_k,
     input_type,
     form_fields,

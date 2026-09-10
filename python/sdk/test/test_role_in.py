@@ -40,7 +40,19 @@ class TestRoleIn(unittest.TestCase):
                 permissions = [
                     ''
                     ],
-                tenant_id = ''
+                tenant_id = '',
+                all_models = True,
+                all_tools = True,
+                all_connectors = True,
+                models = [
+                    ''
+                    ],
+                tools = [
+                    ''
+                    ],
+                connectors = [
+                    ''
+                    ]
             )
         else:
             return RoleIn(

@@ -325,7 +325,8 @@ class Role:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -630,7 +631,8 @@ class Role:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -930,7 +932,8 @@ class Role:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1213,7 +1216,8 @@ class Role:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1496,7 +1500,8 @@ class Role:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1801,7 +1806,8 @@ class Role:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2099,7 +2105,8 @@ class Role:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2141,7 +2148,7 @@ class Role:
     ) -> Role:
         """Update a role
 
-        Edit a role's name and/or permission set.
+        Edit a role's name, permission set and/or the resources it grants.
 
         :param role_id: Public id of the role to update. (required)
         :type role_id: UUID
@@ -2220,7 +2227,7 @@ class Role:
     ) -> ApiResponse[Role]:
         """Update a role
 
-        Edit a role's name and/or permission set.
+        Edit a role's name, permission set and/or the resources it grants.
 
         :param role_id: Public id of the role to update. (required)
         :type role_id: UUID
@@ -2299,7 +2306,7 @@ class Role:
     ) -> RESTResponseType:
         """Update a role
 
-        Edit a role's name and/or permission set.
+        Edit a role's name, permission set and/or the resources it grants.
 
         :param role_id: Public id of the role to update. (required)
         :type role_id: UUID
@@ -2417,7 +2424,8 @@ class Role:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

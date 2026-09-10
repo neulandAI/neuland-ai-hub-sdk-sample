@@ -41,6 +41,7 @@ class TestAssistantCatalogIn(unittest.TestCase):
                 instructions = '',
                 llm_catalog_id = '',
                 temperature = 1.337,
+                reasoning_effort = 'low',
                 similarity_top_k = 56,
                 version = '',
                 predefined_prompts = [

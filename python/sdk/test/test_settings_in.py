@@ -43,10 +43,15 @@ class TestSettingsIn(unittest.TestCase):
                 welcome_email_template_id = '',
                 project_member_added_email_template_id = '',
                 system_prompt = '',
+                system_prompt_extension = '',
                 errlog_webhook_url = '',
                 require_email_confirmation = True,
                 budget_alert_enabled = True,
-                soft_limit_warning_enabled = True
+                soft_limit_warning_enabled = True,
+                document_retention_days = 56,
+                default_language = '',
+                user_level_analytics_enabled = True,
+                user_analytics_reveal_names = True
             )
         else:
             return SettingsIn(

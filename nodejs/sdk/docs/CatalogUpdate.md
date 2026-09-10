@@ -12,8 +12,11 @@ Name | Type | Description | Notes
 **embedding_dimension** | **number** |  | [optional] [default to undefined]
 **supports_embedding** | **boolean** |  | [optional] [default to undefined]
 **supports_transcription** | **boolean** |  | [optional] [default to undefined]
+**supports_reasoning_effort** | **boolean** |  | [optional] [default to undefined]
 **supports_clarification** | **boolean** |  | [optional] [default to undefined]
 **auto_seed** | **boolean** |  | [optional] [default to undefined]
+**tier** | [**ModelTierEnum**](ModelTierEnum.md) |  | [optional] [default to undefined]
+**auto_routable** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -28,8 +31,11 @@ const instance: CatalogUpdate = {
     embedding_dimension,
     supports_embedding,
     supports_transcription,
+    supports_reasoning_effort,
     supports_clarification,
     auto_seed,
+    tier,
+    auto_routable,
 };
 ```
 

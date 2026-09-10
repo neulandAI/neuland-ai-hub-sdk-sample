@@ -40,13 +40,17 @@ class Settings(BaseModel):
     inbound_guardrail: Optional[StrictStr] = None
     outbound_guardrail: Optional[StrictStr] = None
     system_prompt: Optional[StrictStr] = None
+    system_prompt_extension: Optional[StrictStr] = None
     inserted_by: Optional[StrictStr]
     errlog_webhook_url: Optional[StrictStr] = None
-    default_language: Optional[Annotated[str, Field(strict=True, max_length=5)]] = Field(default='en', description="Default language code for the tenant's emails.")
+    default_language: Optional[Annotated[str, Field(strict=True, max_length=5)]] = Field(default='de', description="Default language code for the tenant's emails.")
     require_email_confirmation: Optional[StrictBool] = Field(default=False, description="Whether users must confirm their email before login.")
     budget_alert_enabled: Optional[StrictBool] = Field(default=False, description="Whether budget-alert emails are sent when tenant spend exceeds a threshold.")
     soft_limit_warning_enabled: Optional[StrictBool] = Field(default=False, description="Whether soft-limit warning emails are sent when a user nears their monthly limit.")
-    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "system_prompt", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled"]
+    document_retention_days: Optional[StrictInt] = None
+    user_level_analytics_enabled: Optional[StrictBool] = Field(default=False, description="Whether identifiable per-user / per-group analytics are shown to this tenant's admins. Off by default (GDPR data-minimization); the tenant admin opts in. Aggregated/anonymized analytics are unaffected.")
+    user_analytics_reveal_names: Optional[StrictBool] = Field(default=False, description="When user-level analytics is on, whether the user dimension carries real user ids (so the UI can show names) or opaque per-request pseudonyms. Off by default (GDPR): pseudonymized. Only takes effect while user_level_analytics_enabled is on.")
+    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "system_prompt", "system_prompt_extension", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "user_level_analytics_enabled", "user_analytics_reveal_names"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -117,6 +121,11 @@ class Settings(BaseModel):
         if self.system_prompt is None and "system_prompt" in self.model_fields_set:
             _dict['system_prompt'] = None
 
+        # set to None if system_prompt_extension (nullable) is None
+        # and model_fields_set contains the field
+        if self.system_prompt_extension is None and "system_prompt_extension" in self.model_fields_set:
+            _dict['system_prompt_extension'] = None
+
         # set to None if inserted_by (nullable) is None
         # and model_fields_set contains the field
         if self.inserted_by is None and "inserted_by" in self.model_fields_set:
@@ -126,6 +135,11 @@ class Settings(BaseModel):
         # and model_fields_set contains the field
         if self.errlog_webhook_url is None and "errlog_webhook_url" in self.model_fields_set:
             _dict['errlog_webhook_url'] = None
+
+        # set to None if document_retention_days (nullable) is None
+        # and model_fields_set contains the field
+        if self.document_retention_days is None and "document_retention_days" in self.model_fields_set:
+            _dict['document_retention_days'] = None
 
         return _dict
 
@@ -149,12 +163,16 @@ class Settings(BaseModel):
             "inbound_guardrail": obj.get("inbound_guardrail"),
             "outbound_guardrail": obj.get("outbound_guardrail"),
             "system_prompt": obj.get("system_prompt"),
+            "system_prompt_extension": obj.get("system_prompt_extension"),
             "inserted_by": obj.get("inserted_by"),
             "errlog_webhook_url": obj.get("errlog_webhook_url"),
-            "default_language": obj.get("default_language") if obj.get("default_language") is not None else 'en',
+            "default_language": obj.get("default_language") if obj.get("default_language") is not None else 'de',
             "require_email_confirmation": obj.get("require_email_confirmation") if obj.get("require_email_confirmation") is not None else False,
             "budget_alert_enabled": obj.get("budget_alert_enabled") if obj.get("budget_alert_enabled") is not None else False,
-            "soft_limit_warning_enabled": obj.get("soft_limit_warning_enabled") if obj.get("soft_limit_warning_enabled") is not None else False
+            "soft_limit_warning_enabled": obj.get("soft_limit_warning_enabled") if obj.get("soft_limit_warning_enabled") is not None else False,
+            "document_retention_days": obj.get("document_retention_days"),
+            "user_level_analytics_enabled": obj.get("user_level_analytics_enabled") if obj.get("user_level_analytics_enabled") is not None else False,
+            "user_analytics_reveal_names": obj.get("user_analytics_reveal_names") if obj.get("user_analytics_reveal_names") is not None else False
         })
         return _obj
 

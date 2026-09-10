@@ -1,0 +1,32 @@
+# SubtenantUsageResponse
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **datetime** |  | 
+**end_date** | **datetime** |  | 
+**totals** | [**UsageMetrics**](UsageMetrics.md) | Combined totals across the subtree. | 
+**rows** | [**List[SubtenantUsageRow]**](SubtenantUsageRow.md) | One row per tenant (self + direct children). | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.subtenant_usage_response import SubtenantUsageResponse
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of SubtenantUsageResponse from a JSON string
+subtenant_usage_response_instance = SubtenantUsageResponse.from_json(json)
+# print the JSON string representation of the object
+print(SubtenantUsageResponse.to_json())
+
+# convert the object into a dict
+subtenant_usage_response_dict = subtenant_usage_response_instance.to_dict()
+# create an instance of SubtenantUsageResponse from a dict
+subtenant_usage_response_from_dict = SubtenantUsageResponse.from_dict(subtenant_usage_response_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -13,8 +13,11 @@ Name | Type | Description | Notes
 **embedding_dimension** | **number** |  | [optional] [default to undefined]
 **supports_embedding** | **boolean** | Whether the model can generate embeddings. | [optional] [default to false]
 **supports_transcription** | **boolean** | Whether the model can transcribe audio. | [optional] [default to false]
+**supports_reasoning_effort** | **boolean** | Whether the model accepts a &#x60;reasoning_effort&#x60; hint. Chats only offer the effort picker for models where this is true. | [optional] [default to false]
 **supports_clarification** | **boolean** | Whether the model reliably drives the ask_user_question clarification tool; when false it asks in plain text instead. | [optional] [default to true]
 **auto_seed** | **boolean** | Whether to auto-create default settings for this catalog entry on seed. | [optional] [default to false]
+**tier** | [**ModelTierEnum**](/sdk/node/reference/models/ModelTierEnum) |  | [optional] [default to undefined]
+**auto_routable** | **boolean** | Whether the router may pick this model on its own. Turn it off for preview or specialist models that should stay hand-selectable. | [optional] [default to true]
 
 ## Example
 
@@ -29,7 +32,10 @@ const instance: CatalogIn = {
     embedding_dimension,
     supports_embedding,
     supports_transcription,
+    supports_reasoning_effort,
     supports_clarification,
     auto_seed,
+    tier,
+    auto_routable,
 };
 ```

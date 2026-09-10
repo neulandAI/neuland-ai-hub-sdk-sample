@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **instructions** | **string** |  | [optional] [default to undefined]
 **llm_catalog_id** | **string** |  | [optional] [default to undefined]
 **temperature** | **number** |  | [optional] [default to undefined]
+**reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md) |  | [optional] [default to undefined]
 **similarity_top_k** | **number** |  | [optional] [default to undefined]
 **version** | **string** |  | [optional] [default to undefined]
 **predefined_prompts** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
@@ -27,6 +28,7 @@ const instance: AssistantCatalogIn = {
     instructions,
     llm_catalog_id,
     temperature,
+    reasoning_effort,
     similarity_top_k,
     version,
     predefined_prompts,

@@ -10,10 +10,19 @@ Name | Type | Description | Notes
 **provider** | **string** |  | [optional] [default to undefined]
 **library** | **string** |  | [optional] [default to undefined]
 **max_tokens** | **number** |  | [optional] [default to undefined]
+**reasoning_effort** | [**ReasoningEffortEnum**](/sdk/node/reference/models/ReasoningEffortEnum) |  | [optional] [default to undefined]
 **cost_prompt_tokens** | [**CostPromptTokens1**](/sdk/node/reference/models/CostPromptTokens1) |  | [optional] [default to undefined]
 **cost_completion_tokens** | [**CostCompletionTokens1**](/sdk/node/reference/models/CostCompletionTokens1) |  | [optional] [default to undefined]
 **cost_cached_tokens** | [**CostCachedTokens**](/sdk/node/reference/models/CostCachedTokens) |  | [optional] [default to undefined]
+**cost_cache_creation_tokens** | [**CostCacheCreationTokens**](/sdk/node/reference/models/CostCacheCreationTokens) |  | [optional] [default to undefined]
+**tier_threshold_tokens** | **number** |  | [optional] [default to undefined]
+**cost_prompt_tokens_above_tier** | [**CostPromptTokensAboveTier**](/sdk/node/reference/models/CostPromptTokensAboveTier) |  | [optional] [default to undefined]
+**cost_completion_tokens_above_tier** | [**CostCompletionTokensAboveTier**](/sdk/node/reference/models/CostCompletionTokensAboveTier) |  | [optional] [default to undefined]
+**cost_cached_tokens_above_tier** | [**CostCachedTokensAboveTier**](/sdk/node/reference/models/CostCachedTokensAboveTier) |  | [optional] [default to undefined]
+**cost_cache_creation_tokens_above_tier** | [**CostCacheCreationTokensAboveTier**](/sdk/node/reference/models/CostCacheCreationTokensAboveTier) |  | [optional] [default to undefined]
 **cost_audio_per_minute** | [**CostAudioPerMinute**](/sdk/node/reference/models/CostAudioPerMinute) |  | [optional] [default to undefined]
+**active** | **boolean** |  | [optional] [default to undefined]
+**last_seen_at** | **string** |  | [optional] [default to undefined]
 **region** | **string** |  | [optional] [default to undefined]
 **args** | **&#123; [key: string]: any; &#125;** |  | [optional] [default to undefined]
 **openai_resource** | **string** |  | [optional] [default to undefined]
@@ -32,10 +41,19 @@ const instance: LLMSettingsUpdate = {
     provider,
     library,
     max_tokens,
+    reasoning_effort,
     cost_prompt_tokens,
     cost_completion_tokens,
     cost_cached_tokens,
+    cost_cache_creation_tokens,
+    tier_threshold_tokens,
+    cost_prompt_tokens_above_tier,
+    cost_completion_tokens_above_tier,
+    cost_cached_tokens_above_tier,
+    cost_cache_creation_tokens_above_tier,
     cost_audio_per_minute,
+    active,
+    last_seen_at,
     region,
     args,
     openai_resource,

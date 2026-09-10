@@ -13,8 +13,11 @@ Name | Type | Description | Notes
 **embedding_dimension** | **int** |  | [optional] 
 **supports_embedding** | **bool** | Whether the model can generate embeddings. | [optional] [default to False]
 **supports_transcription** | **bool** | Whether the model can transcribe audio. | [optional] [default to False]
+**supports_reasoning_effort** | **bool** | Whether the model accepts a &#x60;reasoning_effort&#x60; hint. Chats only offer the effort picker for models where this is true. | [optional] [default to False]
 **supports_clarification** | **bool** | Whether the model reliably drives the ask_user_question clarification tool; when false it asks in plain text instead. | [optional] [default to True]
 **auto_seed** | **bool** | Whether to auto-create default settings for this catalog entry on seed. | [optional] [default to False]
+**tier** | [**ModelTierEnum**](/sdk/python/reference/models/ModelTierEnum) |  | [optional] 
+**auto_routable** | **bool** | Whether the router may pick this model on its own. Turn it off for preview or specialist models that should stay hand-selectable. | [optional] [default to True]
 
 ## Example
 

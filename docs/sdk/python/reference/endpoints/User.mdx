@@ -33,6 +33,7 @@ Re-activate a user so they can authenticate again.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -56,6 +57,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -89,7 +92,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -119,6 +122,7 @@ Create a new user group
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -143,6 +147,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -176,7 +182,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -205,6 +211,7 @@ Create a user in the caller's (or specified) tenant and send a confirmation emai
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -229,6 +236,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -262,7 +271,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -291,6 +300,7 @@ Deactivate a user so they can no longer authenticate; you cannot deactivate your
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -314,6 +324,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -347,7 +359,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -377,6 +389,7 @@ Delete a user group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -399,6 +412,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -430,7 +445,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -462,6 +477,7 @@ their sessions synchronously, then reassign shared resources and hard-delete asy
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -484,6 +500,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -515,7 +533,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -546,6 +564,7 @@ effective feature-flag map for their tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -569,6 +588,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -600,7 +621,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -629,6 +650,7 @@ Change the current user's password and revoke all of their sessions.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -652,6 +674,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -683,7 +707,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -712,6 +736,7 @@ Reconcile an external group's membership against its bound directory group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -735,6 +760,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -768,7 +795,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -785,7 +812,7 @@ Name | Type | Description  | Notes
 **403** | Admin privileges required. |  -  |
 **404** | No group exists with the given id. |  -  |
 **409** | The group is not an external (identity-provider) group. |  -  |
-**422** | Validation Error |  -  |
+**422** | Not an Azure Entra session, or its access token is missing. |  -  |
 
 
 ## **users_update_group**
@@ -800,6 +827,7 @@ Update an existing user group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -824,6 +852,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -859,7 +889,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -890,6 +920,7 @@ Update a user's profile, role, tenant, or email; password changes are restricted
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -914,6 +945,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -949,7 +982,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -979,6 +1012,7 @@ Synchronize group members — add new ones and remove missing ones.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -1002,6 +1036,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1037,7 +1073,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -1068,6 +1104,7 @@ Create or update the current user's UI preferences.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -1092,6 +1129,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1125,7 +1164,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 

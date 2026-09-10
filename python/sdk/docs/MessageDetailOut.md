@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **tool_calls** | [**List[ToolCallOut]**](ToolCallOut.md) | Tool calls made while generating the message. | 
 **files** | [**List[MessageFileOut]**](MessageFileOut.md) | Files attached to the message. | 
 **interrupt** | **Dict[str, object]** |  | [optional] 
-**reasoning** | **List[Dict[str, object]]** |  | [optional] 
+**reasoning** | **List[Optional[Dict[str, object]]]** |  | [optional] 
 **turn_step_index** | **int** |  | [optional] 
 **is_final_step** | **bool** |  | [optional] 
 

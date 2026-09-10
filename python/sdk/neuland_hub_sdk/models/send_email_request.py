@@ -21,7 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from neuland_hub_sdk.models.bcc import Bcc
 from neuland_hub_sdk.models.cc import Cc
-from neuland_hub_sdk.models.to import To
+from neuland_hub_sdk.models.to1 import To1
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -31,12 +31,13 @@ class SendEmailRequest(BaseModel):
     Request to send an email from a tool call.
     """ # noqa: E501
     tool_call_id: StrictStr = Field(description="The ID of the tool call that generated the draft")
-    to: To
+    to: To1
     subject: StrictStr = Field(description="Email subject")
     body: StrictStr = Field(description="Email body content (can be markdown or HTML)")
     cc: Optional[Cc] = None
     bcc: Optional[Bcc] = None
-    __properties: ClassVar[List[str]] = ["tool_call_id", "to", "subject", "body", "cc", "bcc"]
+    attachment_ids: Optional[List[StrictStr]] = None
+    __properties: ClassVar[List[str]] = ["tool_call_id", "to", "subject", "body", "cc", "bcc", "attachment_ids"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -96,6 +97,11 @@ class SendEmailRequest(BaseModel):
         if self.bcc is None and "bcc" in self.model_fields_set:
             _dict['bcc'] = None
 
+        # set to None if attachment_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.attachment_ids is None and "attachment_ids" in self.model_fields_set:
+            _dict['attachment_ids'] = None
+
         return _dict
 
     @classmethod
@@ -109,11 +115,12 @@ class SendEmailRequest(BaseModel):
 
         _obj = cls.model_validate({
             "tool_call_id": obj.get("tool_call_id"),
-            "to": To.from_dict(obj["to"]) if obj.get("to") is not None else None,
+            "to": To1.from_dict(obj["to"]) if obj.get("to") is not None else None,
             "subject": obj.get("subject"),
             "body": obj.get("body"),
             "cc": Cc.from_dict(obj["cc"]) if obj.get("cc") is not None else None,
-            "bcc": Bcc.from_dict(obj["bcc"]) if obj.get("bcc") is not None else None
+            "bcc": Bcc.from_dict(obj["bcc"]) if obj.get("bcc") is not None else None,
+            "attachment_ids": obj.get("attachment_ids")
         })
         return _obj
 

@@ -1,0 +1,29 @@
+---
+title: "UserGrantIn"
+---
+
+The complete set of direct grants a user should hold for one kind.  An item left out is revoked, which returns the user to what their roles grant — never to nothing, because grants only ever add.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**item_ids** | **List[UUID]** | Public ids of the models, tools or connectors to grant. | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.user_grant_in import UserGrantIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UserGrantIn from a JSON string
+user_grant_in_instance = UserGrantIn.from_json(json)
+# print the JSON string representation of the object
+print(UserGrantIn.to_json())
+
+# convert the object into a dict
+user_grant_in_dict = user_grant_in_instance.to_dict()
+# create an instance of UserGrantIn from a dict
+user_grant_in_from_dict = UserGrantIn.from_dict(user_grant_in_dict)
+```

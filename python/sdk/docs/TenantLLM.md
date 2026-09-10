@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **updater_user_id** | **int** |  | [optional] 
 **tenant_id** | **int** | ID of the tenant the LLM is enabled for. | 
 **llm_catalog_id** | **int** | ID of the LLM catalog entry enabled for the tenant. | 
+**auto_routable** | **bool** |  | [optional] 
 
 ## Example
 

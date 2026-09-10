@@ -27,7 +27,7 @@ TO_ANY_OF_SCHEMAS = ["List[str]", "str"]
 
 class To(BaseModel):
     """
-    Recipient email address(es)
+    Recipient email address(es); optional for a draft
     """
 
     # data type: str
@@ -57,6 +57,9 @@ class To(BaseModel):
 
     @field_validator('actual_instance')
     def actual_instance_must_validate_anyof(cls, v):
+        if v is None:
+            return v
+
         instance = To.model_construct()
         error_messages = []
         # validate data type: str
@@ -85,6 +88,9 @@ class To(BaseModel):
     def from_json(cls, json_str: str) -> Self:
         """Returns the object represented by the json string"""
         instance = cls.model_construct()
+        if json_str is None:
+            return instance
+
         error_messages = []
         # deserialize data into str
         try:

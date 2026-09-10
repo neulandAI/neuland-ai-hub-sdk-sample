@@ -45,12 +45,16 @@ class TestSettings(unittest.TestCase):
                 inbound_guardrail = '',
                 outbound_guardrail = '',
                 system_prompt = '',
+                system_prompt_extension = '',
                 inserted_by = '',
                 errlog_webhook_url = '',
-                default_language = 'en',
+                default_language = 'de',
                 require_email_confirmation = True,
                 budget_alert_enabled = True,
-                soft_limit_warning_enabled = True
+                soft_limit_warning_enabled = True,
+                document_retention_days = 56,
+                user_level_analytics_enabled = True,
+                user_analytics_reveal_names = True
             )
         else:
             return Settings(

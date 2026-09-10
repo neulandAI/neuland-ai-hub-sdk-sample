@@ -29,6 +29,7 @@ from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.api.prompt import Prompt
 from neuland_hub_sdk.api.query import Query
 from neuland_hub_sdk.api.rating import Rating
+from neuland_hub_sdk.api.resource_access import ResourceAccess
 from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.api.settings import Settings
 from neuland_hub_sdk.api.sharepoint import Sharepoint

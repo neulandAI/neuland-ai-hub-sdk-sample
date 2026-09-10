@@ -2,7 +2,7 @@
 title: "MessageSubmitOut"
 ---
 
-Response for POST /messages/submit: the created message, dual-key.
+Response for the message-creating routes: the created message, dual-key.
 
 ## Properties
 
@@ -29,7 +29,6 @@ Name | Type | Description | Notes
 **interrupt** | **Dict[str, object]** |  | [optional] 
 **llm_catalog_id** | **int** |  | [optional] 
 **llm_settings_id** | **int** |  | [optional] 
-**celery_task_id** | **str** |  | [optional] 
 **created_at** | **datetime** | When the message was created. | 
 **updated_at** | **datetime** | When the message was last updated. | 
 

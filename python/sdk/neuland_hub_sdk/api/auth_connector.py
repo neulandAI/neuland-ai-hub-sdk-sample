@@ -312,7 +312,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -605,7 +606,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -694,6 +696,7 @@ class AuthConnector:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
             '401': None,
+            '403': None,
             '404': None,
             '503': None,
             '422': "HTTPValidationError",
@@ -777,6 +780,7 @@ class AuthConnector:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
             '401': None,
+            '403': None,
             '404': None,
             '503': None,
             '422': "HTTPValidationError",
@@ -860,6 +864,7 @@ class AuthConnector:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ConnectorConsentOut",
             '401': None,
+            '403': None,
             '404': None,
             '503': None,
             '422': "HTTPValidationError",
@@ -929,7 +934,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -969,7 +975,7 @@ class AuthConnector:
     ) -> List[ConnectorStatusOut]:
         """List connector status
 
-        List connectors available to the user's tenant with their per-user consent status.
+        List the connectors the user may use with their per-user consent status.
 
         :param cookie_name:
         :type cookie_name: str
@@ -1039,7 +1045,7 @@ class AuthConnector:
     ) -> ApiResponse[List[ConnectorStatusOut]]:
         """List connector status
 
-        List connectors available to the user's tenant with their per-user consent status.
+        List the connectors the user may use with their per-user consent status.
 
         :param cookie_name:
         :type cookie_name: str
@@ -1109,7 +1115,7 @@ class AuthConnector:
     ) -> RESTResponseType:
         """List connector status
 
-        List connectors available to the user's tenant with their per-user consent status.
+        List the connectors the user may use with their per-user consent status.
 
         :param cookie_name:
         :type cookie_name: str
@@ -1201,7 +1207,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1827,7 +1834,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2145,7 +2153,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2460,7 +2469,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2778,7 +2788,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3096,7 +3107,8 @@ class AuthConnector:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

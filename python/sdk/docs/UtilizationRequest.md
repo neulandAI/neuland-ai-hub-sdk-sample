@@ -1,0 +1,31 @@
+# UtilizationRequest
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**date_start** | **datetime** | Inclusive start of the window. | 
+**date_end** | **datetime** | Inclusive end of the window. | 
+**idle_days** | **int** | An assistant is idle after this many days without a chat. | [optional] [default to 30]
+
+## Example
+
+```python
+from neuland_hub_sdk.models.utilization_request import UtilizationRequest
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UtilizationRequest from a JSON string
+utilization_request_instance = UtilizationRequest.from_json(json)
+# print the JSON string representation of the object
+print(UtilizationRequest.to_json())
+
+# convert the object into a dict
+utilization_request_dict = utilization_request_instance.to_dict()
+# create an instance of UtilizationRequest from a dict
+utilization_request_from_dict = UtilizationRequest.from_dict(utilization_request_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

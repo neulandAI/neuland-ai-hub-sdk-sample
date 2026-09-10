@@ -1,34 +1,38 @@
 # neuland_hub_sdk.ToolAction
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**toolactions_create_email_draft**](ToolAction.md#toolactions_create_email_draft) | **POST** /tool-actions/email/draft | Create an Outlook mailbox draft from a chat draft
 [**toolactions_send_email_from_draft**](ToolAction.md#toolactions_send_email_from_draft) | **POST** /tool-actions/email/send | Send an email from a draft
 
 
-# **toolactions_send_email_from_draft**
-> SendEmailResponse toolactions_send_email_from_draft(send_email_request, cookie_name=cookie_name)
+# **toolactions_create_email_draft**
+> CreateOutlookDraftResponse toolactions_create_email_draft(create_outlook_draft_request, cookie_name=cookie_name)
 
-Send an email from a draft
+Create an Outlook mailbox draft from a chat draft
 
-Send an email from a user-approved, tool-generated draft via Microsoft Graph.
+Create (not send) a draft in the user's mailbox — used by the draft
+card's "Open in Outlook" action, which cannot pass attachments through a
+compose deep link. Attachment scope rules are identical to sending.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.send_email_request import SendEmailRequest
-from neuland_hub_sdk.models.send_email_response import SendEmailResponse
+from neuland_hub_sdk.models.create_outlook_draft_request import CreateOutlookDraftRequest
+from neuland_hub_sdk.models.create_outlook_draft_response import CreateOutlookDraftResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -41,6 +45,96 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.ToolAction(api_client)
+    create_outlook_draft_request = neuland_hub_sdk.CreateOutlookDraftRequest() # CreateOutlookDraftRequest | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Create an Outlook mailbox draft from a chat draft
+        api_response = api_instance.toolactions_create_email_draft(create_outlook_draft_request, cookie_name=cookie_name)
+        print("The response of ToolAction->toolactions_create_email_draft:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ToolAction->toolactions_create_email_draft: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **create_outlook_draft_request** | [**CreateOutlookDraftRequest**](CreateOutlookDraftRequest.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**CreateOutlookDraftResponse**](CreateOutlookDraftResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**400** | Invalid attachments/recipients or the mail provider rejected the draft. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **toolactions_send_email_from_draft**
+> SendEmailResponse toolactions_send_email_from_draft(send_email_request, cookie_name=cookie_name)
+
+Send an email from a draft
+
+Send an email from a user-approved, tool-generated draft via Microsoft Graph.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.send_email_request import SendEmailRequest
+from neuland_hub_sdk.models.send_email_response import SendEmailResponse
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -74,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

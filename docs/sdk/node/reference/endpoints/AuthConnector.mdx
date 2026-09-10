@@ -58,7 +58,7 @@ const { status, data } = await apiInstance.authGetCredentialTemplate(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -116,7 +116,7 @@ const { status, data } = await apiInstance.authInitiateAdminConsent(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -182,7 +182,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -195,6 +195,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
+|**403** | The connector is not available to the user. |  -  |
 |**404** | No connector or OAuth client exists for the given id. |  -  |
 |**503** | The OAuth provider is misconfigured. |  -  |
 |**422** | Validation Error |  -  |
@@ -205,7 +206,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 Array<ConnectorStatusOut> authListConnectorStatus()
 ```
 
-List connectors available to the user\'s tenant with their per-user consent status.
+List the connectors the user may use with their per-user consent status.
 
 ### Example
 
@@ -238,7 +239,7 @@ const { status, data } = await apiInstance.authListConnectorStatus(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -364,7 +365,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -425,7 +426,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -488,7 +489,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -550,7 +551,7 @@ const { status, data } = await apiInstance.authUpdateConnector(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -613,7 +614,7 @@ const { status, data } = await apiInstance.authUpdateOauthClient(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 

@@ -7,11 +7,12 @@ Request to send an email from a tool call.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **tool_call_id** | **str** | The ID of the tool call that generated the draft | 
-**to** | [**To**](To.md) |  | 
+**to** | [**To1**](To1.md) |  | 
 **subject** | **str** | Email subject | 
 **body** | **str** | Email body content (can be markdown or HTML) | 
 **cc** | [**Cc**](Cc.md) |  | [optional] 
 **bcc** | [**Bcc**](Bcc.md) |  | [optional] 
+**attachment_ids** | **List[str]** |  | [optional] 
 
 ## Example
 

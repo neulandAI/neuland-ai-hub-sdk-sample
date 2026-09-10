@@ -1,10 +1,11 @@
 # Document
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**documentsDeleteChatDocument**](#documentsdeletechatdocument) | **DELETE** /documents/{document_id} | Delete a document|
+|[**documentsDocumentUsage**](#documentsdocumentusage) | **POST** /documents/usage | Document counts and storage bytes by dimension|
 |[**documentsGetFile**](#documentsgetfile) | **GET** /documents/{document_id} | Download a document|
 |[**documentsGetText**](#documentsgettext) | **GET** /documents/{document_id}/text | Get a document\&#39;s extracted text|
 |[**documentsImportDocuments**](#documentsimportdocuments) | **POST** /documents/import | Import documents from a connected source|
@@ -51,7 +52,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -66,6 +67,65 @@ void (empty response body)
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Caller may not access this document. |  -  |
 |**404** | No document exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **documentsDocumentUsage**
+> DocumentUsageResponse documentsDocumentUsage(documentUsageRequest)
+
+Aggregate the tenant\'s document storage by dimension and time bucket.
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration,
+    DocumentUsageRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let documentUsageRequest: DocumentUsageRequest; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsDocumentUsage(
+    documentUsageRequest,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **documentUsageRequest** | **DocumentUsageRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**DocumentUsageResponse**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**400** | Too many group_by dimensions, or a truncated bucketed result. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required, or user-level analytics is not enabled for the tenant. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -109,7 +169,7 @@ const { status, data } = await apiInstance.documentsGetFile(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -167,7 +227,7 @@ const { status, data } = await apiInstance.documentsGetText(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -246,7 +306,7 @@ const { status, data } = await apiInstance.documentsImportDocuments(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -305,7 +365,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -378,7 +438,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -452,7 +512,7 @@ const { status, data } = await apiInstance.documentsUploadDocuments(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

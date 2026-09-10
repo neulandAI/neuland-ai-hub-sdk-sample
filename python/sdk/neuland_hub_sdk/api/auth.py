@@ -578,6 +578,7 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -826,6 +827,7 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1749,6 +1751,7 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2656,7 +2659,7 @@ class Auth:
             '200': "Dict[str, object]",
             '401': None,
             '403': None,
-            '422': "HTTPValidationError",
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2734,7 +2737,7 @@ class Auth:
             '200': "Dict[str, object]",
             '401': None,
             '403': None,
-            '422': "HTTPValidationError",
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2812,7 +2815,7 @@ class Auth:
             '200': "Dict[str, object]",
             '401': None,
             '403': None,
-            '422': "HTTPValidationError",
+            '422': None,
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2876,7 +2879,8 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3145,7 +3149,8 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

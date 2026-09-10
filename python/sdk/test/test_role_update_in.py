@@ -39,6 +39,18 @@ class TestRoleUpdateIn(unittest.TestCase):
                 description = '',
                 permissions = [
                     ''
+                    ],
+                all_models = True,
+                all_tools = True,
+                all_connectors = True,
+                models = [
+                    ''
+                    ],
+                tools = [
+                    ''
+                    ],
+                connectors = [
+                    ''
                     ]
             )
         else:

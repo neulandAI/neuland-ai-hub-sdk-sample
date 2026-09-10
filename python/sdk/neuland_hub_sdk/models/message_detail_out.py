@@ -47,7 +47,7 @@ class MessageDetailOut(BaseModel):
     tool_calls: List[ToolCallOut] = Field(description="Tool calls made while generating the message.")
     files: List[MessageFileOut] = Field(description="Files attached to the message.")
     interrupt: Optional[Dict[str, Any]] = None
-    reasoning: Optional[List[Dict[str, Any]]] = None
+    reasoning: Optional[List[Optional[Dict[str, Any]]]] = None
     turn_step_index: Optional[StrictInt] = None
     is_final_step: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["id", "public_id", "chat_id", "parent_id", "role", "content", "state", "state_reason", "error", "hint", "created_at", "updated_at", "usage", "tool_calls", "files", "interrupt", "reasoning", "turn_step_index", "is_final_step"]

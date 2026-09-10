@@ -1,0 +1,31 @@
+# IdleAssistant
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**assistant_id** | **int** |  | 
+**name** | **str** |  | 
+**last_used_at** | **datetime** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.idle_assistant import IdleAssistant
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of IdleAssistant from a JSON string
+idle_assistant_instance = IdleAssistant.from_json(json)
+# print the JSON string representation of the object
+print(IdleAssistant.to_json())
+
+# convert the object into a dict
+idle_assistant_dict = idle_assistant_instance.to_dict()
+# create an instance of IdleAssistant from a dict
+idle_assistant_from_dict = IdleAssistant.from_dict(idle_assistant_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -1,0 +1,32 @@
+# LicenseUtilization
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**licenses** | **int** |  | 
+**active_users** | **int** | Active, non-deleting users. | 
+**active_unused_users** | **int** | Active users with no LLM usage in the window. | 
+**utilization_pct** | **float** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.license_utilization import LicenseUtilization
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of LicenseUtilization from a JSON string
+license_utilization_instance = LicenseUtilization.from_json(json)
+# print the JSON string representation of the object
+print(LicenseUtilization.to_json())
+
+# convert the object into a dict
+license_utilization_dict = license_utilization_instance.to_dict()
+# create an instance of LicenseUtilization from a dict
+license_utilization_from_dict = LicenseUtilization.from_dict(license_utilization_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

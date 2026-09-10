@@ -42,8 +42,11 @@ class TestCatalogUpdate(unittest.TestCase):
                 embedding_dimension = 56,
                 supports_embedding = True,
                 supports_transcription = True,
+                supports_reasoning_effort = True,
                 supports_clarification = True,
-                auto_seed = True
+                auto_seed = True,
+                tier = 'CHEAP',
+                auto_routable = True
             )
         else:
             return CatalogUpdate(

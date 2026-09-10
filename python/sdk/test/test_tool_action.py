@@ -26,6 +26,13 @@ class TestToolAction(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_toolactions_create_email_draft(self) -> None:
+        """Test case for toolactions_create_email_draft
+
+        Create an Outlook mailbox draft from a chat draft
+        """
+        pass
+
     def test_toolactions_send_email_from_draft(self) -> None:
         """Test case for toolactions_send_email_from_draft
 

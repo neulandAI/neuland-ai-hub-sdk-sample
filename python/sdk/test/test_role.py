@@ -45,6 +45,9 @@ class TestRole(unittest.TestCase):
                 description = '',
                 is_system = True,
                 is_default = True,
+                all_models = True,
+                all_tools = True,
+                all_connectors = True,
                 creator_user_id = 56,
                 updater_user_id = 56
             )

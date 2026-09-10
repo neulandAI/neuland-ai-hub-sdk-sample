@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **decision** | **str** | How to resolve the pause: approve/reject/edit a gated tool call, or respond to answer a clarification question. | 
 **edited_args** | **Dict[str, object]** |  | [optional] 
 **answers** | [**List[ClarificationAnswer]**](ClarificationAnswer.md) |  | [optional] 
+**model** | **str** |  | [optional] 
 
 ## Example
 

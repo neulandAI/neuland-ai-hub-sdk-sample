@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
+from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,14 +34,18 @@ class MessageIn(BaseModel):
     project_id: Optional[UUID] = None
     model: Optional[StrictStr] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
+    reasoning_effort: Optional[ReasoningEffortEnum] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
     assistant_id: Optional[UUID] = None
+    document_ids: Optional[List[UUID]] = None
+    tool_ids: Optional[List[UUID]] = None
+    library_id: Optional[UUID] = None
     private: Optional[StrictBool] = None
     form_data: Optional[Dict[str, Any]] = None
     form_fields: Optional[List[Dict[str, Any]]] = None
-    playground: Optional[StrictBool] = Field(default=False, description="Start a playground (sandbox) chat for testing assistant settings: the given system_prompt/temperature/similarity_top_k/model override the assistant's live config without saving it. Requires assistant_id; only the assistant's creator may use it.")
-    __properties: ClassVar[List[str]] = ["content", "chat_id", "project_id", "model", "temperature", "similarity_top_k", "system_prompt", "assistant_id", "private", "form_data", "form_fields", "playground"]
+    playground: Optional[StrictBool] = Field(default=False, description="Backs the assistant editor's preview pane and is not needed to send a message: it starts a sandbox chat in which the given system_prompt/temperature/similarity_top_k/model override the assistant's live config without saving it. Requires assistant_id; only the assistant's creator may use it.")
+    __properties: ClassVar[List[str]] = ["content", "chat_id", "project_id", "model", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "assistant_id", "document_ids", "tool_ids", "library_id", "private", "form_data", "form_fields", "playground"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -106,6 +111,11 @@ class MessageIn(BaseModel):
         if self.temperature is None and "temperature" in self.model_fields_set:
             _dict['temperature'] = None
 
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoning_effort'] = None
+
         # set to None if similarity_top_k (nullable) is None
         # and model_fields_set contains the field
         if self.similarity_top_k is None and "similarity_top_k" in self.model_fields_set:
@@ -120,6 +130,21 @@ class MessageIn(BaseModel):
         # and model_fields_set contains the field
         if self.assistant_id is None and "assistant_id" in self.model_fields_set:
             _dict['assistant_id'] = None
+
+        # set to None if document_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.document_ids is None and "document_ids" in self.model_fields_set:
+            _dict['document_ids'] = None
+
+        # set to None if tool_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.tool_ids is None and "tool_ids" in self.model_fields_set:
+            _dict['tool_ids'] = None
+
+        # set to None if library_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.library_id is None and "library_id" in self.model_fields_set:
+            _dict['library_id'] = None
 
         # set to None if private (nullable) is None
         # and model_fields_set contains the field
@@ -153,9 +178,13 @@ class MessageIn(BaseModel):
             "project_id": obj.get("project_id"),
             "model": obj.get("model"),
             "temperature": obj.get("temperature"),
+            "reasoning_effort": obj.get("reasoning_effort"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "system_prompt": obj.get("system_prompt"),
             "assistant_id": obj.get("assistant_id"),
+            "document_ids": obj.get("document_ids"),
+            "tool_ids": obj.get("tool_ids"),
+            "library_id": obj.get("library_id"),
             "private": obj.get("private"),
             "form_data": obj.get("form_data"),
             "form_fields": obj.get("form_fields"),

@@ -1,0 +1,33 @@
+# UsageMetrics
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**cost** | **float** | Total cost. | 
+**total_tokens** | **int** | Total tokens. | 
+**prompt_tokens** | **int** | Prompt tokens. | 
+**completion_tokens** | **int** | Completion tokens. | 
+**requests** | **int** | Number of usage records. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.usage_metrics import UsageMetrics
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UsageMetrics from a JSON string
+usage_metrics_instance = UsageMetrics.from_json(json)
+# print the JSON string representation of the object
+print(UsageMetrics.to_json())
+
+# convert the object into a dict
+usage_metrics_dict = usage_metrics_instance.to_dict()
+# create an instance of UsageMetrics from a dict
+usage_metrics_from_dict = UsageMetrics.from_dict(usage_metrics_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

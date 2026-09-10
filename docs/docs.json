@@ -88,6 +88,7 @@
           "sdk/python/reference/endpoints/Dropbox",
           "sdk/python/reference/endpoints/FeatureFlag",
           "sdk/python/reference/endpoints/GoogleDrive",
+          "sdk/python/reference/endpoints/ResourceAccess",
           "sdk/python/reference/endpoints/Role",
           "sdk/python/reference/endpoints/SharepointV1",
           "sdk/python/reference/endpoints/Workflow",
@@ -154,6 +155,7 @@
                   "sdk/python/reference/models/TenantIn",
                   "sdk/python/reference/models/TenantLLM",
                   "sdk/python/reference/models/TenantModelBulkIn",
+                  "sdk/python/reference/models/TenantModelIn",
                   "sdk/python/reference/models/TenantOAuthClientIn",
                   "sdk/python/reference/models/TenantOAuthClientOut",
                   "sdk/python/reference/models/TenantOAuthClientUpdate",
@@ -180,7 +182,8 @@
                   "sdk/python/reference/models/ChatInactiveDocumentOut",
                   "sdk/python/reference/models/ChatLibrary",
                   "sdk/python/reference/models/ChatToolSettingsOut",
-                  "sdk/python/reference/models/ChatToolSettingsUpdate"
+                  "sdk/python/reference/models/ChatToolSettingsUpdate",
+                  "sdk/python/reference/models/ModelTierEnum"
                 ]
               },
               {
@@ -210,7 +213,11 @@
               {
                 "group": "Document",
                 "pages": [
-                  "sdk/python/reference/models/DocumentTextOut"
+                  "sdk/python/reference/models/DocumentMetrics",
+                  "sdk/python/reference/models/DocumentTextOut",
+                  "sdk/python/reference/models/DocumentUsageRequest",
+                  "sdk/python/reference/models/DocumentUsageResponse",
+                  "sdk/python/reference/models/DocumentUsageRow"
                 ]
               },
               {
@@ -222,6 +229,12 @@
                   "sdk/python/reference/models/LibraryMemberIn",
                   "sdk/python/reference/models/LibraryMemberOut",
                   "sdk/python/reference/models/LibraryUpdateIn"
+                ]
+              },
+              {
+                "group": "File",
+                "pages": [
+                  "sdk/python/reference/models/DirectFileUrl"
                 ]
               },
               {
@@ -246,7 +259,8 @@
                   "sdk/python/reference/models/AssistantVisibilityUpdate",
                   "sdk/python/reference/models/FormField",
                   "sdk/python/reference/models/FormFieldTypeEnum",
-                  "sdk/python/reference/models/NeulandAssistantsTaggingOut"
+                  "sdk/python/reference/models/NeulandAssistantsTaggingOut",
+                  "sdk/python/reference/models/ReasoningEffortEnum"
                 ]
               },
               {
@@ -283,17 +297,31 @@
                 "pages": [
                   "sdk/python/reference/models/Bcc",
                   "sdk/python/reference/models/Cc",
+                  "sdk/python/reference/models/CreateOutlookDraftRequest",
+                  "sdk/python/reference/models/CreateOutlookDraftResponse",
                   "sdk/python/reference/models/SendEmailRequest",
                   "sdk/python/reference/models/SendEmailResponse",
-                  "sdk/python/reference/models/To"
+                  "sdk/python/reference/models/To",
+                  "sdk/python/reference/models/To1"
                 ]
               },
               {
                 "group": "Llm",
                 "pages": [
+                  "sdk/python/reference/models/ApiKeyInventoryRequest",
+                  "sdk/python/reference/models/ApiKeyInventoryResponse",
+                  "sdk/python/reference/models/ApiKeyInventoryRow",
                   "sdk/python/reference/models/CostByModel",
                   "sdk/python/reference/models/CostBySource",
                   "sdk/python/reference/models/CostTimeseriesPoint",
+                  "sdk/python/reference/models/DateWindowRequest",
+                  "sdk/python/reference/models/IdleAssistant",
+                  "sdk/python/reference/models/LicenseUtilization",
+                  "sdk/python/reference/models/MessageTokensResponse",
+                  "sdk/python/reference/models/ModelDelta",
+                  "sdk/python/reference/models/MoversResponse",
+                  "sdk/python/reference/models/SubtenantUsageResponse",
+                  "sdk/python/reference/models/SubtenantUsageRow",
                   "sdk/python/reference/models/TimeseriesPoint",
                   "sdk/python/reference/models/TimeseriesResponse",
                   "sdk/python/reference/models/TokenTimeseriesPerModel",
@@ -302,7 +330,13 @@
                   "sdk/python/reference/models/TokensTimeseriesResponse",
                   "sdk/python/reference/models/UsageCostRequest",
                   "sdk/python/reference/models/UsageCostResponse",
-                  "sdk/python/reference/models/UsageRequest"
+                  "sdk/python/reference/models/UsageMetrics",
+                  "sdk/python/reference/models/UsageQueryRequest",
+                  "sdk/python/reference/models/UsageQueryResponse",
+                  "sdk/python/reference/models/UsageRequest",
+                  "sdk/python/reference/models/UsageRow",
+                  "sdk/python/reference/models/UtilizationRequest",
+                  "sdk/python/reference/models/UtilizationResponse"
                 ]
               },
               {
@@ -316,11 +350,16 @@
                 "group": "LlmSetting",
                 "pages": [
                   "sdk/python/reference/models/CostAudioPerMinute",
+                  "sdk/python/reference/models/CostCacheCreationTokens",
+                  "sdk/python/reference/models/CostCacheCreationTokensAboveTier",
                   "sdk/python/reference/models/CostCachedTokens",
+                  "sdk/python/reference/models/CostCachedTokensAboveTier",
                   "sdk/python/reference/models/CostCompletionTokens",
                   "sdk/python/reference/models/CostCompletionTokens1",
+                  "sdk/python/reference/models/CostCompletionTokensAboveTier",
                   "sdk/python/reference/models/CostPromptTokens",
                   "sdk/python/reference/models/CostPromptTokens1",
+                  "sdk/python/reference/models/CostPromptTokensAboveTier",
                   "sdk/python/reference/models/LLMConnectionTestIn",
                   "sdk/python/reference/models/LLMConnectionTestOut",
                   "sdk/python/reference/models/LLMSettingsIn",
@@ -392,9 +431,9 @@
                   "sdk/python/reference/models/BudgetAlert",
                   "sdk/python/reference/models/BudgetAlertRequest",
                   "sdk/python/reference/models/BudgetAlertUpdate",
-                  "sdk/python/reference/models/HTTPValidationError",
-                  "sdk/python/reference/models/LocationInner",
-                  "sdk/python/reference/models/ValidationError"
+                  "sdk/python/reference/models/BudgetForecast",
+                  "sdk/python/reference/models/BudgetSummary",
+                  "sdk/python/reference/models/PlanStatus"
                 ]
               },
               {
@@ -467,6 +506,19 @@
                 "group": "GoogleDrive",
                 "pages": [
                   "sdk/python/reference/models/ResponseGoogledriveListRoots"
+                ]
+              },
+              {
+                "group": "ResourceAccess",
+                "pages": [
+                  "sdk/python/reference/models/AccessItemOut",
+                  "sdk/python/reference/models/AccessKind",
+                  "sdk/python/reference/models/HTTPValidationError",
+                  "sdk/python/reference/models/LocationInner",
+                  "sdk/python/reference/models/UserAccessOut",
+                  "sdk/python/reference/models/UserGrantIn",
+                  "sdk/python/reference/models/UserGrantOut",
+                  "sdk/python/reference/models/ValidationError"
                 ]
               },
               {
@@ -549,6 +601,7 @@
           "sdk/node/reference/endpoints/Dropbox",
           "sdk/node/reference/endpoints/FeatureFlag",
           "sdk/node/reference/endpoints/GoogleDrive",
+          "sdk/node/reference/endpoints/ResourceAccess",
           "sdk/node/reference/endpoints/Role",
           "sdk/node/reference/endpoints/SharepointV1",
           "sdk/node/reference/endpoints/Workflow",
@@ -615,6 +668,7 @@
                   "sdk/node/reference/models/TenantIn",
                   "sdk/node/reference/models/TenantLLM",
                   "sdk/node/reference/models/TenantModelBulkIn",
+                  "sdk/node/reference/models/TenantModelIn",
                   "sdk/node/reference/models/TenantOAuthClientIn",
                   "sdk/node/reference/models/TenantOAuthClientOut",
                   "sdk/node/reference/models/TenantOAuthClientUpdate",
@@ -641,7 +695,8 @@
                   "sdk/node/reference/models/ChatInactiveDocumentOut",
                   "sdk/node/reference/models/ChatLibrary",
                   "sdk/node/reference/models/ChatToolSettingsOut",
-                  "sdk/node/reference/models/ChatToolSettingsUpdate"
+                  "sdk/node/reference/models/ChatToolSettingsUpdate",
+                  "sdk/node/reference/models/ModelTierEnum"
                 ]
               },
               {
@@ -671,7 +726,11 @@
               {
                 "group": "Document",
                 "pages": [
-                  "sdk/node/reference/models/DocumentTextOut"
+                  "sdk/node/reference/models/DocumentMetrics",
+                  "sdk/node/reference/models/DocumentTextOut",
+                  "sdk/node/reference/models/DocumentUsageRequest",
+                  "sdk/node/reference/models/DocumentUsageResponse",
+                  "sdk/node/reference/models/DocumentUsageRow"
                 ]
               },
               {
@@ -683,6 +742,12 @@
                   "sdk/node/reference/models/LibraryMemberIn",
                   "sdk/node/reference/models/LibraryMemberOut",
                   "sdk/node/reference/models/LibraryUpdateIn"
+                ]
+              },
+              {
+                "group": "File",
+                "pages": [
+                  "sdk/node/reference/models/DirectFileUrl"
                 ]
               },
               {
@@ -707,7 +772,8 @@
                   "sdk/node/reference/models/AssistantVisibilityUpdate",
                   "sdk/node/reference/models/FormField",
                   "sdk/node/reference/models/FormFieldTypeEnum",
-                  "sdk/node/reference/models/NeulandAssistantsTaggingOut"
+                  "sdk/node/reference/models/NeulandAssistantsTaggingOut",
+                  "sdk/node/reference/models/ReasoningEffortEnum"
                 ]
               },
               {
@@ -744,17 +810,31 @@
                 "pages": [
                   "sdk/node/reference/models/Bcc",
                   "sdk/node/reference/models/Cc",
+                  "sdk/node/reference/models/CreateOutlookDraftRequest",
+                  "sdk/node/reference/models/CreateOutlookDraftResponse",
                   "sdk/node/reference/models/SendEmailRequest",
                   "sdk/node/reference/models/SendEmailResponse",
-                  "sdk/node/reference/models/To"
+                  "sdk/node/reference/models/To",
+                  "sdk/node/reference/models/To1"
                 ]
               },
               {
                 "group": "Llm",
                 "pages": [
+                  "sdk/node/reference/models/ApiKeyInventoryRequest",
+                  "sdk/node/reference/models/ApiKeyInventoryResponse",
+                  "sdk/node/reference/models/ApiKeyInventoryRow",
                   "sdk/node/reference/models/CostByModel",
                   "sdk/node/reference/models/CostBySource",
                   "sdk/node/reference/models/CostTimeseriesPoint",
+                  "sdk/node/reference/models/DateWindowRequest",
+                  "sdk/node/reference/models/IdleAssistant",
+                  "sdk/node/reference/models/LicenseUtilization",
+                  "sdk/node/reference/models/MessageTokensResponse",
+                  "sdk/node/reference/models/ModelDelta",
+                  "sdk/node/reference/models/MoversResponse",
+                  "sdk/node/reference/models/SubtenantUsageResponse",
+                  "sdk/node/reference/models/SubtenantUsageRow",
                   "sdk/node/reference/models/TimeseriesPoint",
                   "sdk/node/reference/models/TimeseriesResponse",
                   "sdk/node/reference/models/TokenTimeseriesPerModel",
@@ -763,7 +843,13 @@
                   "sdk/node/reference/models/TokensTimeseriesResponse",
                   "sdk/node/reference/models/UsageCostRequest",
                   "sdk/node/reference/models/UsageCostResponse",
-                  "sdk/node/reference/models/UsageRequest"
+                  "sdk/node/reference/models/UsageMetrics",
+                  "sdk/node/reference/models/UsageQueryRequest",
+                  "sdk/node/reference/models/UsageQueryResponse",
+                  "sdk/node/reference/models/UsageRequest",
+                  "sdk/node/reference/models/UsageRow",
+                  "sdk/node/reference/models/UtilizationRequest",
+                  "sdk/node/reference/models/UtilizationResponse"
                 ]
               },
               {
@@ -777,11 +863,16 @@
                 "group": "LlmSetting",
                 "pages": [
                   "sdk/node/reference/models/CostAudioPerMinute",
+                  "sdk/node/reference/models/CostCacheCreationTokens",
+                  "sdk/node/reference/models/CostCacheCreationTokensAboveTier",
                   "sdk/node/reference/models/CostCachedTokens",
+                  "sdk/node/reference/models/CostCachedTokensAboveTier",
                   "sdk/node/reference/models/CostCompletionTokens",
                   "sdk/node/reference/models/CostCompletionTokens1",
+                  "sdk/node/reference/models/CostCompletionTokensAboveTier",
                   "sdk/node/reference/models/CostPromptTokens",
                   "sdk/node/reference/models/CostPromptTokens1",
+                  "sdk/node/reference/models/CostPromptTokensAboveTier",
                   "sdk/node/reference/models/LLMConnectionTestIn",
                   "sdk/node/reference/models/LLMConnectionTestOut",
                   "sdk/node/reference/models/LLMSettingsIn",
@@ -853,9 +944,9 @@
                   "sdk/node/reference/models/BudgetAlert",
                   "sdk/node/reference/models/BudgetAlertRequest",
                   "sdk/node/reference/models/BudgetAlertUpdate",
-                  "sdk/node/reference/models/HTTPValidationError",
-                  "sdk/node/reference/models/LocationInner",
-                  "sdk/node/reference/models/ValidationError"
+                  "sdk/node/reference/models/BudgetForecast",
+                  "sdk/node/reference/models/BudgetSummary",
+                  "sdk/node/reference/models/PlanStatus"
                 ]
               },
               {
@@ -928,6 +1019,19 @@
                 "group": "GoogleDrive",
                 "pages": [
                   "sdk/node/reference/models/ResponseGoogledriveListRoots"
+                ]
+              },
+              {
+                "group": "ResourceAccess",
+                "pages": [
+                  "sdk/node/reference/models/AccessItemOut",
+                  "sdk/node/reference/models/AccessKind",
+                  "sdk/node/reference/models/HTTPValidationError",
+                  "sdk/node/reference/models/LocationInner",
+                  "sdk/node/reference/models/UserAccessOut",
+                  "sdk/node/reference/models/UserGrantIn",
+                  "sdk/node/reference/models/UserGrantOut",
+                  "sdk/node/reference/models/ValidationError"
                 ]
               },
               {

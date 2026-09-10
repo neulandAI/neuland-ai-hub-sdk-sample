@@ -1,0 +1,30 @@
+---
+title: "DocumentMetrics"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**document_count** | **int** | Documents in the window. | 
+**pending_count** | **int** | Documents with no content row yet (upload not processed). | 
+**stored_bytes** | **int** | Bytes actually occupied: content rows counted once, since identical uploads are deduplicated per tenant by checksum. | 
+**attributed_bytes** | **int** | Bytes summed per document. Exceeds stored_bytes when the same file is referenced from several libraries. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.document_metrics import DocumentMetrics
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of DocumentMetrics from a JSON string
+document_metrics_instance = DocumentMetrics.from_json(json)
+# print the JSON string representation of the object
+print(DocumentMetrics.to_json())
+
+# convert the object into a dict
+document_metrics_dict = document_metrics_instance.to_dict()
+# create an instance of DocumentMetrics from a dict
+document_metrics_from_dict = DocumentMetrics.from_dict(document_metrics_dict)
+```

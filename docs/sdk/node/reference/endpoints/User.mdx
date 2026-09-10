@@ -61,7 +61,7 @@ const { status, data } = await apiInstance.usersActivateUser(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -121,7 +121,7 @@ const { status, data } = await apiInstance.usersCreateGroup(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -180,7 +180,7 @@ const { status, data } = await apiInstance.usersCreateUser(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -238,7 +238,7 @@ const { status, data } = await apiInstance.usersDeactivateUser(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -297,7 +297,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -357,7 +357,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -413,7 +413,7 @@ const { status, data } = await apiInstance.usersGetMyself(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -472,7 +472,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -530,7 +530,7 @@ const { status, data } = await apiInstance.usersSyncExternalGroup(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -547,7 +547,7 @@ const { status, data } = await apiInstance.usersSyncExternalGroup(
 |**403** | Admin privileges required. |  -  |
 |**404** | No group exists with the given id. |  -  |
 |**409** | The group is not an external (identity-provider) group. |  -  |
-|**422** | Validation Error |  -  |
+|**422** | Not an Azure Entra session, or its access token is missing. |  -  |
 
 
 ## **usersUpdateGroup**
@@ -595,7 +595,7 @@ const { status, data } = await apiInstance.usersUpdateGroup(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -659,7 +659,7 @@ const { status, data } = await apiInstance.usersUpdateUser(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -721,7 +721,7 @@ const { status, data } = await apiInstance.usersUpsertMembers(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -782,7 +782,7 @@ const { status, data } = await apiInstance.usersUpsertMyPreferences(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 

@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **instructions** | **string** |  | [optional] [default to undefined]
 **llm_catalog_id** | **number** |  | [optional] [default to undefined]
 **temperature** | **number** |  | [optional] [default to undefined]
+**reasoning_effort** | **string** |  | [optional] [default to undefined]
 **similarity_top_k** | **number** |  | [optional] [default to undefined]
 **version** | **string** |  | [optional] [default to undefined]
 **state** | [**MarketplaceCatalogStateEnum**](MarketplaceCatalogStateEnum.md) |  | [optional] [default to undefined]
@@ -41,6 +42,7 @@ const instance: AssistantCatalog = {
     instructions,
     llm_catalog_id,
     temperature,
+    reasoning_effort,
     similarity_top_k,
     version,
     state,
