@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
 **temperature** | **float** |  | [optional] 
+**reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md) |  | [optional] 
 **similarity_top_k** | **int** |  | [optional] 
 **system_prompt** | **str** |  | [optional] 
 **model** | **str** |  | [optional] 

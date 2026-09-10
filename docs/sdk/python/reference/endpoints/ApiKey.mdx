@@ -22,6 +22,7 @@ Create an API key for the current user; the secret is returned only once.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -46,6 +47,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -79,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -104,14 +107,18 @@ Revoke an API key
 
 Deactivate an API key so it can no longer authenticate requests.
 
-API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key
-created by a user in that key's tenant (an Operator, any key). This is the
-path an admin uses to clean up keys left by members who can no longer hold
-them.
+Revoking your own key needs no permission: withdrawing a credential is never
+an escalation, and gating it would strand keys whose holder just lost the
+permission that minted them. Revoking someone else's key needs
+MANAGE_API_KEYS in that key's tenant (an Operator, any key) — the path an
+admin uses to clean up keys left by members. A caller allowed neither gets
+the same 404 as an unknown id, so the endpoint cannot confirm which key ids
+exist. Only a browser session may revoke, never an API key.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -134,6 +141,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -165,7 +174,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 

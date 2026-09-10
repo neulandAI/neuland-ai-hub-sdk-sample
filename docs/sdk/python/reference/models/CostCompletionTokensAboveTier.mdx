@@ -1,0 +1,28 @@
+---
+title: "CostCompletionTokensAboveTier"
+---
+
+Cost per completion token once the tier threshold is reached. The threshold is measured on the input, but it moves the output rate too.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+
+## Example
+
+```python
+from neuland_hub_sdk.models.cost_completion_tokens_above_tier import CostCompletionTokensAboveTier
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CostCompletionTokensAboveTier from a JSON string
+cost_completion_tokens_above_tier_instance = CostCompletionTokensAboveTier.from_json(json)
+# print the JSON string representation of the object
+print(CostCompletionTokensAboveTier.to_json())
+
+# convert the object into a dict
+cost_completion_tokens_above_tier_dict = cost_completion_tokens_above_tier_instance.to_dict()
+# create an instance of CostCompletionTokensAboveTier from a dict
+cost_completion_tokens_above_tier_from_dict = CostCompletionTokensAboveTier.from_dict(cost_completion_tokens_above_tier_dict)
+```

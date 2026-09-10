@@ -20,7 +20,9 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 from uuid import UUID
+from neuland_hub_sdk.models.model_tier_enum import ModelTierEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -41,6 +43,7 @@ class Chat(BaseModel):
     name: StrictStr = Field(description="Name/title of the chat.")
     busy: StrictBool = Field(description="DEPRECATED. Whether the chat is currently busy processing.")
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
+    reasoning_effort: Optional[Annotated[str, Field(strict=True, max_length=10)]] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
     llm_catalog_id: Optional[StrictInt] = None
@@ -50,7 +53,9 @@ class Chat(BaseModel):
     playground: Optional[StrictBool] = Field(default=False, description="Whether this is a playground (sandbox) chat for testing assistant settings.")
     consumed_tokens: Optional[StrictInt] = None
     form_data: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "created_at", "updated_at", "creator_user_id", "project_id", "name", "busy", "temperature", "similarity_top_k", "system_prompt", "llm_catalog_id", "llm_settings_id", "assistant_id", "private", "playground", "consumed_tokens", "form_data"]
+    model_user_picked: Optional[StrictBool] = Field(default=False, description="Whether a user chose this chat's model rather than the router.")
+    routed_tier: Optional[ModelTierEnum] = None
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "created_at", "updated_at", "creator_user_id", "project_id", "name", "busy", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "llm_catalog_id", "llm_settings_id", "assistant_id", "private", "playground", "consumed_tokens", "form_data", "model_user_picked", "routed_tier"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -121,6 +126,11 @@ class Chat(BaseModel):
         if self.temperature is None and "temperature" in self.model_fields_set:
             _dict['temperature'] = None
 
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoning_effort'] = None
+
         # set to None if similarity_top_k (nullable) is None
         # and model_fields_set contains the field
         if self.similarity_top_k is None and "similarity_top_k" in self.model_fields_set:
@@ -156,6 +166,11 @@ class Chat(BaseModel):
         if self.form_data is None and "form_data" in self.model_fields_set:
             _dict['form_data'] = None
 
+        # set to None if routed_tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.routed_tier is None and "routed_tier" in self.model_fields_set:
+            _dict['routed_tier'] = None
+
         return _dict
 
     @classmethod
@@ -180,6 +195,7 @@ class Chat(BaseModel):
             "name": obj.get("name"),
             "busy": obj.get("busy"),
             "temperature": obj.get("temperature"),
+            "reasoning_effort": obj.get("reasoning_effort"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "system_prompt": obj.get("system_prompt"),
             "llm_catalog_id": obj.get("llm_catalog_id"),
@@ -188,7 +204,9 @@ class Chat(BaseModel):
             "private": obj.get("private") if obj.get("private") is not None else False,
             "playground": obj.get("playground") if obj.get("playground") is not None else False,
             "consumed_tokens": obj.get("consumed_tokens"),
-            "form_data": obj.get("form_data")
+            "form_data": obj.get("form_data"),
+            "model_user_picked": obj.get("model_user_picked") if obj.get("model_user_picked") is not None else False,
+            "routed_tier": obj.get("routed_tier")
         })
         return _obj
 

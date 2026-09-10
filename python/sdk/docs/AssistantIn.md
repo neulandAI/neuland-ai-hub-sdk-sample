@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **predefined_prompts** | **List[str]** |  | [optional] 
 **instructions** | **str** |  | [optional] 
 **temperature** | **float** |  | [optional] 
+**reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md) |  | [optional] 
 **similarity_top_k** | **float** |  | [optional] 
 **input_type** | [**AssistantInputTypeEnum**](AssistantInputTypeEnum.md) | Input mode: free-text prompt or structured form. | [optional] 
 **form_fields** | [**List[FormField]**](FormField.md) |  | [optional] 

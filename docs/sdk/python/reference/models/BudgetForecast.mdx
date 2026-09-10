@@ -1,0 +1,36 @@
+---
+title: "BudgetForecast"
+---
+
+Deterministic run-rate projection of month-end spend for a tenant.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**summary** | [**BudgetSummary**](/sdk/python/reference/models/BudgetSummary) | Current-month spend snapshot the forecast is built from. | 
+**days_elapsed** | **float** | Days elapsed in the current month (fractional). | 
+**days_in_month** | **int** | Total days in the current calendar month. | 
+**daily_burn_rate** | **float** | Average spend per day so far (current_spend / days_elapsed). | 
+**projected_month_end_spend** | **float** | Linear projection of total spend by month end. | 
+**projected_over_budget** | **bool** |  | 
+**projected_overage** | **float** |  | 
+**days_until_budget_exhausted** | **float** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.budget_forecast import BudgetForecast
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of BudgetForecast from a JSON string
+budget_forecast_instance = BudgetForecast.from_json(json)
+# print the JSON string representation of the object
+print(BudgetForecast.to_json())
+
+# convert the object into a dict
+budget_forecast_dict = budget_forecast_instance.to_dict()
+# create an instance of BudgetForecast from a dict
+budget_forecast_from_dict = BudgetForecast.from_dict(budget_forecast_dict)
+```

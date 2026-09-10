@@ -6,9 +6,133 @@ All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**llmGetCost**](#llmgetcost) | **POST** /llm/cost | Get LLM cost metrics|
-|[**llmGetUsageCosts**](#llmgetusagecosts) | **POST** /llm/services/cost | Get external service usage costs|
-|[**llmLlmTotalTokens**](#llmllmtotaltokens) | **POST** /llm/tokens | Get token usage metrics|
+|[**llmApiKeyInventory**](#llmapikeyinventory) | **POST** /llm/usage/api/keys | API key inventory with idleness and expiry flags|
+|[**llmCostMovers**](#llmcostmovers) | **POST** /llm/insights/movers | Biggest cost movers and the most-expensive model vs the prior period|
+|[**llmGetCost**](#llmgetcost) | **POST** /llm/cost | [Deprecated] LLM cost metrics — superseded by POST /llm/usage|
+|[**llmGetUsageCosts**](#llmgetusagecosts) | **POST** /llm/services/cost | [Deprecated] External service usage costs — superseded by POST /llm/usage|
+|[**llmLlmTotalTokens**](#llmllmtotaltokens) | **POST** /llm/tokens | [Deprecated] Token usage metrics — superseded by POST /llm/usage|
+|[**llmMessageTokens**](#llmmessagetokens) | **POST** /llm/usage/messages | Token usage aggregated across messages (avg tokens per message)|
+|[**llmSubtenantUsage**](#llmsubtenantusage) | **POST** /llm/usage/subtenants | Usage rolled up across a parent tenant and its direct children|
+|[**llmUsageQuery**](#llmusagequery) | **POST** /llm/usage | Unified usage aggregation (cost/tokens/requests by dimension)|
+|[**llmUtilization**](#llmutilization) | **POST** /llm/insights/utilization | Idle assistants and license utilization|
+
+## **llmApiKeyInventory**
+```typescript
+ApiKeyInventoryResponse llmApiKeyInventory(apiKeyInventoryRequest)
+```
+
+List the tenant\'s API keys, flagging idle and soon-expiring ones.
+
+### Example
+
+```typescript
+import {
+    Llm,
+    Configuration,
+    ApiKeyInventoryRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Llm(configuration);
+
+let apiKeyInventoryRequest: ApiKeyInventoryRequest; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.llmApiKeyInventory(
+    apiKeyInventoryRequest,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **apiKeyInventoryRequest** | **ApiKeyInventoryRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**ApiKeyInventoryResponse**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **llmCostMovers**
+```typescript
+MoversResponse llmCostMovers(dateWindowRequest)
+```
+
+Period-over-period per-model cost deltas for the tenant.
+
+### Example
+
+```typescript
+import {
+    Llm,
+    Configuration,
+    DateWindowRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Llm(configuration);
+
+let dateWindowRequest: DateWindowRequest; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.llmCostMovers(
+    dateWindowRequest,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **dateWindowRequest** | **DateWindowRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**MoversResponse**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**422** | Validation Error |  -  |
+
 
 ## **llmGetCost**
 ```typescript
@@ -52,7 +176,7 @@ const { status, data } = await apiInstance.llmGetCost(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -111,7 +235,7 @@ const { status, data } = await apiInstance.llmGetUsageCosts(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -171,7 +295,244 @@ const { status, data } = await apiInstance.llmLlmTotalTokens(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **llmMessageTokens**
+```typescript
+MessageTokensResponse llmMessageTokens(dateWindowRequest)
+```
+
+Tenant-wide message-level token usage (count, totals, average).
+
+### Example
+
+```typescript
+import {
+    Llm,
+    Configuration,
+    DateWindowRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Llm(configuration);
+
+let dateWindowRequest: DateWindowRequest; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.llmMessageTokens(
+    dateWindowRequest,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **dateWindowRequest** | **DateWindowRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**MessageTokensResponse**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **llmSubtenantUsage**
+```typescript
+SubtenantUsageResponse llmSubtenantUsage(dateWindowRequest)
+```
+
+Per-tenant usage for the caller\'s tenant plus its direct child tenants.
+
+### Example
+
+```typescript
+import {
+    Llm,
+    Configuration,
+    DateWindowRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Llm(configuration);
+
+let dateWindowRequest: DateWindowRequest; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.llmSubtenantUsage(
+    dateWindowRequest,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **dateWindowRequest** | **DateWindowRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**SubtenantUsageResponse**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **llmUsageQuery**
+```typescript
+UsageQueryResponse llmUsageQuery(usageQueryRequest)
+```
+
+Aggregate the tenant\'s usage by any combination of dimensions and time bucket.
+
+### Example
+
+```typescript
+import {
+    Llm,
+    Configuration,
+    UsageQueryRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Llm(configuration);
+
+let usageQueryRequest: UsageQueryRequest; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.llmUsageQuery(
+    usageQueryRequest,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **usageQueryRequest** | **UsageQueryRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UsageQueryResponse**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**400** | Too many group_by dimensions. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required, or user-level analytics is not enabled for the tenant. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **llmUtilization**
+```typescript
+UtilizationResponse llmUtilization(utilizationRequest)
+```
+
+Idle assistants and license-utilization counts for the tenant.
+
+### Example
+
+```typescript
+import {
+    Llm,
+    Configuration,
+    UtilizationRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Llm(configuration);
+
+let utilizationRequest: UtilizationRequest; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.llmUtilization(
+    utilizationRequest,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **utilizationRequest** | **UtilizationRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**UtilizationResponse**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 

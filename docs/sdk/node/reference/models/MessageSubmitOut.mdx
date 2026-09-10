@@ -2,7 +2,7 @@
 title: "MessageSubmitOut"
 ---
 
-Response for POST /messages/submit: the created message, dual-key.
+Response for the message-creating routes: the created message, dual-key.
 
 ## Properties
 
@@ -29,7 +29,6 @@ Name | Type | Description | Notes
 **interrupt** | **&#123; [key: string]: any; &#125;** |  | [optional] [default to undefined]
 **llm_catalog_id** | **number** |  | [optional] [default to undefined]
 **llm_settings_id** | **number** |  | [optional] [default to undefined]
-**celery_task_id** | **string** |  | [optional] [default to undefined]
 **created_at** | **string** | When the message was created. | [default to undefined]
 **updated_at** | **string** | When the message was last updated. | [default to undefined]
 
@@ -60,7 +59,6 @@ const instance: MessageSubmitOut = {
     interrupt,
     llm_catalog_id,
     llm_settings_id,
-    celery_task_id,
     created_at,
     updated_at,
 };

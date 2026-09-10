@@ -332,7 +332,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -650,7 +651,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -955,7 +957,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1260,12 +1263,307 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/assistants/{assistant_id}/tools/{tool_id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def assistants_convert_assistant_to_tool(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> Assistant:
+        """Make an assistant consultable from the creator's chats
+
+        Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
+
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_convert_assistant_to_tool_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def assistants_convert_assistant_to_tool_with_http_info(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[Assistant]:
+        """Make an assistant consultable from the creator's chats
+
+        Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
+
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_convert_assistant_to_tool_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def assistants_convert_assistant_to_tool_without_preload_content(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Make an assistant consultable from the creator's chats
+
+        Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
+
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_convert_assistant_to_tool_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '201': "Assistant",
+            '401': None,
+            '403': None,
+            '404': None,
+            '409': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _assistants_convert_assistant_to_tool_serialize(
+        self,
+        assistant_id,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if assistant_id is not None:
+            _path_params['assistant_id'] = assistant_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/assistants/{assistant_id}/tool',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1341,6 +1639,7 @@ class Assistant:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
             '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1414,6 +1713,7 @@ class Assistant:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
             '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1487,6 +1787,7 @@ class Assistant:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "Assistant",
             '401': None,
+            '403': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -1557,7 +1858,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1847,7 +2149,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2168,7 +2471,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2461,7 +2765,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2751,12 +3056,304 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
             method='DELETE',
             resource_path='/assistants/{assistant_id}/remove/me',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def assistants_remove_assistant_as_tool(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> None:
+        """Stop the assistant being consultable from chats
+
+        Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
+
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_remove_assistant_as_tool_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def assistants_remove_assistant_as_tool_with_http_info(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[None]:
+        """Stop the assistant being consultable from chats
+
+        Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
+
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_remove_assistant_as_tool_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def assistants_remove_assistant_as_tool_without_preload_content(
+        self,
+        assistant_id: Annotated[UUID, Field(description="Public id of the assistant.")],
+        cookie_name: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Stop the assistant being consultable from chats
+
+        Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
+
+        :param assistant_id: Public id of the assistant. (required)
+        :type assistant_id: UUID
+        :param cookie_name:
+        :type cookie_name: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._assistants_remove_assistant_as_tool_serialize(
+            assistant_id=assistant_id,
+            cookie_name=cookie_name,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '204': None,
+            '401': None,
+            '403': None,
+            '404': None,
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _assistants_remove_assistant_as_tool_serialize(
+        self,
+        assistant_id,
+        cookie_name,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if assistant_id is not None:
+            _path_params['assistant_id'] = assistant_id
+        # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/assistants/{assistant_id}/tool',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -3056,7 +3653,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3361,7 +3959,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3666,7 +4265,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3971,7 +4571,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4276,7 +4877,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4309,6 +4911,7 @@ class Assistant:
         avatar: Optional[StrictStr] = None,
         instructions: Optional[StrictStr] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
+        reasoning_effort: Optional[Any] = None,
         similarity_top_k: Optional[StrictInt] = None,
         input_type: Optional[Any] = None,
         form_fields: Optional[StrictStr] = None,
@@ -4348,6 +4951,8 @@ class Assistant:
         :type instructions: str
         :param temperature:
         :type temperature: float
+        :param reasoning_effort:
+        :type reasoning_effort: ReasoningEffortEnum
         :param similarity_top_k:
         :type similarity_top_k: int
         :param input_type:
@@ -4388,6 +4993,7 @@ class Assistant:
             avatar=avatar,
             instructions=instructions,
             temperature=temperature,
+            reasoning_effort=reasoning_effort,
             similarity_top_k=similarity_top_k,
             input_type=input_type,
             form_fields=form_fields,
@@ -4427,6 +5033,7 @@ class Assistant:
         avatar: Optional[StrictStr] = None,
         instructions: Optional[StrictStr] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
+        reasoning_effort: Optional[Any] = None,
         similarity_top_k: Optional[StrictInt] = None,
         input_type: Optional[Any] = None,
         form_fields: Optional[StrictStr] = None,
@@ -4466,6 +5073,8 @@ class Assistant:
         :type instructions: str
         :param temperature:
         :type temperature: float
+        :param reasoning_effort:
+        :type reasoning_effort: ReasoningEffortEnum
         :param similarity_top_k:
         :type similarity_top_k: int
         :param input_type:
@@ -4506,6 +5115,7 @@ class Assistant:
             avatar=avatar,
             instructions=instructions,
             temperature=temperature,
+            reasoning_effort=reasoning_effort,
             similarity_top_k=similarity_top_k,
             input_type=input_type,
             form_fields=form_fields,
@@ -4545,6 +5155,7 @@ class Assistant:
         avatar: Optional[StrictStr] = None,
         instructions: Optional[StrictStr] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
+        reasoning_effort: Optional[Any] = None,
         similarity_top_k: Optional[StrictInt] = None,
         input_type: Optional[Any] = None,
         form_fields: Optional[StrictStr] = None,
@@ -4584,6 +5195,8 @@ class Assistant:
         :type instructions: str
         :param temperature:
         :type temperature: float
+        :param reasoning_effort:
+        :type reasoning_effort: ReasoningEffortEnum
         :param similarity_top_k:
         :type similarity_top_k: int
         :param input_type:
@@ -4624,6 +5237,7 @@ class Assistant:
             avatar=avatar,
             instructions=instructions,
             temperature=temperature,
+            reasoning_effort=reasoning_effort,
             similarity_top_k=similarity_top_k,
             input_type=input_type,
             form_fields=form_fields,
@@ -4658,6 +5272,7 @@ class Assistant:
         avatar,
         instructions,
         temperature,
+        reasoning_effort,
         similarity_top_k,
         input_type,
         form_fields,
@@ -4707,6 +5322,8 @@ class Assistant:
             _form_params.append(('instructions', instructions))
         if temperature is not None:
             _form_params.append(('temperature', temperature))
+        if reasoning_effort is not None:
+            _form_params.append(('reasoning_effort', reasoning_effort))
         if similarity_top_k is not None:
             _form_params.append(('similarity_top_k', similarity_top_k))
         if input_type is not None:
@@ -4742,7 +5359,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5060,7 +5678,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5378,7 +5997,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5696,7 +6316,8 @@ class Assistant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

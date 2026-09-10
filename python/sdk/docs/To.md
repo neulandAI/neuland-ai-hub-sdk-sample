@@ -1,6 +1,6 @@
 # To
 
-Recipient email address(es)
+Recipient email address(es); optional for a draft
 
 ## Properties
 

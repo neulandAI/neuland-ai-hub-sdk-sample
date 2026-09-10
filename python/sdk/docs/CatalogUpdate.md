@@ -12,8 +12,11 @@ Name | Type | Description | Notes
 **embedding_dimension** | **int** |  | [optional] 
 **supports_embedding** | **bool** |  | [optional] 
 **supports_transcription** | **bool** |  | [optional] 
+**supports_reasoning_effort** | **bool** |  | [optional] 
 **supports_clarification** | **bool** |  | [optional] 
 **auto_seed** | **bool** |  | [optional] 
+**tier** | [**ModelTierEnum**](ModelTierEnum.md) |  | [optional] 
+**auto_routable** | **bool** |  | [optional] 
 
 ## Example
 

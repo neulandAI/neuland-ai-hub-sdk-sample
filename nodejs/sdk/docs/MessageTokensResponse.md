@@ -1,0 +1,32 @@
+# MessageTokensResponse
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **string** |  | [default to undefined]
+**end_date** | **string** |  | [default to undefined]
+**message_count** | **number** |  | [default to undefined]
+**total_tokens** | **number** |  | [default to undefined]
+**prompt_tokens** | **number** |  | [default to undefined]
+**completion_tokens** | **number** |  | [default to undefined]
+**avg_tokens_per_message** | **number** |  | [default to undefined]
+
+## Example
+
+```typescript
+import { MessageTokensResponse } from 'neuland-hub-sdk';
+
+const instance: MessageTokensResponse = {
+    start_date,
+    end_date,
+    message_count,
+    total_tokens,
+    prompt_tokens,
+    completion_tokens,
+    avg_tokens_per_message,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

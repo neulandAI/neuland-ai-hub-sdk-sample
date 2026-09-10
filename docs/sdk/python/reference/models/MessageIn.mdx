@@ -11,13 +11,17 @@ Name | Type | Description | Notes
 **project_id** | **UUID** |  | [optional] 
 **model** | **str** |  | [optional] 
 **temperature** | **float** |  | [optional] 
+**reasoning_effort** | [**ReasoningEffortEnum**](/sdk/python/reference/models/ReasoningEffortEnum) |  | [optional] 
 **similarity_top_k** | **int** |  | [optional] 
 **system_prompt** | **str** |  | [optional] 
 **assistant_id** | **UUID** |  | [optional] 
+**document_ids** | **List[UUID]** |  | [optional] 
+**tool_ids** | **List[UUID]** |  | [optional] 
+**library_id** | **UUID** |  | [optional] 
 **private** | **bool** |  | [optional] 
 **form_data** | **Dict[str, object]** |  | [optional] 
 **form_fields** | **List[Dict[str, object]]** |  | [optional] 
-**playground** | **bool** | Start a playground (sandbox) chat for testing assistant settings: the given system_prompt/temperature/similarity_top_k/model override the assistant&#39;s live config without saving it. Requires assistant_id; only the assistant&#39;s creator may use it. | [optional] [default to False]
+**playground** | **bool** | Backs the assistant editor&#39;s preview pane and is not needed to send a message: it starts a sandbox chat in which the given system_prompt/temperature/similarity_top_k/model override the assistant&#39;s live config without saving it. Requires assistant_id; only the assistant&#39;s creator may use it. | [optional] [default to False]
 
 ## Example
 

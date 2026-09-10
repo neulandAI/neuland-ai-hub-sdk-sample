@@ -1,0 +1,31 @@
+# DateWindowRequest
+
+A [date_start, date_end] window shared by the analytics endpoints.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**date_start** | **datetime** | Inclusive start of the window. | 
+**date_end** | **datetime** | Inclusive end of the window. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.date_window_request import DateWindowRequest
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of DateWindowRequest from a JSON string
+date_window_request_instance = DateWindowRequest.from_json(json)
+# print the JSON string representation of the object
+print(DateWindowRequest.to_json())
+
+# convert the object into a dict
+date_window_request_dict = date_window_request_instance.to_dict()
+# create an instance of DateWindowRequest from a dict
+date_window_request_from_dict = DateWindowRequest.from_dict(date_window_request_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

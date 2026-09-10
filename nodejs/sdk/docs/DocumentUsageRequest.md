@@ -1,0 +1,31 @@
+# DocumentUsageRequest
+
+Request for the document storage aggregation.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**date_start** | **string** | Inclusive start of the window. | [default to undefined]
+**date_end** | **string** | Inclusive end of the window. | [default to undefined]
+**bucket** | **string** |  | [optional] [default to undefined]
+**group_by** | **Array&lt;string&gt;** | Categorical dimensions to break the totals down by. \&#39;user\&#39; requires the tenant\&#39;s user-level-analytics opt-in. | [optional] [default to undefined]
+**limit** | **number** |  | [optional] [default to undefined]
+**offset** | **number** | Row offset, for paginating. | [optional] [default to 0]
+
+## Example
+
+```typescript
+import { DocumentUsageRequest } from 'neuland-hub-sdk';
+
+const instance: DocumentUsageRequest = {
+    date_start,
+    date_end,
+    bucket,
+    group_by,
+    limit,
+    offset,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

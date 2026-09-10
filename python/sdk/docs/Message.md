@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Message
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **messages_continue_message**
-> Message messages_continue_message(message_id, cookie_name=cookie_name)
+> MessageSubmitOut messages_continue_message(message_id, cookie_name=cookie_name)
 
 Continue a truncated assistant message
 
@@ -32,17 +32,18 @@ chat is continuable, and only when it completed with
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.message import Message
+from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -55,6 +56,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -84,11 +87,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Message**](Message.md)
+[**MessageSubmitOut**](MessageSubmitOut.md)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -118,16 +121,17 @@ Convert a message to various document formats.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -140,6 +144,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -175,7 +181,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -195,7 +201,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **messages_create_message**
-> Message messages_create_message(message_in, cookie_name=cookie_name)
+> MessageSubmitOut messages_create_message(message_in, cookie_name=cookie_name)
 
 Create a message
 
@@ -204,18 +210,19 @@ Send a JSON message to a chat (or start a new one) and enqueue generation.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
-from neuland_hub_sdk.models.message import Message
 from neuland_hub_sdk.models.message_in import MessageIn
+from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -228,6 +235,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -257,11 +266,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Message**](Message.md)
+[**MessageSubmitOut**](MessageSubmitOut.md)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -290,6 +299,7 @@ Canonical recovery endpoint: full composed state of a message.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -297,10 +307,10 @@ from neuland_hub_sdk.models.message_detail_out import MessageDetailOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -313,6 +323,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -346,7 +358,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -375,6 +387,7 @@ Ordered step-messages for a turn (future multi-bubble UI).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -382,10 +395,10 @@ from neuland_hub_sdk.models.message_turn_out import MessageTurnOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -398,6 +411,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -431,7 +446,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -460,6 +475,7 @@ Rephrase a message's content in the requested style.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -467,10 +483,10 @@ from neuland_hub_sdk.models.translation import Translation
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -483,6 +499,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -518,7 +536,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -548,6 +566,7 @@ or answer its pending clarification question(s) with 'respond'.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -555,10 +574,10 @@ from neuland_hub_sdk.models.resume_in import ResumeIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -571,6 +590,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -606,7 +627,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -627,7 +648,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **messages_submit_message**
-> MessageSubmitOut messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, files=files, chat_temperature=chat_temperature, chat_similarity_top_k=chat_similarity_top_k, chat_system_prompt=chat_system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id, form_data=form_data, form_fields=form_fields, playground=playground)
+> MessageSubmitOut messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, files=files, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, system_prompt=system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id, form_data=form_data, form_fields=form_fields, playground=playground)
 
 Submit a message with attachments
 
@@ -636,6 +657,7 @@ Send a multipart message with optional file uploads and enqueue generation.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -643,10 +665,10 @@ from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -660,6 +682,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -670,9 +694,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
     document_ids = None # List[UUID] |  (optional)
     files = None # List[bytes] |  (optional)
-    chat_temperature = 3.4 # float |  (optional)
-    chat_similarity_top_k = 56 # int |  (optional)
-    chat_system_prompt = 'chat_system_prompt_example' # str |  (optional)
+    temperature = 3.4 # float |  (optional)
+    reasoning_effort = neuland_hub_sdk.ReasoningEffortEnum() # ReasoningEffortEnum |  (optional)
+    similarity_top_k = 56 # int |  (optional)
+    system_prompt = 'system_prompt_example' # str |  (optional)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
     model = 'model_example' # str |  (optional)
     tool_ids = None # List[UUID] |  (optional)
@@ -684,7 +709,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Submit a message with attachments
-        api_response = api_instance.messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, files=files, chat_temperature=chat_temperature, chat_similarity_top_k=chat_similarity_top_k, chat_system_prompt=chat_system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id, form_data=form_data, form_fields=form_fields, playground=playground)
+        api_response = api_instance.messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, files=files, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, system_prompt=system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id, form_data=form_data, form_fields=form_fields, playground=playground)
         print("The response of Message->messages_submit_message:\n")
         pprint(api_response)
     except Exception as e:
@@ -704,9 +729,10 @@ Name | Type | Description  | Notes
  **chat_id** | **UUID**|  | [optional] 
  **document_ids** | [**List[UUID]**](UUID.md)|  | [optional] 
  **files** | **List[bytes]**|  | [optional] 
- **chat_temperature** | **float**|  | [optional] 
- **chat_similarity_top_k** | **int**|  | [optional] 
- **chat_system_prompt** | **str**|  | [optional] 
+ **temperature** | **float**|  | [optional] 
+ **reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md)|  | [optional] 
+ **similarity_top_k** | **int**|  | [optional] 
+ **system_prompt** | **str**|  | [optional] 
  **assistant_id** | **UUID**|  | [optional] 
  **model** | **str**|  | [optional] 
  **tool_ids** | [**List[UUID]**](UUID.md)|  | [optional] 
@@ -722,7 +748,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -751,6 +777,7 @@ Translate a message's content into the requested language.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -758,10 +785,10 @@ from neuland_hub_sdk.models.translation import Translation
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -774,6 +801,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -809,7 +838,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

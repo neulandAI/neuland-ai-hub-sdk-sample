@@ -35,12 +35,13 @@ class SystemSettings(BaseModel):
     tracing_enabled: Optional[StrictBool] = Field(default=True, description="Whether observability tracing is enabled system-wide.")
     inbound_guardrail_llm_settings_id: Optional[StrictInt] = None
     outbound_guardrail_llm_settings_id: Optional[StrictInt] = None
+    title_llm_settings_id: Optional[StrictInt] = None
     embedding_llm_settings_id: Optional[StrictInt] = None
     transcription_llm_settings_id: Optional[StrictInt] = None
     maintenance_start_at: Optional[datetime] = None
     maintenance_end_at: Optional[datetime] = None
     maintenance_message: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "maintenance_enabled", "tracing_enabled", "inbound_guardrail_llm_settings_id", "outbound_guardrail_llm_settings_id", "embedding_llm_settings_id", "transcription_llm_settings_id", "maintenance_start_at", "maintenance_end_at", "maintenance_message"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "maintenance_enabled", "tracing_enabled", "inbound_guardrail_llm_settings_id", "outbound_guardrail_llm_settings_id", "title_llm_settings_id", "embedding_llm_settings_id", "transcription_llm_settings_id", "maintenance_start_at", "maintenance_end_at", "maintenance_message"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -96,6 +97,11 @@ class SystemSettings(BaseModel):
         if self.outbound_guardrail_llm_settings_id is None and "outbound_guardrail_llm_settings_id" in self.model_fields_set:
             _dict['outbound_guardrail_llm_settings_id'] = None
 
+        # set to None if title_llm_settings_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.title_llm_settings_id is None and "title_llm_settings_id" in self.model_fields_set:
+            _dict['title_llm_settings_id'] = None
+
         # set to None if embedding_llm_settings_id (nullable) is None
         # and model_fields_set contains the field
         if self.embedding_llm_settings_id is None and "embedding_llm_settings_id" in self.model_fields_set:
@@ -140,6 +146,7 @@ class SystemSettings(BaseModel):
             "tracing_enabled": obj.get("tracing_enabled") if obj.get("tracing_enabled") is not None else True,
             "inbound_guardrail_llm_settings_id": obj.get("inbound_guardrail_llm_settings_id"),
             "outbound_guardrail_llm_settings_id": obj.get("outbound_guardrail_llm_settings_id"),
+            "title_llm_settings_id": obj.get("title_llm_settings_id"),
             "embedding_llm_settings_id": obj.get("embedding_llm_settings_id"),
             "transcription_llm_settings_id": obj.get("transcription_llm_settings_id"),
             "maintenance_start_at": obj.get("maintenance_start_at"),

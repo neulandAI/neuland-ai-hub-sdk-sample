@@ -45,6 +45,7 @@ class TestAssistantIn(unittest.TestCase):
                     ],
                 instructions = '',
                 temperature = 1.337,
+                reasoning_effort = 'low',
                 similarity_top_k = 1.337,
                 input_type = 'prompt',
                 form_fields = [

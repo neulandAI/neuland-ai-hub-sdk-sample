@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **instructions** | **str** |  | [optional] 
 **llm_catalog_id** | **UUID** |  | [optional] 
 **temperature** | **float** |  | [optional] 
+**reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md) |  | [optional] 
 **similarity_top_k** | **int** |  | [optional] 
 **version** | **str** |  | [optional] 
 **predefined_prompts** | **List[str]** |  | [optional] 

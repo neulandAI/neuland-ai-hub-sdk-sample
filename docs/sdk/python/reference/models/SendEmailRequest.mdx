@@ -9,11 +9,12 @@ Request to send an email from a tool call.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **tool_call_id** | **str** | The ID of the tool call that generated the draft | 
-**to** | [**To**](/sdk/python/reference/models/To) |  | 
+**to** | [**To1**](/sdk/python/reference/models/To1) |  | 
 **subject** | **str** | Email subject | 
 **body** | **str** | Email body content (can be markdown or HTML) | 
 **cc** | [**Cc**](/sdk/python/reference/models/Cc) |  | [optional] 
 **bcc** | [**Bcc**](/sdk/python/reference/models/Bcc) |  | [optional] 
+**attachment_ids** | **List[str]** |  | [optional] 
 
 ## Example
 

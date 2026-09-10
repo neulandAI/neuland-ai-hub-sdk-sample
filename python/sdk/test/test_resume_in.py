@@ -44,7 +44,8 @@ class TestResumeIn(unittest.TestCase):
                             ], 
                         text = '', 
                         confirmed = True, )
-                    ]
+                    ],
+                model = ''
             )
         else:
             return ResumeIn(

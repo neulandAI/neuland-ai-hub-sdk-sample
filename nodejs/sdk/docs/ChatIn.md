@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] [default to undefined]
 **temperature** | **number** |  | [optional] [default to undefined]
+**reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md) |  | [optional] [default to undefined]
 **similarity_top_k** | **number** |  | [optional] [default to undefined]
 **system_prompt** | **string** |  | [optional] [default to undefined]
 **model** | **string** |  | [optional] [default to undefined]
@@ -20,6 +21,7 @@ import { ChatIn } from 'neuland-hub-sdk';
 const instance: ChatIn = {
     name,
     temperature,
+    reasoning_effort,
     similarity_top_k,
     system_prompt,
     model,

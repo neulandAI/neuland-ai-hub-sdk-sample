@@ -1,6 +1,6 @@
 # ApiKey
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -47,7 +47,7 @@ const { status, data } = await apiInstance.apiCreateKey(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -67,7 +67,7 @@ const { status, data } = await apiInstance.apiCreateKey(
 # **apiRevokeApiKey**
 > apiRevokeApiKey()
 
-Deactivate an API key so it can no longer authenticate requests.  API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key created by a user in that key\'s tenant (an Operator, any key). This is the path an admin uses to clean up keys left by members who can no longer hold them.
+Deactivate an API key so it can no longer authenticate requests.  Revoking your own key needs no permission: withdrawing a credential is never an escalation, and gating it would strand keys whose holder just lost the permission that minted them. Revoking someone else\'s key needs MANAGE_API_KEYS in that key\'s tenant (an Operator, any key) — the path an admin uses to clean up keys left by members. A caller allowed neither gets the same 404 as an unknown id, so the endpoint cannot confirm which key ids exist. Only a browser session may revoke, never an API key.
 
 ### Example
 
@@ -103,7 +103,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

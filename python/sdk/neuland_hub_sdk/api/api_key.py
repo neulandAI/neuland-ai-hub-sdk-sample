@@ -316,7 +316,8 @@ class ApiKey:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -357,7 +358,7 @@ class ApiKey:
     ) -> None:
         """Revoke an API key
 
-        Deactivate an API key so it can no longer authenticate requests.  API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key created by a user in that key's tenant (an Operator, any key). This is the path an admin uses to clean up keys left by members who can no longer hold them.
+        Deactivate an API key so it can no longer authenticate requests.  Revoking your own key needs no permission: withdrawing a credential is never an escalation, and gating it would strand keys whose holder just lost the permission that minted them. Revoking someone else's key needs MANAGE_API_KEYS in that key's tenant (an Operator, any key) — the path an admin uses to clean up keys left by members. A caller allowed neither gets the same 404 as an unknown id, so the endpoint cannot confirm which key ids exist. Only a browser session may revoke, never an API key.
 
         :param api_key_id: Public id of the API key to revoke. (required)
         :type api_key_id: UUID
@@ -431,7 +432,7 @@ class ApiKey:
     ) -> ApiResponse[None]:
         """Revoke an API key
 
-        Deactivate an API key so it can no longer authenticate requests.  API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key created by a user in that key's tenant (an Operator, any key). This is the path an admin uses to clean up keys left by members who can no longer hold them.
+        Deactivate an API key so it can no longer authenticate requests.  Revoking your own key needs no permission: withdrawing a credential is never an escalation, and gating it would strand keys whose holder just lost the permission that minted them. Revoking someone else's key needs MANAGE_API_KEYS in that key's tenant (an Operator, any key) — the path an admin uses to clean up keys left by members. A caller allowed neither gets the same 404 as an unknown id, so the endpoint cannot confirm which key ids exist. Only a browser session may revoke, never an API key.
 
         :param api_key_id: Public id of the API key to revoke. (required)
         :type api_key_id: UUID
@@ -505,7 +506,7 @@ class ApiKey:
     ) -> RESTResponseType:
         """Revoke an API key
 
-        Deactivate an API key so it can no longer authenticate requests.  API-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key created by a user in that key's tenant (an Operator, any key). This is the path an admin uses to clean up keys left by members who can no longer hold them.
+        Deactivate an API key so it can no longer authenticate requests.  Revoking your own key needs no permission: withdrawing a credential is never an escalation, and gating it would strand keys whose holder just lost the permission that minted them. Revoking someone else's key needs MANAGE_API_KEYS in that key's tenant (an Operator, any key) — the path an admin uses to clean up keys left by members. A caller allowed neither gets the same 404 as an unknown id, so the endpoint cannot confirm which key ids exist. Only a browser session may revoke, never an API key.
 
         :param api_key_id: Public id of the API key to revoke. (required)
         :type api_key_id: UUID
@@ -603,7 +604,8 @@ class ApiKey:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

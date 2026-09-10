@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, Stric
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from uuid import UUID
+from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -35,10 +36,11 @@ class AssistantCatalogIn(BaseModel):
     instructions: Optional[StrictStr] = None
     llm_catalog_id: Optional[UUID] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
+    reasoning_effort: Optional[ReasoningEffortEnum] = None
     similarity_top_k: Optional[StrictInt] = None
     version: Optional[StrictStr] = None
     predefined_prompts: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "avatar", "instructions", "llm_catalog_id", "temperature", "similarity_top_k", "version", "predefined_prompts"]
+    __properties: ClassVar[List[str]] = ["name", "description", "avatar", "instructions", "llm_catalog_id", "temperature", "reasoning_effort", "similarity_top_k", "version", "predefined_prompts"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -104,6 +106,11 @@ class AssistantCatalogIn(BaseModel):
         if self.temperature is None and "temperature" in self.model_fields_set:
             _dict['temperature'] = None
 
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoning_effort'] = None
+
         # set to None if similarity_top_k (nullable) is None
         # and model_fields_set contains the field
         if self.similarity_top_k is None and "similarity_top_k" in self.model_fields_set:
@@ -137,6 +144,7 @@ class AssistantCatalogIn(BaseModel):
             "instructions": obj.get("instructions"),
             "llm_catalog_id": obj.get("llm_catalog_id"),
             "temperature": obj.get("temperature"),
+            "reasoning_effort": obj.get("reasoning_effort"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "version": obj.get("version"),
             "predefined_prompts": obj.get("predefined_prompts")

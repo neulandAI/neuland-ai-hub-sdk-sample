@@ -1,0 +1,34 @@
+---
+title: "MoversResponse"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **datetime** |  | 
+**end_date** | **datetime** |  | 
+**previous_start** | **datetime** |  | 
+**previous_end** | **datetime** |  | 
+**most_expensive_model** | [**ModelDelta**](/sdk/python/reference/models/ModelDelta) |  | 
+**biggest_increase** | [**ModelDelta**](/sdk/python/reference/models/ModelDelta) |  | 
+**biggest_decrease** | [**ModelDelta**](/sdk/python/reference/models/ModelDelta) |  | 
+**per_model** | [**List[ModelDelta]**](/sdk/python/reference/models/ModelDelta) |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.movers_response import MoversResponse
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of MoversResponse from a JSON string
+movers_response_instance = MoversResponse.from_json(json)
+# print the JSON string representation of the object
+print(MoversResponse.to_json())
+
+# convert the object into a dict
+movers_response_dict = movers_response_instance.to_dict()
+# create an instance of MoversResponse from a dict
+movers_response_from_dict = MoversResponse.from_dict(movers_response_dict)
+```

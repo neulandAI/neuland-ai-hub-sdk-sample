@@ -56,7 +56,6 @@ class TestMessageSubmitOut(unittest.TestCase):
                 interrupt = { },
                 llm_catalog_id = 56,
                 llm_settings_id = 56,
-                celery_task_id = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )

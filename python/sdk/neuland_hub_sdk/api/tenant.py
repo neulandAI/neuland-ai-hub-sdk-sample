@@ -23,6 +23,7 @@ from neuland_hub_sdk.models.secret_update_in import SecretUpdateIn
 from neuland_hub_sdk.models.tenant_in import TenantIn
 from neuland_hub_sdk.models.tenant_llm import TenantLLM
 from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn
+from neuland_hub_sdk.models.tenant_model_in import TenantModelIn
 from neuland_hub_sdk.models.tenant_o_auth_client_in import TenantOAuthClientIn
 from neuland_hub_sdk.models.tenant_o_auth_client_out import TenantOAuthClientOut
 from neuland_hub_sdk.models.tenant_o_auth_client_update import TenantOAuthClientUpdate
@@ -331,7 +332,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -634,7 +636,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -939,7 +942,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1272,7 +1276,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1574,7 +1579,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1864,7 +1870,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2169,7 +2176,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2211,7 +2219,7 @@ class Tenant:
     ) -> None:
         """Disable a model for a tenant
 
-        Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+        Disable an LLM catalog model for a tenant.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID
@@ -2256,6 +2264,7 @@ class Tenant:
             '401': None,
             '403': None,
             '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2290,7 +2299,7 @@ class Tenant:
     ) -> ApiResponse[None]:
         """Disable a model for a tenant
 
-        Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+        Disable an LLM catalog model for a tenant.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID
@@ -2335,6 +2344,7 @@ class Tenant:
             '401': None,
             '403': None,
             '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2369,7 +2379,7 @@ class Tenant:
     ) -> RESTResponseType:
         """Disable a model for a tenant
 
-        Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+        Disable an LLM catalog model for a tenant.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID
@@ -2414,6 +2424,7 @@ class Tenant:
             '401': None,
             '403': None,
             '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -2474,7 +2485,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2792,7 +2804,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3097,7 +3110,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3402,7 +3416,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3671,7 +3686,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3698,6 +3714,7 @@ class Tenant:
         tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         cookie_name: Optional[StrictStr] = None,
+        tenant_model_in: Optional[TenantModelIn] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3713,7 +3730,7 @@ class Tenant:
     ) -> TenantLLM:
         """Enable a model for a tenant
 
-        Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+        Enable an LLM catalog model for a tenant.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID
@@ -3721,6 +3738,8 @@ class Tenant:
         :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
+        :param tenant_model_in:
+        :type tenant_model_in: TenantModelIn
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3747,6 +3766,7 @@ class Tenant:
             tenant_id=tenant_id,
             model_id=model_id,
             cookie_name=cookie_name,
+            tenant_model_in=tenant_model_in,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3758,6 +3778,7 @@ class Tenant:
             '401': None,
             '403': None,
             '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3777,6 +3798,7 @@ class Tenant:
         tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         cookie_name: Optional[StrictStr] = None,
+        tenant_model_in: Optional[TenantModelIn] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3792,7 +3814,7 @@ class Tenant:
     ) -> ApiResponse[TenantLLM]:
         """Enable a model for a tenant
 
-        Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+        Enable an LLM catalog model for a tenant.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID
@@ -3800,6 +3822,8 @@ class Tenant:
         :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
+        :param tenant_model_in:
+        :type tenant_model_in: TenantModelIn
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3826,6 +3850,7 @@ class Tenant:
             tenant_id=tenant_id,
             model_id=model_id,
             cookie_name=cookie_name,
+            tenant_model_in=tenant_model_in,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3837,6 +3862,7 @@ class Tenant:
             '401': None,
             '403': None,
             '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3856,6 +3882,7 @@ class Tenant:
         tenant_id: Annotated[UUID, Field(description="Public id of the tenant.")],
         model_id: Annotated[UUID, Field(description="Public id of the LLM catalog model to enable.")],
         cookie_name: Optional[StrictStr] = None,
+        tenant_model_in: Optional[TenantModelIn] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3871,7 +3898,7 @@ class Tenant:
     ) -> RESTResponseType:
         """Enable a model for a tenant
 
-        Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+        Enable an LLM catalog model for a tenant.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID
@@ -3879,6 +3906,8 @@ class Tenant:
         :type model_id: UUID
         :param cookie_name:
         :type cookie_name: str
+        :param tenant_model_in:
+        :type tenant_model_in: TenantModelIn
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3905,6 +3934,7 @@ class Tenant:
             tenant_id=tenant_id,
             model_id=model_id,
             cookie_name=cookie_name,
+            tenant_model_in=tenant_model_in,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3916,6 +3946,7 @@ class Tenant:
             '401': None,
             '403': None,
             '404': None,
+            '409': None,
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3930,6 +3961,7 @@ class Tenant:
         tenant_id,
         model_id,
         cookie_name,
+        tenant_model_in,
         _request_auth,
         _content_type,
         _headers,
@@ -3963,6 +3995,8 @@ class Tenant:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if tenant_model_in is not None:
+            _body_params = tenant_model_in
 
 
         # set the HTTP header `Accept`
@@ -3973,10 +4007,24 @@ class Tenant:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4294,7 +4342,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4599,7 +4648,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -4899,7 +4949,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5217,7 +5268,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5550,7 +5602,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -5883,7 +5936,8 @@ class Tenant:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

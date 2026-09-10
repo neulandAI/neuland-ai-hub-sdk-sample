@@ -1,0 +1,21 @@
+---
+title: "ApiKeyInventoryRequest"
+---
+
+Request for the API key inventory.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**active_only** | **boolean** | Return only keys that are currently active. | [optional] [default to false]
+
+## Example
+
+```typescript
+import { ApiKeyInventoryRequest } from 'neuland-hub-sdk';
+
+const instance: ApiKeyInventoryRequest = {
+    active_only,
+};
+```

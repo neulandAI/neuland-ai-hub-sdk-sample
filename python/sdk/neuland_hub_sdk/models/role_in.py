@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from typing import Optional, Set
@@ -26,13 +26,19 @@ from pydantic_core import to_jsonable_python
 
 class RoleIn(BaseModel):
     """
-    RoleIn
+    A new role.
     """ # noqa: E501
     name: StrictStr = Field(description="Display name of the role.")
     description: Optional[StrictStr] = None
     permissions: Optional[List[StrictStr]] = Field(default=None, description="Permission keys the role grants.")
     tenant_id: Optional[UUID] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "permissions", "tenant_id"]
+    all_models: Optional[StrictBool] = Field(default=True, description="Whether the role grants every model the tenant enables.")
+    all_tools: Optional[StrictBool] = Field(default=True, description="Whether the role grants every tool the tenant enables.")
+    all_connectors: Optional[StrictBool] = Field(default=True, description="Whether the role grants every connector the tenant enables.")
+    models: Optional[List[UUID]] = None
+    tools: Optional[List[UUID]] = None
+    connectors: Optional[List[UUID]] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "permissions", "tenant_id", "all_models", "all_tools", "all_connectors", "models", "tools", "connectors"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -83,6 +89,21 @@ class RoleIn(BaseModel):
         if self.tenant_id is None and "tenant_id" in self.model_fields_set:
             _dict['tenant_id'] = None
 
+        # set to None if models (nullable) is None
+        # and model_fields_set contains the field
+        if self.models is None and "models" in self.model_fields_set:
+            _dict['models'] = None
+
+        # set to None if tools (nullable) is None
+        # and model_fields_set contains the field
+        if self.tools is None and "tools" in self.model_fields_set:
+            _dict['tools'] = None
+
+        # set to None if connectors (nullable) is None
+        # and model_fields_set contains the field
+        if self.connectors is None and "connectors" in self.model_fields_set:
+            _dict['connectors'] = None
+
         return _dict
 
     @classmethod
@@ -98,7 +119,13 @@ class RoleIn(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "permissions": obj.get("permissions"),
-            "tenant_id": obj.get("tenant_id")
+            "tenant_id": obj.get("tenant_id"),
+            "all_models": obj.get("all_models") if obj.get("all_models") is not None else True,
+            "all_tools": obj.get("all_tools") if obj.get("all_tools") is not None else True,
+            "all_connectors": obj.get("all_connectors") if obj.get("all_connectors") is not None else True,
+            "models": obj.get("models"),
+            "tools": obj.get("tools"),
+            "connectors": obj.get("connectors")
         })
         return _obj
 

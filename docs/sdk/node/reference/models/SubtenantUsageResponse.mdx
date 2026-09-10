@@ -1,0 +1,25 @@
+---
+title: "SubtenantUsageResponse"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **string** |  | [default to undefined]
+**end_date** | **string** |  | [default to undefined]
+**totals** | [**UsageMetrics**](/sdk/node/reference/models/UsageMetrics) | Combined totals across the subtree. | [default to undefined]
+**rows** | [**Array&lt;SubtenantUsageRow&gt;**](/sdk/node/reference/models/SubtenantUsageRow) | One row per tenant (self + direct children). | [default to undefined]
+
+## Example
+
+```typescript
+import { SubtenantUsageResponse } from 'neuland-hub-sdk';
+
+const instance: SubtenantUsageResponse = {
+    start_date,
+    end_date,
+    totals,
+    rows,
+};
+```

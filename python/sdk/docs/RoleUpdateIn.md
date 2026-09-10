@@ -8,6 +8,12 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **permissions** | **List[str]** |  | [optional] 
+**all_models** | **bool** |  | [optional] 
+**all_tools** | **bool** |  | [optional] 
+**all_connectors** | **bool** |  | [optional] 
+**models** | **List[UUID]** |  | [optional] 
+**tools** | **List[UUID]** |  | [optional] 
+**connectors** | **List[UUID]** |  | [optional] 
 
 ## Example
 

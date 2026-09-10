@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from typing import Optional, Set
@@ -36,11 +36,16 @@ class SettingsIn(BaseModel):
     welcome_email_template_id: Optional[UUID] = None
     project_member_added_email_template_id: Optional[UUID] = None
     system_prompt: Optional[StrictStr] = None
+    system_prompt_extension: Optional[StrictStr] = None
     errlog_webhook_url: Optional[StrictStr] = None
     require_email_confirmation: Optional[StrictBool] = None
     budget_alert_enabled: Optional[StrictBool] = None
     soft_limit_warning_enabled: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "errlog_webhook_url", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled"]
+    document_retention_days: Optional[StrictInt] = None
+    default_language: Optional[StrictStr] = None
+    user_level_analytics_enabled: Optional[StrictBool] = None
+    user_analytics_reveal_names: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "system_prompt_extension", "errlog_webhook_url", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "default_language", "user_level_analytics_enabled", "user_analytics_reveal_names"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -121,6 +126,11 @@ class SettingsIn(BaseModel):
         if self.system_prompt is None and "system_prompt" in self.model_fields_set:
             _dict['system_prompt'] = None
 
+        # set to None if system_prompt_extension (nullable) is None
+        # and model_fields_set contains the field
+        if self.system_prompt_extension is None and "system_prompt_extension" in self.model_fields_set:
+            _dict['system_prompt_extension'] = None
+
         # set to None if errlog_webhook_url (nullable) is None
         # and model_fields_set contains the field
         if self.errlog_webhook_url is None and "errlog_webhook_url" in self.model_fields_set:
@@ -140,6 +150,26 @@ class SettingsIn(BaseModel):
         # and model_fields_set contains the field
         if self.soft_limit_warning_enabled is None and "soft_limit_warning_enabled" in self.model_fields_set:
             _dict['soft_limit_warning_enabled'] = None
+
+        # set to None if document_retention_days (nullable) is None
+        # and model_fields_set contains the field
+        if self.document_retention_days is None and "document_retention_days" in self.model_fields_set:
+            _dict['document_retention_days'] = None
+
+        # set to None if default_language (nullable) is None
+        # and model_fields_set contains the field
+        if self.default_language is None and "default_language" in self.model_fields_set:
+            _dict['default_language'] = None
+
+        # set to None if user_level_analytics_enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.user_level_analytics_enabled is None and "user_level_analytics_enabled" in self.model_fields_set:
+            _dict['user_level_analytics_enabled'] = None
+
+        # set to None if user_analytics_reveal_names (nullable) is None
+        # and model_fields_set contains the field
+        if self.user_analytics_reveal_names is None and "user_analytics_reveal_names" in self.model_fields_set:
+            _dict['user_analytics_reveal_names'] = None
 
         return _dict
 
@@ -161,10 +191,15 @@ class SettingsIn(BaseModel):
             "welcome_email_template_id": obj.get("welcome_email_template_id"),
             "project_member_added_email_template_id": obj.get("project_member_added_email_template_id"),
             "system_prompt": obj.get("system_prompt"),
+            "system_prompt_extension": obj.get("system_prompt_extension"),
             "errlog_webhook_url": obj.get("errlog_webhook_url"),
             "require_email_confirmation": obj.get("require_email_confirmation"),
             "budget_alert_enabled": obj.get("budget_alert_enabled"),
-            "soft_limit_warning_enabled": obj.get("soft_limit_warning_enabled")
+            "soft_limit_warning_enabled": obj.get("soft_limit_warning_enabled"),
+            "document_retention_days": obj.get("document_retention_days"),
+            "default_language": obj.get("default_language"),
+            "user_level_analytics_enabled": obj.get("user_level_analytics_enabled"),
+            "user_analytics_reveal_names": obj.get("user_analytics_reveal_names")
         })
         return _obj
 

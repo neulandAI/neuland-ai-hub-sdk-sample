@@ -1,6 +1,6 @@
 # Assistant
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -8,11 +8,13 @@ All URIs are relative to *https://api.your-domain.com*
 |[**assistantsAddMembers**](#assistantsaddmembers) | **POST** /assistants/{assistant_id}/members | Add members to an assistant|
 |[**assistantsAddTagToAssistant**](#assistantsaddtagtoassistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant|
 |[**assistantsAddToolToAssistant**](#assistantsaddtooltoassistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant|
+|[**assistantsConvertAssistantToTool**](#assistantsconvertassistanttotool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from the creator\&#39;s chats|
 |[**assistantsCreateAssistant**](#assistantscreateassistant) | **POST** /assistants/ | Create an assistant|
 |[**assistantsDeleteAssistant**](#assistantsdeleteassistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant|
 |[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant|
 |[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant|
 |[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant|
+|[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from chats|
 |[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant|
 |[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member|
 |[**assistantsRemoveTagFromAssistant**](#assistantsremovetagfromassistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant|
@@ -65,7 +67,7 @@ const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -127,7 +129,7 @@ const { status, data } = await apiInstance.assistantsAddMembers(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -188,7 +190,7 @@ const { status, data } = await apiInstance.assistantsAddTagToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -249,7 +251,7 @@ const { status, data } = await apiInstance.assistantsAddToolToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -262,8 +264,67 @@ const { status, data } = await apiInstance.assistantsAddToolToAssistant(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Not the creator, or the tool is not enabled for the tenant. |  -  |
+|**403** | Not the creator, or the tool is not enabled for the tenant, or it is not available to the caller. |  -  |
 |**404** | Assistant, owning user, or tool does not exist. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **assistantsConvertAssistantToTool**
+> Assistant assistantsConvertAssistantToTool()
+
+Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
+
+### Example
+
+```typescript
+import {
+    Assistant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Assistant(configuration);
+
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.assistantsConvertAssistantToTool(
+    assistantId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Assistant**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**201** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Not the creator, or the assistant is catalog-sourced. |  -  |
+|**404** | No assistant exists with the given id. |  -  |
+|**409** | The assistant is already consultable. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -308,7 +369,7 @@ const { status, data } = await apiInstance.assistantsCreateAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -321,6 +382,7 @@ const { status, data } = await apiInstance.assistantsCreateAssistant(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
+|**403** | The model is not available to the author. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -364,7 +426,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -426,7 +488,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -485,7 +547,7 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -544,7 +606,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -559,6 +621,64 @@ void (empty response body)
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Not a member, or you are the owner and cannot leave. |  -  |
 |**404** | Assistant does not exist, or you are not a member. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **assistantsRemoveAssistantAsTool**
+> assistantsRemoveAssistantAsTool()
+
+Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
+
+### Example
+
+```typescript
+import {
+    Assistant,
+    Configuration
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Assistant(configuration);
+
+let assistantId: string; //Public id of the assistant. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.assistantsRemoveAssistantAsTool(
+    assistantId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **assistantId** | [**string**] | Public id of the assistant. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Not the creator, or the assistant is catalog-sourced. |  -  |
+|**404** | No such assistant, or it is not consultable. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -605,7 +725,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -666,7 +786,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -727,7 +847,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -788,7 +908,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -849,7 +969,7 @@ const { status, data } = await apiInstance.assistantsRestoreAssistantVersion(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -893,6 +1013,7 @@ let predefinedPrompts: string; // (optional) (default to undefined)
 let avatar: string; // (optional) (default to undefined)
 let instructions: string; // (optional) (default to undefined)
 let temperature: number; // (optional) (default to undefined)
+let reasoningEffort: ReasoningEffortEnum; // (optional) (default to undefined)
 let similarityTopK: number; // (optional) (default to undefined)
 let inputType: AssistantInputTypeEnum; // (optional) (default to undefined)
 let formFields: string; // (optional) (default to undefined)
@@ -908,6 +1029,7 @@ const { status, data } = await apiInstance.assistantsSubmitAssistant(
     avatar,
     instructions,
     temperature,
+    reasoningEffort,
     similarityTopK,
     inputType,
     formFields,
@@ -928,6 +1050,7 @@ const { status, data } = await apiInstance.assistantsSubmitAssistant(
 | **avatar** | [**string**] |  | (optional) defaults to undefined|
 | **instructions** | [**string**] |  | (optional) defaults to undefined|
 | **temperature** | [**number**] |  | (optional) defaults to undefined|
+| **reasoningEffort** | **ReasoningEffortEnum** |  | (optional) defaults to undefined|
 | **similarityTopK** | [**number**] |  | (optional) defaults to undefined|
 | **inputType** | **AssistantInputTypeEnum** |  | (optional) defaults to undefined|
 | **formFields** | [**string**] |  | (optional) defaults to undefined|
@@ -940,7 +1063,7 @@ const { status, data } = await apiInstance.assistantsSubmitAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -953,7 +1076,7 @@ const { status, data } = await apiInstance.assistantsSubmitAssistant(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Usage budget exceeded. |  -  |
+|**403** | Usage budget exceeded, or the model is not available to the author. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1001,7 +1124,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1014,7 +1137,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistant(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Not the creator of this assistant. |  -  |
+|**403** | Not the creator, or the model is not available to the caller. |  -  |
 |**404** | No assistant exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
@@ -1063,7 +1186,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantGroups(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1125,7 +1248,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantVisibility(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

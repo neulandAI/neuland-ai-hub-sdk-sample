@@ -1,0 +1,29 @@
+# TenantModelIn
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**auto_routable** | **bool** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.tenant_model_in import TenantModelIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of TenantModelIn from a JSON string
+tenant_model_in_instance = TenantModelIn.from_json(json)
+# print the JSON string representation of the object
+print(TenantModelIn.to_json())
+
+# convert the object into a dict
+tenant_model_in_dict = tenant_model_in_instance.to_dict()
+# create an instance of TenantModelIn from a dict
+tenant_model_in_from_dict = TenantModelIn.from_dict(tenant_model_in_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

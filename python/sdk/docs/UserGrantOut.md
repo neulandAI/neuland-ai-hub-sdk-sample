@@ -1,0 +1,33 @@
+# UserGrantOut
+
+A direct grant row.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**user_public_id** | **UUID** |  | 
+**item_public_id** | **UUID** |  | 
+**tenant_id** | **int** |  | 
+**granted_by** | **int** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.user_grant_out import UserGrantOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UserGrantOut from a JSON string
+user_grant_out_instance = UserGrantOut.from_json(json)
+# print the JSON string representation of the object
+print(UserGrantOut.to_json())
+
+# convert the object into a dict
+user_grant_out_dict = user_grant_out_instance.to_dict()
+# create an instance of UserGrantOut from a dict
+user_grant_out_from_dict = UserGrantOut.from_dict(user_grant_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

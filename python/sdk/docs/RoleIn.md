@@ -1,5 +1,6 @@
 # RoleIn
 
+A new role.
 
 ## Properties
 
@@ -9,6 +10,12 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **permissions** | **List[str]** | Permission keys the role grants. | [optional] 
 **tenant_id** | **UUID** |  | [optional] 
+**all_models** | **bool** | Whether the role grants every model the tenant enables. | [optional] [default to True]
+**all_tools** | **bool** | Whether the role grants every tool the tenant enables. | [optional] [default to True]
+**all_connectors** | **bool** | Whether the role grants every connector the tenant enables. | [optional] [default to True]
+**models** | **List[UUID]** |  | [optional] 
+**tools** | **List[UUID]** |  | [optional] 
+**connectors** | **List[UUID]** |  | [optional] 
 
 ## Example
 

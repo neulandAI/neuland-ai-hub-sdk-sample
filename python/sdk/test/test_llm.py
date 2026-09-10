@@ -26,24 +26,66 @@ class TestLlm(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_llm_api_key_inventory(self) -> None:
+        """Test case for llm_api_key_inventory
+
+        API key inventory with idleness and expiry flags
+        """
+        pass
+
+    def test_llm_cost_movers(self) -> None:
+        """Test case for llm_cost_movers
+
+        Biggest cost movers and the most-expensive model vs the prior period
+        """
+        pass
+
     def test_llm_get_cost(self) -> None:
         """Test case for llm_get_cost
 
-        Get LLM cost metrics
+        [Deprecated] LLM cost metrics — superseded by POST /llm/usage
         """
         pass
 
     def test_llm_get_usage_costs(self) -> None:
         """Test case for llm_get_usage_costs
 
-        Get external service usage costs
+        [Deprecated] External service usage costs — superseded by POST /llm/usage
         """
         pass
 
     def test_llm_llm_total_tokens(self) -> None:
         """Test case for llm_llm_total_tokens
 
-        Get token usage metrics
+        [Deprecated] Token usage metrics — superseded by POST /llm/usage
+        """
+        pass
+
+    def test_llm_message_tokens(self) -> None:
+        """Test case for llm_message_tokens
+
+        Token usage aggregated across messages (avg tokens per message)
+        """
+        pass
+
+    def test_llm_subtenant_usage(self) -> None:
+        """Test case for llm_subtenant_usage
+
+        Usage rolled up across a parent tenant and its direct children
+        """
+        pass
+
+    def test_llm_usage_query(self) -> None:
+        """Test case for llm_usage_query
+
+        Unified usage aggregation (cost/tokens/requests by dimension)
+        """
+        pass
+
+    def test_llm_utilization(self) -> None:
+        """Test case for llm_utilization
+
+        Idle assistants and license utilization
         """
         pass
 

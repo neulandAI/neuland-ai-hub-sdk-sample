@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -34,7 +34,8 @@ class TenantLLM(BaseModel):
     updater_user_id: Optional[StrictInt] = None
     tenant_id: StrictInt = Field(description="ID of the tenant the LLM is enabled for.")
     llm_catalog_id: StrictInt = Field(description="ID of the LLM catalog entry enabled for the tenant.")
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "tenant_id", "llm_catalog_id"]
+    auto_routable: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "tenant_id", "llm_catalog_id", "auto_routable"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -85,6 +86,11 @@ class TenantLLM(BaseModel):
         if self.updater_user_id is None and "updater_user_id" in self.model_fields_set:
             _dict['updater_user_id'] = None
 
+        # set to None if auto_routable (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_routable is None and "auto_routable" in self.model_fields_set:
+            _dict['auto_routable'] = None
+
         return _dict
 
     @classmethod
@@ -102,7 +108,8 @@ class TenantLLM(BaseModel):
             "creator_user_id": obj.get("creator_user_id"),
             "updater_user_id": obj.get("updater_user_id"),
             "tenant_id": obj.get("tenant_id"),
-            "llm_catalog_id": obj.get("llm_catalog_id")
+            "llm_catalog_id": obj.get("llm_catalog_id"),
+            "auto_routable": obj.get("auto_routable")
         })
         return _obj
 

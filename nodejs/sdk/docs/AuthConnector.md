@@ -1,6 +1,6 @@
 # AuthConnector
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -54,7 +54,7 @@ const { status, data } = await apiInstance.authGetCredentialTemplate(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -111,7 +111,7 @@ const { status, data } = await apiInstance.authInitiateAdminConsent(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -176,7 +176,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -189,6 +189,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
+|**403** | The connector is not available to the user. |  -  |
 |**404** | No connector or OAuth client exists for the given id. |  -  |
 |**503** | The OAuth provider is misconfigured. |  -  |
 |**422** | Validation Error |  -  |
@@ -198,7 +199,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 # **authListConnectorStatus**
 > Array<ConnectorStatusOut> authListConnectorStatus()
 
-List connectors available to the user\'s tenant with their per-user consent status.
+List the connectors the user may use with their per-user consent status.
 
 ### Example
 
@@ -231,7 +232,7 @@ const { status, data } = await apiInstance.authListConnectorStatus(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -355,7 +356,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -415,7 +416,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -477,7 +478,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -538,7 +539,7 @@ const { status, data } = await apiInstance.authUpdateConnector(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -600,7 +601,7 @@ const { status, data } = await apiInstance.authUpdateOauthClient(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

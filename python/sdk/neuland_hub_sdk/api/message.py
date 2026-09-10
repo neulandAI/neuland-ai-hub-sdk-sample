@@ -19,7 +19,6 @@ from pydantic import Field, StrictBool, StrictBytes, StrictFloat, StrictInt, Str
 from typing import Any, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from uuid import UUID
-from neuland_hub_sdk.models.message import Message
 from neuland_hub_sdk.models.message_detail_out import MessageDetailOut
 from neuland_hub_sdk.models.message_in import MessageIn
 from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut
@@ -62,7 +61,7 @@ class Message:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Message:
+    ) -> MessageSubmitOut:
         """Continue a truncated assistant message
 
         Resume an assistant reply that was cut off by the output-token limit.  Reprocesses the same assistant message: the model receives the chat history ending on the truncated reply plus a continuation instruction, and the new tokens are appended to the existing content under the same message id (no extra transcript entries). Only the newest message of a chat is continuable, and only when it completed with `state_reason=MAX_OUTPUT_TOKENS`.
@@ -103,7 +102,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -138,7 +137,7 @@ class Message:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Message]:
+    ) -> ApiResponse[MessageSubmitOut]:
         """Continue a truncated assistant message
 
         Resume an assistant reply that was cut off by the output-token limit.  Reprocesses the same assistant message: the model receives the chat history ending on the truncated reply plus a continuation instruction, and the new tokens are appended to the existing content under the same message id (no extra transcript entries). Only the newest message of a chat is continuable, and only when it completed with `state_reason=MAX_OUTPUT_TOKENS`.
@@ -179,7 +178,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -255,7 +254,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -317,7 +316,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -624,7 +624,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -662,7 +663,7 @@ class Message:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Message:
+    ) -> MessageSubmitOut:
         """Create a message
 
         Send a JSON message to a chat (or start a new one) and enqueue generation.
@@ -703,7 +704,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -737,7 +738,7 @@ class Message:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Message]:
+    ) -> ApiResponse[MessageSubmitOut]:
         """Create a message
 
         Send a JSON message to a chat (or start a new one) and enqueue generation.
@@ -778,7 +779,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -853,7 +854,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Message",
+            '200': "MessageSubmitOut",
             '401': None,
             '403': None,
             '404': None,
@@ -927,7 +928,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1217,7 +1219,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1507,7 +1510,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1814,7 +1818,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2135,7 +2140,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2165,9 +2171,10 @@ class Message:
         chat_id: Optional[UUID] = None,
         document_ids: Optional[List[UUID]] = None,
         files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
-        chat_temperature: Optional[Union[StrictFloat, StrictInt]] = None,
-        chat_similarity_top_k: Optional[StrictInt] = None,
-        chat_system_prompt: Optional[StrictStr] = None,
+        temperature: Optional[Union[StrictFloat, StrictInt]] = None,
+        reasoning_effort: Optional[Any] = None,
+        similarity_top_k: Optional[StrictInt] = None,
+        system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
         model: Optional[StrictStr] = None,
         tool_ids: Optional[List[UUID]] = None,
@@ -2205,12 +2212,14 @@ class Message:
         :type document_ids: List[UUID]
         :param files:
         :type files: List[bytes]
-        :param chat_temperature:
-        :type chat_temperature: float
-        :param chat_similarity_top_k:
-        :type chat_similarity_top_k: int
-        :param chat_system_prompt:
-        :type chat_system_prompt: str
+        :param temperature:
+        :type temperature: float
+        :param reasoning_effort:
+        :type reasoning_effort: ReasoningEffortEnum
+        :param similarity_top_k:
+        :type similarity_top_k: int
+        :param system_prompt:
+        :type system_prompt: str
         :param assistant_id:
         :type assistant_id: UUID
         :param model:
@@ -2256,9 +2265,10 @@ class Message:
             chat_id=chat_id,
             document_ids=document_ids,
             files=files,
-            chat_temperature=chat_temperature,
-            chat_similarity_top_k=chat_similarity_top_k,
-            chat_system_prompt=chat_system_prompt,
+            temperature=temperature,
+            reasoning_effort=reasoning_effort,
+            similarity_top_k=similarity_top_k,
+            system_prompt=system_prompt,
             assistant_id=assistant_id,
             model=model,
             tool_ids=tool_ids,
@@ -2300,9 +2310,10 @@ class Message:
         chat_id: Optional[UUID] = None,
         document_ids: Optional[List[UUID]] = None,
         files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
-        chat_temperature: Optional[Union[StrictFloat, StrictInt]] = None,
-        chat_similarity_top_k: Optional[StrictInt] = None,
-        chat_system_prompt: Optional[StrictStr] = None,
+        temperature: Optional[Union[StrictFloat, StrictInt]] = None,
+        reasoning_effort: Optional[Any] = None,
+        similarity_top_k: Optional[StrictInt] = None,
+        system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
         model: Optional[StrictStr] = None,
         tool_ids: Optional[List[UUID]] = None,
@@ -2340,12 +2351,14 @@ class Message:
         :type document_ids: List[UUID]
         :param files:
         :type files: List[bytes]
-        :param chat_temperature:
-        :type chat_temperature: float
-        :param chat_similarity_top_k:
-        :type chat_similarity_top_k: int
-        :param chat_system_prompt:
-        :type chat_system_prompt: str
+        :param temperature:
+        :type temperature: float
+        :param reasoning_effort:
+        :type reasoning_effort: ReasoningEffortEnum
+        :param similarity_top_k:
+        :type similarity_top_k: int
+        :param system_prompt:
+        :type system_prompt: str
         :param assistant_id:
         :type assistant_id: UUID
         :param model:
@@ -2391,9 +2404,10 @@ class Message:
             chat_id=chat_id,
             document_ids=document_ids,
             files=files,
-            chat_temperature=chat_temperature,
-            chat_similarity_top_k=chat_similarity_top_k,
-            chat_system_prompt=chat_system_prompt,
+            temperature=temperature,
+            reasoning_effort=reasoning_effort,
+            similarity_top_k=similarity_top_k,
+            system_prompt=system_prompt,
             assistant_id=assistant_id,
             model=model,
             tool_ids=tool_ids,
@@ -2435,9 +2449,10 @@ class Message:
         chat_id: Optional[UUID] = None,
         document_ids: Optional[List[UUID]] = None,
         files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
-        chat_temperature: Optional[Union[StrictFloat, StrictInt]] = None,
-        chat_similarity_top_k: Optional[StrictInt] = None,
-        chat_system_prompt: Optional[StrictStr] = None,
+        temperature: Optional[Union[StrictFloat, StrictInt]] = None,
+        reasoning_effort: Optional[Any] = None,
+        similarity_top_k: Optional[StrictInt] = None,
+        system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
         model: Optional[StrictStr] = None,
         tool_ids: Optional[List[UUID]] = None,
@@ -2475,12 +2490,14 @@ class Message:
         :type document_ids: List[UUID]
         :param files:
         :type files: List[bytes]
-        :param chat_temperature:
-        :type chat_temperature: float
-        :param chat_similarity_top_k:
-        :type chat_similarity_top_k: int
-        :param chat_system_prompt:
-        :type chat_system_prompt: str
+        :param temperature:
+        :type temperature: float
+        :param reasoning_effort:
+        :type reasoning_effort: ReasoningEffortEnum
+        :param similarity_top_k:
+        :type similarity_top_k: int
+        :param system_prompt:
+        :type system_prompt: str
         :param assistant_id:
         :type assistant_id: UUID
         :param model:
@@ -2526,9 +2543,10 @@ class Message:
             chat_id=chat_id,
             document_ids=document_ids,
             files=files,
-            chat_temperature=chat_temperature,
-            chat_similarity_top_k=chat_similarity_top_k,
-            chat_system_prompt=chat_system_prompt,
+            temperature=temperature,
+            reasoning_effort=reasoning_effort,
+            similarity_top_k=similarity_top_k,
+            system_prompt=system_prompt,
             assistant_id=assistant_id,
             model=model,
             tool_ids=tool_ids,
@@ -2565,9 +2583,10 @@ class Message:
         chat_id,
         document_ids,
         files,
-        chat_temperature,
-        chat_similarity_top_k,
-        chat_system_prompt,
+        temperature,
+        reasoning_effort,
+        similarity_top_k,
+        system_prompt,
         assistant_id,
         model,
         tool_ids,
@@ -2617,12 +2636,14 @@ class Message:
             _form_params.append(('document_ids', document_ids))
         if files is not None:
             _files['files'] = files
-        if chat_temperature is not None:
-            _form_params.append(('chat_temperature', chat_temperature))
-        if chat_similarity_top_k is not None:
-            _form_params.append(('chat_similarity_top_k', chat_similarity_top_k))
-        if chat_system_prompt is not None:
-            _form_params.append(('chat_system_prompt', chat_system_prompt))
+        if temperature is not None:
+            _form_params.append(('temperature', temperature))
+        if reasoning_effort is not None:
+            _form_params.append(('reasoning_effort', reasoning_effort))
+        if similarity_top_k is not None:
+            _form_params.append(('similarity_top_k', similarity_top_k))
+        if system_prompt is not None:
+            _form_params.append(('system_prompt', system_prompt))
         if assistant_id is not None:
             _form_params.append(('assistant_id', assistant_id))
         if model is not None:
@@ -2666,7 +2687,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2973,7 +2995,8 @@ class Message:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
