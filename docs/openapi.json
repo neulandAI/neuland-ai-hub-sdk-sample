@@ -38235,7 +38235,13 @@
   ],
   "servers": [
     {
-      "url": "https://api.your-domain.com"
+      "url": "https://{host}",
+      "variables": {
+        "host": {
+          "default": "api.your-domain.com",
+          "description": "Hostname of your Neuland AI Hub deployment"
+        }
+      }
     }
   ]
 }
