@@ -10,58 +10,8 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "User Handbuch",
-        "icon": "book",
-        "pages": [
-          "erste-schritte",
-          {
-            "group": "Chats",
-            "icon": "comment-dots",
-            "pages": [
-              "chat",
-              "chat-einstellungen",
-              "subagenten-and-user-clarification",
-              "automatische-modellwahl",
-              "agenten-als-werkzeug-im-chat"
-            ]
-          },
-          {
-            "group": "Agenten",
-            "icon": "robot",
-            "pages": [
-              "untitled-page-11",
-              "untitled-page-12",
-              "untitled-page-13"
-            ]
-          },
-          "projekte",
-          "untitled-page-10",
-          "orchestrierung",
-          "knowledge",
-          {
-            "group": "Tools",
-            "icon": "stop-circle",
-            "pages": [
-              "web-search",
-              "deep-search",
-              "rasoning",
-              "code-and-data-analyst",
-              "bildgenerierung"
-            ]
-          },
-          {
-            "group": "Integrationen",
-            "icon": "arrow-right-to-bracket",
-            "pages": [
-              "sharepoint",
-              "outlook-mail-und-kalender",
-              "jira",
-              "hubspot",
-              "confluence"
-            ]
-          },
-          "tips-and-tricks"
-        ]
+        "tab": "User & Admin Handbuch",
+        "href": "https://handbuch.neuland-hub.ai/erste-schritte"
       },
       {
         "tab": "Integration Guide",
