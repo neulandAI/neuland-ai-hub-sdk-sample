@@ -27,6 +27,7 @@ Return the browse-hierarchy metadata (root kind, depth) for this source.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -50,6 +51,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -81,7 +84,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -108,6 +111,7 @@ Fetch a single drive item's metadata, with imported flag/count.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -131,6 +135,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -174,7 +180,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -204,6 +210,7 @@ Return the current user's profile on the data source.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -227,6 +234,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -258,7 +267,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -287,6 +296,7 @@ Report whether the current user has granted consent to browse this source.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -309,6 +319,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -340,7 +352,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -368,6 +380,7 @@ List the immediate children of a drive item, with imported flags/counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -391,6 +404,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -436,7 +451,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -466,6 +481,7 @@ List drives under a site, with imported counts per drive.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -489,6 +505,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -530,7 +548,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 
@@ -560,6 +578,7 @@ List the top-level browse entries (sites or drives), with imported counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -583,6 +602,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -622,7 +643,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](/sdk/python/usage)
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
 
 ### HTTP request headers
 

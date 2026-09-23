@@ -1,6 +1,6 @@
 # Dropbox
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -48,7 +48,7 @@ const { status, data } = await apiInstance.dropboxCapabilities(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -118,7 +118,7 @@ const { status, data } = await apiInstance.dropboxGetItemInfo(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -173,7 +173,7 @@ const { status, data } = await apiInstance.dropboxGetUserInfo(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -227,7 +227,7 @@ const { status, data } = await apiInstance.dropboxIsConnected(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -301,7 +301,7 @@ const { status, data } = await apiInstance.dropboxListChildren(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -371,7 +371,7 @@ const { status, data } = await apiInstance.dropboxListDrives(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -438,7 +438,7 @@ const { status, data } = await apiInstance.dropboxListRoots(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

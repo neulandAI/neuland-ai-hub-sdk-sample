@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **updater_user_id** | **number** |  | [optional] [default to undefined]
 **tenant_id** | **number** | ID of the tenant the LLM is enabled for. | [default to undefined]
 **llm_catalog_id** | **number** | ID of the LLM catalog entry enabled for the tenant. | [default to undefined]
+**auto_routable** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -25,6 +26,7 @@ const instance: TenantLLM = {
     updater_user_id,
     tenant_id,
     llm_catalog_id,
+    auto_routable,
 };
 ```
 

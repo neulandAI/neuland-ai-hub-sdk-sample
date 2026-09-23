@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **json_schema** | **Dict[str, object]** | JSON Schema of this credential part; the frontend renders the input form from it. | 
 **configured** | **bool** | Whether this credential part has been saved. | 
 **set_fields** | **List[Optional[str]]** | Names of the fields currently stored. Never includes the values. | 
+**summary** | **Dict[str, object]** | Non-secret view of the stored values: only fields the template marks public, nested lists included (e.g. the sqlConnector&#39;s database names, schemas and descriptions). Never contains secrets. Empty when nothing is stored. | [optional] 
 
 ## Example
 

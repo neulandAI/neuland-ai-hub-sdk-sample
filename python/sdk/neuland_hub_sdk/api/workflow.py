@@ -304,7 +304,8 @@ class Workflow:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -600,7 +601,8 @@ class Workflow:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -894,7 +896,8 @@ class Workflow:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1175,7 +1178,8 @@ class Workflow:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1484,7 +1488,8 @@ class Workflow:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1763,6 +1768,7 @@ class Workflow:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1804,7 +1810,7 @@ class Workflow:
     ) -> Workflow:
         """Update Workflow
 
-        Update a workflow. Only its creator may update it.
+        Update a workflow. Only its creator may update it.  Arming a disabled draft is a create as far as the quota is concerned — the cap counts enabled rows, so without a check here a tenant at cap would simply enable its old drafts. The lock therefore re-reads the row: a concurrent disable would otherwise leave this request's copy claiming the workflow is already enabled, turning the arming into an unchecked no-op.  The assistant-chat gate below only covers enable/timezone-only updates; a spec PATCH already ran it inside `_validate_runnable_spec`.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -1880,7 +1886,7 @@ class Workflow:
     ) -> ApiResponse[Workflow]:
         """Update Workflow
 
-        Update a workflow. Only its creator may update it.
+        Update a workflow. Only its creator may update it.  Arming a disabled draft is a create as far as the quota is concerned — the cap counts enabled rows, so without a check here a tenant at cap would simply enable its old drafts. The lock therefore re-reads the row: a concurrent disable would otherwise leave this request's copy claiming the workflow is already enabled, turning the arming into an unchecked no-op.  The assistant-chat gate below only covers enable/timezone-only updates; a spec PATCH already ran it inside `_validate_runnable_spec`.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -1956,7 +1962,7 @@ class Workflow:
     ) -> RESTResponseType:
         """Update Workflow
 
-        Update a workflow. Only its creator may update it.
+        Update a workflow. Only its creator may update it.  Arming a disabled draft is a create as far as the quota is concerned — the cap counts enabled rows, so without a check here a tenant at cap would simply enable its old drafts. The lock therefore re-reads the row: a concurrent disable would otherwise leave this request's copy claiming the workflow is already enabled, turning the arming into an unchecked no-op.  The assistant-chat gate below only covers enable/timezone-only updates; a spec PATCH already ran it inside `_validate_runnable_spec`.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -2071,7 +2077,8 @@ class Workflow:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

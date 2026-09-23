@@ -54,7 +54,7 @@ const { status, data } = await apiInstance.featureClearTenantFeatureFlag(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -77,7 +77,7 @@ const { status, data } = await apiInstance.featureClearTenantFeatureFlag(
 Array<FeatureFlagOut> featureListTenantFeatureFlags()
 ```
 
-Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
 
 ### Example
 
@@ -113,7 +113,7 @@ const { status, data } = await apiInstance.featureListTenantFeatureFlags(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -179,7 +179,7 @@ const { status, data } = await apiInstance.featureSetTenantFeatureFlag(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 

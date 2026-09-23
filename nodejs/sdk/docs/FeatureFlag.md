@@ -1,6 +1,6 @@
 # FeatureFlag
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -50,7 +50,7 @@ const { status, data } = await apiInstance.featureClearTenantFeatureFlag(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -72,7 +72,7 @@ const { status, data } = await apiInstance.featureClearTenantFeatureFlag(
 # **featureListTenantFeatureFlags**
 > Array<FeatureFlagOut> featureListTenantFeatureFlags()
 
-Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
 
 ### Example
 
@@ -108,7 +108,7 @@ const { status, data } = await apiInstance.featureListTenantFeatureFlags(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -173,7 +173,7 @@ const { status, data } = await apiInstance.featureSetTenantFeatureFlag(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

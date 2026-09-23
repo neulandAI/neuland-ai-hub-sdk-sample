@@ -29,6 +29,7 @@ __all__ = [
     "AuthConnector",
     "Category",
     "Chat",
+    "CustomConnector",
     "Document",
     "Dropbox",
     "FeatureFlag",
@@ -46,6 +47,7 @@ __all__ = [
     "Prompt",
     "Query",
     "Rating",
+    "ResourceAccess",
     "Role",
     "Settings",
     "Sharepoint",
@@ -71,8 +73,13 @@ __all__ = [
     "ApiKeyError",
     "ApiAttributeError",
     "ApiException",
+    "AccessItemOut",
+    "AccessKind",
     "ApiKeyCreateRequest",
     "ApiKeyCreateResponse",
+    "ApiKeyInventoryRequest",
+    "ApiKeyInventoryResponse",
+    "ApiKeyInventoryRow",
     "Application",
     "ApplicationAccessIn",
     "ApplicationCatalog",
@@ -101,6 +108,10 @@ __all__ = [
     "BudgetAlert",
     "BudgetAlertRequest",
     "BudgetAlertUpdate",
+    "BudgetForecast",
+    "BudgetSummary",
+    "BudgetTopUpOut",
+    "BudgetTopUpRequest",
     "BulkResult",
     "CatalogIn",
     "CatalogUpdate",
@@ -110,9 +121,8 @@ __all__ = [
     "ChatIn",
     "ChatInactiveDocumentOut",
     "ChatLibrary",
-    "ChatToolSettingsOut",
-    "ChatToolSettingsUpdate",
     "ClarificationAnswer",
+    "ConnectSharedMailboxIn",
     "Connector",
     "ConnectorAuthType",
     "ConnectorConsentOut",
@@ -122,23 +132,39 @@ __all__ = [
     "CostAudioPerMinute",
     "CostByModel",
     "CostBySource",
+    "CostCacheCreationTokens",
+    "CostCacheCreationTokensAboveTier",
     "CostCachedTokens",
+    "CostCachedTokensAboveTier",
     "CostCompletionTokens",
     "CostCompletionTokens1",
+    "CostCompletionTokensAboveTier",
     "CostPromptTokens",
     "CostPromptTokens1",
+    "CostPromptTokensAboveTier",
     "CostTimeseriesPoint",
+    "CreateOutlookDraftRequest",
+    "CreateOutlookDraftResponse",
     "CredentialIn",
     "CredentialPartOut",
     "CredentialTemplateOut",
+    "CustomConnectorCreate",
+    "CustomConnectorOut",
+    "CustomConnectorUpdate",
     "DataSourceCapabilities",
     "DataSourceDriveModel",
     "DataSourceFolderModel",
     "DataSourceItemModel",
     "DataSourceSiteModel",
     "DataSourceUserModel",
+    "DateWindowRequest",
+    "DirectFileUrl",
     "Document",
+    "DocumentMetrics",
     "DocumentTextOut",
+    "DocumentUsageRequest",
+    "DocumentUsageResponse",
+    "DocumentUsageRow",
     "EmailCatalogOut",
     "EmailSpec",
     "EmailTemplateKey",
@@ -151,6 +177,7 @@ __all__ = [
     "GroupIn",
     "GroupSyncOut",
     "HTTPValidationError",
+    "IdleAssistant",
     "InvitationIn",
     "InvitationOut",
     "LLMConnectionTestIn",
@@ -164,15 +191,19 @@ __all__ = [
     "LibraryMemberIn",
     "LibraryMemberOut",
     "LibraryUpdateIn",
+    "LicenseUtilization",
     "LocationInner",
     "MarketplaceCatalogStateEnum",
     "MarketplaceCatalogStateUpdate",
-    "Message",
     "MessageDetailOut",
     "MessageFileOut",
     "MessageIn",
     "MessageSubmitOut",
+    "MessageTokensResponse",
     "MessageTurnOut",
+    "ModelDelta",
+    "ModelTierEnum",
+    "MoversResponse",
     "NeulandAssistantsTaggingOut",
     "NeulandMarketplaceAssistantSchemasTaggingOut",
     "OAuth2ProviderEnum",
@@ -181,6 +212,7 @@ __all__ = [
     "OutputFormat",
     "PasswordResetIn",
     "PasswordResetRequestIn",
+    "PlanStatus",
     "Project",
     "ProjectIn",
     "ProjectLibrary",
@@ -195,6 +227,7 @@ __all__ = [
     "RateableTypeEnum",
     "Rating",
     "RatingIn",
+    "ReasoningEffortEnum",
     "RephraseStyleEnum",
     "ResponseAuthGetEntraGroupsValue",
     "ResponseDropboxListRoots",
@@ -213,6 +246,10 @@ __all__ = [
     "SetAtlassianCloudIdRequest",
     "Settings",
     "SettingsIn",
+    "SharedMailbox",
+    "SharedMailboxCandidateOut",
+    "SharedMailboxListOut",
+    "SharedMailboxSearchOut",
     "SharepointDriveModel",
     "SharepointFolderModel",
     "SharepointItemModel",
@@ -222,6 +259,8 @@ __all__ = [
     "SsoInitOut",
     "SsoResolveOut",
     "StreamTokenOut",
+    "SubtenantUsageResponse",
+    "SubtenantUsageRow",
     "SystemSettings",
     "SystemSettingsUpdate",
     "Tag",
@@ -237,6 +276,7 @@ __all__ = [
     "TenantIn",
     "TenantLLM",
     "TenantModelBulkIn",
+    "TenantModelIn",
     "TenantOAuthClientIn",
     "TenantOAuthClientOut",
     "TenantOAuthClientUpdate",
@@ -247,6 +287,7 @@ __all__ = [
     "TimeseriesPoint",
     "TimeseriesResponse",
     "To",
+    "To1",
     "TokenOut",
     "TokenTimeseriesPerModel",
     "TokenTimeseriesPoint",
@@ -262,7 +303,14 @@ __all__ = [
     "Translation",
     "UsageCostRequest",
     "UsageCostResponse",
+    "UsageMetrics",
+    "UsageQueryRequest",
+    "UsageQueryResponse",
     "UsageRequest",
+    "UsageRow",
+    "UserAccessOut",
+    "UserGrantIn",
+    "UserGrantOut",
     "UserGroup",
     "UserGroupMember",
     "UserGroupSource",
@@ -272,6 +320,8 @@ __all__ = [
     "UserPreferenceOut",
     "UserPreferenceUpdateIn",
     "UserUpdateIn",
+    "UtilizationRequest",
+    "UtilizationResponse",
     "ValidationError",
     "VariableSpec",
     "Workflow",
@@ -293,6 +343,7 @@ from neuland_hub_sdk.api.auth import Auth as Auth
 from neuland_hub_sdk.api.auth_connector import AuthConnector as AuthConnector
 from neuland_hub_sdk.api.category import Category as Category
 from neuland_hub_sdk.api.chat import Chat as Chat
+from neuland_hub_sdk.api.custom_connector import CustomConnector as CustomConnector
 from neuland_hub_sdk.api.document import Document as Document
 from neuland_hub_sdk.api.dropbox import Dropbox as Dropbox
 from neuland_hub_sdk.api.feature_flag import FeatureFlag as FeatureFlag
@@ -310,6 +361,7 @@ from neuland_hub_sdk.api.project import Project as Project
 from neuland_hub_sdk.api.prompt import Prompt as Prompt
 from neuland_hub_sdk.api.query import Query as Query
 from neuland_hub_sdk.api.rating import Rating as Rating
+from neuland_hub_sdk.api.resource_access import ResourceAccess as ResourceAccess
 from neuland_hub_sdk.api.role import Role as Role
 from neuland_hub_sdk.api.settings import Settings as Settings
 from neuland_hub_sdk.api.sharepoint import Sharepoint as Sharepoint
@@ -339,8 +391,13 @@ from neuland_hub_sdk.exceptions import ApiAttributeError as ApiAttributeError
 from neuland_hub_sdk.exceptions import ApiException as ApiException
 
 # import models into sdk package
+from neuland_hub_sdk.models.access_item_out import AccessItemOut as AccessItemOut
+from neuland_hub_sdk.models.access_kind import AccessKind as AccessKind
 from neuland_hub_sdk.models.api_key_create_request import ApiKeyCreateRequest as ApiKeyCreateRequest
 from neuland_hub_sdk.models.api_key_create_response import ApiKeyCreateResponse as ApiKeyCreateResponse
+from neuland_hub_sdk.models.api_key_inventory_request import ApiKeyInventoryRequest as ApiKeyInventoryRequest
+from neuland_hub_sdk.models.api_key_inventory_response import ApiKeyInventoryResponse as ApiKeyInventoryResponse
+from neuland_hub_sdk.models.api_key_inventory_row import ApiKeyInventoryRow as ApiKeyInventoryRow
 from neuland_hub_sdk.models.application import Application as Application
 from neuland_hub_sdk.models.application_access_in import ApplicationAccessIn as ApplicationAccessIn
 from neuland_hub_sdk.models.application_catalog import ApplicationCatalog as ApplicationCatalog
@@ -369,6 +426,10 @@ from neuland_hub_sdk.models.bcc import Bcc as Bcc
 from neuland_hub_sdk.models.budget_alert import BudgetAlert as BudgetAlert
 from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest as BudgetAlertRequest
 from neuland_hub_sdk.models.budget_alert_update import BudgetAlertUpdate as BudgetAlertUpdate
+from neuland_hub_sdk.models.budget_forecast import BudgetForecast as BudgetForecast
+from neuland_hub_sdk.models.budget_summary import BudgetSummary as BudgetSummary
+from neuland_hub_sdk.models.budget_top_up_out import BudgetTopUpOut as BudgetTopUpOut
+from neuland_hub_sdk.models.budget_top_up_request import BudgetTopUpRequest as BudgetTopUpRequest
 from neuland_hub_sdk.models.bulk_result import BulkResult as BulkResult
 from neuland_hub_sdk.models.catalog_in import CatalogIn as CatalogIn
 from neuland_hub_sdk.models.catalog_update import CatalogUpdate as CatalogUpdate
@@ -378,9 +439,8 @@ from neuland_hub_sdk.models.chat import Chat as Chat
 from neuland_hub_sdk.models.chat_in import ChatIn as ChatIn
 from neuland_hub_sdk.models.chat_inactive_document_out import ChatInactiveDocumentOut as ChatInactiveDocumentOut
 from neuland_hub_sdk.models.chat_library import ChatLibrary as ChatLibrary
-from neuland_hub_sdk.models.chat_tool_settings_out import ChatToolSettingsOut as ChatToolSettingsOut
-from neuland_hub_sdk.models.chat_tool_settings_update import ChatToolSettingsUpdate as ChatToolSettingsUpdate
 from neuland_hub_sdk.models.clarification_answer import ClarificationAnswer as ClarificationAnswer
+from neuland_hub_sdk.models.connect_shared_mailbox_in import ConnectSharedMailboxIn as ConnectSharedMailboxIn
 from neuland_hub_sdk.models.connector import Connector as Connector
 from neuland_hub_sdk.models.connector_auth_type import ConnectorAuthType as ConnectorAuthType
 from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut as ConnectorConsentOut
@@ -390,23 +450,39 @@ from neuland_hub_sdk.models.connector_update import ConnectorUpdate as Connector
 from neuland_hub_sdk.models.cost_audio_per_minute import CostAudioPerMinute as CostAudioPerMinute
 from neuland_hub_sdk.models.cost_by_model import CostByModel as CostByModel
 from neuland_hub_sdk.models.cost_by_source import CostBySource as CostBySource
+from neuland_hub_sdk.models.cost_cache_creation_tokens import CostCacheCreationTokens as CostCacheCreationTokens
+from neuland_hub_sdk.models.cost_cache_creation_tokens_above_tier import CostCacheCreationTokensAboveTier as CostCacheCreationTokensAboveTier
 from neuland_hub_sdk.models.cost_cached_tokens import CostCachedTokens as CostCachedTokens
+from neuland_hub_sdk.models.cost_cached_tokens_above_tier import CostCachedTokensAboveTier as CostCachedTokensAboveTier
 from neuland_hub_sdk.models.cost_completion_tokens import CostCompletionTokens as CostCompletionTokens
 from neuland_hub_sdk.models.cost_completion_tokens1 import CostCompletionTokens1 as CostCompletionTokens1
+from neuland_hub_sdk.models.cost_completion_tokens_above_tier import CostCompletionTokensAboveTier as CostCompletionTokensAboveTier
 from neuland_hub_sdk.models.cost_prompt_tokens import CostPromptTokens as CostPromptTokens
 from neuland_hub_sdk.models.cost_prompt_tokens1 import CostPromptTokens1 as CostPromptTokens1
+from neuland_hub_sdk.models.cost_prompt_tokens_above_tier import CostPromptTokensAboveTier as CostPromptTokensAboveTier
 from neuland_hub_sdk.models.cost_timeseries_point import CostTimeseriesPoint as CostTimeseriesPoint
+from neuland_hub_sdk.models.create_outlook_draft_request import CreateOutlookDraftRequest as CreateOutlookDraftRequest
+from neuland_hub_sdk.models.create_outlook_draft_response import CreateOutlookDraftResponse as CreateOutlookDraftResponse
 from neuland_hub_sdk.models.credential_in import CredentialIn as CredentialIn
 from neuland_hub_sdk.models.credential_part_out import CredentialPartOut as CredentialPartOut
 from neuland_hub_sdk.models.credential_template_out import CredentialTemplateOut as CredentialTemplateOut
+from neuland_hub_sdk.models.custom_connector_create import CustomConnectorCreate as CustomConnectorCreate
+from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut as CustomConnectorOut
+from neuland_hub_sdk.models.custom_connector_update import CustomConnectorUpdate as CustomConnectorUpdate
 from neuland_hub_sdk.models.data_source_capabilities import DataSourceCapabilities as DataSourceCapabilities
 from neuland_hub_sdk.models.data_source_drive_model import DataSourceDriveModel as DataSourceDriveModel
 from neuland_hub_sdk.models.data_source_folder_model import DataSourceFolderModel as DataSourceFolderModel
 from neuland_hub_sdk.models.data_source_item_model import DataSourceItemModel as DataSourceItemModel
 from neuland_hub_sdk.models.data_source_site_model import DataSourceSiteModel as DataSourceSiteModel
 from neuland_hub_sdk.models.data_source_user_model import DataSourceUserModel as DataSourceUserModel
+from neuland_hub_sdk.models.date_window_request import DateWindowRequest as DateWindowRequest
+from neuland_hub_sdk.models.direct_file_url import DirectFileUrl as DirectFileUrl
 from neuland_hub_sdk.models.document import Document as Document
+from neuland_hub_sdk.models.document_metrics import DocumentMetrics as DocumentMetrics
 from neuland_hub_sdk.models.document_text_out import DocumentTextOut as DocumentTextOut
+from neuland_hub_sdk.models.document_usage_request import DocumentUsageRequest as DocumentUsageRequest
+from neuland_hub_sdk.models.document_usage_response import DocumentUsageResponse as DocumentUsageResponse
+from neuland_hub_sdk.models.document_usage_row import DocumentUsageRow as DocumentUsageRow
 from neuland_hub_sdk.models.email_catalog_out import EmailCatalogOut as EmailCatalogOut
 from neuland_hub_sdk.models.email_spec import EmailSpec as EmailSpec
 from neuland_hub_sdk.models.email_template_key import EmailTemplateKey as EmailTemplateKey
@@ -419,6 +495,7 @@ from neuland_hub_sdk.models.group_app_access_in import GroupAppAccessIn as Group
 from neuland_hub_sdk.models.group_in import GroupIn as GroupIn
 from neuland_hub_sdk.models.group_sync_out import GroupSyncOut as GroupSyncOut
 from neuland_hub_sdk.models.http_validation_error import HTTPValidationError as HTTPValidationError
+from neuland_hub_sdk.models.idle_assistant import IdleAssistant as IdleAssistant
 from neuland_hub_sdk.models.invitation_in import InvitationIn as InvitationIn
 from neuland_hub_sdk.models.invitation_out import InvitationOut as InvitationOut
 from neuland_hub_sdk.models.llm_connection_test_in import LLMConnectionTestIn as LLMConnectionTestIn
@@ -432,15 +509,19 @@ from neuland_hub_sdk.models.library_member_bulk_in import LibraryMemberBulkIn as
 from neuland_hub_sdk.models.library_member_in import LibraryMemberIn as LibraryMemberIn
 from neuland_hub_sdk.models.library_member_out import LibraryMemberOut as LibraryMemberOut
 from neuland_hub_sdk.models.library_update_in import LibraryUpdateIn as LibraryUpdateIn
+from neuland_hub_sdk.models.license_utilization import LicenseUtilization as LicenseUtilization
 from neuland_hub_sdk.models.location_inner import LocationInner as LocationInner
 from neuland_hub_sdk.models.marketplace_catalog_state_enum import MarketplaceCatalogStateEnum as MarketplaceCatalogStateEnum
 from neuland_hub_sdk.models.marketplace_catalog_state_update import MarketplaceCatalogStateUpdate as MarketplaceCatalogStateUpdate
-from neuland_hub_sdk.models.message import Message as Message
 from neuland_hub_sdk.models.message_detail_out import MessageDetailOut as MessageDetailOut
 from neuland_hub_sdk.models.message_file_out import MessageFileOut as MessageFileOut
 from neuland_hub_sdk.models.message_in import MessageIn as MessageIn
 from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut as MessageSubmitOut
+from neuland_hub_sdk.models.message_tokens_response import MessageTokensResponse as MessageTokensResponse
 from neuland_hub_sdk.models.message_turn_out import MessageTurnOut as MessageTurnOut
+from neuland_hub_sdk.models.model_delta import ModelDelta as ModelDelta
+from neuland_hub_sdk.models.model_tier_enum import ModelTierEnum as ModelTierEnum
+from neuland_hub_sdk.models.movers_response import MoversResponse as MoversResponse
 from neuland_hub_sdk.models.neuland_assistants_tagging_out import NeulandAssistantsTaggingOut as NeulandAssistantsTaggingOut
 from neuland_hub_sdk.models.neuland_marketplace_assistant_schemas_tagging_out import NeulandMarketplaceAssistantSchemasTaggingOut as NeulandMarketplaceAssistantSchemasTaggingOut
 from neuland_hub_sdk.models.o_auth2_provider_enum import OAuth2ProviderEnum as OAuth2ProviderEnum
@@ -449,6 +530,7 @@ from neuland_hub_sdk.models.o_auth_client_update import OAuthClientUpdate as OAu
 from neuland_hub_sdk.models.output_format import OutputFormat as OutputFormat
 from neuland_hub_sdk.models.password_reset_in import PasswordResetIn as PasswordResetIn
 from neuland_hub_sdk.models.password_reset_request_in import PasswordResetRequestIn as PasswordResetRequestIn
+from neuland_hub_sdk.models.plan_status import PlanStatus as PlanStatus
 from neuland_hub_sdk.models.project import Project as Project
 from neuland_hub_sdk.models.project_in import ProjectIn as ProjectIn
 from neuland_hub_sdk.models.project_library import ProjectLibrary as ProjectLibrary
@@ -463,6 +545,7 @@ from neuland_hub_sdk.models.prompt_optimize_out import PromptOptimizeOut as Prom
 from neuland_hub_sdk.models.rateable_type_enum import RateableTypeEnum as RateableTypeEnum
 from neuland_hub_sdk.models.rating import Rating as Rating
 from neuland_hub_sdk.models.rating_in import RatingIn as RatingIn
+from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum as ReasoningEffortEnum
 from neuland_hub_sdk.models.rephrase_style_enum import RephraseStyleEnum as RephraseStyleEnum
 from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue as ResponseAuthGetEntraGroupsValue
 from neuland_hub_sdk.models.response_dropbox_list_roots import ResponseDropboxListRoots as ResponseDropboxListRoots
@@ -481,6 +564,10 @@ from neuland_hub_sdk.models.send_email_response import SendEmailResponse as Send
 from neuland_hub_sdk.models.set_atlassian_cloud_id_request import SetAtlassianCloudIdRequest as SetAtlassianCloudIdRequest
 from neuland_hub_sdk.models.settings import Settings as Settings
 from neuland_hub_sdk.models.settings_in import SettingsIn as SettingsIn
+from neuland_hub_sdk.models.shared_mailbox import SharedMailbox as SharedMailbox
+from neuland_hub_sdk.models.shared_mailbox_candidate_out import SharedMailboxCandidateOut as SharedMailboxCandidateOut
+from neuland_hub_sdk.models.shared_mailbox_list_out import SharedMailboxListOut as SharedMailboxListOut
+from neuland_hub_sdk.models.shared_mailbox_search_out import SharedMailboxSearchOut as SharedMailboxSearchOut
 from neuland_hub_sdk.models.sharepoint_drive_model import SharepointDriveModel as SharepointDriveModel
 from neuland_hub_sdk.models.sharepoint_folder_model import SharepointFolderModel as SharepointFolderModel
 from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel as SharepointItemModel
@@ -490,6 +577,8 @@ from neuland_hub_sdk.models.sso_exchange_in import SsoExchangeIn as SsoExchangeI
 from neuland_hub_sdk.models.sso_init_out import SsoInitOut as SsoInitOut
 from neuland_hub_sdk.models.sso_resolve_out import SsoResolveOut as SsoResolveOut
 from neuland_hub_sdk.models.stream_token_out import StreamTokenOut as StreamTokenOut
+from neuland_hub_sdk.models.subtenant_usage_response import SubtenantUsageResponse as SubtenantUsageResponse
+from neuland_hub_sdk.models.subtenant_usage_row import SubtenantUsageRow as SubtenantUsageRow
 from neuland_hub_sdk.models.system_settings import SystemSettings as SystemSettings
 from neuland_hub_sdk.models.system_settings_update import SystemSettingsUpdate as SystemSettingsUpdate
 from neuland_hub_sdk.models.tag import Tag as Tag
@@ -505,6 +594,7 @@ from neuland_hub_sdk.models.template_update import TemplateUpdate as TemplateUpd
 from neuland_hub_sdk.models.tenant_in import TenantIn as TenantIn
 from neuland_hub_sdk.models.tenant_llm import TenantLLM as TenantLLM
 from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn as TenantModelBulkIn
+from neuland_hub_sdk.models.tenant_model_in import TenantModelIn as TenantModelIn
 from neuland_hub_sdk.models.tenant_o_auth_client_in import TenantOAuthClientIn as TenantOAuthClientIn
 from neuland_hub_sdk.models.tenant_o_auth_client_out import TenantOAuthClientOut as TenantOAuthClientOut
 from neuland_hub_sdk.models.tenant_o_auth_client_update import TenantOAuthClientUpdate as TenantOAuthClientUpdate
@@ -515,6 +605,7 @@ from neuland_hub_sdk.models.theme_mode_enum import ThemeModeEnum as ThemeModeEnu
 from neuland_hub_sdk.models.timeseries_point import TimeseriesPoint as TimeseriesPoint
 from neuland_hub_sdk.models.timeseries_response import TimeseriesResponse as TimeseriesResponse
 from neuland_hub_sdk.models.to import To as To
+from neuland_hub_sdk.models.to1 import To1 as To1
 from neuland_hub_sdk.models.token_out import TokenOut as TokenOut
 from neuland_hub_sdk.models.token_timeseries_per_model import TokenTimeseriesPerModel as TokenTimeseriesPerModel
 from neuland_hub_sdk.models.token_timeseries_point import TokenTimeseriesPoint as TokenTimeseriesPoint
@@ -530,7 +621,14 @@ from neuland_hub_sdk.models.transcription_segment import TranscriptionSegment as
 from neuland_hub_sdk.models.translation import Translation as Translation
 from neuland_hub_sdk.models.usage_cost_request import UsageCostRequest as UsageCostRequest
 from neuland_hub_sdk.models.usage_cost_response import UsageCostResponse as UsageCostResponse
+from neuland_hub_sdk.models.usage_metrics import UsageMetrics as UsageMetrics
+from neuland_hub_sdk.models.usage_query_request import UsageQueryRequest as UsageQueryRequest
+from neuland_hub_sdk.models.usage_query_response import UsageQueryResponse as UsageQueryResponse
 from neuland_hub_sdk.models.usage_request import UsageRequest as UsageRequest
+from neuland_hub_sdk.models.usage_row import UsageRow as UsageRow
+from neuland_hub_sdk.models.user_access_out import UserAccessOut as UserAccessOut
+from neuland_hub_sdk.models.user_grant_in import UserGrantIn as UserGrantIn
+from neuland_hub_sdk.models.user_grant_out import UserGrantOut as UserGrantOut
 from neuland_hub_sdk.models.user_group import UserGroup as UserGroup
 from neuland_hub_sdk.models.user_group_member import UserGroupMember as UserGroupMember
 from neuland_hub_sdk.models.user_group_source import UserGroupSource as UserGroupSource
@@ -540,6 +638,8 @@ from neuland_hub_sdk.models.user_out import UserOut as UserOut
 from neuland_hub_sdk.models.user_preference_out import UserPreferenceOut as UserPreferenceOut
 from neuland_hub_sdk.models.user_preference_update_in import UserPreferenceUpdateIn as UserPreferenceUpdateIn
 from neuland_hub_sdk.models.user_update_in import UserUpdateIn as UserUpdateIn
+from neuland_hub_sdk.models.utilization_request import UtilizationRequest as UtilizationRequest
+from neuland_hub_sdk.models.utilization_response import UtilizationResponse as UtilizationResponse
 from neuland_hub_sdk.models.validation_error import ValidationError as ValidationError
 from neuland_hub_sdk.models.variable_spec import VariableSpec as VariableSpec
 from neuland_hub_sdk.models.workflow import Workflow as Workflow

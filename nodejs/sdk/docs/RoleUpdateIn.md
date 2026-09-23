@@ -8,6 +8,12 @@ Name | Type | Description | Notes
 **name** | **string** |  | [optional] [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
 **permissions** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**all_models** | **boolean** |  | [optional] [default to undefined]
+**all_tools** | **boolean** |  | [optional] [default to undefined]
+**all_connectors** | **boolean** |  | [optional] [default to undefined]
+**models** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**tools** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**connectors** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -18,6 +24,12 @@ const instance: RoleUpdateIn = {
     name,
     description,
     permissions,
+    all_models,
+    all_tools,
+    all_connectors,
+    models,
+    tools,
+    connectors,
 };
 ```
 

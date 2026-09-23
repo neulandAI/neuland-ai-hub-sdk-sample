@@ -10,15 +10,25 @@ Name | Type | Description | Notes
 **provider** | **str** | Provider backing the model. | 
 **library** | **str** | Client library used to call the provider. | 
 **max_tokens** | **int** | Maximum tokens allowed per request for this model. | 
+**reasoning_effort** | [**ReasoningEffortEnum**](/sdk/python/reference/models/ReasoningEffortEnum) |  | [optional] 
 **cost_prompt_tokens** | [**CostPromptTokens**](/sdk/python/reference/models/CostPromptTokens) |  | 
 **cost_completion_tokens** | [**CostCompletionTokens**](/sdk/python/reference/models/CostCompletionTokens) |  | 
 **cost_cached_tokens** | [**CostCachedTokens**](/sdk/python/reference/models/CostCachedTokens) |  | [optional] 
+**cost_cache_creation_tokens** | [**CostCacheCreationTokens**](/sdk/python/reference/models/CostCacheCreationTokens) |  | [optional] 
+**tier_threshold_tokens** | **int** |  | [optional] 
+**cost_prompt_tokens_above_tier** | [**CostPromptTokensAboveTier**](/sdk/python/reference/models/CostPromptTokensAboveTier) |  | [optional] 
+**cost_completion_tokens_above_tier** | [**CostCompletionTokensAboveTier**](/sdk/python/reference/models/CostCompletionTokensAboveTier) |  | [optional] 
+**cost_cached_tokens_above_tier** | [**CostCachedTokensAboveTier**](/sdk/python/reference/models/CostCachedTokensAboveTier) |  | [optional] 
+**cost_cache_creation_tokens_above_tier** | [**CostCacheCreationTokensAboveTier**](/sdk/python/reference/models/CostCacheCreationTokensAboveTier) |  | [optional] 
 **cost_audio_per_minute** | [**CostAudioPerMinute**](/sdk/python/reference/models/CostAudioPerMinute) |  | [optional] 
+**active** | **bool** |  | [optional] 
+**last_seen_at** | **datetime** |  | [optional] 
 **region** | **str** |  | [optional] 
 **args** | **Dict[str, object]** |  | [optional] 
 **openai_resource** | **str** |  | [optional] 
 **api_version** | **str** |  | [optional] 
-**deployment_name** | **str** |  | [optional] 
+**deployment_name** | **str** | Model identifier sent to the provider. The catalog name is only a label; this is what the call uses. | 
+**hosted_on** | **str** |  | [optional] 
 **endpoint** | **str** |  | [optional] 
 **api_key** | **str** |  | [optional] 
 

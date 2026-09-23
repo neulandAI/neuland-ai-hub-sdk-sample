@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Chat
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -13,7 +13,6 @@ Method | HTTP request | Description
 [**chats_remove_library_from_chat**](Chat.md#chats_remove_library_from_chat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat
 [**chats_summerize_chat**](Chat.md#chats_summerize_chat) | **GET** /chats/{chat_id}/summary | Summarize a chat
 [**chats_update_chat**](Chat.md#chats_update_chat) | **PATCH** /chats/{chat_id} | Update a chat
-[**chats_update_chat_tool_settings**](Chat.md#chats_update_chat_tool_settings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Set a chat tool setting
 
 
 # **chats_add_library_to_chat**
@@ -26,6 +25,7 @@ Enables a library in a chat by creating a new association
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -33,10 +33,10 @@ from neuland_hub_sdk.models.chat_library import ChatLibrary
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -49,6 +49,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -84,7 +86,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -112,16 +114,17 @@ Cancel any pending or streaming message generation in the chat.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -134,6 +137,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -167,7 +172,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -195,6 +200,7 @@ Exclude the given documents from the chat's retrieval context.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -202,10 +208,10 @@ from neuland_hub_sdk.models.chat_inactive_document_out import ChatInactiveDocume
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -218,6 +224,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -253,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -280,16 +288,17 @@ List message turns for a chat
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -302,6 +311,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -339,7 +350,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -368,16 +379,17 @@ Delete a chat and its messages.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -390,6 +402,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -421,7 +435,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -450,6 +464,7 @@ Re-include previously deactivated documents in the chat's retrieval context.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -457,10 +472,10 @@ from neuland_hub_sdk.models.bulk_result import BulkResult
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -473,6 +488,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -508,7 +525,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -536,16 +553,17 @@ Disables a library from a chat by removing the association
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -558,6 +576,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -591,7 +611,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -619,16 +639,17 @@ Generate a short LLM summary of the chat's recent conversation.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -641,6 +662,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -674,7 +697,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -703,6 +726,7 @@ Update settings of an existing chat (name, model, temperature, etc.).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -711,10 +735,10 @@ from neuland_hub_sdk.models.chat_in import ChatIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -727,6 +751,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -762,7 +788,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -777,96 +803,6 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | No access to this chat. |  -  |
 **404** | No chat exists with the given id. |  -  |
-**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **chats_update_chat_tool_settings**
-> ChatToolSettingsOut chats_update_chat_tool_settings(chat_id, tool_id, chat_tool_settings_update, cookie_name=cookie_name)
-
-Set a chat tool setting
-
-Enable or disable a tool for a chat, creating the setting if needed.
-
-### Example
-
-* Api Key Authentication (APIKeyHeader):
-
-```python
-import neuland_hub_sdk
-from neuland_hub_sdk.models.chat_tool_settings_out import ChatToolSettingsOut
-from neuland_hub_sdk.models.chat_tool_settings_update import ChatToolSettingsUpdate
-from neuland_hub_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.your-domain.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: APIKeyHeader
-configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Chat(api_client)
-    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the chat.
-    tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to configure.
-    chat_tool_settings_update = neuland_hub_sdk.ChatToolSettingsUpdate() # ChatToolSettingsUpdate | 
-    cookie_name = 'cookie_name_example' # str |  (optional)
-
-    try:
-        # Set a chat tool setting
-        api_response = api_instance.chats_update_chat_tool_settings(chat_id, tool_id, chat_tool_settings_update, cookie_name=cookie_name)
-        print("The response of Chat->chats_update_chat_tool_settings:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling Chat->chats_update_chat_tool_settings: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **chat_id** | **UUID**| ID of the chat. | 
- **tool_id** | **UUID**| Public id of the tool to configure. | 
- **chat_tool_settings_update** | [**ChatToolSettingsUpdate**](ChatToolSettingsUpdate.md)|  | 
- **cookie_name** | **str**|  | [optional] 
-
-### Return type
-
-[**ChatToolSettingsOut**](ChatToolSettingsOut.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful Response |  -  |
-**401** | Missing or invalid authentication. |  -  |
-**403** | No access to the chat, or the tool is not enabled for the tenant. |  -  |
-**404** | Chat, tool, or owning user does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **success** | **bool** | Whether the email was sent successfully. | 
 **message** | **str** | Human-readable result message. | 
 **recipients** | **List[str]** |  | [optional] 
+**from_mailbox** | **str** |  | [optional] 
 
 ## Example
 

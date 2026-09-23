@@ -1,6 +1,6 @@
 # neuland_hub_sdk.System
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,6 +18,7 @@ Return the current platform-wide system settings.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -25,10 +26,10 @@ from neuland_hub_sdk.models.system_settings import SystemSettings
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -41,6 +42,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -72,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -100,6 +103,7 @@ Apply the provided system settings changes and record an audit entry.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -108,10 +112,10 @@ from neuland_hub_sdk.models.system_settings_update import SystemSettingsUpdate
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -124,6 +128,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -157,7 +163,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

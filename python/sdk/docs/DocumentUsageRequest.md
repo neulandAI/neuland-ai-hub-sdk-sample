@@ -1,0 +1,35 @@
+# DocumentUsageRequest
+
+Request for the document storage aggregation.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**date_start** | **datetime** | Inclusive start of the window. | 
+**date_end** | **datetime** | Inclusive end of the window. | 
+**bucket** | **str** |  | [optional] 
+**group_by** | **List[str]** | Categorical dimensions to break the totals down by. &#39;user&#39; requires the tenant&#39;s user-level-analytics opt-in. | [optional] 
+**limit** | **int** |  | [optional] 
+**offset** | **int** | Row offset, for paginating. | [optional] [default to 0]
+
+## Example
+
+```python
+from neuland_hub_sdk.models.document_usage_request import DocumentUsageRequest
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of DocumentUsageRequest from a JSON string
+document_usage_request_instance = DocumentUsageRequest.from_json(json)
+# print the JSON string representation of the object
+print(DocumentUsageRequest.to_json())
+
+# convert the object into a dict
+document_usage_request_dict = document_usage_request_instance.to_dict()
+# create an instance of DocumentUsageRequest from a dict
+document_usage_request_from_dict = DocumentUsageRequest.from_dict(document_usage_request_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

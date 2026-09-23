@@ -1,6 +1,6 @@
 # Chat
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -13,7 +13,6 @@ All URIs are relative to *https://api.your-domain.com*
 |[**chatsRemoveLibraryFromChat**](#chatsremovelibraryfromchat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat|
 |[**chatsSummerizeChat**](#chatssummerizechat) | **GET** /chats/{chat_id}/summary | Summarize a chat|
 |[**chatsUpdateChat**](#chatsupdatechat) | **PATCH** /chats/{chat_id} | Update a chat|
-|[**chatsUpdateChatToolSettings**](#chatsupdatechattoolsettings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Set a chat tool setting|
 
 # **chatsAddLibraryToChat**
 > ChatLibrary chatsAddLibraryToChat()
@@ -57,7 +56,7 @@ const { status, data } = await apiInstance.chatsAddLibraryToChat(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -114,7 +113,7 @@ const { status, data } = await apiInstance.chatsCancelMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -174,7 +173,7 @@ const { status, data } = await apiInstance.chatsDeactivateDocuments(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -237,7 +236,7 @@ const { status, data } = await apiInstance.chatsListChatMessageTurns(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -295,7 +294,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -356,7 +355,7 @@ const { status, data } = await apiInstance.chatsRemoveInactiveDocuments(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -416,7 +415,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -473,7 +472,7 @@ const { status, data } = await apiInstance.chatsSummerizeChat(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -535,7 +534,7 @@ const { status, data } = await apiInstance.chatsUpdateChat(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -550,71 +549,6 @@ const { status, data } = await apiInstance.chatsUpdateChat(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | No access to this chat. |  -  |
 |**404** | No chat exists with the given id. |  -  |
-|**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **chatsUpdateChatToolSettings**
-> ChatToolSettingsOut chatsUpdateChatToolSettings(chatToolSettingsUpdate)
-
-Enable or disable a tool for a chat, creating the setting if needed.
-
-### Example
-
-```typescript
-import {
-    Chat,
-    Configuration,
-    ChatToolSettingsUpdate
-} from 'neuland-hub-sdk';
-
-const configuration = new Configuration();
-const apiInstance = new Chat(configuration);
-
-let chatId: string; //ID of the chat. (default to undefined)
-let toolId: string; //Public id of the tool to configure. (default to undefined)
-let chatToolSettingsUpdate: ChatToolSettingsUpdate; //
-let cookieName: string; // (optional) (default to undefined)
-
-const { status, data } = await apiInstance.chatsUpdateChatToolSettings(
-    chatId,
-    toolId,
-    chatToolSettingsUpdate,
-    cookieName
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **chatToolSettingsUpdate** | **ChatToolSettingsUpdate**|  | |
-| **chatId** | [**string**] | ID of the chat. | defaults to undefined|
-| **toolId** | [**string**] | Public id of the tool to configure. | defaults to undefined|
-| **cookieName** | [**string**] |  | (optional) defaults to undefined|
-
-
-### Return type
-
-**ChatToolSettingsOut**
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | Successful Response |  -  |
-|**401** | Missing or invalid authentication. |  -  |
-|**403** | No access to the chat, or the tool is not enabled for the tenant. |  -  |
-|**404** | Chat, tool, or owning user does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

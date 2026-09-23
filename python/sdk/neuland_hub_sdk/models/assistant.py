@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.assistant_visibility_enum import AssistantVisibilityEnum
 from typing import Optional, Set
@@ -47,12 +48,14 @@ class Assistant(BaseModel):
     instructions: Optional[StrictStr] = None
     llm_catalog_id: Optional[StrictInt] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
+    reasoning_effort: Optional[Annotated[str, Field(strict=True, max_length=10)]] = None
     similarity_top_k: Optional[StrictInt] = None
     input_type: Optional[StrictStr] = Field(default='prompt', description="Input type for the assistant (e.g. prompt or form).")
     form_fields: Optional[List[Any]] = None
     assistant_catalog_id: Optional[StrictInt] = None
     visibility: Optional[AssistantVisibilityEnum] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "tenant_id", "created_at", "updated_at", "creator_user_id", "name", "avatar", "description", "description_show_in_chat", "predefined_prompts", "instructions", "llm_catalog_id", "temperature", "similarity_top_k", "input_type", "form_fields", "assistant_catalog_id", "visibility"]
+    is_tool: Optional[StrictBool] = Field(default=False, description="Whether this assistant is consultable from its creator's chats via the `consult_assistant` tool.")
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "tenant_id", "created_at", "updated_at", "creator_user_id", "name", "avatar", "description", "description_show_in_chat", "predefined_prompts", "instructions", "llm_catalog_id", "temperature", "reasoning_effort", "similarity_top_k", "input_type", "form_fields", "assistant_catalog_id", "visibility", "is_tool"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -148,6 +151,11 @@ class Assistant(BaseModel):
         if self.temperature is None and "temperature" in self.model_fields_set:
             _dict['temperature'] = None
 
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoning_effort'] = None
+
         # set to None if similarity_top_k (nullable) is None
         # and model_fields_set contains the field
         if self.similarity_top_k is None and "similarity_top_k" in self.model_fields_set:
@@ -192,11 +200,13 @@ class Assistant(BaseModel):
             "instructions": obj.get("instructions"),
             "llm_catalog_id": obj.get("llm_catalog_id"),
             "temperature": obj.get("temperature"),
+            "reasoning_effort": obj.get("reasoning_effort"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "input_type": obj.get("input_type") if obj.get("input_type") is not None else 'prompt',
             "form_fields": obj.get("form_fields"),
             "assistant_catalog_id": obj.get("assistant_catalog_id"),
-            "visibility": obj.get("visibility")
+            "visibility": obj.get("visibility"),
+            "is_tool": obj.get("is_tool") if obj.get("is_tool") is not None else False
         })
         return _obj
 

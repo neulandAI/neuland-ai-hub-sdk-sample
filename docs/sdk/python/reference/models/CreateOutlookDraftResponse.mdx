@@ -1,0 +1,34 @@
+---
+title: "CreateOutlookDraftResponse"
+---
+
+Response from creating an Outlook mailbox draft.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**success** | **bool** | Whether the draft was created. | 
+**message** | **str** | Human-readable result message. | 
+**web_link** | **str** |  | [optional] 
+**draft_id** | **str** |  | [optional] 
+**from_mailbox** | **str** |  | [optional] 
+**from_mailbox_kind** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.create_outlook_draft_response import CreateOutlookDraftResponse
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CreateOutlookDraftResponse from a JSON string
+create_outlook_draft_response_instance = CreateOutlookDraftResponse.from_json(json)
+# print the JSON string representation of the object
+print(CreateOutlookDraftResponse.to_json())
+
+# convert the object into a dict
+create_outlook_draft_response_dict = create_outlook_draft_response_instance.to_dict()
+# create an instance of CreateOutlookDraftResponse from a dict
+create_outlook_draft_response_from_dict = CreateOutlookDraftResponse.from_dict(create_outlook_draft_response_dict)
+```

@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -30,7 +31,13 @@ class RoleUpdateIn(BaseModel):
     name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     permissions: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "permissions"]
+    all_models: Optional[StrictBool] = None
+    all_tools: Optional[StrictBool] = None
+    all_connectors: Optional[StrictBool] = None
+    models: Optional[List[UUID]] = None
+    tools: Optional[List[UUID]] = None
+    connectors: Optional[List[UUID]] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "permissions", "all_models", "all_tools", "all_connectors", "models", "tools", "connectors"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -86,6 +93,36 @@ class RoleUpdateIn(BaseModel):
         if self.permissions is None and "permissions" in self.model_fields_set:
             _dict['permissions'] = None
 
+        # set to None if all_models (nullable) is None
+        # and model_fields_set contains the field
+        if self.all_models is None and "all_models" in self.model_fields_set:
+            _dict['all_models'] = None
+
+        # set to None if all_tools (nullable) is None
+        # and model_fields_set contains the field
+        if self.all_tools is None and "all_tools" in self.model_fields_set:
+            _dict['all_tools'] = None
+
+        # set to None if all_connectors (nullable) is None
+        # and model_fields_set contains the field
+        if self.all_connectors is None and "all_connectors" in self.model_fields_set:
+            _dict['all_connectors'] = None
+
+        # set to None if models (nullable) is None
+        # and model_fields_set contains the field
+        if self.models is None and "models" in self.model_fields_set:
+            _dict['models'] = None
+
+        # set to None if tools (nullable) is None
+        # and model_fields_set contains the field
+        if self.tools is None and "tools" in self.model_fields_set:
+            _dict['tools'] = None
+
+        # set to None if connectors (nullable) is None
+        # and model_fields_set contains the field
+        if self.connectors is None and "connectors" in self.model_fields_set:
+            _dict['connectors'] = None
+
         return _dict
 
     @classmethod
@@ -100,7 +137,13 @@ class RoleUpdateIn(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "description": obj.get("description"),
-            "permissions": obj.get("permissions")
+            "permissions": obj.get("permissions"),
+            "all_models": obj.get("all_models"),
+            "all_tools": obj.get("all_tools"),
+            "all_connectors": obj.get("all_connectors"),
+            "models": obj.get("models"),
+            "tools": obj.get("tools"),
+            "connectors": obj.get("connectors")
         })
         return _obj
 

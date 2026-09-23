@@ -307,7 +307,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -603,7 +604,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -899,7 +901,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1193,7 +1196,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1489,7 +1493,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1770,7 +1775,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2051,7 +2057,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2347,7 +2354,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2628,7 +2636,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2937,7 +2946,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3246,7 +3256,8 @@ class AssistantMarketplace:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

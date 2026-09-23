@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,11 +30,13 @@ class ChatIn(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
+    reasoning_effort: Optional[ReasoningEffortEnum] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
     model: Optional[StrictStr] = None
     private: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "temperature", "similarity_top_k", "system_prompt", "model", "private"]
+    disabled_tool_names: Optional[List[StrictStr]] = None
+    __properties: ClassVar[List[str]] = ["name", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "model", "private", "disabled_tool_names"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -84,6 +87,11 @@ class ChatIn(BaseModel):
         if self.temperature is None and "temperature" in self.model_fields_set:
             _dict['temperature'] = None
 
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoning_effort'] = None
+
         # set to None if similarity_top_k (nullable) is None
         # and model_fields_set contains the field
         if self.similarity_top_k is None and "similarity_top_k" in self.model_fields_set:
@@ -104,6 +112,11 @@ class ChatIn(BaseModel):
         if self.private is None and "private" in self.model_fields_set:
             _dict['private'] = None
 
+        # set to None if disabled_tool_names (nullable) is None
+        # and model_fields_set contains the field
+        if self.disabled_tool_names is None and "disabled_tool_names" in self.model_fields_set:
+            _dict['disabled_tool_names'] = None
+
         return _dict
 
     @classmethod
@@ -118,10 +131,12 @@ class ChatIn(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "temperature": obj.get("temperature"),
+            "reasoning_effort": obj.get("reasoning_effort"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "system_prompt": obj.get("system_prompt"),
             "model": obj.get("model"),
-            "private": obj.get("private")
+            "private": obj.get("private"),
+            "disabled_tool_names": obj.get("disabled_tool_names")
         })
         return _obj
 

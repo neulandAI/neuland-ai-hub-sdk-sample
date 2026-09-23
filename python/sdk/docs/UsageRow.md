@@ -1,0 +1,35 @@
+# UsageRow
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**cost** | **float** | Total cost. | 
+**total_tokens** | **int** | Total tokens. | 
+**prompt_tokens** | **int** | Prompt tokens. | 
+**completion_tokens** | **int** | Completion tokens. | 
+**requests** | **int** | Number of usage records. | 
+**group** | [**Dict[str, ResponseAuthGetEntraGroupsValue]**](ResponseAuthGetEntraGroupsValue.md) | Dimension values for this group, keyed by dimension name. A null value means the dimension was unattributed for these rows. | 
+**bucket** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.usage_row import UsageRow
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of UsageRow from a JSON string
+usage_row_instance = UsageRow.from_json(json)
+# print the JSON string representation of the object
+print(UsageRow.to_json())
+
+# convert the object into a dict
+usage_row_dict = usage_row_instance.to_dict()
+# create an instance of UsageRow from a dict
+usage_row_from_dict = UsageRow.from_dict(usage_row_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

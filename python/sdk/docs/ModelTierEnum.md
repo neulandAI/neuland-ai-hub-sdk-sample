@@ -1,0 +1,15 @@
+# ModelTierEnum
+
+Capability class of a chat model, as an ordered scale.  Routing rules never name a tier directly; they raise a *minimum* tier and the router takes the cheapest model at or above it. The order itself lives in ``neuland.llm.routing.TIER_ORDER``, because \"which tier outranks which\" is a routing concept rather than a property of the model.
+
+## Enum
+
+* `CHEAP` (value: `'CHEAP'`)
+
+* `STANDARD` (value: `'STANDARD'`)
+
+* `FRONTIER` (value: `'FRONTIER'`)
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

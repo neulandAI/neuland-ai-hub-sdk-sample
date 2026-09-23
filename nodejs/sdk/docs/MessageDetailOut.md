@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **tool_calls** | [**Array&lt;ToolCallOut&gt;**](ToolCallOut.md) | Tool calls made while generating the message. | [default to undefined]
 **files** | [**Array&lt;MessageFileOut&gt;**](MessageFileOut.md) | Files attached to the message. | [default to undefined]
 **interrupt** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
-**reasoning** | **Array&lt;{ [key: string]: any; }&gt;** |  | [optional] [default to undefined]
+**reasoning** | **Array&lt;{ [key: string]: any; } | null&gt;** |  | [optional] [default to undefined]
 **turn_step_index** | **number** |  | [optional] [default to undefined]
 **is_final_step** | **boolean** |  | [optional] [default to undefined]
 

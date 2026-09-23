@@ -1,0 +1,20 @@
+# SharedMailboxSearchOut
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**results** | [**Array&lt;SharedMailboxCandidateOut&gt;**](SharedMailboxCandidateOut.md) | Mailboxes the caller can open with their own token, drawn from People-API matches for the query (or the caller\&#39;s most relevant contacts for an empty query). Every entry passed the same inbox probe that connecting runs, so plain colleagues are filtered out. | [default to undefined]
+
+## Example
+
+```typescript
+import { SharedMailboxSearchOut } from 'neuland-hub-sdk';
+
+const instance: SharedMailboxSearchOut = {
+    results,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

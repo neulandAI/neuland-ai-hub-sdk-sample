@@ -44,13 +44,15 @@ class TestCredentialTemplateOut(unittest.TestCase):
                     configured = True, 
                     set_fields = [
                         ''
-                        ], ),
+                        ], 
+                    summary = { }, ),
                 user = neuland_hub_sdk.models.credential_part_out.CredentialPartOut(
                     json_schema = { }, 
                     configured = True, 
                     set_fields = [
                         ''
-                        ], )
+                        ], 
+                    summary = { }, )
             )
         else:
             return CredentialTemplateOut(

@@ -31,6 +31,24 @@ OPENAPI = DOCS_ROOT / "openapi.json"
 # Public base URL to substitute for the generator's `http://localhost` default.
 PUBLIC_BASE_URL = "https://api.your-domain.com"
 
+# The Hub is deployed per tenant (one subdomain each), so there is no single
+# base URL to hard-code. Publishing `servers` as a templated host variable makes
+# the playground render an editable "host" field: readers type their own
+# deployment and "Try it" targets it. A plain fixed URL would be wrong for every
+# tenant but one. Re-applied on every run because `docs/openapi.json` is
+# regenerated and the Hub itself emits a relative `{"url": "/"}`.
+SERVERS = [
+    {
+        "url": "https://{host}",
+        "variables": {
+            "host": {
+                "default": PUBLIC_BASE_URL.removeprefix("https://"),
+                "description": "Hostname of your Neuland AI Hub deployment",
+            }
+        },
+    }
+]
+
 # One entry per generated SDK. `lang` selects the fenced-code language used when
 # rewriting method-signature blockquotes.
 SDKS = [
@@ -555,6 +573,23 @@ def verify_coverage(src_dir: Path) -> None:
           "then re-run this script.")
 
 
+def ensure_servers() -> None:
+    """Force `docs/openapi.json`'s `servers` to the editable host variable.
+
+    The Hub emits a relative `{"url": "/"}` and a static export writes whatever
+    `--server` was passed, so neither produces the templated form the playground
+    needs. Idempotent: rewrites only when the block differs.
+    """
+    spec = json.loads(OPENAPI.read_text(encoding="utf-8"))
+    if spec.get("servers") == SERVERS:
+        print("  servers block already correct in openapi.json")
+        return
+    spec["servers"] = SERVERS
+    OPENAPI.write_text(json.dumps(spec, indent=2) + "\n", encoding="utf-8")
+    print(f"  set servers to editable host variable "
+          f"(default: {SERVERS[0]['variables']['host']['default']})")
+
+
 def merge_streaming_endpoints() -> None:
     """Inject the SSE streaming endpoints into `docs/openapi.json` if absent.
 
@@ -575,6 +610,7 @@ def merge_streaming_endpoints() -> None:
 
 def main() -> None:
     print("Syncing generated SDK docs into the Mintlify tree...")
+    ensure_servers()
     merge_streaming_endpoints()
     model_tag, tag_order = build_model_to_tag()
     # Both SDKs share the same spec/model names, so derive the link graph once.

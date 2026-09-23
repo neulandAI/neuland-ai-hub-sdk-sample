@@ -47,6 +47,7 @@ class TestAssistantCatalog(unittest.TestCase):
                 instructions = '',
                 llm_catalog_id = 56,
                 temperature = 1.337,
+                reasoning_effort = '',
                 similarity_top_k = 56,
                 version = '',
                 state = 'ACTIVE',

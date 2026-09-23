@@ -40,7 +40,8 @@ class TestTenantLLM(unittest.TestCase):
                 creator_user_id = 56,
                 updater_user_id = 56,
                 tenant_id = 56,
-                llm_catalog_id = 56
+                llm_catalog_id = 56,
+                auto_routable = True
             )
         else:
             return TenantLLM(

@@ -39,6 +39,7 @@ class TestSystemSettingsUpdate(unittest.TestCase):
                 tracing_enabled = True,
                 inbound_guardrail_llm_settings_id = '',
                 outbound_guardrail_llm_settings_id = '',
+                title_llm_settings_id = '',
                 embedding_llm_settings_id = '',
                 transcription_llm_settings_id = '',
                 maintenance_start_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),

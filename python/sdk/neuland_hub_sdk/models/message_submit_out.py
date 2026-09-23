@@ -27,7 +27,7 @@ from pydantic_core import to_jsonable_python
 
 class MessageSubmitOut(BaseModel):
     """
-    Response for POST /messages/submit: the created message, dual-key.
+    Response for the message-creating routes: the created message, dual-key.
     """ # noqa: E501
     id: StrictInt = Field(description="Internal id of the message (deprecated; use public_id).")
     public_id: UUID = Field(description="Public, non-enumerable external id of the message.")
@@ -50,10 +50,9 @@ class MessageSubmitOut(BaseModel):
     interrupt: Optional[Dict[str, Any]] = None
     llm_catalog_id: Optional[StrictInt] = None
     llm_settings_id: Optional[StrictInt] = None
-    celery_task_id: Optional[StrictStr] = None
     created_at: datetime = Field(description="When the message was created.")
     updated_at: datetime = Field(description="When the message was last updated.")
-    __properties: ClassVar[List[str]] = ["id", "public_id", "chat_id", "chat_public_id", "parent_id", "creator_user_id", "role", "content", "sent_user_msg", "state", "state_reason", "state_changed_at", "turn_step_index", "is_final_step", "completed", "error", "hint", "usage", "interrupt", "llm_catalog_id", "llm_settings_id", "celery_task_id", "created_at", "updated_at"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "chat_id", "chat_public_id", "parent_id", "creator_user_id", "role", "content", "sent_user_msg", "state", "state_reason", "state_changed_at", "turn_step_index", "is_final_step", "completed", "error", "hint", "usage", "interrupt", "llm_catalog_id", "llm_settings_id", "created_at", "updated_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -159,11 +158,6 @@ class MessageSubmitOut(BaseModel):
         if self.llm_settings_id is None and "llm_settings_id" in self.model_fields_set:
             _dict['llm_settings_id'] = None
 
-        # set to None if celery_task_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.celery_task_id is None and "celery_task_id" in self.model_fields_set:
-            _dict['celery_task_id'] = None
-
         return _dict
 
     @classmethod
@@ -197,7 +191,6 @@ class MessageSubmitOut(BaseModel):
             "interrupt": obj.get("interrupt"),
             "llm_catalog_id": obj.get("llm_catalog_id"),
             "llm_settings_id": obj.get("llm_settings_id"),
-            "celery_task_id": obj.get("celery_task_id"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at")
         })

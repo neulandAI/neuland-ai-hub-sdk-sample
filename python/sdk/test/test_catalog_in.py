@@ -37,13 +37,18 @@ class TestCatalogIn(unittest.TestCase):
             return CatalogIn(
                 name = '',
                 description = '',
+                badge = '',
+                knowledge_cutoff = '',
                 multi_modal = True,
                 gdpr_compliant = True,
                 embedding_dimension = 56,
                 supports_embedding = True,
                 supports_transcription = True,
+                supports_reasoning_effort = True,
                 supports_clarification = True,
-                auto_seed = True
+                auto_seed = True,
+                tier = 'CHEAP',
+                auto_routable = True
             )
         else:
             return CatalogIn(

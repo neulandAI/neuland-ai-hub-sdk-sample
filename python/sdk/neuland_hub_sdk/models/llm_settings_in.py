@@ -17,13 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.cost_audio_per_minute import CostAudioPerMinute
+from neuland_hub_sdk.models.cost_cache_creation_tokens import CostCacheCreationTokens
+from neuland_hub_sdk.models.cost_cache_creation_tokens_above_tier import CostCacheCreationTokensAboveTier
 from neuland_hub_sdk.models.cost_cached_tokens import CostCachedTokens
+from neuland_hub_sdk.models.cost_cached_tokens_above_tier import CostCachedTokensAboveTier
 from neuland_hub_sdk.models.cost_completion_tokens import CostCompletionTokens
+from neuland_hub_sdk.models.cost_completion_tokens_above_tier import CostCompletionTokensAboveTier
 from neuland_hub_sdk.models.cost_prompt_tokens import CostPromptTokens
+from neuland_hub_sdk.models.cost_prompt_tokens_above_tier import CostPromptTokensAboveTier
+from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -36,18 +44,28 @@ class LLMSettingsIn(BaseModel):
     provider: StrictStr = Field(description="Provider backing the model.")
     library: StrictStr = Field(description="Client library used to call the provider.")
     max_tokens: StrictInt = Field(description="Maximum tokens allowed per request for this model.")
+    reasoning_effort: Optional[ReasoningEffortEnum] = None
     cost_prompt_tokens: CostPromptTokens
     cost_completion_tokens: CostCompletionTokens
     cost_cached_tokens: Optional[CostCachedTokens] = None
+    cost_cache_creation_tokens: Optional[CostCacheCreationTokens] = None
+    tier_threshold_tokens: Optional[StrictInt] = None
+    cost_prompt_tokens_above_tier: Optional[CostPromptTokensAboveTier] = None
+    cost_completion_tokens_above_tier: Optional[CostCompletionTokensAboveTier] = None
+    cost_cached_tokens_above_tier: Optional[CostCachedTokensAboveTier] = None
+    cost_cache_creation_tokens_above_tier: Optional[CostCacheCreationTokensAboveTier] = None
     cost_audio_per_minute: Optional[CostAudioPerMinute] = None
+    active: Optional[StrictBool] = None
+    last_seen_at: Optional[datetime] = None
     region: Optional[StrictStr] = None
     args: Optional[Dict[str, Any]] = None
     openai_resource: Optional[StrictStr] = None
     api_version: Optional[StrictStr] = None
-    deployment_name: Optional[StrictStr] = None
+    deployment_name: Annotated[str, Field(min_length=1, strict=True)] = Field(description="Model identifier sent to the provider. The catalog name is only a label; this is what the call uses.")
+    hosted_on: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     endpoint: Optional[StrictStr] = None
     api_key: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["llm_catalog_id", "provider", "library", "max_tokens", "cost_prompt_tokens", "cost_completion_tokens", "cost_cached_tokens", "cost_audio_per_minute", "region", "args", "openai_resource", "api_version", "deployment_name", "endpoint", "api_key"]
+    __properties: ClassVar[List[str]] = ["llm_catalog_id", "provider", "library", "max_tokens", "reasoning_effort", "cost_prompt_tokens", "cost_completion_tokens", "cost_cached_tokens", "cost_cache_creation_tokens", "tier_threshold_tokens", "cost_prompt_tokens_above_tier", "cost_completion_tokens_above_tier", "cost_cached_tokens_above_tier", "cost_cache_creation_tokens_above_tier", "cost_audio_per_minute", "active", "last_seen_at", "region", "args", "openai_resource", "api_version", "deployment_name", "hosted_on", "endpoint", "api_key"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -97,18 +115,78 @@ class LLMSettingsIn(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of cost_cached_tokens
         if self.cost_cached_tokens:
             _dict['cost_cached_tokens'] = self.cost_cached_tokens.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cost_cache_creation_tokens
+        if self.cost_cache_creation_tokens:
+            _dict['cost_cache_creation_tokens'] = self.cost_cache_creation_tokens.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cost_prompt_tokens_above_tier
+        if self.cost_prompt_tokens_above_tier:
+            _dict['cost_prompt_tokens_above_tier'] = self.cost_prompt_tokens_above_tier.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cost_completion_tokens_above_tier
+        if self.cost_completion_tokens_above_tier:
+            _dict['cost_completion_tokens_above_tier'] = self.cost_completion_tokens_above_tier.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cost_cached_tokens_above_tier
+        if self.cost_cached_tokens_above_tier:
+            _dict['cost_cached_tokens_above_tier'] = self.cost_cached_tokens_above_tier.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cost_cache_creation_tokens_above_tier
+        if self.cost_cache_creation_tokens_above_tier:
+            _dict['cost_cache_creation_tokens_above_tier'] = self.cost_cache_creation_tokens_above_tier.to_dict()
         # override the default output from pydantic by calling `to_dict()` of cost_audio_per_minute
         if self.cost_audio_per_minute:
             _dict['cost_audio_per_minute'] = self.cost_audio_per_minute.to_dict()
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoning_effort'] = None
+
         # set to None if cost_cached_tokens (nullable) is None
         # and model_fields_set contains the field
         if self.cost_cached_tokens is None and "cost_cached_tokens" in self.model_fields_set:
             _dict['cost_cached_tokens'] = None
 
+        # set to None if cost_cache_creation_tokens (nullable) is None
+        # and model_fields_set contains the field
+        if self.cost_cache_creation_tokens is None and "cost_cache_creation_tokens" in self.model_fields_set:
+            _dict['cost_cache_creation_tokens'] = None
+
+        # set to None if tier_threshold_tokens (nullable) is None
+        # and model_fields_set contains the field
+        if self.tier_threshold_tokens is None and "tier_threshold_tokens" in self.model_fields_set:
+            _dict['tier_threshold_tokens'] = None
+
+        # set to None if cost_prompt_tokens_above_tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.cost_prompt_tokens_above_tier is None and "cost_prompt_tokens_above_tier" in self.model_fields_set:
+            _dict['cost_prompt_tokens_above_tier'] = None
+
+        # set to None if cost_completion_tokens_above_tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.cost_completion_tokens_above_tier is None and "cost_completion_tokens_above_tier" in self.model_fields_set:
+            _dict['cost_completion_tokens_above_tier'] = None
+
+        # set to None if cost_cached_tokens_above_tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.cost_cached_tokens_above_tier is None and "cost_cached_tokens_above_tier" in self.model_fields_set:
+            _dict['cost_cached_tokens_above_tier'] = None
+
+        # set to None if cost_cache_creation_tokens_above_tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.cost_cache_creation_tokens_above_tier is None and "cost_cache_creation_tokens_above_tier" in self.model_fields_set:
+            _dict['cost_cache_creation_tokens_above_tier'] = None
+
         # set to None if cost_audio_per_minute (nullable) is None
         # and model_fields_set contains the field
         if self.cost_audio_per_minute is None and "cost_audio_per_minute" in self.model_fields_set:
             _dict['cost_audio_per_minute'] = None
+
+        # set to None if active (nullable) is None
+        # and model_fields_set contains the field
+        if self.active is None and "active" in self.model_fields_set:
+            _dict['active'] = None
+
+        # set to None if last_seen_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_seen_at is None and "last_seen_at" in self.model_fields_set:
+            _dict['last_seen_at'] = None
 
         # set to None if region (nullable) is None
         # and model_fields_set contains the field
@@ -130,10 +208,10 @@ class LLMSettingsIn(BaseModel):
         if self.api_version is None and "api_version" in self.model_fields_set:
             _dict['api_version'] = None
 
-        # set to None if deployment_name (nullable) is None
+        # set to None if hosted_on (nullable) is None
         # and model_fields_set contains the field
-        if self.deployment_name is None and "deployment_name" in self.model_fields_set:
-            _dict['deployment_name'] = None
+        if self.hosted_on is None and "hosted_on" in self.model_fields_set:
+            _dict['hosted_on'] = None
 
         # set to None if endpoint (nullable) is None
         # and model_fields_set contains the field
@@ -161,15 +239,25 @@ class LLMSettingsIn(BaseModel):
             "provider": obj.get("provider"),
             "library": obj.get("library"),
             "max_tokens": obj.get("max_tokens"),
+            "reasoning_effort": obj.get("reasoning_effort"),
             "cost_prompt_tokens": CostPromptTokens.from_dict(obj["cost_prompt_tokens"]) if obj.get("cost_prompt_tokens") is not None else None,
             "cost_completion_tokens": CostCompletionTokens.from_dict(obj["cost_completion_tokens"]) if obj.get("cost_completion_tokens") is not None else None,
             "cost_cached_tokens": CostCachedTokens.from_dict(obj["cost_cached_tokens"]) if obj.get("cost_cached_tokens") is not None else None,
+            "cost_cache_creation_tokens": CostCacheCreationTokens.from_dict(obj["cost_cache_creation_tokens"]) if obj.get("cost_cache_creation_tokens") is not None else None,
+            "tier_threshold_tokens": obj.get("tier_threshold_tokens"),
+            "cost_prompt_tokens_above_tier": CostPromptTokensAboveTier.from_dict(obj["cost_prompt_tokens_above_tier"]) if obj.get("cost_prompt_tokens_above_tier") is not None else None,
+            "cost_completion_tokens_above_tier": CostCompletionTokensAboveTier.from_dict(obj["cost_completion_tokens_above_tier"]) if obj.get("cost_completion_tokens_above_tier") is not None else None,
+            "cost_cached_tokens_above_tier": CostCachedTokensAboveTier.from_dict(obj["cost_cached_tokens_above_tier"]) if obj.get("cost_cached_tokens_above_tier") is not None else None,
+            "cost_cache_creation_tokens_above_tier": CostCacheCreationTokensAboveTier.from_dict(obj["cost_cache_creation_tokens_above_tier"]) if obj.get("cost_cache_creation_tokens_above_tier") is not None else None,
             "cost_audio_per_minute": CostAudioPerMinute.from_dict(obj["cost_audio_per_minute"]) if obj.get("cost_audio_per_minute") is not None else None,
+            "active": obj.get("active"),
+            "last_seen_at": obj.get("last_seen_at"),
             "region": obj.get("region"),
             "args": obj.get("args"),
             "openai_resource": obj.get("openai_resource"),
             "api_version": obj.get("api_version"),
             "deployment_name": obj.get("deployment_name"),
+            "hosted_on": obj.get("hosted_on"),
             "endpoint": obj.get("endpoint"),
             "api_key": obj.get("api_key")
         })

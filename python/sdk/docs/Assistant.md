@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Assistant
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,11 +8,13 @@ Method | HTTP request | Description
 [**assistants_add_members**](Assistant.md#assistants_add_members) | **POST** /assistants/{assistant_id}/members | Add members to an assistant
 [**assistants_add_tag_to_assistant**](Assistant.md#assistants_add_tag_to_assistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant
 [**assistants_add_tool_to_assistant**](Assistant.md#assistants_add_tool_to_assistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant
+[**assistants_convert_assistant_to_tool**](Assistant.md#assistants_convert_assistant_to_tool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from your own chats
 [**assistants_create_assistant**](Assistant.md#assistants_create_assistant) | **POST** /assistants/ | Create an assistant
 [**assistants_delete_assistant**](Assistant.md#assistants_delete_assistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant
 [**assistants_delete_members**](Assistant.md#assistants_delete_members) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant
 [**assistants_join_assistant**](Assistant.md#assistants_join_assistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant
 [**assistants_leave_assitant**](Assistant.md#assistants_leave_assitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant
+[**assistants_remove_assistant_as_tool**](Assistant.md#assistants_remove_assistant_as_tool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from your chats
 [**assistants_remove_library_from_assistant**](Assistant.md#assistants_remove_library_from_assistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant
 [**assistants_remove_member**](Assistant.md#assistants_remove_member) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member
 [**assistants_remove_tag_from_assistant**](Assistant.md#assistants_remove_tag_from_assistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant
@@ -34,6 +36,7 @@ Enables a library for a assistant by creating a new association
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -41,10 +44,10 @@ from neuland_hub_sdk.models.assistant_library import AssistantLibrary
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -57,6 +60,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -92,7 +97,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -126,6 +131,7 @@ DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -134,10 +140,10 @@ from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -150,6 +156,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -185,7 +193,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -214,6 +222,7 @@ Attach a tag to an assistant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -221,10 +230,10 @@ from neuland_hub_sdk.models.neuland_assistants_tagging_out import NeulandAssista
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -237,6 +246,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -272,7 +283,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -301,6 +312,7 @@ Enable a tenant tool for the assistant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -308,10 +320,10 @@ from neuland_hub_sdk.models.assistant_tool import AssistantTool
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -324,6 +336,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -359,7 +373,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -372,8 +386,109 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | Not the creator, or the tool is not enabled for the tenant. |  -  |
+**403** | Not the creator, or the tool is not enabled for the tenant, or it is not available to the caller. |  -  |
 **404** | Assistant, owning user, or tool does not exist. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **assistants_convert_assistant_to_tool**
+> Assistant assistants_convert_assistant_to_tool(assistant_id, cookie_name=cookie_name)
+
+Make an assistant consultable from your own chats
+
+Make the assistant consultable in every chat of the calling user.
+
+Anyone the assistant is shared with may convert it, creator or not, a
+marketplace-installed copy included: the flag is set on the caller's own
+row, so it changes nothing for the other users it is shared with, and a
+catalog-sourced row is never itself written.
+
+Pure flag flip: `is_tool` alone makes the assistant consultable via the
+`consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`,
+which also derives the handle). Nothing is written to the global `tools`
+registry — per-user rows do not belong in a platform table. Form-input
+assistants convert too: consulting one takes the form's values as tool
+arguments and renders the instruction template server-side.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.assistant import Assistant
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Assistant(api_client)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Make an assistant consultable from your own chats
+        api_response = api_instance.assistants_convert_assistant_to_tool(assistant_id, cookie_name=cookie_name)
+        print("The response of Assistant->assistants_convert_assistant_to_tool:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Assistant->assistants_convert_assistant_to_tool: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**Assistant**](Assistant.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No direct access. |  -  |
+**404** | No assistant exists with the given id. |  -  |
+**409** | The assistant is already consultable. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -388,6 +503,7 @@ Create an assistant from a JSON payload.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -396,10 +512,10 @@ from neuland_hub_sdk.models.assistant_in import AssistantIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -412,6 +528,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -445,7 +563,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -458,6 +576,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
+**403** | The model is not available to the author. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -472,16 +591,17 @@ Delete an assistant and orphan its associated chats.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -494,6 +614,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -525,7 +647,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -554,6 +676,7 @@ Remove one or more users from the assistant's membership.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -561,10 +684,10 @@ from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -577,6 +700,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -610,7 +735,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -640,6 +765,7 @@ self-add to a tenant-shared community assistant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -647,10 +773,10 @@ from neuland_hub_sdk.models.assistant_member_out import AssistantMemberOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -663,6 +789,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -696,7 +824,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -726,16 +854,17 @@ user can leave the assistant by themselves.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -748,6 +877,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -779,7 +910,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -798,26 +929,29 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **assistants_remove_library_from_assistant**
-> assistants_remove_library_from_assistant(assistant_id, library_id, cookie_name=cookie_name)
+# **assistants_remove_assistant_as_tool**
+> assistants_remove_assistant_as_tool(assistant_id, cookie_name=cookie_name)
 
-Remove a library from an assistant
+Stop the assistant being consultable from your chats
 
-Disables a library from an assistant by removing the association
+Clear the caller's own `is_tool` flag; the assistant stops being
+consultable from their chats at once (every consultability query keys on
+that flag). Other users' conversions are untouched.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -830,6 +964,93 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Assistant(api_client)
+    assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Stop the assistant being consultable from your chats
+        api_instance.assistants_remove_assistant_as_tool(assistant_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling Assistant->assistants_remove_assistant_as_tool: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assistant_id** | **UUID**| Public id of the assistant. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No direct access. |  -  |
+**404** | No such assistant, or you have not converted it. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **assistants_remove_library_from_assistant**
+> assistants_remove_library_from_assistant(assistant_id, library_id, cookie_name=cookie_name)
+
+Remove a library from an assistant
+
+Disables a library from an assistant by removing the association
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -863,7 +1084,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -892,16 +1113,17 @@ Remove a specific user from the assistant's membership.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -914,6 +1136,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -947,7 +1171,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -976,16 +1200,17 @@ Detach a tag from an assistant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -998,6 +1223,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1031,7 +1258,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1060,16 +1287,17 @@ Disable a tool for the assistant by removing the association.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1082,6 +1310,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1115,7 +1345,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1147,6 +1377,7 @@ written and no version is appended, mirroring update semantics.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -1154,10 +1385,10 @@ from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1170,6 +1401,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1205,7 +1438,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1225,7 +1458,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assistants_submit_assistant**
-> Assistant assistants_submit_assistant(name, cookie_name=cookie_name, model=model, description=description, description_show_in_chat=description_show_in_chat, predefined_prompts=predefined_prompts, avatar=avatar, instructions=instructions, temperature=temperature, similarity_top_k=similarity_top_k, input_type=input_type, form_fields=form_fields, files=files)
+> Assistant assistants_submit_assistant(name, cookie_name=cookie_name, model=model, description=description, description_show_in_chat=description_show_in_chat, predefined_prompts=predefined_prompts, avatar=avatar, instructions=instructions, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, input_type=input_type, form_fields=form_fields, files=files)
 
 Create an assistant with attachments
 
@@ -1234,6 +1467,7 @@ Create an assistant via multipart form, with optional knowledge-file uploads.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -1241,10 +1475,10 @@ from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1257,6 +1491,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1271,6 +1507,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     avatar = 'avatar_example' # str |  (optional)
     instructions = 'instructions_example' # str |  (optional)
     temperature = 3.4 # float |  (optional)
+    reasoning_effort = neuland_hub_sdk.ReasoningEffortEnum() # ReasoningEffortEnum |  (optional)
     similarity_top_k = 56 # int |  (optional)
     input_type = neuland_hub_sdk.AssistantInputTypeEnum() # AssistantInputTypeEnum |  (optional)
     form_fields = 'form_fields_example' # str |  (optional)
@@ -1278,7 +1515,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Create an assistant with attachments
-        api_response = api_instance.assistants_submit_assistant(name, cookie_name=cookie_name, model=model, description=description, description_show_in_chat=description_show_in_chat, predefined_prompts=predefined_prompts, avatar=avatar, instructions=instructions, temperature=temperature, similarity_top_k=similarity_top_k, input_type=input_type, form_fields=form_fields, files=files)
+        api_response = api_instance.assistants_submit_assistant(name, cookie_name=cookie_name, model=model, description=description, description_show_in_chat=description_show_in_chat, predefined_prompts=predefined_prompts, avatar=avatar, instructions=instructions, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, input_type=input_type, form_fields=form_fields, files=files)
         print("The response of Assistant->assistants_submit_assistant:\n")
         pprint(api_response)
     except Exception as e:
@@ -1301,6 +1538,7 @@ Name | Type | Description  | Notes
  **avatar** | **str**|  | [optional] 
  **instructions** | **str**|  | [optional] 
  **temperature** | **float**|  | [optional] 
+ **reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md)|  | [optional] 
  **similarity_top_k** | **int**|  | [optional] 
  **input_type** | [**AssistantInputTypeEnum**](AssistantInputTypeEnum.md)|  | [optional] 
  **form_fields** | **str**|  | [optional] 
@@ -1312,7 +1550,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1325,7 +1563,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | Usage budget exceeded. |  -  |
+**403** | Usage budget exceeded, or the model is not available to the author. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1340,6 +1578,7 @@ Update an assistant's configuration.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -1348,10 +1587,10 @@ from neuland_hub_sdk.models.assistant_in import AssistantIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1364,6 +1603,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1399,7 +1640,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1412,7 +1653,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | Not the creator of this assistant. |  -  |
+**403** | Not the creator, or the model is not available to the caller. |  -  |
 **404** | No assistant exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 
@@ -1428,6 +1669,7 @@ Grant or update assistant access for user groups (replaces the current set).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -1436,10 +1678,10 @@ from neuland_hub_sdk.models.assistant_groups_in import AssistantGroupsIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1452,6 +1694,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1487,7 +1731,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1516,6 +1760,7 @@ creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -1524,10 +1769,10 @@ from neuland_hub_sdk.models.assistant_visibility_update import AssistantVisibili
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1540,6 +1785,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1575,7 +1822,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

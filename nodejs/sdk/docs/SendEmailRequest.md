@@ -7,11 +7,13 @@ Request to send an email from a tool call.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **tool_call_id** | **string** | The ID of the tool call that generated the draft | [default to undefined]
-**to** | [**To**](To.md) |  | [default to undefined]
+**to** | [**To1**](To1.md) |  | [default to undefined]
 **subject** | **string** | Email subject | [default to undefined]
 **body** | **string** | Email body content (can be markdown or HTML) | [default to undefined]
 **cc** | [**Cc**](Cc.md) |  | [optional] [default to undefined]
 **bcc** | [**Bcc**](Bcc.md) |  | [optional] [default to undefined]
+**attachment_ids** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**mailbox** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -25,6 +27,8 @@ const instance: SendEmailRequest = {
     body,
     cc,
     bcc,
+    attachment_ids,
+    mailbox,
 };
 ```
 

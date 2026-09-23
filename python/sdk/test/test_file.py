@@ -33,6 +33,13 @@ class TestFile(unittest.TestCase):
         """
         pass
 
+    def test_files_presigned_file_url(self) -> None:
+        """Test case for files_presigned_file_url
+
+        Get a short-lived direct download URL for a file
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

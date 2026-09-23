@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **instructions** | **str** |  | [optional] 
 **llm_catalog_id** | **int** |  | [optional] 
 **temperature** | **float** |  | [optional] 
+**reasoning_effort** | **str** |  | [optional] 
 **similarity_top_k** | **int** |  | [optional] 
 **version** | **str** |  | [optional] 
 **state** | [**MarketplaceCatalogStateEnum**](MarketplaceCatalogStateEnum.md) |  | [optional] 

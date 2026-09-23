@@ -40,7 +40,11 @@ class TestSendEmailRequest(unittest.TestCase):
                 subject = '',
                 body = '',
                 cc = None,
-                bcc = None
+                bcc = None,
+                attachment_ids = [
+                    ''
+                    ],
+                mailbox = ''
             )
         else:
             return SendEmailRequest(

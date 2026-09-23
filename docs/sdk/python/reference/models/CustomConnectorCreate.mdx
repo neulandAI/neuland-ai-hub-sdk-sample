@@ -1,0 +1,32 @@
+---
+title: "CustomConnectorCreate"
+---
+
+Either `url` (with optional `name`/`headers`), or `config` — a pasted `mcpServers` JSON blob. Never both.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **str** |  | [optional] 
+**url** | **str** |  | [optional] 
+**headers** | **Dict[str, str]** |  | [optional] 
+**config** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.custom_connector_create import CustomConnectorCreate
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CustomConnectorCreate from a JSON string
+custom_connector_create_instance = CustomConnectorCreate.from_json(json)
+# print the JSON string representation of the object
+print(CustomConnectorCreate.to_json())
+
+# convert the object into a dict
+custom_connector_create_dict = custom_connector_create_instance.to_dict()
+# create an instance of CustomConnectorCreate from a dict
+custom_connector_create_from_dict = CustomConnectorCreate.from_dict(custom_connector_create_dict)
+```

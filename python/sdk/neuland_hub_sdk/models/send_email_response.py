@@ -30,7 +30,8 @@ class SendEmailResponse(BaseModel):
     success: StrictBool = Field(description="Whether the email was sent successfully.")
     message: StrictStr = Field(description="Human-readable result message.")
     recipients: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["success", "message", "recipients"]
+    from_mailbox: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["success", "message", "recipients", "from_mailbox"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -76,6 +77,11 @@ class SendEmailResponse(BaseModel):
         if self.recipients is None and "recipients" in self.model_fields_set:
             _dict['recipients'] = None
 
+        # set to None if from_mailbox (nullable) is None
+        # and model_fields_set contains the field
+        if self.from_mailbox is None and "from_mailbox" in self.model_fields_set:
+            _dict['from_mailbox'] = None
+
         return _dict
 
     @classmethod
@@ -90,7 +96,8 @@ class SendEmailResponse(BaseModel):
         _obj = cls.model_validate({
             "success": obj.get("success"),
             "message": obj.get("message"),
-            "recipients": obj.get("recipients")
+            "recipients": obj.get("recipients"),
+            "from_mailbox": obj.get("from_mailbox")
         })
         return _obj
 

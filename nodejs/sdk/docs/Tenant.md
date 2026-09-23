@@ -1,6 +1,6 @@
 # Tenant
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -66,7 +66,7 @@ const { status, data } = await apiInstance.tenantsAddLibraryToTenants(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -125,7 +125,7 @@ const { status, data } = await apiInstance.tenantsCreateTenant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -186,7 +186,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantConnector(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -251,7 +251,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantOauthClient(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -312,7 +312,7 @@ const { status, data } = await apiInstance.tenantsCreateTenantTool(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -369,7 +369,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -430,7 +430,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -452,7 +452,7 @@ void (empty response body)
 # **tenantsDeleteTenantModel**
 > tenantsDeleteTenantModel()
 
-Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+Disable an LLM catalog model for a tenant.
 
 ### Example
 
@@ -491,7 +491,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -504,8 +504,9 @@ void (empty response body)
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Superadmin or parent tenant admin required. |  -  |
+|**403** | MANAGE_TENANT_MODELS required for the target tenant. |  -  |
 |**404** | Tenant model association not found. |  -  |
+|**409** | Would leave the tenant with no usable chat model. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -553,7 +554,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -614,7 +615,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -675,7 +676,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -730,7 +731,7 @@ const { status, data } = await apiInstance.tenantsGetCurrentTenant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -750,14 +751,15 @@ const { status, data } = await apiInstance.tenantsGetCurrentTenant(
 # **tenantsPutTenantModel**
 > TenantLLM tenantsPutTenantModel()
 
-Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).
+Enable an LLM catalog model for a tenant.
 
 ### Example
 
 ```typescript
 import {
     Tenant,
-    Configuration
+    Configuration,
+    TenantModelIn
 } from 'neuland-hub-sdk';
 
 const configuration = new Configuration();
@@ -766,11 +768,13 @@ const apiInstance = new Tenant(configuration);
 let tenantId: string; //Public id of the tenant. (default to undefined)
 let modelId: string; //Public id of the LLM catalog model to enable. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
+let tenantModelIn: TenantModelIn; // (optional)
 
 const { status, data } = await apiInstance.tenantsPutTenantModel(
     tenantId,
     modelId,
-    cookieName
+    cookieName,
+    tenantModelIn
 );
 ```
 
@@ -778,6 +782,7 @@ const { status, data } = await apiInstance.tenantsPutTenantModel(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
+| **tenantModelIn** | **TenantModelIn**|  | |
 | **tenantId** | [**string**] | Public id of the tenant. | defaults to undefined|
 | **modelId** | [**string**] | Public id of the LLM catalog model to enable. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
@@ -789,11 +794,11 @@ const { status, data } = await apiInstance.tenantsPutTenantModel(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -802,8 +807,9 @@ const { status, data } = await apiInstance.tenantsPutTenantModel(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Superadmin or parent tenant admin required. |  -  |
+|**403** | MANAGE_TENANT_MODELS required for the target tenant. |  -  |
 |**404** | Tenant or catalog model not found. |  -  |
+|**409** | Model is out of service and cannot be enabled. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -851,7 +857,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -912,7 +918,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -971,7 +977,7 @@ const { status, data } = await apiInstance.tenantsUpdateCurrentTenant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1032,7 +1038,7 @@ const { status, data } = await apiInstance.tenantsUpdateTenant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1097,7 +1103,7 @@ const { status, data } = await apiInstance.tenantsUpdateTenantOauthClient(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1162,7 +1168,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

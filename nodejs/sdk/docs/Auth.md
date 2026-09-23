@@ -1,6 +1,6 @@
 # Auth
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -111,7 +111,7 @@ const { status, data } = await apiInstance.authExchangeToken(
 
 ### Authorization
 
-No authorization required
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -145,11 +145,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
 
-const { status, data } = await apiInstance.authGetEntraGroups();
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authGetEntraGroups(
+    cookieName
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -158,7 +165,7 @@ This endpoint does not have any parameters.
 
 ### Authorization
 
-No authorization required
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -171,6 +178,7 @@ No authorization required
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
+|**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -330,7 +338,7 @@ This endpoint does not have any parameters.
 
 ### Authorization
 
-No authorization required
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -549,7 +557,7 @@ const { status, data } = await apiInstance.authSearchEntraGroups(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -561,9 +569,9 @@ const { status, data } = await apiInstance.authSearchEntraGroups(
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
-|**401** | Missing or invalid authentication, or not an Azure Entra session. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
 |**403** | Administrator privileges required. |  -  |
-|**422** | Validation Error |  -  |
+|**422** | Not an Azure Entra session, or its access token is missing. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -603,7 +611,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

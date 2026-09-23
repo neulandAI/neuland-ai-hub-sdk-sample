@@ -1,0 +1,33 @@
+---
+title: "MoversResponse"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **string** |  | [default to undefined]
+**end_date** | **string** |  | [default to undefined]
+**previous_start** | **string** |  | [default to undefined]
+**previous_end** | **string** |  | [default to undefined]
+**most_expensive_model** | [**ModelDelta**](/sdk/node/reference/models/ModelDelta) |  | [default to undefined]
+**biggest_increase** | [**ModelDelta**](/sdk/node/reference/models/ModelDelta) |  | [default to undefined]
+**biggest_decrease** | [**ModelDelta**](/sdk/node/reference/models/ModelDelta) |  | [default to undefined]
+**per_model** | [**Array&lt;ModelDelta&gt;**](/sdk/node/reference/models/ModelDelta) |  | [default to undefined]
+
+## Example
+
+```typescript
+import { MoversResponse } from 'neuland-hub-sdk';
+
+const instance: MoversResponse = {
+    start_date,
+    end_date,
+    previous_start,
+    previous_end,
+    most_expensive_model,
+    biggest_increase,
+    biggest_decrease,
+    per_model,
+};
+```

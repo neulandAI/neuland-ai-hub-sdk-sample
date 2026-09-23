@@ -39,9 +39,12 @@ class Role(BaseModel):
     description: Optional[StrictStr] = None
     is_system: Optional[StrictBool] = Field(default=False, description="Built-in roles that cannot be edited or deleted.")
     is_default: Optional[StrictBool] = Field(default=False, description="Role auto-assigned to newly provisioned users.")
+    all_models: Optional[StrictBool] = Field(default=True, description="Whether the role grants every model the tenant enables.")
+    all_tools: Optional[StrictBool] = Field(default=True, description="Whether the role grants every tool the tenant enables.")
+    all_connectors: Optional[StrictBool] = Field(default=True, description="Whether the role grants every connector the tenant enables.")
     creator_user_id: Optional[StrictInt] = None
     updater_user_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "public_id", "tenant_id", "key", "name", "description", "is_system", "is_default", "creator_user_id", "updater_user_id"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "public_id", "tenant_id", "key", "name", "description", "is_system", "is_default", "all_models", "all_tools", "all_connectors", "creator_user_id", "updater_user_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -129,6 +132,9 @@ class Role(BaseModel):
             "description": obj.get("description"),
             "is_system": obj.get("is_system") if obj.get("is_system") is not None else False,
             "is_default": obj.get("is_default") if obj.get("is_default") is not None else False,
+            "all_models": obj.get("all_models") if obj.get("all_models") is not None else True,
+            "all_tools": obj.get("all_tools") if obj.get("all_tools") is not None else True,
+            "all_connectors": obj.get("all_connectors") if obj.get("all_connectors") is not None else True,
             "creator_user_id": obj.get("creator_user_id"),
             "updater_user_id": obj.get("updater_user_id")
         })

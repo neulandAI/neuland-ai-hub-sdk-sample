@@ -28,6 +28,266 @@
         }
       }
     },
+    "/access/user/{user_id}": {
+      "get": {
+        "tags": [
+          "ResourceAccess"
+        ],
+        "summary": "Effective access for a user, and where it comes from",
+        "description": "The models, tools and connectors this user may use, each with the roles\nthat grant it and whether it was also granted directly.",
+        "operationId": "access_get_user_access",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the user to inspect.",
+              "title": "User Id"
+            },
+            "description": "Public id of the user to inspect."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAccessOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "One of the three MANAGE_*_ACCESS permissions is required to inspect anyone other than yourself."
+          },
+          "404": {
+            "description": "User not found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/access/user/{user_id}/grants/{kind}": {
+      "put": {
+        "tags": [
+          "ResourceAccess"
+        ],
+        "summary": "Set a user's direct grants for one kind",
+        "description": "Grant these items directly, on top of what the user's roles already give.\n\nThe complete desired set: an item left out is revoked. That returns the user\nto their roles' set rather than to nothing, so unlike a role change this\ncannot strip anyone bare.",
+        "operationId": "access_set_user_grants",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the user to grant to.",
+              "title": "User Id"
+            },
+            "description": "Public id of the user to grant to."
+          },
+          {
+            "name": "kind",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AccessKind",
+              "description": "Which resource kind to set."
+            },
+            "description": "Which resource kind to set."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserGrantIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserGrantOut"
+                  },
+                  "title": "Response Access Set User Grants"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "The matching MANAGE_*_ACCESS permission is required, or an item is outside the caller's own access."
+          },
+          "404": {
+            "description": "User not found, or one or more items not found."
+          },
+          "422": {
+            "description": "An item is not enabled for the tenant."
+          }
+        }
+      }
+    },
+    "/access/user/{user_id}/grants/{kind}/{item_id}": {
+      "delete": {
+        "tags": [
+          "ResourceAccess"
+        ],
+        "summary": "Revoke one direct grant from a user",
+        "description": "Revoke one direct grant. The user keeps whatever their roles grant.",
+        "operationId": "access_revoke_user_grant",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the user.",
+              "title": "User Id"
+            },
+            "description": "Public id of the user."
+          },
+          {
+            "name": "kind",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AccessKind",
+              "description": "Which resource kind to revoke."
+            },
+            "description": "Which resource kind to revoke."
+          },
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the item to revoke.",
+              "title": "Item Id"
+            },
+            "description": "Public id of the item to revoke."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "The matching MANAGE_*_ACCESS permission is required."
+          },
+          "404": {
+            "description": "User or item not found."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/alerts/": {
       "post": {
         "tags": [
@@ -76,6 +336,128 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BudgetAlert"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alerts/budgets/forecast": {
+      "get": {
+        "tags": [
+          "Alert"
+        ],
+        "summary": "Forecast the tenant's month-end spend from its current run rate",
+        "description": "Return a run-rate projection of month-end spend (plus the summary it builds on).",
+        "operationId": "alerts_budget_forecast",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetForecast"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/alerts/budgets/summary": {
+      "get": {
+        "tags": [
+          "Alert"
+        ],
+        "summary": "Get the tenant's current-month budget summary",
+        "description": "Return current-month spend vs the tenant's monthly pool budget.\n\nReplaces the three PostgREST reads the dashboard stitches client-side\n(tenants \u2192 tenant_tarifs \u2192 usage_costs) with a single server-computed cap.",
+        "operationId": "alerts_budget_summary",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetSummary"
                 }
               }
             }
@@ -333,7 +715,7 @@
           "ApiKey"
         ],
         "summary": "Revoke an API key",
-        "description": "Deactivate an API key so it can no longer authenticate requests.\n\nAPI-key management is admin-only: a MANAGE_API_KEYS holder may revoke any key\ncreated by a user in that key's tenant (an Operator, any key). This is the\npath an admin uses to clean up keys left by members who can no longer hold\nthem.",
+        "description": "Deactivate an API key so it can no longer authenticate requests.\n\nRevoking your own key needs no permission: withdrawing a credential is never\nan escalation, and gating it would strand keys whose holder just lost the\npermission that minted them. Revoking someone else's key needs\nMANAGE_API_KEYS in that key's tenant (an Operator, any key) \u2014 the path an\nadmin uses to clean up keys left by members. A caller allowed neither gets\nthe same 404 as an unknown id, so the endpoint cannot confirm which key ids\nexist. Only a browser session may revoke, never an API key.",
         "operationId": "api_revoke_api_key",
         "security": [
           {
@@ -822,6 +1204,9 @@
           "401": {
             "description": "Missing or invalid authentication."
           },
+          "403": {
+            "description": "The model is not available to the author."
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -891,7 +1276,7 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "Usage budget exceeded."
+            "description": "Usage budget exceeded, or the model is not available to the author."
           },
           "422": {
             "description": "Validation Error",
@@ -1041,7 +1426,7 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "Not the creator of this assistant."
+            "description": "Not the creator, or the model is not available to the caller."
           },
           "404": {
             "description": "No assistant exists with the given id."
@@ -1878,6 +2263,152 @@
         }
       }
     },
+    "/assistants/{assistant_id}/tool": {
+      "delete": {
+        "tags": [
+          "Assistant"
+        ],
+        "summary": "Stop the assistant being consultable from chats",
+        "description": "Clear the `is_tool` flag; the assistant stops being consultable at once\n(every consultability query keys on the flag alone).",
+        "operationId": "assistants_remove_assistant_as_tool",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assistant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the assistant.",
+              "title": "Assistant Id"
+            },
+            "description": "Public id of the assistant."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Not the creator, or the assistant is catalog-sourced."
+          },
+          "404": {
+            "description": "No such assistant, or it is not consultable."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Assistant"
+        ],
+        "summary": "Make an assistant consultable from the creator's chats",
+        "description": "Make the assistant consultable in every chat of its creator.\n\nPure flag flip: `is_tool` alone makes the assistant consultable via the\n`consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`,\nwhich also derives the handle). Nothing is written to the global `tools`\nregistry \u2014 per-user rows do not belong in a platform table. Form-input\nassistants convert too: consulting one takes the form's values as tool\narguments and renders the instruction template server-side.",
+        "operationId": "assistants_convert_assistant_to_tool",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assistant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the assistant.",
+              "title": "Assistant Id"
+            },
+            "description": "Public id of the assistant."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assistant"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Not the creator, or the assistant is catalog-sourced."
+          },
+          "404": {
+            "description": "No assistant exists with the given id."
+          },
+          "409": {
+            "description": "The assistant is already consultable."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/assistants/{assistant_id}/tools/{tool_id}": {
       "delete": {
         "tags": [
@@ -2027,7 +2558,7 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "Not the creator, or the tool is not enabled for the tenant."
+            "description": "Not the creator, or the tool is not enabled for the tenant, or it is not available to the caller."
           },
           "404": {
             "description": "Assistant, owning user, or tool does not exist."
@@ -2495,7 +3026,7 @@
           "AuthConnector"
         ],
         "summary": "List connector status",
-        "description": "List connectors available to the user's tenant with their per-user consent status.",
+        "description": "List the connectors the user may use with their per-user consent status.",
         "operationId": "auth_list_connector_status",
         "security": [
           {
@@ -2787,6 +3318,9 @@
           },
           "401": {
             "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "The connector is not available to the user."
           },
           "404": {
             "description": "No connector or OAuth client exists for the given id."
@@ -3231,20 +3765,13 @@
             }
           },
           "401": {
-            "description": "Missing or invalid authentication, or not an Azure Entra session."
+            "description": "Missing or invalid authentication."
           },
           "403": {
             "description": "Administrator privileges required."
           },
           "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
+            "description": "Not an Azure Entra session, or its access token is missing."
           }
         }
       }
@@ -5033,6 +5560,80 @@
         }
       }
     },
+    "/documents/usage": {
+      "post": {
+        "tags": [
+          "Document"
+        ],
+        "summary": "Document counts and storage bytes by dimension",
+        "description": "Aggregate the tenant's document storage by dimension and time bucket.",
+        "operationId": "documents_document_usage",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentUsageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentUsageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Too many group_by dimensions, or a truncated bucketed result."
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required, or user-level analytics is not enabled for the tenant."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/documents/{document_id}": {
       "delete": {
         "tags": [
@@ -5620,6 +6221,80 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Caller may not access this file."
+          },
+          "404": {
+            "description": "No file exists with the given id."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/files/{file_id}/url": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Get a short-lived direct download URL for a file",
+        "description": "Short-lived read-only URL for streaming media straight from storage.",
+        "operationId": "files_presigned_file_url",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "File Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DirectFileUrl"
+                }
               }
             }
           },
@@ -11660,9 +12335,10 @@
         "tags": [
           "Llm"
         ],
-        "summary": "Get LLM cost metrics",
+        "summary": "[Deprecated] LLM cost metrics \u2014 superseded by POST /llm/usage",
         "description": "Return current-month total LLM cost and per-model cost timeseries for the tenant.",
         "operationId": "llm_get_cost",
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -11726,14 +12402,157 @@
         }
       }
     },
+    "/llm/insights/movers": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "summary": "Biggest cost movers and the most-expensive model vs the prior period",
+        "description": "Period-over-period per-model cost deltas for the tenant.",
+        "operationId": "llm_cost_movers",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DateWindowRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MoversResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm/insights/utilization": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "summary": "Idle assistants and license utilization",
+        "description": "Idle assistants and license-utilization counts for the tenant.",
+        "operationId": "llm_utilization",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UtilizationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UtilizationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/llm/services/cost": {
       "post": {
         "tags": [
           "Llm"
         ],
-        "summary": "Get external service usage costs",
+        "summary": "[Deprecated] External service usage costs \u2014 superseded by POST /llm/usage",
         "description": "Return non-LLM service usage costs aggregated by source, model, and time period.",
         "operationId": "llm_get_usage_costs",
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -12173,9 +12992,10 @@
         "tags": [
           "Llm"
         ],
-        "summary": "Get token usage metrics",
+        "summary": "[Deprecated] Token usage metrics \u2014 superseded by POST /llm/usage",
         "description": "Return current-month token totals and per-model token timeseries for the tenant.",
         "operationId": "llm_llm_total_tokens",
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -12216,6 +13036,293 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TokensTimeseriesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm/usage": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "summary": "Unified usage aggregation (cost/tokens/requests by dimension)",
+        "description": "Aggregate the tenant's usage by any combination of dimensions and time bucket.",
+        "operationId": "llm_usage_query",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsageQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsageQueryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Too many group_by dimensions."
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required, or user-level analytics is not enabled for the tenant."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm/usage/api/keys": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "summary": "API key inventory with idleness and expiry flags",
+        "description": "List the tenant's API keys, flagging idle and soon-expiring ones.",
+        "operationId": "llm_api_key_inventory",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiKeyInventoryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiKeyInventoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm/usage/messages": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "summary": "Token usage aggregated across messages (avg tokens per message)",
+        "description": "Tenant-wide message-level token usage (count, totals, average).",
+        "operationId": "llm_message_tokens",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DateWindowRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageTokensResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llm/usage/subtenants": {
+      "post": {
+        "tags": [
+          "Llm"
+        ],
+        "summary": "Usage rolled up across a parent tenant and its direct children",
+        "description": "Per-tenant usage for the caller's tenant plus its direct child tenants.",
+        "operationId": "llm_subtenant_usage",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DateWindowRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubtenantUsageResponse"
                 }
               }
             }
@@ -13661,7 +14768,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/MessageSubmitOut"
                 }
               }
             }
@@ -13886,7 +14993,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Message"
+                  "$ref": "#/components/schemas/MessageSubmitOut"
                 }
               }
             }
@@ -15768,7 +16875,7 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "MANAGE_ROLES required, or permissions exceed the caller's own."
+            "description": "MANAGE_ROLES required, or permissions exceed the caller's own. Setting a resource list additionally needs that kind's MANAGE_*_ACCESS, and every item named must be one the caller holds."
           },
           "422": {
             "description": "Validation Error",
@@ -15849,7 +16956,7 @@
           "Role"
         ],
         "summary": "Update a role",
-        "description": "Edit a role's name and/or permission set.",
+        "description": "Edit a role's name, permission set and/or the resources it grants.",
         "operationId": "roles_update_role",
         "security": [
           {
@@ -15911,7 +17018,7 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "MANAGE_ROLES required, or permissions exceed the caller's own."
+            "description": "MANAGE_ROLES required, or permissions exceed the caller's own. Setting a resource list additionally needs that kind's MANAGE_*_ACCESS, and every item named must be one the caller holds."
           },
           "404": {
             "description": "No role exists with the given id."
@@ -18305,7 +19412,7 @@
           "Tenant"
         ],
         "summary": "Disable a model for a tenant",
-        "description": "Disable an LLM catalog model for a tenant (superadmin or parent tenant admin).",
+        "description": "Disable an LLM catalog model for a tenant.",
         "operationId": "tenants_delete_tenant_model",
         "security": [
           {
@@ -18362,10 +19469,13 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "Superadmin or parent tenant admin required."
+            "description": "MANAGE_TENANT_MODELS required for the target tenant."
           },
           "404": {
             "description": "Tenant model association not found."
+          },
+          "409": {
+            "description": "Would leave the tenant with no usable chat model."
           },
           "422": {
             "description": "Validation Error",
@@ -18384,7 +19494,7 @@
           "Tenant"
         ],
         "summary": "Enable a model for a tenant",
-        "description": "Enable an LLM catalog model for a tenant (superadmin or parent tenant admin).",
+        "description": "Enable an LLM catalog model for a tenant.",
         "operationId": "tenants_put_tenant_model",
         "security": [
           {
@@ -18433,6 +19543,23 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/TenantModelIn"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Payload"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -18448,10 +19575,13 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "Superadmin or parent tenant admin required."
+            "description": "MANAGE_TENANT_MODELS required for the target tenant."
           },
           "404": {
             "description": "Tenant or catalog model not found."
+          },
+          "409": {
+            "description": "Model is out of service and cannot be enabled."
           },
           "422": {
             "description": "Validation Error",
@@ -19025,6 +20155,77 @@
                 }
               }
             }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tool-actions/email/draft": {
+      "post": {
+        "tags": [
+          "ToolAction"
+        ],
+        "summary": "Create an Outlook mailbox draft from a chat draft",
+        "description": "Create (not send) a draft in the user's mailbox \u2014 used by the draft\ncard's \"Open in Outlook\" action, which cannot pass attachments through a\ncompose deep link. Attachment scope rules are identical to sending.",
+        "operationId": "toolactions_create_email_draft",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOutlookDraftRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOutlookDraftResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid attachments/recipients or the mail provider rejected the draft."
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
           },
           "422": {
             "description": "Validation Error",
@@ -19798,14 +20999,7 @@
             "description": "The group is not an external (identity-provider) group."
           },
           "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
+            "description": "Not an Azure Entra session, or its access token is missing."
           }
         }
       }
@@ -20553,7 +21747,7 @@
           "Workflow"
         ],
         "summary": "Update Workflow",
-        "description": "Update a workflow. Only its creator may update it.",
+        "description": "Update a workflow. Only its creator may update it.\n\nArming a disabled draft is a create as far as the quota is concerned \u2014 the\ncap counts enabled rows, so without a check here a tenant at cap would\nsimply enable its old drafts. The lock therefore re-reads the row: a\nconcurrent disable would otherwise leave this request's copy claiming the\nworkflow is already enabled, turning the arming into an unchecked no-op.\n\nThe assistant-chat gate below only covers enable/timezone-only updates; a\nspec PATCH already ran it inside `_validate_runnable_spec`.",
         "operationId": "workflows_update_workflow",
         "security": [
           {
@@ -20969,6 +22163,84 @@
   },
   "components": {
     "schemas": {
+      "AccessItemOut": {
+        "properties": {
+          "item_id": {
+            "type": "integer",
+            "title": "Item Id",
+            "description": "Internal id of the model, tool or connector.",
+            "examples": [
+              12
+            ]
+          },
+          "item_public_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Item Public Id",
+            "description": "Public id of the model, tool or connector.",
+            "examples": [
+              "5a1c7d9e-0b13-4e8a-9c2d-3f0e5b7a2a7c"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the model, tool or connector.",
+            "examples": [
+              "gpt-5.1"
+            ]
+          },
+          "roles": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Roles",
+            "description": "Names of the user's roles that grant this item.",
+            "examples": [
+              [
+                "Administrator"
+              ]
+            ]
+          },
+          "granted_directly": {
+            "type": "boolean",
+            "title": "Granted Directly",
+            "description": "Whether the user holds an unrevoked direct grant for it.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "always_available": {
+            "type": "boolean",
+            "title": "Always Available",
+            "description": "Whether the item reaches every user whatever their roles say. Only default tools do \u2014 they are bound in code for every chat \u2014 so an empty `roles` with no direct grant is expected rather than unexplained.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "item_id",
+          "item_public_id",
+          "name"
+        ],
+        "title": "AccessItemOut",
+        "description": "One item a user may use, and what put it there."
+      },
+      "AccessKind": {
+        "type": "string",
+        "enum": [
+          "model",
+          "tool",
+          "connector"
+        ],
+        "title": "AccessKind",
+        "description": "The resource kinds access is resolved for."
+      },
       "ApiKeyCreateRequest": {
         "properties": {
           "name": {
@@ -21058,6 +22330,144 @@
         ],
         "title": "ApiKeyCreateResponse",
         "description": "Returned once when an API key is created."
+      },
+      "ApiKeyInventoryRequest": {
+        "properties": {
+          "active_only": {
+            "type": "boolean",
+            "title": "Active Only",
+            "description": "Return only keys that are currently active.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        },
+        "type": "object",
+        "title": "ApiKeyInventoryRequest",
+        "description": "Request for the API key inventory."
+      },
+      "ApiKeyInventoryResponse": {
+        "properties": {
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/ApiKeyInventoryRow"
+            },
+            "type": "array",
+            "title": "Rows",
+            "description": "One entry per key."
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated",
+            "description": "True when more keys matched than were returned.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "rows"
+        ],
+        "title": "ApiKeyInventoryResponse"
+      },
+      "ApiKeyInventoryRow": {
+        "properties": {
+          "public_id": {
+            "type": "string",
+            "title": "Public Id",
+            "description": "Public key identifier; the value /llm/usage filters on.",
+            "examples": [
+              "3f1c8d0e-5b2a-4c77-9f31-0a6d2e4b8c19"
+            ]
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "Key name, if one was given."
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Active",
+            "description": "Whether the key is currently active."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "description": "When the key was created."
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At",
+            "description": "When the key expires."
+          },
+          "last_used_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Used At",
+            "description": "Last request made with this key; null if it has never been used."
+          },
+          "days_idle": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Days Idle",
+            "description": "Whole days since the last request; null if never used.",
+            "examples": [
+              40
+            ]
+          },
+          "idle": {
+            "type": "boolean",
+            "title": "Idle",
+            "description": "True when unused for more than 30 days."
+          },
+          "expiring_soon": {
+            "type": "boolean",
+            "title": "Expiring Soon",
+            "description": "True when the key expires within 30 days."
+          }
+        },
+        "type": "object",
+        "required": [
+          "public_id",
+          "name",
+          "active",
+          "created_at",
+          "expires_at",
+          "last_used_at",
+          "days_idle",
+          "idle",
+          "expiring_soon"
+        ],
+        "title": "ApiKeyInventoryRow"
       },
       "Application": {
         "properties": {
@@ -22053,6 +23463,22 @@
               0.7
             ]
           },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoning Effort",
+            "description": "Reasoning effort pinned by the assistant; overrides the chat's choice. NULL sends nothing.",
+            "examples": [
+              "high"
+            ]
+          },
           "similarity_top_k": {
             "anyOf": [
               {
@@ -22113,6 +23539,15 @@
           "visibility": {
             "$ref": "#/components/schemas/AssistantVisibilityEnum",
             "default": "PRIVATE"
+          },
+          "is_tool": {
+            "type": "boolean",
+            "title": "Is Tool",
+            "description": "Whether this assistant is consultable from its creator's chats via the `consult_assistant` tool.",
+            "default": false,
+            "examples": [
+              false
+            ]
           }
         },
         "type": "object",
@@ -22251,6 +23686,18 @@
             ],
             "title": "Temperature"
           },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoning Effort"
+          },
           "similarity_top_k": {
             "anyOf": [
               {
@@ -22360,6 +23807,16 @@
               }
             ],
             "title": "Temperature"
+          },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "similarity_top_k": {
             "anyOf": [
@@ -22520,6 +23977,16 @@
               }
             ],
             "title": "Temperature"
+          },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "similarity_top_k": {
             "anyOf": [
@@ -22757,6 +24224,20 @@
             "description": "Sampling temperature for the assistant's LLM.",
             "examples": [
               0.5
+            ]
+          },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Reasoning effort this assistant pins; overrides the chat's choice.",
+            "examples": [
+              "high"
             ]
           },
           "similarity_top_k": {
@@ -23108,6 +24589,16 @@
               }
             ],
             "title": "Temperature"
+          },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "similarity_top_k": {
             "anyOf": [
@@ -23617,17 +25108,27 @@
             ],
             "title": "Files"
           },
-          "chat_temperature": {
+          "temperature": {
             "type": "number",
-            "title": "Chat Temperature"
+            "title": "Temperature"
           },
-          "chat_similarity_top_k": {
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "similarity_top_k": {
             "type": "integer",
-            "title": "Chat Similarity Top K"
+            "title": "Similarity Top K"
           },
-          "chat_system_prompt": {
+          "system_prompt": {
             "type": "string",
-            "title": "Chat System Prompt"
+            "title": "System Prompt"
           },
           "assistant_id": {
             "type": "string",
@@ -23858,6 +25359,232 @@
         "title": "BudgetAlertUpdate",
         "description": "Payload for updating a budget alert. All fields are optional."
       },
+      "BudgetForecast": {
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/BudgetSummary",
+            "description": "Current-month spend snapshot the forecast is built from."
+          },
+          "days_elapsed": {
+            "type": "number",
+            "title": "Days Elapsed",
+            "description": "Days elapsed in the current month (fractional).",
+            "examples": [
+              10.5
+            ]
+          },
+          "days_in_month": {
+            "type": "integer",
+            "title": "Days In Month",
+            "description": "Total days in the current calendar month.",
+            "examples": [
+              31
+            ]
+          },
+          "daily_burn_rate": {
+            "type": "number",
+            "title": "Daily Burn Rate",
+            "description": "Average spend per day so far (current_spend / days_elapsed).",
+            "examples": [
+              9.52
+            ]
+          },
+          "projected_month_end_spend": {
+            "type": "number",
+            "title": "Projected Month End Spend",
+            "description": "Linear projection of total spend by month end.",
+            "examples": [
+              295.0
+            ]
+          },
+          "projected_over_budget": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Projected Over Budget",
+            "description": "Whether the projection exceeds the pool cap. Null when no cap.",
+            "examples": [
+              false
+            ]
+          },
+          "projected_overage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Projected Overage",
+            "description": "Projected spend above the cap (0 if within). Null when no cap.",
+            "examples": [
+              0.0
+            ]
+          },
+          "days_until_budget_exhausted": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Days Until Budget Exhausted",
+            "description": "Days from now until the remaining budget is exhausted at the current burn rate. Null when there is no cap or no spend yet.",
+            "examples": [
+              42.0
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "summary",
+          "days_elapsed",
+          "days_in_month",
+          "daily_burn_rate",
+          "projected_month_end_spend",
+          "projected_over_budget",
+          "projected_overage",
+          "days_until_budget_exhausted"
+        ],
+        "title": "BudgetForecast",
+        "description": "Deterministic run-rate projection of month-end spend for a tenant."
+      },
+      "BudgetSummary": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period Start",
+            "description": "Start of the current billing month.",
+            "examples": [
+              "2026-01-01T00:00:00Z"
+            ]
+          },
+          "current_spend": {
+            "type": "number",
+            "title": "Current Spend",
+            "description": "Tenant spend so far this month.",
+            "examples": [
+              100.0
+            ]
+          },
+          "pool_cap": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pool Cap",
+            "description": "Monthly tenant pool budget (licenses \u00d7 monthly_limit_per_license). 0 is a real zero-budget cap the gate blocks on \u2014 not 'uncapped'. Null only when there is no tenant pool: unlimited, per-user (legacy), not-configured, or no plan. Check `status` to tell those apart.",
+            "examples": [
+              500.0
+            ]
+          },
+          "remaining": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining",
+            "description": "Budget left this month (pool_cap \u2212 current_spend, floored at 0). Null when there is no pool cap.",
+            "examples": [
+              400.0
+            ]
+          },
+          "percent_used": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percent Used",
+            "description": "current_spend / pool_cap \u00d7 100. Null when there is no pool cap.",
+            "examples": [
+              20.0
+            ]
+          },
+          "is_unlimited": {
+            "type": "boolean",
+            "title": "Is Unlimited",
+            "description": "Whether the active plan is unlimited.",
+            "examples": [
+              false
+            ]
+          },
+          "plan_configured": {
+            "type": "boolean",
+            "title": "Plan Configured",
+            "description": "Whether the tenant has a usable plan (i.e. status is not no_plan or not_configured).",
+            "examples": [
+              true
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/PlanStatus",
+            "description": "Plan classification, identical to what the enforcement gate uses: no_plan, unlimited, expired, not_configured, pool, or per_user.",
+            "examples": [
+              "pool"
+            ]
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At",
+            "description": "When the active plan expires, if set.",
+            "examples": [
+              "2026-12-31T00:00:00Z"
+            ]
+          },
+          "expired": {
+            "type": "boolean",
+            "title": "Expired",
+            "description": "Whether the active plan has expired.",
+            "examples": [
+              false
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "period_start",
+          "current_spend",
+          "pool_cap",
+          "remaining",
+          "percent_used",
+          "is_unlimited",
+          "plan_configured",
+          "status",
+          "expires_at",
+          "expired"
+        ],
+        "title": "BudgetSummary",
+        "description": "Current-month spend against the tenant's monthly pool budget."
+      },
       "BulkResult": {
         "properties": {
           "count": {
@@ -23965,6 +25692,15 @@
               false
             ]
           },
+          "supports_reasoning_effort": {
+            "type": "boolean",
+            "title": "Supports Reasoning Effort",
+            "description": "Whether the model accepts a `reasoning_effort` hint. Chats only offer the effort picker for models where this is true.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
           "supports_clarification": {
             "type": "boolean",
             "title": "Supports Clarification",
@@ -23981,6 +25717,29 @@
             "default": false,
             "examples": [
               false
+            ]
+          },
+          "tier": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ModelTierEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Capability class the router treats as interchangeable. Rules set a minimum tier and the cheapest model at or above it is chosen. Leave unset to keep the model out of automatic routing entirely.",
+            "examples": [
+              "STANDARD"
+            ]
+          },
+          "auto_routable": {
+            "type": "boolean",
+            "title": "Auto Routable",
+            "description": "Whether the router may pick this model on its own. Turn it off for preview or specialist models that should stay hand-selectable.",
+            "default": true,
+            "examples": [
+              true
             ]
           }
         },
@@ -24100,6 +25859,21 @@
               false
             ]
           },
+          "supports_reasoning_effort": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supports Reasoning Effort",
+            "description": "Whether the model accepts a `reasoning_effort` hint. Chats only offer the effort picker for models where this is true.",
+            "examples": [
+              false
+            ]
+          },
           "supports_clarification": {
             "anyOf": [
               {
@@ -24128,6 +25902,35 @@
             "description": "Whether to auto-create default settings for this catalog entry on seed.",
             "examples": [
               false
+            ]
+          },
+          "tier": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ModelTierEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Capability class the router treats as interchangeable. Rules set a minimum tier and the cheapest model at or above it is chosen. An explicit null unclassifies the model, removing it from routing.",
+            "examples": [
+              "STANDARD"
+            ]
+          },
+          "auto_routable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Routable",
+            "description": "Whether the router may pick this model on its own. Turn it off for preview or specialist models that should stay hand-selectable.",
+            "examples": [
+              true
             ]
           }
         },
@@ -24349,6 +26152,22 @@
               0.7
             ]
           },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoning Effort",
+            "description": "Reasoning effort the user chose for this chat. NULL sends nothing.",
+            "examples": [
+              "high"
+            ]
+          },
           "similarity_top_k": {
             "anyOf": [
               {
@@ -24475,6 +26294,29 @@
                 "topic": "sales"
               }
             ]
+          },
+          "model_user_picked": {
+            "type": "boolean",
+            "title": "Model User Picked",
+            "description": "Whether a user chose this chat's model rather than the router.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "routed_tier": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ModelTierEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Minimum tier the router required when it chose this chat's model.",
+            "examples": [
+              "STANDARD"
+            ]
           }
         },
         "type": "object",
@@ -24518,6 +26360,20 @@
               0.7
             ]
           },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "How much reasoning the model should spend. Null falls back to the model default; an assistant pin overrides it.",
+            "examples": [
+              "high"
+            ]
+          },
           "similarity_top_k": {
             "anyOf": [
               {
@@ -24558,7 +26414,7 @@
               }
             ],
             "title": "Model",
-            "description": "Name of the LLM model to use. Not allowed when an assistant is set, except on playground chats.",
+            "description": "Name of the LLM model to use, or null to return the chat to automatic selection. Not allowed when an assistant is set, except on playground chats.",
             "examples": [
               "gpt-4o"
             ]
@@ -25382,6 +27238,164 @@
         ],
         "title": "CostTimeseriesPoint"
       },
+      "CreateOutlookDraftRequest": {
+        "properties": {
+          "tool_call_id": {
+            "type": "string",
+            "title": "Tool Call Id",
+            "description": "The ID of the tool call that generated the draft",
+            "examples": [
+              "call_abc123"
+            ]
+          },
+          "to": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "To",
+            "description": "Recipient email address(es); optional for a draft",
+            "examples": [
+              "alice@example.com"
+            ]
+          },
+          "subject": {
+            "type": "string",
+            "title": "Subject",
+            "description": "Email subject",
+            "default": "",
+            "examples": [
+              "Q2 report"
+            ]
+          },
+          "body": {
+            "type": "string",
+            "title": "Body",
+            "description": "Email body content (markdown or HTML)",
+            "default": "",
+            "examples": [
+              "Hi team"
+            ]
+          },
+          "cc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cc",
+            "description": "CC recipients"
+          },
+          "bcc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bcc",
+            "description": "BCC recipients"
+          },
+          "attachment_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attachment Ids",
+            "description": "Chat file ids from the draft's attachments (upload:<n> / generated:<n>); resolved server-side within the draft's chat scope.",
+            "examples": [
+              [
+                "upload:42"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "tool_call_id"
+        ],
+        "title": "CreateOutlookDraftRequest",
+        "description": "Request to materialize a chat draft as a real Outlook mailbox draft."
+      },
+      "CreateOutlookDraftResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "description": "Whether the draft was created."
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Human-readable result message."
+          },
+          "web_link": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Web Link",
+            "description": "Graph webLink \u2014 opens the draft in OWA's reading pane."
+          },
+          "draft_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Draft Id",
+            "description": "Graph message id of the draft; the client uses it to deep-link straight into OWA's compose editor."
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "title": "CreateOutlookDraftResponse",
+        "description": "Response from creating an Outlook mailbox draft."
+      },
       "CredentialIn": {
         "properties": {
           "config": {
@@ -26020,6 +28034,65 @@
         "title": "DataSourceUserModel",
         "description": "The current user's profile on the data source."
       },
+      "DateWindowRequest": {
+        "properties": {
+          "date_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Start",
+            "description": "Inclusive start of the window.",
+            "examples": [
+              "2026-01-01T00:00:00Z"
+            ]
+          },
+          "date_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date End",
+            "description": "Inclusive end of the window.",
+            "examples": [
+              "2026-01-31T23:59:59Z"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "date_start",
+          "date_end"
+        ],
+        "title": "DateWindowRequest",
+        "description": "A [date_start, date_end] window shared by the analytics endpoints."
+      },
+      "DirectFileUrl": {
+        "properties": {
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url",
+            "description": "Short-lived read-only URL to stream from directly. `null` when the backend can't sign or the type isn't safe to serve inline \u2014 fall back to `GET /files/{file_id}`."
+          },
+          "expires_in": {
+            "type": "integer",
+            "title": "Expires In",
+            "description": "Lifetime of `url` in seconds.",
+            "examples": [
+              900
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "url",
+          "expires_in"
+        ],
+        "title": "DirectFileUrl"
+      },
       "Document": {
         "properties": {
           "id": {
@@ -26438,6 +28511,50 @@
         ],
         "title": "Document"
       },
+      "DocumentMetrics": {
+        "properties": {
+          "document_count": {
+            "type": "integer",
+            "title": "Document Count",
+            "description": "Documents in the window.",
+            "examples": [
+              42
+            ]
+          },
+          "pending_count": {
+            "type": "integer",
+            "title": "Pending Count",
+            "description": "Documents with no content row yet (upload not processed).",
+            "examples": [
+              3
+            ]
+          },
+          "stored_bytes": {
+            "type": "integer",
+            "title": "Stored Bytes",
+            "description": "Bytes actually occupied: content rows counted once, since identical uploads are deduplicated per tenant by checksum.",
+            "examples": [
+              10485760
+            ]
+          },
+          "attributed_bytes": {
+            "type": "integer",
+            "title": "Attributed Bytes",
+            "description": "Bytes summed per document. Exceeds stored_bytes when the same file is referenced from several libraries.",
+            "examples": [
+              20971520
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_count",
+          "pending_count",
+          "stored_bytes",
+          "attributed_bytes"
+        ],
+        "title": "DocumentMetrics"
+      },
       "DocumentTextOut": {
         "properties": {
           "text": {
@@ -26455,6 +28572,249 @@
         ],
         "title": "DocumentTextOut",
         "description": "A document's extracted text \u2014 for audio, that text *is* the transcript."
+      },
+      "DocumentUsageRequest": {
+        "properties": {
+          "date_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Start",
+            "description": "Inclusive start of the window.",
+            "examples": [
+              "2026-01-01T00:00:00Z"
+            ]
+          },
+          "date_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date End",
+            "description": "Inclusive end of the window.",
+            "examples": [
+              "2026-01-31T23:59:59Z"
+            ]
+          },
+          "bucket": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "day",
+                  "week",
+                  "month",
+                  "quarter"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket",
+            "description": "Add a time dimension by truncating created_at to this unit (day/week/month/quarter). Omit for a flat breakdown.",
+            "examples": [
+              "month"
+            ]
+          },
+          "group_by": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "library",
+                "project",
+                "assistant",
+                "user",
+                "content_type"
+              ]
+            },
+            "type": "array",
+            "title": "Group By",
+            "description": "Categorical dimensions to break the totals down by. 'user' requires the tenant's user-level-analytics opt-in.",
+            "examples": [
+              [
+                "library"
+              ]
+            ]
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit",
+            "description": "Return only the top-N groups by attributed bytes.",
+            "examples": [
+              10
+            ]
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Offset",
+            "description": "Row offset, for paginating.",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "date_start",
+          "date_end"
+        ],
+        "title": "DocumentUsageRequest",
+        "description": "Request for the document storage aggregation."
+      },
+      "DocumentUsageResponse": {
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Date",
+            "description": "Start of the window."
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Date",
+            "description": "End of the window."
+          },
+          "bucket": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "day",
+                  "week",
+                  "month",
+                  "quarter"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket",
+            "description": "Time bucket applied, if any."
+          },
+          "group_by": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Group By",
+            "description": "Dimensions the rows are grouped by."
+          },
+          "totals": {
+            "$ref": "#/components/schemas/DocumentMetrics",
+            "description": "Window totals, counted once."
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentUsageRow"
+            },
+            "type": "array",
+            "title": "Rows",
+            "description": "One entry per group."
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated",
+            "description": "True when more rows matched than were returned.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date",
+          "bucket",
+          "group_by",
+          "totals",
+          "rows"
+        ],
+        "title": "DocumentUsageResponse"
+      },
+      "DocumentUsageRow": {
+        "properties": {
+          "document_count": {
+            "type": "integer",
+            "title": "Document Count",
+            "description": "Documents in the window.",
+            "examples": [
+              42
+            ]
+          },
+          "pending_count": {
+            "type": "integer",
+            "title": "Pending Count",
+            "description": "Documents with no content row yet (upload not processed).",
+            "examples": [
+              3
+            ]
+          },
+          "stored_bytes": {
+            "type": "integer",
+            "title": "Stored Bytes",
+            "description": "Bytes actually occupied: content rows counted once, since identical uploads are deduplicated per tenant by checksum.",
+            "examples": [
+              10485760
+            ]
+          },
+          "attributed_bytes": {
+            "type": "integer",
+            "title": "Attributed Bytes",
+            "description": "Bytes summed per document. Exceeds stored_bytes when the same file is referenced from several libraries.",
+            "examples": [
+              20971520
+            ]
+          },
+          "group": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Group",
+            "description": "Dimension values for this group, keyed by dimension name.",
+            "examples": [
+              {
+                "library": "7"
+              }
+            ]
+          },
+          "bucket": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket",
+            "description": "Start of the time bucket (YYYY-MM-DD), when one was requested.",
+            "examples": [
+              "2026-08-01"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_count",
+          "pending_count",
+          "stored_bytes",
+          "attributed_bytes",
+          "group"
+        ],
+        "title": "DocumentUsageRow"
       },
       "EmailCatalogOut": {
         "properties": {
@@ -26848,6 +29208,38 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "IdleAssistant": {
+        "properties": {
+          "assistant_id": {
+            "type": "integer",
+            "title": "Assistant Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "last_used_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Used At",
+            "description": "Most recent chat activity for this assistant, if any."
+          }
+        },
+        "type": "object",
+        "required": [
+          "assistant_id",
+          "name",
+          "last_used_at"
+        ],
+        "title": "IdleAssistant"
       },
       "InvitationIn": {
         "properties": {
@@ -27311,6 +29703,20 @@
               128000
             ]
           },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Default reasoning effort for this model, forwarded as `reasoning_effort`. A chat or assistant choice overrides it; null sends nothing.",
+            "examples": [
+              "high"
+            ]
+          },
           "cost_prompt_tokens": {
             "anyOf": [
               {
@@ -27362,6 +29768,116 @@
               "0.0000025"
             ]
           },
+          "cost_cache_creation_tokens": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Cache Creation Tokens",
+            "description": "Cost per cache-write prompt token. Providers charge a premium over the prompt rate (Anthropic 1.25x for a 5-minute TTL). Unset falls back to cost_prompt_tokens, which under-charges every cached call.",
+            "examples": [
+              "0.000004125"
+            ]
+          },
+          "tier_threshold_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tier Threshold Tokens",
+            "description": "Prompt-token count at which the above-tier rates take over. Unset means flat pricing. The cliff applies to the whole request, not just the excess.",
+            "examples": [
+              200000
+            ]
+          },
+          "cost_prompt_tokens_above_tier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Prompt Tokens Above Tier",
+            "description": "Cost per prompt token once the tier threshold is reached.",
+            "examples": [
+              "0.0000066"
+            ]
+          },
+          "cost_completion_tokens_above_tier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Completion Tokens Above Tier",
+            "description": "Cost per completion token once the tier threshold is reached. The threshold is measured on the input, but it moves the output rate too.",
+            "examples": [
+              "0.0000225"
+            ]
+          },
+          "cost_cached_tokens_above_tier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Cached Tokens Above Tier",
+            "description": "Cost per cached prompt token once the tier threshold is reached.",
+            "examples": [
+              "0.00000066"
+            ]
+          },
+          "cost_cache_creation_tokens_above_tier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Cache Creation Tokens Above Tier",
+            "description": "Cost per cache-write token once the tier threshold is reached.",
+            "examples": [
+              "0.00000825"
+            ]
+          },
           "cost_audio_per_minute": {
             "anyOf": [
               {
@@ -27379,6 +29895,37 @@
             "description": "Cost per minute of audio for transcription models, in the billing currency.",
             "examples": [
               "0.006"
+            ]
+          },
+          "active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active",
+            "description": "Whether the model may be used. Inactive models are refused by the LLM factory; set it false to take a model out of service.",
+            "examples": [
+              true
+            ]
+          },
+          "last_seen_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Seen At",
+            "description": "When the LiteLLM gateway sync last saw this model. Set it to hand a hand-configured row over to the sync, which will then own its prices and routing; clear it to take the row back. NULL means the sync leaves it alone.",
+            "examples": [
+              "2026-08-17T10:00:00Z"
             ]
           },
           "region": {
@@ -27564,6 +30111,20 @@
               128000
             ]
           },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Default reasoning effort for this model, forwarded as `reasoning_effort`. A chat or assistant choice overrides it; null sends nothing.",
+            "examples": [
+              "high"
+            ]
+          },
           "cost_prompt_tokens": {
             "anyOf": [
               {
@@ -27621,6 +30182,116 @@
               "0.0000025"
             ]
           },
+          "cost_cache_creation_tokens": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Cache Creation Tokens",
+            "description": "Cost per cache-write prompt token. Providers charge a premium over the prompt rate (Anthropic 1.25x for a 5-minute TTL). Unset falls back to cost_prompt_tokens, which under-charges every cached call.",
+            "examples": [
+              "0.000004125"
+            ]
+          },
+          "tier_threshold_tokens": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tier Threshold Tokens",
+            "description": "Prompt-token count at which the above-tier rates take over. Unset means flat pricing. The cliff applies to the whole request, not just the excess.",
+            "examples": [
+              200000
+            ]
+          },
+          "cost_prompt_tokens_above_tier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Prompt Tokens Above Tier",
+            "description": "Cost per prompt token once the tier threshold is reached.",
+            "examples": [
+              "0.0000066"
+            ]
+          },
+          "cost_completion_tokens_above_tier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Completion Tokens Above Tier",
+            "description": "Cost per completion token once the tier threshold is reached. The threshold is measured on the input, but it moves the output rate too.",
+            "examples": [
+              "0.0000225"
+            ]
+          },
+          "cost_cached_tokens_above_tier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Cached Tokens Above Tier",
+            "description": "Cost per cached prompt token once the tier threshold is reached.",
+            "examples": [
+              "0.00000066"
+            ]
+          },
+          "cost_cache_creation_tokens_above_tier": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Cache Creation Tokens Above Tier",
+            "description": "Cost per cache-write token once the tier threshold is reached.",
+            "examples": [
+              "0.00000825"
+            ]
+          },
           "cost_audio_per_minute": {
             "anyOf": [
               {
@@ -27638,6 +30309,37 @@
             "description": "Cost per minute of audio for transcription models, in the billing currency.",
             "examples": [
               "0.006"
+            ]
+          },
+          "active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active",
+            "description": "Whether the model may be used. Inactive models are refused by the LLM factory; set it false to take a model out of service.",
+            "examples": [
+              true
+            ]
+          },
+          "last_seen_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Seen At",
+            "description": "When the LiteLLM gateway sync last saw this model. Set it to hand a hand-configured row over to the sync, which will then own its prices and routing; clear it to take the row back. NULL means the sync leaves it alone.",
+            "examples": [
+              "2026-08-17T10:00:00Z"
             ]
           },
           "region": {
@@ -28042,6 +30744,52 @@
         "type": "object",
         "title": "LibraryUpdateIn"
       },
+      "LicenseUtilization": {
+        "properties": {
+          "licenses": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Licenses",
+            "description": "Licensed seats for the tenant."
+          },
+          "active_users": {
+            "type": "integer",
+            "title": "Active Users",
+            "description": "Active, non-deleting users."
+          },
+          "active_unused_users": {
+            "type": "integer",
+            "title": "Active Unused Users",
+            "description": "Active users with no LLM usage in the window."
+          },
+          "utilization_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Utilization Pct",
+            "description": "Share of active users who used AI in the window."
+          }
+        },
+        "type": "object",
+        "required": [
+          "licenses",
+          "active_users",
+          "active_unused_users",
+          "utilization_pct"
+        ],
+        "title": "LicenseUtilization"
+      },
       "MarketplaceCatalogStateEnum": {
         "type": "string",
         "enum": [
@@ -28067,359 +30815,6 @@
         ],
         "title": "MarketplaceCatalogStateUpdate",
         "description": "Payload for the `/{catalog_id}/state` toggle endpoint.\n\nShared across every marketplace catalog type since the state machine\n(ACTIVE <-> DEPRECATED) is identical everywhere."
-      },
-      "Message": {
-        "properties": {
-          "state": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "State",
-            "description": "Current lifecycle state of the record.",
-            "default": "NEW",
-            "examples": [
-              "NEW"
-            ]
-          },
-          "state_reason": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "State Reason",
-            "description": "Optional explanation for the current state.",
-            "examples": [
-              "Processing failed: timeout"
-            ]
-          },
-          "state_changed_at": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "State Changed At",
-            "description": "UTC timestamp when the state last changed.",
-            "examples": [
-              "2026-01-16T08:00:00Z"
-            ]
-          },
-          "id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Id",
-            "description": "Primary key for the message.",
-            "examples": [
-              1
-            ]
-          },
-          "public_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Public Id",
-            "description": "Public, non-enumerable external identifier for the message. Exposed to clients instead of the internal integer id."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "description": "Timestamp when the message was created.",
-            "examples": [
-              "2026-06-23T12:00:00Z"
-            ]
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At",
-            "description": "Timestamp when the message was last updated.",
-            "examples": [
-              "2026-06-23T12:00:00Z"
-            ]
-          },
-          "creator_user_id": {
-            "type": "integer",
-            "title": "Creator User Id",
-            "description": "ID of the user who created the message.",
-            "examples": [
-              1
-            ]
-          },
-          "chat_id": {
-            "type": "integer",
-            "title": "Chat Id",
-            "description": "ID of the chat the message belongs to.",
-            "examples": [
-              1
-            ]
-          },
-          "role": {
-            "type": "string",
-            "title": "Role",
-            "description": "Role of the message author (see MessageRoleEnum values).",
-            "examples": [
-              "user"
-            ]
-          },
-          "content": {
-            "type": "string",
-            "title": "Content",
-            "description": "Rendered content of the message.",
-            "examples": [
-              "Hello, how can I help you?"
-            ]
-          },
-          "sent_user_msg": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Sent User Msg",
-            "description": "Original user-sent message text, if applicable.",
-            "examples": [
-              "Summarize the attached document."
-            ]
-          },
-          "parent_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Parent Id",
-            "description": "ID of the parent message in a threaded conversation.",
-            "examples": [
-              1
-            ]
-          },
-          "turn_step_index": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Turn Step Index"
-          },
-          "is_final_step": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Is Final Step"
-          },
-          "model_fallback": {
-            "type": "boolean",
-            "title": "Model Fallback",
-            "default": false
-          },
-          "fallback_from_model": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 100
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Fallback From Model"
-          },
-          "completed": {
-            "type": "boolean",
-            "title": "Completed",
-            "description": "DEPRECATED. Whether the message has finished processing.",
-            "default": false,
-            "examples": [
-              true
-            ]
-          },
-          "error": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Error",
-            "description": "DEPRECATED. Error message captured during processing, if any.",
-            "examples": [
-              "Model timed out"
-            ]
-          },
-          "hint": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Hint",
-            "description": "Hint shown to the user about the next action.",
-            "examples": [
-              "You can ask a follow-up question."
-            ]
-          },
-          "llm_catalog_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Llm Catalog Id",
-            "description": "ID of the LLM catalog entry used for this message.",
-            "examples": [
-              1
-            ]
-          },
-          "llm_settings_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Llm Settings Id",
-            "description": "ID of the LLM settings used for this message.",
-            "examples": [
-              1
-            ]
-          },
-          "usage": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Usage",
-            "description": "Token usage metadata recorded for this message.",
-            "examples": [
-              {
-                "completion_tokens": 120,
-                "prompt_tokens": 50
-              }
-            ]
-          },
-          "reasoning": {
-            "anyOf": [
-              {
-                "items": {
-                  "additionalProperties": true,
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Reasoning",
-            "description": "Per-step thinking summaries for the whole turn, on the final step only. NULL when the model produced no reasoning.",
-            "examples": [
-              [
-                {
-                  "text": "The user did not say\u2026",
-                  "turn_step_index": 0
-                }
-              ]
-            ]
-          },
-          "interrupt": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Interrupt",
-            "description": "Pending gated tool calls when the turn is awaiting approval.",
-            "examples": [
-              {
-                "action_requests": [
-                  {
-                    "name": "send_email"
-                  }
-                ],
-                "review_configs": []
-              }
-            ]
-          },
-          "celery_task_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Celery Task Id",
-            "description": "ID of the Celery task processing this message, if any.",
-            "examples": [
-              "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-            ]
-          }
-        },
-        "type": "object",
-        "required": [
-          "creator_user_id",
-          "chat_id",
-          "role",
-          "content",
-          "sent_user_msg",
-          "parent_id",
-          "error",
-          "hint"
-        ],
-        "title": "Message"
       },
       "MessageDetailOut": {
         "properties": {
@@ -28823,6 +31218,20 @@
               0.7
             ]
           },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReasoningEffortEnum"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Reasoning effort for a new chat.",
+            "examples": [
+              "high"
+            ]
+          },
           "similarity_top_k": {
             "anyOf": [
               {
@@ -28867,6 +31276,64 @@
             "description": "ID of an assistant to drive a new chat.",
             "examples": [
               3
+            ]
+          },
+          "document_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Ids",
+            "description": "IDs of already-uploaded documents to attach to the message.",
+            "examples": [
+              [
+                "8c1f2b3a-4d5e-6f70-8192-a3b4c5d6e7f8"
+              ]
+            ]
+          },
+          "tool_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Ids",
+            "description": "IDs of the tools to enable for a new chat.",
+            "examples": [
+              [
+                "4e5f6a7b-8c9d-0e1f-2a3b-4c5d6e7f8091"
+              ]
+            ]
+          },
+          "library_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Library Id",
+            "description": "ID of the library to ground a new chat in.",
+            "examples": [
+              "b7d9e0f1-2a3b-4c5d-8e9f-0a1b2c3d4e5f"
             ]
           },
           "private": {
@@ -28931,7 +31398,7 @@
           "playground": {
             "type": "boolean",
             "title": "Playground",
-            "description": "Start a playground (sandbox) chat for testing assistant settings: the given system_prompt/temperature/similarity_top_k/model override the assistant's live config without saving it. Requires assistant_id; only the assistant's creator may use it.",
+            "description": "Backs the assistant editor's preview pane and is not needed to send a message: it starts a sandbox chat in which the given system_prompt/temperature/similarity_top_k/model override the assistant's live config without saving it. Requires assistant_id; only the assistant's creator may use it.",
             "default": false,
             "examples": [
               false
@@ -29169,18 +31636,6 @@
             "title": "Llm Settings Id",
             "description": "Internal LLM settings id."
           },
-          "celery_task_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Celery Task Id",
-            "description": "Internal task id."
-          },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -29207,7 +31662,52 @@
           "updated_at"
         ],
         "title": "MessageSubmitOut",
-        "description": "Response for POST /messages/submit: the created message, dual-key."
+        "description": "Response for the message-creating routes: the created message, dual-key."
+      },
+      "MessageTokensResponse": {
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Date"
+          },
+          "message_count": {
+            "type": "integer",
+            "title": "Message Count"
+          },
+          "total_tokens": {
+            "type": "integer",
+            "title": "Total Tokens"
+          },
+          "prompt_tokens": {
+            "type": "integer",
+            "title": "Prompt Tokens"
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "title": "Completion Tokens"
+          },
+          "avg_tokens_per_message": {
+            "type": "number",
+            "title": "Avg Tokens Per Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date",
+          "message_count",
+          "total_tokens",
+          "prompt_tokens",
+          "completion_tokens",
+          "avg_tokens_per_message"
+        ],
+        "title": "MessageTokensResponse"
       },
       "MessageTurnOut": {
         "properties": {
@@ -29228,6 +31728,119 @@
           "steps"
         ],
         "title": "MessageTurnOut"
+      },
+      "ModelDelta": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "description": "Model catalog name, or source for non-LLM rows."
+          },
+          "current_cost": {
+            "type": "number",
+            "title": "Current Cost"
+          },
+          "previous_cost": {
+            "type": "number",
+            "title": "Previous Cost"
+          },
+          "delta": {
+            "type": "number",
+            "title": "Delta",
+            "description": "current_cost - previous_cost."
+          }
+        },
+        "type": "object",
+        "required": [
+          "model",
+          "current_cost",
+          "previous_cost",
+          "delta"
+        ],
+        "title": "ModelDelta"
+      },
+      "ModelTierEnum": {
+        "type": "string",
+        "enum": [
+          "CHEAP",
+          "STANDARD",
+          "FRONTIER"
+        ],
+        "title": "ModelTierEnum",
+        "description": "Capability class of a chat model, as an ordered scale.\n\nRouting rules never name a tier directly; they raise a *minimum* tier and\nthe router takes the cheapest model at or above it. The order itself lives\nin ``neuland.llm.routing.TIER_ORDER``, because \"which tier outranks which\"\nis a routing concept rather than a property of the model."
+      },
+      "MoversResponse": {
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Date"
+          },
+          "previous_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Previous Start"
+          },
+          "previous_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Previous End"
+          },
+          "most_expensive_model": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ModelDelta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "biggest_increase": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ModelDelta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "biggest_decrease": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ModelDelta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "per_model": {
+            "items": {
+              "$ref": "#/components/schemas/ModelDelta"
+            },
+            "type": "array",
+            "title": "Per Model"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date",
+          "previous_start",
+          "previous_end",
+          "most_expensive_model",
+          "biggest_increase",
+          "biggest_decrease",
+          "per_model"
+        ],
+        "title": "MoversResponse"
       },
       "OAuth2ProviderEnum": {
         "type": "string",
@@ -29504,6 +32117,19 @@
           "email"
         ],
         "title": "PasswordResetRequestIn"
+      },
+      "PlanStatus": {
+        "type": "string",
+        "enum": [
+          "no_plan",
+          "unlimited",
+          "expired",
+          "not_configured",
+          "pool",
+          "per_user"
+        ],
+        "title": "PlanStatus",
+        "description": "How a tenant's active plan caps spend. Shared by the dashboard summary and\nthe enforcement gate so both classify a plan identically."
       },
       "Project": {
         "properties": {
@@ -30171,6 +32797,16 @@
         "title": "RatingIn",
         "description": "Request body for creating or updating a rating."
       },
+      "ReasoningEffortEnum": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "title": "ReasoningEffortEnum",
+        "description": "How much reasoning a model should spend, forwarded as `reasoning_effort`."
+      },
       "RephraseStyleEnum": {
         "type": "string",
         "enum": [
@@ -30236,6 +32872,21 @@
                   ]
                 }
               ]
+            ]
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model",
+            "description": "Required only for 'respond' on a model-mismatch pause (a gated consult_assistant call): name of the model to switch the chat to.",
+            "examples": [
+              "gpt-4o"
             ]
           }
         },
@@ -30328,6 +32979,24 @@
             "description": "Role auto-assigned to newly provisioned users.",
             "default": false
           },
+          "all_models": {
+            "type": "boolean",
+            "title": "All Models",
+            "description": "Whether the role grants every model the tenant enables.",
+            "default": true
+          },
+          "all_tools": {
+            "type": "boolean",
+            "title": "All Tools",
+            "description": "Whether the role grants every tool the tenant enables.",
+            "default": true
+          },
+          "all_connectors": {
+            "type": "boolean",
+            "title": "All Connectors",
+            "description": "Whether the role grants every connector the tenant enables.",
+            "default": true
+          },
           "creator_user_id": {
             "anyOf": [
               {
@@ -30409,13 +33078,80 @@
             ],
             "title": "Tenant Id",
             "description": "Public id of the tenant to create the role in; defaults to the caller's tenant."
+          },
+          "all_models": {
+            "type": "boolean",
+            "title": "All Models",
+            "description": "Whether the role grants every model the tenant enables.",
+            "default": true
+          },
+          "all_tools": {
+            "type": "boolean",
+            "title": "All Tools",
+            "description": "Whether the role grants every tool the tenant enables.",
+            "default": true
+          },
+          "all_connectors": {
+            "type": "boolean",
+            "title": "All Connectors",
+            "description": "Whether the role grants every connector the tenant enables.",
+            "default": true
+          },
+          "models": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Models",
+            "description": "Model public ids the role grants, when `all_models` is false."
+          },
+          "tools": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tools",
+            "description": "Tool public ids the role grants, when `all_tools` is false."
+          },
+          "connectors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Connectors",
+            "description": "Connector public ids the role grants, when `all_connectors` is false."
           }
         },
         "type": "object",
         "required": [
           "name"
         ],
-        "title": "RoleIn"
+        "title": "RoleIn",
+        "description": "A new role."
       },
       "RoleUpdateIn": {
         "properties": {
@@ -30457,6 +33193,90 @@
             ],
             "title": "Permissions",
             "description": "Replacement set of permission keys the role grants."
+          },
+          "all_models": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "All Models",
+            "description": "Whether the role grants every model the tenant enables. False falls back to the explicit `models` list."
+          },
+          "all_tools": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "All Tools",
+            "description": "Whether the role grants every tool the tenant enables. False falls back to the explicit `tools` list."
+          },
+          "all_connectors": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "All Connectors",
+            "description": "Whether the role grants every connector the tenant enables. False falls back to the explicit `connectors` list."
+          },
+          "models": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Models",
+            "description": "Replacement set of model public ids the role grants. Stored whatever `all_models` says, so the curated list survives toggling the flag on and back off, but only read while it is false."
+          },
+          "tools": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tools",
+            "description": "Replacement set of tool public ids the role grants. Stored whatever `all_tools` says, but only read while it is false."
+          },
+          "connectors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Connectors",
+            "description": "Replacement set of connector public ids the role grants. Stored whatever `all_connectors` says, but only read while it is false."
           }
         },
         "type": "object",
@@ -30586,6 +33406,26 @@
             "description": "BCC recipients",
             "examples": [
               "dave@example.com"
+            ]
+          },
+          "attachment_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attachment Ids",
+            "description": "Chat file ids from the draft's attachments (upload:<n> / generated:<n>); resolved server-side within the draft's chat scope.",
+            "examples": [
+              [
+                "upload:42"
+              ]
             ]
           }
         },
@@ -30783,9 +33623,24 @@
               }
             ],
             "title": "System Prompt",
-            "description": "Tenant-wide default system prompt.",
+            "description": "Operator-only platform system prompt base for the tenant. When empty, the code/env default is used.",
             "examples": [
               "You are a helpful assistant."
+            ]
+          },
+          "system_prompt_extension": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "System Prompt Extension",
+            "description": "Tenant-admin extension appended to the platform system prompt base.",
+            "examples": [
+              "Use a polite and respectful tone for all responses."
             ]
           },
           "inserted_by": {
@@ -30823,9 +33678,9 @@
             "maxLength": 5,
             "title": "Default Language",
             "description": "Default language code for the tenant's emails.",
-            "default": "en",
+            "default": "de",
             "examples": [
-              "en"
+              "de"
             ]
           },
           "require_email_confirmation": {
@@ -30850,6 +33705,35 @@
             "type": "boolean",
             "title": "Soft Limit Warning Enabled",
             "description": "Whether soft-limit warning emails are sent when a user nears their monthly limit.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "document_retention_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Retention Days"
+          },
+          "user_level_analytics_enabled": {
+            "type": "boolean",
+            "title": "User Level Analytics Enabled",
+            "description": "Whether identifiable per-user / per-group analytics are shown to this tenant's admins. Off by default (GDPR data-minimization); the tenant admin opts in. Aggregated/anonymized analytics are unaffected.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "user_analytics_reveal_names": {
+            "type": "boolean",
+            "title": "User Analytics Reveal Names",
+            "description": "When user-level analytics is on, whether the user dimension carries real user ids (so the UI can show names) or opaque per-request pseudonyms. Off by default (GDPR): pseudonymized. Only takes effect while user_level_analytics_enabled is on.",
             "default": false,
             "examples": [
               false
@@ -30984,9 +33868,24 @@
               }
             ],
             "title": "System Prompt",
-            "description": "Tenant-wide system prompt prepended to chat conversations.",
+            "description": "Operator-only platform system prompt base for the tenant. Replaces the code/env default when set. Superadmin-only.",
             "examples": [
               "You are a helpful assistant for Acme Corp."
+            ]
+          },
+          "system_prompt_extension": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "System Prompt Extension",
+            "description": "Tenant-admin extension appended to the platform system prompt base.",
+            "examples": [
+              "Use a polite and respectful tone for all responses."
             ]
           },
           "errlog_webhook_url": {
@@ -31045,6 +33944,66 @@
             ],
             "title": "Soft Limit Warning Enabled",
             "description": "Whether soft-limit warning emails are sent when a user nears their monthly limit.",
+            "examples": [
+              false
+            ]
+          },
+          "document_retention_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Retention Days",
+            "description": "Number of days after which stale, unassigned documents are automatically deleted. Must be at least 1; null disables retention.",
+            "examples": [
+              90
+            ]
+          },
+          "default_language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Default Language",
+            "description": "Default language code for the tenant's emails. Used when the recipient has no language preference of their own.",
+            "examples": [
+              "de"
+            ]
+          },
+          "user_level_analytics_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Level Analytics Enabled",
+            "description": "Whether identifiable per-user / per-group analytics are shown to this tenant's admins. Off by default (GDPR); the tenant admin opts in.",
+            "examples": [
+              false
+            ]
+          },
+          "user_analytics_reveal_names": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Analytics Reveal Names",
+            "description": "When user-level analytics is on, whether the user dimension carries real user ids (UI can show names) or opaque pseudonyms. Off by default (GDPR): pseudonymized.",
             "examples": [
               false
             ]
@@ -31592,6 +34551,111 @@
         ],
         "title": "StreamTokenOut"
       },
+      "SubtenantUsageResponse": {
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Date"
+          },
+          "totals": {
+            "$ref": "#/components/schemas/UsageMetrics",
+            "description": "Combined totals across the subtree."
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/SubtenantUsageRow"
+            },
+            "type": "array",
+            "title": "Rows",
+            "description": "One row per tenant (self + direct children)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date",
+          "totals",
+          "rows"
+        ],
+        "title": "SubtenantUsageResponse"
+      },
+      "SubtenantUsageRow": {
+        "properties": {
+          "cost": {
+            "type": "number",
+            "title": "Cost",
+            "description": "Total cost.",
+            "examples": [
+              123.45
+            ]
+          },
+          "total_tokens": {
+            "type": "integer",
+            "title": "Total Tokens",
+            "description": "Total tokens.",
+            "examples": [
+              120000
+            ]
+          },
+          "prompt_tokens": {
+            "type": "integer",
+            "title": "Prompt Tokens",
+            "description": "Prompt tokens.",
+            "examples": [
+              80000
+            ]
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "title": "Completion Tokens",
+            "description": "Completion tokens.",
+            "examples": [
+              40000
+            ]
+          },
+          "requests": {
+            "type": "integer",
+            "title": "Requests",
+            "description": "Number of usage records.",
+            "examples": [
+              420
+            ]
+          },
+          "tenant_id": {
+            "type": "integer",
+            "title": "Tenant Id",
+            "description": "Tenant id."
+          },
+          "tenant_name": {
+            "type": "string",
+            "title": "Tenant Name",
+            "description": "Tenant name."
+          },
+          "is_self": {
+            "type": "boolean",
+            "title": "Is Self",
+            "description": "Whether this row is the requesting (parent) tenant."
+          }
+        },
+        "type": "object",
+        "required": [
+          "cost",
+          "total_tokens",
+          "prompt_tokens",
+          "completion_tokens",
+          "requests",
+          "tenant_id",
+          "tenant_name",
+          "is_self"
+        ],
+        "title": "SubtenantUsageRow"
+      },
       "SystemSettings": {
         "properties": {
           "created_at": {
@@ -31671,6 +34735,21 @@
             ],
             "title": "Outbound Guardrail Llm Settings Id",
             "description": "ID of the LLM settings used for the outbound guardrail.",
+            "examples": [
+              1
+            ]
+          },
+          "title_llm_settings_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title Llm Settings Id",
+            "description": "ID of the LLM settings used for chat title generation. Unset falls back to the cheap default model, then to the tenant default.",
             "examples": [
               1
             ]
@@ -31816,6 +34895,22 @@
             ],
             "title": "Outbound Guardrail Llm Settings Id",
             "description": "LLM settings public id used for the outbound guardrail, or null to unset.",
+            "examples": [
+              "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            ]
+          },
+          "title_llm_settings_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title Llm Settings Id",
+            "description": "LLM settings public id used for chat title generation, or null to fall back to the cheap default and then the tenant default.",
             "examples": [
               "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             ]
@@ -33115,6 +36210,21 @@
             "examples": [
               1
             ]
+          },
+          "auto_routable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Routable",
+            "description": "Per-tenant override for whether the router may pick this model on its own. NULL inherits llm_catalog.auto_routable. Lets a tenant keep a model hand-selectable without disabling it outright.",
+            "examples": [
+              false
+            ]
           }
         },
         "type": "object",
@@ -33166,6 +36276,27 @@
         },
         "type": "object",
         "title": "TenantModelBulkIn"
+      },
+      "TenantModelIn": {
+        "properties": {
+          "auto_routable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Routable",
+            "description": "Per-tenant override for whether the router may pick this model on its own. Null inherits the catalogue value.",
+            "examples": [
+              false
+            ]
+          }
+        },
+        "type": "object",
+        "title": "TenantModelIn"
       },
       "TenantOAuthClientIn": {
         "properties": {
@@ -35453,6 +38584,285 @@
         ],
         "title": "UsageCostResponse"
       },
+      "UsageMetrics": {
+        "properties": {
+          "cost": {
+            "type": "number",
+            "title": "Cost",
+            "description": "Total cost.",
+            "examples": [
+              123.45
+            ]
+          },
+          "total_tokens": {
+            "type": "integer",
+            "title": "Total Tokens",
+            "description": "Total tokens.",
+            "examples": [
+              120000
+            ]
+          },
+          "prompt_tokens": {
+            "type": "integer",
+            "title": "Prompt Tokens",
+            "description": "Prompt tokens.",
+            "examples": [
+              80000
+            ]
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "title": "Completion Tokens",
+            "description": "Completion tokens.",
+            "examples": [
+              40000
+            ]
+          },
+          "requests": {
+            "type": "integer",
+            "title": "Requests",
+            "description": "Number of usage records.",
+            "examples": [
+              420
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "cost",
+          "total_tokens",
+          "prompt_tokens",
+          "completion_tokens",
+          "requests"
+        ],
+        "title": "UsageMetrics"
+      },
+      "UsageQueryRequest": {
+        "properties": {
+          "date_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Start",
+            "description": "Inclusive start of the window.",
+            "examples": [
+              "2026-01-01T00:00:00Z"
+            ]
+          },
+          "date_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date End",
+            "description": "Inclusive end of the window.",
+            "examples": [
+              "2026-01-31T23:59:59Z"
+            ]
+          },
+          "bucket": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "day",
+                  "week",
+                  "month",
+                  "quarter"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket",
+            "description": "Add a time dimension by truncating created_at to this unit (day/week/month/quarter). Omit for a flat breakdown.",
+            "examples": [
+              "month"
+            ]
+          },
+          "group_by": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "model",
+                "provider",
+                "source",
+                "assistant",
+                "project",
+                "user",
+                "group"
+              ]
+            },
+            "type": "array",
+            "title": "Group By",
+            "description": "Categorical dimensions to break the totals down by. 'user' and 'group' require the tenant's user-level-analytics opt-in.",
+            "examples": [
+              [
+                "model",
+                "assistant"
+              ]
+            ]
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source",
+            "description": "Filter to a single usage source."
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model",
+            "description": "Filter to a single model catalog name."
+          },
+          "provider": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider",
+            "description": "Filter to a single provider."
+          },
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assistant Id",
+            "description": "Filter to a single assistant id."
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id",
+            "description": "Filter to a single project id."
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit",
+            "description": "Return only the top-N groups by cost (for rankings).",
+            "examples": [
+              10
+            ]
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Offset",
+            "description": "Row offset, for paginating rankings.",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "date_start",
+          "date_end"
+        ],
+        "title": "UsageQueryRequest",
+        "description": "Request for the unified usage aggregation."
+      },
+      "UsageQueryResponse": {
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Date",
+            "description": "Start of the window."
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Date",
+            "description": "End of the window."
+          },
+          "bucket": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "day",
+                  "week",
+                  "month",
+                  "quarter"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket",
+            "description": "Time bucket applied, if any."
+          },
+          "group_by": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Group By",
+            "description": "Dimensions the rows are grouped by."
+          },
+          "totals": {
+            "$ref": "#/components/schemas/UsageMetrics",
+            "description": "Window totals, counted once per record (no group fan-out)."
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/UsageRow"
+            },
+            "type": "array",
+            "title": "Rows",
+            "description": "One entry per group (and time bucket)."
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated",
+            "description": "True when more rows matched than were returned (capped at MAX_USAGE_ROWS) \u2014 narrow the window or dimensions for a complete set.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date",
+          "bucket",
+          "group_by",
+          "totals",
+          "rows"
+        ],
+        "title": "UsageQueryResponse"
+      },
       "UsageRequest": {
         "properties": {
           "granularity": {
@@ -35507,6 +38917,201 @@
         ],
         "title": "UsageRequest",
         "description": "Generic usage request model for both token and cost queries."
+      },
+      "UsageRow": {
+        "properties": {
+          "cost": {
+            "type": "number",
+            "title": "Cost",
+            "description": "Total cost.",
+            "examples": [
+              123.45
+            ]
+          },
+          "total_tokens": {
+            "type": "integer",
+            "title": "Total Tokens",
+            "description": "Total tokens.",
+            "examples": [
+              120000
+            ]
+          },
+          "prompt_tokens": {
+            "type": "integer",
+            "title": "Prompt Tokens",
+            "description": "Prompt tokens.",
+            "examples": [
+              80000
+            ]
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "title": "Completion Tokens",
+            "description": "Completion tokens.",
+            "examples": [
+              40000
+            ]
+          },
+          "requests": {
+            "type": "integer",
+            "title": "Requests",
+            "description": "Number of usage records.",
+            "examples": [
+              420
+            ]
+          },
+          "group": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Group",
+            "description": "Dimension values for this group, keyed by dimension name. A null value means the dimension was unattributed for these rows.",
+            "examples": [
+              {
+                "assistant": "42",
+                "model": "gpt-4o"
+              }
+            ]
+          },
+          "bucket": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bucket",
+            "description": "Start of the time bucket (YYYY-MM-DD), when a bucket was requested.",
+            "examples": [
+              "2026-01-01"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "cost",
+          "total_tokens",
+          "prompt_tokens",
+          "completion_tokens",
+          "requests",
+          "group"
+        ],
+        "title": "UsageRow"
+      },
+      "UserAccessOut": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "user_public_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Public Id"
+          },
+          "tenant_id": {
+            "type": "integer",
+            "title": "Tenant Id"
+          },
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/AccessItemOut"
+            },
+            "type": "array",
+            "title": "Models"
+          },
+          "tools": {
+            "items": {
+              "$ref": "#/components/schemas/AccessItemOut"
+            },
+            "type": "array",
+            "title": "Tools"
+          },
+          "connectors": {
+            "items": {
+              "$ref": "#/components/schemas/AccessItemOut"
+            },
+            "type": "array",
+            "title": "Connectors"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "user_public_id",
+          "tenant_id"
+        ],
+        "title": "UserAccessOut",
+        "description": "A user's effective access across all three kinds, with provenance."
+      },
+      "UserGrantIn": {
+        "properties": {
+          "item_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Item Ids",
+            "description": "Public ids of the models, tools or connectors to grant.",
+            "examples": [
+              [
+                "5a1c7d9e-0b13-4e8a-9c2d-3f0e5b7a2a7c",
+                "b7f2c4d1-8e35-4a90-bc27-1d6e0f3a9b48"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "title": "UserGrantIn",
+        "description": "The complete set of direct grants a user should hold for one kind.\n\nAn item left out is revoked, which returns the user to what their roles\ngrant \u2014 never to nothing, because grants only ever add."
+      },
+      "UserGrantOut": {
+        "properties": {
+          "user_public_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Public Id"
+          },
+          "item_public_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Item Public Id"
+          },
+          "tenant_id": {
+            "type": "integer",
+            "title": "Tenant Id"
+          },
+          "granted_by": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Granted By"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_public_id",
+          "item_public_id",
+          "tenant_id"
+        ],
+        "title": "UserGrantOut",
+        "description": "A direct grant row."
       },
       "UserGroup": {
         "properties": {
@@ -36821,7 +40426,8 @@
                   "Universal",
                   "W-SU",
                   "WET",
-                  "Zulu"
+                  "Zulu",
+                  "localtime"
                 ],
                 "minLength": 1
               },
@@ -37477,7 +41083,8 @@
                   "Universal",
                   "W-SU",
                   "WET",
-                  "Zulu"
+                  "Zulu",
+                  "localtime"
                 ],
                 "minLength": 1
               },
@@ -37623,6 +41230,78 @@
         },
         "type": "object",
         "title": "UserUpdateIn"
+      },
+      "UtilizationRequest": {
+        "properties": {
+          "date_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Start",
+            "description": "Inclusive start of the window.",
+            "examples": [
+              "2026-01-01T00:00:00Z"
+            ]
+          },
+          "date_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date End",
+            "description": "Inclusive end of the window.",
+            "examples": [
+              "2026-01-31T23:59:59Z"
+            ]
+          },
+          "idle_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Idle Days",
+            "description": "An assistant is idle after this many days without a chat.",
+            "default": 30
+          }
+        },
+        "type": "object",
+        "required": [
+          "date_start",
+          "date_end"
+        ],
+        "title": "UtilizationRequest"
+      },
+      "UtilizationResponse": {
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Date"
+          },
+          "idle_days": {
+            "type": "integer",
+            "title": "Idle Days"
+          },
+          "idle_assistants": {
+            "items": {
+              "$ref": "#/components/schemas/IdleAssistant"
+            },
+            "type": "array",
+            "title": "Idle Assistants"
+          },
+          "license_utilization": {
+            "$ref": "#/components/schemas/LicenseUtilization"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date",
+          "idle_days",
+          "idle_assistants",
+          "license_utilization"
+        ],
+        "title": "UtilizationResponse"
       },
       "ValidationError": {
         "properties": {
@@ -38235,7 +41914,13 @@
   ],
   "servers": [
     {
-      "url": "https://api.your-domain.com"
+      "url": "https://{host}",
+      "variables": {
+        "host": {
+          "default": "api.your-domain.com",
+          "description": "Hostname of your Neuland AI Hub deployment"
+        }
+      }
     }
   ]
 }

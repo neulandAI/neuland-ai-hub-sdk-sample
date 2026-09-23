@@ -1,0 +1,35 @@
+---
+title: "ApiKeyInventoryRow"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**public_id** | **string** | Public key identifier; the value /llm/usage filters on. | [default to undefined]
+**name** | **string** |  | [default to undefined]
+**active** | **boolean** | Whether the key is currently active. | [default to undefined]
+**created_at** | **string** | When the key was created. | [default to undefined]
+**expires_at** | **string** |  | [default to undefined]
+**last_used_at** | **string** |  | [default to undefined]
+**days_idle** | **number** |  | [default to undefined]
+**idle** | **boolean** | True when unused for more than 30 days. | [default to undefined]
+**expiring_soon** | **boolean** | True when the key expires within 30 days. | [default to undefined]
+
+## Example
+
+```typescript
+import { ApiKeyInventoryRow } from 'neuland-hub-sdk';
+
+const instance: ApiKeyInventoryRow = {
+    public_id,
+    name,
+    active,
+    created_at,
+    expires_at,
+    last_used_at,
+    days_idle,
+    idle,
+    expiring_soon,
+};
+```

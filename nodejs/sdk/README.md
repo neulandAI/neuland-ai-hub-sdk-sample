@@ -47,11 +47,15 @@ npm install PATH_TO_GENERATED_PACKAGE --save
 
 ### Documentation for API Endpoints
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*Alert* | [**alertsBudgetForecast**](docs/Alert.md#alertsbudgetforecast) | **GET** /alerts/budgets/forecast | Forecast the tenant\&#39;s month-end spend from its current run rate
+*Alert* | [**alertsBudgetSummary**](docs/Alert.md#alertsbudgetsummary) | **GET** /alerts/budgets/summary | Get the tenant\&#39;s current-month budget summary
+*Alert* | [**alertsCancelTopUp**](docs/Alert.md#alertscanceltopup) | **POST** /alerts/budgets/top-ups/{top_up_id}/cancel | Cancel a budget top-up
 *Alert* | [**alertsCreateAlert**](docs/Alert.md#alertscreatealert) | **POST** /alerts/ | Create a budget alert
+*Alert* | [**alertsCreateTopUp**](docs/Alert.md#alertscreatetopup) | **POST** /alerts/budgets/top-ups | Add a budget top-up for the current month
 *Alert* | [**alertsDeleteAlert**](docs/Alert.md#alertsdeletealert) | **DELETE** /alerts/{alert_id} | Delete a budget alert
 *Alert* | [**alertsUpdateAlert**](docs/Alert.md#alertsupdatealert) | **PATCH** /alerts/{alert_id} | Update a budget alert
 *ApiKey* | [**apiCreateKey**](docs/ApiKey.md#apicreatekey) | **POST** /api/key/ | Create an API key
@@ -73,11 +77,13 @@ Class | Method | HTTP request | Description
 *Assistant* | [**assistantsAddMembers**](docs/Assistant.md#assistantsaddmembers) | **POST** /assistants/{assistant_id}/members | Add members to an assistant
 *Assistant* | [**assistantsAddTagToAssistant**](docs/Assistant.md#assistantsaddtagtoassistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant
 *Assistant* | [**assistantsAddToolToAssistant**](docs/Assistant.md#assistantsaddtooltoassistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant
+*Assistant* | [**assistantsConvertAssistantToTool**](docs/Assistant.md#assistantsconvertassistanttotool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from your own chats
 *Assistant* | [**assistantsCreateAssistant**](docs/Assistant.md#assistantscreateassistant) | **POST** /assistants/ | Create an assistant
 *Assistant* | [**assistantsDeleteAssistant**](docs/Assistant.md#assistantsdeleteassistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant
 *Assistant* | [**assistantsDeleteMembers**](docs/Assistant.md#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant
 *Assistant* | [**assistantsJoinAssistant**](docs/Assistant.md#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant
 *Assistant* | [**assistantsLeaveAssitant**](docs/Assistant.md#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant
+*Assistant* | [**assistantsRemoveAssistantAsTool**](docs/Assistant.md#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from your chats
 *Assistant* | [**assistantsRemoveLibraryFromAssistant**](docs/Assistant.md#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant
 *Assistant* | [**assistantsRemoveMember**](docs/Assistant.md#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member
 *Assistant* | [**assistantsRemoveTagFromAssistant**](docs/Assistant.md#assistantsremovetagfromassistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant
@@ -133,13 +139,17 @@ Class | Method | HTTP request | Description
 *Chat* | [**chatsRemoveLibraryFromChat**](docs/Chat.md#chatsremovelibraryfromchat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat
 *Chat* | [**chatsSummerizeChat**](docs/Chat.md#chatssummerizechat) | **GET** /chats/{chat_id}/summary | Summarize a chat
 *Chat* | [**chatsUpdateChat**](docs/Chat.md#chatsupdatechat) | **PATCH** /chats/{chat_id} | Update a chat
-*Chat* | [**chatsUpdateChatToolSettings**](docs/Chat.md#chatsupdatechattoolsettings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Set a chat tool setting
+*CustomConnector* | [**customconnectorsCreateCustomConnectors**](docs/CustomConnector.md#customconnectorscreatecustomconnectors) | **POST** /custom-connectors/ | Add one or more custom connectors
+*CustomConnector* | [**customconnectorsDeleteCustomConnector**](docs/CustomConnector.md#customconnectorsdeletecustomconnector) | **DELETE** /custom-connectors/{public_id} | Delete a custom connector
+*CustomConnector* | [**customconnectorsListCustomConnectors**](docs/CustomConnector.md#customconnectorslistcustomconnectors) | **GET** /custom-connectors/ | List my custom connectors
+*CustomConnector* | [**customconnectorsUpdateCustomConnector**](docs/CustomConnector.md#customconnectorsupdatecustomconnector) | **PATCH** /custom-connectors/{public_id} | Rename or enable/disable a custom connector
 *Default* | [**postPostCheck**](docs/Default.md#postpostcheck) | **POST** /post | Post Check
 *Default* | [**rootRoot**](docs/Default.md#rootroot) | **GET** / | Root
 *Default* | [**statStat**](docs/Default.md#statstat) | **GET** /stat | Stat
 *Default* | [**themeGetTheme**](docs/Default.md#themegettheme) | **GET** /theme | Get Theme
 *Default* | [**versionVersion**](docs/Default.md#versionversion) | **GET** /version | Version
 *Document* | [**documentsDeleteChatDocument**](docs/Document.md#documentsdeletechatdocument) | **DELETE** /documents/{document_id} | Delete a document
+*Document* | [**documentsDocumentUsage**](docs/Document.md#documentsdocumentusage) | **POST** /documents/usage | Document counts and storage bytes by dimension
 *Document* | [**documentsGetFile**](docs/Document.md#documentsgetfile) | **GET** /documents/{document_id} | Download a document
 *Document* | [**documentsGetText**](docs/Document.md#documentsgettext) | **GET** /documents/{document_id}/text | Get a document\&#39;s extracted text
 *Document* | [**documentsImportDocuments**](docs/Document.md#documentsimportdocuments) | **POST** /documents/import | Import documents from a connected source
@@ -157,6 +167,7 @@ Class | Method | HTTP request | Description
 *FeatureFlag* | [**featureListTenantFeatureFlags**](docs/FeatureFlag.md#featurelisttenantfeatureflags) | **GET** /feature/flags/tenants/{tenant_id} | List effective feature flags for a tenant
 *FeatureFlag* | [**featureSetTenantFeatureFlag**](docs/FeatureFlag.md#featuresettenantfeatureflag) | **PUT** /feature/flags/tenants/{tenant_id}/{flag_key} | Set a tenant\&#39;s feature-flag override
 *File* | [**filesDownloadFile**](docs/File.md#filesdownloadfile) | **GET** /files/{file_id} | Download a file
+*File* | [**filesPresignedFileUrl**](docs/File.md#filespresignedfileurl) | **GET** /files/{file_id}/url | Get a short-lived direct download URL for a file
 *GoogleDrive* | [**googledriveCapabilities**](docs/GoogleDrive.md#googledrivecapabilities) | **GET** /integrations/googledrive/capabilities | Get data source capabilities
 *GoogleDrive* | [**googledriveGetItemInfo**](docs/GoogleDrive.md#googledrivegetiteminfo) | **GET** /integrations/googledrive/drives/{drive_id}/items/{drive_item_id} | Get a drive item
 *GoogleDrive* | [**googledriveGetUserInfo**](docs/GoogleDrive.md#googledrivegetuserinfo) | **GET** /integrations/googledrive/me | Get connected user profile
@@ -176,9 +187,15 @@ Class | Method | HTTP request | Description
 *Library* | [**librariesRemoveLibraryMembers**](docs/Library.md#librariesremovelibrarymembers) | **DELETE** /libraries/{library_id}/members | Remove library members
 *Library* | [**librariesRemoveSingleMember**](docs/Library.md#librariesremovesinglemember) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove a library member
 *Library* | [**librariesUpdateLibrary**](docs/Library.md#librariesupdatelibrary) | **PATCH** /libraries/{library_id} | Update a library
-*Llm* | [**llmGetCost**](docs/Llm.md#llmgetcost) | **POST** /llm/cost | Get LLM cost metrics
-*Llm* | [**llmGetUsageCosts**](docs/Llm.md#llmgetusagecosts) | **POST** /llm/services/cost | Get external service usage costs
-*Llm* | [**llmLlmTotalTokens**](docs/Llm.md#llmllmtotaltokens) | **POST** /llm/tokens | Get token usage metrics
+*Llm* | [**llmApiKeyInventory**](docs/Llm.md#llmapikeyinventory) | **POST** /llm/usage/api/keys | API key inventory with idleness and expiry flags
+*Llm* | [**llmCostMovers**](docs/Llm.md#llmcostmovers) | **POST** /llm/insights/movers | Biggest cost movers and the most-expensive model vs the prior period
+*Llm* | [**llmGetCost**](docs/Llm.md#llmgetcost) | **POST** /llm/cost | [Deprecated] LLM cost metrics — superseded by POST /llm/usage
+*Llm* | [**llmGetUsageCosts**](docs/Llm.md#llmgetusagecosts) | **POST** /llm/services/cost | [Deprecated] External service usage costs — superseded by POST /llm/usage
+*Llm* | [**llmLlmTotalTokens**](docs/Llm.md#llmllmtotaltokens) | **POST** /llm/tokens | [Deprecated] Token usage metrics — superseded by POST /llm/usage
+*Llm* | [**llmMessageTokens**](docs/Llm.md#llmmessagetokens) | **POST** /llm/usage/messages | Token usage aggregated across messages (avg tokens per message)
+*Llm* | [**llmSubtenantUsage**](docs/Llm.md#llmsubtenantusage) | **POST** /llm/usage/subtenants | Usage rolled up across a parent tenant and its direct children
+*Llm* | [**llmUsageQuery**](docs/Llm.md#llmusagequery) | **POST** /llm/usage | Unified usage aggregation (cost/tokens/requests by dimension)
+*Llm* | [**llmUtilization**](docs/Llm.md#llmutilization) | **POST** /llm/insights/utilization | Idle assistants and license utilization
 *LlmCatalog* | [**llmCreateCatalog**](docs/LlmCatalog.md#llmcreatecatalog) | **POST** /llm/catalog | Create a catalog entry
 *LlmCatalog* | [**llmDeleteCatalog**](docs/LlmCatalog.md#llmdeletecatalog) | **DELETE** /llm/catalog/{catalog_id} | Delete a catalog entry
 *LlmCatalog* | [**llmUpdateCatalog**](docs/LlmCatalog.md#llmupdatecatalog) | **PATCH** /llm/catalog/{catalog_id} | Update a catalog entry
@@ -228,6 +245,9 @@ Class | Method | HTTP request | Description
 *Query* | [**queryQueryRpc**](docs/Query.md#queryqueryrpc) | **GET** /query/rpc/{path} | Proxy a PostgREST RPC call
 *Rating* | [**ratingsRemove**](docs/Rating.md#ratingsremove) | **DELETE** /ratings/{rateable_type}/{rateable_id} | Delete a rating
 *Rating* | [**ratingsUpsert**](docs/Rating.md#ratingsupsert) | **POST** /ratings/ | Upsert a rating
+*ResourceAccess* | [**accessGetUserAccess**](docs/ResourceAccess.md#accessgetuseraccess) | **GET** /access/user/{user_id} | Effective access for a user, and where it comes from
+*ResourceAccess* | [**accessRevokeUserGrant**](docs/ResourceAccess.md#accessrevokeusergrant) | **DELETE** /access/user/{user_id}/grants/{kind}/{item_id} | Revoke one direct grant from a user
+*ResourceAccess* | [**accessSetUserGrants**](docs/ResourceAccess.md#accesssetusergrants) | **PUT** /access/user/{user_id}/grants/{kind} | Set a user\&#39;s direct grants for one kind
 *Role* | [**rolesAssignRoleToGroup**](docs/Role.md#rolesassignroletogroup) | **POST** /roles/{role_id}/groups/{group_id} | Assign a role to a group
 *Role* | [**rolesAssignRoleToUser**](docs/Role.md#rolesassignroletouser) | **POST** /roles/{role_id}/users/{user_id} | Assign a role to a user
 *Role* | [**rolesCreateRole**](docs/Role.md#rolescreaterole) | **POST** /roles/ | Create a custom role
@@ -287,6 +307,11 @@ Class | Method | HTTP request | Description
 *Tool* | [**toolsCreateTool**](docs/Tool.md#toolscreatetool) | **POST** /tools/ | Create a tool
 *Tool* | [**toolsDeleteTool**](docs/Tool.md#toolsdeletetool) | **DELETE** /tools/{tool_id} | Delete a tool
 *Tool* | [**toolsUpdateTool**](docs/Tool.md#toolsupdatetool) | **PATCH** /tools/{tool_id} | Update a tool
+*ToolAction* | [**toolactionsConnectSharedMailbox**](docs/ToolAction.md#toolactionsconnectsharedmailbox) | **POST** /tool-actions/email/shared-mailboxes | Connect a shared mailbox
+*ToolAction* | [**toolactionsCreateEmailDraft**](docs/ToolAction.md#toolactionscreateemaildraft) | **POST** /tool-actions/email/draft | Create an Outlook mailbox draft from a chat draft
+*ToolAction* | [**toolactionsDisconnectSharedMailbox**](docs/ToolAction.md#toolactionsdisconnectsharedmailbox) | **DELETE** /tool-actions/email/shared-mailboxes/{address} | Disconnect a shared mailbox
+*ToolAction* | [**toolactionsListSharedMailboxes**](docs/ToolAction.md#toolactionslistsharedmailboxes) | **GET** /tool-actions/email/shared-mailboxes | List connected shared mailboxes
+*ToolAction* | [**toolactionsSearchSharedMailboxes**](docs/ToolAction.md#toolactionssearchsharedmailboxes) | **GET** /tool-actions/email/shared-mailboxes/search | Search the directory for mailboxes to connect
 *ToolAction* | [**toolactionsSendEmailFromDraft**](docs/ToolAction.md#toolactionssendemailfromdraft) | **POST** /tool-actions/email/send | Send an email from a draft
 *Transcription* | [**transcriptionsCreateTranscription**](docs/Transcription.md#transcriptionscreatetranscription) | **POST** /transcriptions/ | Transcribe an audio file
 *Transcription* | [**transcriptionsTranscriptionCallback**](docs/Transcription.md#transcriptionstranscriptioncallback) | **POST** /transcriptions/callback | Receive an async transcription callback
@@ -314,8 +339,13 @@ Class | Method | HTTP request | Description
 
 ### Documentation For Models
 
+ - [AccessItemOut](docs/AccessItemOut.md)
+ - [AccessKind](docs/AccessKind.md)
  - [ApiKeyCreateRequest](docs/ApiKeyCreateRequest.md)
  - [ApiKeyCreateResponse](docs/ApiKeyCreateResponse.md)
+ - [ApiKeyInventoryRequest](docs/ApiKeyInventoryRequest.md)
+ - [ApiKeyInventoryResponse](docs/ApiKeyInventoryResponse.md)
+ - [ApiKeyInventoryRow](docs/ApiKeyInventoryRow.md)
  - [Application](docs/Application.md)
  - [ApplicationAccessIn](docs/ApplicationAccessIn.md)
  - [ApplicationCatalog](docs/ApplicationCatalog.md)
@@ -344,6 +374,10 @@ Class | Method | HTTP request | Description
  - [BudgetAlert](docs/BudgetAlert.md)
  - [BudgetAlertRequest](docs/BudgetAlertRequest.md)
  - [BudgetAlertUpdate](docs/BudgetAlertUpdate.md)
+ - [BudgetForecast](docs/BudgetForecast.md)
+ - [BudgetSummary](docs/BudgetSummary.md)
+ - [BudgetTopUpOut](docs/BudgetTopUpOut.md)
+ - [BudgetTopUpRequest](docs/BudgetTopUpRequest.md)
  - [BulkResult](docs/BulkResult.md)
  - [CatalogIn](docs/CatalogIn.md)
  - [CatalogUpdate](docs/CatalogUpdate.md)
@@ -353,9 +387,8 @@ Class | Method | HTTP request | Description
  - [ChatIn](docs/ChatIn.md)
  - [ChatInactiveDocumentOut](docs/ChatInactiveDocumentOut.md)
  - [ChatLibrary](docs/ChatLibrary.md)
- - [ChatToolSettingsOut](docs/ChatToolSettingsOut.md)
- - [ChatToolSettingsUpdate](docs/ChatToolSettingsUpdate.md)
  - [ClarificationAnswer](docs/ClarificationAnswer.md)
+ - [ConnectSharedMailboxIn](docs/ConnectSharedMailboxIn.md)
  - [Connector](docs/Connector.md)
  - [ConnectorAuthType](docs/ConnectorAuthType.md)
  - [ConnectorConsentOut](docs/ConnectorConsentOut.md)
@@ -365,23 +398,39 @@ Class | Method | HTTP request | Description
  - [CostAudioPerMinute](docs/CostAudioPerMinute.md)
  - [CostByModel](docs/CostByModel.md)
  - [CostBySource](docs/CostBySource.md)
+ - [CostCacheCreationTokens](docs/CostCacheCreationTokens.md)
+ - [CostCacheCreationTokensAboveTier](docs/CostCacheCreationTokensAboveTier.md)
  - [CostCachedTokens](docs/CostCachedTokens.md)
+ - [CostCachedTokensAboveTier](docs/CostCachedTokensAboveTier.md)
  - [CostCompletionTokens](docs/CostCompletionTokens.md)
  - [CostCompletionTokens1](docs/CostCompletionTokens1.md)
+ - [CostCompletionTokensAboveTier](docs/CostCompletionTokensAboveTier.md)
  - [CostPromptTokens](docs/CostPromptTokens.md)
  - [CostPromptTokens1](docs/CostPromptTokens1.md)
+ - [CostPromptTokensAboveTier](docs/CostPromptTokensAboveTier.md)
  - [CostTimeseriesPoint](docs/CostTimeseriesPoint.md)
+ - [CreateOutlookDraftRequest](docs/CreateOutlookDraftRequest.md)
+ - [CreateOutlookDraftResponse](docs/CreateOutlookDraftResponse.md)
  - [CredentialIn](docs/CredentialIn.md)
  - [CredentialPartOut](docs/CredentialPartOut.md)
  - [CredentialTemplateOut](docs/CredentialTemplateOut.md)
+ - [CustomConnectorCreate](docs/CustomConnectorCreate.md)
+ - [CustomConnectorOut](docs/CustomConnectorOut.md)
+ - [CustomConnectorUpdate](docs/CustomConnectorUpdate.md)
  - [DataSourceCapabilities](docs/DataSourceCapabilities.md)
  - [DataSourceDriveModel](docs/DataSourceDriveModel.md)
  - [DataSourceFolderModel](docs/DataSourceFolderModel.md)
  - [DataSourceItemModel](docs/DataSourceItemModel.md)
  - [DataSourceSiteModel](docs/DataSourceSiteModel.md)
  - [DataSourceUserModel](docs/DataSourceUserModel.md)
+ - [DateWindowRequest](docs/DateWindowRequest.md)
+ - [DirectFileUrl](docs/DirectFileUrl.md)
  - [Document](docs/Document.md)
+ - [DocumentMetrics](docs/DocumentMetrics.md)
  - [DocumentTextOut](docs/DocumentTextOut.md)
+ - [DocumentUsageRequest](docs/DocumentUsageRequest.md)
+ - [DocumentUsageResponse](docs/DocumentUsageResponse.md)
+ - [DocumentUsageRow](docs/DocumentUsageRow.md)
  - [EmailCatalogOut](docs/EmailCatalogOut.md)
  - [EmailSpec](docs/EmailSpec.md)
  - [EmailTemplateKey](docs/EmailTemplateKey.md)
@@ -394,6 +443,7 @@ Class | Method | HTTP request | Description
  - [GroupIn](docs/GroupIn.md)
  - [GroupSyncOut](docs/GroupSyncOut.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
+ - [IdleAssistant](docs/IdleAssistant.md)
  - [InvitationIn](docs/InvitationIn.md)
  - [InvitationOut](docs/InvitationOut.md)
  - [LLMConnectionTestIn](docs/LLMConnectionTestIn.md)
@@ -407,15 +457,19 @@ Class | Method | HTTP request | Description
  - [LibraryMemberIn](docs/LibraryMemberIn.md)
  - [LibraryMemberOut](docs/LibraryMemberOut.md)
  - [LibraryUpdateIn](docs/LibraryUpdateIn.md)
+ - [LicenseUtilization](docs/LicenseUtilization.md)
  - [LocationInner](docs/LocationInner.md)
  - [MarketplaceCatalogStateEnum](docs/MarketplaceCatalogStateEnum.md)
  - [MarketplaceCatalogStateUpdate](docs/MarketplaceCatalogStateUpdate.md)
- - [Message](docs/Message.md)
  - [MessageDetailOut](docs/MessageDetailOut.md)
  - [MessageFileOut](docs/MessageFileOut.md)
  - [MessageIn](docs/MessageIn.md)
  - [MessageSubmitOut](docs/MessageSubmitOut.md)
+ - [MessageTokensResponse](docs/MessageTokensResponse.md)
  - [MessageTurnOut](docs/MessageTurnOut.md)
+ - [ModelDelta](docs/ModelDelta.md)
+ - [ModelTierEnum](docs/ModelTierEnum.md)
+ - [MoversResponse](docs/MoversResponse.md)
  - [NeulandAssistantsTaggingOut](docs/NeulandAssistantsTaggingOut.md)
  - [NeulandMarketplaceAssistantSchemasTaggingOut](docs/NeulandMarketplaceAssistantSchemasTaggingOut.md)
  - [OAuth2ProviderEnum](docs/OAuth2ProviderEnum.md)
@@ -424,6 +478,7 @@ Class | Method | HTTP request | Description
  - [OutputFormat](docs/OutputFormat.md)
  - [PasswordResetIn](docs/PasswordResetIn.md)
  - [PasswordResetRequestIn](docs/PasswordResetRequestIn.md)
+ - [PlanStatus](docs/PlanStatus.md)
  - [Project](docs/Project.md)
  - [ProjectIn](docs/ProjectIn.md)
  - [ProjectLibrary](docs/ProjectLibrary.md)
@@ -438,6 +493,7 @@ Class | Method | HTTP request | Description
  - [RateableTypeEnum](docs/RateableTypeEnum.md)
  - [Rating](docs/Rating.md)
  - [RatingIn](docs/RatingIn.md)
+ - [ReasoningEffortEnum](docs/ReasoningEffortEnum.md)
  - [RephraseStyleEnum](docs/RephraseStyleEnum.md)
  - [ResponseAuthGetEntraGroupsValue](docs/ResponseAuthGetEntraGroupsValue.md)
  - [ResponseDropboxListRoots](docs/ResponseDropboxListRoots.md)
@@ -456,6 +512,10 @@ Class | Method | HTTP request | Description
  - [SetAtlassianCloudIdRequest](docs/SetAtlassianCloudIdRequest.md)
  - [Settings](docs/Settings.md)
  - [SettingsIn](docs/SettingsIn.md)
+ - [SharedMailbox](docs/SharedMailbox.md)
+ - [SharedMailboxCandidateOut](docs/SharedMailboxCandidateOut.md)
+ - [SharedMailboxListOut](docs/SharedMailboxListOut.md)
+ - [SharedMailboxSearchOut](docs/SharedMailboxSearchOut.md)
  - [SharepointDriveModel](docs/SharepointDriveModel.md)
  - [SharepointFolderModel](docs/SharepointFolderModel.md)
  - [SharepointItemModel](docs/SharepointItemModel.md)
@@ -465,6 +525,8 @@ Class | Method | HTTP request | Description
  - [SsoInitOut](docs/SsoInitOut.md)
  - [SsoResolveOut](docs/SsoResolveOut.md)
  - [StreamTokenOut](docs/StreamTokenOut.md)
+ - [SubtenantUsageResponse](docs/SubtenantUsageResponse.md)
+ - [SubtenantUsageRow](docs/SubtenantUsageRow.md)
  - [SystemSettings](docs/SystemSettings.md)
  - [SystemSettingsUpdate](docs/SystemSettingsUpdate.md)
  - [Tag](docs/Tag.md)
@@ -480,6 +542,7 @@ Class | Method | HTTP request | Description
  - [TenantIn](docs/TenantIn.md)
  - [TenantLLM](docs/TenantLLM.md)
  - [TenantModelBulkIn](docs/TenantModelBulkIn.md)
+ - [TenantModelIn](docs/TenantModelIn.md)
  - [TenantOAuthClientIn](docs/TenantOAuthClientIn.md)
  - [TenantOAuthClientOut](docs/TenantOAuthClientOut.md)
  - [TenantOAuthClientUpdate](docs/TenantOAuthClientUpdate.md)
@@ -490,6 +553,7 @@ Class | Method | HTTP request | Description
  - [TimeseriesPoint](docs/TimeseriesPoint.md)
  - [TimeseriesResponse](docs/TimeseriesResponse.md)
  - [To](docs/To.md)
+ - [To1](docs/To1.md)
  - [TokenOut](docs/TokenOut.md)
  - [TokenTimeseriesPerModel](docs/TokenTimeseriesPerModel.md)
  - [TokenTimeseriesPoint](docs/TokenTimeseriesPoint.md)
@@ -505,7 +569,14 @@ Class | Method | HTTP request | Description
  - [Translation](docs/Translation.md)
  - [UsageCostRequest](docs/UsageCostRequest.md)
  - [UsageCostResponse](docs/UsageCostResponse.md)
+ - [UsageMetrics](docs/UsageMetrics.md)
+ - [UsageQueryRequest](docs/UsageQueryRequest.md)
+ - [UsageQueryResponse](docs/UsageQueryResponse.md)
  - [UsageRequest](docs/UsageRequest.md)
+ - [UsageRow](docs/UsageRow.md)
+ - [UserAccessOut](docs/UserAccessOut.md)
+ - [UserGrantIn](docs/UserGrantIn.md)
+ - [UserGrantOut](docs/UserGrantOut.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupMember](docs/UserGroupMember.md)
  - [UserGroupSource](docs/UserGroupSource.md)
@@ -515,6 +586,8 @@ Class | Method | HTTP request | Description
  - [UserPreferenceOut](docs/UserPreferenceOut.md)
  - [UserPreferenceUpdateIn](docs/UserPreferenceUpdateIn.md)
  - [UserUpdateIn](docs/UserUpdateIn.md)
+ - [UtilizationRequest](docs/UtilizationRequest.md)
+ - [UtilizationResponse](docs/UtilizationResponse.md)
  - [ValidationError](docs/ValidationError.md)
  - [VariableSpec](docs/VariableSpec.md)
  - [Workflow](docs/Workflow.md)
@@ -529,6 +602,14 @@ Class | Method | HTTP request | Description
 
 
 Authentication schemes defined for the API:
+<a id="OAuth2PasswordBearer"></a>
+### OAuth2PasswordBearer
+
+- **Type**: OAuth
+- **Flow**: password
+- **Authorization URL**: 
+- **Scopes**: N/A
+
 <a id="APIKeyHeader"></a>
 ### APIKeyHeader
 

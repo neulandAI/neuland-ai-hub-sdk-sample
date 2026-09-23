@@ -31,7 +31,8 @@ class ResumeIn(BaseModel):
     decision: StrictStr = Field(description="How to resolve the pause: approve/reject/edit a gated tool call, or respond to answer a clarification question.")
     edited_args: Optional[Dict[str, Any]] = None
     answers: Optional[List[ClarificationAnswer]] = None
-    __properties: ClassVar[List[str]] = ["decision", "edited_args", "answers"]
+    model: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["decision", "edited_args", "answers", "model"]
 
     @field_validator('decision')
     def decision_validate_enum(cls, value):
@@ -96,6 +97,11 @@ class ResumeIn(BaseModel):
         if self.answers is None and "answers" in self.model_fields_set:
             _dict['answers'] = None
 
+        # set to None if model (nullable) is None
+        # and model_fields_set contains the field
+        if self.model is None and "model" in self.model_fields_set:
+            _dict['model'] = None
+
         return _dict
 
     @classmethod
@@ -110,7 +116,8 @@ class ResumeIn(BaseModel):
         _obj = cls.model_validate({
             "decision": obj.get("decision"),
             "edited_args": obj.get("edited_args"),
-            "answers": [ClarificationAnswer.from_dict(_item) for _item in obj["answers"]] if obj.get("answers") is not None else None
+            "answers": [ClarificationAnswer.from_dict(_item) for _item in obj["answers"]] if obj.get("answers") is not None else None,
+            "model": obj.get("model")
         })
         return _obj
 

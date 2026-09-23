@@ -43,11 +43,12 @@ class AssistantCatalog(BaseModel):
     instructions: Optional[StrictStr] = None
     llm_catalog_id: Optional[StrictInt] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
+    reasoning_effort: Optional[Annotated[str, Field(strict=True, max_length=10)]] = None
     similarity_top_k: Optional[StrictInt] = None
     version: Optional[StrictStr] = None
     state: Optional[MarketplaceCatalogStateEnum] = None
     predefined_prompts: Optional[List[Any]] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "name", "description", "avatar", "instructions", "llm_catalog_id", "temperature", "similarity_top_k", "version", "state", "predefined_prompts"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "name", "description", "avatar", "instructions", "llm_catalog_id", "temperature", "reasoning_effort", "similarity_top_k", "version", "state", "predefined_prompts"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -128,6 +129,11 @@ class AssistantCatalog(BaseModel):
         if self.temperature is None and "temperature" in self.model_fields_set:
             _dict['temperature'] = None
 
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoning_effort'] = None
+
         # set to None if similarity_top_k (nullable) is None
         # and model_fields_set contains the field
         if self.similarity_top_k is None and "similarity_top_k" in self.model_fields_set:
@@ -167,6 +173,7 @@ class AssistantCatalog(BaseModel):
             "instructions": obj.get("instructions"),
             "llm_catalog_id": obj.get("llm_catalog_id"),
             "temperature": obj.get("temperature"),
+            "reasoning_effort": obj.get("reasoning_effort"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "version": obj.get("version"),
             "state": obj.get("state"),

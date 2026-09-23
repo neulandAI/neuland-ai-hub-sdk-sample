@@ -54,13 +54,15 @@ class TestAssistant(unittest.TestCase):
                 instructions = '',
                 llm_catalog_id = 56,
                 temperature = 1.337,
+                reasoning_effort = '',
                 similarity_top_k = 56,
                 input_type = 'prompt',
                 form_fields = [
                     null
                     ],
                 assistant_catalog_id = 56,
-                visibility = 'PRIVATE'
+                visibility = 'PRIVATE',
+                is_tool = True
             )
         else:
             return Assistant(

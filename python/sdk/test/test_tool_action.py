@@ -26,6 +26,41 @@ class TestToolAction(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_toolactions_connect_shared_mailbox(self) -> None:
+        """Test case for toolactions_connect_shared_mailbox
+
+        Connect a shared mailbox
+        """
+        pass
+
+    def test_toolactions_create_email_draft(self) -> None:
+        """Test case for toolactions_create_email_draft
+
+        Create an Outlook mailbox draft from a chat draft
+        """
+        pass
+
+    def test_toolactions_disconnect_shared_mailbox(self) -> None:
+        """Test case for toolactions_disconnect_shared_mailbox
+
+        Disconnect a shared mailbox
+        """
+        pass
+
+    def test_toolactions_list_shared_mailboxes(self) -> None:
+        """Test case for toolactions_list_shared_mailboxes
+
+        List connected shared mailboxes
+        """
+        pass
+
+    def test_toolactions_search_shared_mailboxes(self) -> None:
+        """Test case for toolactions_search_shared_mailboxes
+
+        Search the directory for mailboxes to connect
+        """
+        pass
+
     def test_toolactions_send_email_from_draft(self) -> None:
         """Test case for toolactions_send_email_from_draft
 

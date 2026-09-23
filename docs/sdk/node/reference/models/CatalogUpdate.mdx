@@ -8,13 +8,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] [default to undefined]
 **description** | **string** |  | [optional] [default to undefined]
+**badge** | **string** |  | [optional] [default to undefined]
+**knowledge_cutoff** | **string** |  | [optional] [default to undefined]
 **multi_modal** | **boolean** |  | [optional] [default to undefined]
 **gdpr_compliant** | **boolean** |  | [optional] [default to undefined]
 **embedding_dimension** | **number** |  | [optional] [default to undefined]
 **supports_embedding** | **boolean** |  | [optional] [default to undefined]
 **supports_transcription** | **boolean** |  | [optional] [default to undefined]
+**supports_reasoning_effort** | **boolean** |  | [optional] [default to undefined]
 **supports_clarification** | **boolean** |  | [optional] [default to undefined]
 **auto_seed** | **boolean** |  | [optional] [default to undefined]
+**tier** | [**ModelTierEnum**](/sdk/node/reference/models/ModelTierEnum) |  | [optional] [default to undefined]
+**auto_routable** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -24,12 +29,17 @@ import { CatalogUpdate } from 'neuland-hub-sdk';
 const instance: CatalogUpdate = {
     name,
     description,
+    badge,
+    knowledge_cutoff,
     multi_modal,
     gdpr_compliant,
     embedding_dimension,
     supports_embedding,
     supports_transcription,
+    supports_reasoning_effort,
     supports_clarification,
     auto_seed,
+    tier,
+    auto_routable,
 };
 ```

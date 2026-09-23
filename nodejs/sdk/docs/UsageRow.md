@@ -1,0 +1,32 @@
+# UsageRow
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**cost** | **number** | Total cost. | [default to undefined]
+**total_tokens** | **number** | Total tokens. | [default to undefined]
+**prompt_tokens** | **number** | Prompt tokens. | [default to undefined]
+**completion_tokens** | **number** | Completion tokens. | [default to undefined]
+**requests** | **number** | Number of usage records. | [default to undefined]
+**group** | [**{ [key: string]: ResponseAuthGetEntraGroupsValue; }**](ResponseAuthGetEntraGroupsValue.md) | Dimension values for this group, keyed by dimension name. A null value means the dimension was unattributed for these rows. | [default to undefined]
+**bucket** | **string** |  | [optional] [default to undefined]
+
+## Example
+
+```typescript
+import { UsageRow } from 'neuland-hub-sdk';
+
+const instance: UsageRow = {
+    cost,
+    total_tokens,
+    prompt_tokens,
+    completion_tokens,
+    requests,
+    group,
+    bucket,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

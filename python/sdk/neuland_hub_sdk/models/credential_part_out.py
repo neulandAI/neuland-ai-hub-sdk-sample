@@ -30,7 +30,8 @@ class CredentialPartOut(BaseModel):
     json_schema: Dict[str, Any] = Field(description="JSON Schema of this credential part; the frontend renders the input form from it.")
     configured: StrictBool = Field(description="Whether this credential part has been saved.")
     set_fields: List[Optional[StrictStr]] = Field(description="Names of the fields currently stored. Never includes the values.")
-    __properties: ClassVar[List[str]] = ["json_schema", "configured", "set_fields"]
+    summary: Optional[Dict[str, Any]] = Field(default=None, description="Non-secret view of the stored values: only fields the template marks public, nested lists included (e.g. the sqlConnector's database names, schemas and descriptions). Never contains secrets. Empty when nothing is stored.")
+    __properties: ClassVar[List[str]] = ["json_schema", "configured", "set_fields", "summary"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -85,7 +86,8 @@ class CredentialPartOut(BaseModel):
         _obj = cls.model_validate({
             "json_schema": obj.get("json_schema"),
             "configured": obj.get("configured"),
-            "set_fields": obj.get("set_fields")
+            "set_fields": obj.get("set_fields"),
+            "summary": obj.get("summary")
         })
         return _obj
 

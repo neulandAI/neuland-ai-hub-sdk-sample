@@ -19,6 +19,8 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from neuland_hub_sdk.models.model_tier_enum import ModelTierEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,14 +31,19 @@ class CatalogIn(BaseModel):
     """ # noqa: E501
     name: StrictStr = Field(description="Unique catalog name identifying the model.")
     description: Optional[StrictStr]
+    badge: Optional[StrictStr] = None
+    knowledge_cutoff: Optional[Annotated[str, Field(strict=True, max_length=7)]] = None
     multi_modal: StrictBool = Field(description="Whether the model accepts non-text inputs such as images.")
     gdpr_compliant: StrictBool = Field(description="Whether the model may be used for GDPR-compliant workloads.")
     embedding_dimension: Optional[StrictInt] = None
     supports_embedding: Optional[StrictBool] = Field(default=False, description="Whether the model can generate embeddings.")
     supports_transcription: Optional[StrictBool] = Field(default=False, description="Whether the model can transcribe audio.")
+    supports_reasoning_effort: Optional[StrictBool] = Field(default=False, description="Whether the model accepts a `reasoning_effort` hint. Chats only offer the effort picker for models where this is true.")
     supports_clarification: Optional[StrictBool] = Field(default=True, description="Whether the model reliably drives the ask_user_question clarification tool; when false it asks in plain text instead.")
     auto_seed: Optional[StrictBool] = Field(default=False, description="Whether to auto-create default settings for this catalog entry on seed.")
-    __properties: ClassVar[List[str]] = ["name", "description", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_clarification", "auto_seed"]
+    tier: Optional[ModelTierEnum] = None
+    auto_routable: Optional[StrictBool] = Field(default=True, description="Whether the router may pick this model on its own. Turn it off for preview or specialist models that should stay hand-selectable.")
+    __properties: ClassVar[List[str]] = ["name", "description", "badge", "knowledge_cutoff", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "auto_seed", "tier", "auto_routable"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -82,10 +89,25 @@ class CatalogIn(BaseModel):
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
+        # set to None if badge (nullable) is None
+        # and model_fields_set contains the field
+        if self.badge is None and "badge" in self.model_fields_set:
+            _dict['badge'] = None
+
+        # set to None if knowledge_cutoff (nullable) is None
+        # and model_fields_set contains the field
+        if self.knowledge_cutoff is None and "knowledge_cutoff" in self.model_fields_set:
+            _dict['knowledge_cutoff'] = None
+
         # set to None if embedding_dimension (nullable) is None
         # and model_fields_set contains the field
         if self.embedding_dimension is None and "embedding_dimension" in self.model_fields_set:
             _dict['embedding_dimension'] = None
+
+        # set to None if tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.tier is None and "tier" in self.model_fields_set:
+            _dict['tier'] = None
 
         return _dict
 
@@ -101,13 +123,18 @@ class CatalogIn(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "description": obj.get("description"),
+            "badge": obj.get("badge"),
+            "knowledge_cutoff": obj.get("knowledge_cutoff"),
             "multi_modal": obj.get("multi_modal"),
             "gdpr_compliant": obj.get("gdpr_compliant"),
             "embedding_dimension": obj.get("embedding_dimension"),
             "supports_embedding": obj.get("supports_embedding") if obj.get("supports_embedding") is not None else False,
             "supports_transcription": obj.get("supports_transcription") if obj.get("supports_transcription") is not None else False,
+            "supports_reasoning_effort": obj.get("supports_reasoning_effort") if obj.get("supports_reasoning_effort") is not None else False,
             "supports_clarification": obj.get("supports_clarification") if obj.get("supports_clarification") is not None else True,
-            "auto_seed": obj.get("auto_seed") if obj.get("auto_seed") is not None else False
+            "auto_seed": obj.get("auto_seed") if obj.get("auto_seed") is not None else False,
+            "tier": obj.get("tier"),
+            "auto_routable": obj.get("auto_routable") if obj.get("auto_routable") is not None else True
         })
         return _obj
 

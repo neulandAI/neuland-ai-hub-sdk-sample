@@ -40,9 +40,17 @@ class TestMessageIn(unittest.TestCase):
                 project_id = '',
                 model = '',
                 temperature = 1.337,
+                reasoning_effort = 'low',
                 similarity_top_k = 56,
                 system_prompt = '',
                 assistant_id = '',
+                document_ids = [
+                    ''
+                    ],
+                disabled_tool_names = [
+                    ''
+                    ],
+                library_id = '',
                 private = True,
                 form_data = { },
                 form_fields = [

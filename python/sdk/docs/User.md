@@ -1,6 +1,6 @@
 # neuland_hub_sdk.User
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,6 +29,7 @@ Re-activate a user so they can authenticate again.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -36,10 +37,10 @@ from neuland_hub_sdk.models.user_out import UserOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -52,6 +53,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -85,7 +88,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -114,6 +117,7 @@ Create a new user group
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -122,10 +126,10 @@ from neuland_hub_sdk.models.user_group import UserGroup
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -138,6 +142,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -171,7 +177,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -199,6 +205,7 @@ Create a user in the caller's (or specified) tenant and send a confirmation emai
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -207,10 +214,10 @@ from neuland_hub_sdk.models.user_out import UserOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -223,6 +230,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -256,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -284,6 +293,7 @@ Deactivate a user so they can no longer authenticate; you cannot deactivate your
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -291,10 +301,10 @@ from neuland_hub_sdk.models.user_out import UserOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -307,6 +317,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -340,7 +352,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -369,16 +381,17 @@ Delete a user group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -391,6 +404,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -422,7 +437,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -453,16 +468,17 @@ their sessions synchronously, then reassign shared resources and hard-delete asy
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -475,6 +491,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -506,7 +524,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -536,6 +554,7 @@ effective feature-flag map for their tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -543,10 +562,10 @@ from neuland_hub_sdk.models.user_me_out import UserMeOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -559,6 +578,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -590,7 +611,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -618,6 +639,7 @@ Change the current user's password and revoke all of their sessions.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -625,10 +647,10 @@ from neuland_hub_sdk.models.password_reset_in import PasswordResetIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -641,6 +663,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -672,7 +696,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -700,6 +724,7 @@ Reconcile an external group's membership against its bound directory group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -707,10 +732,10 @@ from neuland_hub_sdk.models.group_sync_out import GroupSyncOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -723,6 +748,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -756,7 +783,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -773,7 +800,7 @@ Name | Type | Description  | Notes
 **403** | Admin privileges required. |  -  |
 **404** | No group exists with the given id. |  -  |
 **409** | The group is not an external (identity-provider) group. |  -  |
-**422** | Validation Error |  -  |
+**422** | Not an Azure Entra session, or its access token is missing. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -787,6 +814,7 @@ Update an existing user group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -795,10 +823,10 @@ from neuland_hub_sdk.models.user_group import UserGroup
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -811,6 +839,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -846,7 +876,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -876,6 +906,7 @@ Update a user's profile, role, tenant, or email; password changes are restricted
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -884,10 +915,10 @@ from neuland_hub_sdk.models.user_update_in import UserUpdateIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -900,6 +931,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -935,7 +968,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -964,6 +997,7 @@ Synchronize group members — add new ones and remove missing ones.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -971,10 +1005,10 @@ from neuland_hub_sdk.models.user_group_member import UserGroupMember
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -987,6 +1021,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1022,7 +1058,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -1052,6 +1088,7 @@ Create or update the current user's UI preferences.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
 import neuland_hub_sdk
@@ -1060,10 +1097,10 @@ from neuland_hub_sdk.models.user_preference_update_in import UserPreferenceUpdat
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.your-domain.com
+# Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "https://api.your-domain.com"
+    host = "http://localhost"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1076,6 +1113,8 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -1109,7 +1148,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

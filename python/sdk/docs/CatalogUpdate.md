@@ -7,13 +7,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
+**badge** | **str** |  | [optional] 
+**knowledge_cutoff** | **str** |  | [optional] 
 **multi_modal** | **bool** |  | [optional] 
 **gdpr_compliant** | **bool** |  | [optional] 
 **embedding_dimension** | **int** |  | [optional] 
 **supports_embedding** | **bool** |  | [optional] 
 **supports_transcription** | **bool** |  | [optional] 
+**supports_reasoning_effort** | **bool** |  | [optional] 
 **supports_clarification** | **bool** |  | [optional] 
 **auto_seed** | **bool** |  | [optional] 
+**tier** | [**ModelTierEnum**](ModelTierEnum.md) |  | [optional] 
+**auto_routable** | **bool** |  | [optional] 
 
 ## Example
 

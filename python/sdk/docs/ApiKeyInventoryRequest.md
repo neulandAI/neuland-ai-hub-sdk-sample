@@ -1,0 +1,30 @@
+# ApiKeyInventoryRequest
+
+Request for the API key inventory.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**active_only** | **bool** | Return only keys that are currently active. | [optional] [default to False]
+
+## Example
+
+```python
+from neuland_hub_sdk.models.api_key_inventory_request import ApiKeyInventoryRequest
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ApiKeyInventoryRequest from a JSON string
+api_key_inventory_request_instance = ApiKeyInventoryRequest.from_json(json)
+# print the JSON string representation of the object
+print(ApiKeyInventoryRequest.to_json())
+
+# convert the object into a dict
+api_key_inventory_request_dict = api_key_inventory_request_instance.to_dict()
+# create an instance of ApiKeyInventoryRequest from a dict
+api_key_inventory_request_from_dict = ApiKeyInventoryRequest.from_dict(api_key_inventory_request_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

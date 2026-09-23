@@ -26,10 +26,38 @@ class TestAlert(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_alerts_budget_forecast(self) -> None:
+        """Test case for alerts_budget_forecast
+
+        Forecast the tenant's month-end spend from its current run rate
+        """
+        pass
+
+    def test_alerts_budget_summary(self) -> None:
+        """Test case for alerts_budget_summary
+
+        Get the tenant's current-month budget summary
+        """
+        pass
+
+    def test_alerts_cancel_top_up(self) -> None:
+        """Test case for alerts_cancel_top_up
+
+        Cancel a budget top-up
+        """
+        pass
+
     def test_alerts_create_alert(self) -> None:
         """Test case for alerts_create_alert
 
         Create a budget alert
+        """
+        pass
+
+    def test_alerts_create_top_up(self) -> None:
+        """Test case for alerts_create_top_up
+
+        Add a budget top-up for the current month
         """
         pass
 

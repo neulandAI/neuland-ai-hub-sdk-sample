@@ -1,6 +1,6 @@
 # Role
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -55,7 +55,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -116,7 +116,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -175,7 +175,7 @@ const { status, data } = await apiInstance.rolesCreateRole(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -188,7 +188,7 @@ const { status, data } = await apiInstance.rolesCreateRole(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | MANAGE_ROLES required, or permissions exceed the caller\&#39;s own. |  -  |
+|**403** | MANAGE_ROLES required, or permissions exceed the caller\&#39;s own. Setting a resource list additionally needs that kind\&#39;s MANAGE_*_ACCESS, and every item named must be one the caller holds. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -232,7 +232,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -290,7 +290,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -351,7 +351,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -412,7 +412,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -434,7 +434,7 @@ void (empty response body)
 # **rolesUpdateRole**
 > Role rolesUpdateRole(roleUpdateIn)
 
-Edit a role\'s name and/or permission set.
+Edit a role\'s name, permission set and/or the resources it grants.
 
 ### Example
 
@@ -474,7 +474,7 @@ const { status, data } = await apiInstance.rolesUpdateRole(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -487,7 +487,7 @@ const { status, data } = await apiInstance.rolesUpdateRole(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | MANAGE_ROLES required, or permissions exceed the caller\&#39;s own. |  -  |
+|**403** | MANAGE_ROLES required, or permissions exceed the caller\&#39;s own. Setting a resource list additionally needs that kind\&#39;s MANAGE_*_ACCESS, and every item named must be one the caller holds. |  -  |
 |**404** | No role exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 

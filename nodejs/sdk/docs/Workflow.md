@@ -1,6 +1,6 @@
 # Workflow
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -51,7 +51,7 @@ const { status, data } = await apiInstance.workflowsCreateRun(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -109,7 +109,7 @@ const { status, data } = await apiInstance.workflowsCreateRunStreamToken(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -165,7 +165,7 @@ const { status, data } = await apiInstance.workflowsCreateWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -220,7 +220,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -279,7 +279,7 @@ const { status, data } = await apiInstance.workflowsRefineWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -334,7 +334,7 @@ const { status, data } = await apiInstance.workflowsStreamRunEvents(
 
 ### Authorization
 
-No authorization required
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -353,7 +353,7 @@ No authorization required
 # **workflowsUpdateWorkflow**
 > Workflow workflowsUpdateWorkflow(workflowUpdateIn)
 
-Update a workflow. Only its creator may update it.
+Update a workflow. Only its creator may update it.  Arming a disabled draft is a create as far as the quota is concerned — the cap counts enabled rows, so without a check here a tenant at cap would simply enable its old drafts. The lock therefore re-reads the row: a concurrent disable would otherwise leave this request\'s copy claiming the workflow is already enabled, turning the arming into an unchecked no-op.  The assistant-chat gate below only covers enable/timezone-only updates; a spec PATCH already ran it inside `_validate_runnable_spec`.
 
 ### Example
 
@@ -393,7 +393,7 @@ const { status, data } = await apiInstance.workflowsUpdateWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

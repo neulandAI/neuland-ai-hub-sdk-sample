@@ -17,8 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
+from neuland_hub_sdk.models.model_tier_enum import ModelTierEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,14 +31,19 @@ class CatalogUpdate(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
+    badge: Optional[StrictStr] = None
+    knowledge_cutoff: Optional[Annotated[str, Field(strict=True, max_length=7)]] = None
     multi_modal: Optional[StrictBool] = None
     gdpr_compliant: Optional[StrictBool] = None
     embedding_dimension: Optional[StrictInt] = None
     supports_embedding: Optional[StrictBool] = None
     supports_transcription: Optional[StrictBool] = None
+    supports_reasoning_effort: Optional[StrictBool] = None
     supports_clarification: Optional[StrictBool] = None
     auto_seed: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_clarification", "auto_seed"]
+    tier: Optional[ModelTierEnum] = None
+    auto_routable: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "badge", "knowledge_cutoff", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "auto_seed", "tier", "auto_routable"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -87,6 +94,16 @@ class CatalogUpdate(BaseModel):
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
+        # set to None if badge (nullable) is None
+        # and model_fields_set contains the field
+        if self.badge is None and "badge" in self.model_fields_set:
+            _dict['badge'] = None
+
+        # set to None if knowledge_cutoff (nullable) is None
+        # and model_fields_set contains the field
+        if self.knowledge_cutoff is None and "knowledge_cutoff" in self.model_fields_set:
+            _dict['knowledge_cutoff'] = None
+
         # set to None if multi_modal (nullable) is None
         # and model_fields_set contains the field
         if self.multi_modal is None and "multi_modal" in self.model_fields_set:
@@ -112,6 +129,11 @@ class CatalogUpdate(BaseModel):
         if self.supports_transcription is None and "supports_transcription" in self.model_fields_set:
             _dict['supports_transcription'] = None
 
+        # set to None if supports_reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.supports_reasoning_effort is None and "supports_reasoning_effort" in self.model_fields_set:
+            _dict['supports_reasoning_effort'] = None
+
         # set to None if supports_clarification (nullable) is None
         # and model_fields_set contains the field
         if self.supports_clarification is None and "supports_clarification" in self.model_fields_set:
@@ -121,6 +143,16 @@ class CatalogUpdate(BaseModel):
         # and model_fields_set contains the field
         if self.auto_seed is None and "auto_seed" in self.model_fields_set:
             _dict['auto_seed'] = None
+
+        # set to None if tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.tier is None and "tier" in self.model_fields_set:
+            _dict['tier'] = None
+
+        # set to None if auto_routable (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_routable is None and "auto_routable" in self.model_fields_set:
+            _dict['auto_routable'] = None
 
         return _dict
 
@@ -136,13 +168,18 @@ class CatalogUpdate(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "description": obj.get("description"),
+            "badge": obj.get("badge"),
+            "knowledge_cutoff": obj.get("knowledge_cutoff"),
             "multi_modal": obj.get("multi_modal"),
             "gdpr_compliant": obj.get("gdpr_compliant"),
             "embedding_dimension": obj.get("embedding_dimension"),
             "supports_embedding": obj.get("supports_embedding"),
             "supports_transcription": obj.get("supports_transcription"),
+            "supports_reasoning_effort": obj.get("supports_reasoning_effort"),
             "supports_clarification": obj.get("supports_clarification"),
-            "auto_seed": obj.get("auto_seed")
+            "auto_seed": obj.get("auto_seed"),
+            "tier": obj.get("tier"),
+            "auto_routable": obj.get("auto_routable")
         })
         return _obj
 

@@ -76,7 +76,7 @@ class TestMessageTurnOut(unittest.TestCase):
                         ], 
                     interrupt = { }, 
                     reasoning = [
-                        { }
+                        
                         ], 
                     turn_step_index = 56, 
                     is_final_step = True, ),
@@ -122,7 +122,7 @@ class TestMessageTurnOut(unittest.TestCase):
                             ], 
                         interrupt = { }, 
                         reasoning = [
-                            { }
+                            
                             ], 
                         turn_step_index = 56, 
                         is_final_step = True, )
@@ -171,7 +171,7 @@ class TestMessageTurnOut(unittest.TestCase):
                         ], 
                     interrupt = { }, 
                     reasoning = [
-                        { }
+                        
                         ], 
                     turn_step_index = 56, 
                     is_final_step = True, ),
@@ -217,7 +217,7 @@ class TestMessageTurnOut(unittest.TestCase):
                             ], 
                         interrupt = { }, 
                         reasoning = [
-                            { }
+                            
                             ], 
                         turn_step_index = 56, 
                         is_final_step = True, )

@@ -1,0 +1,35 @@
+---
+title: "BudgetForecast"
+---
+
+Deterministic run-rate projection of month-end spend for a tenant.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**summary** | [**BudgetSummary**](/sdk/node/reference/models/BudgetSummary) | Current-month spend snapshot the forecast is built from. | [default to undefined]
+**days_elapsed** | **number** | Days elapsed in the current month (fractional). | [default to undefined]
+**days_in_month** | **number** | Total days in the current calendar month. | [default to undefined]
+**daily_burn_rate** | **number** | Average spend per day so far (current_spend / days_elapsed). | [default to undefined]
+**projected_month_end_spend** | **number** | Linear projection of total spend by month end. | [default to undefined]
+**projected_over_budget** | **boolean** |  | [default to undefined]
+**projected_overage** | **number** |  | [default to undefined]
+**days_until_budget_exhausted** | **number** |  | [default to undefined]
+
+## Example
+
+```typescript
+import { BudgetForecast } from 'neuland-hub-sdk';
+
+const instance: BudgetForecast = {
+    summary,
+    days_elapsed,
+    days_in_month,
+    daily_burn_rate,
+    projected_month_end_spend,
+    projected_over_budget,
+    projected_overage,
+    days_until_budget_exhausted,
+};
+```

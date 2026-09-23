@@ -12,6 +12,7 @@ from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.api.category import Category
 from neuland_hub_sdk.api.chat import Chat
+from neuland_hub_sdk.api.custom_connector import CustomConnector
 from neuland_hub_sdk.api.document import Document
 from neuland_hub_sdk.api.dropbox import Dropbox
 from neuland_hub_sdk.api.feature_flag import FeatureFlag
@@ -29,6 +30,7 @@ from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.api.prompt import Prompt
 from neuland_hub_sdk.api.query import Query
 from neuland_hub_sdk.api.rating import Rating
+from neuland_hub_sdk.api.resource_access import ResourceAccess
 from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.api.settings import Settings
 from neuland_hub_sdk.api.sharepoint import Sharepoint

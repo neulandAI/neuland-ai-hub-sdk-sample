@@ -1,0 +1,27 @@
+---
+title: "UtilizationResponse"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **string** |  | [default to undefined]
+**end_date** | **string** |  | [default to undefined]
+**idle_days** | **number** |  | [default to undefined]
+**idle_assistants** | [**Array&lt;IdleAssistant&gt;**](/sdk/node/reference/models/IdleAssistant) |  | [default to undefined]
+**license_utilization** | [**LicenseUtilization**](/sdk/node/reference/models/LicenseUtilization) |  | [default to undefined]
+
+## Example
+
+```typescript
+import { UtilizationResponse } from 'neuland-hub-sdk';
+
+const instance: UtilizationResponse = {
+    start_date,
+    end_date,
+    idle_days,
+    idle_assistants,
+    license_utilization,
+};
+```

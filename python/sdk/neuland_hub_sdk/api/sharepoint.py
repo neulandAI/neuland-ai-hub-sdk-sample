@@ -391,7 +391,8 @@ class Sharepoint:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -663,7 +664,8 @@ class Sharepoint:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -932,7 +934,8 @@ class Sharepoint:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1272,7 +1275,8 @@ class Sharepoint:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1659,7 +1663,8 @@ class Sharepoint:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2014,7 +2019,8 @@ class Sharepoint:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

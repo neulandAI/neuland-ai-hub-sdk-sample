@@ -328,7 +328,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -646,7 +647,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -943,7 +945,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1248,7 +1251,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1566,7 +1570,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1856,7 +1861,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2142,7 +2148,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2432,7 +2439,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -2737,7 +2745,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -3055,7 +3064,8 @@ class Project:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader'
+            'APIKeyHeader', 
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

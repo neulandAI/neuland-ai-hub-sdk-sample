@@ -1,6 +1,6 @@
 # Message
 
-All URIs are relative to *https://api.your-domain.com*
+All URIs are relative to *http://localhost*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -15,7 +15,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**messagesTranslateMessage**](#messagestranslatemessage) | **GET** /messages/{message_id}/translate | Translate a message|
 
 # **messagesContinueMessage**
-> Message messagesContinueMessage()
+> MessageSubmitOut messagesContinueMessage()
 
 Resume an assistant reply that was cut off by the output-token limit.  Reprocesses the same assistant message: the model receives the chat history ending on the truncated reply plus a continuation instruction, and the new tokens are appended to the existing content under the same message id (no extra transcript entries). Only the newest message of a chat is continuable, and only when it completed with `state_reason=MAX_OUTPUT_TOKENS`.
 
@@ -49,11 +49,11 @@ const { status, data } = await apiInstance.messagesContinueMessage(
 
 ### Return type
 
-**Message**
+**MessageSubmitOut**
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -115,7 +115,7 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -135,7 +135,7 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **messagesCreateMessage**
-> Message messagesCreateMessage(messageIn)
+> MessageSubmitOut messagesCreateMessage(messageIn)
 
 Send a JSON message to a chat (or start a new one) and enqueue generation.
 
@@ -170,11 +170,11 @@ const { status, data } = await apiInstance.messagesCreateMessage(
 
 ### Return type
 
-**Message**
+**MessageSubmitOut**
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -232,7 +232,7 @@ const { status, data } = await apiInstance.messagesGetMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -290,7 +290,7 @@ const { status, data } = await apiInstance.messagesGetMessageTurn(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -351,7 +351,7 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -413,7 +413,7 @@ const { status, data } = await apiInstance.messagesResumeMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -455,17 +455,18 @@ let projectId: string; // (optional) (default to undefined)
 let chatId: string; // (optional) (default to undefined)
 let documentIds: Array<string>; // (optional) (default to undefined)
 let files: Array<File>; // (optional) (default to undefined)
-let chatTemperature: number; // (optional) (default to undefined)
-let chatSimilarityTopK: number; // (optional) (default to undefined)
-let chatSystemPrompt: string; // (optional) (default to undefined)
+let temperature: number; // (optional) (default to undefined)
+let reasoningEffort: ReasoningEffortEnum; // (optional) (default to undefined)
+let similarityTopK: number; // (optional) (default to undefined)
+let systemPrompt: string; // (optional) (default to undefined)
 let assistantId: string; // (optional) (default to undefined)
 let model: string; // (optional) (default to undefined)
-let toolIds: Array<string>; // (optional) (default to undefined)
 let _private: boolean; // (optional) (default to false)
 let libraryId: string; // (optional) (default to undefined)
 let formData: string; // (optional) (default to undefined)
 let formFields: string; // (optional) (default to undefined)
 let playground: boolean; // (optional) (default to false)
+let disabledToolNames: Array<string>; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.messagesSubmitMessage(
     cookieName,
@@ -474,17 +475,18 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
     chatId,
     documentIds,
     files,
-    chatTemperature,
-    chatSimilarityTopK,
-    chatSystemPrompt,
+    temperature,
+    reasoningEffort,
+    similarityTopK,
+    systemPrompt,
     assistantId,
     model,
-    toolIds,
     _private,
     libraryId,
     formData,
     formFields,
-    playground
+    playground,
+    disabledToolNames
 );
 ```
 
@@ -498,17 +500,18 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 | **chatId** | [**string**] |  | (optional) defaults to undefined|
 | **documentIds** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **files** | **Array&lt;File&gt;** |  | (optional) defaults to undefined|
-| **chatTemperature** | [**number**] |  | (optional) defaults to undefined|
-| **chatSimilarityTopK** | [**number**] |  | (optional) defaults to undefined|
-| **chatSystemPrompt** | [**string**] |  | (optional) defaults to undefined|
+| **temperature** | [**number**] |  | (optional) defaults to undefined|
+| **reasoningEffort** | **ReasoningEffortEnum** |  | (optional) defaults to undefined|
+| **similarityTopK** | [**number**] |  | (optional) defaults to undefined|
+| **systemPrompt** | [**string**] |  | (optional) defaults to undefined|
 | **assistantId** | [**string**] |  | (optional) defaults to undefined|
 | **model** | [**string**] |  | (optional) defaults to undefined|
-| **toolIds** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **_private** | [**boolean**] |  | (optional) defaults to false|
 | **libraryId** | [**string**] |  | (optional) defaults to undefined|
 | **formData** | [**string**] |  | (optional) defaults to undefined|
 | **formFields** | [**string**] |  | (optional) defaults to undefined|
 | **playground** | [**boolean**] |  | (optional) defaults to false|
+| **disabledToolNames** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 
 
 ### Return type
@@ -517,7 +520,7 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -578,7 +581,7 @@ const { status, data } = await apiInstance.messagesTranslateMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

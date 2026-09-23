@@ -7,6 +7,7 @@ All URIs are relative to *https://api.your-domain.com*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**documentsDeleteChatDocument**](#documentsdeletechatdocument) | **DELETE** /documents/&#123;document_id&#125; | Delete a document|
+|[**documentsDocumentUsage**](#documentsdocumentusage) | **POST** /documents/usage | Document counts and storage bytes by dimension|
 |[**documentsGetFile**](#documentsgetfile) | **GET** /documents/&#123;document_id&#125; | Download a document|
 |[**documentsGetText**](#documentsgettext) | **GET** /documents/&#123;document_id&#125;/text | Get a document\&#39;s extracted text|
 |[**documentsImportDocuments**](#documentsimportdocuments) | **POST** /documents/import | Import documents from a connected source|
@@ -55,7 +56,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -70,6 +71,66 @@ void (empty response body)
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Caller may not access this document. |  -  |
 |**404** | No document exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **documentsDocumentUsage**
+```typescript
+DocumentUsageResponse documentsDocumentUsage(documentUsageRequest)
+```
+
+Aggregate the tenant\'s document storage by dimension and time bucket.
+
+### Example
+
+```typescript
+import {
+    Document,
+    Configuration,
+    DocumentUsageRequest
+} from 'neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Document(configuration);
+
+let documentUsageRequest: DocumentUsageRequest; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.documentsDocumentUsage(
+    documentUsageRequest,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **documentUsageRequest** | **DocumentUsageRequest**|  | |
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**DocumentUsageResponse**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**400** | Too many group_by dimensions, or a truncated bucketed result. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Admin privileges required, or user-level analytics is not enabled for the tenant. |  -  |
 |**422** | Validation Error |  -  |
 
 
@@ -114,7 +175,7 @@ const { status, data } = await apiInstance.documentsGetFile(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -173,7 +234,7 @@ const { status, data } = await apiInstance.documentsGetText(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -253,7 +314,7 @@ const { status, data } = await apiInstance.documentsImportDocuments(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -313,7 +374,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -387,7 +448,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -462,7 +523,7 @@ const { status, data } = await apiInstance.documentsUploadDocuments(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
 
 ### HTTP request headers
 

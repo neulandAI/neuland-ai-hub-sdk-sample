@@ -1,0 +1,352 @@
+# neuland_hub_sdk.CustomConnector
+
+All URIs are relative to *http://localhost*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**customconnectors_create_custom_connectors**](CustomConnector.md#customconnectors_create_custom_connectors) | **POST** /custom-connectors/ | Add one or more custom connectors
+[**customconnectors_delete_custom_connector**](CustomConnector.md#customconnectors_delete_custom_connector) | **DELETE** /custom-connectors/{public_id} | Delete a custom connector
+[**customconnectors_list_custom_connectors**](CustomConnector.md#customconnectors_list_custom_connectors) | **GET** /custom-connectors/ | List my custom connectors
+[**customconnectors_update_custom_connector**](CustomConnector.md#customconnectors_update_custom_connector) | **PATCH** /custom-connectors/{public_id} | Rename or enable/disable a custom connector
+
+
+# **customconnectors_create_custom_connectors**
+> List[CustomConnectorOut] customconnectors_create_custom_connectors(custom_connector_create, cookie_name=cookie_name)
+
+Add one or more custom connectors
+
+Add MCP servers from a URL or a pasted JSON config.
+
+A JSON config can declare several servers; all of them are added, so pasting
+a real config does not silently drop the entries after the first. The whole
+request is rejected if any entry is invalid.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.custom_connector_create import CustomConnectorCreate
+from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.CustomConnector(api_client)
+    custom_connector_create = neuland_hub_sdk.CustomConnectorCreate() # CustomConnectorCreate | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Add one or more custom connectors
+        api_response = api_instance.customconnectors_create_custom_connectors(custom_connector_create, cookie_name=cookie_name)
+        print("The response of CustomConnector->customconnectors_create_custom_connectors:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_create_custom_connectors: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **custom_connector_create** | [**CustomConnectorCreate**](CustomConnectorCreate.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[CustomConnectorOut]**](CustomConnectorOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**422** | Malformed config, a stdio server, a non-http(s) URL, a URL that does not resolve to a public address, or too many connectors. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **customconnectors_delete_custom_connector**
+> customconnectors_delete_custom_connector(public_id, cookie_name=cookie_name)
+
+Delete a custom connector
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.CustomConnector(api_client)
+    public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Delete a custom connector
+        api_instance.customconnectors_delete_custom_connector(public_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_delete_custom_connector: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **public_id** | **UUID**| Public id of the connector. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **customconnectors_list_custom_connectors**
+> List[CustomConnectorOut] customconnectors_list_custom_connectors(cookie_name=cookie_name)
+
+List my custom connectors
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.CustomConnector(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List my custom connectors
+        api_response = api_instance.customconnectors_list_custom_connectors(cookie_name=cookie_name)
+        print("The response of CustomConnector->customconnectors_list_custom_connectors:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_list_custom_connectors: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[CustomConnectorOut]**](CustomConnectorOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **customconnectors_update_custom_connector**
+> CustomConnectorOut customconnectors_update_custom_connector(public_id, custom_connector_update, cookie_name=cookie_name)
+
+Rename or enable/disable a custom connector
+
+URL and headers are not editable: re-add, so a changed endpoint is
+always re-validated.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut
+from neuland_hub_sdk.models.custom_connector_update import CustomConnectorUpdate
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.CustomConnector(api_client)
+    public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector.
+    custom_connector_update = neuland_hub_sdk.CustomConnectorUpdate() # CustomConnectorUpdate | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Rename or enable/disable a custom connector
+        api_response = api_instance.customconnectors_update_custom_connector(public_id, custom_connector_update, cookie_name=cookie_name)
+        print("The response of CustomConnector->customconnectors_update_custom_connector:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_update_custom_connector: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **public_id** | **UUID**| Public id of the connector. | 
+ **custom_connector_update** | [**CustomConnectorUpdate**](CustomConnectorUpdate.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**CustomConnectorOut**](CustomConnectorOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
