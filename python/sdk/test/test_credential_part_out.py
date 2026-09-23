@@ -39,7 +39,8 @@ class TestCredentialPartOut(unittest.TestCase):
                 configured = True,
                 set_fields = [
                     ''
-                    ]
+                    ],
+                summary = { }
             )
         else:
             return CredentialPartOut(

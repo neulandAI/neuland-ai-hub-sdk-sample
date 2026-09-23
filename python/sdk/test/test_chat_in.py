@@ -41,7 +41,10 @@ class TestChatIn(unittest.TestCase):
                 similarity_top_k = 56,
                 system_prompt = '',
                 model = '',
-                private = True
+                private = True,
+                disabled_tool_names = [
+                    ''
+                    ]
             )
         else:
             return ChatIn(

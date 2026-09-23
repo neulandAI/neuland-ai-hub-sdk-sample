@@ -35,7 +35,8 @@ class ChatIn(BaseModel):
     system_prompt: Optional[StrictStr] = None
     model: Optional[StrictStr] = None
     private: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "model", "private"]
+    disabled_tool_names: Optional[List[StrictStr]] = None
+    __properties: ClassVar[List[str]] = ["name", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "model", "private", "disabled_tool_names"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -111,6 +112,11 @@ class ChatIn(BaseModel):
         if self.private is None and "private" in self.model_fields_set:
             _dict['private'] = None
 
+        # set to None if disabled_tool_names (nullable) is None
+        # and model_fields_set contains the field
+        if self.disabled_tool_names is None and "disabled_tool_names" in self.model_fields_set:
+            _dict['disabled_tool_names'] = None
+
         return _dict
 
     @classmethod
@@ -129,7 +135,8 @@ class ChatIn(BaseModel):
             "similarity_top_k": obj.get("similarity_top_k"),
             "system_prompt": obj.get("system_prompt"),
             "model": obj.get("model"),
-            "private": obj.get("private")
+            "private": obj.get("private"),
+            "disabled_tool_names": obj.get("disabled_tool_names")
         })
         return _obj
 

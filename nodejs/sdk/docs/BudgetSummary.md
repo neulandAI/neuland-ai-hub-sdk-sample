@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **period_start** | **string** | Start of the current billing month. | [default to undefined]
 **current_spend** | **number** | Tenant spend so far this month. | [default to undefined]
 **pool_cap** | **number** |  | [default to undefined]
+**base_cap** | **number** |  | [default to undefined]
+**top_up_total** | **number** | Top-up money on the cap this month. A cancelled top-up counts for what was consumed of it, not its face value. 0 on any non-pool plan. | [default to undefined]
 **remaining** | **number** |  | [default to undefined]
 **percent_used** | **number** |  | [default to undefined]
 **is_unlimited** | **boolean** | Whether the active plan is unlimited. | [default to undefined]
@@ -26,6 +28,8 @@ const instance: BudgetSummary = {
     period_start,
     current_spend,
     pool_cap,
+    base_cap,
+    top_up_total,
     remaining,
     percent_used,
     is_unlimited,

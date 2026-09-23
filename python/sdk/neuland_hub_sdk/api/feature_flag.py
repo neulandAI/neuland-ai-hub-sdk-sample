@@ -366,7 +366,7 @@ class FeatureFlag:
     ) -> List[FeatureFlagOut]:
         """List effective feature flags for a tenant
 
-        Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+        Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID
@@ -441,7 +441,7 @@ class FeatureFlag:
     ) -> ApiResponse[List[FeatureFlagOut]]:
         """List effective feature flags for a tenant
 
-        Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+        Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID
@@ -516,7 +516,7 @@ class FeatureFlag:
     ) -> RESTResponseType:
         """List effective feature flags for a tenant
 
-        Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+        Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
 
         :param tenant_id: Public id of the tenant. (required)
         :type tenant_id: UUID

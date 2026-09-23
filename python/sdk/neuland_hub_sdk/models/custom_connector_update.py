@@ -18,17 +18,19 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class ChatToolSettingsUpdate(BaseModel):
+class CustomConnectorUpdate(BaseModel):
     """
-    Request schema for updating a single chat tool setting
+    CustomConnectorUpdate
     """ # noqa: E501
-    enabled: StrictBool = Field(description="Whether the tool is enabled for the chat.")
-    __properties: ClassVar[List[str]] = ["enabled"]
+    name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
+    enabled: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["name", "enabled"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -48,7 +50,7 @@ class ChatToolSettingsUpdate(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ChatToolSettingsUpdate from a JSON string"""
+        """Create an instance of CustomConnectorUpdate from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -69,11 +71,21 @@ class ChatToolSettingsUpdate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.enabled is None and "enabled" in self.model_fields_set:
+            _dict['enabled'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ChatToolSettingsUpdate from a dict"""
+        """Create an instance of CustomConnectorUpdate from a dict"""
         if obj is None:
             return None
 
@@ -81,6 +93,7 @@ class ChatToolSettingsUpdate(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "name": obj.get("name"),
             "enabled": obj.get("enabled")
         })
         return _obj

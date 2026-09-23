@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **success** | **boolean** | Whether the email was sent successfully. | [default to undefined]
 **message** | **string** | Human-readable result message. | [default to undefined]
 **recipients** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**from_mailbox** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -19,6 +20,7 @@ const instance: SendEmailResponse = {
     success,
     message,
     recipients,
+    from_mailbox,
 };
 ```
 

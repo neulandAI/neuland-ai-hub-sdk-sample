@@ -1,20 +1,19 @@
-# ChatToolSettingsUpdate
+# SharedMailboxListOut
 
-Request schema for updating a single chat tool setting
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**enabled** | **boolean** | Whether the tool is enabled for the chat. | [default to undefined]
+**mailboxes** | [**Array&lt;SharedMailbox&gt;**](SharedMailbox.md) | Shared mailboxes the caller has connected, oldest first. | [default to undefined]
 
 ## Example
 
 ```typescript
-import { ChatToolSettingsUpdate } from 'neuland-hub-sdk';
+import { SharedMailboxListOut } from 'neuland-hub-sdk';
 
-const instance: ChatToolSettingsUpdate = {
-    enabled,
+const instance: SharedMailboxListOut = {
+    mailboxes,
 };
 ```
 

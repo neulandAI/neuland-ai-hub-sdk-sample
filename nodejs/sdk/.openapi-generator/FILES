@@ -52,6 +52,8 @@ docs/BudgetAlertRequest.md
 docs/BudgetAlertUpdate.md
 docs/BudgetForecast.md
 docs/BudgetSummary.md
+docs/BudgetTopUpOut.md
+docs/BudgetTopUpRequest.md
 docs/BulkResult.md
 docs/CatalogIn.md
 docs/CatalogUpdate.md
@@ -63,9 +65,8 @@ docs/Chat.md
 docs/ChatIn.md
 docs/ChatInactiveDocumentOut.md
 docs/ChatLibrary.md
-docs/ChatToolSettingsOut.md
-docs/ChatToolSettingsUpdate.md
 docs/ClarificationAnswer.md
+docs/ConnectSharedMailboxIn.md
 docs/Connector.md
 docs/ConnectorAuthType.md
 docs/ConnectorConsentOut.md
@@ -91,6 +92,10 @@ docs/CreateOutlookDraftResponse.md
 docs/CredentialIn.md
 docs/CredentialPartOut.md
 docs/CredentialTemplateOut.md
+docs/CustomConnector.md
+docs/CustomConnectorCreate.md
+docs/CustomConnectorOut.md
+docs/CustomConnectorUpdate.md
 docs/DataSourceCapabilities.md
 docs/DataSourceDriveModel.md
 docs/DataSourceFolderModel.md
@@ -207,6 +212,10 @@ docs/SetAtlassianCloudIdRequest.md
 docs/Settings.md
 docs/Settings.md
 docs/SettingsIn.md
+docs/SharedMailbox.md
+docs/SharedMailboxCandidateOut.md
+docs/SharedMailboxListOut.md
+docs/SharedMailboxSearchOut.md
 docs/Sharepoint.md
 docs/SharepointDriveModel.md
 docs/SharepointFolderModel.md

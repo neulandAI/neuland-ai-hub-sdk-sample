@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **system_prompt** | **str** |  | [optional] 
 **model** | **str** |  | [optional] 
 **private** | **bool** |  | [optional] 
+**disabled_tool_names** | **List[str]** |  | [optional] 
 
 ## Example
 

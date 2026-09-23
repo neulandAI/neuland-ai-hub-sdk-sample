@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.cost_audio_per_minute import CostAudioPerMinute
 from neuland_hub_sdk.models.cost_cache_creation_tokens import CostCacheCreationTokens
@@ -60,10 +61,11 @@ class LLMSettingsUpdate(BaseModel):
     args: Optional[Dict[str, Any]] = None
     openai_resource: Optional[StrictStr] = None
     api_version: Optional[StrictStr] = None
-    deployment_name: Optional[StrictStr] = None
+    deployment_name: Optional[Annotated[str, Field(min_length=1, strict=True)]] = None
+    hosted_on: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     endpoint: Optional[StrictStr] = None
     api_key: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["llm_catalog_id", "provider", "library", "max_tokens", "reasoning_effort", "cost_prompt_tokens", "cost_completion_tokens", "cost_cached_tokens", "cost_cache_creation_tokens", "tier_threshold_tokens", "cost_prompt_tokens_above_tier", "cost_completion_tokens_above_tier", "cost_cached_tokens_above_tier", "cost_cache_creation_tokens_above_tier", "cost_audio_per_minute", "active", "last_seen_at", "region", "args", "openai_resource", "api_version", "deployment_name", "endpoint", "api_key"]
+    __properties: ClassVar[List[str]] = ["llm_catalog_id", "provider", "library", "max_tokens", "reasoning_effort", "cost_prompt_tokens", "cost_completion_tokens", "cost_cached_tokens", "cost_cache_creation_tokens", "tier_threshold_tokens", "cost_prompt_tokens_above_tier", "cost_completion_tokens_above_tier", "cost_cached_tokens_above_tier", "cost_cache_creation_tokens_above_tier", "cost_audio_per_minute", "active", "last_seen_at", "region", "args", "openai_resource", "api_version", "deployment_name", "hosted_on", "endpoint", "api_key"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -241,6 +243,11 @@ class LLMSettingsUpdate(BaseModel):
         if self.deployment_name is None and "deployment_name" in self.model_fields_set:
             _dict['deployment_name'] = None
 
+        # set to None if hosted_on (nullable) is None
+        # and model_fields_set contains the field
+        if self.hosted_on is None and "hosted_on" in self.model_fields_set:
+            _dict['hosted_on'] = None
+
         # set to None if endpoint (nullable) is None
         # and model_fields_set contains the field
         if self.endpoint is None and "endpoint" in self.model_fields_set:
@@ -285,6 +292,7 @@ class LLMSettingsUpdate(BaseModel):
             "openai_resource": obj.get("openai_resource"),
             "api_version": obj.get("api_version"),
             "deployment_name": obj.get("deployment_name"),
+            "hosted_on": obj.get("hosted_on"),
             "endpoint": obj.get("endpoint"),
             "api_key": obj.get("api_key")
         })

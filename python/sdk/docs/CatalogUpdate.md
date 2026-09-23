@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
+**badge** | **str** |  | [optional] 
+**knowledge_cutoff** | **str** |  | [optional] 
 **multi_modal** | **bool** |  | [optional] 
 **gdpr_compliant** | **bool** |  | [optional] 
 **embedding_dimension** | **int** |  | [optional] 

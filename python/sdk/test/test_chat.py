@@ -50,6 +50,9 @@ class TestChat(unittest.TestCase):
                 reasoning_effort = '',
                 similarity_top_k = 56,
                 system_prompt = '',
+                disabled_tool_names = [
+                    ''
+                    ],
                 llm_catalog_id = 56,
                 llm_settings_id = 56,
                 assistant_id = 56,

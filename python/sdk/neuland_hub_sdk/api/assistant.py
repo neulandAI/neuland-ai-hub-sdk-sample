@@ -1303,9 +1303,9 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Assistant:
-        """Make an assistant consultable from the creator's chats
+        """Make an assistant consultable from your own chats
 
-        Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
+        Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller's own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
 
         :param assistant_id: Public id of the assistant. (required)
         :type assistant_id: UUID
@@ -1379,9 +1379,9 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Assistant]:
-        """Make an assistant consultable from the creator's chats
+        """Make an assistant consultable from your own chats
 
-        Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
+        Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller's own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
 
         :param assistant_id: Public id of the assistant. (required)
         :type assistant_id: UUID
@@ -1455,9 +1455,9 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Make an assistant consultable from the creator's chats
+        """Make an assistant consultable from your own chats
 
-        Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
+        Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller's own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
 
         :param assistant_id: Public id of the assistant. (required)
         :type assistant_id: UUID
@@ -3096,9 +3096,9 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Stop the assistant being consultable from chats
+        """Stop the assistant being consultable from your chats
 
-        Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
+        Clear the caller's own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users' conversions are untouched.
 
         :param assistant_id: Public id of the assistant. (required)
         :type assistant_id: UUID
@@ -3171,9 +3171,9 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Stop the assistant being consultable from chats
+        """Stop the assistant being consultable from your chats
 
-        Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
+        Clear the caller's own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users' conversions are untouched.
 
         :param assistant_id: Public id of the assistant. (required)
         :type assistant_id: UUID
@@ -3246,9 +3246,9 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Stop the assistant being consultable from chats
+        """Stop the assistant being consultable from your chats
 
-        Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
+        Clear the caller's own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users' conversions are untouched.
 
         :param assistant_id: Public id of the assistant. (required)
         :type assistant_id: UUID

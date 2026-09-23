@@ -1,0 +1,32 @@
+---
+title: "CustomConnectorOut"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**public_id** | **UUID** |  | 
+**connector_id** | **str** |  | 
+**name** | **str** |  | 
+**url** | **str** |  | 
+**enabled** | **bool** |  | 
+**header_names** | **List[str]** |  | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CustomConnectorOut from a JSON string
+custom_connector_out_instance = CustomConnectorOut.from_json(json)
+# print the JSON string representation of the object
+print(CustomConnectorOut.to_json())
+
+# convert the object into a dict
+custom_connector_out_dict = custom_connector_out_instance.to_dict()
+# create an instance of CustomConnectorOut from a dict
+custom_connector_out_from_dict = CustomConnectorOut.from_dict(custom_connector_out_dict)
+```

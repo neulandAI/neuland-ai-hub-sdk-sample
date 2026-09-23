@@ -8,13 +8,13 @@ All URIs are relative to *http://localhost*
 |[**assistantsAddMembers**](#assistantsaddmembers) | **POST** /assistants/{assistant_id}/members | Add members to an assistant|
 |[**assistantsAddTagToAssistant**](#assistantsaddtagtoassistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant|
 |[**assistantsAddToolToAssistant**](#assistantsaddtooltoassistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant|
-|[**assistantsConvertAssistantToTool**](#assistantsconvertassistanttotool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from the creator\&#39;s chats|
+|[**assistantsConvertAssistantToTool**](#assistantsconvertassistanttotool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from your own chats|
 |[**assistantsCreateAssistant**](#assistantscreateassistant) | **POST** /assistants/ | Create an assistant|
 |[**assistantsDeleteAssistant**](#assistantsdeleteassistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant|
 |[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant|
 |[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant|
 |[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant|
-|[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from chats|
+|[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from your chats|
 |[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant|
 |[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member|
 |[**assistantsRemoveTagFromAssistant**](#assistantsremovetagfromassistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant|
@@ -273,7 +273,7 @@ const { status, data } = await apiInstance.assistantsAddToolToAssistant(
 # **assistantsConvertAssistantToTool**
 > Assistant assistantsConvertAssistantToTool()
 
-Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
+Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
 
 ### Example
 
@@ -322,7 +322,7 @@ const { status, data } = await apiInstance.assistantsConvertAssistantToTool(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Not the creator, or the assistant is catalog-sourced. |  -  |
+|**403** | No direct access. |  -  |
 |**404** | No assistant exists with the given id. |  -  |
 |**409** | The assistant is already consultable. |  -  |
 |**422** | Validation Error |  -  |
@@ -628,7 +628,7 @@ void (empty response body)
 # **assistantsRemoveAssistantAsTool**
 > assistantsRemoveAssistantAsTool()
 
-Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
+Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
 
 ### Example
 
@@ -677,8 +677,8 @@ void (empty response body)
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Not the creator, or the assistant is catalog-sourced. |  -  |
-|**404** | No such assistant, or it is not consultable. |  -  |
+|**403** | No direct access. |  -  |
+|**404** | No such assistant, or you have not converted it. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -648,7 +648,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **messages_submit_message**
-> MessageSubmitOut messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, files=files, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, system_prompt=system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id, form_data=form_data, form_fields=form_fields, playground=playground)
+> MessageSubmitOut messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, files=files, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, system_prompt=system_prompt, assistant_id=assistant_id, model=model, private=private, library_id=library_id, form_data=form_data, form_fields=form_fields, playground=playground, disabled_tool_names=disabled_tool_names)
 
 Submit a message with attachments
 
@@ -700,16 +700,16 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     system_prompt = 'system_prompt_example' # str |  (optional)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
     model = 'model_example' # str |  (optional)
-    tool_ids = None # List[UUID] |  (optional)
     private = False # bool |  (optional) (default to False)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
     form_data = 'form_data_example' # str |  (optional)
     form_fields = 'form_fields_example' # str |  (optional)
     playground = False # bool |  (optional) (default to False)
+    disabled_tool_names = ['disabled_tool_names_example'] # List[str] |  (optional)
 
     try:
         # Submit a message with attachments
-        api_response = api_instance.messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, files=files, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, system_prompt=system_prompt, assistant_id=assistant_id, model=model, tool_ids=tool_ids, private=private, library_id=library_id, form_data=form_data, form_fields=form_fields, playground=playground)
+        api_response = api_instance.messages_submit_message(cookie_name=cookie_name, content=content, project_id=project_id, chat_id=chat_id, document_ids=document_ids, files=files, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, system_prompt=system_prompt, assistant_id=assistant_id, model=model, private=private, library_id=library_id, form_data=form_data, form_fields=form_fields, playground=playground, disabled_tool_names=disabled_tool_names)
         print("The response of Message->messages_submit_message:\n")
         pprint(api_response)
     except Exception as e:
@@ -735,12 +735,12 @@ Name | Type | Description  | Notes
  **system_prompt** | **str**|  | [optional] 
  **assistant_id** | **UUID**|  | [optional] 
  **model** | **str**|  | [optional] 
- **tool_ids** | [**List[UUID]**](UUID.md)|  | [optional] 
  **private** | **bool**|  | [optional] [default to False]
  **library_id** | **UUID**|  | [optional] 
  **form_data** | **str**|  | [optional] 
  **form_fields** | **str**|  | [optional] 
  **playground** | **bool**|  | [optional] [default to False]
+ **disabled_tool_names** | [**List[str]**](str.md)|  | [optional] 
 
 ### Return type
 

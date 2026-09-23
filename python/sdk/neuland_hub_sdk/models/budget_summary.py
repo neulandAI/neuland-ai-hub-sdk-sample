@@ -32,6 +32,8 @@ class BudgetSummary(BaseModel):
     period_start: datetime = Field(description="Start of the current billing month.")
     current_spend: Union[StrictFloat, StrictInt] = Field(description="Tenant spend so far this month.")
     pool_cap: Optional[Union[StrictFloat, StrictInt]]
+    base_cap: Optional[Union[StrictFloat, StrictInt]]
+    top_up_total: Union[StrictFloat, StrictInt] = Field(description="Top-up money on the cap this month. A cancelled top-up counts for what was consumed of it, not its face value. 0 on any non-pool plan.")
     remaining: Optional[Union[StrictFloat, StrictInt]]
     percent_used: Optional[Union[StrictFloat, StrictInt]]
     is_unlimited: StrictBool = Field(description="Whether the active plan is unlimited.")
@@ -39,7 +41,7 @@ class BudgetSummary(BaseModel):
     status: PlanStatus = Field(description="Plan classification, identical to what the enforcement gate uses: no_plan, unlimited, expired, not_configured, pool, or per_user.")
     expires_at: Optional[datetime]
     expired: StrictBool = Field(description="Whether the active plan has expired.")
-    __properties: ClassVar[List[str]] = ["period_start", "current_spend", "pool_cap", "remaining", "percent_used", "is_unlimited", "plan_configured", "status", "expires_at", "expired"]
+    __properties: ClassVar[List[str]] = ["period_start", "current_spend", "pool_cap", "base_cap", "top_up_total", "remaining", "percent_used", "is_unlimited", "plan_configured", "status", "expires_at", "expired"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -85,6 +87,11 @@ class BudgetSummary(BaseModel):
         if self.pool_cap is None and "pool_cap" in self.model_fields_set:
             _dict['pool_cap'] = None
 
+        # set to None if base_cap (nullable) is None
+        # and model_fields_set contains the field
+        if self.base_cap is None and "base_cap" in self.model_fields_set:
+            _dict['base_cap'] = None
+
         # set to None if remaining (nullable) is None
         # and model_fields_set contains the field
         if self.remaining is None and "remaining" in self.model_fields_set:
@@ -115,6 +122,8 @@ class BudgetSummary(BaseModel):
             "period_start": obj.get("period_start"),
             "current_spend": obj.get("current_spend"),
             "pool_cap": obj.get("pool_cap"),
+            "base_cap": obj.get("base_cap"),
+            "top_up_total": obj.get("top_up_total"),
             "remaining": obj.get("remaining"),
             "percent_used": obj.get("percent_used"),
             "is_unlimited": obj.get("is_unlimited"),

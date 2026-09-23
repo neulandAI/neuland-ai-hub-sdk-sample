@@ -43,7 +43,8 @@ class TestSendEmailRequest(unittest.TestCase):
                 bcc = None,
                 attachment_ids = [
                     ''
-                    ]
+                    ],
+                mailbox = ''
             )
         else:
             return SendEmailRequest(

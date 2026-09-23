@@ -39,7 +39,8 @@ class TestSendEmailResponse(unittest.TestCase):
                 message = '',
                 recipients = [
                     ''
-                    ]
+                    ],
+                from_mailbox = ''
             )
         else:
             return SendEmailResponse(

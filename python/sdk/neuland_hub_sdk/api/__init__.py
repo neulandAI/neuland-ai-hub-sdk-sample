@@ -12,6 +12,7 @@ from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.api.category import Category
 from neuland_hub_sdk.api.chat import Chat
+from neuland_hub_sdk.api.custom_connector import CustomConnector
 from neuland_hub_sdk.api.document import Document
 from neuland_hub_sdk.api.dropbox import Dropbox
 from neuland_hub_sdk.api.feature_flag import FeatureFlag

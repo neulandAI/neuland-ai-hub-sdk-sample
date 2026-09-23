@@ -84,6 +84,7 @@
           "sdk/python/reference/endpoints/ApplicationMarketplace",
           "sdk/python/reference/endpoints/AssistantMarketplace",
           "sdk/python/reference/endpoints/Category",
+          "sdk/python/reference/endpoints/CustomConnector",
           "sdk/python/reference/endpoints/Default",
           "sdk/python/reference/endpoints/Dropbox",
           "sdk/python/reference/endpoints/FeatureFlag",
@@ -181,8 +182,6 @@
                   "sdk/python/reference/models/ChatIn",
                   "sdk/python/reference/models/ChatInactiveDocumentOut",
                   "sdk/python/reference/models/ChatLibrary",
-                  "sdk/python/reference/models/ChatToolSettingsOut",
-                  "sdk/python/reference/models/ChatToolSettingsUpdate",
                   "sdk/python/reference/models/ModelTierEnum"
                 ]
               },
@@ -297,10 +296,15 @@
                 "pages": [
                   "sdk/python/reference/models/Bcc",
                   "sdk/python/reference/models/Cc",
+                  "sdk/python/reference/models/ConnectSharedMailboxIn",
                   "sdk/python/reference/models/CreateOutlookDraftRequest",
                   "sdk/python/reference/models/CreateOutlookDraftResponse",
                   "sdk/python/reference/models/SendEmailRequest",
                   "sdk/python/reference/models/SendEmailResponse",
+                  "sdk/python/reference/models/SharedMailbox",
+                  "sdk/python/reference/models/SharedMailboxCandidateOut",
+                  "sdk/python/reference/models/SharedMailboxListOut",
+                  "sdk/python/reference/models/SharedMailboxSearchOut",
                   "sdk/python/reference/models/To",
                   "sdk/python/reference/models/To1"
                 ]
@@ -433,6 +437,8 @@
                   "sdk/python/reference/models/BudgetAlertUpdate",
                   "sdk/python/reference/models/BudgetForecast",
                   "sdk/python/reference/models/BudgetSummary",
+                  "sdk/python/reference/models/BudgetTopUpOut",
+                  "sdk/python/reference/models/BudgetTopUpRequest",
                   "sdk/python/reference/models/PlanStatus"
                 ]
               },
@@ -475,6 +481,14 @@
                 "group": "Category",
                 "pages": [
                   "sdk/python/reference/models/CategoryOut"
+                ]
+              },
+              {
+                "group": "CustomConnector",
+                "pages": [
+                  "sdk/python/reference/models/CustomConnectorCreate",
+                  "sdk/python/reference/models/CustomConnectorOut",
+                  "sdk/python/reference/models/CustomConnectorUpdate"
                 ]
               },
               {
@@ -597,6 +611,7 @@
           "sdk/node/reference/endpoints/ApplicationMarketplace",
           "sdk/node/reference/endpoints/AssistantMarketplace",
           "sdk/node/reference/endpoints/Category",
+          "sdk/node/reference/endpoints/CustomConnector",
           "sdk/node/reference/endpoints/Default",
           "sdk/node/reference/endpoints/Dropbox",
           "sdk/node/reference/endpoints/FeatureFlag",
@@ -694,8 +709,6 @@
                   "sdk/node/reference/models/ChatIn",
                   "sdk/node/reference/models/ChatInactiveDocumentOut",
                   "sdk/node/reference/models/ChatLibrary",
-                  "sdk/node/reference/models/ChatToolSettingsOut",
-                  "sdk/node/reference/models/ChatToolSettingsUpdate",
                   "sdk/node/reference/models/ModelTierEnum"
                 ]
               },
@@ -810,10 +823,15 @@
                 "pages": [
                   "sdk/node/reference/models/Bcc",
                   "sdk/node/reference/models/Cc",
+                  "sdk/node/reference/models/ConnectSharedMailboxIn",
                   "sdk/node/reference/models/CreateOutlookDraftRequest",
                   "sdk/node/reference/models/CreateOutlookDraftResponse",
                   "sdk/node/reference/models/SendEmailRequest",
                   "sdk/node/reference/models/SendEmailResponse",
+                  "sdk/node/reference/models/SharedMailbox",
+                  "sdk/node/reference/models/SharedMailboxCandidateOut",
+                  "sdk/node/reference/models/SharedMailboxListOut",
+                  "sdk/node/reference/models/SharedMailboxSearchOut",
                   "sdk/node/reference/models/To",
                   "sdk/node/reference/models/To1"
                 ]
@@ -946,6 +964,8 @@
                   "sdk/node/reference/models/BudgetAlertUpdate",
                   "sdk/node/reference/models/BudgetForecast",
                   "sdk/node/reference/models/BudgetSummary",
+                  "sdk/node/reference/models/BudgetTopUpOut",
+                  "sdk/node/reference/models/BudgetTopUpRequest",
                   "sdk/node/reference/models/PlanStatus"
                 ]
               },
@@ -988,6 +1008,14 @@
                 "group": "Category",
                 "pages": [
                   "sdk/node/reference/models/CategoryOut"
+                ]
+              },
+              {
+                "group": "CustomConnector",
+                "pages": [
+                  "sdk/node/reference/models/CustomConnectorCreate",
+                  "sdk/node/reference/models/CustomConnectorOut",
+                  "sdk/node/reference/models/CustomConnectorUpdate"
                 ]
               },
               {

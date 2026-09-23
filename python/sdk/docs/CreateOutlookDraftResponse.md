@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **message** | **str** | Human-readable result message. | 
 **web_link** | **str** |  | [optional] 
 **draft_id** | **str** |  | [optional] 
+**from_mailbox** | **str** |  | [optional] 
+**from_mailbox_kind** | **str** |  | [optional] 
 
 ## Example
 

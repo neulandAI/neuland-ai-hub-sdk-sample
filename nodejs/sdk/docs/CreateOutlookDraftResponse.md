@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **message** | **string** | Human-readable result message. | [default to undefined]
 **web_link** | **string** |  | [optional] [default to undefined]
 **draft_id** | **string** |  | [optional] [default to undefined]
+**from_mailbox** | **string** |  | [optional] [default to undefined]
+**from_mailbox_kind** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -21,6 +23,8 @@ const instance: CreateOutlookDraftResponse = {
     message,
     web_link,
     draft_id,
+    from_mailbox,
+    from_mailbox_kind,
 };
 ```
 

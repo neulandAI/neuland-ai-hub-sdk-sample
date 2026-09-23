@@ -40,10 +40,24 @@ class TestAlert(unittest.TestCase):
         """
         pass
 
+    def test_alerts_cancel_top_up(self) -> None:
+        """Test case for alerts_cancel_top_up
+
+        Cancel a budget top-up
+        """
+        pass
+
     def test_alerts_create_alert(self) -> None:
         """Test case for alerts_create_alert
 
         Create a budget alert
+        """
+        pass
+
+    def test_alerts_create_top_up(self) -> None:
+        """Test case for alerts_create_top_up
+
+        Add a budget top-up for the current month
         """
         pass
 

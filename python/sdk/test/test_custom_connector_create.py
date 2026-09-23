@@ -14,10 +14,10 @@
 
 import unittest
 
-from neuland_hub_sdk.models.chat_tool_settings_update import ChatToolSettingsUpdate
+from neuland_hub_sdk.models.custom_connector_create import CustomConnectorCreate
 
-class TestChatToolSettingsUpdate(unittest.TestCase):
-    """ChatToolSettingsUpdate unit test stubs"""
+class TestCustomConnectorCreate(unittest.TestCase):
+    """CustomConnectorCreate unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,26 +25,30 @@ class TestChatToolSettingsUpdate(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ChatToolSettingsUpdate:
-        """Test ChatToolSettingsUpdate
+    def make_instance(self, include_optional) -> CustomConnectorCreate:
+        """Test CustomConnectorCreate
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ChatToolSettingsUpdate`
+        # uncomment below to create an instance of `CustomConnectorCreate`
         """
-        model = ChatToolSettingsUpdate()
+        model = CustomConnectorCreate()
         if include_optional:
-            return ChatToolSettingsUpdate(
-                enabled = True
+            return CustomConnectorCreate(
+                name = '',
+                url = '',
+                headers = {
+                    'key' : ''
+                    },
+                config = ''
             )
         else:
-            return ChatToolSettingsUpdate(
-                enabled = True,
+            return CustomConnectorCreate(
         )
         """
 
-    def testChatToolSettingsUpdate(self):
-        """Test ChatToolSettingsUpdate"""
+    def testCustomConnectorCreate(self):
+        """Test CustomConnectorCreate"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

@@ -53,7 +53,9 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *Alert* | [**alertsBudgetForecast**](docs/Alert.md#alertsbudgetforecast) | **GET** /alerts/budgets/forecast | Forecast the tenant\&#39;s month-end spend from its current run rate
 *Alert* | [**alertsBudgetSummary**](docs/Alert.md#alertsbudgetsummary) | **GET** /alerts/budgets/summary | Get the tenant\&#39;s current-month budget summary
+*Alert* | [**alertsCancelTopUp**](docs/Alert.md#alertscanceltopup) | **POST** /alerts/budgets/top-ups/{top_up_id}/cancel | Cancel a budget top-up
 *Alert* | [**alertsCreateAlert**](docs/Alert.md#alertscreatealert) | **POST** /alerts/ | Create a budget alert
+*Alert* | [**alertsCreateTopUp**](docs/Alert.md#alertscreatetopup) | **POST** /alerts/budgets/top-ups | Add a budget top-up for the current month
 *Alert* | [**alertsDeleteAlert**](docs/Alert.md#alertsdeletealert) | **DELETE** /alerts/{alert_id} | Delete a budget alert
 *Alert* | [**alertsUpdateAlert**](docs/Alert.md#alertsupdatealert) | **PATCH** /alerts/{alert_id} | Update a budget alert
 *ApiKey* | [**apiCreateKey**](docs/ApiKey.md#apicreatekey) | **POST** /api/key/ | Create an API key
@@ -75,13 +77,13 @@ Class | Method | HTTP request | Description
 *Assistant* | [**assistantsAddMembers**](docs/Assistant.md#assistantsaddmembers) | **POST** /assistants/{assistant_id}/members | Add members to an assistant
 *Assistant* | [**assistantsAddTagToAssistant**](docs/Assistant.md#assistantsaddtagtoassistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant
 *Assistant* | [**assistantsAddToolToAssistant**](docs/Assistant.md#assistantsaddtooltoassistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant
-*Assistant* | [**assistantsConvertAssistantToTool**](docs/Assistant.md#assistantsconvertassistanttotool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from the creator\&#39;s chats
+*Assistant* | [**assistantsConvertAssistantToTool**](docs/Assistant.md#assistantsconvertassistanttotool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from your own chats
 *Assistant* | [**assistantsCreateAssistant**](docs/Assistant.md#assistantscreateassistant) | **POST** /assistants/ | Create an assistant
 *Assistant* | [**assistantsDeleteAssistant**](docs/Assistant.md#assistantsdeleteassistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant
 *Assistant* | [**assistantsDeleteMembers**](docs/Assistant.md#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant
 *Assistant* | [**assistantsJoinAssistant**](docs/Assistant.md#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant
 *Assistant* | [**assistantsLeaveAssitant**](docs/Assistant.md#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant
-*Assistant* | [**assistantsRemoveAssistantAsTool**](docs/Assistant.md#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from chats
+*Assistant* | [**assistantsRemoveAssistantAsTool**](docs/Assistant.md#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from your chats
 *Assistant* | [**assistantsRemoveLibraryFromAssistant**](docs/Assistant.md#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant
 *Assistant* | [**assistantsRemoveMember**](docs/Assistant.md#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member
 *Assistant* | [**assistantsRemoveTagFromAssistant**](docs/Assistant.md#assistantsremovetagfromassistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant
@@ -137,7 +139,10 @@ Class | Method | HTTP request | Description
 *Chat* | [**chatsRemoveLibraryFromChat**](docs/Chat.md#chatsremovelibraryfromchat) | **DELETE** /chats/{chat_id}/libraries/{library_id} | Remove a library from a chat
 *Chat* | [**chatsSummerizeChat**](docs/Chat.md#chatssummerizechat) | **GET** /chats/{chat_id}/summary | Summarize a chat
 *Chat* | [**chatsUpdateChat**](docs/Chat.md#chatsupdatechat) | **PATCH** /chats/{chat_id} | Update a chat
-*Chat* | [**chatsUpdateChatToolSettings**](docs/Chat.md#chatsupdatechattoolsettings) | **PUT** /chats/{chat_id}/tools/{tool_id} | Set a chat tool setting
+*CustomConnector* | [**customconnectorsCreateCustomConnectors**](docs/CustomConnector.md#customconnectorscreatecustomconnectors) | **POST** /custom-connectors/ | Add one or more custom connectors
+*CustomConnector* | [**customconnectorsDeleteCustomConnector**](docs/CustomConnector.md#customconnectorsdeletecustomconnector) | **DELETE** /custom-connectors/{public_id} | Delete a custom connector
+*CustomConnector* | [**customconnectorsListCustomConnectors**](docs/CustomConnector.md#customconnectorslistcustomconnectors) | **GET** /custom-connectors/ | List my custom connectors
+*CustomConnector* | [**customconnectorsUpdateCustomConnector**](docs/CustomConnector.md#customconnectorsupdatecustomconnector) | **PATCH** /custom-connectors/{public_id} | Rename or enable/disable a custom connector
 *Default* | [**postPostCheck**](docs/Default.md#postpostcheck) | **POST** /post | Post Check
 *Default* | [**rootRoot**](docs/Default.md#rootroot) | **GET** / | Root
 *Default* | [**statStat**](docs/Default.md#statstat) | **GET** /stat | Stat
@@ -302,7 +307,11 @@ Class | Method | HTTP request | Description
 *Tool* | [**toolsCreateTool**](docs/Tool.md#toolscreatetool) | **POST** /tools/ | Create a tool
 *Tool* | [**toolsDeleteTool**](docs/Tool.md#toolsdeletetool) | **DELETE** /tools/{tool_id} | Delete a tool
 *Tool* | [**toolsUpdateTool**](docs/Tool.md#toolsupdatetool) | **PATCH** /tools/{tool_id} | Update a tool
+*ToolAction* | [**toolactionsConnectSharedMailbox**](docs/ToolAction.md#toolactionsconnectsharedmailbox) | **POST** /tool-actions/email/shared-mailboxes | Connect a shared mailbox
 *ToolAction* | [**toolactionsCreateEmailDraft**](docs/ToolAction.md#toolactionscreateemaildraft) | **POST** /tool-actions/email/draft | Create an Outlook mailbox draft from a chat draft
+*ToolAction* | [**toolactionsDisconnectSharedMailbox**](docs/ToolAction.md#toolactionsdisconnectsharedmailbox) | **DELETE** /tool-actions/email/shared-mailboxes/{address} | Disconnect a shared mailbox
+*ToolAction* | [**toolactionsListSharedMailboxes**](docs/ToolAction.md#toolactionslistsharedmailboxes) | **GET** /tool-actions/email/shared-mailboxes | List connected shared mailboxes
+*ToolAction* | [**toolactionsSearchSharedMailboxes**](docs/ToolAction.md#toolactionssearchsharedmailboxes) | **GET** /tool-actions/email/shared-mailboxes/search | Search the directory for mailboxes to connect
 *ToolAction* | [**toolactionsSendEmailFromDraft**](docs/ToolAction.md#toolactionssendemailfromdraft) | **POST** /tool-actions/email/send | Send an email from a draft
 *Transcription* | [**transcriptionsCreateTranscription**](docs/Transcription.md#transcriptionscreatetranscription) | **POST** /transcriptions/ | Transcribe an audio file
 *Transcription* | [**transcriptionsTranscriptionCallback**](docs/Transcription.md#transcriptionstranscriptioncallback) | **POST** /transcriptions/callback | Receive an async transcription callback
@@ -367,6 +376,8 @@ Class | Method | HTTP request | Description
  - [BudgetAlertUpdate](docs/BudgetAlertUpdate.md)
  - [BudgetForecast](docs/BudgetForecast.md)
  - [BudgetSummary](docs/BudgetSummary.md)
+ - [BudgetTopUpOut](docs/BudgetTopUpOut.md)
+ - [BudgetTopUpRequest](docs/BudgetTopUpRequest.md)
  - [BulkResult](docs/BulkResult.md)
  - [CatalogIn](docs/CatalogIn.md)
  - [CatalogUpdate](docs/CatalogUpdate.md)
@@ -376,9 +387,8 @@ Class | Method | HTTP request | Description
  - [ChatIn](docs/ChatIn.md)
  - [ChatInactiveDocumentOut](docs/ChatInactiveDocumentOut.md)
  - [ChatLibrary](docs/ChatLibrary.md)
- - [ChatToolSettingsOut](docs/ChatToolSettingsOut.md)
- - [ChatToolSettingsUpdate](docs/ChatToolSettingsUpdate.md)
  - [ClarificationAnswer](docs/ClarificationAnswer.md)
+ - [ConnectSharedMailboxIn](docs/ConnectSharedMailboxIn.md)
  - [Connector](docs/Connector.md)
  - [ConnectorAuthType](docs/ConnectorAuthType.md)
  - [ConnectorConsentOut](docs/ConnectorConsentOut.md)
@@ -404,6 +414,9 @@ Class | Method | HTTP request | Description
  - [CredentialIn](docs/CredentialIn.md)
  - [CredentialPartOut](docs/CredentialPartOut.md)
  - [CredentialTemplateOut](docs/CredentialTemplateOut.md)
+ - [CustomConnectorCreate](docs/CustomConnectorCreate.md)
+ - [CustomConnectorOut](docs/CustomConnectorOut.md)
+ - [CustomConnectorUpdate](docs/CustomConnectorUpdate.md)
  - [DataSourceCapabilities](docs/DataSourceCapabilities.md)
  - [DataSourceDriveModel](docs/DataSourceDriveModel.md)
  - [DataSourceFolderModel](docs/DataSourceFolderModel.md)
@@ -499,6 +512,10 @@ Class | Method | HTTP request | Description
  - [SetAtlassianCloudIdRequest](docs/SetAtlassianCloudIdRequest.md)
  - [Settings](docs/Settings.md)
  - [SettingsIn](docs/SettingsIn.md)
+ - [SharedMailbox](docs/SharedMailbox.md)
+ - [SharedMailboxCandidateOut](docs/SharedMailboxCandidateOut.md)
+ - [SharedMailboxListOut](docs/SharedMailboxListOut.md)
+ - [SharedMailboxSearchOut](docs/SharedMailboxSearchOut.md)
  - [SharepointDriveModel](docs/SharepointDriveModel.md)
  - [SharepointFolderModel](docs/SharepointFolderModel.md)
  - [SharepointItemModel](docs/SharepointItemModel.md)

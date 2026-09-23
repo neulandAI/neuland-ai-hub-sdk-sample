@@ -14,10 +14,10 @@
 
 import unittest
 
-from neuland_hub_sdk.models.chat_tool_settings_out import ChatToolSettingsOut
+from neuland_hub_sdk.models.shared_mailbox_candidate_out import SharedMailboxCandidateOut
 
-class TestChatToolSettingsOut(unittest.TestCase):
-    """ChatToolSettingsOut unit test stubs"""
+class TestSharedMailboxCandidateOut(unittest.TestCase):
+    """SharedMailboxCandidateOut unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,34 +25,31 @@ class TestChatToolSettingsOut(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ChatToolSettingsOut:
-        """Test ChatToolSettingsOut
+    def make_instance(self, include_optional) -> SharedMailboxCandidateOut:
+        """Test SharedMailboxCandidateOut
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ChatToolSettingsOut`
+        # uncomment below to create an instance of `SharedMailboxCandidateOut`
         """
-        model = ChatToolSettingsOut()
+        model = SharedMailboxCandidateOut()
         if include_optional:
-            return ChatToolSettingsOut(
-                chat_id = 56,
-                tool_id = 56,
-                enabled = True,
-                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+            return SharedMailboxCandidateOut(
+                address = '',
+                display_name = '',
+                connected = True,
+                kind = 'shared'
             )
         else:
-            return ChatToolSettingsOut(
-                chat_id = 56,
-                tool_id = 56,
-                enabled = True,
-                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
-                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+            return SharedMailboxCandidateOut(
+                address = '',
+                display_name = '',
+                connected = True,
         )
         """
 
-    def testChatToolSettingsOut(self):
-        """Test ChatToolSettingsOut"""
+    def testSharedMailboxCandidateOut(self):
+        """Test SharedMailboxCandidateOut"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

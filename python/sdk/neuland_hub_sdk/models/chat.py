@@ -46,6 +46,7 @@ class Chat(BaseModel):
     reasoning_effort: Optional[Annotated[str, Field(strict=True, max_length=10)]] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
+    disabled_tool_names: Optional[List[Optional[StrictStr]]] = Field(default=None, description="Tenant-enabled tools this chat opts out of, by `Tool.name`.")
     llm_catalog_id: Optional[StrictInt] = None
     llm_settings_id: Optional[StrictInt] = None
     assistant_id: Optional[StrictInt] = None
@@ -55,7 +56,7 @@ class Chat(BaseModel):
     form_data: Optional[Dict[str, Any]] = None
     model_user_picked: Optional[StrictBool] = Field(default=False, description="Whether a user chose this chat's model rather than the router.")
     routed_tier: Optional[ModelTierEnum] = None
-    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "created_at", "updated_at", "creator_user_id", "project_id", "name", "busy", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "llm_catalog_id", "llm_settings_id", "assistant_id", "private", "playground", "consumed_tokens", "form_data", "model_user_picked", "routed_tier"]
+    __properties: ClassVar[List[str]] = ["state", "state_reason", "state_changed_at", "id", "public_id", "created_at", "updated_at", "creator_user_id", "project_id", "name", "busy", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "disabled_tool_names", "llm_catalog_id", "llm_settings_id", "assistant_id", "private", "playground", "consumed_tokens", "form_data", "model_user_picked", "routed_tier"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -198,6 +199,7 @@ class Chat(BaseModel):
             "reasoning_effort": obj.get("reasoning_effort"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "system_prompt": obj.get("system_prompt"),
+            "disabled_tool_names": obj.get("disabled_tool_names"),
             "llm_catalog_id": obj.get("llm_catalog_id"),
             "llm_settings_id": obj.get("llm_settings_id"),
             "assistant_id": obj.get("assistant_id"),

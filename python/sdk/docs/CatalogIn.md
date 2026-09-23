@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Unique catalog name identifying the model. | 
 **description** | **str** |  | 
+**badge** | **str** |  | [optional] 
+**knowledge_cutoff** | **str** |  | [optional] 
 **multi_modal** | **bool** | Whether the model accepts non-text inputs such as images. | 
 **gdpr_compliant** | **bool** | Whether the model may be used for GDPR-compliant workloads. | 
 **embedding_dimension** | **int** |  | [optional] 
