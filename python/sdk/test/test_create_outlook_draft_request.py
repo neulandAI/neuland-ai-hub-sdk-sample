@@ -43,7 +43,8 @@ class TestCreateOutlookDraftRequest(unittest.TestCase):
                 bcc = None,
                 attachment_ids = [
                     ''
-                    ]
+                    ],
+                mailbox = ''
             )
         else:
             return CreateOutlookDraftRequest(

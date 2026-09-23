@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from neuland_hub_sdk.models.model_tier_enum import ModelTierEnum
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,6 +31,8 @@ class CatalogIn(BaseModel):
     """ # noqa: E501
     name: StrictStr = Field(description="Unique catalog name identifying the model.")
     description: Optional[StrictStr]
+    badge: Optional[StrictStr] = None
+    knowledge_cutoff: Optional[Annotated[str, Field(strict=True, max_length=7)]] = None
     multi_modal: StrictBool = Field(description="Whether the model accepts non-text inputs such as images.")
     gdpr_compliant: StrictBool = Field(description="Whether the model may be used for GDPR-compliant workloads.")
     embedding_dimension: Optional[StrictInt] = None
@@ -40,7 +43,7 @@ class CatalogIn(BaseModel):
     auto_seed: Optional[StrictBool] = Field(default=False, description="Whether to auto-create default settings for this catalog entry on seed.")
     tier: Optional[ModelTierEnum] = None
     auto_routable: Optional[StrictBool] = Field(default=True, description="Whether the router may pick this model on its own. Turn it off for preview or specialist models that should stay hand-selectable.")
-    __properties: ClassVar[List[str]] = ["name", "description", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "auto_seed", "tier", "auto_routable"]
+    __properties: ClassVar[List[str]] = ["name", "description", "badge", "knowledge_cutoff", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "auto_seed", "tier", "auto_routable"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -86,6 +89,16 @@ class CatalogIn(BaseModel):
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
+        # set to None if badge (nullable) is None
+        # and model_fields_set contains the field
+        if self.badge is None and "badge" in self.model_fields_set:
+            _dict['badge'] = None
+
+        # set to None if knowledge_cutoff (nullable) is None
+        # and model_fields_set contains the field
+        if self.knowledge_cutoff is None and "knowledge_cutoff" in self.model_fields_set:
+            _dict['knowledge_cutoff'] = None
+
         # set to None if embedding_dimension (nullable) is None
         # and model_fields_set contains the field
         if self.embedding_dimension is None and "embedding_dimension" in self.model_fields_set:
@@ -110,6 +123,8 @@ class CatalogIn(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "description": obj.get("description"),
+            "badge": obj.get("badge"),
+            "knowledge_cutoff": obj.get("knowledge_cutoff"),
             "multi_modal": obj.get("multi_modal"),
             "gdpr_compliant": obj.get("gdpr_compliant"),
             "embedding_dimension": obj.get("embedding_dimension"),

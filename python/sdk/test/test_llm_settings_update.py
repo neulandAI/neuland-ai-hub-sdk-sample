@@ -56,7 +56,8 @@ class TestLLMSettingsUpdate(unittest.TestCase):
                 args = { },
                 openai_resource = '',
                 api_version = '',
-                deployment_name = '',
+                deployment_name = '0',
+                hosted_on = '',
                 endpoint = '',
                 api_key = ''
             )

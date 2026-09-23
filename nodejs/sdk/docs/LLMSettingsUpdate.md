@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **openai_resource** | **string** |  | [optional] [default to undefined]
 **api_version** | **string** |  | [optional] [default to undefined]
 **deployment_name** | **string** |  | [optional] [default to undefined]
+**hosted_on** | **string** |  | [optional] [default to undefined]
 **endpoint** | **string** |  | [optional] [default to undefined]
 **api_key** | **string** |  | [optional] [default to undefined]
 
@@ -58,6 +59,7 @@ const instance: LLMSettingsUpdate = {
     openai_resource,
     api_version,
     deployment_name,
+    hosted_on,
     endpoint,
     api_key,
 };

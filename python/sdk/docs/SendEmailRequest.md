@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **cc** | [**Cc**](Cc.md) |  | [optional] 
 **bcc** | [**Bcc**](Bcc.md) |  | [optional] 
 **attachment_ids** | **List[str]** |  | [optional] 
+**mailbox** | **str** |  | [optional] 
 
 ## Example
 

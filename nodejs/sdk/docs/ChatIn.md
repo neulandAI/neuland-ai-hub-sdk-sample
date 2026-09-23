@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **system_prompt** | **string** |  | [optional] [default to undefined]
 **model** | **string** |  | [optional] [default to undefined]
 **_private** | **boolean** |  | [optional] [default to undefined]
+**disabled_tool_names** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -26,6 +27,7 @@ const instance: ChatIn = {
     system_prompt,
     model,
     _private,
+    disabled_tool_names,
 };
 ```
 

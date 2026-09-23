@@ -746,6 +746,11 @@ export interface BudgetSummary {
      */
     'current_spend': number;
     'pool_cap': number | null;
+    'base_cap': number | null;
+    /**
+     * Top-up money on the cap this month. A cancelled top-up counts for what was consumed of it, not its face value. 0 on any non-pool plan.
+     */
+    'top_up_total': number;
     'remaining': number | null;
     'percent_used': number | null;
     /**
@@ -768,6 +773,34 @@ export interface BudgetSummary {
 }
 
 
+/**
+ * A budget top-up. Floats, matching what PostgREST serves for these rows.
+ */
+export interface BudgetTopUpOut {
+    /**
+     * Public id of the budget top-up.
+     */
+    'public_id': string;
+    /**
+     * Amount added to the pool for the month it was created in.
+     */
+    'amount': number;
+    'consumed_amount': number | null;
+    'cancelled_at': string | null;
+    /**
+     * When the top-up was added.
+     */
+    'created_at': string;
+}
+/**
+ * Payload for adding a budget top-up.
+ */
+export interface BudgetTopUpRequest {
+    /**
+     * Whole euros to add to the tenant\'s monthly pool.
+     */
+    'amount': number;
+}
 export interface BulkResult {
     /**
      * Number of rows affected.
@@ -784,6 +817,8 @@ export interface CatalogIn {
      */
     'name': string;
     'description': string | null;
+    'badge'?: string | null;
+    'knowledge_cutoff'?: string | null;
     /**
      * Whether the model accepts non-text inputs such as images.
      */
@@ -824,6 +859,8 @@ export interface CatalogIn {
 export interface CatalogUpdate {
     'name'?: string | null;
     'description'?: string | null;
+    'badge'?: string | null;
+    'knowledge_cutoff'?: string | null;
     'multi_modal'?: boolean | null;
     'gdpr_compliant'?: boolean | null;
     'embedding_dimension'?: number | null;
@@ -906,6 +943,10 @@ export interface Chat {
     'reasoning_effort'?: string | null;
     'similarity_top_k'?: number | null;
     'system_prompt'?: string | null;
+    /**
+     * Tenant-enabled tools this chat opts out of, by `Tool.name`.
+     */
+    'disabled_tool_names'?: Array<string | null>;
     'llm_catalog_id'?: number | null;
     'llm_settings_id'?: number | null;
     'assistant_id'?: number | null;
@@ -935,6 +976,7 @@ export interface ChatIn {
     'system_prompt'?: string | null;
     'model'?: string | null;
     'private'?: boolean | null;
+    'disabled_tool_names'?: Array<string> | null;
 }
 
 
@@ -983,43 +1025,19 @@ export interface ChatLibrary {
     'library_id': number;
 }
 /**
- * Response schema for chat tool settings
- */
-export interface ChatToolSettingsOut {
-    /**
-     * ID of the chat.
-     */
-    'chat_id': number;
-    /**
-     * ID of the tool.
-     */
-    'tool_id': number;
-    /**
-     * Whether the tool is enabled for the chat.
-     */
-    'enabled': boolean;
-    /**
-     * When the setting was created.
-     */
-    'created_at': string;
-    'updated_at': string | null;
-}
-/**
- * Request schema for updating a single chat tool setting
- */
-export interface ChatToolSettingsUpdate {
-    /**
-     * Whether the tool is enabled for the chat.
-     */
-    'enabled': boolean;
-}
-/**
  * User\'s answer to one pending `ask_user_question` call.
  */
 export interface ClarificationAnswer {
     'selected_option_ids'?: Array<string>;
     'text'?: string | null;
     'confirmed'?: boolean | null;
+}
+export interface ConnectSharedMailboxIn {
+    /**
+     * SMTP address of the shared mailbox to connect.
+     */
+    'address': string;
+    'display_name'?: string | null;
 }
 export interface Connector {
     /**
@@ -1307,6 +1325,7 @@ export interface CreateOutlookDraftRequest {
     'cc'?: Cc | null;
     'bcc'?: Bcc | null;
     'attachment_ids'?: Array<string> | null;
+    'mailbox'?: string | null;
 }
 /**
  * Response from creating an Outlook mailbox draft.
@@ -1322,7 +1341,17 @@ export interface CreateOutlookDraftResponse {
     'message': string;
     'web_link'?: string | null;
     'draft_id'?: string | null;
+    'from_mailbox'?: string | null;
+    'from_mailbox_kind'?: CreateOutlookDraftResponseFromMailboxKindEnum | null;
 }
+
+export const CreateOutlookDraftResponseFromMailboxKindEnum = {
+    shared: 'shared',
+    group: 'group',
+} as const;
+
+export type CreateOutlookDraftResponseFromMailboxKindEnum = typeof CreateOutlookDraftResponseFromMailboxKindEnum[keyof typeof CreateOutlookDraftResponseFromMailboxKindEnum];
+
 export interface CredentialIn {
     /**
      * Credential field values to store, matching the part\'s JSON Schema.
@@ -1342,6 +1371,10 @@ export interface CredentialPartOut {
      * Names of the fields currently stored. Never includes the values.
      */
     'set_fields': Array<string | null>;
+    /**
+     * Non-secret view of the stored values: only fields the template marks public, nested lists included (e.g. the sqlConnector\'s database names, schemas and descriptions). Never contains secrets. Empty when nothing is stored.
+     */
+    'summary'?: { [key: string]: any; };
 }
 export interface CredentialTemplateOut {
     /**
@@ -1365,6 +1398,27 @@ export interface CredentialTemplateOut {
 }
 
 
+/**
+ * Either `url` (with optional `name`/`headers`), or `config` — a pasted `mcpServers` JSON blob. Never both.
+ */
+export interface CustomConnectorCreate {
+    'name'?: string | null;
+    'url'?: string | null;
+    'headers'?: { [key: string]: string; };
+    'config'?: string | null;
+}
+export interface CustomConnectorOut {
+    'public_id': string;
+    'connector_id': string;
+    'name': string;
+    'url': string;
+    'enabled': boolean;
+    'header_names': Array<string>;
+}
+export interface CustomConnectorUpdate {
+    'name'?: string | null;
+    'enabled'?: boolean | null;
+}
 /**
  * Metadata the frontend uses to render the right browse hierarchy.
  */
@@ -1984,7 +2038,11 @@ export interface LLMSettingsIn {
     'args'?: { [key: string]: any; } | null;
     'openai_resource'?: string | null;
     'api_version'?: string | null;
-    'deployment_name'?: string | null;
+    /**
+     * Model identifier sent to the provider. The catalog name is only a label; this is what the call uses.
+     */
+    'deployment_name': string;
+    'hosted_on'?: string | null;
     'endpoint'?: string | null;
     'api_key'?: string | null;
 }
@@ -2013,6 +2071,7 @@ export interface LLMSettingsUpdate {
     'openai_resource'?: string | null;
     'api_version'?: string | null;
     'deployment_name'?: string | null;
+    'hosted_on'?: string | null;
     'endpoint'?: string | null;
     'api_key'?: string | null;
 }
@@ -2225,7 +2284,7 @@ export interface MessageIn {
     'system_prompt'?: string | null;
     'assistant_id'?: string | null;
     'document_ids'?: Array<string> | null;
-    'tool_ids'?: Array<string> | null;
+    'disabled_tool_names'?: Array<string> | null;
     'library_id'?: string | null;
     'private'?: boolean | null;
     'form_data'?: { [key: string]: any; } | null;
@@ -2894,6 +2953,7 @@ export interface SendEmailRequest {
     'cc'?: Cc | null;
     'bcc'?: Bcc | null;
     'attachment_ids'?: Array<string> | null;
+    'mailbox'?: string | null;
 }
 /**
  * Response from sending an email.
@@ -2908,6 +2968,7 @@ export interface SendEmailResponse {
      */
     'message': string;
     'recipients'?: Array<string> | null;
+    'from_mailbox'?: string | null;
 }
 /**
  * Payload selecting the active Atlassian site (cloud_id) for a connector.
@@ -2988,6 +3049,65 @@ export interface SettingsIn {
     'default_language'?: string | null;
     'user_level_analytics_enabled'?: boolean | null;
     'user_analytics_reveal_names'?: boolean | null;
+}
+/**
+ * One connected shared mailbox — the stored claim shape AND the API response shape, so a new field is added exactly once.
+ */
+export interface SharedMailbox {
+    /**
+     * SMTP address of the shared mailbox (lower-cased).
+     */
+    'address': string;
+    /**
+     * Label shown in the UI; defaults to the directory name.
+     */
+    'display_name'?: string;
+    'added_at'?: string | null;
+    /**
+     * \'shared\': an Exchange shared mailbox, read via /users/{address}. \'group\': a Microsoft 365 group — its mail is read via /groups/{id}/threads and sends go through the user\'s own mailbox with the group as sender.
+     */
+    'kind'?: SharedMailboxKindEnum;
+    'group_id'?: string | null;
+}
+
+export const SharedMailboxKindEnum = {
+    shared: 'shared',
+    group: 'group',
+} as const;
+
+export type SharedMailboxKindEnum = typeof SharedMailboxKindEnum[keyof typeof SharedMailboxKindEnum];
+
+export interface SharedMailboxCandidateOut {
+    'address': string;
+    'display_name': string;
+    /**
+     * Whether the caller has already connected this mailbox.
+     */
+    'connected': boolean;
+    /**
+     * \'shared\' = Exchange shared mailbox the caller can open; \'group\' = Microsoft 365 group the caller is a member of.
+     */
+    'kind'?: SharedMailboxCandidateOutKindEnum;
+}
+
+export const SharedMailboxCandidateOutKindEnum = {
+    shared: 'shared',
+    group: 'group',
+} as const;
+
+export type SharedMailboxCandidateOutKindEnum = typeof SharedMailboxCandidateOutKindEnum[keyof typeof SharedMailboxCandidateOutKindEnum];
+
+export interface SharedMailboxListOut {
+    /**
+     * Shared mailboxes the caller has connected, oldest first.
+     */
+    'mailboxes': Array<SharedMailbox>;
+}
+export interface SharedMailboxSearchOut {
+    /**
+     * Mailboxes the caller can open with their own token, drawn from People-API matches for the query (or the caller\'s most relevant contacts for an empty query). Every entry passed the same inbox probe that connecting runs, so plain colleagues are filtered out.
+     */
+    'results': Array<SharedMailboxCandidateOut>;
 }
 /**
  * A document library (drive) within a SharePoint site.
@@ -5761,6 +5881,52 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
+         * Stop a top-up adding headroom, keeping what it has already covered.
+         * @summary Cancel a budget top-up
+         * @param {string} topUpId Public id of the budget top-up to cancel.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsCancelTopUp: async (topUpId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'topUpId' is not null or undefined
+            assertParamExists('alertsCancelTopUp', 'topUpId', topUpId)
+            const localVarPath = `/alerts/budgets/top-ups/{top_up_id}/cancel`
+                .replace(`{${"top_up_id"}}`, encodeURIComponent(String(topUpId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Create a new budget alert with threshold and current spend.
          * @summary Create a budget alert
          * @param {BudgetAlertRequest} budgetAlertRequest 
@@ -5801,6 +5967,53 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(budgetAlertRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Raise the tenant\'s pool budget for the current calendar month.
+         * @summary Add a budget top-up for the current month
+         * @param {BudgetTopUpRequest} budgetTopUpRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsCreateTopUp: async (budgetTopUpRequest: BudgetTopUpRequest, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetTopUpRequest' is not null or undefined
+            assertParamExists('alertsCreateTopUp', 'budgetTopUpRequest', budgetTopUpRequest)
+            const localVarPath = `/alerts/budgets/top-ups`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(budgetTopUpRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5940,6 +6153,20 @@ export const AlertFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Stop a top-up adding headroom, keeping what it has already covered.
+         * @summary Cancel a budget top-up
+         * @param {string} topUpId Public id of the budget top-up to cancel.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async alertsCancelTopUp(topUpId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BudgetTopUpOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.alertsCancelTopUp(topUpId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Alert.alertsCancelTopUp']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Create a new budget alert with threshold and current spend.
          * @summary Create a budget alert
          * @param {BudgetAlertRequest} budgetAlertRequest 
@@ -5951,6 +6178,20 @@ export const AlertFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.alertsCreateAlert(budgetAlertRequest, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Alert.alertsCreateAlert']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Raise the tenant\'s pool budget for the current calendar month.
+         * @summary Add a budget top-up for the current month
+         * @param {BudgetTopUpRequest} budgetTopUpRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async alertsCreateTopUp(budgetTopUpRequest: BudgetTopUpRequest, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BudgetTopUpOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.alertsCreateTopUp(budgetTopUpRequest, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Alert.alertsCreateTopUp']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6012,6 +6253,17 @@ export const AlertFactory = function (configuration?: Configuration, basePath?: 
             return localVarFp.alertsBudgetSummary(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
+         * Stop a top-up adding headroom, keeping what it has already covered.
+         * @summary Cancel a budget top-up
+         * @param {string} topUpId Public id of the budget top-up to cancel.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsCancelTopUp(topUpId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<BudgetTopUpOut> {
+            return localVarFp.alertsCancelTopUp(topUpId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Create a new budget alert with threshold and current spend.
          * @summary Create a budget alert
          * @param {BudgetAlertRequest} budgetAlertRequest 
@@ -6021,6 +6273,17 @@ export const AlertFactory = function (configuration?: Configuration, basePath?: 
          */
         alertsCreateAlert(budgetAlertRequest: BudgetAlertRequest, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<BudgetAlert> {
             return localVarFp.alertsCreateAlert(budgetAlertRequest, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Raise the tenant\'s pool budget for the current calendar month.
+         * @summary Add a budget top-up for the current month
+         * @param {BudgetTopUpRequest} budgetTopUpRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        alertsCreateTopUp(budgetTopUpRequest: BudgetTopUpRequest, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<BudgetTopUpOut> {
+            return localVarFp.alertsCreateTopUp(budgetTopUpRequest, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
          * Delete an existing budget alert.
@@ -6075,6 +6338,18 @@ export class Alert extends BaseAPI {
     }
 
     /**
+     * Stop a top-up adding headroom, keeping what it has already covered.
+     * @summary Cancel a budget top-up
+     * @param {string} topUpId Public id of the budget top-up to cancel.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public alertsCancelTopUp(topUpId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AlertFp(this.configuration).alertsCancelTopUp(topUpId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Create a new budget alert with threshold and current spend.
      * @summary Create a budget alert
      * @param {BudgetAlertRequest} budgetAlertRequest 
@@ -6084,6 +6359,18 @@ export class Alert extends BaseAPI {
      */
     public alertsCreateAlert(budgetAlertRequest: BudgetAlertRequest, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return AlertFp(this.configuration).alertsCreateAlert(budgetAlertRequest, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Raise the tenant\'s pool budget for the current calendar month.
+     * @summary Add a budget top-up for the current month
+     * @param {BudgetTopUpRequest} budgetTopUpRequest 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public alertsCreateTopUp(budgetTopUpRequest: BudgetTopUpRequest, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AlertFp(this.configuration).alertsCreateTopUp(budgetTopUpRequest, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7707,8 +7994,8 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
-         * @summary Make an assistant consultable from the creator\'s chats
+         * Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
+         * @summary Make an assistant consultable from your own chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -7989,8 +8276,8 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
-         * @summary Stop the assistant being consultable from chats
+         * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
+         * @summary Stop the assistant being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8621,8 +8908,8 @@ export const AssistantFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
-         * @summary Make an assistant consultable from the creator\'s chats
+         * Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
+         * @summary Make an assistant consultable from your own chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8706,8 +8993,8 @@ export const AssistantFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
-         * @summary Stop the assistant being consultable from chats
+         * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
+         * @summary Stop the assistant being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8923,8 +9210,8 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
             return localVarFp.assistantsAddToolToAssistant(assistantId, toolId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
-         * @summary Make an assistant consultable from the creator\'s chats
+         * Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
+         * @summary Make an assistant consultable from your own chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8990,8 +9277,8 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
             return localVarFp.assistantsLeaveAssitant(assistantId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
-         * @summary Stop the assistant being consultable from chats
+         * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
+         * @summary Stop the assistant being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9179,8 +9466,8 @@ export class Assistant extends BaseAPI {
     }
 
     /**
-     * Make the assistant consultable in every chat of its creator.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
-     * @summary Make an assistant consultable from the creator\'s chats
+     * Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
+     * @summary Make an assistant consultable from your own chats
      * @param {string} assistantId Public id of the assistant.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -9252,8 +9539,8 @@ export class Assistant extends BaseAPI {
     }
 
     /**
-     * Clear the `is_tool` flag; the assistant stops being consultable at once (every consultability query keys on the flag alone).
-     * @summary Stop the assistant being consultable from chats
+     * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
+     * @summary Stop the assistant being consultable from your chats
      * @param {string} assistantId Public id of the assistant.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -10600,10 +10887,11 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
         /**
          * Resolve Azure Entra group display names for the current user\'s groups.
          * @summary Get Entra group names
+         * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authGetEntraGroups: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authGetEntraGroups: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/auth/entra/groups`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -10616,9 +10904,16 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
 
             localVarHeaderParameter['Accept'] = 'application/json';
 
@@ -11159,11 +11454,12 @@ export const AuthFp = function(configuration?: Configuration) {
         /**
          * Resolve Azure Entra group display names for the current user\'s groups.
          * @summary Get Entra group names
+         * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authGetEntraGroups(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: ResponseAuthGetEntraGroupsValue; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authGetEntraGroups(options);
+        async authGetEntraGroups(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: ResponseAuthGetEntraGroupsValue; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authGetEntraGroups(cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Auth.authGetEntraGroups']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -11362,11 +11658,12 @@ export const AuthFactory = function (configuration?: Configuration, basePath?: s
         /**
          * Resolve Azure Entra group display names for the current user\'s groups.
          * @summary Get Entra group names
+         * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authGetEntraGroups(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: ResponseAuthGetEntraGroupsValue; }> {
-            return localVarFp.authGetEntraGroups(options).then((request) => request(axios, basePath));
+        authGetEntraGroups(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: ResponseAuthGetEntraGroupsValue; }> {
+            return localVarFp.authGetEntraGroups(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
          * List the Azure Entra OAuth scopes the platform requests.
@@ -11529,11 +11826,12 @@ export class Auth extends BaseAPI {
     /**
      * Resolve Azure Entra group display names for the current user\'s groups.
      * @summary Get Entra group names
+     * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public authGetEntraGroups(options?: RawAxiosRequestConfig) {
-        return AuthFp(this.configuration).authGetEntraGroups(options).then((request) => request(this.axios, this.basePath));
+    public authGetEntraGroups(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authGetEntraGroups(cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13171,61 +13469,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * Enable or disable a tool for a chat, creating the setting if needed.
-         * @summary Set a chat tool setting
-         * @param {string} chatId ID of the chat.
-         * @param {string} toolId Public id of the tool to configure.
-         * @param {ChatToolSettingsUpdate} chatToolSettingsUpdate 
-         * @param {string | null} [cookieName] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        chatsUpdateChatToolSettings: async (chatId: string, toolId: string, chatToolSettingsUpdate: ChatToolSettingsUpdate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'chatId' is not null or undefined
-            assertParamExists('chatsUpdateChatToolSettings', 'chatId', chatId)
-            // verify required parameter 'toolId' is not null or undefined
-            assertParamExists('chatsUpdateChatToolSettings', 'toolId', toolId)
-            // verify required parameter 'chatToolSettingsUpdate' is not null or undefined
-            assertParamExists('chatsUpdateChatToolSettings', 'chatToolSettingsUpdate', chatToolSettingsUpdate)
-            const localVarPath = `/chats/{chat_id}/tools/{tool_id}`
-                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)))
-                .replace(`{${"tool_id"}}`, encodeURIComponent(String(toolId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
-
-            // authentication OAuth2PasswordBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            if (cookieName !== undefined) {
-                localVarQueryParameter['cookie_name'] = cookieName;
-            }
-
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarHeaderParameter['Accept'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(chatToolSettingsUpdate, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -13368,22 +13611,6 @@ export const ChatFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['Chat.chatsUpdateChat']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * Enable or disable a tool for a chat, creating the setting if needed.
-         * @summary Set a chat tool setting
-         * @param {string} chatId ID of the chat.
-         * @param {string} toolId Public id of the tool to configure.
-         * @param {ChatToolSettingsUpdate} chatToolSettingsUpdate 
-         * @param {string | null} [cookieName] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async chatsUpdateChatToolSettings(chatId: string, toolId: string, chatToolSettingsUpdate: ChatToolSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChatToolSettingsOut>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsUpdateChatToolSettings(chatId, toolId, chatToolSettingsUpdate, cookieName, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['Chat.chatsUpdateChatToolSettings']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -13498,19 +13725,6 @@ export const ChatFactory = function (configuration?: Configuration, basePath?: s
          */
         chatsUpdateChat(chatId: string, chatIn: ChatIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Chat> {
             return localVarFp.chatsUpdateChat(chatId, chatIn, cookieName, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Enable or disable a tool for a chat, creating the setting if needed.
-         * @summary Set a chat tool setting
-         * @param {string} chatId ID of the chat.
-         * @param {string} toolId Public id of the tool to configure.
-         * @param {ChatToolSettingsUpdate} chatToolSettingsUpdate 
-         * @param {string | null} [cookieName] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        chatsUpdateChatToolSettings(chatId: string, toolId: string, chatToolSettingsUpdate: ChatToolSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<ChatToolSettingsOut> {
-            return localVarFp.chatsUpdateChatToolSettings(chatId, toolId, chatToolSettingsUpdate, cookieName, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -13633,19 +13847,372 @@ export class Chat extends BaseAPI {
     public chatsUpdateChat(chatId: string, chatIn: ChatIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return ChatFp(this.configuration).chatsUpdateChat(chatId, chatIn, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
+}
 
+
+
+/**
+ * CustomConnector - axios parameter creator
+ */
+export const CustomConnectorAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid.
+         * @summary Add one or more custom connectors
+         * @param {CustomConnectorCreate} customConnectorCreate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsCreateCustomConnectors: async (customConnectorCreate: CustomConnectorCreate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'customConnectorCreate' is not null or undefined
+            assertParamExists('customconnectorsCreateCustomConnectors', 'customConnectorCreate', customConnectorCreate)
+            const localVarPath = `/custom-connectors/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(customConnectorCreate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete a custom connector
+         * @param {string} publicId Public id of the connector.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsDeleteCustomConnector: async (publicId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'publicId' is not null or undefined
+            assertParamExists('customconnectorsDeleteCustomConnector', 'publicId', publicId)
+            const localVarPath = `/custom-connectors/{public_id}`
+                .replace(`{${"public_id"}}`, encodeURIComponent(String(publicId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List my custom connectors
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsListCustomConnectors: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/custom-connectors/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * URL and headers are not editable: re-add, so a changed endpoint is always re-validated.
+         * @summary Rename or enable/disable a custom connector
+         * @param {string} publicId Public id of the connector.
+         * @param {CustomConnectorUpdate} customConnectorUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsUpdateCustomConnector: async (publicId: string, customConnectorUpdate: CustomConnectorUpdate, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'publicId' is not null or undefined
+            assertParamExists('customconnectorsUpdateCustomConnector', 'publicId', publicId)
+            // verify required parameter 'customConnectorUpdate' is not null or undefined
+            assertParamExists('customconnectorsUpdateCustomConnector', 'customConnectorUpdate', customConnectorUpdate)
+            const localVarPath = `/custom-connectors/{public_id}`
+                .replace(`{${"public_id"}}`, encodeURIComponent(String(publicId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(customConnectorUpdate, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * CustomConnector - functional programming interface
+ */
+export const CustomConnectorFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CustomConnectorAxiosParamCreator(configuration)
+    return {
+        /**
+         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid.
+         * @summary Add one or more custom connectors
+         * @param {CustomConnectorCreate} customConnectorCreate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsCreateCustomConnectors(customConnectorCreate: CustomConnectorCreate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CustomConnectorOut>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsCreateCustomConnectors(customConnectorCreate, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsCreateCustomConnectors']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete a custom connector
+         * @param {string} publicId Public id of the connector.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsDeleteCustomConnector(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsDeleteCustomConnector(publicId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsDeleteCustomConnector']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List my custom connectors
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsListCustomConnectors(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CustomConnectorOut>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsListCustomConnectors(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsListCustomConnectors']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * URL and headers are not editable: re-add, so a changed endpoint is always re-validated.
+         * @summary Rename or enable/disable a custom connector
+         * @param {string} publicId Public id of the connector.
+         * @param {CustomConnectorUpdate} customConnectorUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsUpdateCustomConnector(publicId: string, customConnectorUpdate: CustomConnectorUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CustomConnectorOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsUpdateCustomConnector(publicId, customConnectorUpdate, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsUpdateCustomConnector']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * CustomConnector - factory interface
+ */
+export const CustomConnectorFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CustomConnectorFp(configuration)
+    return {
+        /**
+         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid.
+         * @summary Add one or more custom connectors
+         * @param {CustomConnectorCreate} customConnectorCreate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsCreateCustomConnectors(customConnectorCreate: CustomConnectorCreate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<CustomConnectorOut>> {
+            return localVarFp.customconnectorsCreateCustomConnectors(customConnectorCreate, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete a custom connector
+         * @param {string} publicId Public id of the connector.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsDeleteCustomConnector(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.customconnectorsDeleteCustomConnector(publicId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List my custom connectors
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsListCustomConnectors(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<CustomConnectorOut>> {
+            return localVarFp.customconnectorsListCustomConnectors(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * URL and headers are not editable: re-add, so a changed endpoint is always re-validated.
+         * @summary Rename or enable/disable a custom connector
+         * @param {string} publicId Public id of the connector.
+         * @param {CustomConnectorUpdate} customConnectorUpdate 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsUpdateCustomConnector(publicId: string, customConnectorUpdate: CustomConnectorUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<CustomConnectorOut> {
+            return localVarFp.customconnectorsUpdateCustomConnector(publicId, customConnectorUpdate, cookieName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * CustomConnector - object-oriented interface
+ */
+export class CustomConnector extends BaseAPI {
     /**
-     * Enable or disable a tool for a chat, creating the setting if needed.
-     * @summary Set a chat tool setting
-     * @param {string} chatId ID of the chat.
-     * @param {string} toolId Public id of the tool to configure.
-     * @param {ChatToolSettingsUpdate} chatToolSettingsUpdate 
+     * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid.
+     * @summary Add one or more custom connectors
+     * @param {CustomConnectorCreate} customConnectorCreate 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public chatsUpdateChatToolSettings(chatId: string, toolId: string, chatToolSettingsUpdate: ChatToolSettingsUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
-        return ChatFp(this.configuration).chatsUpdateChatToolSettings(chatId, toolId, chatToolSettingsUpdate, cookieName, options).then((request) => request(this.axios, this.basePath));
+    public customconnectorsCreateCustomConnectors(customConnectorCreate: CustomConnectorCreate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsCreateCustomConnectors(customConnectorCreate, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete a custom connector
+     * @param {string} publicId Public id of the connector.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public customconnectorsDeleteCustomConnector(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsDeleteCustomConnector(publicId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List my custom connectors
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public customconnectorsListCustomConnectors(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsListCustomConnectors(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * URL and headers are not editable: re-add, so a changed endpoint is always re-validated.
+     * @summary Rename or enable/disable a custom connector
+     * @param {string} publicId Public id of the connector.
+     * @param {CustomConnectorUpdate} customConnectorUpdate 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public customconnectorsUpdateCustomConnector(publicId: string, customConnectorUpdate: CustomConnectorUpdate, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsUpdateCustomConnector(publicId, customConnectorUpdate, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -15650,7 +16217,7 @@ export const FeatureFlagAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+         * Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
          * @summary List effective feature flags for a tenant
          * @param {string} tenantId Public id of the tenant.
          * @param {string | null} [cookieName] 
@@ -15775,7 +16342,7 @@ export const FeatureFlagFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+         * Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
          * @summary List effective feature flags for a tenant
          * @param {string} tenantId Public id of the tenant.
          * @param {string | null} [cookieName] 
@@ -15826,7 +16393,7 @@ export const FeatureFlagFactory = function (configuration?: Configuration, baseP
             return localVarFp.featureClearTenantFeatureFlag(tenantId, flagKey, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+         * Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
          * @summary List effective feature flags for a tenant
          * @param {string} tenantId Public id of the tenant.
          * @param {string | null} [cookieName] 
@@ -15870,7 +16437,7 @@ export class FeatureFlag extends BaseAPI {
     }
 
     /**
-     * Return every catalog flag with its effective value for the tenant.  Operator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the Operator role holds it.
+     * Return every catalog flag with its effective value for the tenant.  Tenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators and parent-tenant admins may read any tenant they govern.
      * @summary List effective feature flags for a tenant
      * @param {string} tenantId Public id of the tenant.
      * @param {string | null} [cookieName] 
@@ -19892,16 +20459,16 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
          * @param {string} [model] 
-         * @param {Array<string>} [toolIds] 
          * @param {boolean} [_private] 
          * @param {string} [libraryId] 
          * @param {string} [formData] 
          * @param {string} [formFields] 
          * @param {boolean} [playground] 
+         * @param {Array<string>} [disabledToolNames] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, toolIds?: Array<string>, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/messages/submit`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -19972,10 +20539,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             if (model !== undefined) { 
                 localVarFormParams.append('model', model as any);
             }
-            if (toolIds) {
-                localVarFormParams.append('tool_ids', toolIds.join(COLLECTION_FORMATS.csv));
-            }
-
 
             if (_private !== undefined) { 
                 localVarFormParams.append('private', String(_private) as any);
@@ -19996,6 +20559,10 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             if (playground !== undefined) { 
                 localVarFormParams.append('playground', String(playground) as any);
             }
+            if (disabledToolNames) {
+                localVarFormParams.append('disabled_tool_names', disabledToolNames.join(COLLECTION_FORMATS.csv));
+            }
+
             localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             localVarHeaderParameter['Accept'] = 'application/json';
 
@@ -20187,17 +20754,17 @@ export const MessageFp = function(configuration?: Configuration) {
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
          * @param {string} [model] 
-         * @param {Array<string>} [toolIds] 
          * @param {boolean} [_private] 
          * @param {string} [libraryId] 
          * @param {string} [formData] 
          * @param {string} [formFields] 
          * @param {boolean} [playground] 
+         * @param {Array<string>} [disabledToolNames] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, toolIds?: Array<string>, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageSubmitOut>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, toolIds, _private, libraryId, formData, formFields, playground, options);
+        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageSubmitOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Message.messagesSubmitMessage']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -20321,17 +20888,17 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
          * @param {string} [model] 
-         * @param {Array<string>} [toolIds] 
          * @param {boolean} [_private] 
          * @param {string} [libraryId] 
          * @param {string} [formData] 
          * @param {string} [formFields] 
          * @param {boolean} [playground] 
+         * @param {Array<string>} [disabledToolNames] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, toolIds?: Array<string>, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, options?: RawAxiosRequestConfig): AxiosPromise<MessageSubmitOut> {
-            return localVarFp.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, toolIds, _private, libraryId, formData, formFields, playground, options).then((request) => request(axios, basePath));
+        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): AxiosPromise<MessageSubmitOut> {
+            return localVarFp.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options).then((request) => request(axios, basePath));
         },
         /**
          * Translate a message\'s content into the requested language.
@@ -20454,17 +21021,17 @@ export class Message extends BaseAPI {
      * @param {string} [systemPrompt] 
      * @param {string} [assistantId] 
      * @param {string} [model] 
-     * @param {Array<string>} [toolIds] 
      * @param {boolean} [_private] 
      * @param {string} [libraryId] 
      * @param {string} [formData] 
      * @param {string} [formFields] 
      * @param {boolean} [playground] 
+     * @param {Array<string>} [disabledToolNames] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, toolIds?: Array<string>, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, options?: RawAxiosRequestConfig) {
-        return MessageFp(this.configuration).messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, toolIds, _private, libraryId, formData, formFields, playground, options).then((request) => request(this.axios, this.basePath));
+    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig) {
+        return MessageFp(this.configuration).messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -29663,6 +30230,53 @@ export class Tool extends BaseAPI {
 export const ToolActionAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Verify the caller can open the mailbox with their own token — or, for a Microsoft 365 group address, that they are a member — then add it to their allowlist. Idempotent: re-connecting updates the display name.
+         * @summary Connect a shared mailbox
+         * @param {ConnectSharedMailboxIn} connectSharedMailboxIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsConnectSharedMailbox: async (connectSharedMailboxIn: ConnectSharedMailboxIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectSharedMailboxIn' is not null or undefined
+            assertParamExists('toolactionsConnectSharedMailbox', 'connectSharedMailboxIn', connectSharedMailboxIn)
+            const localVarPath = `/tool-actions/email/shared-mailboxes`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(connectSharedMailboxIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Create (not send) a draft in the user\'s mailbox — used by the draft card\'s \"Open in Outlook\" action, which cannot pass attachments through a compose deep link. Attachment scope rules are identical to sending.
          * @summary Create an Outlook mailbox draft from a chat draft
          * @param {CreateOutlookDraftRequest} createOutlookDraftRequest 
@@ -29703,6 +30317,141 @@ export const ToolActionAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createOutlookDraftRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Remove one shared mailbox from the caller\'s allowlist. The personal consent and any other shared mailboxes are untouched.
+         * @summary Disconnect a shared mailbox
+         * @param {string} address Address of the connected shared mailbox.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsDisconnectSharedMailbox: async (address: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('toolactionsDisconnectSharedMailbox', 'address', address)
+            const localVarPath = `/tool-actions/email/shared-mailboxes/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Shared mailboxes the caller connected on top of their personal account.
+         * @summary List connected shared mailboxes
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsListSharedMailboxes: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/tool-actions/email/shared-mailboxes`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Mailboxes the caller can open, found via the People API.  Graph has no \"shared mailbox\" flag and no list of mailboxes a user has been granted, so candidates come from People (the query, or the caller\'s most relevant contacts for an empty query) and each one is probed with the caller\'s token exactly like connecting does. Regular colleagues fail the probe and drop out; what remains are mailboxes the caller holds Full Access on. Already-connected ones are reported with ``connected``.  Only the already-granted read/people caps are required here, so browsing never trips re-consent — adding a mailbox does that, deliberately.
+         * @summary Search the directory for mailboxes to connect
+         * @param {string} [q] Name or address fragment; empty returns suggestions.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsSearchSharedMailboxes: async (q?: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/tool-actions/email/shared-mailboxes/search`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (q !== undefined) {
+                localVarQueryParameter['q'] = q;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -29766,6 +30515,20 @@ export const ToolActionFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ToolActionAxiosParamCreator(configuration)
     return {
         /**
+         * Verify the caller can open the mailbox with their own token — or, for a Microsoft 365 group address, that they are a member — then add it to their allowlist. Idempotent: re-connecting updates the display name.
+         * @summary Connect a shared mailbox
+         * @param {ConnectSharedMailboxIn} connectSharedMailboxIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async toolactionsConnectSharedMailbox(connectSharedMailboxIn: ConnectSharedMailboxIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SharedMailbox>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.toolactionsConnectSharedMailbox(connectSharedMailboxIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ToolAction.toolactionsConnectSharedMailbox']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Create (not send) a draft in the user\'s mailbox — used by the draft card\'s \"Open in Outlook\" action, which cannot pass attachments through a compose deep link. Attachment scope rules are identical to sending.
          * @summary Create an Outlook mailbox draft from a chat draft
          * @param {CreateOutlookDraftRequest} createOutlookDraftRequest 
@@ -29777,6 +30540,47 @@ export const ToolActionFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.toolactionsCreateEmailDraft(createOutlookDraftRequest, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ToolAction.toolactionsCreateEmailDraft']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Remove one shared mailbox from the caller\'s allowlist. The personal consent and any other shared mailboxes are untouched.
+         * @summary Disconnect a shared mailbox
+         * @param {string} address Address of the connected shared mailbox.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async toolactionsDisconnectSharedMailbox(address: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.toolactionsDisconnectSharedMailbox(address, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ToolAction.toolactionsDisconnectSharedMailbox']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Shared mailboxes the caller connected on top of their personal account.
+         * @summary List connected shared mailboxes
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async toolactionsListSharedMailboxes(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SharedMailboxListOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.toolactionsListSharedMailboxes(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ToolAction.toolactionsListSharedMailboxes']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Mailboxes the caller can open, found via the People API.  Graph has no \"shared mailbox\" flag and no list of mailboxes a user has been granted, so candidates come from People (the query, or the caller\'s most relevant contacts for an empty query) and each one is probed with the caller\'s token exactly like connecting does. Regular colleagues fail the probe and drop out; what remains are mailboxes the caller holds Full Access on. Already-connected ones are reported with ``connected``.  Only the already-granted read/people caps are required here, so browsing never trips re-consent — adding a mailbox does that, deliberately.
+         * @summary Search the directory for mailboxes to connect
+         * @param {string} [q] Name or address fragment; empty returns suggestions.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async toolactionsSearchSharedMailboxes(q?: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SharedMailboxSearchOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.toolactionsSearchSharedMailboxes(q, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ToolAction.toolactionsSearchSharedMailboxes']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -29803,6 +30607,17 @@ export const ToolActionFactory = function (configuration?: Configuration, basePa
     const localVarFp = ToolActionFp(configuration)
     return {
         /**
+         * Verify the caller can open the mailbox with their own token — or, for a Microsoft 365 group address, that they are a member — then add it to their allowlist. Idempotent: re-connecting updates the display name.
+         * @summary Connect a shared mailbox
+         * @param {ConnectSharedMailboxIn} connectSharedMailboxIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsConnectSharedMailbox(connectSharedMailboxIn: ConnectSharedMailboxIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<SharedMailbox> {
+            return localVarFp.toolactionsConnectSharedMailbox(connectSharedMailboxIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Create (not send) a draft in the user\'s mailbox — used by the draft card\'s \"Open in Outlook\" action, which cannot pass attachments through a compose deep link. Attachment scope rules are identical to sending.
          * @summary Create an Outlook mailbox draft from a chat draft
          * @param {CreateOutlookDraftRequest} createOutlookDraftRequest 
@@ -29812,6 +30627,38 @@ export const ToolActionFactory = function (configuration?: Configuration, basePa
          */
         toolactionsCreateEmailDraft(createOutlookDraftRequest: CreateOutlookDraftRequest, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<CreateOutlookDraftResponse> {
             return localVarFp.toolactionsCreateEmailDraft(createOutlookDraftRequest, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Remove one shared mailbox from the caller\'s allowlist. The personal consent and any other shared mailboxes are untouched.
+         * @summary Disconnect a shared mailbox
+         * @param {string} address Address of the connected shared mailbox.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsDisconnectSharedMailbox(address: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.toolactionsDisconnectSharedMailbox(address, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Shared mailboxes the caller connected on top of their personal account.
+         * @summary List connected shared mailboxes
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsListSharedMailboxes(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<SharedMailboxListOut> {
+            return localVarFp.toolactionsListSharedMailboxes(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Mailboxes the caller can open, found via the People API.  Graph has no \"shared mailbox\" flag and no list of mailboxes a user has been granted, so candidates come from People (the query, or the caller\'s most relevant contacts for an empty query) and each one is probed with the caller\'s token exactly like connecting does. Regular colleagues fail the probe and drop out; what remains are mailboxes the caller holds Full Access on. Already-connected ones are reported with ``connected``.  Only the already-granted read/people caps are required here, so browsing never trips re-consent — adding a mailbox does that, deliberately.
+         * @summary Search the directory for mailboxes to connect
+         * @param {string} [q] Name or address fragment; empty returns suggestions.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toolactionsSearchSharedMailboxes(q?: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<SharedMailboxSearchOut> {
+            return localVarFp.toolactionsSearchSharedMailboxes(q, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
          * Send an email from a user-approved, tool-generated draft via Microsoft Graph.
@@ -29832,6 +30679,18 @@ export const ToolActionFactory = function (configuration?: Configuration, basePa
  */
 export class ToolAction extends BaseAPI {
     /**
+     * Verify the caller can open the mailbox with their own token — or, for a Microsoft 365 group address, that they are a member — then add it to their allowlist. Idempotent: re-connecting updates the display name.
+     * @summary Connect a shared mailbox
+     * @param {ConnectSharedMailboxIn} connectSharedMailboxIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public toolactionsConnectSharedMailbox(connectSharedMailboxIn: ConnectSharedMailboxIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ToolActionFp(this.configuration).toolactionsConnectSharedMailbox(connectSharedMailboxIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Create (not send) a draft in the user\'s mailbox — used by the draft card\'s \"Open in Outlook\" action, which cannot pass attachments through a compose deep link. Attachment scope rules are identical to sending.
      * @summary Create an Outlook mailbox draft from a chat draft
      * @param {CreateOutlookDraftRequest} createOutlookDraftRequest 
@@ -29841,6 +30700,41 @@ export class ToolAction extends BaseAPI {
      */
     public toolactionsCreateEmailDraft(createOutlookDraftRequest: CreateOutlookDraftRequest, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return ToolActionFp(this.configuration).toolactionsCreateEmailDraft(createOutlookDraftRequest, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Remove one shared mailbox from the caller\'s allowlist. The personal consent and any other shared mailboxes are untouched.
+     * @summary Disconnect a shared mailbox
+     * @param {string} address Address of the connected shared mailbox.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public toolactionsDisconnectSharedMailbox(address: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ToolActionFp(this.configuration).toolactionsDisconnectSharedMailbox(address, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Shared mailboxes the caller connected on top of their personal account.
+     * @summary List connected shared mailboxes
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public toolactionsListSharedMailboxes(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ToolActionFp(this.configuration).toolactionsListSharedMailboxes(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Mailboxes the caller can open, found via the People API.  Graph has no \"shared mailbox\" flag and no list of mailboxes a user has been granted, so candidates come from People (the query, or the caller\'s most relevant contacts for an empty query) and each one is probed with the caller\'s token exactly like connecting does. Regular colleagues fail the probe and drop out; what remains are mailboxes the caller holds Full Access on. Already-connected ones are reported with ``connected``.  Only the already-granted read/people caps are required here, so browsing never trips re-consent — adding a mailbox does that, deliberately.
+     * @summary Search the directory for mailboxes to connect
+     * @param {string} [q] Name or address fragment; empty returns suggestions.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public toolactionsSearchSharedMailboxes(q?: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ToolActionFp(this.configuration).toolactionsSearchSharedMailboxes(q, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -50,6 +50,8 @@ docs/BudgetAlertRequest.md
 docs/BudgetAlertUpdate.md
 docs/BudgetForecast.md
 docs/BudgetSummary.md
+docs/BudgetTopUpOut.md
+docs/BudgetTopUpRequest.md
 docs/BulkResult.md
 docs/CatalogIn.md
 docs/CatalogUpdate.md
@@ -61,9 +63,8 @@ docs/Chat.md
 docs/ChatIn.md
 docs/ChatInactiveDocumentOut.md
 docs/ChatLibrary.md
-docs/ChatToolSettingsOut.md
-docs/ChatToolSettingsUpdate.md
 docs/ClarificationAnswer.md
+docs/ConnectSharedMailboxIn.md
 docs/Connector.md
 docs/ConnectorAuthType.md
 docs/ConnectorConsentOut.md
@@ -89,6 +90,10 @@ docs/CreateOutlookDraftResponse.md
 docs/CredentialIn.md
 docs/CredentialPartOut.md
 docs/CredentialTemplateOut.md
+docs/CustomConnector.md
+docs/CustomConnectorCreate.md
+docs/CustomConnectorOut.md
+docs/CustomConnectorUpdate.md
 docs/DataSourceCapabilities.md
 docs/DataSourceDriveModel.md
 docs/DataSourceFolderModel.md
@@ -205,6 +210,10 @@ docs/SetAtlassianCloudIdRequest.md
 docs/Settings.md
 docs/Settings.md
 docs/SettingsIn.md
+docs/SharedMailbox.md
+docs/SharedMailboxCandidateOut.md
+docs/SharedMailboxListOut.md
+docs/SharedMailboxSearchOut.md
 docs/Sharepoint.md
 docs/SharepointDriveModel.md
 docs/SharepointFolderModel.md
@@ -311,6 +320,7 @@ neuland_hub_sdk/api/auth.py
 neuland_hub_sdk/api/auth_connector.py
 neuland_hub_sdk/api/category.py
 neuland_hub_sdk/api/chat.py
+neuland_hub_sdk/api/custom_connector.py
 neuland_hub_sdk/api/default.py
 neuland_hub_sdk/api/document.py
 neuland_hub_sdk/api/dropbox.py
@@ -387,6 +397,8 @@ neuland_hub_sdk/models/budget_alert_request.py
 neuland_hub_sdk/models/budget_alert_update.py
 neuland_hub_sdk/models/budget_forecast.py
 neuland_hub_sdk/models/budget_summary.py
+neuland_hub_sdk/models/budget_top_up_out.py
+neuland_hub_sdk/models/budget_top_up_request.py
 neuland_hub_sdk/models/bulk_result.py
 neuland_hub_sdk/models/catalog_in.py
 neuland_hub_sdk/models/catalog_update.py
@@ -396,9 +408,8 @@ neuland_hub_sdk/models/chat.py
 neuland_hub_sdk/models/chat_in.py
 neuland_hub_sdk/models/chat_inactive_document_out.py
 neuland_hub_sdk/models/chat_library.py
-neuland_hub_sdk/models/chat_tool_settings_out.py
-neuland_hub_sdk/models/chat_tool_settings_update.py
 neuland_hub_sdk/models/clarification_answer.py
+neuland_hub_sdk/models/connect_shared_mailbox_in.py
 neuland_hub_sdk/models/connector.py
 neuland_hub_sdk/models/connector_auth_type.py
 neuland_hub_sdk/models/connector_consent_out.py
@@ -424,6 +435,9 @@ neuland_hub_sdk/models/create_outlook_draft_response.py
 neuland_hub_sdk/models/credential_in.py
 neuland_hub_sdk/models/credential_part_out.py
 neuland_hub_sdk/models/credential_template_out.py
+neuland_hub_sdk/models/custom_connector_create.py
+neuland_hub_sdk/models/custom_connector_out.py
+neuland_hub_sdk/models/custom_connector_update.py
 neuland_hub_sdk/models/data_source_capabilities.py
 neuland_hub_sdk/models/data_source_drive_model.py
 neuland_hub_sdk/models/data_source_folder_model.py
@@ -519,6 +533,10 @@ neuland_hub_sdk/models/send_email_response.py
 neuland_hub_sdk/models/set_atlassian_cloud_id_request.py
 neuland_hub_sdk/models/settings.py
 neuland_hub_sdk/models/settings_in.py
+neuland_hub_sdk/models/shared_mailbox.py
+neuland_hub_sdk/models/shared_mailbox_candidate_out.py
+neuland_hub_sdk/models/shared_mailbox_list_out.py
+neuland_hub_sdk/models/shared_mailbox_search_out.py
 neuland_hub_sdk/models/sharepoint_drive_model.py
 neuland_hub_sdk/models/sharepoint_folder_model.py
 neuland_hub_sdk/models/sharepoint_item_model.py
@@ -650,6 +668,8 @@ test/test_budget_alert_request.py
 test/test_budget_alert_update.py
 test/test_budget_forecast.py
 test/test_budget_summary.py
+test/test_budget_top_up_out.py
+test/test_budget_top_up_request.py
 test/test_bulk_result.py
 test/test_catalog_in.py
 test/test_catalog_update.py
@@ -660,9 +680,8 @@ test/test_chat.py
 test/test_chat_in.py
 test/test_chat_inactive_document_out.py
 test/test_chat_library.py
-test/test_chat_tool_settings_out.py
-test/test_chat_tool_settings_update.py
 test/test_clarification_answer.py
+test/test_connect_shared_mailbox_in.py
 test/test_connector.py
 test/test_connector_auth_type.py
 test/test_connector_consent_out.py
@@ -688,6 +707,10 @@ test/test_create_outlook_draft_response.py
 test/test_credential_in.py
 test/test_credential_part_out.py
 test/test_credential_template_out.py
+test/test_custom_connector.py
+test/test_custom_connector_create.py
+test/test_custom_connector_out.py
+test/test_custom_connector_update.py
 test/test_data_source_capabilities.py
 test/test_data_source_drive_model.py
 test/test_data_source_folder_model.py
@@ -797,6 +820,10 @@ test/test_send_email_response.py
 test/test_set_atlassian_cloud_id_request.py
 test/test_settings.py
 test/test_settings_in.py
+test/test_shared_mailbox.py
+test/test_shared_mailbox_candidate_out.py
+test/test_shared_mailbox_list_out.py
+test/test_shared_mailbox_search_out.py
 test/test_sharepoint.py
 test/test_sharepoint_drive_model.py
 test/test_sharepoint_folder_model.py

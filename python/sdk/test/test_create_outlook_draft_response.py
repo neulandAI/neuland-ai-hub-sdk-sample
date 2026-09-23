@@ -38,7 +38,9 @@ class TestCreateOutlookDraftResponse(unittest.TestCase):
                 success = True,
                 message = '',
                 web_link = '',
-                draft_id = ''
+                draft_id = '',
+                from_mailbox = '',
+                from_mailbox_kind = 'shared'
             )
         else:
             return CreateOutlookDraftResponse(

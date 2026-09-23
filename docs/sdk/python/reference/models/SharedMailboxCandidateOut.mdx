@@ -1,0 +1,30 @@
+---
+title: "SharedMailboxCandidateOut"
+---
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**address** | **str** |  | 
+**display_name** | **str** |  | 
+**connected** | **bool** | Whether the caller has already connected this mailbox. | 
+**kind** | **str** | &#39;shared&#39; &#x3D; Exchange shared mailbox the caller can open; &#39;group&#39; &#x3D; Microsoft 365 group the caller is a member of. | [optional] [default to 'shared']
+
+## Example
+
+```python
+from neuland_hub_sdk.models.shared_mailbox_candidate_out import SharedMailboxCandidateOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of SharedMailboxCandidateOut from a JSON string
+shared_mailbox_candidate_out_instance = SharedMailboxCandidateOut.from_json(json)
+# print the JSON string representation of the object
+print(SharedMailboxCandidateOut.to_json())
+
+# convert the object into a dict
+shared_mailbox_candidate_out_dict = shared_mailbox_candidate_out_instance.to_dict()
+# create an instance of SharedMailboxCandidateOut from a dict
+shared_mailbox_candidate_out_from_dict = SharedMailboxCandidateOut.from_dict(shared_mailbox_candidate_out_dict)
+```

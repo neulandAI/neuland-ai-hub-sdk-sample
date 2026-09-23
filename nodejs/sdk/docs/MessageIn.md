@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **system_prompt** | **string** |  | [optional] [default to undefined]
 **assistant_id** | **string** |  | [optional] [default to undefined]
 **document_ids** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
-**tool_ids** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**disabled_tool_names** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **library_id** | **string** |  | [optional] [default to undefined]
 **_private** | **boolean** |  | [optional] [default to undefined]
 **form_data** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
@@ -38,7 +38,7 @@ const instance: MessageIn = {
     system_prompt,
     assistant_id,
     document_ids,
-    tool_ids,
+    disabled_tool_names,
     library_id,
     _private,
     form_data,

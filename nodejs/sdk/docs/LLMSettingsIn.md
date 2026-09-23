@@ -26,7 +26,8 @@ Name | Type | Description | Notes
 **args** | **{ [key: string]: any; }** |  | [optional] [default to undefined]
 **openai_resource** | **string** |  | [optional] [default to undefined]
 **api_version** | **string** |  | [optional] [default to undefined]
-**deployment_name** | **string** |  | [optional] [default to undefined]
+**deployment_name** | **string** | Model identifier sent to the provider. The catalog name is only a label; this is what the call uses. | [default to undefined]
+**hosted_on** | **string** |  | [optional] [default to undefined]
 **endpoint** | **string** |  | [optional] [default to undefined]
 **api_key** | **string** |  | [optional] [default to undefined]
 
@@ -58,6 +59,7 @@ const instance: LLMSettingsIn = {
     openai_resource,
     api_version,
     deployment_name,
+    hosted_on,
     endpoint,
     api_key,
 };

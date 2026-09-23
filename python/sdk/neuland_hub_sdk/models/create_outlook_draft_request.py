@@ -37,7 +37,8 @@ class CreateOutlookDraftRequest(BaseModel):
     cc: Optional[Cc] = None
     bcc: Optional[Bcc] = None
     attachment_ids: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["tool_call_id", "to", "subject", "body", "cc", "bcc", "attachment_ids"]
+    mailbox: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["tool_call_id", "to", "subject", "body", "cc", "bcc", "attachment_ids", "mailbox"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -107,6 +108,11 @@ class CreateOutlookDraftRequest(BaseModel):
         if self.attachment_ids is None and "attachment_ids" in self.model_fields_set:
             _dict['attachment_ids'] = None
 
+        # set to None if mailbox (nullable) is None
+        # and model_fields_set contains the field
+        if self.mailbox is None and "mailbox" in self.model_fields_set:
+            _dict['mailbox'] = None
+
         return _dict
 
     @classmethod
@@ -125,7 +131,8 @@ class CreateOutlookDraftRequest(BaseModel):
             "body": obj.get("body") if obj.get("body") is not None else '',
             "cc": Cc.from_dict(obj["cc"]) if obj.get("cc") is not None else None,
             "bcc": Bcc.from_dict(obj["bcc"]) if obj.get("bcc") is not None else None,
-            "attachment_ids": obj.get("attachment_ids")
+            "attachment_ids": obj.get("attachment_ids"),
+            "mailbox": obj.get("mailbox")
         })
         return _obj
 

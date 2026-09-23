@@ -39,13 +39,13 @@ class MessageIn(BaseModel):
     system_prompt: Optional[StrictStr] = None
     assistant_id: Optional[UUID] = None
     document_ids: Optional[List[UUID]] = None
-    tool_ids: Optional[List[UUID]] = None
+    disabled_tool_names: Optional[List[StrictStr]] = None
     library_id: Optional[UUID] = None
     private: Optional[StrictBool] = None
     form_data: Optional[Dict[str, Any]] = None
     form_fields: Optional[List[Dict[str, Any]]] = None
     playground: Optional[StrictBool] = Field(default=False, description="Backs the assistant editor's preview pane and is not needed to send a message: it starts a sandbox chat in which the given system_prompt/temperature/similarity_top_k/model override the assistant's live config without saving it. Requires assistant_id; only the assistant's creator may use it.")
-    __properties: ClassVar[List[str]] = ["content", "chat_id", "project_id", "model", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "assistant_id", "document_ids", "tool_ids", "library_id", "private", "form_data", "form_fields", "playground"]
+    __properties: ClassVar[List[str]] = ["content", "chat_id", "project_id", "model", "temperature", "reasoning_effort", "similarity_top_k", "system_prompt", "assistant_id", "document_ids", "disabled_tool_names", "library_id", "private", "form_data", "form_fields", "playground"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -136,10 +136,10 @@ class MessageIn(BaseModel):
         if self.document_ids is None and "document_ids" in self.model_fields_set:
             _dict['document_ids'] = None
 
-        # set to None if tool_ids (nullable) is None
+        # set to None if disabled_tool_names (nullable) is None
         # and model_fields_set contains the field
-        if self.tool_ids is None and "tool_ids" in self.model_fields_set:
-            _dict['tool_ids'] = None
+        if self.disabled_tool_names is None and "disabled_tool_names" in self.model_fields_set:
+            _dict['disabled_tool_names'] = None
 
         # set to None if library_id (nullable) is None
         # and model_fields_set contains the field
@@ -183,7 +183,7 @@ class MessageIn(BaseModel):
             "system_prompt": obj.get("system_prompt"),
             "assistant_id": obj.get("assistant_id"),
             "document_ids": obj.get("document_ids"),
-            "tool_ids": obj.get("tool_ids"),
+            "disabled_tool_names": obj.get("disabled_tool_names"),
             "library_id": obj.get("library_id"),
             "private": obj.get("private"),
             "form_data": obj.get("form_data"),

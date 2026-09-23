@@ -47,7 +47,7 @@ class TestMessageIn(unittest.TestCase):
                 document_ids = [
                     ''
                     ],
-                tool_ids = [
+                disabled_tool_names = [
                     ''
                     ],
                 library_id = '',

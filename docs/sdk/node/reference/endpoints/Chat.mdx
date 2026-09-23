@@ -15,7 +15,6 @@ All URIs are relative to *https://api.your-domain.com*
 |[**chatsRemoveLibraryFromChat**](#chatsremovelibraryfromchat) | **DELETE** /chats/&#123;chat_id&#125;/libraries/&#123;library_id&#125; | Remove a library from a chat|
 |[**chatsSummerizeChat**](#chatssummerizechat) | **GET** /chats/&#123;chat_id&#125;/summary | Summarize a chat|
 |[**chatsUpdateChat**](#chatsupdatechat) | **PATCH** /chats/&#123;chat_id&#125; | Update a chat|
-|[**chatsUpdateChatToolSettings**](#chatsupdatechattoolsettings) | **PUT** /chats/&#123;chat_id&#125;/tools/&#123;tool_id&#125; | Set a chat tool setting|
 
 ## **chatsAddLibraryToChat**
 ```typescript
@@ -562,70 +561,4 @@ const { status, data } = await apiInstance.chatsUpdateChat(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | No access to this chat. |  -  |
 |**404** | No chat exists with the given id. |  -  |
-|**422** | Validation Error |  -  |
-
-
-## **chatsUpdateChatToolSettings**
-```typescript
-ChatToolSettingsOut chatsUpdateChatToolSettings(chatToolSettingsUpdate)
-```
-
-Enable or disable a tool for a chat, creating the setting if needed.
-
-### Example
-
-```typescript
-import {
-    Chat,
-    Configuration,
-    ChatToolSettingsUpdate
-} from 'neuland-hub-sdk';
-
-const configuration = new Configuration();
-const apiInstance = new Chat(configuration);
-
-let chatId: string; //ID of the chat. (default to undefined)
-let toolId: string; //Public id of the tool to configure. (default to undefined)
-let chatToolSettingsUpdate: ChatToolSettingsUpdate; //
-let cookieName: string; // (optional) (default to undefined)
-
-const { status, data } = await apiInstance.chatsUpdateChatToolSettings(
-    chatId,
-    toolId,
-    chatToolSettingsUpdate,
-    cookieName
-);
-```
-
-### Parameters
-
-|Name | Type | Description  | Notes|
-|------------- | ------------- | ------------- | -------------|
-| **chatToolSettingsUpdate** | **ChatToolSettingsUpdate**|  | |
-| **chatId** | [**string**] | ID of the chat. | defaults to undefined|
-| **toolId** | [**string**] | Public id of the tool to configure. | defaults to undefined|
-| **cookieName** | [**string**] |  | (optional) defaults to undefined|
-
-
-### Return type
-
-**ChatToolSettingsOut**
-
-### Authorization
-
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-|**200** | Successful Response |  -  |
-|**401** | Missing or invalid authentication. |  -  |
-|**403** | No access to the chat, or the tool is not enabled for the tenant. |  -  |
-|**404** | Chat, tool, or owning user does not exist. |  -  |
 |**422** | Validation Error |  -  |

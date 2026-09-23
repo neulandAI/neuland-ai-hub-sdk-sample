@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **auth_get_entra_groups**
-> Dict[str, ResponseAuthGetEntraGroupsValue] auth_get_entra_groups()
+> Dict[str, ResponseAuthGetEntraGroupsValue] auth_get_entra_groups(cookie_name=cookie_name)
 
 Get Entra group names
 
@@ -177,6 +177,7 @@ Resolve Azure Entra group display names for the current user's groups.
 
 ### Example
 
+* Api Key Authentication (APIKeyHeader):
 * OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
@@ -196,16 +197,23 @@ configuration = neuland_hub_sdk.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = neuland_hub_sdk.Auth(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Get Entra group names
-        api_response = api_instance.auth_get_entra_groups()
+        api_response = api_instance.auth_get_entra_groups(cookie_name=cookie_name)
         print("The response of Auth->auth_get_entra_groups:\n")
         pprint(api_response)
     except Exception as e:
@@ -216,7 +224,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
@@ -224,7 +235,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -237,6 +248,7 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -461,12 +461,12 @@ let similarityTopK: number; // (optional) (default to undefined)
 let systemPrompt: string; // (optional) (default to undefined)
 let assistantId: string; // (optional) (default to undefined)
 let model: string; // (optional) (default to undefined)
-let toolIds: Array<string>; // (optional) (default to undefined)
 let _private: boolean; // (optional) (default to false)
 let libraryId: string; // (optional) (default to undefined)
 let formData: string; // (optional) (default to undefined)
 let formFields: string; // (optional) (default to undefined)
 let playground: boolean; // (optional) (default to false)
+let disabledToolNames: Array<string>; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.messagesSubmitMessage(
     cookieName,
@@ -481,12 +481,12 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
     systemPrompt,
     assistantId,
     model,
-    toolIds,
     _private,
     libraryId,
     formData,
     formFields,
-    playground
+    playground,
+    disabledToolNames
 );
 ```
 
@@ -506,12 +506,12 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 | **systemPrompt** | [**string**] |  | (optional) defaults to undefined|
 | **assistantId** | [**string**] |  | (optional) defaults to undefined|
 | **model** | [**string**] |  | (optional) defaults to undefined|
-| **toolIds** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **_private** | [**boolean**] |  | (optional) defaults to false|
 | **libraryId** | [**string**] |  | (optional) defaults to undefined|
 | **formData** | [**string**] |  | (optional) defaults to undefined|
 | **formFields** | [**string**] |  | (optional) defaults to undefined|
 | **playground** | [**boolean**] |  | (optional) defaults to false|
+| **disabledToolNames** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 
 
 ### Return type

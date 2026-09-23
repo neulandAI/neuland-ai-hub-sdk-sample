@@ -602,6 +602,7 @@ class Auth:
     @validate_call
     def auth_get_entra_groups(
         self,
+        cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -619,6 +620,8 @@ class Auth:
 
         Resolve Azure Entra group display names for the current user's groups.
 
+        :param cookie_name:
+        :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -642,6 +645,7 @@ class Auth:
         """ # noqa: E501
 
         _param = self._auth_get_entra_groups_serialize(
+            cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -651,6 +655,7 @@ class Auth:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, ResponseAuthGetEntraGroupsValue]",
             '401': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -666,6 +671,7 @@ class Auth:
     @validate_call
     def auth_get_entra_groups_with_http_info(
         self,
+        cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -683,6 +689,8 @@ class Auth:
 
         Resolve Azure Entra group display names for the current user's groups.
 
+        :param cookie_name:
+        :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -706,6 +714,7 @@ class Auth:
         """ # noqa: E501
 
         _param = self._auth_get_entra_groups_serialize(
+            cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -715,6 +724,7 @@ class Auth:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, ResponseAuthGetEntraGroupsValue]",
             '401': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -730,6 +740,7 @@ class Auth:
     @validate_call
     def auth_get_entra_groups_without_preload_content(
         self,
+        cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -747,6 +758,8 @@ class Auth:
 
         Resolve Azure Entra group display names for the current user's groups.
 
+        :param cookie_name:
+        :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -770,6 +783,7 @@ class Auth:
         """ # noqa: E501
 
         _param = self._auth_get_entra_groups_serialize(
+            cookie_name=cookie_name,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -779,6 +793,7 @@ class Auth:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "Dict[str, ResponseAuthGetEntraGroupsValue]",
             '401': None,
+            '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -789,6 +804,7 @@ class Auth:
 
     def _auth_get_entra_groups_serialize(
         self,
+        cookie_name,
         _request_auth,
         _content_type,
         _headers,
@@ -811,6 +827,10 @@ class Auth:
 
         # process the path parameters
         # process the query parameters
+        if cookie_name is not None:
+            
+            _query_params.append(('cookie_name', cookie_name))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -827,6 +847,7 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'APIKeyHeader', 
             'OAuth2PasswordBearer'
         ]
 

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,7 +31,19 @@ class CreateOutlookDraftResponse(BaseModel):
     message: StrictStr = Field(description="Human-readable result message.")
     web_link: Optional[StrictStr] = None
     draft_id: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["success", "message", "web_link", "draft_id"]
+    from_mailbox: Optional[StrictStr] = None
+    from_mailbox_kind: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["success", "message", "web_link", "draft_id", "from_mailbox", "from_mailbox_kind"]
+
+    @field_validator('from_mailbox_kind')
+    def from_mailbox_kind_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['shared', 'group']):
+            raise ValueError("must be one of enum values ('shared', 'group')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -82,6 +94,16 @@ class CreateOutlookDraftResponse(BaseModel):
         if self.draft_id is None and "draft_id" in self.model_fields_set:
             _dict['draft_id'] = None
 
+        # set to None if from_mailbox (nullable) is None
+        # and model_fields_set contains the field
+        if self.from_mailbox is None and "from_mailbox" in self.model_fields_set:
+            _dict['from_mailbox'] = None
+
+        # set to None if from_mailbox_kind (nullable) is None
+        # and model_fields_set contains the field
+        if self.from_mailbox_kind is None and "from_mailbox_kind" in self.model_fields_set:
+            _dict['from_mailbox_kind'] = None
+
         return _dict
 
     @classmethod
@@ -97,7 +119,9 @@ class CreateOutlookDraftResponse(BaseModel):
             "success": obj.get("success"),
             "message": obj.get("message"),
             "web_link": obj.get("web_link"),
-            "draft_id": obj.get("draft_id")
+            "draft_id": obj.get("draft_id"),
+            "from_mailbox": obj.get("from_mailbox"),
+            "from_mailbox_kind": obj.get("from_mailbox_kind")
         })
         return _obj
 

@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** | Unique catalog name identifying the model. | [default to undefined]
 **description** | **string** |  | [default to undefined]
+**badge** | **string** |  | [optional] [default to undefined]
+**knowledge_cutoff** | **string** |  | [optional] [default to undefined]
 **multi_modal** | **boolean** | Whether the model accepts non-text inputs such as images. | [default to undefined]
 **gdpr_compliant** | **boolean** | Whether the model may be used for GDPR-compliant workloads. | [default to undefined]
 **embedding_dimension** | **number** |  | [optional] [default to undefined]
@@ -27,6 +29,8 @@ import { CatalogIn } from 'neuland-hub-sdk';
 const instance: CatalogIn = {
     name,
     description,
+    badge,
+    knowledge_cutoff,
     multi_modal,
     gdpr_compliant,
     embedding_dimension,

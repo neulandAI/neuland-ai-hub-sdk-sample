@@ -8,13 +8,13 @@ Method | HTTP request | Description
 [**assistants_add_members**](Assistant.md#assistants_add_members) | **POST** /assistants/{assistant_id}/members | Add members to an assistant
 [**assistants_add_tag_to_assistant**](Assistant.md#assistants_add_tag_to_assistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant
 [**assistants_add_tool_to_assistant**](Assistant.md#assistants_add_tool_to_assistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant
-[**assistants_convert_assistant_to_tool**](Assistant.md#assistants_convert_assistant_to_tool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from the creator&#39;s chats
+[**assistants_convert_assistant_to_tool**](Assistant.md#assistants_convert_assistant_to_tool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from your own chats
 [**assistants_create_assistant**](Assistant.md#assistants_create_assistant) | **POST** /assistants/ | Create an assistant
 [**assistants_delete_assistant**](Assistant.md#assistants_delete_assistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant
 [**assistants_delete_members**](Assistant.md#assistants_delete_members) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant
 [**assistants_join_assistant**](Assistant.md#assistants_join_assistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant
 [**assistants_leave_assitant**](Assistant.md#assistants_leave_assitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant
-[**assistants_remove_assistant_as_tool**](Assistant.md#assistants_remove_assistant_as_tool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from chats
+[**assistants_remove_assistant_as_tool**](Assistant.md#assistants_remove_assistant_as_tool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from your chats
 [**assistants_remove_library_from_assistant**](Assistant.md#assistants_remove_library_from_assistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant
 [**assistants_remove_member**](Assistant.md#assistants_remove_member) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member
 [**assistants_remove_tag_from_assistant**](Assistant.md#assistants_remove_tag_from_assistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant
@@ -395,9 +395,14 @@ Name | Type | Description  | Notes
 # **assistants_convert_assistant_to_tool**
 > Assistant assistants_convert_assistant_to_tool(assistant_id, cookie_name=cookie_name)
 
-Make an assistant consultable from the creator's chats
+Make an assistant consultable from your own chats
 
-Make the assistant consultable in every chat of its creator.
+Make the assistant consultable in every chat of the calling user.
+
+Anyone the assistant is shared with may convert it, creator or not, a
+marketplace-installed copy included: the flag is set on the caller's own
+row, so it changes nothing for the other users it is shared with, and a
+catalog-sourced row is never itself written.
 
 Pure flag flip: `is_tool` alone makes the assistant consultable via the
 `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`,
@@ -444,7 +449,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Make an assistant consultable from the creator's chats
+        # Make an assistant consultable from your own chats
         api_response = api_instance.assistants_convert_assistant_to_tool(assistant_id, cookie_name=cookie_name)
         print("The response of Assistant->assistants_convert_assistant_to_tool:\n")
         pprint(api_response)
@@ -481,7 +486,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | Not the creator, or the assistant is catalog-sourced. |  -  |
+**403** | No direct access. |  -  |
 **404** | No assistant exists with the given id. |  -  |
 **409** | The assistant is already consultable. |  -  |
 **422** | Validation Error |  -  |
@@ -927,10 +932,11 @@ void (empty response body)
 # **assistants_remove_assistant_as_tool**
 > assistants_remove_assistant_as_tool(assistant_id, cookie_name=cookie_name)
 
-Stop the assistant being consultable from chats
+Stop the assistant being consultable from your chats
 
-Clear the `is_tool` flag; the assistant stops being consultable at once
-(every consultability query keys on the flag alone).
+Clear the caller's own `is_tool` flag; the assistant stops being
+consultable from their chats at once (every consultability query keys on
+that flag). Other users' conversions are untouched.
 
 ### Example
 
@@ -969,7 +975,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Stop the assistant being consultable from chats
+        # Stop the assistant being consultable from your chats
         api_instance.assistants_remove_assistant_as_tool(assistant_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_remove_assistant_as_tool: %s\n" % e)
@@ -1004,8 +1010,8 @@ void (empty response body)
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | Not the creator, or the assistant is catalog-sourced. |  -  |
-**404** | No such assistant, or it is not consultable. |  -  |
+**403** | No direct access. |  -  |
+**404** | No such assistant, or you have not converted it. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

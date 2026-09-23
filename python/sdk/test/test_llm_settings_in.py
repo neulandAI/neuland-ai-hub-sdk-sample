@@ -56,7 +56,8 @@ class TestLLMSettingsIn(unittest.TestCase):
                 args = { },
                 openai_resource = '',
                 api_version = '',
-                deployment_name = '',
+                deployment_name = '0',
+                hosted_on = '',
                 endpoint = '',
                 api_key = ''
             )
@@ -68,6 +69,7 @@ class TestLLMSettingsIn(unittest.TestCase):
                 max_tokens = 56,
                 cost_prompt_tokens = None,
                 cost_completion_tokens = None,
+                deployment_name = '0',
         )
         """
 

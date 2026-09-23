@@ -2177,12 +2177,12 @@ class Message:
         system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
         model: Optional[StrictStr] = None,
-        tool_ids: Optional[List[UUID]] = None,
         private: Optional[StrictBool] = None,
         library_id: Optional[UUID] = None,
         form_data: Optional[StrictStr] = None,
         form_fields: Optional[StrictStr] = None,
         playground: Optional[StrictBool] = None,
+        disabled_tool_names: Optional[List[StrictStr]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2224,8 +2224,6 @@ class Message:
         :type assistant_id: UUID
         :param model:
         :type model: str
-        :param tool_ids:
-        :type tool_ids: List[UUID]
         :param private:
         :type private: bool
         :param library_id:
@@ -2236,6 +2234,8 @@ class Message:
         :type form_fields: str
         :param playground:
         :type playground: bool
+        :param disabled_tool_names:
+        :type disabled_tool_names: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2271,12 +2271,12 @@ class Message:
             system_prompt=system_prompt,
             assistant_id=assistant_id,
             model=model,
-            tool_ids=tool_ids,
             private=private,
             library_id=library_id,
             form_data=form_data,
             form_fields=form_fields,
             playground=playground,
+            disabled_tool_names=disabled_tool_names,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2316,12 +2316,12 @@ class Message:
         system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
         model: Optional[StrictStr] = None,
-        tool_ids: Optional[List[UUID]] = None,
         private: Optional[StrictBool] = None,
         library_id: Optional[UUID] = None,
         form_data: Optional[StrictStr] = None,
         form_fields: Optional[StrictStr] = None,
         playground: Optional[StrictBool] = None,
+        disabled_tool_names: Optional[List[StrictStr]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2363,8 +2363,6 @@ class Message:
         :type assistant_id: UUID
         :param model:
         :type model: str
-        :param tool_ids:
-        :type tool_ids: List[UUID]
         :param private:
         :type private: bool
         :param library_id:
@@ -2375,6 +2373,8 @@ class Message:
         :type form_fields: str
         :param playground:
         :type playground: bool
+        :param disabled_tool_names:
+        :type disabled_tool_names: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2410,12 +2410,12 @@ class Message:
             system_prompt=system_prompt,
             assistant_id=assistant_id,
             model=model,
-            tool_ids=tool_ids,
             private=private,
             library_id=library_id,
             form_data=form_data,
             form_fields=form_fields,
             playground=playground,
+            disabled_tool_names=disabled_tool_names,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2455,12 +2455,12 @@ class Message:
         system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
         model: Optional[StrictStr] = None,
-        tool_ids: Optional[List[UUID]] = None,
         private: Optional[StrictBool] = None,
         library_id: Optional[UUID] = None,
         form_data: Optional[StrictStr] = None,
         form_fields: Optional[StrictStr] = None,
         playground: Optional[StrictBool] = None,
+        disabled_tool_names: Optional[List[StrictStr]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2502,8 +2502,6 @@ class Message:
         :type assistant_id: UUID
         :param model:
         :type model: str
-        :param tool_ids:
-        :type tool_ids: List[UUID]
         :param private:
         :type private: bool
         :param library_id:
@@ -2514,6 +2512,8 @@ class Message:
         :type form_fields: str
         :param playground:
         :type playground: bool
+        :param disabled_tool_names:
+        :type disabled_tool_names: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2549,12 +2549,12 @@ class Message:
             system_prompt=system_prompt,
             assistant_id=assistant_id,
             model=model,
-            tool_ids=tool_ids,
             private=private,
             library_id=library_id,
             form_data=form_data,
             form_fields=form_fields,
             playground=playground,
+            disabled_tool_names=disabled_tool_names,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2589,12 +2589,12 @@ class Message:
         system_prompt,
         assistant_id,
         model,
-        tool_ids,
         private,
         library_id,
         form_data,
         form_fields,
         playground,
+        disabled_tool_names,
         _request_auth,
         _content_type,
         _headers,
@@ -2606,7 +2606,7 @@ class Message:
         _collection_formats: Dict[str, str] = {
             'document_ids': 'csv',
             'files': 'csv',
-            'tool_ids': 'csv',
+            'disabled_tool_names': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -2648,8 +2648,6 @@ class Message:
             _form_params.append(('assistant_id', assistant_id))
         if model is not None:
             _form_params.append(('model', model))
-        if tool_ids is not None:
-            _form_params.append(('tool_ids', tool_ids))
         if private is not None:
             _form_params.append(('private', private))
         if library_id is not None:
@@ -2660,6 +2658,8 @@ class Message:
             _form_params.append(('form_fields', form_fields))
         if playground is not None:
             _form_params.append(('playground', playground))
+        if disabled_tool_names is not None:
+            _form_params.append(('disabled_tool_names', disabled_tool_names))
         # process the body parameter
 
 

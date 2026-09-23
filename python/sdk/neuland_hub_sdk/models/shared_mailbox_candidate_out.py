@@ -17,23 +17,31 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class ChatToolSettingsOut(BaseModel):
+class SharedMailboxCandidateOut(BaseModel):
     """
-    Response schema for chat tool settings
+    SharedMailboxCandidateOut
     """ # noqa: E501
-    chat_id: StrictInt = Field(description="ID of the chat.")
-    tool_id: StrictInt = Field(description="ID of the tool.")
-    enabled: StrictBool = Field(description="Whether the tool is enabled for the chat.")
-    created_at: datetime = Field(description="When the setting was created.")
-    updated_at: Optional[datetime]
-    __properties: ClassVar[List[str]] = ["chat_id", "tool_id", "enabled", "created_at", "updated_at"]
+    address: StrictStr
+    display_name: StrictStr
+    connected: StrictBool = Field(description="Whether the caller has already connected this mailbox.")
+    kind: Optional[StrictStr] = Field(default='shared', description="'shared' = Exchange shared mailbox the caller can open; 'group' = Microsoft 365 group the caller is a member of.")
+    __properties: ClassVar[List[str]] = ["address", "display_name", "connected", "kind"]
+
+    @field_validator('kind')
+    def kind_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['shared', 'group']):
+            raise ValueError("must be one of enum values ('shared', 'group')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -53,7 +61,7 @@ class ChatToolSettingsOut(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ChatToolSettingsOut from a JSON string"""
+        """Create an instance of SharedMailboxCandidateOut from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -74,16 +82,11 @@ class ChatToolSettingsOut(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if updated_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.updated_at is None and "updated_at" in self.model_fields_set:
-            _dict['updated_at'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ChatToolSettingsOut from a dict"""
+        """Create an instance of SharedMailboxCandidateOut from a dict"""
         if obj is None:
             return None
 
@@ -91,11 +94,10 @@ class ChatToolSettingsOut(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "chat_id": obj.get("chat_id"),
-            "tool_id": obj.get("tool_id"),
-            "enabled": obj.get("enabled"),
-            "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at")
+            "address": obj.get("address"),
+            "display_name": obj.get("display_name"),
+            "connected": obj.get("connected"),
+            "kind": obj.get("kind") if obj.get("kind") is not None else 'shared'
         })
         return _obj
 

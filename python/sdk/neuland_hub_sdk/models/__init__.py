@@ -50,6 +50,8 @@ from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest
 from neuland_hub_sdk.models.budget_alert_update import BudgetAlertUpdate
 from neuland_hub_sdk.models.budget_forecast import BudgetForecast
 from neuland_hub_sdk.models.budget_summary import BudgetSummary
+from neuland_hub_sdk.models.budget_top_up_out import BudgetTopUpOut
+from neuland_hub_sdk.models.budget_top_up_request import BudgetTopUpRequest
 from neuland_hub_sdk.models.bulk_result import BulkResult
 from neuland_hub_sdk.models.catalog_in import CatalogIn
 from neuland_hub_sdk.models.catalog_update import CatalogUpdate
@@ -59,9 +61,8 @@ from neuland_hub_sdk.models.chat import Chat
 from neuland_hub_sdk.models.chat_in import ChatIn
 from neuland_hub_sdk.models.chat_inactive_document_out import ChatInactiveDocumentOut
 from neuland_hub_sdk.models.chat_library import ChatLibrary
-from neuland_hub_sdk.models.chat_tool_settings_out import ChatToolSettingsOut
-from neuland_hub_sdk.models.chat_tool_settings_update import ChatToolSettingsUpdate
 from neuland_hub_sdk.models.clarification_answer import ClarificationAnswer
+from neuland_hub_sdk.models.connect_shared_mailbox_in import ConnectSharedMailboxIn
 from neuland_hub_sdk.models.connector import Connector
 from neuland_hub_sdk.models.connector_auth_type import ConnectorAuthType
 from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
@@ -87,6 +88,9 @@ from neuland_hub_sdk.models.create_outlook_draft_response import CreateOutlookDr
 from neuland_hub_sdk.models.credential_in import CredentialIn
 from neuland_hub_sdk.models.credential_part_out import CredentialPartOut
 from neuland_hub_sdk.models.credential_template_out import CredentialTemplateOut
+from neuland_hub_sdk.models.custom_connector_create import CustomConnectorCreate
+from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut
+from neuland_hub_sdk.models.custom_connector_update import CustomConnectorUpdate
 from neuland_hub_sdk.models.data_source_capabilities import DataSourceCapabilities
 from neuland_hub_sdk.models.data_source_drive_model import DataSourceDriveModel
 from neuland_hub_sdk.models.data_source_folder_model import DataSourceFolderModel
@@ -182,6 +186,10 @@ from neuland_hub_sdk.models.send_email_response import SendEmailResponse
 from neuland_hub_sdk.models.set_atlassian_cloud_id_request import SetAtlassianCloudIdRequest
 from neuland_hub_sdk.models.settings import Settings
 from neuland_hub_sdk.models.settings_in import SettingsIn
+from neuland_hub_sdk.models.shared_mailbox import SharedMailbox
+from neuland_hub_sdk.models.shared_mailbox_candidate_out import SharedMailboxCandidateOut
+from neuland_hub_sdk.models.shared_mailbox_list_out import SharedMailboxListOut
+from neuland_hub_sdk.models.shared_mailbox_search_out import SharedMailboxSearchOut
 from neuland_hub_sdk.models.sharepoint_drive_model import SharepointDriveModel
 from neuland_hub_sdk.models.sharepoint_folder_model import SharepointFolderModel
 from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel

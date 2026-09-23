@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **period_start** | **datetime** | Start of the current billing month. | 
 **current_spend** | **float** | Tenant spend so far this month. | 
 **pool_cap** | **float** |  | 
+**base_cap** | **float** |  | 
+**top_up_total** | **float** | Top-up money on the cap this month. A cancelled top-up counts for what was consumed of it, not its face value. 0 on any non-pool plan. | 
 **remaining** | **float** |  | 
 **percent_used** | **float** |  | 
 **is_unlimited** | **bool** | Whether the active plan is unlimited. | 

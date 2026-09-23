@@ -6,7 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**alerts_budget_forecast**](Alert.md#alerts_budget_forecast) | **GET** /alerts/budgets/forecast | Forecast the tenant&#39;s month-end spend from its current run rate
 [**alerts_budget_summary**](Alert.md#alerts_budget_summary) | **GET** /alerts/budgets/summary | Get the tenant&#39;s current-month budget summary
+[**alerts_cancel_top_up**](Alert.md#alerts_cancel_top_up) | **POST** /alerts/budgets/top-ups/{top_up_id}/cancel | Cancel a budget top-up
 [**alerts_create_alert**](Alert.md#alerts_create_alert) | **POST** /alerts/ | Create a budget alert
+[**alerts_create_top_up**](Alert.md#alerts_create_top_up) | **POST** /alerts/budgets/top-ups | Add a budget top-up for the current month
 [**alerts_delete_alert**](Alert.md#alerts_delete_alert) | **DELETE** /alerts/{alert_id} | Delete a budget alert
 [**alerts_update_alert**](Alert.md#alerts_update_alert) | **PATCH** /alerts/{alert_id} | Update a budget alert
 
@@ -184,6 +186,94 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **alerts_cancel_top_up**
+> BudgetTopUpOut alerts_cancel_top_up(top_up_id, cookie_name=cookie_name)
+
+Cancel a budget top-up
+
+Stop a top-up adding headroom, keeping what it has already covered.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.budget_top_up_out import BudgetTopUpOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Alert(api_client)
+    top_up_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the budget top-up to cancel.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Cancel a budget top-up
+        api_response = api_instance.alerts_cancel_top_up(top_up_id, cookie_name=cookie_name)
+        print("The response of Alert->alerts_cancel_top_up:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Alert->alerts_cancel_top_up: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **top_up_id** | **UUID**| Public id of the budget top-up to cancel. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**BudgetTopUpOut**](BudgetTopUpOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required, or the top-up belongs to another tenant. |  -  |
+**404** | No budget top-up exists with the given id. |  -  |
+**422** | The top-up is already cancelled. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **alerts_create_alert**
 > BudgetAlert alerts_create_alert(budget_alert_request, cookie_name=cookie_name)
 
@@ -269,6 +359,94 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | Admin privileges required. |  -  |
 **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **alerts_create_top_up**
+> BudgetTopUpOut alerts_create_top_up(budget_top_up_request, cookie_name=cookie_name)
+
+Add a budget top-up for the current month
+
+Raise the tenant's pool budget for the current calendar month.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* OAuth Authentication (OAuth2PasswordBearer):
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.models.budget_top_up_out import BudgetTopUpOut
+from neuland_hub_sdk.models.budget_top_up_request import BudgetTopUpRequest
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = neuland_hub_sdk.Alert(api_client)
+    budget_top_up_request = neuland_hub_sdk.BudgetTopUpRequest() # BudgetTopUpRequest | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Add a budget top-up for the current month
+        api_response = api_instance.alerts_create_top_up(budget_top_up_request, cookie_name=cookie_name)
+        print("The response of Alert->alerts_create_top_up:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Alert->alerts_create_top_up: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **budget_top_up_request** | [**BudgetTopUpRequest**](BudgetTopUpRequest.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**BudgetTopUpOut**](BudgetTopUpOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
+**422** | The tenant&#39;s plan has no monthly pool to raise. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

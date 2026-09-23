@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from neuland_hub_sdk.models.model_tier_enum import ModelTierEnum
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,6 +31,8 @@ class CatalogUpdate(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
+    badge: Optional[StrictStr] = None
+    knowledge_cutoff: Optional[Annotated[str, Field(strict=True, max_length=7)]] = None
     multi_modal: Optional[StrictBool] = None
     gdpr_compliant: Optional[StrictBool] = None
     embedding_dimension: Optional[StrictInt] = None
@@ -40,7 +43,7 @@ class CatalogUpdate(BaseModel):
     auto_seed: Optional[StrictBool] = None
     tier: Optional[ModelTierEnum] = None
     auto_routable: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "auto_seed", "tier", "auto_routable"]
+    __properties: ClassVar[List[str]] = ["name", "description", "badge", "knowledge_cutoff", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "auto_seed", "tier", "auto_routable"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -90,6 +93,16 @@ class CatalogUpdate(BaseModel):
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
+
+        # set to None if badge (nullable) is None
+        # and model_fields_set contains the field
+        if self.badge is None and "badge" in self.model_fields_set:
+            _dict['badge'] = None
+
+        # set to None if knowledge_cutoff (nullable) is None
+        # and model_fields_set contains the field
+        if self.knowledge_cutoff is None and "knowledge_cutoff" in self.model_fields_set:
+            _dict['knowledge_cutoff'] = None
 
         # set to None if multi_modal (nullable) is None
         # and model_fields_set contains the field
@@ -155,6 +168,8 @@ class CatalogUpdate(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "description": obj.get("description"),
+            "badge": obj.get("badge"),
+            "knowledge_cutoff": obj.get("knowledge_cutoff"),
             "multi_modal": obj.get("multi_modal"),
             "gdpr_compliant": obj.get("gdpr_compliant"),
             "embedding_dimension": obj.get("embedding_dimension"),

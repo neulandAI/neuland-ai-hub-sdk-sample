@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **cc** | [**Cc**](Cc.md) |  | [optional] [default to undefined]
 **bcc** | [**Bcc**](Bcc.md) |  | [optional] [default to undefined]
 **attachment_ids** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**mailbox** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -27,6 +28,7 @@ const instance: SendEmailRequest = {
     cc,
     bcc,
     attachment_ids,
+    mailbox,
 };
 ```
 

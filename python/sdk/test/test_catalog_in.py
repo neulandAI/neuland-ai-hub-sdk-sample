@@ -37,6 +37,8 @@ class TestCatalogIn(unittest.TestCase):
             return CatalogIn(
                 name = '',
                 description = '',
+                badge = '',
+                knowledge_cutoff = '',
                 multi_modal = True,
                 gdpr_compliant = True,
                 embedding_dimension = 56,
