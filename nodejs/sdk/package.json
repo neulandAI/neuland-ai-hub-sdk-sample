@@ -1,11 +1,11 @@
 {
   "name": "neuland-hub-sdk",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "OpenAPI client for neuland-hub-sdk",
-  "author": "OpenAPI-Generator Contributors",
+  "author": "neuland.ai",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
+    "url": "https://github.com/neulandAI/neuland-ai-hub-sdk-sample.git"
   },
   "keywords": [
     "axios",
@@ -14,7 +14,7 @@
     "openapi-generator",
     "neuland-hub-sdk"
   ],
-  "license": "Unlicense",
+  "license": "SEE LICENSE IN LICENSE",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {

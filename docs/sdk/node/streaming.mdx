@@ -32,7 +32,7 @@ import { streamMessage } from "./streaming";
 
 for await (const event of streamMessage({
   baseUrl: "https://api.your-domain.com",
-  apiKey: "ak.<key_id>.<secret>", // sent as X-API-KEY
+  apiKey: "ak_prod_v1.<key_id>.<secret>", // sent as X-API-KEY
   message: { content: "Explain quantum tunneling" },
 })) {
   console.log(event.event, event.data);
@@ -48,7 +48,7 @@ import { observeMessage } from "./streaming";
 
 for await (const event of observeMessage({
   baseUrl: "https://api.your-domain.com",
-  apiKey: "ak.<key_id>.<secret>",
+  apiKey: "ak_prod_v1.<key_id>.<secret>",
   messageId: 123,
 })) {
   console.log(event.event, event.data);

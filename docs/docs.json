@@ -10,24 +10,14 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "User Guide",
-        "groups": [
-          {
-            "group": "Introduction",
-            "pages": [
-              "GettingStarted"
-            ]
-          }
-        ]
-      },
-      {
         "tab": "Integration Guide",
         "groups": [
           {
             "group": "Getting Started",
             "pages": [
               "guides/introduction",
-              "guides/quickstart"
+              "guides/quickstart",
+              "guides/query"
             ]
           }
         ]

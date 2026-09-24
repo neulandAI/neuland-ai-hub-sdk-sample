@@ -15,30 +15,12 @@ This README has two paths — pick the one that matches what you're doing:
 
 In Hub UI: **Settings → API keys → Create new key**. Copy when shown — it's only displayed once.
 
-## 2. Authenticate consumers (one-time per machine)
-
-The repo is private, so consumers need GitHub authentication to install.
-
-**SSH (recommended for developers):** add your key to GitHub. `git+ssh://` URLs work directly.
-
-**PAT via `~/.netrc`:**
-```bash
-cat >> ~/.netrc <<EOF
-machine github.com
-  login <your-github-username>
-  password <your-PAT>
-EOF
-chmod 600 ~/.netrc
-```
-
-**Token in URL (CI):** set `GITHUB_TOKEN` and embed it in the install URL.
-
-## 3. Install + use
+## 2. Install + use
 
 ### Python
 
 ```bash
-pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sdk"
+pip install neuland-hub-sdk
 ```
 
 ```python
@@ -46,7 +28,7 @@ import os
 from neuland_hub_sdk import ApiClient, Configuration
 from neuland_hub_sdk.api.user import User
 
-config = Configuration(host="https://hub.neuland.ai.com")
+config = Configuration(host="https://api.your-domain.com")
 config.api_key["APIKeyHeader"] = os.environ["NLND_HUB_API_KEY"]
 
 with ApiClient(config) as client:
@@ -56,7 +38,7 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sdk
+neuland-hub-sdk==1.0.3
 ```
 
 Requires Python 3.9+.
@@ -64,23 +46,14 @@ Requires Python 3.9+.
 ### Node.js
 
 ```bash
-# npm doesn't support git subdirectory installs natively. Use gitpkg:
-npm install "https://gitpkg.vercel.app/neulandAI/neuland-ai-hub-sdk-sample/nodejs/sdk?dev"
-```
-
-Or local clone:
-```bash
-git clone git@github.com:neulandAI/neuland-ai-hub-sdk-sample.git
-cd neuland-ai-hub-sdk-sample/nodejs/sdk && npm install && npm run build
-# then in your project:
-npm install /absolute/path/to/neuland-ai-hub-sdk-sample/nodejs/sdk
+npm install neuland-hub-sdk
 ```
 
 ```ts
 import { Configuration, User } from "neuland-hub-sdk";
 
 const config = new Configuration({
-  basePath: "https://hub.neuland.ai.com",
+  basePath: "https://api.your-domain.com",
   apiKey: process.env.NLND_HUB_API_KEY,
 });
 
@@ -90,7 +63,7 @@ console.log(me);
 
 Requires Node.js 18+.
 
-## 4. Streaming (not in the generated SDK)
+## 3. Streaming (not in the generated SDK)
 
 Live, token-by-token responses aren't part of the generated SDK. To use streaming, copy one standalone file into your project — full usage is documented at the top of each file:
 
@@ -141,8 +114,9 @@ Fill in real values.
 cd python
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e sdk
-pip install -r requirements.txt
+pip install -r sample-app/requirements.txt
 set -a && source .env && set +a
+cd sample-app
 uvicorn main:app --host 0.0.0.0 --port 9999 --reload
 ```
 
@@ -159,6 +133,18 @@ node src/index.js
 ```
 
 ## 3. Run the frontend
+
+> **Internal only for now.** The demo UI depends on `@neulandai/ui-library`, a
+> private package on GitHub Packages, and this repo ships no npm registry config
+> for it. To install it, put these two lines in your own `~/.npmrc` with a GitHub
+> token that has `read:packages` for the `neulandAI` org:
+>
+> ```
+> @neulandai:registry=https://npm.pkg.github.com
+> //npm.pkg.github.com/:_authToken=<your token>
+> ```
+>
+> Never commit that file. The SDK and both sample backends do not need this.
 
 ```bash
 cd frontend
