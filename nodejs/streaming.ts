@@ -16,7 +16,7 @@
  *
  *   for await (const event of streamMessage({
  *     baseUrl: "http://localhost:8001",
- *     apiKey: "ak_dev_v1.<key_id>.<secret>",
+ *     apiKey: "ak_prod_v1.<key_id>.<secret>",
  *     message: { content: "Explain quantum tunneling" },
  *   })) {
  *     console.log(event.event, event.data);
@@ -37,7 +37,7 @@ export interface StreamEvent {
 export interface StreamOptions {
   /** Base URL of the Hub API, e.g. "http://localhost:8001". */
   baseUrl: string;
-  /** API key value, e.g. "ak_dev_v1.<key_id>.<secret>". */
+  /** API key value, e.g. "ak_prod_v1.<key_id>.<secret>". */
   apiKey: string;
   /** Optional AbortSignal to cancel the stream. */
   signal?: AbortSignal;

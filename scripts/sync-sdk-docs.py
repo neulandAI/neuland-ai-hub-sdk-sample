@@ -49,6 +49,31 @@ SERVERS = [
     }
 ]
 
+# Package metadata the generator cannot set from the command line. The Python
+# author email comes from the spec's `info.contact.email` (which the Hub does not
+# set), and the Node `author` field is hardcoded in the generator template, so
+# both are patched here after every regen. Change them in one place.
+SDK_AUTHOR_NAME = "neuland.ai"
+SDK_AUTHOR_EMAIL = "hello@neuland.ai"
+# License declaration. Until legal picks one, both manifests point at the LICENSE
+# file (placeholder text). When decided, set SDK_LICENSE_SPDX = "MIT" (or
+# "Apache-2.0") and both manifests switch to the SPDX form automatically.
+SDK_LICENSE_SPDX: str | None = None
+PY_PYPROJECT = REPO_ROOT / "python/sdk/pyproject.toml"
+PY_SETUP = REPO_ROOT / "python/sdk/setup.py"
+NODE_PACKAGE = REPO_ROOT / "nodejs/sdk/package.json"
+
+# Injected at the top of the generated Query reference page on every run. The
+# generated methods only take the resource name; the guide shows how to pass
+# PostgREST filters. Lives here so it survives regeneration.
+QUERY_NOTE = """<Note>
+  These methods only take the resource name. Filters, column selection, sorting
+  and embeds go in the query string. See
+  [Read data with Query](/guides/query) for the pattern and ready-made recipes.
+</Note>
+
+"""
+
 # One entry per generated SDK. `lang` selects the fenced-code language used when
 # rewriting method-signature blockquotes.
 SDKS = [
@@ -353,6 +378,16 @@ def propagate_via_doc_links(model_tag: dict[str, str], src_dir: Path) -> None:
 # --------------------------------------------------------------------------- #
 # Sync + navigation
 # --------------------------------------------------------------------------- #
+def _inject_after_frontmatter(text: str, block: str) -> str:
+    """Insert `block` right after the closing `---` of the MDX frontmatter."""
+    if text.startswith("---"):
+        end = text.find("\n---", 3)
+        if end != -1:
+            end = text.find("\n", end + 1) + 1
+            return text[:end] + "\n" + block + text[end:].lstrip("\n")
+    return block + text
+
+
 def sync_sdk(sdk: dict) -> dict[str, list[str]]:
     src_dir = REPO_ROOT / sdk["src"]
     dest, lang = sdk["dest"], sdk["lang"]
@@ -380,6 +415,8 @@ def sync_sdk(sdk: dict) -> dict[str, list[str]]:
         out_dir = reference_dir / category
         out_dir.mkdir(parents=True, exist_ok=True)
         out_text = transform(contents[f], dest, lang, name_map)
+        if category == "endpoints" and f.stem == "Query":
+            out_text = _inject_after_frontmatter(out_text, QUERY_NOTE)
         (out_dir / f"{f.stem}.mdx").write_text(out_text, encoding="utf-8")
         pages[category].append(f.stem)
 
@@ -608,8 +645,70 @@ def merge_streaming_endpoints() -> None:
     print(f"  injected streaming endpoints into openapi.json: {', '.join(added)}")
 
 
+def fix_sdk_metadata() -> None:
+    """Patch the package metadata the generator leaves at its defaults.
+
+    Idempotent: rewrites the author name/email in `pyproject.toml` and
+    `setup.py`, and the `author` field in the Node `package.json`. Everything
+    the generator *can* set (repo URL, version, package URL) is passed on the
+    command line in MAINTAINING.md instead, so it is not touched here.
+    """
+    changed: list[str] = []
+
+    text = PY_PYPROJECT.read_text()
+    new = re.sub(r'\{name = "[^"]*",\s*email = "[^"]*"\}',
+                 f'{{name = "{SDK_AUTHOR_NAME}",email = "{SDK_AUTHOR_EMAIL}"}}', text, count=1)
+    if new != text:
+        PY_PYPROJECT.write_text(new); changed.append(PY_PYPROJECT.name)
+
+    text = PY_SETUP.read_text()
+    new = re.sub(r'^(\s*)author="[^"]*",', rf'\1author="{SDK_AUTHOR_NAME}",', text, count=1, flags=re.M)
+    new = re.sub(r'^(\s*)author_email="[^"]*",', rf'\1author_email="{SDK_AUTHOR_EMAIL}",', new, count=1, flags=re.M)
+    if new != text:
+        PY_SETUP.write_text(new); changed.append(PY_SETUP.name)
+
+    # The generated Python README ships to PyPI: replace the generator's git-URL
+    # install snippet with the registry install.
+    readme = REPO_ROOT / "python/sdk/README.md"
+    text = readme.read_text()
+    new = re.sub(r"If the python package is hosted on a repository, you can install directly using:\n\n```sh\npip install [^\n]+\n```\n\(you may need to run `pip` with root permission: `sudo pip install [^`]+`\)",
+                 "```sh\npip install neuland-hub-sdk\n```", text, count=1)
+    if new != text:
+        readme.write_text(new); changed.append(readme.name)
+
+    # pyproject: license line right after requires-python (generator emits none)
+    text = PY_PYPROJECT.read_text()
+    py_license = f'license = "{SDK_LICENSE_SPDX}"' if SDK_LICENSE_SPDX else 'license = {file = "LICENSE"}'
+    new = re.sub(r'^license = .*\n', '', text, flags=re.M)
+    new = re.sub(r'^(requires-python = .*\n)', lambda m: m.group(1) + py_license + "\n", new, count=1, flags=re.M)
+    if new != text:
+        PY_PYPROJECT.write_text(new)
+        if PY_PYPROJECT.name not in changed: changed.append(PY_PYPROJECT.name)
+
+    pkg = json.loads(NODE_PACKAGE.read_text())
+    node_license = SDK_LICENSE_SPDX or "SEE LICENSE IN LICENSE"
+    if pkg.get("author") != SDK_AUTHOR_NAME or pkg.get("license") != node_license:
+        pkg["author"] = SDK_AUTHOR_NAME
+        pkg["license"] = node_license
+        NODE_PACKAGE.write_text(json.dumps(pkg, indent=2) + "\n"); changed.append(NODE_PACKAGE.name)
+
+    # package-lock.json mirrors name/version/license in its root entry; keep it
+    # in step so `npm ci` and `npm pack` report the same metadata.
+    lock_path = NODE_PACKAGE.with_name("package-lock.json")
+    if lock_path.exists():
+        lock = json.loads(lock_path.read_text())
+        root = lock.get("packages", {}).get("", {})
+        wanted = {"version": pkg["version"], "license": pkg["license"]}
+        if any(root.get(k) != v for k, v in wanted.items()) or lock.get("version") != pkg["version"]:
+            root.update(wanted); lock["version"] = pkg["version"]
+            lock_path.write_text(json.dumps(lock, indent=2) + "\n"); changed.append(lock_path.name)
+
+    print("  fixed SDK metadata in: " + (", ".join(changed) if changed else "(nothing to change)"))
+
+
 def main() -> None:
     print("Syncing generated SDK docs into the Mintlify tree...")
+    fix_sdk_metadata()
     ensure_servers()
     merge_streaming_endpoints()
     model_tag, tag_order = build_model_to_tag()

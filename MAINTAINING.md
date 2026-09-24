@@ -26,28 +26,48 @@ Drop this step (and delete `scripts/normalize-openapi.py`) once the generator sh
 
 ### 3. Regenerate the Python SDK
 
+The version is read from `python/sdk/pyproject.toml`, the single source of
+truth, so a regen never resets it. Both
+wipes keep `.openapi-generator-ignore` and `LICENSE`: the ignore file lists the scaffolding (`git_push.sh`,
+CI configs, empty test stubs) that must stay out of the repo, and the generator
+only honours it if the file is present when it runs.
+
 ```bash
-rm -rf python/sdk
+SDK_VERSION=$(python3 -c "import tomllib;print(tomllib.load(open('python/sdk/pyproject.toml','rb'))['project']['version'])")
+echo "$SDK_VERSION"   # e.g. 1.0.3
+
+find python/sdk -mindepth 1 -maxdepth 1 ! -name .openapi-generator-ignore ! -name LICENSE -exec rm -rf {} +
 npx --yes @openapitools/openapi-generator-cli generate \
   -i /tmp/hub-openapi.json \
   -g python \
   -o python/sdk \
   --skip-validate-spec \
-  --additional-properties=packageName=neuland_hub_sdk,projectName=neuland-hub-sdk,packageVersion=1.0.0,apiNameSuffix=
+  --git-user-id neulandAI --git-repo-id neuland-ai-hub-sdk-sample \
+  --additional-properties=packageName=neuland_hub_sdk,projectName=neuland-hub-sdk,packageVersion=$SDK_VERSION,packageUrl=https://github.com/neulandAI/neuland-ai-hub-sdk-sample,apiNameSuffix=
 ```
+
+> Use the pinned `npx` command, not a globally installed `openapi-generator`
+> (Homebrew ships a newer version). A different generator version changes the
+> emitted code and `.openapi-generator/VERSION` in the same commit.
 
 ### 4. Regenerate the Node SDK
 
 ```bash
-find nodejs/sdk -mindepth 1 -maxdepth 1 ! -name node_modules ! -name dist -exec rm -rf {} +
+find nodejs/sdk -mindepth 1 -maxdepth 1 ! -name node_modules ! -name dist ! -name .openapi-generator-ignore ! -name LICENSE ! -name package-lock.json -exec rm -rf {} +
 npx --yes @openapitools/openapi-generator-cli generate \
   -i /tmp/hub-openapi.json \
   -g typescript-axios \
   -o nodejs/sdk \
   --skip-validate-spec \
-  --additional-properties=npmName=neuland-hub-sdk,npmVersion=1.0.0,enumPropertyNaming=original,apiNameSuffix=
-( cd nodejs/sdk && npm install && npm run build )
+  --git-user-id neulandAI --git-repo-id neuland-ai-hub-sdk-sample \
+  --additional-properties=npmName=neuland-hub-sdk,npmVersion=$SDK_VERSION,enumPropertyNaming=original,apiNameSuffix=
+( cd nodejs/sdk && npm ci --ignore-scripts && npm run build )
 ```
+
+> Keep `package-lock.json` and install with `npm ci`, not `npm install`. The
+> generated `common.ts` does not compile against axios 1.20+ with TypeScript 5.9
+> (`TS2527` in `createRequestFunction`); the lockfile pins axios 1.15.x, which
+> works. Bump axios only when the build passes with the new version.
 
 ### 5. Sync the SDK docs into the Mintlify site
 
@@ -60,7 +80,9 @@ matching navigation in [docs/docs.json](docs/docs.json):
 python3 scripts/sync-sdk-docs.py
 ```
 
-It writes to `docs/sdk/python/reference/` and `docs/sdk/node/reference/`, and
+It first patches the package metadata the generator cannot set (author name and
+email; see `SDK_AUTHOR_*` at the top of the script). Then it writes to
+`docs/sdk/python/reference/` and `docs/sdk/node/reference/`, and
 rebuilds each SDK tab's navigation: the per-resource method pages are listed
 flat in the spec's tag order (no individual headers), followed by a single
 **Models** section sub-grouped by resource. The model-to-resource mapping is
@@ -105,6 +127,28 @@ version is what keeps the API Reference and SDK tabs consistent.
 rm -f /tmp/hub-openapi.json
 ```
 
+## Releasing
+
+Both SDKs are published to [PyPI](https://pypi.org/project/neuland-hub-sdk/) and
+[npm](https://www.npmjs.com/package/neuland-hub-sdk) by
+[.github/workflows/release.yml](.github/workflows/release.yml) when a
+`sdk-v<version>` tag is pushed. The registries trust the workflow via OIDC
+(trusted publishing), so no tokens are stored in the repo.
+
+1. Bump the version in a PR to `dev`. Same value in all of:
+   `python/sdk/pyproject.toml`, `python/sdk/setup.py`,
+   `python/sdk/neuland_hub_sdk/__init__.py`, `nodejs/sdk/package.json`
+   (and `package-lock.json`). Also update the pin in `README.md` and
+   `docs/sdk/python/installation.mdx`.
+2. Merge, then tag the merge commit and push the tag:
+
+   ```bash
+   git tag sdk-v1.0.4 && git push origin sdk-v1.0.4
+   ```
+
+3. The workflow checks the tag matches both manifests, builds, and publishes.
+   Watch it under Actions. A version mismatch fails before anything is published.
+
 ## Why pin the generator version?
 
 `openapitools.json` pins the JAR to `7.21.0`. Newer versions have changed default class naming behavior — pinning keeps the generated code stable across machines and across time.
@@ -116,6 +160,6 @@ rm -f /tmp/hub-openapi.json
 | [openapitools.json](openapitools.json) | Pins the openapi-generator JAR version. |
 | [scripts/normalize-openapi.py](scripts/normalize-openapi.py) | Rewrites OpenAPI 3.1 binary fields to the 3.0-style shape the pinned generator understands. Temporary; remove once openapi-generator ships native 3.1 binary support. |
 | [scripts/sync-sdk-docs.py](scripts/sync-sdk-docs.py) | Copies the generated `*/sdk/docs/` markdown into `docs/sdk/<lang>/reference/` as Mintlify `.mdx` and rebuilds the SDK navigation groups in `docs/docs.json`. Idempotent; run after every regen. |
-| `python/sdk/`, `nodejs/sdk/` | Generated output, committed for consumers to install from a tag. |
+| `python/sdk/`, `nodejs/sdk/` | Generated output, committed; published to PyPI and npm by the release workflow. |
 | [docs/](docs/) | Mintlify docs site (linked to the Mintlify dashboard). Curated guide/SDK pages are hand-written; `docs/sdk/*/reference/` is generated by `sync-sdk-docs.py`; the API Reference tab is driven by `docs/openapi.json`. |
 | [python/streaming.py](python/streaming.py), [nodejs/streaming.ts](nodejs/streaming.ts) | Hand-written SSE clients for the streaming endpoints (excluded from OpenAPI). Live outside `sdk/` so regen doesn't wipe them; maintained by hand, never regenerated. |

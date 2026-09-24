@@ -10,7 +10,7 @@ import { Configuration, User } from "neuland-hub-sdk";
 
 const configuration = new Configuration({
   basePath: "https://api.your-domain.com",
-  apiKey: "ak.<key_id>.<secret>", // sent as X-API-KEY
+  apiKey: "ak_prod_v1.<key_id>.<secret>", // sent as X-API-KEY
 });
 ```
 
@@ -18,7 +18,7 @@ const configuration = new Configuration({
 
 Each API tag (for example `Alert`, `Chat`, `User`) becomes a client class, and
 each endpoint's `operationId` becomes a method on it. The exact names are listed
-under [API Methods](/sdk/node/reference).
+under [API Methods](/sdk/node/reference/endpoints/User).
 
 ```typescript
 const api = new User(configuration);
@@ -32,3 +32,18 @@ console.log(data);
   directly from the SDK on every release, so they always match the installed
   package.
 </Note>
+
+## Read data with Query
+
+The Hub's read-only `/query/<resource>` endpoint returns your chats, messages,
+assistants, documents and more using PostgREST filters. Pass them as axios
+`params`:
+
+```ts
+const { data: chats } = await new Query(config).queryQuery("chats", undefined, {
+  params: { select: "id,name", order: "updated_at.desc", limit: 10 },
+});
+```
+
+Ready-made recipes for the common cases are in
+[Read data with Query](/guides/query).

@@ -1,0 +1,355 @@
+---
+title: "Read data with Query"
+description: "Read your chats, messages, assistants, documents and more with one read-only endpoint and PostgREST filters."
+---
+
+The Hub exposes a read-only **Query** endpoint that forwards to
+[PostgREST](https://postgrest.org). You address a table or view by name and
+shape the result with URL parameters: pick columns, filter, sort, paginate, and
+embed related rows in one request.
+
+```
+GET https://api.your-domain.com/query/<resource>?<postgrest parameters>
+GET https://api.your-domain.com/query/rpc/<function>?<parameters>
+X-API-KEY: ak_prod_v1.<key_id>.<secret>
+```
+
+You only ever see the rows your user can see in the Hub. The same row-level
+rules apply to the API key as to the browser session, so a key can never read
+another user's private chats.
+
+<Note>
+  The generated SDK methods `query_query` / `queryQuery` take only the resource
+  name. Filters go in the query string, so each example below shows the
+  three-line pattern for passing them. Python uses the client's request
+  builder; Node passes axios `params`.
+</Note>
+
+## Syntax cheat sheet
+
+| Want | Parameter | Example |
+|---|---|---|
+| Only some columns | `select` | `select=id,name,updated_at` |
+| Equals | `<col>=eq.` | `chat_id=eq.42` |
+| Greater / less | `gt.` `gte.` `lt.` `lte.` | `created_at=gte.2026-09-01` |
+| Pattern, case-insensitive | `ilike.` with `*` | `name=ilike.*meeting*` |
+| One of | `in.(…)` | `role=in.(user,assistant)` |
+| Boolean / null | `is.` | `already_added=is.false` |
+| Sort | `order` | `order=updated_at.desc` |
+| Page | `limit`, `offset` | `limit=20&offset=40` |
+| Related rows | `relation(cols)` in `select` | `select=id,name,documents(id,filename)` |
+| Count related rows | `relation(count)` | `select=id,name,chats(count)` |
+
+Full reference: [PostgREST tables and views](https://postgrest.org/en/stable/references/api/tables_views.html).
+
+## Setup
+
+Every example below assumes this once-per-file setup.
+
+<CodeGroup>
+
+```bash curl
+export HUB=https://api.your-domain.com
+export NLND_HUB_API_KEY=ak_prod_v1.<key_id>.<secret>
+```
+
+```python Python
+import json
+from neuland_hub_sdk import ApiClient, Configuration
+
+config = Configuration(host="https://api.your-domain.com")
+config.api_key["APIKeyHeader"] = "ak_prod_v1.<key_id>.<secret>"
+
+
+def query(client: ApiClient, resource: str, **params) -> list[dict]:
+    """GET /query/<resource> with PostgREST parameters. Auth comes from config."""
+    method, url, headers, body, post = client.param_serialize(
+        "GET",
+        f"/query/{resource}",
+        query_params=list(params.items()),
+        auth_settings=["APIKeyHeader"],
+    )
+    response = client.call_api(method, url, header_params=headers)
+    response.read()
+    return json.loads(response.data)
+```
+
+```ts Node
+import { Configuration, Query } from "neuland-hub-sdk";
+
+const config = new Configuration({
+  basePath: "https://api.your-domain.com",
+  apiKey: "ak_prod_v1.<key_id>.<secret>",
+});
+const query = new Query(config);
+```
+
+</CodeGroup>
+
+## Recipes
+
+### My 10 most recent chats
+
+Name and last activity, newest first.
+
+<CodeGroup>
+
+```bash curl
+curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
+  "$HUB/query/chats?select=id,name,updated_at&order=updated_at.desc&limit=10"
+```
+
+```python Python
+with ApiClient(config) as client:
+    chats = query(client, "chats",
+                  select="id,name,updated_at",
+                  order="updated_at.desc", limit=10)
+    for chat in chats:
+        print(f"{chat['updated_at'][:10]}  {chat['name']}")
+```
+
+```ts Node
+const { data: chats } = await query.queryQuery("chats", undefined, {
+  params: { select: "id,name,updated_at", order: "updated_at.desc", limit: 10 },
+});
+for (const chat of chats) console.log(chat.updated_at.slice(0, 10), chat.name);
+```
+
+</CodeGroup>
+
+### Export a chat's history
+
+Every message in chat `42`, oldest first, with the tools each answer called and
+the files attached to it. Use `messages_limited`: it hides the model's
+intermediate steps and returns one row per visible turn.
+
+<CodeGroup>
+
+```bash curl
+curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
+  "$HUB/query/messages_limited?select=id,role,content,created_at,tool_calls:tool_calls_limited(id,call_input,call_output,tools(name)),documents:documents_limited(id,filename)&chat_id=eq.42&order=created_at.asc" \
+  > chat-42.json
+```
+
+```python Python
+with ApiClient(config) as client:
+    history = query(client, "messages_limited",
+                    select="id,role,content,created_at,"
+                           "tool_calls:tool_calls_limited(id,call_input,call_output,tools(name)),"
+                           "documents:documents_limited(id,filename)",
+                    chat_id="eq.42", order="created_at.asc")
+    with open("chat-42.json", "w") as f:
+        json.dump(history, f, indent=2)
+    print(f"{len(history)} messages exported")
+```
+
+```ts Node
+import { writeFile } from "node:fs/promises";
+
+const { data: history } = await query.queryQuery("messages_limited", undefined, {
+  params: {
+    select:
+      "id,role,content,created_at," +
+      "tool_calls:tool_calls_limited(id,call_input,call_output,tools(name))," +
+      "documents:documents_limited(id,filename)",
+    chat_id: "eq.42",
+    order: "created_at.asc",
+  },
+});
+await writeFile("chat-42.json", JSON.stringify(history, null, 2));
+console.log(`${history.length} messages exported`);
+```
+
+</CodeGroup>
+
+### Assistants I can use
+
+Assistants you created or were given access to, newest first.
+
+<CodeGroup>
+
+```bash curl
+curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
+  "$HUB/query/assistants?select=id,name,description,created_at&order=created_at.desc"
+```
+
+```python Python
+with ApiClient(config) as client:
+    for a in query(client, "assistants",
+                   select="id,name,description,created_at",
+                   order="created_at.desc"):
+        print(f"[{a['id']}] {a['name']}: {a['description'] or '-'}")
+```
+
+```ts Node
+const { data: assistants } = await query.queryQuery("assistants", undefined, {
+  params: { select: "id,name,description,created_at", order: "created_at.desc" },
+});
+for (const a of assistants) console.log(`[${a.id}] ${a.name}: ${a.description ?? "-"}`);
+```
+
+</CodeGroup>
+
+### My projects and how many chats each has
+
+One request. The `chats(count)` embed counts related rows on the server.
+
+<CodeGroup>
+
+```bash curl
+curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
+  "$HUB/query/projects?select=id,name,chats(count)&order=name.asc"
+```
+
+```python Python
+with ApiClient(config) as client:
+    for p in query(client, "projects", select="id,name,chats(count)", order="name.asc"):
+        print(f"{p['name']}: {p['chats'][0]['count']} chats")
+```
+
+```ts Node
+const { data: projects } = await query.queryQuery("projects", undefined, {
+  params: { select: "id,name,chats(count)", order: "name.asc" },
+});
+for (const p of projects) console.log(`${p.name}: ${p.chats[0].count} chats`);
+```
+
+</CodeGroup>
+
+### My knowledge libraries and their documents
+
+<CodeGroup>
+
+```bash curl
+curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
+  "$HUB/query/libraries?select=id,name,documents(id,filename)"
+```
+
+```python Python
+with ApiClient(config) as client:
+    for lib in query(client, "libraries", select="id,name,documents(id,filename)"):
+        print(lib["name"])
+        for doc in lib["documents"]:
+            print("   ", doc["filename"])
+```
+
+```ts Node
+const { data: libraries } = await query.queryQuery("libraries", undefined, {
+  params: { select: "id,name,documents(id,filename)" },
+});
+for (const lib of libraries) {
+  console.log(lib.name);
+  for (const doc of lib.documents) console.log("   ", doc.filename);
+}
+```
+
+</CodeGroup>
+
+### PDFs I uploaded this month
+
+<CodeGroup>
+
+```bash curl
+curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
+  "$HUB/query/documents?select=id,filename,created_at&content_type=eq.application/pdf&created_at=gte.2026-09-01&order=created_at.desc"
+```
+
+```python Python
+with ApiClient(config) as client:
+    pdfs = query(client, "documents",
+                 select="id,filename,created_at",
+                 content_type="eq.application/pdf",
+                 created_at="gte.2026-09-01",
+                 order="created_at.desc")
+    for d in pdfs:
+        print(d["created_at"][:10], d["filename"])
+```
+
+```ts Node
+const { data: pdfs } = await query.queryQuery("documents", undefined, {
+  params: {
+    select: "id,filename,created_at",
+    content_type: "eq.application/pdf",
+    created_at: "gte.2026-09-01",
+    order: "created_at.desc",
+  },
+});
+for (const d of pdfs) console.log(d.created_at.slice(0, 10), d.filename);
+```
+
+</CodeGroup>
+
+### Search my prompts
+
+Case-insensitive match on the name. `*` is the wildcard.
+
+<CodeGroup>
+
+```bash curl
+curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
+  "$HUB/query/prompts?select=id,name,prompt&name=ilike.*meeting*"
+```
+
+```python Python
+with ApiClient(config) as client:
+    for p in query(client, "prompts", select="id,name,prompt", name="ilike.*meeting*"):
+        print(p["name"], "->", p["prompt"][:60])
+```
+
+```ts Node
+const { data: prompts } = await query.queryQuery("prompts", undefined, {
+  params: { select: "id,name,prompt", name: "ilike.*meeting*" },
+});
+for (const p of prompts) console.log(p.name, "->", p.prompt.slice(0, 60));
+```
+
+</CodeGroup>
+
+### Browse the marketplace (RPC)
+
+`rpc/<function>` calls a database function. This one returns the assistant
+marketplace. Filters and sorting work on its output columns like on a table:
+top-rated assistants you have not added yet.
+
+<CodeGroup>
+
+```bash curl
+curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
+  "$HUB/query/rpc/assistant_marketplace_rows?select=name,description,rating_avg,rating_count&already_added=is.false&order=rating_avg.desc.nullslast&limit=10"
+```
+
+```python Python
+with ApiClient(config) as client:
+    top = query(client, "rpc/assistant_marketplace_rows",
+                select="name,description,rating_avg,rating_count",
+                already_added="is.false",
+                order="rating_avg.desc.nullslast", limit=10)
+    for a in top:
+        print(f"{a['rating_avg'] or 0:.1f} ({a['rating_count']})  {a['name']}")
+```
+
+```ts Node
+const { data: top } = await query.queryQueryRpc("assistant_marketplace_rows", undefined, {
+  params: {
+    select: "name,description,rating_avg,rating_count",
+    already_added: "is.false",
+    order: "rating_avg.desc.nullslast",
+    limit: 10,
+  },
+});
+for (const a of top) console.log(`${(a.rating_avg ?? 0).toFixed(1)} (${a.rating_count})  ${a.name}`);
+```
+
+</CodeGroup>
+
+## Errors
+
+| Status | Meaning | Fix |
+|---|---|---|
+| `401` | Missing or invalid `X-API-KEY` | Check the key. Revoked keys return 401 too. |
+| `400` | PostgREST rejected the query | Usually a typo in `select` or a column that does not exist on that view. The body says which. |
+| `404` | Unknown resource | Resource names are lower_snake_case table or view names. |
+| `502` | PostgREST unreachable | Transient. Retry. |
+
+Writes are not supported through this endpoint. Use the regular API methods
+to create or change data.

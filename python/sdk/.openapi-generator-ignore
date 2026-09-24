@@ -21,3 +21,14 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+# Repo-specific: keep CI/scaffolding boilerplate out of the published SDK.
+git_push.sh
+.travis.yml
+.gitlab-ci.yml
+.gitlab-ci.yaml
+.github/
+test/
+tox.ini
+test-requirements.txt
+LICENSE
