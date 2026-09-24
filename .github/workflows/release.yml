@@ -19,7 +19,7 @@ jobs:
         outputs:
             version: ${{ steps.v.outputs.version }}
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
             - id: v
               name: Tag must match both manifests
               run: |
@@ -41,7 +41,7 @@ jobs:
             run:
                 working-directory: python/sdk
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
             - uses: actions/setup-python@v5
               with:
                   python-version: "3.12"
@@ -65,7 +65,7 @@ jobs:
             run:
                 working-directory: nodejs/sdk
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
             - uses: actions/setup-node@v4
               with:
                   node-version: 22
