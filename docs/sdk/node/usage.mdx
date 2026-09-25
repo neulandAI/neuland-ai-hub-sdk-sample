@@ -57,6 +57,9 @@ Ready-made recipes for the common cases are in
   `new Message(configuration).messagesCreateMessage({ content: ... })`.
   The response carries the new `chat_public_id`.
 - **How do I get the reply?** Generation is asynchronous. Use the
-  [streaming client](/sdk/node/streaming) for live tokens, or poll
-  `new Chat(configuration).chatsListChatMessageTurns(chatId)` until the last
-  turn's state is `COMPLETED`.
+  [streaming client](/sdk/node/streaming) for live tokens if your Hub has
+  streaming enabled. Otherwise poll
+  `new Chat(configuration).chatsListChatMessageTurns(chatId, 1)`: each turn
+  has a `parent` (your message) and `steps` (the assistant's replies). It is
+  done when every step's `state` is `COMPLETED`; the answer is the `content`
+  of the step whose `role` is `assistant`.

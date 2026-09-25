@@ -26,6 +26,13 @@ The client is a single dependency-light file — copy
 from the repository into your project. It needs only the platform `fetch` (browsers and Node 18+), so it works
 unchanged in the browser and on the server.
 
+<Warning>
+  Streaming must be enabled on your Hub deployment. If the stream endpoints
+  answer `500` or `503` with "Streaming is not configured", it is off; fall
+  back to polling the chat turns as described under
+  [Usage](/sdk/node/usage#common-questions).
+</Warning>
+
 ## Stream a new message
 
 ```typescript

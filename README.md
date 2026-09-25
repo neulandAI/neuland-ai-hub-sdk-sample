@@ -79,6 +79,8 @@ for event in stream_message(config, {"content": "Explain quantum tunneling"}):
 
 The stream ends after a terminal `state` event. On disconnect, refetch the message via `GET /messages/{id}` — don't resume.
 
+Streaming must be enabled on your Hub deployment. If the stream endpoints answer `500` or `503` with "Streaming is not configured", poll the chat turns instead (see the SDK usage docs).
+
 ---
 
 # Running the sample apps locally

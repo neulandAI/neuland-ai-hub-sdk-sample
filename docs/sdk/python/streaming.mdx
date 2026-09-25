@@ -26,6 +26,13 @@ The client is a single dependency-light file — copy
 from the repository into your project. It needs only `urllib3` (already an SDK dependency) and reuses the
 SDK's `Configuration` for the host and API key.
 
+<Warning>
+  Streaming must be enabled on your Hub deployment. If the stream endpoints
+  answer `500` or `503` with "Streaming is not configured", it is off; fall
+  back to polling the chat turns as described under
+  [Usage](/sdk/python/usage#common-questions).
+</Warning>
+
 ## Stream a new message
 
 ```python

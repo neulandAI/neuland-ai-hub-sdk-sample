@@ -44,7 +44,7 @@ async def get_user_info(api_key: str = Depends(get_api_key)) -> UserInfoResponse
     with neuland_hub_sdk.ApiClient(sdk_config(api_key)) as api_client:
         api = User(api_client)
         try:
-            user = api.get_myself()
+            user = api.users_get_myself()
             return UserInfoResponse(name=user.name,
                     email=user.email,
                     first_name=user.first_name,
@@ -62,7 +62,7 @@ async def create_assistant(payload: AssistantModel, api_key: str = Depends(get_a
         api = AssistantApi(api_client)
         try:
             assistant_in = AssistantIn(**payload.model_dump(exclude_unset=True))
-            assistant = api.create_assistant(assistant_in=assistant_in)
+            assistant = api.assistants_create_assistant(assistant_in=assistant_in)
             return AssistantModel(name=assistant.name,
                     description=assistant.description,
                     model=payload.model)
