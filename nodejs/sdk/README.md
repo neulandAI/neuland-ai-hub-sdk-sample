@@ -1,3 +1,10 @@
+TypeScript/JavaScript client for the **Neuland AI Hub API**: chat, retrieval-augmented document Q&A, assistants, and the surrounding workspace and integration features.
+
+Every request is authenticated with an **API key** sent in the `X-API-KEY`
+header. Create one in the Hub under **Settings → API Keys**.
+
+Full guides, quickstart and API reference: https://docs.neuland-hub.ai
+
 ## neuland-hub-sdk@1.0.6
 
 This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
@@ -25,10 +32,6 @@ npm install
 npm run build
 ```
 
-### Publishing
-
-First build the package then run `npm publish`
-
 ### Consuming
 
 navigate to the folder of your consuming project and run one of the following commands.
@@ -39,15 +42,10 @@ _published:_
 npm install neuland-hub-sdk@1.0.6 --save
 ```
 
-_unPublished (not recommended):_
-
-```
-npm install PATH_TO_GENERATED_PACKAGE --save
-```
 
 ### Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

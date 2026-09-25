@@ -2,6 +2,8 @@
 
 The Neuland AI Hub SDK plus runnable sample apps that demonstrate it end-to-end.
 
+Full documentation, API reference and SDK guides: **[https://docs.neuland-hub.ai](https://docs.neuland-hub.ai)**
+
 This README has two paths — pick the one that matches what you're doing:
 
 - **[Integrating the SDK in your project](#integrating-the-sdk-in-your-project)** — install, configure with an API key, call Hub.
@@ -41,7 +43,7 @@ with ApiClient(config) as client:
 neuland-hub-sdk==1.0.6
 ```
 
-Requires Python 3.9+.
+Requires Python 3.9+. Full guide: [https://docs.neuland-hub.ai/sdk/python/installation](https://docs.neuland-hub.ai/sdk/python/installation)
 
 ### Node.js
 
@@ -61,7 +63,7 @@ const { data: me } = await new User(config).usersGetMyself();
 console.log(me);
 ```
 
-Requires Node.js 18+.
+Requires Node.js 18+. Full guide: [https://docs.neuland-hub.ai/sdk/node/installation](https://docs.neuland-hub.ai/sdk/node/installation)
 
 ## 3. Streaming (not in the generated SDK)
 

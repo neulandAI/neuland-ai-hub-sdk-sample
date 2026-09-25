@@ -3,9 +3,10 @@ The **Neuland AI Hub API** powers chat, retrieval-augmented document Q&A,
 assistants, and the surrounding workspace, tenant, and integration features of
 the platform.
 
-Most endpoints require authentication. Obtain a token via the **Auth**
-endpoints (or use an **ApiKey**) and send it as a bearer token in the
-`Authorization` header.
+Every request is authenticated with an **API key** sent in the `X-API-KEY`
+header. Create one in the Hub under **Settings → API Keys**.
+
+Full guides, quickstart and API reference: https://docs.neuland-hub.ai
 
 Endpoints are grouped by resource — see the tag groups below.
 
@@ -33,24 +34,6 @@ Then import the package:
 import neuland_hub_sdk
 ```
 
-### Setuptools
-
-Install via [Setuptools](http://pypi.python.org/pypi/setuptools).
-
-```sh
-python setup.py install --user
-```
-(or `sudo python setup.py install` to install the package for all users)
-
-Then import the package:
-```python
-import neuland_hub_sdk
-```
-
-### Tests
-
-Execute `pytest` to run the tests.
-
 ## Getting Started
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
@@ -63,10 +46,10 @@ from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -100,7 +83,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

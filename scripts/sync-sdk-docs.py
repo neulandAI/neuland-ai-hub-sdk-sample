@@ -30,6 +30,8 @@ OPENAPI = DOCS_ROOT / "openapi.json"
 
 # Public base URL to substitute for the generator's `http://localhost` default.
 PUBLIC_BASE_URL = "https://api.your-domain.com"
+# Public docs site; linked from both SDK READMEs (which ship to PyPI / npm).
+DOCS_URL = "https://docs.neuland-hub.ai"
 
 # The Hub is deployed per tenant (one subdomain each), so there is no single
 # base URL to hard-code. Publishing `servers` as a templated host variable makes
@@ -679,6 +681,39 @@ def fix_sdk_metadata() -> None:
             readme.write_text(new)
             if readme.name not in changed: changed.append(f"{sub}/README.md")
 
+    # Both SDK READMEs: replace the spec's misleading auth paragraph (bearer
+    # token) with the API-key truth plus a docs-site link, drop generator
+    # boilerplate sections, and fix the localhost base-URL line. The Hub's
+    # info.description is the source of the paragraph; until it is fixed
+    # upstream this keeps the registry pages honest.
+    AUTH_OLD = ("Most endpoints require authentication. Obtain a token via the **Auth**\n"
+                "endpoints (or use an **ApiKey**) and send it as a bearer token in the\n"
+                "`Authorization` header.")
+    AUTH_NEW = ("Every request is authenticated with an **API key** sent in the `X-API-KEY`\n"
+                "header. Create one in the Hub under **Settings → API Keys**.\n\n"
+                f"Full guides, quickstart and API reference: {DOCS_URL}")
+    NODE_INTRO = ("## neuland-hub-sdk@")
+    NODE_INTRO_NEW = ("TypeScript/JavaScript client for the **Neuland AI Hub API**: chat, "
+                      "retrieval-augmented document Q&A, assistants, and the surrounding "
+                      "workspace and integration features.\n\n" + AUTH_NEW.split("\n\n", 1)[0] + "\n\n"
+                      f"Full guides, quickstart and API reference: {DOCS_URL}\n\n## neuland-hub-sdk@")
+    for readme in (REPO_ROOT / "python/sdk/README.md", REPO_ROOT / "nodejs/sdk/README.md"):
+        text = readme.read_text(); new = text
+        new = new.replace(AUTH_OLD, AUTH_NEW)
+        if readme.parent.parent.name == "nodejs" and DOCS_URL not in new:
+            new = new.replace(NODE_INTRO, NODE_INTRO_NEW, 1)
+        new = new.replace("All URIs are relative to *http://localhost*", f"All URIs are relative to *{PUBLIC_BASE_URL}*")
+        # python: obsolete setuptools + pytest sections
+        new = re.sub(r"### Setuptools\n\nInstall via \[Setuptools\].*?(?=## Getting Started)", "", new, flags=re.S)
+        new = re.sub(r"### Tests\n\nExecute `pytest` to run the tests\.\n\n", "", new)
+        # node: generator's publish/unpublished instructions
+        new = re.sub(r"### Publishing\n\nFirst build the package then run `npm publish`\n\n", "", new)
+        new = re.sub(r"_unPublished \(not recommended\):_\n\n```\nnpm install PATH_TO_GENERATED_PACKAGE --save\n```\n", "", new)
+        if new != text:
+            readme.write_text(new)
+            key = f"{readme.parent.parent.name}/{readme.parent.name}/README.md"
+            if key not in changed: changed.append(key)
+
     # The generated Python README ships to PyPI: replace the generator's git-URL
     # install snippet with the registry install.
     readme = REPO_ROOT / "python/sdk/README.md"
@@ -791,9 +826,20 @@ def fix_python_examples() -> None:
                 code = imp + "\n" + code
         lines = [ln for ln in code.split("\n")
                  if 'configuration.access_token = os.environ["ACCESS_TOKEN"]' not in ln]
-        return "\n".join(lines)
+        code = "\n".join(lines)
+        # The generator hard-codes its own default host into every example.
+        code = code.replace('host = "http://localhost"', f'host = "{PUBLIC_BASE_URL}"')
+        code = code.replace("# Defining the host is optional and defaults to http://localhost",
+                            "# Your Hub API URL")
+        return code
 
     changed = 0
+    # Every generated page states the generator's default base URL.
+    for path in list((REPO_ROOT / "python/sdk/docs").glob("*.md")) + list((REPO_ROOT / "nodejs/sdk/docs").glob("*.md")):
+        text = path.read_text(encoding="utf-8")
+        new = text.replace("All URIs are relative to *http://localhost*", f"All URIs are relative to *{PUBLIC_BASE_URL}*")
+        if new != text:
+            path.write_text(new, encoding="utf-8"); changed += 1
     targets = list((REPO_ROOT / "python/sdk/docs").glob("*.md")) + [REPO_ROOT / "python/sdk/README.md"]
     for path in targets:
         text = path.read_text(encoding="utf-8")

@@ -20,7 +20,7 @@ next regeneration. Instead:
   [MAINTAINING.md](MAINTAINING.md).
 
 After any regeneration, run `python3 scripts/sync-sdk-docs.py` so the docs
-site stays in sync with the SDK.
+site (https://docs.neuland-hub.ai) stays in sync with the SDK.
 
 ## Hand-written code
 
