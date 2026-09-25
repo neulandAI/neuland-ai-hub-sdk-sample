@@ -5,7 +5,7 @@ The Neuland AI Hub SDK plus runnable sample apps that demonstrate it end-to-end.
 This README has two paths — pick the one that matches what you're doing:
 
 - **[Integrating the SDK in your project](#integrating-the-sdk-in-your-project)** — install, configure with an API key, call Hub.
-- **[Running the sample apps locally](#running-the-sample-apps-locally)** — clone this repo and play with the FastAPI/Express sample backends + Next.js demo frontend. For evaluation and learning.
+- **[Running the sample apps locally](#running-the-sample-apps-locally)** — clone this repo and run the FastAPI/Express sample backends. For evaluation and learning.
 
 ---
 
@@ -83,18 +83,26 @@ The stream ends after a terminal `state` event. On disconnect, refetch the messa
 
 # Running the sample apps locally
 
-This section is for running our sample backends on your machine. **You do NOT need this to use the SDK.**
+This section is for running our sample backends on your machine, against your
+**live Hub deployment**. You don't run the Hub yourself. **You do NOT need this
+to use the SDK** — section 1 above is enough for that.
 
-The sample uses a more elaborate auth flow the frontend holds a short-lived JWT, the sample backend verifies it and extracts the API key from inside, then uses the SDK.
+The `frontend/` folder is a demo UI used by the neuland team and is not covered by this guide.
+
+The sample shows the auth flow of an application embedded in the Hub: the Hub
+hands the app a short-lived JWT (service token), the sample backend verifies it,
+extracts the API key from inside, then calls the Hub with the SDK.
 
 ## Prerequisites
 
-- A running Hub backend (default `:8000`)
-- A running Hub frontend (default `:3001`)
-- A registered application on Hub — you'll need its numeric `app_id`
-- Hub backend's RSA public key (for the sample backend to verify JWTs)
+- Your Hub API URL, for example `https://api.your-domain.com`
+- An application registered in your Hub by an admin, with its `app_url` set to
+  where this sample backend is reachable (`http://localhost:9999` while testing
+  locally). You'll need its numeric `app_id`.
+- The Hub's RSA **public key**, used to verify the service tokens. It is not
+  downloadable from the API — ask your Hub administrator for it.
 
-> Ports below (`:8000`, `:3001`, `:9999`, `:3002`) are local-test defaults.
+> Only `:9999`, the sample backend, runs on your machine.
 
 ## 1. Configure the shared backend env
 
@@ -109,6 +117,8 @@ Fill in real values.
 ## 2. Run a sample backend — pick one
 
 ### 2A. Python (FastAPI)
+
+Requires Python 3.10+ (the sample's own dependencies; the SDK alone runs on 3.9+).
 
 ```bash
 cd python
@@ -125,34 +135,11 @@ API docs: http://localhost:9999/docs
 ### 2B. Node.js (Express)
 
 ```bash
-cd nodejs/sdk && npm install && npm run build
+cd nodejs/sdk && npm ci --ignore-scripts && npm run build
 cd ../sample-app
-npm install
+npm ci
 set -a && source ../../python/.env && set +a
 node src/index.js
 ```
-
-## 3. Run the frontend
-
-> **Internal only for now.** The demo UI depends on `@neulandai/ui-library`, a
-> private package on GitHub Packages, and this repo ships no npm registry config
-> for it. To install it, put these two lines in your own `~/.npmrc` with a GitHub
-> token that has `read:packages` for the `neulandAI` org:
->
-> ```
-> @neulandai:registry=https://npm.pkg.github.com
-> //npm.pkg.github.com/:_authToken=<your token>
-> ```
->
-> Never commit that file. The SDK and both sample backends do not need this.
-
-```bash
-cd frontend
-npm install
-cp .env.local.example .env.local
-npm run dev -- -p 3002
-```
-
-Open http://localhost:3002 in your browser.
 
 ---

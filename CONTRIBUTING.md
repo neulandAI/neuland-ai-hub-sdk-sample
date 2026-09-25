@@ -5,7 +5,8 @@ Thanks for helping improve the Neuland AI Hub SDK.
 ## Workflow
 
 1. Branch from `dev`.
-2. Open a pull request into `dev`. CI builds the Python SDK on every PR.
+2. Open a pull request into `dev`. CI builds both SDKs, import-tests the Python
+   SDK on 3.9 to 3.13, and checks the docs tree on every PR.
 3. Keep PRs focused: one change per PR.
 
 ## What not to edit by hand

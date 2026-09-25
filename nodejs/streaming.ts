@@ -15,7 +15,7 @@
  *   import { streamMessage } from "./streaming";
  *
  *   for await (const event of streamMessage({
- *     baseUrl: "http://localhost:8001",
+ *     baseUrl: "https://api.your-domain.com",
  *     apiKey: "ak_prod_v1.<key_id>.<secret>",
  *     message: { content: "Explain quantum tunneling" },
  *   })) {
@@ -35,7 +35,7 @@ export interface StreamEvent {
 }
 
 export interface StreamOptions {
-  /** Base URL of the Hub API, e.g. "http://localhost:8001". */
+  /** Base URL of the Hub API, e.g. "https://api.your-domain.com". */
   baseUrl: string;
   /** API key value, e.g. "ak_prod_v1.<key_id>.<secret>". */
   apiKey: string;

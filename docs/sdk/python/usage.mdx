@@ -43,6 +43,8 @@ assistants, documents and more using PostgREST filters. The generated
 client's request builder:
 
 ```python
+import json
+
 method, url, headers, body, post = api_client.param_serialize(
     "GET", "/query/chats",
     query_params=[("select", "id,name"), ("order", "updated_at.desc"), ("limit", 10)],

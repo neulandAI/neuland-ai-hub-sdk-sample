@@ -8,7 +8,10 @@ The SDKs are auto-generated from Hub's full OpenAPI spec. The generator version 
 
 > Requires Java (the generator runs on the JVM). On macOS: `brew install openjdk` and add `/opt/homebrew/opt/openjdk/bin` to your PATH.
 
-### 1. Fetch the live Hub spec to `/tmp`
+### 1. Fetch the Hub spec to `/tmp`
+
+From a local Hub by default, or set `HUB_URL` to a deployment, e.g.
+`HUB_URL=https://api.your-domain.com`.
 
 ```bash
 curl -fsSL "${HUB_URL:-http://localhost:8000}/openapi.json" -o /tmp/hub-openapi.json

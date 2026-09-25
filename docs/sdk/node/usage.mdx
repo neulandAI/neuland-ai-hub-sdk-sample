@@ -6,7 +6,7 @@ description: "Authenticate and make your first call with the Node SDK."
 ## Configure the client
 
 ```typescript
-import { Configuration, User } from "neuland-hub-sdk";
+import { Configuration, User, Query, Message, Chat } from "neuland-hub-sdk";
 
 const configuration = new Configuration({
   basePath: "https://api.your-domain.com",
@@ -40,7 +40,7 @@ assistants, documents and more using PostgREST filters. Pass them as axios
 `params`:
 
 ```ts
-const { data: chats } = await new Query(config).queryQuery("chats", undefined, {
+const { data: chats } = await new Query(configuration).queryQuery("chats", undefined, {
   params: { select: "id,name", order: "updated_at.desc", limit: 10 },
 });
 ```
@@ -54,9 +54,9 @@ Ready-made recipes for the common cases are in
   [Query endpoint](/guides/query), which also covers messages, assistants,
   projects and documents.
 - **How do I create a chat?** Send a message without a `chat_id` using
-  `new Message(config).messagesCreateMessage({ content: ... })`.
+  `new Message(configuration).messagesCreateMessage({ content: ... })`.
   The response carries the new `chat_public_id`.
 - **How do I get the reply?** Generation is asynchronous. Use the
   [streaming client](/sdk/node/streaming) for live tokens, or poll
-  `new Chat(config).chatsListChatMessageTurns(chatId)` until the last
+  `new Chat(configuration).chatsListChatMessageTurns(chatId)` until the last
   turn's state is `COMPLETED`.

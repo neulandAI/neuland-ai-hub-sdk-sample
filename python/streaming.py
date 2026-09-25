@@ -15,7 +15,7 @@ here depends on generated request code.
     from neuland_hub_sdk import Configuration
     from streaming import stream_message
 
-    config = Configuration(host="http://localhost:8001")
+    config = Configuration(host="https://api.your-domain.com")
     config.api_key["APIKeyHeader"] = "ak_prod_v1.<key_id>.<secret>"
 
     for event in stream_message(config, {"content": "Explain quantum tunneling"}):
