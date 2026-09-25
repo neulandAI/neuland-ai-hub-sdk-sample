@@ -24,10 +24,11 @@ Create a saved prompt for the current user.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.prompt import Prompt
 from neuland_hub_sdk.models.prompt import Prompt
 from neuland_hub_sdk.models.prompt_in import PromptIn
 from neuland_hub_sdk.rest import ApiException
@@ -50,12 +51,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Prompt(api_client)
+    api_instance = Prompt(api_client)
     prompt_in = neuland_hub_sdk.PromptIn() # PromptIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -113,10 +113,12 @@ Delete a prompt owned by the current user.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.prompt import Prompt
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -137,12 +139,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Prompt(api_client)
+    api_instance = Prompt(api_client)
     prompt_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the prompt to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -199,10 +200,11 @@ Rewrite a draft prompt into a clearer, better-structured version using an LLM.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.prompt import Prompt
 from neuland_hub_sdk.models.prompt_optimize_in import PromptOptimizeIn
 from neuland_hub_sdk.models.prompt_optimize_out import PromptOptimizeOut
 from neuland_hub_sdk.rest import ApiException
@@ -225,12 +227,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Prompt(api_client)
+    api_instance = Prompt(api_client)
     prompt_optimize_in = neuland_hub_sdk.PromptOptimizeIn() # PromptOptimizeIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -289,10 +290,12 @@ Update a prompt owned by the current user.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.prompt import Prompt
 from neuland_hub_sdk.models.prompt import Prompt
 from neuland_hub_sdk.models.prompt_in import PromptIn
 from neuland_hub_sdk.rest import ApiException
@@ -315,12 +318,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Prompt(api_client)
+    api_instance = Prompt(api_client)
     prompt_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the prompt to update.
     prompt_in = neuland_hub_sdk.PromptIn() # PromptIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)

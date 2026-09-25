@@ -36,10 +36,12 @@ Enables a library for a assistant by creating a new association
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant_library import AssistantLibrary
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -61,12 +63,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -131,10 +132,12 @@ DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant_member_out import AssistantMemberOut
 from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn
 from neuland_hub_sdk.rest import ApiException
@@ -157,12 +160,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     assistant_members_in = neuland_hub_sdk.AssistantMembersIn() # AssistantMembersIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -222,10 +224,12 @@ Attach a tag to an assistant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.neuland_assistants_tagging_out import NeulandAssistantsTaggingOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -247,12 +251,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -312,10 +315,12 @@ Enable a tenant tool for the assistant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant_tool import AssistantTool
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -337,12 +342,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -414,10 +418,12 @@ arguments and renders the instruction template server-side.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -439,12 +445,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -503,10 +508,11 @@ Create an assistant from a JSON payload.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.models.assistant_in import AssistantIn
 from neuland_hub_sdk.rest import ApiException
@@ -529,12 +535,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_in = neuland_hub_sdk.AssistantIn() # AssistantIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -591,10 +596,12 @@ Delete an assistant and orphan its associated chats.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -615,12 +622,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -676,10 +682,12 @@ Remove one or more users from the assistant's membership.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant_members_in import AssistantMembersIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -701,12 +709,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     assistant_members_in = neuland_hub_sdk.AssistantMembersIn() # AssistantMembersIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -765,10 +772,12 @@ self-add to a tenant-shared community assistant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant_member_out import AssistantMemberOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -790,12 +799,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to join.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -854,10 +862,12 @@ user can leave the assistant by themselves.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -878,12 +888,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to leave.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -941,10 +950,12 @@ that flag). Other users' conversions are untouched.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -965,12 +976,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1026,10 +1036,12 @@ Disables a library from an assistant by removing the association
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1050,12 +1062,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1113,10 +1124,12 @@ Remove a specific user from the assistant's membership.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1137,12 +1150,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the member to remove.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1200,10 +1212,12 @@ Detach a tag from an assistant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1224,12 +1238,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1287,10 +1300,12 @@ Disable a tool for the assistant by removing the association.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1311,12 +1326,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1377,10 +1391,12 @@ written and no version is appended, mirroring update semantics.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -1402,12 +1418,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to restore.
     version = 56 # int | Version number to restore.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1467,10 +1482,11 @@ Create an assistant via multipart form, with optional knowledge-file uploads.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -1492,12 +1508,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     name = 'name_example' # str | 
     cookie_name = 'cookie_name_example' # str |  (optional)
     model = 'model_example' # str |  (optional)
@@ -1578,10 +1593,12 @@ Update an assistant's configuration.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.models.assistant_in import AssistantIn
 from neuland_hub_sdk.rest import ApiException
@@ -1604,12 +1621,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant to update.
     assistant_in = neuland_hub_sdk.AssistantIn() # AssistantIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1669,10 +1685,12 @@ Grant or update assistant access for user groups (replaces the current set).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant_group_out import AssistantGroupOut
 from neuland_hub_sdk.models.assistant_groups_in import AssistantGroupsIn
 from neuland_hub_sdk.rest import ApiException
@@ -1695,12 +1713,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     assistant_groups_in = neuland_hub_sdk.AssistantGroupsIn() # AssistantGroupsIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1760,10 +1777,12 @@ creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
 from neuland_hub_sdk.models.assistant import Assistant
 from neuland_hub_sdk.models.assistant_visibility_update import AssistantVisibilityUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -1786,12 +1805,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Assistant(api_client)
+    api_instance = Assistant(api_client)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant.
     assistant_visibility_update = neuland_hub_sdk.AssistantVisibilityUpdate() # AssistantVisibilityUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)

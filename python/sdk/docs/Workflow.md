@@ -25,10 +25,12 @@ Rejected with 400 once the workflow is at its non-terminal-run cap.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.models.run_create_out import RunCreateOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -50,12 +52,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Workflow(api_client)
+    api_instance = Workflow(api_client)
     workflow_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -110,10 +111,12 @@ Mint a fresh stream token to replay a historical run. Creator-only.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.models.stream_token_out import StreamTokenOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -135,12 +138,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Workflow(api_client)
+    api_instance = Workflow(api_client)
     workflow_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     run_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -198,10 +200,11 @@ tenant is at its active-workflow quota.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.models.workflow import Workflow
 from neuland_hub_sdk.models.workflow_in import WorkflowIn
 from neuland_hub_sdk.rest import ApiException
@@ -224,12 +227,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Workflow(api_client)
+    api_instance = Workflow(api_client)
     workflow_in = neuland_hub_sdk.WorkflowIn() # WorkflowIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -284,10 +286,12 @@ Delete a workflow. Only its creator may delete it.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -308,12 +312,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Workflow(api_client)
+    api_instance = Workflow(api_client)
     workflow_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -378,10 +381,12 @@ success prose over an unchanged workflow.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.models.workflow_chat_in import WorkflowChatIn
 from neuland_hub_sdk.models.workflow_chat_out import WorkflowChatOut
 from neuland_hub_sdk.rest import ApiException
@@ -404,12 +409,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Workflow(api_client)
+    api_instance = Workflow(api_client)
     workflow_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     workflow_chat_in = neuland_hub_sdk.WorkflowChatIn() # WorkflowChatIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -467,10 +471,12 @@ consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
 
 ### Example
 
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -485,12 +491,11 @@ configuration = neuland_hub_sdk.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Workflow(api_client)
+    api_instance = Workflow(api_client)
     workflow_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     run_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
 
@@ -554,10 +559,12 @@ spec PATCH already ran it inside `_validate_runnable_spec`.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.models.workflow import Workflow
 from neuland_hub_sdk.models.workflow_update_in import WorkflowUpdateIn
 from neuland_hub_sdk.rest import ApiException
@@ -580,12 +587,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Workflow(api_client)
+    api_instance = Workflow(api_client)
     workflow_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     workflow_update_in = neuland_hub_sdk.WorkflowUpdateIn() # WorkflowUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)

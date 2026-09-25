@@ -32,10 +32,12 @@ chat is continuable, and only when it completed with
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -57,12 +59,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the truncated assistant message.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -121,10 +122,12 @@ Convert a message to various document formats.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -145,12 +148,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the message to convert.
     format = neuland_hub_sdk.OutputFormat() # OutputFormat | Output format
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -210,10 +212,11 @@ Send a JSON message to a chat (or start a new one) and enqueue generation.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.models.message_in import MessageIn
 from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut
 from neuland_hub_sdk.rest import ApiException
@@ -236,12 +239,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     message_in = neuland_hub_sdk.MessageIn() # MessageIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -299,10 +301,12 @@ Canonical recovery endpoint: full composed state of a message.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.models.message_detail_out import MessageDetailOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -324,12 +328,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the message to fetch.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -387,10 +390,12 @@ Ordered step-messages for a turn (future multi-bubble UI).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.models.message_turn_out import MessageTurnOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -412,12 +417,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of any message belonging to the turn.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -475,10 +479,12 @@ Rephrase a message's content in the requested style.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.models.translation import Translation
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -500,12 +506,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the message to rephrase.
     style = neuland_hub_sdk.RephraseStyleEnum() # RephraseStyleEnum | Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -566,10 +571,12 @@ or answer its pending clarification question(s) with 'respond'.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.models.resume_in import ResumeIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -591,12 +598,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the assistant reply to resume.
     resume_in = neuland_hub_sdk.ResumeIn() # ResumeIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -657,10 +663,12 @@ Send a multipart message with optional file uploads and enqueue generation.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -682,12 +690,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
     content = 'content_example' # str |  (optional)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
@@ -777,10 +784,12 @@ Translate a message's content into the requested language.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.message import Message
 from neuland_hub_sdk.models.translation import Translation
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -802,12 +811,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Message(api_client)
+    api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the message to translate.
     lang = 'lang_example' # str | Target language. Preferably RFC 5646 format.
     cookie_name = 'cookie_name_example' # str |  (optional)

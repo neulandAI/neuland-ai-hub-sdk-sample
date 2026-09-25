@@ -32,4 +32,6 @@ Email template identifiers with namespaced keys.
 
 * `soft_limit_reached` (value: `'soft.limit.reached'`)
 
+* `budget_topup_added` (value: `'budget.topup.added'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

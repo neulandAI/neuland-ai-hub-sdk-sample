@@ -19,10 +19,11 @@ Create a new tool (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool import Tool
 from neuland_hub_sdk.models.tool_create import ToolCreate
 from neuland_hub_sdk.models.tool_out import ToolOut
 from neuland_hub_sdk.rest import ApiException
@@ -45,12 +46,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tool(api_client)
+    api_instance = Tool(api_client)
     tool_create = neuland_hub_sdk.ToolCreate() # ToolCreate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -107,10 +107,12 @@ Delete a tool (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool import Tool
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -131,12 +133,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tool(api_client)
+    api_instance = Tool(api_client)
     tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -192,10 +193,12 @@ Update a tool's editable fields (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool import Tool
 from neuland_hub_sdk.models.tool_out import ToolOut
 from neuland_hub_sdk.models.tool_update import ToolUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -218,12 +221,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tool(api_client)
+    api_instance = Tool(api_client)
     tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to update.
     tool_update = neuland_hub_sdk.ToolUpdate() # ToolUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)

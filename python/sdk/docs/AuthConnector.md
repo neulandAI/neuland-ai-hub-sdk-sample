@@ -27,10 +27,12 @@ Never returns stored secret values — only which fields are present.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.models.credential_template_out import CredentialTemplateOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -52,12 +54,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector whose credential is being accessed.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -114,10 +115,12 @@ Start the admin consent flow for connectors that require organization-wide admin
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -139,12 +142,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to consent to.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -204,10 +206,12 @@ URL as JSON, or a 302 redirect when redirect=true.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.models.connector_consent_out import ConnectorConsentOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -229,12 +233,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to consent to.
     return_url = 'return_url_example' # str | URL to return the user to after consent. (optional)
     redirect = False # bool | If true, return 302 redirect instead of JSON (optional) (default to False)
@@ -297,10 +300,11 @@ List the connectors the user may use with their per-user consent status.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.models.connector_status_out import ConnectorStatusOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -322,12 +326,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -384,6 +387,7 @@ Handle the provider redirect after user consent and persist the granted connecto
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -397,7 +401,7 @@ configuration = neuland_hub_sdk.Configuration(
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     state = 'state_example' # str | Opaque state token issued when consent was initiated. (optional)
     code = 'code_example' # str |  (optional)
     error = 'error_example' # str |  (optional)
@@ -462,10 +466,12 @@ connectors, or clear the caller's own credential for non-OAuth ones.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -486,12 +492,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to revoke consent for.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -545,10 +550,12 @@ Store the tenant-wide (admin) credential fields. Admin only.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.models.credential_in import CredentialIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -570,12 +577,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector whose credential is being accessed.
     credential_in = neuland_hub_sdk.CredentialIn() # CredentialIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -633,10 +639,12 @@ Store the caller's per-user credential fields.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.models.credential_in import CredentialIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -658,12 +666,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector whose credential is being accessed.
     credential_in = neuland_hub_sdk.CredentialIn() # CredentialIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -720,10 +727,12 @@ Update a connector (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.models.connector import Connector
 from neuland_hub_sdk.models.connector_update import ConnectorUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -746,12 +755,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to update.
     connector_update = neuland_hub_sdk.ConnectorUpdate() # ConnectorUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -811,10 +819,12 @@ Update an OAuth client (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
 from neuland_hub_sdk.models.o_auth_client import OAuthClient
 from neuland_hub_sdk.models.o_auth_client_update import OAuthClientUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -837,12 +847,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.AuthConnector(api_client)
+    api_instance = AuthConnector(api_client)
     oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the OAuth client to update.
     o_auth_client_update = neuland_hub_sdk.OAuthClientUpdate() # OAuthClientUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)

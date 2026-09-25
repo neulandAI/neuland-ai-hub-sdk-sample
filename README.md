@@ -38,7 +38,7 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk==1.0.4
+neuland-hub-sdk==1.0.5
 ```
 
 Requires Python 3.9+.

@@ -667,6 +667,18 @@ def fix_sdk_metadata() -> None:
     if new != text:
         PY_SETUP.write_text(new); changed.append(PY_SETUP.name)
 
+    # Both SDK READMEs ship to the registries, where their relative `docs/*.md`
+    # links are dead (the docs folder is not in the wheel; npm does not serve
+    # it). Point them at the GitHub copies instead.
+    for readme, sub in ((REPO_ROOT / "python/sdk/README.md", "python/sdk"),
+                        (REPO_ROOT / "nodejs/sdk/README.md", "nodejs/sdk")):
+        text = readme.read_text()
+        new = re.sub(r"\]\((?:\./)?docs/([A-Za-z0-9_.-]+\.md(?:#[A-Za-z0-9_-]*)?)\)",
+                     rf"](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/{sub}/docs/\1)", text)
+        if new != text:
+            readme.write_text(new)
+            if readme.name not in changed: changed.append(f"{sub}/README.md")
+
     # The generated Python README ships to PyPI: replace the generator's git-URL
     # install snippet with the registry install.
     readme = REPO_ROOT / "python/sdk/README.md"
@@ -706,9 +718,62 @@ def fix_sdk_metadata() -> None:
     print("  fixed SDK metadata in: " + (", ".join(changed) if changed else "(nothing to change)"))
 
 
+def fix_python_examples() -> None:
+    """Make the generated Python examples runnable, in place, before they are synced.
+
+    The generator writes `api_instance = neuland_hub_sdk.Chat(api_client)`. With
+    the short class names (apiNameSuffix=), 13 API classes share a name with a
+    data model and the model wins at package level, so that line raises
+    TypeError. Rewrite every example to the module-import form the sample app
+    uses, which always works. Also add the `import os` the examples rely on and
+    drop the OAuth lines: the SDK's only auth scheme is the X-API-KEY header.
+    Idempotent. Applies to python/sdk/docs/*.md and python/sdk/README.md; the
+    Mintlify copies are produced from those files afterwards.
+    """
+    api_dir = REPO_ROOT / "python/sdk/neuland_hub_sdk/api"
+    class_module: dict[str, str] = {}
+    for f in api_dir.glob("*.py"):
+        m = re.search(r"^class ([A-Za-z0-9_]+)\s*[:(]", f.read_text(encoding="utf-8"), re.M)
+        if m:
+            class_module[m.group(1)] = f.stem
+    call_re = re.compile(r"neuland_hub_sdk\.([A-Z][A-Za-z0-9_]*)\(api_client\)")
+    block_re = re.compile(r"```python\n(.*?)```", re.S)
+
+    def fix_block(code: str) -> str:
+        names = {n for n in call_re.findall(code) if n in class_module}
+        if names:
+            code = call_re.sub(lambda m: f"{m.group(1)}(api_client)" if m.group(1) in class_module else m.group(0), code)
+            imports = "".join(f"from neuland_hub_sdk.api.{class_module[n]} import {n}\n" for n in sorted(names))
+            code = code.replace("import neuland_hub_sdk\n", "import neuland_hub_sdk\n" + imports, 1)
+        # Names the generated examples use without importing them.
+        for pat, imp in (
+            (r"\bos\.environ", "import os"),
+            (r"\bUUID\(", "from uuid import UUID"),
+            (r"\bdatetime\.", "import datetime"),
+            (r"\bdate\(", "from datetime import date"),
+            (r"\bDecimal\(", "from decimal import Decimal"),
+        ):
+            if re.search(pat, code) and not re.search("^" + re.escape(imp) + "$", code, re.M):
+                code = imp + "\n" + code
+        lines = [ln for ln in code.split("\n")
+                 if 'configuration.access_token = os.environ["ACCESS_TOKEN"]' not in ln]
+        return "\n".join(lines)
+
+    changed = 0
+    targets = list((REPO_ROOT / "python/sdk/docs").glob("*.md")) + [REPO_ROOT / "python/sdk/README.md"]
+    for path in targets:
+        text = path.read_text(encoding="utf-8")
+        new = block_re.sub(lambda m: "```python\n" + fix_block(m.group(1)) + "```", text)
+        new = new.replace("* OAuth Authentication (OAuth2PasswordBearer):\n", "")
+        if new != text:
+            path.write_text(new, encoding="utf-8"); changed += 1
+    print(f"  fixed python examples in {changed} generated file(s)" if changed else "  python examples already fixed")
+
+
 def main() -> None:
     print("Syncing generated SDK docs into the Mintlify tree...")
     fix_sdk_metadata()
+    fix_python_examples()
     ensure_servers()
     merge_streaming_endpoints()
     model_tag, tag_order = build_model_to_tag()

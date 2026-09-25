@@ -21,10 +21,11 @@ Create a provider-specific settings entry for a catalog model.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm_setting import LlmSetting
 from neuland_hub_sdk.models.llm_settings_in import LLMSettingsIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -46,12 +47,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmSetting(api_client)
+    api_instance = LlmSetting(api_client)
     llm_settings_in = neuland_hub_sdk.LLMSettingsIn() # LLMSettingsIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -108,10 +108,12 @@ Remove an LLM settings entry permanently.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm_setting import LlmSetting
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -132,12 +134,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmSetting(api_client)
+    api_instance = LlmSetting(api_client)
     settings_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM settings entry to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -199,10 +200,11 @@ can distinguish it from a server error.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm_setting import LlmSetting
 from neuland_hub_sdk.models.llm_connection_test_in import LLMConnectionTestIn
 from neuland_hub_sdk.models.llm_connection_test_out import LLMConnectionTestOut
 from neuland_hub_sdk.rest import ApiException
@@ -225,12 +227,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmSetting(api_client)
+    api_instance = LlmSetting(api_client)
     llm_connection_test_in = neuland_hub_sdk.LLMConnectionTestIn() # LLMConnectionTestIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -293,10 +294,11 @@ config returns `ok=false` with HTTP 200.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm_setting import LlmSetting
 from neuland_hub_sdk.models.llm_connection_test_out import LLMConnectionTestOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -318,12 +320,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmSetting(api_client)
+    api_instance = LlmSetting(api_client)
     file = None # bytes | 
     model_name = 'model_name_example' # str | 
     provider = 'provider_example' # str | 
@@ -398,10 +399,12 @@ Update fields of an existing LLM settings entry.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm_setting import LlmSetting
 from neuland_hub_sdk.models.llm_settings_update import LLMSettingsUpdate
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -423,12 +426,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmSetting(api_client)
+    api_instance = LlmSetting(api_client)
     settings_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM settings entry to update.
     llm_settings_update = neuland_hub_sdk.LLMSettingsUpdate() # LLMSettingsUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)

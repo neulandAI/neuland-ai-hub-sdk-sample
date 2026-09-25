@@ -21,10 +21,11 @@ Create a new application (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application import Application
 from neuland_hub_sdk.models.application_in import ApplicationIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -46,12 +47,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Application(api_client)
+    api_instance = Application(api_client)
     application_in = neuland_hub_sdk.ApplicationIn() # ApplicationIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -108,10 +108,12 @@ Delete an application (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application import Application
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -132,12 +134,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Application(api_client)
+    api_instance = Application(api_client)
     app_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -193,10 +194,12 @@ Update an existing application (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application import Application
 from neuland_hub_sdk.models.application import Application
 from neuland_hub_sdk.models.application_in import ApplicationIn
 from neuland_hub_sdk.rest import ApiException
@@ -219,12 +222,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Application(api_client)
+    api_instance = Application(api_client)
     app_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     application_in = neuland_hub_sdk.ApplicationIn() # ApplicationIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -284,10 +286,11 @@ Grant or update application access for a user group (tenant admin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application import Application
 from neuland_hub_sdk.models.application_group_out import ApplicationGroupOut
 from neuland_hub_sdk.models.group_app_access_in import GroupAppAccessIn
 from neuland_hub_sdk.rest import ApiException
@@ -310,12 +313,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Application(api_client)
+    api_instance = Application(api_client)
     group_app_access_in = neuland_hub_sdk.GroupAppAccessIn() # GroupAppAccessIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -373,10 +375,11 @@ Grant or update application access for a list of users (tenant admin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application import Application
 from neuland_hub_sdk.models.application_access_in import ApplicationAccessIn
 from neuland_hub_sdk.models.application_member_out import ApplicationMemberOut
 from neuland_hub_sdk.rest import ApiException
@@ -399,12 +402,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Application(api_client)
+    api_instance = Application(api_client)
     application_access_in = neuland_hub_sdk.ApplicationAccessIn() # ApplicationAccessIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 

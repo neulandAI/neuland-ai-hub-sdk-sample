@@ -28,10 +28,12 @@ caller's tenant's tags on each row.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.models.tagging import Tagging
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -53,12 +55,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ApplicationMarketplace(api_client)
+    api_instance = ApplicationMarketplace(api_client)
     catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog application to tag.
     tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -118,10 +119,11 @@ Publish a new application to the marketplace catalog (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.models.application_catalog_in import ApplicationCatalogIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -143,12 +145,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ApplicationMarketplace(api_client)
+    api_instance = ApplicationMarketplace(api_client)
     application_catalog_in = neuland_hub_sdk.ApplicationCatalogIn() # ApplicationCatalogIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -209,10 +210,12 @@ creating a new one.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.models.application import Application
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -234,12 +237,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ApplicationMarketplace(api_client)
+    api_instance = ApplicationMarketplace(api_client)
     catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog application to install.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -301,10 +303,11 @@ and PATCH the state back to ACTIVE when needed.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.models.application_catalog import ApplicationCatalog
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -326,12 +329,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ApplicationMarketplace(api_client)
+    api_instance = ApplicationMarketplace(api_client)
     state = neuland_hub_sdk.MarketplaceCatalogStateEnum() # MarketplaceCatalogStateEnum | Filter by state (ACTIVE / DEPRECATED). Omit for all. (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -390,10 +392,12 @@ Idempotent — detaching a tag that isn't attached is a no-op 204.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -414,12 +418,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ApplicationMarketplace(api_client)
+    api_instance = ApplicationMarketplace(api_client)
     catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog application to untag.
     tag_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -481,10 +484,12 @@ ApplicationGroup rows cascade with it).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -505,12 +510,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ApplicationMarketplace(api_client)
+    api_instance = ApplicationMarketplace(api_client)
     catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog application to uninstall.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -565,10 +569,12 @@ Update metadata on a marketplace application catalog item (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.models.application_catalog import ApplicationCatalog
 from neuland_hub_sdk.models.application_catalog_update import ApplicationCatalogUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -591,12 +597,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ApplicationMarketplace(api_client)
+    api_instance = ApplicationMarketplace(api_client)
     catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog application to update.
     application_catalog_update = neuland_hub_sdk.ApplicationCatalogUpdate() # ApplicationCatalogUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -659,10 +664,12 @@ existing tenant installations continue to work.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.application_marketplace import ApplicationMarketplace
 from neuland_hub_sdk.models.application_catalog import ApplicationCatalog
 from neuland_hub_sdk.models.marketplace_catalog_state_update import MarketplaceCatalogStateUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -685,12 +692,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ApplicationMarketplace(api_client)
+    api_instance = ApplicationMarketplace(api_client)
     catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog application to flip between states.
     marketplace_catalog_state_update = neuland_hub_sdk.MarketplaceCatalogStateUpdate() # MarketplaceCatalogStateUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)

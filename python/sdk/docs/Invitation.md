@@ -23,6 +23,7 @@ Complete invitation acceptance and create the user account.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.invitation import Invitation
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -36,7 +37,7 @@ configuration = neuland_hub_sdk.Configuration(
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Invitation(api_client)
+    api_instance = Invitation(api_client)
     token = 'token_example' # str | Invitation JWT token from the invitation email.
 
     try:
@@ -94,6 +95,7 @@ shown inline in the form.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.invitation import Invitation
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -107,7 +109,7 @@ configuration = neuland_hub_sdk.Configuration(
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Invitation(api_client)
+    api_instance = Invitation(api_client)
     token = 'token_example' # str | Invitation JWT token from the invitation email.
 
     try:
@@ -160,10 +162,11 @@ Invite the given email addresses, skipping ones already invited or registered.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.invitation import Invitation
 from neuland_hub_sdk.models.invitation_in import InvitationIn
 from neuland_hub_sdk.models.invitation_out import InvitationOut
 from neuland_hub_sdk.rest import ApiException
@@ -186,12 +189,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Invitation(api_client)
+    api_instance = Invitation(api_client)
     invitation_in = neuland_hub_sdk.InvitationIn() # InvitationIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -249,10 +251,12 @@ Resend the invitation email for a pending invitation.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.invitation import Invitation
 from neuland_hub_sdk.models.invitation_out import InvitationOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -274,12 +278,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Invitation(api_client)
+    api_instance = Invitation(api_client)
     invitation_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the invitation to resend.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -337,10 +340,12 @@ Revoke a pending invitation so its token can no longer be used.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.invitation import Invitation
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -361,12 +366,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Invitation(api_client)
+    api_instance = Invitation(api_client)
     invitation_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the invitation to revoke.
     cookie_name = 'cookie_name_example' # str |  (optional)
 

@@ -23,10 +23,12 @@ Add one or more members to the library; owner only.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.library import Library
 from neuland_hub_sdk.models.library_member_bulk_in import LibraryMemberBulkIn
 from neuland_hub_sdk.models.library_member_out import LibraryMemberOut
 from neuland_hub_sdk.rest import ApiException
@@ -49,12 +51,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Library(api_client)
+    api_instance = Library(api_client)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to add members to.
     library_member_bulk_in = neuland_hub_sdk.LibraryMemberBulkIn() # LibraryMemberBulkIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -114,10 +115,12 @@ Delete a library; owner only.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.library import Library
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -138,12 +141,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Library(api_client)
+    api_instance = Library(api_client)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -199,10 +201,12 @@ Remove the caller from the library's members.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.library import Library
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -223,12 +227,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Library(api_client)
+    api_instance = Library(api_client)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to leave.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -285,10 +288,11 @@ Create a library owned by the caller in their tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.library import Library
 from neuland_hub_sdk.models.library import Library
 from neuland_hub_sdk.models.library_in import LibraryIn
 from neuland_hub_sdk.rest import ApiException
@@ -311,12 +315,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Library(api_client)
+    api_instance = Library(api_client)
     library_in = neuland_hub_sdk.LibraryIn() # LibraryIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -372,10 +375,12 @@ Remove one or more members from the library; owner only.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.library import Library
 from neuland_hub_sdk.models.library_member_bulk_delete import LibraryMemberBulkDelete
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -397,12 +402,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Library(api_client)
+    api_instance = Library(api_client)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to remove members from.
     library_member_bulk_delete = neuland_hub_sdk.LibraryMemberBulkDelete() # LibraryMemberBulkDelete | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -461,10 +465,12 @@ Remove a member from the library; owner only unless removing yourself.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.library import Library
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -485,12 +491,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Library(api_client)
+    api_instance = Library(api_client)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library.
     user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the member to remove.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -549,10 +554,12 @@ Update name and/or description of an existing library.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.library import Library
 from neuland_hub_sdk.models.library import Library
 from neuland_hub_sdk.models.library_update_in import LibraryUpdateIn
 from neuland_hub_sdk.rest import ApiException
@@ -575,12 +582,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Library(api_client)
+    api_instance = Library(api_client)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to update.
     library_update_in = neuland_hub_sdk.LibraryUpdateIn() # LibraryUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)

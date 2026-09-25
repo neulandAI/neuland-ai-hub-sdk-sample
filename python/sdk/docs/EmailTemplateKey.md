@@ -32,6 +32,8 @@ Email template identifiers with namespaced keys.
 
 * `SOFT_DOT_LIMIT_DOT_REACHED` (value: `'soft.limit.reached'`)
 
+* `BUDGET_DOT_TOPUP_DOT_ADDED` (value: `'budget.topup.added'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

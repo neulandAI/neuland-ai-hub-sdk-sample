@@ -19,6 +19,7 @@ Stream a stored file as an attachment, authorized by a signed download token.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.storage import Storage
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -32,7 +33,7 @@ configuration = neuland_hub_sdk.Configuration(
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Storage(api_client)
+    api_instance = Storage(api_client)
     path = 'path_example' # str | Storage path of the file to download.
     token = 'token_example' # str | Signed download token authorizing access to the file.
 

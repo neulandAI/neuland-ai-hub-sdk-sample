@@ -24,10 +24,12 @@ Assign a role to a group; members inherit it.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -48,12 +50,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Role(api_client)
+    api_instance = Role(api_client)
     role_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the role to assign.
     group_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the group to assign it to.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -111,10 +112,12 @@ Assign a role to a user, bounded by the caller's own permissions and rank.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -135,12 +138,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Role(api_client)
+    api_instance = Role(api_client)
     role_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the role to assign.
     user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to assign it to.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -198,10 +200,11 @@ Create a tenant-scoped custom role and grant it the requested permissions.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.models.role import Role
 from neuland_hub_sdk.models.role_in import RoleIn
 from neuland_hub_sdk.rest import ApiException
@@ -224,12 +227,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Role(api_client)
+    api_instance = Role(api_client)
     role_in = neuland_hub_sdk.RoleIn() # RoleIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -287,10 +289,12 @@ roles and the current default are protected.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -311,12 +315,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Role(api_client)
+    api_instance = Role(api_client)
     role_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the role to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -373,10 +376,12 @@ fallback when a user would be left with no role. Exactly one per tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -397,12 +402,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Role(api_client)
+    api_instance = Role(api_client)
     role_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the role to make default.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -458,10 +462,12 @@ Remove a role from a group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -482,12 +488,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Role(api_client)
+    api_instance = Role(api_client)
     role_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the role to remove.
     group_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the group to remove it from.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -545,10 +550,12 @@ Remove a role from a user.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -569,12 +576,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Role(api_client)
+    api_instance = Role(api_client)
     role_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the role to remove.
     user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to remove it from.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -632,10 +638,12 @@ Edit a role's name, permission set and/or the resources it grants.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
 from neuland_hub_sdk.models.role import Role
 from neuland_hub_sdk.models.role_update_in import RoleUpdateIn
 from neuland_hub_sdk.rest import ApiException
@@ -658,12 +666,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Role(api_client)
+    api_instance = Role(api_client)
     role_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the role to update.
     role_update_in = neuland_hub_sdk.RoleUpdateIn() # RoleUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)

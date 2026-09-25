@@ -23,10 +23,11 @@ Return a run-rate projection of month-end spend (plus the summary it builds on).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.models.budget_forecast import BudgetForecast
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -48,12 +49,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Alert(api_client)
+    api_instance = Alert(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -111,10 +111,11 @@ Replaces the three PostgREST reads the dashboard stitches client-side
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.models.budget_summary import BudgetSummary
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -136,12 +137,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Alert(api_client)
+    api_instance = Alert(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -196,10 +196,12 @@ Stop a top-up adding headroom, keeping what it has already covered.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.models.budget_top_up_out import BudgetTopUpOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -221,12 +223,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Alert(api_client)
+    api_instance = Alert(api_client)
     top_up_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the budget top-up to cancel.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -284,10 +285,11 @@ Create a new budget alert with threshold and current spend.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.models.budget_alert import BudgetAlert
 from neuland_hub_sdk.models.budget_alert_request import BudgetAlertRequest
 from neuland_hub_sdk.rest import ApiException
@@ -310,12 +312,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Alert(api_client)
+    api_instance = Alert(api_client)
     budget_alert_request = neuland_hub_sdk.BudgetAlertRequest() # BudgetAlertRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -372,10 +373,11 @@ Raise the tenant's pool budget for the current calendar month.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.models.budget_top_up_out import BudgetTopUpOut
 from neuland_hub_sdk.models.budget_top_up_request import BudgetTopUpRequest
 from neuland_hub_sdk.rest import ApiException
@@ -398,12 +400,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Alert(api_client)
+    api_instance = Alert(api_client)
     budget_top_up_request = neuland_hub_sdk.BudgetTopUpRequest() # BudgetTopUpRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -460,10 +461,12 @@ Delete an existing budget alert.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -484,12 +487,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Alert(api_client)
+    api_instance = Alert(api_client)
     alert_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the budget alert to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -545,10 +547,12 @@ Update an existing budget alert.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.alert import Alert
 from neuland_hub_sdk.models.budget_alert import BudgetAlert
 from neuland_hub_sdk.models.budget_alert_update import BudgetAlertUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -571,12 +575,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Alert(api_client)
+    api_instance = Alert(api_client)
     alert_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the budget alert to update.
     budget_alert_update = neuland_hub_sdk.BudgetAlertUpdate() # BudgetAlertUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)

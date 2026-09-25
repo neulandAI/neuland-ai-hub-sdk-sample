@@ -21,8 +21,10 @@ each endpoint's `operationId` becomes a method on it. The exact names are listed
 under [API Methods](/sdk/python/reference/endpoints/User).
 
 ```python
+from neuland_hub_sdk.api.user import User
+
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    api_instance = neuland_hub_sdk.User(api_client)
+    api_instance = User(api_client)
     me = api_instance.users_get_myself()
     print(me)
 ```
@@ -53,3 +55,16 @@ chats = json.loads(response.data)
 
 Ready-made recipes for the common cases are in
 [Read data with Query](/guides/query).
+
+## Common questions
+
+- **How do I list my chats?** There is no list endpoint. Read them with the
+  [Query endpoint](/guides/query), which also covers messages, assistants,
+  projects and documents.
+- **How do I create a chat?** Send a message without a `chat_id` using
+  `Message(api_client).messages_create_message(MessageIn(content=...))`.
+  The response carries the new `chat_public_id`.
+- **How do I get the reply?** Generation is asynchronous. Use the
+  [streaming client](/sdk/python/streaming) for live tokens, or poll
+  `Chat(api_client).chats_list_chat_message_turns(chat_id)` until the last
+  turn's state is `COMPLETED`.

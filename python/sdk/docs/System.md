@@ -18,10 +18,11 @@ Return the current platform-wide system settings.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.system import System
 from neuland_hub_sdk.models.system_settings import SystemSettings
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -43,12 +44,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.System(api_client)
+    api_instance = System(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -103,10 +103,11 @@ Apply the provided system settings changes and record an audit entry.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.system import System
 from neuland_hub_sdk.models.system_settings import SystemSettings
 from neuland_hub_sdk.models.system_settings_update import SystemSettingsUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -129,12 +130,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.System(api_client)
+    api_instance = System(api_client)
     system_settings_update = neuland_hub_sdk.SystemSettingsUpdate() # SystemSettingsUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 

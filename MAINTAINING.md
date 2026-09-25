@@ -69,7 +69,16 @@ npx --yes @openapitools/openapi-generator-cli generate \
 > (`TS2527` in `createRequestFunction`); the lockfile pins axios 1.15.x, which
 > works. Bump axios only when the build passes with the new version.
 
-### 5. Sync the SDK docs into the Mintlify site
+### 5. Update the API Reference spec, then sync the SDK docs
+
+The API Reference tab is driven by `docs/openapi.json`. Copy the normalized
+spec over it so the reference and the SDKs come from the same Hub version
+(the sync script's coverage check fails otherwise):
+
+```bash
+cp /tmp/hub-openapi.json docs/openapi.json
+```
+
 
 The generated `python/sdk/docs/` and `nodejs/sdk/docs/` folders are the SDK's
 markdown reference (one page per API tag and per model). This step copies them

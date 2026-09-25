@@ -23,10 +23,11 @@ Return the browse-hierarchy metadata (root kind, depth) for this source.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1
 from neuland_hub_sdk.models.data_source_capabilities import DataSourceCapabilities
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -48,12 +49,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.SharepointV1(api_client)
+    api_instance = SharepointV1(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -106,10 +106,12 @@ Fetch a single drive item's metadata, with imported flag/count.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1
 from neuland_hub_sdk.models.data_source_item_model import DataSourceItemModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -131,12 +133,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.SharepointV1(api_client)
+    api_instance = SharepointV1(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
     drive_item_id = 'drive_item_id_example' # str | Id of the item.
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
@@ -204,10 +205,11 @@ Return the current user's profile on the data source.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1
 from neuland_hub_sdk.models.data_source_user_model import DataSourceUserModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -229,12 +231,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.SharepointV1(api_client)
+    api_instance = SharepointV1(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -289,10 +290,11 @@ Report whether the current user has granted consent to browse this source.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -313,12 +315,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.SharepointV1(api_client)
+    api_instance = SharepointV1(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -372,10 +373,12 @@ List the immediate children of a drive item, with imported flags/counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1
 from neuland_hub_sdk.models.data_source_item_model import DataSourceItemModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -397,12 +400,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.SharepointV1(api_client)
+    api_instance = SharepointV1(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
     drive_item_id = 'drive_item_id_example' # str | Id of the folder item, or 'root'.
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
@@ -472,10 +474,12 @@ List drives under a site, with imported counts per drive.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1
 from neuland_hub_sdk.models.data_source_drive_model import DataSourceDriveModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -497,12 +501,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.SharepointV1(api_client)
+    api_instance = SharepointV1(api_client)
     site_id = 'site_id_example' # str | Id of the site to list drives for.
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this library. (optional)
@@ -568,10 +571,12 @@ List the top-level browse entries (sites or drives), with imported counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint_v1 import SharepointV1
 from neuland_hub_sdk.models.response_sharepointv1_list_roots import ResponseSharepointv1ListRoots
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -593,12 +598,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.SharepointV1(api_client)
+    api_instance = SharepointV1(api_client)
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this library. (optional)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this assistant. (optional)

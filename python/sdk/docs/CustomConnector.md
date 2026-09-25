@@ -24,10 +24,11 @@ request is rejected if any entry is invalid.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
 from neuland_hub_sdk.models.custom_connector_create import CustomConnectorCreate
 from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut
 from neuland_hub_sdk.rest import ApiException
@@ -50,12 +51,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.CustomConnector(api_client)
+    api_instance = CustomConnector(api_client)
     custom_connector_create = neuland_hub_sdk.CustomConnectorCreate() # CustomConnectorCreate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -108,10 +108,12 @@ Delete a custom connector
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -132,12 +134,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.CustomConnector(api_client)
+    api_instance = CustomConnector(api_client)
     public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -188,10 +189,11 @@ List my custom connectors
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
 from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -213,12 +215,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.CustomConnector(api_client)
+    api_instance = CustomConnector(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -272,10 +273,12 @@ always re-validated.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
 from neuland_hub_sdk.models.custom_connector_out import CustomConnectorOut
 from neuland_hub_sdk.models.custom_connector_update import CustomConnectorUpdate
 from neuland_hub_sdk.rest import ApiException
@@ -298,12 +301,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.CustomConnector(api_client)
+    api_instance = CustomConnector(api_client)
     public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector.
     custom_connector_update = neuland_hub_sdk.CustomConnectorUpdate() # CustomConnectorUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)

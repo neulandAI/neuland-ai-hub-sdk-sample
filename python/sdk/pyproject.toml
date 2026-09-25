@@ -1,6 +1,6 @@
 [project]
 name = "neuland_hub_sdk"
-version = "1.0.4"
+version = "1.0.5"
 description = "Neuland AI Hub API"
 authors = [
   {name = "neuland.ai",email = "hello@neuland.ai"},
@@ -24,6 +24,9 @@ Repository = "https://github.com/neulandAI/neuland-ai-hub-sdk-sample"
 requires-poetry = ">=2.0"
 
 [tool.poetry.group.dev.dependencies]
+pytest = ">= 7.2.1"
+pytest-cov = ">= 2.8.1"
+tox = ">= 3.9.0"
 flake8 = ">= 4.0.0"
 types-python-dateutil = ">= 2.8.19.14"
 mypy = ">= 1.5"
@@ -39,6 +42,8 @@ extension-pkg-whitelist = "pydantic"
 [tool.mypy]
 files = [
   "neuland_hub_sdk",
+  #"test",  # auto-generated tests
+  "tests", # hand-written tests
 ]
 # TODO: enable "strict" once all these individual checks are passing
 # strict = true

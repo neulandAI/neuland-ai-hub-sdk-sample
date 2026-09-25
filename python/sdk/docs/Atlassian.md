@@ -17,10 +17,12 @@ Set the active Atlassian cloud_id on this connector's consent.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.atlassian import Atlassian
 from neuland_hub_sdk.models.set_atlassian_cloud_id_request import SetAtlassianCloudIdRequest
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -42,12 +44,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Atlassian(api_client)
+    api_instance = Atlassian(api_client)
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the Atlassian connector to configure.
     set_atlassian_cloud_id_request = neuland_hub_sdk.SetAtlassianCloudIdRequest() # SetAtlassianCloudIdRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)

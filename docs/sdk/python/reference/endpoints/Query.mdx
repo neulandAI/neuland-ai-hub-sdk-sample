@@ -28,10 +28,11 @@ Forward the request to the upstream PostgREST service and return its response.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.query import Query
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -52,12 +53,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Query(api_client)
+    api_instance = Query(api_client)
     path = 'path_example' # str | PostgREST resource path to proxy.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -115,10 +115,11 @@ Forward the request to an upstream PostgREST RPC endpoint and return its respons
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.query import Query
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -139,12 +140,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Query(api_client)
+    api_instance = Query(api_client)
     path = 'path_example' # str | PostgREST RPC function name to invoke.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
