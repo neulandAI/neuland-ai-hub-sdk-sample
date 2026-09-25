@@ -438,6 +438,8 @@ class ApiClient:
             return None
 
         if isinstance(klass, str):
+            if klass.startswith('Optional['):
+                klass = klass[len('Optional['):-1]
             if klass.startswith('List['):
                 m = re.match(r'List\[(.*)]', klass)
                 assert m is not None, "Malformed List type definition"

@@ -718,6 +718,40 @@ def fix_sdk_metadata() -> None:
     print("  fixed SDK metadata in: " + (", ".join(changed) if changed else "(nothing to change)"))
 
 
+def fix_python_sdk_code() -> None:
+    """Patch two generator defects in the generated Python SDK runtime (this repo).
+
+    1. rest.py sends form-urlencoded and multipart bodies through
+       ``pool_manager.request()``. urllib3 treats DELETE as a body-less method
+       there and rejects the ``encode_multipart`` argument, so every DELETE with
+       a form body raises TypeError. ``request_encode_body()`` accepts the same
+       arguments for any HTTP method.
+    2. api_client.py's deserializer cannot resolve response types wrapped in
+       ``Optional[...]`` (the generator emits ``List[Optional[str]]`` for plain
+       string arrays) and raises AttributeError on a successful response.
+       Unwrap the Optional before resolving the inner type.
+    Idempotent; reapplied after every regeneration.
+    """
+    changed: list[str] = []
+    rest = REPO_ROOT / "python/sdk/neuland_hub_sdk/rest.py"
+    text = rest.read_text(encoding="utf-8")
+    new = re.sub(r"self\.pool_manager\.request\((\s+method,\s+url,\s+fields=post_params,)",
+                 r"self.pool_manager.request_encode_body(\1", text)
+    if new != text:
+        rest.write_text(new, encoding="utf-8"); changed.append(rest.name)
+
+    client = REPO_ROOT / "python/sdk/neuland_hub_sdk/api_client.py"
+    text = client.read_text(encoding="utf-8")
+    anchor = "        if isinstance(klass, str):\n            if klass.startswith('List['):"
+    patch = ("        if isinstance(klass, str):\n"
+             "            if klass.startswith('Optional['):\n"
+             "                klass = klass[len('Optional['):-1]\n"
+             "            if klass.startswith('List['):")
+    if anchor in text and patch not in text:
+        client.write_text(text.replace(anchor, patch, 1), encoding="utf-8"); changed.append(client.name)
+    print("  patched python SDK runtime: " + (", ".join(changed) if changed else "(already patched)"))
+
+
 def fix_python_examples() -> None:
     """Make the generated Python examples runnable, in place, before they are synced.
 
@@ -773,6 +807,7 @@ def fix_python_examples() -> None:
 def main() -> None:
     print("Syncing generated SDK docs into the Mintlify tree...")
     fix_sdk_metadata()
+    fix_python_sdk_code()
     fix_python_examples()
     ensure_servers()
     merge_streaming_endpoints()

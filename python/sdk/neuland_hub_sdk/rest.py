@@ -194,7 +194,7 @@ class RESTClientObject:
                         preload_content=False
                     )
                 elif content_type == 'application/x-www-form-urlencoded':
-                    r = self.pool_manager.request(
+                    r = self.pool_manager.request_encode_body(
                         method,
                         url,
                         fields=post_params,
@@ -210,7 +210,7 @@ class RESTClientObject:
                     del headers['Content-Type']
                     # Ensures that dict objects are serialized
                     post_params = [(a, json.dumps(b)) if isinstance(b, dict) else (a,b) for a, b in post_params]
-                    r = self.pool_manager.request(
+                    r = self.pool_manager.request_encode_body(
                         method,
                         url,
                         fields=post_params,
