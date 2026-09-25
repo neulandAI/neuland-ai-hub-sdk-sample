@@ -35,6 +35,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
   package.
 </Note>
 
+<Note>
+  Parameters that are enums in the API take the enum class, not a string: pass
+  `OutputFormat("markdown")`, not `"markdown"`.
+</Note>
+
 ## Read data with Query
 
 The Hub's read-only `/query/<resource>` endpoint returns your chats, messages,

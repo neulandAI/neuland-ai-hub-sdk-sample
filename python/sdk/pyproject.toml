@@ -1,6 +1,6 @@
 [project]
 name = "neuland_hub_sdk"
-version = "1.0.5"
+version = "1.0.6"
 description = "Neuland AI Hub API"
 authors = [
   {name = "neuland.ai",email = "hello@neuland.ai"},
