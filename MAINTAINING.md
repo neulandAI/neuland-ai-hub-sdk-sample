@@ -141,25 +141,38 @@ rm -f /tmp/hub-openapi.json
 
 ## Releasing
 
+Branches:
+
+- `dev` is where all work lands (PRs target it, CI runs on it).
+- `release` holds only released states. Every `sdk-v<version>` tag is made on
+  it. The docs site deploys from it, so docs and packages ship together.
+
 Both SDKs are published to [PyPI](https://pypi.org/project/neuland-hub-sdk/) and
 [npm](https://www.npmjs.com/package/neuland-hub-sdk) by
 [.github/workflows/release.yml](.github/workflows/release.yml) when a
 `sdk-v<version>` tag is pushed. The registries trust the workflow via OIDC
 (trusted publishing), so no tokens are stored in the repo.
 
-1. Bump the version in a PR to `dev`. Same value in all of:
+1. On `dev`, bump the version in a PR. Same value in all of:
    `python/sdk/pyproject.toml`, `python/sdk/setup.py`,
    `python/sdk/neuland_hub_sdk/__init__.py`, `nodejs/sdk/package.json`
    (and `package-lock.json`). Also update the pin in `README.md` and
-   `docs/sdk/python/installation.mdx`.
-2. Merge, then tag the merge commit and push the tag:
+   `docs/sdk/python/installation.mdx`. Merge it.
+2. Fast-forward `release` to `dev`, tag, push both:
 
    ```bash
-   git tag sdk-v<version> && git push origin sdk-v<version>
+   git checkout release && git pull
+   git merge --ff-only dev
+   git tag sdk-v<version>
+   git push origin release sdk-v<version>
+   git checkout dev
    ```
 
 3. The workflow checks the tag matches both manifests, builds, and publishes.
    Watch it under Actions. A version mismatch fails before anything is published.
+
+`--ff-only` refuses if `release` has commits that `dev` does not; that should
+never happen, since nothing is committed to `release` directly.
 
 ## Why pin the generator version?
 

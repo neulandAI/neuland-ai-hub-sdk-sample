@@ -2,7 +2,7 @@ name: Release SDKs
 
 # Publishes both SDKs when a release tag is pushed. Flow (see MAINTAINING.md):
 #   1. bump the version in python/sdk and nodejs/sdk in a PR, merge to dev
-#   2. git tag sdk-vX.Y.Z && git push --tags
+#   2. fast-forward `release` to dev, tag it: git tag sdk-vX.Y.Z && git push origin release sdk-vX.Y.Z
 # Both registries trust this workflow via OIDC (trusted publishing), so there
 # are no stored tokens. The tag must match the version in both manifests.
 
