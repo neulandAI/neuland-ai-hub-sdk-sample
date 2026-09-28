@@ -56,7 +56,7 @@ SERVERS = [
 # set), and the Node `author` field is hardcoded in the generator template, so
 # both are patched here after every regen. Change them in one place.
 SDK_AUTHOR_NAME = "neuland.ai"
-SDK_AUTHOR_EMAIL = "hello@neuland.ai"
+SDK_AUTHOR_EMAIL = "support@neuland.ai"
 # License declaration. Until legal picks one, both manifests point at the LICENSE
 # file (placeholder text). When decided, set SDK_LICENSE_SPDX = "MIT" (or
 # "Apache-2.0") and both manifests switch to the SPDX form automatically.

@@ -33,7 +33,7 @@ setup(
     version=VERSION,
     description="Neuland AI Hub API",
     author="neuland.ai",
-    author_email="hello@neuland.ai",
+    author_email="support@neuland.ai",
     url="https://github.com/neulandAI/neuland-ai-hub-sdk-sample",
     keywords=["OpenAPI", "OpenAPI-Generator", "Neuland AI Hub API"],
     install_requires=REQUIRES,

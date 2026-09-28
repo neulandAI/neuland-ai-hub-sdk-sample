@@ -3,7 +3,7 @@ name = "neuland_hub_sdk"
 version = "1.0.6"
 description = "Neuland AI Hub API"
 authors = [
-  {name = "neuland.ai",email = "hello@neuland.ai"},
+  {name = "neuland.ai",email = "support@neuland.ai"},
 ]
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Neuland AI Hub API"]
