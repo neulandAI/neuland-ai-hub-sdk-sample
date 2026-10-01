@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ChatLibrary } from 'neuland-hub-sdk';
+import { ChatLibrary } from '@neulandai/neuland-hub-sdk';
 
 const instance: ChatLibrary = {
     created_at,

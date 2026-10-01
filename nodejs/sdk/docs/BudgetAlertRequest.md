@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { BudgetAlertRequest } from 'neuland-hub-sdk';
+import { BudgetAlertRequest } from '@neulandai/neuland-hub-sdk';
 
 const instance: BudgetAlertRequest = {
     name,

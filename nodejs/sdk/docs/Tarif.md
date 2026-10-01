@@ -20,7 +20,7 @@ import {
     Tarif,
     Configuration,
     TarifIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tarif(configuration);
@@ -77,7 +77,7 @@ Delete a tarif plan.
 import {
     Tarif,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tarif(configuration);
@@ -137,7 +137,7 @@ import {
     Tarif,
     Configuration,
     TarifIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tarif(configuration);

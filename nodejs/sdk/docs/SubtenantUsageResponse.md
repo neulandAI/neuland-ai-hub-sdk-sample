@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SubtenantUsageResponse } from 'neuland-hub-sdk';
+import { SubtenantUsageResponse } from '@neulandai/neuland-hub-sdk';
 
 const instance: SubtenantUsageResponse = {
     start_date,

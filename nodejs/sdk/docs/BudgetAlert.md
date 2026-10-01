@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { BudgetAlert } from 'neuland-hub-sdk';
+import { BudgetAlert } from '@neulandai/neuland-hub-sdk';
 
 const instance: BudgetAlert = {
     id,

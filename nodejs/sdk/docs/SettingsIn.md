@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SettingsIn } from 'neuland-hub-sdk';
+import { SettingsIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: SettingsIn = {
     default_llm_catalog_id,

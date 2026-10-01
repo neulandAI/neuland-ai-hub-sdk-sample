@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { RunCreateOut } from 'neuland-hub-sdk';
+import { RunCreateOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: RunCreateOut = {
     run_id,

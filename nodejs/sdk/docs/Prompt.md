@@ -21,7 +21,7 @@ import {
     Prompt,
     Configuration,
     PromptIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Prompt(configuration);
@@ -78,7 +78,7 @@ Delete a prompt owned by the current user.
 import {
     Prompt,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Prompt(configuration);
@@ -137,7 +137,7 @@ import {
     Prompt,
     Configuration,
     PromptOptimizeIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Prompt(configuration);
@@ -196,7 +196,7 @@ import {
     Prompt,
     Configuration,
     PromptIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Prompt(configuration);

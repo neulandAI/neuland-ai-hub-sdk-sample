@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CustomConnectorCreate } from 'neuland-hub-sdk';
+import { CustomConnectorCreate } from '@neulandai/neuland-hub-sdk';
 
 const instance: CustomConnectorCreate = {
     name,

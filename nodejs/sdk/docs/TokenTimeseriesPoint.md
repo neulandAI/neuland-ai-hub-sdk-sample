@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TokenTimeseriesPoint } from 'neuland-hub-sdk';
+import { TokenTimeseriesPoint } from '@neulandai/neuland-hub-sdk';
 
 const instance: TokenTimeseriesPoint = {
     date,

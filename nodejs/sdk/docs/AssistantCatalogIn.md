@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { AssistantCatalogIn } from 'neuland-hub-sdk';
+import { AssistantCatalogIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: AssistantCatalogIn = {
     name,

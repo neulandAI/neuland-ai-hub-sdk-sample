@@ -24,7 +24,7 @@ Assign a role to a group; members inherit it.
 import {
     Role,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Role(configuration);
@@ -85,7 +85,7 @@ Assign a role to a user, bounded by the caller\'s own permissions and rank.
 import {
     Role,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Role(configuration);
@@ -147,7 +147,7 @@ import {
     Role,
     Configuration,
     RoleIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Role(configuration);
@@ -204,7 +204,7 @@ Delete a custom role. Holders left with no role become roleless; system roles an
 import {
     Role,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Role(configuration);
@@ -262,7 +262,7 @@ Make a role the tenant\'s default: assigned to new users and used as the fallbac
 import {
     Role,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Role(configuration);
@@ -320,7 +320,7 @@ Remove a role from a group.
 import {
     Role,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Role(configuration);
@@ -381,7 +381,7 @@ Remove a role from a user.
 import {
     Role,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Role(configuration);
@@ -443,7 +443,7 @@ import {
     Role,
     Configuration,
     RoleUpdateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Role(configuration);

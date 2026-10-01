@@ -23,7 +23,7 @@ Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped st
 import {
     Workflow,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Workflow(configuration);
@@ -78,7 +78,7 @@ Mint a fresh stream token to replay a historical run. Creator-only.
 import {
     Workflow,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Workflow(configuration);
@@ -137,7 +137,7 @@ import {
     Workflow,
     Configuration,
     WorkflowIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Workflow(configuration);
@@ -192,7 +192,7 @@ Delete a workflow. Only its creator may delete it.
 import {
     Workflow,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Workflow(configuration);
@@ -248,7 +248,7 @@ import {
     Workflow,
     Configuration,
     WorkflowChatIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Workflow(configuration);
@@ -306,7 +306,7 @@ Server-sent event stream for a run. Authed by the run-scoped stream token in ``A
 import {
     Workflow,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Workflow(configuration);
@@ -362,7 +362,7 @@ import {
     Workflow,
     Configuration,
     WorkflowUpdateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Workflow(configuration);

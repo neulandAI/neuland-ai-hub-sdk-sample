@@ -22,7 +22,7 @@ import {
     Application,
     Configuration,
     ApplicationIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);
@@ -79,7 +79,7 @@ Delete an application (superadmin only).
 import {
     Application,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);
@@ -138,7 +138,7 @@ import {
     Application,
     Configuration,
     ApplicationIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);
@@ -200,7 +200,7 @@ import {
     Application,
     Configuration,
     GroupAppAccessIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);
@@ -259,7 +259,7 @@ import {
     Application,
     Configuration,
     ApplicationAccessIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Application(configuration);

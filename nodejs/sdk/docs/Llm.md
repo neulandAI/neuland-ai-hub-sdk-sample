@@ -26,7 +26,7 @@ import {
     Llm,
     Configuration,
     ApiKeyInventoryRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);
@@ -84,7 +84,7 @@ import {
     Llm,
     Configuration,
     DateWindowRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);
@@ -142,7 +142,7 @@ import {
     Llm,
     Configuration,
     UsageRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);
@@ -200,7 +200,7 @@ import {
     Llm,
     Configuration,
     UsageCostRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);
@@ -259,7 +259,7 @@ import {
     Llm,
     Configuration,
     UsageRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);
@@ -317,7 +317,7 @@ import {
     Llm,
     Configuration,
     DateWindowRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);
@@ -375,7 +375,7 @@ import {
     Llm,
     Configuration,
     DateWindowRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);
@@ -433,7 +433,7 @@ import {
     Llm,
     Configuration,
     UsageQueryRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);
@@ -492,7 +492,7 @@ import {
     Llm,
     Configuration,
     UtilizationRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Llm(configuration);

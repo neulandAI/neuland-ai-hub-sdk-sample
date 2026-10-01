@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { LibraryIn } from 'neuland-hub-sdk';
+import { LibraryIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: LibraryIn = {
     name,

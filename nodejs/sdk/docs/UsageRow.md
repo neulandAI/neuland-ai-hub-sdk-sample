@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UsageRow } from 'neuland-hub-sdk';
+import { UsageRow } from '@neulandai/neuland-hub-sdk';
 
 const instance: UsageRow = {
     cost,

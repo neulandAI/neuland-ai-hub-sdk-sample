@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { FeatureFlagOut } from 'neuland-hub-sdk';
+import { FeatureFlagOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: FeatureFlagOut = {
     key,

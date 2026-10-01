@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SharedMailboxSearchOut } from 'neuland-hub-sdk';
+import { SharedMailboxSearchOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: SharedMailboxSearchOut = {
     results,

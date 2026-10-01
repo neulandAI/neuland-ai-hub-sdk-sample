@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CredentialIn } from 'neuland-hub-sdk';
+import { CredentialIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: CredentialIn = {
     config,

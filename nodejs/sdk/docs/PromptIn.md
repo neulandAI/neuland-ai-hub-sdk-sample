@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { PromptIn } from 'neuland-hub-sdk';
+import { PromptIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: PromptIn = {
     name,

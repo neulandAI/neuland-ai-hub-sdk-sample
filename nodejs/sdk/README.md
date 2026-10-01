@@ -5,7 +5,7 @@ header. Create one in the Hub under **Settings → API Keys**.
 
 Full guides, quickstart and API reference: https://docs.neuland-hub.ai
 
-## neuland-hub-sdk@1.0.6
+## @neulandai/neuland-hub-sdk@1.1.0
 
 This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
 
@@ -39,7 +39,7 @@ navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install neuland-hub-sdk@1.0.6 --save
+npm install @neulandai/neuland-hub-sdk@1.1.0 --save
 ```
 
 

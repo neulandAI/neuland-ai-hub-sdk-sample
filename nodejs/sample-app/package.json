@@ -8,7 +8,7 @@
     "start": "node src/index.js"
   },
   "dependencies": {
-    "neuland-hub-sdk": "file:../sdk",
+    "@neulandai/neuland-hub-sdk": "file:../sdk",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2"
   }

@@ -21,7 +21,7 @@ import {
     Template,
     Configuration,
     TemplateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Template(configuration);
@@ -78,7 +78,7 @@ Delete an email template.
 import {
     Template,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Template(configuration);
@@ -136,7 +136,7 @@ Return the email catalog the authoring UI needs.
 import {
     Template,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Template(configuration);
@@ -191,7 +191,7 @@ import {
     Template,
     Configuration,
     TemplateUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Template(configuration);

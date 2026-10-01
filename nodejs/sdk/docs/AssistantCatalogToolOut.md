@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { AssistantCatalogToolOut } from 'neuland-hub-sdk';
+import { AssistantCatalogToolOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: AssistantCatalogToolOut = {
     assistant_catalog_id,

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TranscriptionSegment } from 'neuland-hub-sdk';
+import { TranscriptionSegment } from '@neulandai/neuland-hub-sdk';
 
 const instance: TranscriptionSegment = {
     start,

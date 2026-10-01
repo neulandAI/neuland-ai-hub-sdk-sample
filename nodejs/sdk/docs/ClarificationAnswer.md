@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ClarificationAnswer } from 'neuland-hub-sdk';
+import { ClarificationAnswer } from '@neulandai/neuland-hub-sdk';
 
 const instance: ClarificationAnswer = {
     selected_option_ids,

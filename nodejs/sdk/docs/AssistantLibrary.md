@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { AssistantLibrary } from 'neuland-hub-sdk';
+import { AssistantLibrary } from '@neulandai/neuland-hub-sdk';
 
 const instance: AssistantLibrary = {
     created_at,

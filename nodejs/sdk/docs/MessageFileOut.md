@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { MessageFileOut } from 'neuland-hub-sdk';
+import { MessageFileOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: MessageFileOut = {
     id,

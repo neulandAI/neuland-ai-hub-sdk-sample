@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { MoversResponse } from 'neuland-hub-sdk';
+import { MoversResponse } from '@neulandai/neuland-hub-sdk';
 
 const instance: MoversResponse = {
     start_date,

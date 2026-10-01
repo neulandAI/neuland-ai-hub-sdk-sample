@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SendEmailRequest } from 'neuland-hub-sdk';
+import { SendEmailRequest } from '@neulandai/neuland-hub-sdk';
 
 const instance: SendEmailRequest = {
     tool_call_id,

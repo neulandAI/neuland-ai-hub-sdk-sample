@@ -36,7 +36,7 @@ Enables a library for a assistant by creating a new association
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -98,7 +98,7 @@ import {
     Assistant,
     Configuration,
     AssistantMembersIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -159,7 +159,7 @@ Attach a tag to an assistant.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -220,7 +220,7 @@ Enable a tenant tool for the assistant.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -281,7 +281,7 @@ Make the assistant consultable in every chat of the calling user.  Anyone the as
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -341,7 +341,7 @@ import {
     Assistant,
     Configuration,
     AssistantIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -398,7 +398,7 @@ Delete an assistant and orphan its associated chats.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -457,7 +457,7 @@ import {
     Assistant,
     Configuration,
     AssistantMembersIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -519,7 +519,7 @@ self-add to a tenant-shared community assistant.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -578,7 +578,7 @@ user can leave the assistant by themselves.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -636,7 +636,7 @@ Clear the caller\'s own `is_tool` flag; the assistant stops being consultable fr
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -694,7 +694,7 @@ Disables a library from an assistant by removing the association
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -755,7 +755,7 @@ Remove a specific user from the assistant\'s membership.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -816,7 +816,7 @@ Detach a tag from an assistant.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -877,7 +877,7 @@ Disable a tool for the assistant by removing the association.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -938,7 +938,7 @@ Copy a version snapshot onto the live assistant and append a new version.  Resto
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -999,7 +999,7 @@ Create an assistant via multipart form, with optional knowledge-file uploads.
 import {
     Assistant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -1093,7 +1093,7 @@ import {
     Assistant,
     Configuration,
     AssistantIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -1155,7 +1155,7 @@ import {
     Assistant,
     Configuration,
     AssistantGroupsIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);
@@ -1217,7 +1217,7 @@ import {
     Assistant,
     Configuration,
     AssistantVisibilityUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Assistant(configuration);

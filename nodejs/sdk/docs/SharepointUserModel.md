@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SharepointUserModel } from 'neuland-hub-sdk';
+import { SharepointUserModel } from '@neulandai/neuland-hub-sdk';
 
 const instance: SharepointUserModel = {
     display_name,

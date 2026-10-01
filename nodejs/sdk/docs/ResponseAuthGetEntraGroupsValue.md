@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ResponseAuthGetEntraGroupsValue } from 'neuland-hub-sdk';
+import { ResponseAuthGetEntraGroupsValue } from '@neulandai/neuland-hub-sdk';
 
 const instance: ResponseAuthGetEntraGroupsValue = {
 };

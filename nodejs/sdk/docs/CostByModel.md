@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CostByModel } from 'neuland-hub-sdk';
+import { CostByModel } from '@neulandai/neuland-hub-sdk';
 
 const instance: CostByModel = {
     provider,

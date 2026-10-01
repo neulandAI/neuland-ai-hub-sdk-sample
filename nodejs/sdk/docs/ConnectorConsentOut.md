@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ConnectorConsentOut } from 'neuland-hub-sdk';
+import { ConnectorConsentOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: ConnectorConsentOut = {
     consent_url,

@@ -63,7 +63,7 @@ npx --yes @openapitools/openapi-generator-cli generate \
   -o nodejs/sdk \
   --skip-validate-spec \
   --git-user-id neulandAI --git-repo-id neuland-ai-hub-sdk-sample \
-  --additional-properties=npmName=neuland-hub-sdk,npmVersion=$SDK_VERSION,enumPropertyNaming=original,apiNameSuffix=
+  --additional-properties=npmName=@neulandai/neuland-hub-sdk,npmVersion=$SDK_VERSION,enumPropertyNaming=original,apiNameSuffix=
 ( cd nodejs/sdk && npm ci --ignore-scripts && npm run build )
 ```
 
@@ -148,7 +148,7 @@ Branches:
   it. The docs site deploys from it, so docs and packages ship together.
 
 Both SDKs are published to [PyPI](https://pypi.org/project/neuland-hub-sdk/) and
-[npm](https://www.npmjs.com/package/neuland-hub-sdk) by
+[npm](https://www.npmjs.com/package/@neulandai/neuland-hub-sdk) by
 [.github/workflows/release.yml](.github/workflows/release.yml) when a
 `sdk-v<version>` tag is pushed. The registries trust the workflow via OIDC
 (trusted publishing), so no tokens are stored in the repo.

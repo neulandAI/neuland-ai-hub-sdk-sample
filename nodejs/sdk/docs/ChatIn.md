@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ChatIn } from 'neuland-hub-sdk';
+import { ChatIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: ChatIn = {
     name,

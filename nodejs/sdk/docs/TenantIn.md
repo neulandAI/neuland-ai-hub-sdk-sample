@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TenantIn } from 'neuland-hub-sdk';
+import { TenantIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: TenantIn = {
     name,

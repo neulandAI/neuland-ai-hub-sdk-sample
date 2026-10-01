@@ -18,7 +18,7 @@ Return the current platform-wide system settings.
 import {
     System,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new System(configuration);
@@ -73,7 +73,7 @@ import {
     System,
     Configuration,
     SystemSettingsUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new System(configuration);

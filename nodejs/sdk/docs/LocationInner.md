@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { LocationInner } from 'neuland-hub-sdk';
+import { LocationInner } from '@neulandai/neuland-hub-sdk';
 
 const instance: LocationInner = {
 };

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { PasswordResetIn } from 'neuland-hub-sdk';
+import { PasswordResetIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: PasswordResetIn = {
     old_password,

@@ -26,7 +26,7 @@ The admin and/or user parts this connector needs and whether each is set. Never 
 import {
     AuthConnector,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -83,7 +83,7 @@ Start the admin consent flow for connectors that require organization-wide admin
 import {
     AuthConnector,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -142,7 +142,7 @@ Initiate OAuth consent flow for a connector. Returns the provider consent URL as
 import {
     AuthConnector,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -207,7 +207,7 @@ List the connectors the user may use with their per-user consent status.
 import {
     AuthConnector,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -261,7 +261,7 @@ Handle the provider redirect after user consent and persist the granted connecto
 import {
     AuthConnector,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -328,7 +328,7 @@ Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors
 import {
     AuthConnector,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -385,7 +385,7 @@ import {
     AuthConnector,
     Configuration,
     CredentialIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -447,7 +447,7 @@ import {
     AuthConnector,
     Configuration,
     CredentialIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -508,7 +508,7 @@ import {
     AuthConnector,
     Configuration,
     ConnectorUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);
@@ -570,7 +570,7 @@ import {
     AuthConnector,
     Configuration,
     OAuthClientUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AuthConnector(configuration);

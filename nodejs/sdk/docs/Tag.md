@@ -19,7 +19,7 @@ Delete a tag. CASCADE removes all taggings.
 import {
     Tag,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tag(configuration);
@@ -78,7 +78,7 @@ import {
     Tag,
     Configuration,
     TagIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tag(configuration);
@@ -135,7 +135,7 @@ import {
     Tag,
     Configuration,
     TagIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tag(configuration);

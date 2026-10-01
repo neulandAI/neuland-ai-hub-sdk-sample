@@ -25,7 +25,7 @@ Enables a library in a chat by creating a new association
 import {
     Chat,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
@@ -85,7 +85,7 @@ Cancel any pending or streaming message generation in the chat.
 import {
     Chat,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
@@ -142,7 +142,7 @@ Exclude the given documents from the chat\'s retrieval context.
 import {
     Chat,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
@@ -202,7 +202,7 @@ const { status, data } = await apiInstance.chatsDeactivateDocuments(
 import {
     Chat,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
@@ -266,7 +266,7 @@ Delete a chat and its messages.
 import {
     Chat,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
@@ -324,7 +324,7 @@ Re-include previously deactivated documents in the chat\'s retrieval context.
 import {
     Chat,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
@@ -384,7 +384,7 @@ Disables a library from a chat by removing the association
 import {
     Chat,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
@@ -444,7 +444,7 @@ Generate a short LLM summary of the chat\'s recent conversation.
 import {
     Chat,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);
@@ -503,7 +503,7 @@ import {
     Chat,
     Configuration,
     ChatIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Chat(configuration);

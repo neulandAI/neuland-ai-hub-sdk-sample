@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { LibraryMemberOut } from 'neuland-hub-sdk';
+import { LibraryMemberOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: LibraryMemberOut = {
     library_id,

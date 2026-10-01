@@ -19,7 +19,7 @@ Get the settings for the current user\'s tenant, creating defaults if absent.
 import {
     Settings,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Settings(configuration);
@@ -73,7 +73,7 @@ import {
     Settings,
     Configuration,
     SettingsIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Settings(configuration);
@@ -131,7 +131,7 @@ import {
     Settings,
     Configuration,
     SettingsIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Settings(configuration);

@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { RoleIn } from 'neuland-hub-sdk';
+import { RoleIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: RoleIn = {
     name,

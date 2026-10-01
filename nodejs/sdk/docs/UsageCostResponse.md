@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UsageCostResponse } from 'neuland-hub-sdk';
+import { UsageCostResponse } from '@neulandai/neuland-hub-sdk';
 
 const instance: UsageCostResponse = {
     start_date,

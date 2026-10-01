@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UserGrantIn } from 'neuland-hub-sdk';
+import { UserGrantIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: UserGrantIn = {
     item_ids,

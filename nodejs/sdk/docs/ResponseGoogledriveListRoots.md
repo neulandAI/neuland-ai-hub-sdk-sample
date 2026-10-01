@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ResponseGoogledriveListRoots } from 'neuland-hub-sdk';
+import { ResponseGoogledriveListRoots } from '@neulandai/neuland-hub-sdk';
 
 const instance: ResponseGoogledriveListRoots = {
 };

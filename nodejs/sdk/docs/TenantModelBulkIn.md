@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TenantModelBulkIn } from 'neuland-hub-sdk';
+import { TenantModelBulkIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: TenantModelBulkIn = {
     all,

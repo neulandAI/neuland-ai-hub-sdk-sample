@@ -22,7 +22,7 @@ import {
     LlmSetting,
     Configuration,
     LLMSettingsIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new LlmSetting(configuration);
@@ -79,7 +79,7 @@ Remove an LLM settings entry permanently.
 import {
     LlmSetting,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new LlmSetting(configuration);
@@ -138,7 +138,7 @@ import {
     LlmSetting,
     Configuration,
     LLMConnectionTestIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new LlmSetting(configuration);
@@ -195,7 +195,7 @@ Verify a (possibly unsaved) transcription config by transcribing an upload.  Mir
 import {
     LlmSetting,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new LlmSetting(configuration);
@@ -279,7 +279,7 @@ import {
     LlmSetting,
     Configuration,
     LLMSettingsUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new LlmSetting(configuration);

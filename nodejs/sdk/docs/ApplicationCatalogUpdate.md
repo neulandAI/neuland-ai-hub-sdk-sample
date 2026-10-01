@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ApplicationCatalogUpdate } from 'neuland-hub-sdk';
+import { ApplicationCatalogUpdate } from '@neulandai/neuland-hub-sdk';
 
 const instance: ApplicationCatalogUpdate = {
     name,

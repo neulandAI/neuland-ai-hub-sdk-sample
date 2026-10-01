@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { NeulandMarketplaceAssistantSchemasTaggingOut } from 'neuland-hub-sdk';
+import { NeulandMarketplaceAssistantSchemasTaggingOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: NeulandMarketplaceAssistantSchemasTaggingOut = {
     tag_id,

@@ -23,7 +23,7 @@ Return the browse-hierarchy metadata (root kind, depth) for this source.
 import {
     OneDrive,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new OneDrive(configuration);
@@ -75,7 +75,7 @@ Fetch a single drive item\'s metadata, with imported flag/count.
 import {
     OneDrive,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new OneDrive(configuration);
@@ -148,7 +148,7 @@ Return the current user\'s profile on the data source.
 import {
     OneDrive,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new OneDrive(configuration);
@@ -202,7 +202,7 @@ Report whether the current user has granted consent to browse this source.
 import {
     OneDrive,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new OneDrive(configuration);
@@ -255,7 +255,7 @@ List the immediate children of a drive item, with imported flags/counts.
 import {
     OneDrive,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new OneDrive(configuration);
@@ -331,7 +331,7 @@ List drives under a site, with imported counts per drive.
 import {
     OneDrive,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new OneDrive(configuration);
@@ -401,7 +401,7 @@ List the top-level browse entries (sites or drives), with imported counts.
 import {
     OneDrive,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new OneDrive(configuration);

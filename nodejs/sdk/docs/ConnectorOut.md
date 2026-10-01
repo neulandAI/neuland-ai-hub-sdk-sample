@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ConnectorOut } from 'neuland-hub-sdk';
+import { ConnectorOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: ConnectorOut = {
     id,

@@ -19,7 +19,7 @@ import {
     ApiKey,
     Configuration,
     ApiKeyCreateRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApiKey(configuration);
@@ -75,7 +75,7 @@ Deactivate an API key so it can no longer authenticate requests.  Revoking your 
 import {
     ApiKey,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApiKey(configuration);

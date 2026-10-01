@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TokensTimeseriesResponse } from 'neuland-hub-sdk';
+import { TokensTimeseriesResponse } from '@neulandai/neuland-hub-sdk';
 
 const instance: TokensTimeseriesResponse = {
     total_prompt_tokens,

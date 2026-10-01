@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ProjectMemberIn } from 'neuland-hub-sdk';
+import { ProjectMemberIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: ProjectMemberIn = {
     user_id,

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ConnectorUpdate } from 'neuland-hub-sdk';
+import { ConnectorUpdate } from '@neulandai/neuland-hub-sdk';
 
 const instance: ConnectorUpdate = {
     description,

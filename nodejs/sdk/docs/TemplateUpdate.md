@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TemplateUpdate } from 'neuland-hub-sdk';
+import { TemplateUpdate } from '@neulandai/neuland-hub-sdk';
 
 const instance: TemplateUpdate = {
     name,

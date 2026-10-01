@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ProjectLibrary } from 'neuland-hub-sdk';
+import { ProjectLibrary } from '@neulandai/neuland-hub-sdk';
 
 const instance: ProjectLibrary = {
     created_at,

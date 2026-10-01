@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SharepointItemModel } from 'neuland-hub-sdk';
+import { SharepointItemModel } from '@neulandai/neuland-hub-sdk';
 
 const instance: SharepointItemModel = {
     id,

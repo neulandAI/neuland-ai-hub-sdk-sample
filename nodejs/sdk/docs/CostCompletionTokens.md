@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CostCompletionTokens } from 'neuland-hub-sdk';
+import { CostCompletionTokens } from '@neulandai/neuland-hub-sdk';
 
 const instance: CostCompletionTokens = {
 };

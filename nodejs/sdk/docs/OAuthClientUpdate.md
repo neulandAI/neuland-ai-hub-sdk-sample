@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { OAuthClientUpdate } from 'neuland-hub-sdk';
+import { OAuthClientUpdate } from '@neulandai/neuland-hub-sdk';
 
 const instance: OAuthClientUpdate = {
     name,

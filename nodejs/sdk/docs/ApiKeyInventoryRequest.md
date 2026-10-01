@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ApiKeyInventoryRequest } from 'neuland-hub-sdk';
+import { ApiKeyInventoryRequest } from '@neulandai/neuland-hub-sdk';
 
 const instance: ApiKeyInventoryRequest = {
     active_only,

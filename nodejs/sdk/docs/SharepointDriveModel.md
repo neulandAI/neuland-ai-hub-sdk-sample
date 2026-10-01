@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SharepointDriveModel } from 'neuland-hub-sdk';
+import { SharepointDriveModel } from '@neulandai/neuland-hub-sdk';
 
 const instance: SharepointDriveModel = {
     id,

@@ -33,6 +33,11 @@ PUBLIC_BASE_URL = "https://api.your-domain.com"
 # Public docs site; linked from both SDK READMEs (which ship to PyPI / npm).
 DOCS_URL = "https://docs.neuland-hub.ai"
 
+# Read from the manifest rather than hardcoded: the generator writes this name
+# (from `npmName=`) into the README heading this script anchors on, so a rename
+# must not silently stop the rewrite below from matching.
+NPM_NAME = json.loads((REPO_ROOT / "nodejs/sdk/package.json").read_text())["name"]
+
 # The Hub is deployed per tenant (one subdomain each), so there is no single
 # base URL to hard-code. Publishing `servers` as a templated host variable makes
 # the playground render an editable "host" field: readers type their own
@@ -692,11 +697,11 @@ def fix_sdk_metadata() -> None:
     AUTH_NEW = ("Every request is authenticated with an **API key** sent in the `X-API-KEY`\n"
                 "header. Create one in the Hub under **Settings → API Keys**.\n\n"
                 f"Full guides, quickstart and API reference: {DOCS_URL}")
-    NODE_INTRO = ("## neuland-hub-sdk@")
+    NODE_INTRO = (f"## {NPM_NAME}@")
     NODE_INTRO_NEW = ("TypeScript/JavaScript client for the **Neuland AI Hub API**: chat, "
                       "retrieval-augmented document Q&A, assistants, and the surrounding "
                       "workspace and integration features.\n\n" + AUTH_NEW.split("\n\n", 1)[0] + "\n\n"
-                      f"Full guides, quickstart and API reference: {DOCS_URL}\n\n## neuland-hub-sdk@")
+                      f"Full guides, quickstart and API reference: {DOCS_URL}\n\n## {NPM_NAME}@")
     for readme in (REPO_ROOT / "python/sdk/README.md", REPO_ROOT / "nodejs/sdk/README.md"):
         text = readme.read_text(); new = text
         new = new.replace(AUTH_OLD, AUTH_NEW)

@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ConnectorStatusOut } from 'neuland-hub-sdk';
+import { ConnectorStatusOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: ConnectorStatusOut = {
     connector_id,

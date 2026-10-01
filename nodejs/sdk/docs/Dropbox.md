@@ -23,7 +23,7 @@ Return the browse-hierarchy metadata (root kind, depth) for this source.
 import {
     Dropbox,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Dropbox(configuration);
@@ -75,7 +75,7 @@ Fetch a single drive item\'s metadata, with imported flag/count.
 import {
     Dropbox,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Dropbox(configuration);
@@ -148,7 +148,7 @@ Return the current user\'s profile on the data source.
 import {
     Dropbox,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Dropbox(configuration);
@@ -202,7 +202,7 @@ Report whether the current user has granted consent to browse this source.
 import {
     Dropbox,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Dropbox(configuration);
@@ -255,7 +255,7 @@ List the immediate children of a drive item, with imported flags/counts.
 import {
     Dropbox,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Dropbox(configuration);
@@ -331,7 +331,7 @@ List drives under a site, with imported counts per drive.
 import {
     Dropbox,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Dropbox(configuration);
@@ -401,7 +401,7 @@ List the top-level browse entries (sites or drives), with imported counts.
 import {
     Dropbox,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Dropbox(configuration);

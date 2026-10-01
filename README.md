@@ -40,7 +40,7 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk==1.0.6
+neuland-hub-sdk==1.1.0
 ```
 
 Requires Python 3.9+. Full guide: [https://docs.neuland-hub.ai/sdk/python/installation](https://docs.neuland-hub.ai/sdk/python/installation)
@@ -48,11 +48,11 @@ Requires Python 3.9+. Full guide: [https://docs.neuland-hub.ai/sdk/python/instal
 ### Node.js
 
 ```bash
-npm install neuland-hub-sdk
+npm install @neulandai/neuland-hub-sdk
 ```
 
 ```ts
-import { Configuration, User } from "neuland-hub-sdk";
+import { Configuration, User } from "@neulandai/neuland-hub-sdk";
 
 const config = new Configuration({
   basePath: "https://api.your-domain.com",

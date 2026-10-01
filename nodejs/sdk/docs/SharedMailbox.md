@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SharedMailbox } from 'neuland-hub-sdk';
+import { SharedMailbox } from '@neulandai/neuland-hub-sdk';
 
 const instance: SharedMailbox = {
     address,

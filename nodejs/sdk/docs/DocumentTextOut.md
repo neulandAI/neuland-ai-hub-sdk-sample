@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { DocumentTextOut } from 'neuland-hub-sdk';
+import { DocumentTextOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: DocumentTextOut = {
     text,

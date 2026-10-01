@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CostCachedTokensAboveTier } from 'neuland-hub-sdk';
+import { CostCachedTokensAboveTier } from '@neulandai/neuland-hub-sdk';
 
 const instance: CostCachedTokensAboveTier = {
 };

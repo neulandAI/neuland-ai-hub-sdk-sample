@@ -18,7 +18,7 @@ Forward the request to the upstream PostgREST service and return its response.
 import {
     Query,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Query(configuration);
@@ -75,7 +75,7 @@ Forward the request to an upstream PostgREST RPC endpoint and return its respons
 import {
     Query,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Query(configuration);

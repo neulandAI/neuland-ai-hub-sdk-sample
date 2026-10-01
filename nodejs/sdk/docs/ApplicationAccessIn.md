@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ApplicationAccessIn } from 'neuland-hub-sdk';
+import { ApplicationAccessIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: ApplicationAccessIn = {
     application_id,

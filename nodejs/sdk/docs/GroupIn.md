@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { GroupIn } from 'neuland-hub-sdk';
+import { GroupIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: GroupIn = {
     name,

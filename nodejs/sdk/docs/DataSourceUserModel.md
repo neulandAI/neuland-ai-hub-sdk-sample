@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { DataSourceUserModel } from 'neuland-hub-sdk';
+import { DataSourceUserModel } from '@neulandai/neuland-hub-sdk';
 
 const instance: DataSourceUserModel = {
     display_name,

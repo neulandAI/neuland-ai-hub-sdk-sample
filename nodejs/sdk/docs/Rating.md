@@ -18,7 +18,7 @@ Delete the caller\'s rating for the target resource.
 import {
     Rating,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Rating(configuration);
@@ -79,7 +79,7 @@ import {
     Rating,
     Configuration,
     RatingIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Rating(configuration);

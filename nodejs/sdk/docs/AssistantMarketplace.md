@@ -27,7 +27,7 @@ Return every assistant catalog row (both ACTIVE and DEPRECATED).  The public mar
 import {
     AssistantMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -82,7 +82,7 @@ attach a tag (tenant-scoped) to a marketplace catalog item.
 import {
     AssistantMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -140,7 +140,7 @@ attach a tool to an assistant catalog item.
 import {
     AssistantMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -199,7 +199,7 @@ import {
     AssistantMarketplace,
     Configuration,
     AssistantCatalogIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -254,7 +254,7 @@ detach a tool from an assistant catalog item.
 import {
     AssistantMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -312,7 +312,7 @@ install a marketplace catalog item into the caller\'s tenant and join as a membe
 import {
     AssistantMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -367,7 +367,7 @@ list the tools currently attached to an assistant catalog item.
 import {
     AssistantMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -422,7 +422,7 @@ detach a tag from a marketplace catalog item.
 import {
     AssistantMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -480,7 +480,7 @@ remove caller\'s membership; delete the materialized assistant if last member le
 import {
     AssistantMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -536,7 +536,7 @@ import {
     AssistantMarketplace,
     Configuration,
     AssistantCatalogUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
@@ -595,7 +595,7 @@ import {
     AssistantMarketplace,
     Configuration,
     MarketplaceCatalogStateUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);

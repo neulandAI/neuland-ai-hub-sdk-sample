@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ApiKeyCreateRequest } from 'neuland-hub-sdk';
+import { ApiKeyCreateRequest } from '@neulandai/neuland-hub-sdk';
 
 const instance: ApiKeyCreateRequest = {
     name,

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TimeseriesResponse } from 'neuland-hub-sdk';
+import { TimeseriesResponse } from '@neulandai/neuland-hub-sdk';
 
 const instance: TimeseriesResponse = {
     total_cost,

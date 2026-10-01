@@ -24,7 +24,7 @@ Attach a tenant-scoped tag to a marketplace application catalog item.  Tags are 
 import {
     ApplicationMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApplicationMarketplace(configuration);
@@ -86,7 +86,7 @@ import {
     ApplicationMarketplace,
     Configuration,
     ApplicationCatalogIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApplicationMarketplace(configuration);
@@ -143,7 +143,7 @@ Materialize a per-tenant application from a catalog item and grant the caller ac
 import {
     ApplicationMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApplicationMarketplace(configuration);
@@ -201,7 +201,7 @@ Return every application catalog row (both ACTIVE and DEPRECATED).  The public m
 import {
     ApplicationMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApplicationMarketplace(configuration);
@@ -258,7 +258,7 @@ Detach a tag from a marketplace application catalog item.  Idempotent — detach
 import {
     ApplicationMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApplicationMarketplace(configuration);
@@ -318,7 +318,7 @@ Remove the caller\'s app membership; delete the tenant application if last membe
 import {
     ApplicationMarketplace,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApplicationMarketplace(configuration);
@@ -376,7 +376,7 @@ import {
     ApplicationMarketplace,
     Configuration,
     ApplicationCatalogUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApplicationMarketplace(configuration);
@@ -438,7 +438,7 @@ import {
     ApplicationMarketplace,
     Configuration,
     MarketplaceCatalogStateUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ApplicationMarketplace(configuration);

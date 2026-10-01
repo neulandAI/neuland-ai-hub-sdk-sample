@@ -18,7 +18,7 @@ import {
     Atlassian,
     Configuration,
     SetAtlassianCloudIdRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Atlassian(configuration);

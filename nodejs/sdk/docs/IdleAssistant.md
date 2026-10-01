@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { IdleAssistant } from 'neuland-hub-sdk';
+import { IdleAssistant } from '@neulandai/neuland-hub-sdk';
 
 const instance: IdleAssistant = {
     assistant_id,

@@ -19,7 +19,7 @@ The models, tools and connectors this user may use, each with the roles that gra
 import {
     ResourceAccess,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ResourceAccess(configuration);
@@ -77,7 +77,7 @@ Revoke one direct grant. The user keeps whatever their roles grant.
 import {
     ResourceAccess,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ResourceAccess(configuration);
@@ -142,7 +142,7 @@ import {
     ResourceAccess,
     Configuration,
     UserGrantIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ResourceAccess(configuration);

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { PromptOptimizeOut } from 'neuland-hub-sdk';
+import { PromptOptimizeOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: PromptOptimizeOut = {
     content,

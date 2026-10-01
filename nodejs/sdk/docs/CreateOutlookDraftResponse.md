@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CreateOutlookDraftResponse } from 'neuland-hub-sdk';
+import { CreateOutlookDraftResponse } from '@neulandai/neuland-hub-sdk';
 
 const instance: CreateOutlookDraftResponse = {
     success,

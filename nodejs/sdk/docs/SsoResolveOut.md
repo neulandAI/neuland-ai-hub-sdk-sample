@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SsoResolveOut } from 'neuland-hub-sdk';
+import { SsoResolveOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: SsoResolveOut = {
     slug,

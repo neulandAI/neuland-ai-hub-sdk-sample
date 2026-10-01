@@ -19,7 +19,7 @@ Remove a tenant override so the flag reverts to its catalog default.
 import {
     FeatureFlag,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new FeatureFlag(configuration);
@@ -80,7 +80,7 @@ Return every catalog flag with its effective value for the tenant.  Tenant admin
 import {
     FeatureFlag,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new FeatureFlag(configuration);
@@ -139,7 +139,7 @@ import {
     FeatureFlag,
     Configuration,
     FeatureFlagSetIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new FeatureFlag(configuration);

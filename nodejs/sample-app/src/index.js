@@ -1,5 +1,5 @@
 import express from "express";
-import { Configuration, User, Assistant } from "neuland-hub-sdk";
+import { Configuration, User, Assistant } from "@neulandai/neuland-hub-sdk";
 import { config } from "./config.js";
 import { getApiKey } from "./auth.js";
 

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UserGrantOut } from 'neuland-hub-sdk';
+import { UserGrantOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: UserGrantOut = {
     user_public_id,

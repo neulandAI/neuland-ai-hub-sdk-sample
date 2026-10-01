@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CredentialTemplateOut } from 'neuland-hub-sdk';
+import { CredentialTemplateOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: CredentialTemplateOut = {
     connector_id,

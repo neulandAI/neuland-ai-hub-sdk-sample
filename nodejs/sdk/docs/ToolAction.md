@@ -23,7 +23,7 @@ import {
     ToolAction,
     Configuration,
     ConnectSharedMailboxIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ToolAction(configuration);
@@ -82,7 +82,7 @@ import {
     ToolAction,
     Configuration,
     CreateOutlookDraftRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ToolAction(configuration);
@@ -139,7 +139,7 @@ Remove one shared mailbox from the caller\'s allowlist. The personal consent and
 import {
     ToolAction,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ToolAction(configuration);
@@ -195,7 +195,7 @@ Shared mailboxes the caller connected on top of their personal account.
 import {
     ToolAction,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ToolAction(configuration);
@@ -248,7 +248,7 @@ Mailboxes the caller can open, found via the People API.  Graph has no \"shared 
 import {
     ToolAction,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ToolAction(configuration);
@@ -307,7 +307,7 @@ import {
     ToolAction,
     Configuration,
     SendEmailRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new ToolAction(configuration);
