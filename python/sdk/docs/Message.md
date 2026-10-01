@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **messages_convert_message**
-> object messages_convert_message(message_id, format, cookie_name=cookie_name)
+> bytes messages_convert_message(message_id, format, cookie_name=cookie_name)
 
 Convert a message to a document
 
@@ -154,7 +154,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the message to convert.
-    format = neuland_hub_sdk.OutputFormat() # OutputFormat | Output format
+    format = 'format_example' # str | Output format
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -174,12 +174,12 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **message_id** | **UUID**| ID of the message to convert. | 
- **format** | [**OutputFormat**](.md)| Output format | 
+ **format** | **str**| Output format | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
 
-**object**
+**bytes**
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/octet-stream, application/json
 
 ### HTTP response details
 
@@ -512,7 +512,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = Message(api_client)
     message_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | ID of the message to rephrase.
-    style = neuland_hub_sdk.RephraseStyleEnum() # RephraseStyleEnum | Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)
+    style = 'style_example' # str | Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -532,7 +532,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **message_id** | **UUID**| ID of the message to rephrase. | 
- **style** | [**RephraseStyleEnum**](.md)| Style of rephrasing: &#39;same&#39; (same length), &#39;short&#39; (shorter), or &#39;long&#39; (longer) | 
+ **style** | **str**| Style of rephrasing: &#39;same&#39; (same length), &#39;short&#39; (shorter), or &#39;long&#39; (longer) | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type

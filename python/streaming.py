@@ -156,9 +156,13 @@ def stream_message(
 
 
 def observe_message(
-    config: Any, message_id: int, *, pool: urllib3.PoolManager | None = None
+    config: Any, message_id: str, *, pool: urllib3.PoolManager | None = None
 ) -> Iterator[StreamEvent]:
-    """GET /messages/{message_id}/stream — observe an existing message's stream."""
+    """GET /messages/{message_id}/stream — observe an existing message's stream.
+
+    ``message_id`` is the message's public id (UUID string), as returned in
+    ``MessageSubmitOut.public_id``.
+    """
     own = pool is None
     pool = pool or urllib3.PoolManager()
     try:

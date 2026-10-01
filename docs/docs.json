@@ -53,7 +53,7 @@
           "sdk/python/reference/endpoints/Query",
           "sdk/python/reference/endpoints/Document",
           "sdk/python/reference/endpoints/Library",
-          "sdk/python/reference/endpoints/File",
+          "sdk/python/reference/endpoints/Files",
           "sdk/python/reference/endpoints/Storage",
           "sdk/python/reference/endpoints/Tag",
           "sdk/python/reference/endpoints/Assistant",
@@ -188,8 +188,6 @@
                   "sdk/python/reference/models/MessageIn",
                   "sdk/python/reference/models/MessageSubmitOut",
                   "sdk/python/reference/models/MessageTurnOut",
-                  "sdk/python/reference/models/OutputFormat",
-                  "sdk/python/reference/models/RephraseStyleEnum",
                   "sdk/python/reference/models/ResumeIn",
                   "sdk/python/reference/models/ToolCallOut",
                   "sdk/python/reference/models/ToolCallProgressStepOut",
@@ -225,7 +223,7 @@
                 ]
               },
               {
-                "group": "File",
+                "group": "Files",
                 "pages": [
                   "sdk/python/reference/models/DirectFileUrl"
                 ]
@@ -520,7 +518,6 @@
                 "group": "ResourceAccess",
                 "pages": [
                   "sdk/python/reference/models/AccessItemOut",
-                  "sdk/python/reference/models/AccessKind",
                   "sdk/python/reference/models/HTTPValidationError",
                   "sdk/python/reference/models/LocationInner",
                   "sdk/python/reference/models/UserAccessOut",
@@ -552,6 +549,14 @@
                   "sdk/python/reference/models/WorkflowIn",
                   "sdk/python/reference/models/WorkflowUpdateIn"
                 ]
+              },
+              {
+                "group": "Shared",
+                "pages": [
+                  "sdk/python/reference/models/AccessKind",
+                  "sdk/python/reference/models/OutputFormat",
+                  "sdk/python/reference/models/RephraseStyleEnum"
+                ]
               }
             ]
           }
@@ -580,7 +585,7 @@
           "sdk/node/reference/endpoints/Query",
           "sdk/node/reference/endpoints/Document",
           "sdk/node/reference/endpoints/Library",
-          "sdk/node/reference/endpoints/File",
+          "sdk/node/reference/endpoints/Files",
           "sdk/node/reference/endpoints/Storage",
           "sdk/node/reference/endpoints/Tag",
           "sdk/node/reference/endpoints/Assistant",
@@ -715,8 +720,6 @@
                   "sdk/node/reference/models/MessageIn",
                   "sdk/node/reference/models/MessageSubmitOut",
                   "sdk/node/reference/models/MessageTurnOut",
-                  "sdk/node/reference/models/OutputFormat",
-                  "sdk/node/reference/models/RephraseStyleEnum",
                   "sdk/node/reference/models/ResumeIn",
                   "sdk/node/reference/models/ToolCallOut",
                   "sdk/node/reference/models/ToolCallProgressStepOut",
@@ -752,7 +755,7 @@
                 ]
               },
               {
-                "group": "File",
+                "group": "Files",
                 "pages": [
                   "sdk/node/reference/models/DirectFileUrl"
                 ]
@@ -1047,7 +1050,6 @@
                 "group": "ResourceAccess",
                 "pages": [
                   "sdk/node/reference/models/AccessItemOut",
-                  "sdk/node/reference/models/AccessKind",
                   "sdk/node/reference/models/HTTPValidationError",
                   "sdk/node/reference/models/LocationInner",
                   "sdk/node/reference/models/UserAccessOut",
@@ -1078,6 +1080,14 @@
                   "sdk/node/reference/models/WorkflowChatOut",
                   "sdk/node/reference/models/WorkflowIn",
                   "sdk/node/reference/models/WorkflowUpdateIn"
+                ]
+              },
+              {
+                "group": "Shared",
+                "pages": [
+                  "sdk/node/reference/models/AccessKind",
+                  "sdk/node/reference/models/OutputFormat",
+                  "sdk/node/reference/models/RephraseStyleEnum"
                 ]
               }
             ]

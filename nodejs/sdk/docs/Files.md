@@ -1,18 +1,14 @@
----
-title: "File"
----
+# Files
 
 All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**filesDownloadFile**](#filesdownloadfile) | **GET** /files/&#123;file_id&#125; | Download a file|
-|[**filesPresignedFileUrl**](#filespresignedfileurl) | **GET** /files/&#123;file_id&#125;/url | Get a short-lived direct download URL for a file|
+|[**filesDownloadFile**](#filesdownloadfile) | **GET** /files/{file_id} | Download a file|
+|[**filesPresignedFileUrl**](#filespresignedfileurl) | **GET** /files/{file_id}/url | Get a short-lived direct download URL for a file|
 
-## **filesDownloadFile**
-```typescript
-any filesDownloadFile()
-```
+# **filesDownloadFile**
+> any filesDownloadFile()
 
 Stream a stored file as an attachment to authorized callers.
 
@@ -20,12 +16,12 @@ Stream a stored file as an attachment to authorized callers.
 
 ```typescript
 import {
-    File,
+    Files,
     Configuration
 } from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
-const apiInstance = new File(configuration);
+const apiInstance = new Files(configuration);
 
 let fileId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
@@ -50,7 +46,7 @@ const { status, data } = await apiInstance.filesDownloadFile(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -67,11 +63,10 @@ const { status, data } = await apiInstance.filesDownloadFile(
 |**404** | No file exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-## **filesPresignedFileUrl**
-```typescript
-DirectFileUrl filesPresignedFileUrl()
-```
+# **filesPresignedFileUrl**
+> DirectFileUrl filesPresignedFileUrl()
 
 Short-lived read-only URL for streaming media straight from storage.
 
@@ -79,12 +74,12 @@ Short-lived read-only URL for streaming media straight from storage.
 
 ```typescript
 import {
-    File,
+    Files,
     Configuration
 } from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
-const apiInstance = new File(configuration);
+const apiInstance = new Files(configuration);
 
 let fileId: string; // (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
@@ -109,7 +104,7 @@ const { status, data } = await apiInstance.filesPresignedFileUrl(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -125,3 +120,6 @@ const { status, data } = await apiInstance.filesPresignedFileUrl(
 |**403** | Caller may not access this file. |  -  |
 |**404** | No file exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

@@ -15,8 +15,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
-from typing import Any, List, Optional
+from pydantic import Field, StrictStr, field_validator
+from typing import List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.user_access_out import UserAccessOut
@@ -336,7 +336,7 @@ class ResourceAccess:
     def access_revoke_user_grant(
         self,
         user_id: Annotated[UUID, Field(description="Public id of the user.")],
-        kind: Annotated[Any, Field(description="Which resource kind to revoke.")],
+        kind: Annotated[StrictStr, Field(description="Which resource kind to revoke.")],
         item_id: Annotated[UUID, Field(description="Public id of the item to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -359,7 +359,7 @@ class ResourceAccess:
         :param user_id: Public id of the user. (required)
         :type user_id: UUID
         :param kind: Which resource kind to revoke. (required)
-        :type kind: AccessKind
+        :type kind: str
         :param item_id: Public id of the item to revoke. (required)
         :type item_id: UUID
         :param cookie_name:
@@ -419,7 +419,7 @@ class ResourceAccess:
     def access_revoke_user_grant_with_http_info(
         self,
         user_id: Annotated[UUID, Field(description="Public id of the user.")],
-        kind: Annotated[Any, Field(description="Which resource kind to revoke.")],
+        kind: Annotated[StrictStr, Field(description="Which resource kind to revoke.")],
         item_id: Annotated[UUID, Field(description="Public id of the item to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -442,7 +442,7 @@ class ResourceAccess:
         :param user_id: Public id of the user. (required)
         :type user_id: UUID
         :param kind: Which resource kind to revoke. (required)
-        :type kind: AccessKind
+        :type kind: str
         :param item_id: Public id of the item to revoke. (required)
         :type item_id: UUID
         :param cookie_name:
@@ -502,7 +502,7 @@ class ResourceAccess:
     def access_revoke_user_grant_without_preload_content(
         self,
         user_id: Annotated[UUID, Field(description="Public id of the user.")],
-        kind: Annotated[Any, Field(description="Which resource kind to revoke.")],
+        kind: Annotated[StrictStr, Field(description="Which resource kind to revoke.")],
         item_id: Annotated[UUID, Field(description="Public id of the item to revoke.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -525,7 +525,7 @@ class ResourceAccess:
         :param user_id: Public id of the user. (required)
         :type user_id: UUID
         :param kind: Which resource kind to revoke. (required)
-        :type kind: AccessKind
+        :type kind: str
         :param item_id: Public id of the item to revoke. (required)
         :type item_id: UUID
         :param cookie_name:
@@ -607,7 +607,7 @@ class ResourceAccess:
         if user_id is not None:
             _path_params['user_id'] = user_id
         if kind is not None:
-            _path_params['kind'] = kind.value
+            _path_params['kind'] = kind
         if item_id is not None:
             _path_params['item_id'] = item_id
         # process the query parameters
@@ -657,7 +657,7 @@ class ResourceAccess:
     def access_set_user_grants(
         self,
         user_id: Annotated[UUID, Field(description="Public id of the user to grant to.")],
-        kind: Annotated[Any, Field(description="Which resource kind to set.")],
+        kind: Annotated[StrictStr, Field(description="Which resource kind to set.")],
         user_grant_in: UserGrantIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -680,7 +680,7 @@ class ResourceAccess:
         :param user_id: Public id of the user to grant to. (required)
         :type user_id: UUID
         :param kind: Which resource kind to set. (required)
-        :type kind: AccessKind
+        :type kind: str
         :param user_grant_in: (required)
         :type user_grant_in: UserGrantIn
         :param cookie_name:
@@ -740,7 +740,7 @@ class ResourceAccess:
     def access_set_user_grants_with_http_info(
         self,
         user_id: Annotated[UUID, Field(description="Public id of the user to grant to.")],
-        kind: Annotated[Any, Field(description="Which resource kind to set.")],
+        kind: Annotated[StrictStr, Field(description="Which resource kind to set.")],
         user_grant_in: UserGrantIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -763,7 +763,7 @@ class ResourceAccess:
         :param user_id: Public id of the user to grant to. (required)
         :type user_id: UUID
         :param kind: Which resource kind to set. (required)
-        :type kind: AccessKind
+        :type kind: str
         :param user_grant_in: (required)
         :type user_grant_in: UserGrantIn
         :param cookie_name:
@@ -823,7 +823,7 @@ class ResourceAccess:
     def access_set_user_grants_without_preload_content(
         self,
         user_id: Annotated[UUID, Field(description="Public id of the user to grant to.")],
-        kind: Annotated[Any, Field(description="Which resource kind to set.")],
+        kind: Annotated[StrictStr, Field(description="Which resource kind to set.")],
         user_grant_in: UserGrantIn,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -846,7 +846,7 @@ class ResourceAccess:
         :param user_id: Public id of the user to grant to. (required)
         :type user_id: UUID
         :param kind: Which resource kind to set. (required)
-        :type kind: AccessKind
+        :type kind: str
         :param user_grant_in: (required)
         :type user_grant_in: UserGrantIn
         :param cookie_name:
@@ -928,7 +928,7 @@ class ResourceAccess:
         if user_id is not None:
             _path_params['user_id'] = user_id
         if kind is not None:
-            _path_params['kind'] = kind.value
+            _path_params['kind'] = kind
         # process the query parameters
         if cookie_name is not None:
             

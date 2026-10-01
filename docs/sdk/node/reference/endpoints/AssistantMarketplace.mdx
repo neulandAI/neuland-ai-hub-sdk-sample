@@ -36,7 +36,7 @@ import {
 const configuration = new Configuration();
 const apiInstance = new AssistantMarketplace(configuration);
 
-let state: MarketplaceCatalogStateEnum; //Filter by state (ACTIVE / DEPRECATED). Omit for all. (optional) (default to undefined)
+let state: 'ACTIVE' | 'DEPRECATED'; //Filter by state (ACTIVE / DEPRECATED). Omit for all. (optional) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.assistantListCatalog(
@@ -49,7 +49,7 @@ const { status, data } = await apiInstance.assistantListCatalog(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **state** | **MarketplaceCatalogStateEnum** | Filter by state (ACTIVE / DEPRECATED). Omit for all. | (optional) defaults to undefined|
+| **state** | [**&#39;ACTIVE&#39; | &#39;DEPRECATED&#39;**]**Array&lt;&#39;ACTIVE&#39; &#124; &#39;DEPRECATED&#39;>** | Filter by state (ACTIVE / DEPRECATED). Omit for all. | (optional) defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

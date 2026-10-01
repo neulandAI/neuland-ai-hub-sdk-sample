@@ -334,7 +334,7 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ApplicationMarketplace(api_client)
-    state = neuland_hub_sdk.MarketplaceCatalogStateEnum() # MarketplaceCatalogStateEnum | Filter by state (ACTIVE / DEPRECATED). Omit for all. (optional)
+    state = 'state_example' # str | Filter by state (ACTIVE / DEPRECATED). Omit for all. (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -353,7 +353,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **state** | [**MarketplaceCatalogStateEnum**](.md)| Filter by state (ACTIVE / DEPRECATED). Omit for all. | [optional] 
+ **state** | **str**| Filter by state (ACTIVE / DEPRECATED). Omit for all. | [optional] 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type

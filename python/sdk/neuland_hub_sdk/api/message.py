@@ -15,7 +15,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictBool, StrictBytes, StrictFloat, StrictInt, StrictStr
+from pydantic import Field, StrictBool, StrictBytes, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 from uuid import UUID
@@ -342,7 +342,7 @@ class Message:
     def messages_convert_message(
         self,
         message_id: Annotated[UUID, Field(description="ID of the message to convert.")],
-        format: Annotated[Any, Field(description="Output format")],
+        format: Annotated[StrictStr, Field(description="Output format")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -356,7 +356,7 @@ class Message:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> bytes:
         """Convert a message to a document
 
         Convert a message to various document formats.
@@ -364,7 +364,7 @@ class Message:
         :param message_id: ID of the message to convert. (required)
         :type message_id: UUID
         :param format: Output format (required)
-        :type format: OutputFormat
+        :type format: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -400,7 +400,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "bytes",
             '401': None,
             '403': None,
             '404': None,
@@ -421,7 +421,7 @@ class Message:
     def messages_convert_message_with_http_info(
         self,
         message_id: Annotated[UUID, Field(description="ID of the message to convert.")],
-        format: Annotated[Any, Field(description="Output format")],
+        format: Annotated[StrictStr, Field(description="Output format")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -435,7 +435,7 @@ class Message:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[bytes]:
         """Convert a message to a document
 
         Convert a message to various document formats.
@@ -443,7 +443,7 @@ class Message:
         :param message_id: ID of the message to convert. (required)
         :type message_id: UUID
         :param format: Output format (required)
-        :type format: OutputFormat
+        :type format: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -479,7 +479,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "bytes",
             '401': None,
             '403': None,
             '404': None,
@@ -500,7 +500,7 @@ class Message:
     def messages_convert_message_without_preload_content(
         self,
         message_id: Annotated[UUID, Field(description="ID of the message to convert.")],
-        format: Annotated[Any, Field(description="Output format")],
+        format: Annotated[StrictStr, Field(description="Output format")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -522,7 +522,7 @@ class Message:
         :param message_id: ID of the message to convert. (required)
         :type message_id: UUID
         :param format: Output format (required)
-        :type format: OutputFormat
+        :type format: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -558,7 +558,7 @@ class Message:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "object",
+            '200': "bytes",
             '401': None,
             '403': None,
             '404': None,
@@ -602,7 +602,7 @@ class Message:
         # process the query parameters
         if format is not None:
             
-            _query_params.append(('format', format.value))
+            _query_params.append(('format', format))
             
         if cookie_name is not None:
             
@@ -617,6 +617,7 @@ class Message:
         if 'Accept' not in _header_params:
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
+                    'application/octet-stream', 
                     'application/json'
                 ]
             )
@@ -1536,7 +1537,7 @@ class Message:
     def messages_rephrase_message(
         self,
         message_id: Annotated[UUID, Field(description="ID of the message to rephrase.")],
-        style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
+        style: Annotated[StrictStr, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1558,7 +1559,7 @@ class Message:
         :param message_id: ID of the message to rephrase. (required)
         :type message_id: UUID
         :param style: Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer) (required)
-        :type style: RephraseStyleEnum
+        :type style: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1615,7 +1616,7 @@ class Message:
     def messages_rephrase_message_with_http_info(
         self,
         message_id: Annotated[UUID, Field(description="ID of the message to rephrase.")],
-        style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
+        style: Annotated[StrictStr, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1637,7 +1638,7 @@ class Message:
         :param message_id: ID of the message to rephrase. (required)
         :type message_id: UUID
         :param style: Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer) (required)
-        :type style: RephraseStyleEnum
+        :type style: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1694,7 +1695,7 @@ class Message:
     def messages_rephrase_message_without_preload_content(
         self,
         message_id: Annotated[UUID, Field(description="ID of the message to rephrase.")],
-        style: Annotated[Any, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
+        style: Annotated[StrictStr, Field(description="Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1716,7 +1717,7 @@ class Message:
         :param message_id: ID of the message to rephrase. (required)
         :type message_id: UUID
         :param style: Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer) (required)
-        :type style: RephraseStyleEnum
+        :type style: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1796,7 +1797,7 @@ class Message:
         # process the query parameters
         if style is not None:
             
-            _query_params.append(('style', style.value))
+            _query_params.append(('style', style))
             
         if cookie_name is not None:
             

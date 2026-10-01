@@ -15,7 +15,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field, StrictStr, field_validator
 from typing import Any, List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
@@ -945,7 +945,7 @@ class ApplicationMarketplace:
     @validate_call
     def application_list_catalog(
         self,
-        state: Annotated[Optional[Any], Field(description="Filter by state (ACTIVE / DEPRECATED). Omit for all.")] = None,
+        state: Annotated[Optional[StrictStr], Field(description="Filter by state (ACTIVE / DEPRECATED). Omit for all.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -965,7 +965,7 @@ class ApplicationMarketplace:
         Return every application catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
 
         :param state: Filter by state (ACTIVE / DEPRECATED). Omit for all.
-        :type state: MarketplaceCatalogStateEnum
+        :type state: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1019,7 +1019,7 @@ class ApplicationMarketplace:
     @validate_call
     def application_list_catalog_with_http_info(
         self,
-        state: Annotated[Optional[Any], Field(description="Filter by state (ACTIVE / DEPRECATED). Omit for all.")] = None,
+        state: Annotated[Optional[StrictStr], Field(description="Filter by state (ACTIVE / DEPRECATED). Omit for all.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1039,7 +1039,7 @@ class ApplicationMarketplace:
         Return every application catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
 
         :param state: Filter by state (ACTIVE / DEPRECATED). Omit for all.
-        :type state: MarketplaceCatalogStateEnum
+        :type state: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1093,7 +1093,7 @@ class ApplicationMarketplace:
     @validate_call
     def application_list_catalog_without_preload_content(
         self,
-        state: Annotated[Optional[Any], Field(description="Filter by state (ACTIVE / DEPRECATED). Omit for all.")] = None,
+        state: Annotated[Optional[StrictStr], Field(description="Filter by state (ACTIVE / DEPRECATED). Omit for all.")] = None,
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
@@ -1113,7 +1113,7 @@ class ApplicationMarketplace:
         Return every application catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
 
         :param state: Filter by state (ACTIVE / DEPRECATED). Omit for all.
-        :type state: MarketplaceCatalogStateEnum
+        :type state: str
         :param cookie_name:
         :type cookie_name: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1188,7 +1188,7 @@ class ApplicationMarketplace:
         # process the query parameters
         if state is not None:
             
-            _query_params.append(('state', state.value))
+            _query_params.append(('state', state))
             
         if cookie_name is not None:
             

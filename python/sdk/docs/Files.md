@@ -1,11 +1,11 @@
-# neuland_hub_sdk.File
+# neuland_hub_sdk.Files
 
 All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**files_download_file**](File.md#files_download_file) | **GET** /files/{file_id} | Download a file
-[**files_presigned_file_url**](File.md#files_presigned_file_url) | **GET** /files/{file_id}/url | Get a short-lived direct download URL for a file
+[**files_download_file**](Files.md#files_download_file) | **GET** /files/{file_id} | Download a file
+[**files_presigned_file_url**](Files.md#files_presigned_file_url) | **GET** /files/{file_id}/url | Get a short-lived direct download URL for a file
 
 
 # **files_download_file**
@@ -23,7 +23,7 @@ Stream a stored file as an attachment to authorized callers.
 from uuid import UUID
 import os
 import neuland_hub_sdk
-from neuland_hub_sdk.api.file import File
+from neuland_hub_sdk.api.files import Files
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
@@ -48,17 +48,17 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = File(api_client)
+    api_instance = Files(api_client)
     file_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Download a file
         api_response = api_instance.files_download_file(file_id, cookie_name=cookie_name)
-        print("The response of File->files_download_file:\n")
+        print("The response of Files->files_download_file:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling File->files_download_file: %s\n" % e)
+        print("Exception when calling Files->files_download_file: %s\n" % e)
 ```
 
 
@@ -111,7 +111,7 @@ Short-lived read-only URL for streaming media straight from storage.
 from uuid import UUID
 import os
 import neuland_hub_sdk
-from neuland_hub_sdk.api.file import File
+from neuland_hub_sdk.api.files import Files
 from neuland_hub_sdk.models.direct_file_url import DirectFileUrl
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
@@ -137,17 +137,17 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = File(api_client)
+    api_instance = Files(api_client)
     file_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
         # Get a short-lived direct download URL for a file
         api_response = api_instance.files_presigned_file_url(file_id, cookie_name=cookie_name)
-        print("The response of File->files_presigned_file_url:\n")
+        print("The response of Files->files_presigned_file_url:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling File->files_presigned_file_url: %s\n" % e)
+        print("Exception when calling Files->files_presigned_file_url: %s\n" % e)
 ```
 
 

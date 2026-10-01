@@ -141,7 +141,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ResourceAccess(api_client)
     user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user.
-    kind = neuland_hub_sdk.AccessKind() # AccessKind | Which resource kind to revoke.
+    kind = 'kind_example' # str | Which resource kind to revoke.
     item_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the item to revoke.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -160,7 +160,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **UUID**| Public id of the user. | 
- **kind** | [**AccessKind**](.md)| Which resource kind to revoke. | 
+ **kind** | **str**| Which resource kind to revoke. | 
  **item_id** | **UUID**| Public id of the item to revoke. | 
  **cookie_name** | **str**|  | [optional] 
 
@@ -237,7 +237,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ResourceAccess(api_client)
     user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to grant to.
-    kind = neuland_hub_sdk.AccessKind() # AccessKind | Which resource kind to set.
+    kind = 'kind_example' # str | Which resource kind to set.
     user_grant_in = neuland_hub_sdk.UserGrantIn() # UserGrantIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -258,7 +258,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **user_id** | **UUID**| Public id of the user to grant to. | 
- **kind** | [**AccessKind**](.md)| Which resource kind to set. | 
+ **kind** | **str**| Which resource kind to set. | 
  **user_grant_in** | [**UserGrantIn**](UserGrantIn.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

@@ -78,7 +78,7 @@ const { status, data } = await apiInstance.messagesContinueMessage(
 
 ## **messagesConvertMessage**
 ```typescript
-any messagesConvertMessage()
+File messagesConvertMessage()
 ```
 
 Convert a message to various document formats.
@@ -95,7 +95,7 @@ const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
 let messageId: string; //ID of the message to convert. (default to undefined)
-let format: OutputFormat; //Output format (default to undefined)
+let format: 'pdf' | 'docx' | 'html' | 'rtf' | 'odt' | 'xlsx' | 'csv'; //Output format (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.messagesConvertMessage(
@@ -110,13 +110,13 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **messageId** | [**string**] | ID of the message to convert. | defaults to undefined|
-| **format** | **OutputFormat** | Output format | defaults to undefined|
+| **format** | [**&#39;pdf&#39; | &#39;docx&#39; | &#39;html&#39; | &#39;rtf&#39; | &#39;odt&#39; | &#39;xlsx&#39; | &#39;csv&#39;**]**Array&lt;&#39;pdf&#39; &#124; &#39;docx&#39; &#124; &#39;html&#39; &#124; &#39;rtf&#39; &#124; &#39;odt&#39; &#124; &#39;xlsx&#39; &#124; &#39;csv&#39;>** | Output format | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type
 
-**any**
+**File**
 
 ### Authorization
 
@@ -125,7 +125,7 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/octet-stream, application/json
 
 
 ### HTTP response details
@@ -335,7 +335,7 @@ const configuration = new Configuration();
 const apiInstance = new Message(configuration);
 
 let messageId: string; //ID of the message to rephrase. (default to undefined)
-let style: RephraseStyleEnum; //Style of rephrasing: \'same\' (same length), \'short\' (shorter), or \'long\' (longer) (default to undefined)
+let style: 'same' | 'short' | 'long'; //Style of rephrasing: \'same\' (same length), \'short\' (shorter), or \'long\' (longer) (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.messagesRephraseMessage(
@@ -350,7 +350,7 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **messageId** | [**string**] | ID of the message to rephrase. | defaults to undefined|
-| **style** | **RephraseStyleEnum** | Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer) | defaults to undefined|
+| **style** | [**&#39;same&#39; | &#39;short&#39; | &#39;long&#39;**]**Array&lt;&#39;same&#39; &#124; &#39;short&#39; &#124; &#39;long&#39;>** | Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer) | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

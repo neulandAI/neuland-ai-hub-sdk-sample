@@ -62,3 +62,13 @@ Ready-made recipes for the common cases are in
   has a `parent` (your message) and `steps` (the assistant's replies). It is
   done when every step's `state` is `COMPLETED`; the answer is the `content`
   of the step whose `role` is `assistant`.
+- **Which id do I pass?** Always the `public_id` (a UUID). Objects also carry
+  an integer `id`; that is the database key and is not accepted by the API.
+- **Enum parameters** (for example `format`, `style`, `rateable_type`) take plain
+  strings: `format="pdf"`.
+- **How do I download a converted message (PDF, DOCX, XLSX)?**
+  `new Message(configuration).messagesConvertMessage(messageId, "pdf", undefined, { responseType: "arraybuffer" })`
+  and write `data` to a file. Without `responseType` axios decodes the body as text.
+- **When is an uploaded document ready?** Upload returns before processing
+  finishes. Poll `new Document(configuration).documentsGetText(documentId)`
+  until it returns text.

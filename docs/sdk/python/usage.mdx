@@ -34,11 +34,6 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
   directly from the SDK on every release.
 </Note>
 
-<Note>
-  Parameters that are enums in the API take the enum class, not a string: pass
-  `OutputFormat("markdown")`, not `"markdown"`.
-</Note>
-
 ## Read data with Query
 
 The Hub's read-only `/query/<resource>` endpoint returns your chats, messages,
@@ -74,6 +69,23 @@ Ready-made recipes for the common cases are in
   [streaming client](/sdk/python/streaming) for live tokens if your Hub has
   streaming enabled. Otherwise poll
   `Chat(api_client).chats_list_chat_message_turns(chat_id, limit=1)`: each
-  turn has a `parent` (your message) and `steps` (the assistant's replies).
+  turn is a plain dict with a `parent` (your message) and `steps` (the
+  assistant's replies).
   It is done when every step's `state` is `COMPLETED`; the answer is the
   `content` of the step whose `role` is `assistant`.
+- **Which id do I pass?** Always the `public_id` (a UUID). Objects also carry
+  an integer `id`; that is the database key and is not accepted by the API.
+- **Enum parameters** (for example `format`, `style`, `rateable_type`) take plain
+  strings: `format="pdf"`.
+- **How do I download a converted message (PDF, DOCX, XLSX)?**
+  `Message(api_client).messages_convert_message(message_id, format="pdf")`
+  returns `bytes`; write them to a file.
+- **When is an uploaded document ready?** Upload returns before processing
+  finishes. Poll `Document(api_client).documents_get_text(document_id)`
+  until it returns text.
+- **Updating with a model: use the constructor.** `ChatIn(name="x")` sends only
+  `name`. `ChatIn.from_dict({"name": "x"})` sends every other field as `null`,
+  which a `PATCH` applies.
+- **Fields that accept several shapes** (for example `LLMSettingsIn.cost_prompt_tokens`,
+  `SendEmailRequest.to`) take a small wrapper class: `CostPromptTokens("0.001")`,
+  `To1(["a@example.com"])`.

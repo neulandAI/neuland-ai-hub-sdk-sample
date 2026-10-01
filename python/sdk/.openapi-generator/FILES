@@ -114,7 +114,7 @@ docs/Example.md
 docs/FeatureFlag.md
 docs/FeatureFlagOut.md
 docs/FeatureFlagSetIn.md
-docs/File.md
+docs/Files.md
 docs/FormField.md
 docs/FormFieldTypeEnum.md
 docs/GoogleDrive.md
@@ -320,7 +320,7 @@ neuland_hub_sdk/api/default.py
 neuland_hub_sdk/api/document.py
 neuland_hub_sdk/api/dropbox.py
 neuland_hub_sdk/api/feature_flag.py
-neuland_hub_sdk/api/file.py
+neuland_hub_sdk/api/files.py
 neuland_hub_sdk/api/google_drive.py
 neuland_hub_sdk/api/invitation.py
 neuland_hub_sdk/api/library.py
