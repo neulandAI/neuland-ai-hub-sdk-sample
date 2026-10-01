@@ -1,6 +1,6 @@
 # File
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -18,7 +18,7 @@ Stream a stored file as an attachment to authorized callers.
 import {
     File,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new File(configuration);
@@ -76,7 +76,7 @@ Short-lived read-only URL for streaming media straight from storage.
 import {
     File,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new File(configuration);

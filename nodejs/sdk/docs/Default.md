@@ -1,6 +1,6 @@
 # Default
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -21,7 +21,7 @@ Power-On Self-Test (POST) endpoint. Runs comprehensive health checks for all con
 import {
     Default,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Default(configuration);
@@ -65,7 +65,7 @@ A welcome message for the API and testing.
 import {
     Default,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Default(configuration);
@@ -109,7 +109,7 @@ Returns application stat.
 import {
     Default,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Default(configuration);
@@ -153,7 +153,7 @@ Get the icon for a tenant
 import {
     Default,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Default(configuration);
@@ -205,7 +205,7 @@ Returns version information about the deployed application.
 import {
     Default,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Default(configuration);

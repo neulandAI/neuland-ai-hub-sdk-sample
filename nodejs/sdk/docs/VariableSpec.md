@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { VariableSpec } from 'neuland-hub-sdk';
+import { VariableSpec } from '@neulandai/neuland-hub-sdk';
 
 const instance: VariableSpec = {
     name,

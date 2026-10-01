@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CredentialPartOut } from 'neuland-hub-sdk';
+import { CredentialPartOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: CredentialPartOut = {
     json_schema,

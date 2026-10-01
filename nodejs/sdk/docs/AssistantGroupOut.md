@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { AssistantGroupOut } from 'neuland-hub-sdk';
+import { AssistantGroupOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: AssistantGroupOut = {
     assistant_id,

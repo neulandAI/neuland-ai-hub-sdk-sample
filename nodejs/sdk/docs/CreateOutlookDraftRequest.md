@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CreateOutlookDraftRequest } from 'neuland-hub-sdk';
+import { CreateOutlookDraftRequest } from '@neulandai/neuland-hub-sdk';
 
 const instance: CreateOutlookDraftRequest = {
     tool_call_id,

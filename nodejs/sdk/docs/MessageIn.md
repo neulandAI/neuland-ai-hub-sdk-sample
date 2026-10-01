@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { MessageIn } from 'neuland-hub-sdk';
+import { MessageIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: MessageIn = {
     content,

@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UserMeOut } from 'neuland-hub-sdk';
+import { UserMeOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: UserMeOut = {
     id,

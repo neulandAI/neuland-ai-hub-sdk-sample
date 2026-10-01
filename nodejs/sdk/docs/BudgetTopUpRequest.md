@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { BudgetTopUpRequest } from 'neuland-hub-sdk';
+import { BudgetTopUpRequest } from '@neulandai/neuland-hub-sdk';
 
 const instance: BudgetTopUpRequest = {
     amount,

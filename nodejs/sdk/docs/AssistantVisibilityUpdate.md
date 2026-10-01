@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { AssistantVisibilityUpdate } from 'neuland-hub-sdk';
+import { AssistantVisibilityUpdate } from '@neulandai/neuland-hub-sdk';
 
 const instance: AssistantVisibilityUpdate = {
     visibility,

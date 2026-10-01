@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CostAudioPerMinute } from 'neuland-hub-sdk';
+import { CostAudioPerMinute } from '@neulandai/neuland-hub-sdk';
 
 const instance: CostAudioPerMinute = {
 };

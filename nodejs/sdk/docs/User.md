@@ -1,6 +1,6 @@
 # User
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -29,7 +29,7 @@ Re-activate a user so they can authenticate again.
 import {
     User,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -88,7 +88,7 @@ import {
     User,
     Configuration,
     GroupIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -146,7 +146,7 @@ import {
     User,
     Configuration,
     UserIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -203,7 +203,7 @@ Deactivate a user so they can no longer authenticate; you cannot deactivate your
 import {
     User,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -261,7 +261,7 @@ Delete a user group.
 import {
     User,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -320,7 +320,7 @@ Schedule permanent deletion (irreversible): deactivate + flag the user and revok
 import {
     User,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -378,7 +378,7 @@ Return the profile of the currently authenticated user, including the effective 
 import {
     User,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -433,7 +433,7 @@ import {
     User,
     Configuration,
     PasswordResetIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -490,7 +490,7 @@ Reconcile an external group\'s membership against its bound directory group.
 import {
     User,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -551,7 +551,7 @@ import {
     User,
     Configuration,
     GroupIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -614,7 +614,7 @@ import {
     User,
     Configuration,
     UserUpdateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -675,7 +675,7 @@ Synchronize group members — add new ones and remove missing ones.
 import {
     User,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);
@@ -738,7 +738,7 @@ import {
     User,
     Configuration,
     UserPreferenceUpdateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new User(configuration);

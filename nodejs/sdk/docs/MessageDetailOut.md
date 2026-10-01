@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { MessageDetailOut } from 'neuland-hub-sdk';
+import { MessageDetailOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: MessageDetailOut = {
     id,

@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { FormField } from 'neuland-hub-sdk';
+import { FormField } from '@neulandai/neuland-hub-sdk';
 
 const instance: FormField = {
     name,

@@ -1,6 +1,6 @@
 # Tool
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -20,7 +20,7 @@ import {
     Tool,
     Configuration,
     ToolCreate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tool(configuration);
@@ -77,7 +77,7 @@ Delete a tool (superadmin only).
 import {
     Tool,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tool(configuration);
@@ -136,7 +136,7 @@ import {
     Tool,
     Configuration,
     ToolUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tool(configuration);

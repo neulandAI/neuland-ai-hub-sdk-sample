@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Transcription
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,18 +18,19 @@ Transcribe an uploaded audio file and return the transcript synchronously.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.transcription import Transcription
 from neuland_hub_sdk.models.transcription_out import TranscriptionOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -43,12 +44,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Transcription(api_client)
+    api_instance = Transcription(api_client)
     file = None # bytes | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -110,20 +110,21 @@ Accept a signed transcription result pushed back by the Whisper service.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.transcription import Transcription
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Transcription(api_client)
+    api_instance = Transcription(api_client)
 
     try:
         # Receive an async transcription callback

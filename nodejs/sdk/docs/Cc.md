@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { Cc } from 'neuland-hub-sdk';
+import { Cc } from '@neulandai/neuland-hub-sdk';
 
 const instance: Cc = {
 };

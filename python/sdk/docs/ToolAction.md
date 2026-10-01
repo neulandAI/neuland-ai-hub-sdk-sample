@@ -1,6 +1,6 @@
 # neuland_hub_sdk.ToolAction
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -24,19 +24,20 @@ allowlist. Idempotent: re-connecting updates the display name.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool_action import ToolAction
 from neuland_hub_sdk.models.connect_shared_mailbox_in import ConnectSharedMailboxIn
 from neuland_hub_sdk.models.shared_mailbox import SharedMailbox
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -50,12 +51,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ToolAction(api_client)
+    api_instance = ToolAction(api_client)
     connect_shared_mailbox_in = neuland_hub_sdk.ConnectSharedMailboxIn() # ConnectSharedMailboxIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -115,19 +115,20 @@ compose deep link. Attachment scope rules are identical to sending.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool_action import ToolAction
 from neuland_hub_sdk.models.create_outlook_draft_request import CreateOutlookDraftRequest
 from neuland_hub_sdk.models.create_outlook_draft_response import CreateOutlookDraftResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -141,12 +142,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ToolAction(api_client)
+    api_instance = ToolAction(api_client)
     create_outlook_draft_request = neuland_hub_sdk.CreateOutlookDraftRequest() # CreateOutlookDraftRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -204,17 +204,18 @@ consent and any other shared mailboxes are untouched.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool_action import ToolAction
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -228,12 +229,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ToolAction(api_client)
+    api_instance = ToolAction(api_client)
     address = 'address_example' # str | Address of the connected shared mailbox.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -287,18 +287,19 @@ Shared mailboxes the caller connected on top of their personal account.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool_action import ToolAction
 from neuland_hub_sdk.models.shared_mailbox_list_out import SharedMailboxListOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -312,12 +313,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ToolAction(api_client)
+    api_instance = ToolAction(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -381,18 +381,19 @@ never trips re-consent — adding a mailbox does that, deliberately.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool_action import ToolAction
 from neuland_hub_sdk.models.shared_mailbox_search_out import SharedMailboxSearchOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -406,12 +407,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ToolAction(api_client)
+    api_instance = ToolAction(api_client)
     q = '' # str | Name or address fragment; empty returns suggestions. (optional) (default to '')
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -469,19 +469,20 @@ Send an email from a user-approved, tool-generated draft via Microsoft Graph.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tool_action import ToolAction
 from neuland_hub_sdk.models.send_email_request import SendEmailRequest
 from neuland_hub_sdk.models.send_email_response import SendEmailResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -495,12 +496,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.ToolAction(api_client)
+    api_instance = ToolAction(api_client)
     send_email_request = neuland_hub_sdk.SendEmailRequest() # SendEmailRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 

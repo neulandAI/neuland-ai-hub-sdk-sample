@@ -1,6 +1,6 @@
 # Sharepoint
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -22,7 +22,7 @@ Get a single SharePoint drive item, annotated with imported counts.
 import {
     Sharepoint,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
@@ -94,7 +94,7 @@ Return the signed-in user\'s SharePoint / Microsoft Graph profile.
 import {
     Sharepoint,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
@@ -148,7 +148,7 @@ Report whether the user has consented to the SharePoint file-read scope.
 import {
     Sharepoint,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
@@ -201,7 +201,7 @@ List the SharePoint sites the user can access, with imported document counts.
 import {
     Sharepoint,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
@@ -267,7 +267,7 @@ List files and folders under a drive item, annotated with imported counts.
 import {
     Sharepoint,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);
@@ -342,7 +342,7 @@ List the document libraries (drives) within a SharePoint site.
 import {
     Sharepoint,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Sharepoint(configuration);

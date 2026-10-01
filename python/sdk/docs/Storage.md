@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Storage
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -19,20 +19,21 @@ Stream a stored file as an attachment, authorized by a signed download token.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.storage import Storage
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Storage(api_client)
+    api_instance = Storage(api_client)
     path = 'path_example' # str | Storage path of the file to download.
     token = 'token_example' # str | Signed download token authorizing access to the file.
 

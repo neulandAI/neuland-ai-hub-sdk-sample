@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { LicenseUtilization } from 'neuland-hub-sdk';
+import { LicenseUtilization } from '@neulandai/neuland-hub-sdk';
 
 const instance: LicenseUtilization = {
     licenses,

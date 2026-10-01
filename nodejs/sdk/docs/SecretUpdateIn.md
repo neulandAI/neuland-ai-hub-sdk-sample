@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SecretUpdateIn } from 'neuland-hub-sdk';
+import { SecretUpdateIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: SecretUpdateIn = {
     secret,

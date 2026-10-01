@@ -1,6 +1,6 @@
 # Alert
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -23,7 +23,7 @@ Return a run-rate projection of month-end spend (plus the summary it builds on).
 import {
     Alert,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
@@ -77,7 +77,7 @@ Return current-month spend vs the tenant\'s monthly pool budget.  Replaces the t
 import {
     Alert,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
@@ -131,7 +131,7 @@ Stop a top-up adding headroom, keeping what it has already covered.
 import {
     Alert,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
@@ -190,7 +190,7 @@ import {
     Alert,
     Configuration,
     BudgetAlertRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
@@ -248,7 +248,7 @@ import {
     Alert,
     Configuration,
     BudgetTopUpRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
@@ -305,7 +305,7 @@ Delete an existing budget alert.
 import {
     Alert,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);
@@ -364,7 +364,7 @@ import {
     Alert,
     Configuration,
     BudgetAlertUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Alert(configuration);

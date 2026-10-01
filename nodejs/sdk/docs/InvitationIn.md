@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { InvitationIn } from 'neuland-hub-sdk';
+import { InvitationIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: InvitationIn = {
     emails,

@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ApplicationCatalogIn } from 'neuland-hub-sdk';
+import { ApplicationCatalogIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: ApplicationCatalogIn = {
     name,

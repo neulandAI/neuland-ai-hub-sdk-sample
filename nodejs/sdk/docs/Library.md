@@ -1,6 +1,6 @@
 # Library
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -24,7 +24,7 @@ import {
     Library,
     Configuration,
     LibraryMemberBulkIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
@@ -85,7 +85,7 @@ Delete a library; owner only.
 import {
     Library,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
@@ -143,7 +143,7 @@ Remove the caller from the library\'s members.
 import {
     Library,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
@@ -203,7 +203,7 @@ import {
     Library,
     Configuration,
     LibraryIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
@@ -260,7 +260,7 @@ import {
     Library,
     Configuration,
     LibraryMemberBulkDelete
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
@@ -322,7 +322,7 @@ Remove a member from the library; owner only unless removing yourself.
 import {
     Library,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);
@@ -385,7 +385,7 @@ import {
     Library,
     Configuration,
     LibraryUpdateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Library(configuration);

@@ -6,11 +6,11 @@ description: "Authenticate and make your first call with the Node SDK."
 ## Configure the client
 
 ```typescript
-import { Configuration, User } from "neuland-hub-sdk";
+import { Configuration, User, Query, Message, Chat } from "@neulandai/neuland-hub-sdk";
 
 const configuration = new Configuration({
   basePath: "https://api.your-domain.com",
-  apiKey: "ak.<key_id>.<secret>", // sent as X-API-KEY
+  apiKey: "ak_prod_v1.<key_id>.<secret>", // sent as X-API-KEY
 });
 ```
 
@@ -18,7 +18,7 @@ const configuration = new Configuration({
 
 Each API tag (for example `Alert`, `Chat`, `User`) becomes a client class, and
 each endpoint's `operationId` becomes a method on it. The exact names are listed
-under [API Methods](/sdk/node/reference).
+under [API Methods](/sdk/node/reference/endpoints/User).
 
 ```typescript
 const api = new User(configuration);
@@ -29,6 +29,36 @@ console.log(data);
 
 <Note>
   The per-endpoint and per-model reference pages in this section are generated
-  directly from the SDK on every release, so they always match the installed
-  package.
+  directly from the SDK on every release.
 </Note>
+
+## Read data with Query
+
+The Hub's read-only `/query/<resource>` endpoint returns your chats, messages,
+assistants, documents and more using PostgREST filters. Pass them as axios
+`params`:
+
+```ts
+const { data: chats } = await new Query(configuration).queryQuery("chats", undefined, {
+  params: { select: "id,name", order: "updated_at.desc", limit: 10 },
+});
+```
+
+Ready-made recipes for the common cases are in
+[Read data with Query](/guides/query).
+
+## Common questions
+
+- **How do I list my chats?** There is no list endpoint. Read them with the
+  [Query endpoint](/guides/query), which also covers messages, assistants,
+  projects and documents.
+- **How do I create a chat?** Send a message without a `chat_id` using
+  `new Message(configuration).messagesCreateMessage({ content: ... })`.
+  The response carries the new `chat_public_id`.
+- **How do I get the reply?** Generation is asynchronous. Use the
+  [streaming client](/sdk/node/streaming) for live tokens if your Hub has
+  streaming enabled. Otherwise poll
+  `new Chat(configuration).chatsListChatMessageTurns(chatId, 1)`: each turn
+  has a `parent` (your message) and `steps` (the assistant's replies). It is
+  done when every step's `state` is `COMPLETED`; the answer is the `content`
+  of the step whose `role` is `assistant`.

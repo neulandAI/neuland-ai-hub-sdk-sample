@@ -1,6 +1,6 @@
 # Invitation
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -21,7 +21,7 @@ Complete invitation acceptance and create the user account.
 import {
     Invitation,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
@@ -75,7 +75,7 @@ Render the fallback HTML form for accepting an invitation; token errors are show
 import {
     Invitation,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
@@ -128,7 +128,7 @@ import {
     Invitation,
     Configuration,
     InvitationIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
@@ -186,7 +186,7 @@ Resend the invitation email for a pending invitation.
 import {
     Invitation,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);
@@ -244,7 +244,7 @@ Revoke a pending invitation so its token can no longer be used.
 import {
     Invitation,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Invitation(configuration);

@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { OAuthClient } from 'neuland-hub-sdk';
+import { OAuthClient } from '@neulandai/neuland-hub-sdk';
 
 const instance: OAuthClient = {
     created_at,

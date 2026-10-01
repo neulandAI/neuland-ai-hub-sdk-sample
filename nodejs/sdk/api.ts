@@ -1797,6 +1797,7 @@ export const EmailTemplateKey = {
     apps_members_remove: 'apps.members.remove',
     budget_alert: 'budget.alert',
     soft_limit_reached: 'soft.limit.reached',
+    budget_topup_added: 'budget.topup.added',
 } as const;
 
 export type EmailTemplateKey = typeof EmailTemplateKey[keyof typeof EmailTemplateKey];

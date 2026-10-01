@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ToolCallOut } from 'neuland-hub-sdk';
+import { ToolCallOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: ToolCallOut = {
     id,

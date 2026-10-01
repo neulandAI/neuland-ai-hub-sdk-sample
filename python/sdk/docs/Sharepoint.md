@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Sharepoint
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -22,18 +22,20 @@ Get a single SharePoint drive item, annotated with imported counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint import Sharepoint
 from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -47,12 +49,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    api_instance = Sharepoint(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
     drive_item_id = 'drive_item_id_example' # str | Id of the drive item.
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
@@ -119,18 +120,19 @@ Return the signed-in user's SharePoint / Microsoft Graph profile.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint import Sharepoint
 from neuland_hub_sdk.models.sharepoint_user_model import SharepointUserModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -144,12 +146,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    api_instance = Sharepoint(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -204,17 +205,18 @@ Report whether the user has consented to the SharePoint file-read scope.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint import Sharepoint
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -228,12 +230,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    api_instance = Sharepoint(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -287,18 +288,20 @@ List the SharePoint sites the user can access, with imported document counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint import Sharepoint
 from neuland_hub_sdk.models.sharepoint_site_model import SharepointSiteModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -312,12 +315,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    api_instance = Sharepoint(api_client)
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this library. (optional)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this assistant. (optional)
@@ -380,18 +382,20 @@ List files and folders under a drive item, annotated with imported counts.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint import Sharepoint
 from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -405,12 +409,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    api_instance = Sharepoint(api_client)
     drive_id = 'drive_id_example' # str | Id of the drive.
     drive_item_id = 'drive_item_id_example' # str | Id of the parent item; empty or 'root' for the drive root.
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
@@ -479,18 +482,20 @@ List the document libraries (drives) within a SharePoint site.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.sharepoint import Sharepoint
 from neuland_hub_sdk.models.sharepoint_drive_model import SharepointDriveModel
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -504,12 +509,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Sharepoint(api_client)
+    api_instance = Sharepoint(api_client)
     site_id = 'site_id_example' # str | SharePoint site id.
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this chat. (optional)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Scope imported counts to this library. (optional)

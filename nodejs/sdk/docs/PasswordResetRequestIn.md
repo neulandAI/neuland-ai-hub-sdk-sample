@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { PasswordResetRequestIn } from 'neuland-hub-sdk';
+import { PasswordResetRequestIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: PasswordResetRequestIn = {
     email,

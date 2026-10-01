@@ -1,6 +1,6 @@
 # Project
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -26,7 +26,7 @@ Enable a library for a project by creating an association.
 import {
     Project,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -88,7 +88,7 @@ import {
     Project,
     Configuration,
     ProjectMemberBulkIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -150,7 +150,7 @@ import {
     Project,
     Configuration,
     ProjectIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -206,7 +206,7 @@ Remove a single member from a project (project owner only).
 import {
     Project,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -268,7 +268,7 @@ import {
     Project,
     Configuration,
     ProjectMemberBulkDelete
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -329,7 +329,7 @@ Permanently delete a project (project owner only).
 import {
     Project,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -387,7 +387,7 @@ Return true if no project already uses the given name.
 import {
     Project,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -443,7 +443,7 @@ Remove the current user from a project they belong to.
 import {
     Project,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -501,7 +501,7 @@ Disable a library for a project by deleting the association.
 import {
     Project,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);
@@ -563,7 +563,7 @@ import {
     Project,
     Configuration,
     ProjectIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Project(configuration);

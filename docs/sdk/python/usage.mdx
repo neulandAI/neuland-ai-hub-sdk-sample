@@ -11,24 +11,69 @@ import neuland_hub_sdk
 configuration = neuland_hub_sdk.Configuration(
     host="https://api.your-domain.com",
 )
-configuration.api_key["APIKeyHeader"] = "ak.<key_id>.<secret>"  # sent as X-API-KEY
+configuration.api_key["APIKeyHeader"] = "ak_prod_v1.<key_id>.<secret>"  # sent as X-API-KEY
 ```
 
 ## Make a request
 
 Each API tag (for example `Alert`, `Chat`, `User`) becomes a client class, and
 each endpoint's `operationId` becomes a method on it. The exact names are listed
-under [API Methods](/sdk/python/reference).
+under [API Methods](/sdk/python/reference/endpoints/User).
 
 ```python
+from neuland_hub_sdk.api.user import User
+
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    api_instance = neuland_hub_sdk.User(api_client)
+    api_instance = User(api_client)
     me = api_instance.users_get_myself()
     print(me)
 ```
 
 <Note>
   The per-endpoint and per-model reference pages in this section are generated
-  directly from the SDK on every release, so they always match the installed
-  package.
+  directly from the SDK on every release.
 </Note>
+
+<Note>
+  Parameters that are enums in the API take the enum class, not a string: pass
+  `OutputFormat("markdown")`, not `"markdown"`.
+</Note>
+
+## Read data with Query
+
+The Hub's read-only `/query/<resource>` endpoint returns your chats, messages,
+assistants, documents and more using PostgREST filters. The generated
+`Query` class only takes the resource name, so pass filters through the
+client's request builder:
+
+```python
+import json
+
+method, url, headers, body, post = api_client.param_serialize(
+    "GET", "/query/chats",
+    query_params=[("select", "id,name"), ("order", "updated_at.desc"), ("limit", 10)],
+    auth_settings=["APIKeyHeader"],
+)
+response = api_client.call_api(method, url, header_params=headers)
+response.read()
+chats = json.loads(response.data)
+```
+
+Ready-made recipes for the common cases are in
+[Read data with Query](/guides/query).
+
+## Common questions
+
+- **How do I list my chats?** There is no list endpoint. Read them with the
+  [Query endpoint](/guides/query), which also covers messages, assistants,
+  projects and documents.
+- **How do I create a chat?** Send a message without a `chat_id` using
+  `Message(api_client).messages_create_message(MessageIn(content=...))`.
+  The response carries the new `chat_public_id`.
+- **How do I get the reply?** Generation is asynchronous. Use the
+  [streaming client](/sdk/python/streaming) for live tokens if your Hub has
+  streaming enabled. Otherwise poll
+  `Chat(api_client).chats_list_chat_message_turns(chat_id, limit=1)`: each
+  turn has a `parent` (your message) and `steps` (the assistant's replies).
+  It is done when every step's `state` is `COMPLETED`; the answer is the
+  `content` of the step whose `role` is `assistant`.

@@ -19,7 +19,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "neuland-hub-sdk"
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 PYTHON_REQUIRES = ">= 3.9"
 REQUIRES = [
     "urllib3 >= 2.1.0, < 3.0.0",
@@ -33,8 +33,8 @@ setup(
     version=VERSION,
     description="Neuland AI Hub API",
     author="neuland.ai",
-    author_email="team@openapitools.org",
-    url="",
+    author_email="support@neuland.ai",
+    url="https://github.com/neulandAI/neuland-ai-hub-sdk-sample",
     keywords=["OpenAPI", "OpenAPI-Generator", "Neuland AI Hub API"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),

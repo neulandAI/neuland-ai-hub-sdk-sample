@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { LibraryMemberBulkDelete } from 'neuland-hub-sdk';
+import { LibraryMemberBulkDelete } from '@neulandai/neuland-hub-sdk';
 
 const instance: LibraryMemberBulkDelete = {
     user_ids,

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { GroupSyncOut } from 'neuland-hub-sdk';
+import { GroupSyncOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: GroupSyncOut = {
     directory_member_count,

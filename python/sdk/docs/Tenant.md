@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Tenant
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -35,17 +35,19 @@ Assign a library to a tenant (library owner who is admin of that tenant).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -59,12 +61,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to assign.
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -124,19 +125,20 @@ Create a new tenant (platform operator or parent tenant admin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_in import TenantIn
 from neuland_hub_sdk.models.tenant_out import TenantOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -150,12 +152,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_in = neuland_hub_sdk.TenantIn() # TenantIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -213,17 +214,19 @@ Enable a connector for a tenant (superadmin or parent tenant admin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -237,12 +240,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -302,19 +304,21 @@ Provision per-tenant SSO config and secret for a deployment-wide template.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_o_auth_client_in import TenantOAuthClientIn
 from neuland_hub_sdk.models.tenant_o_auth_client_out import TenantOAuthClientOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -328,12 +332,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant to configure.
     oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the platform OAuth client to override.
     tenant_o_auth_client_in = neuland_hub_sdk.TenantOAuthClientIn() # TenantOAuthClientIn | 
@@ -395,17 +398,19 @@ Enable a tool for a tenant (superadmin or parent tenant admin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -419,12 +424,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -483,17 +487,19 @@ Delete a tenant by id (superadmin or parent tenant admin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -507,12 +513,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -568,17 +573,19 @@ Disable a connector for a tenant (superadmin or parent tenant admin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -592,12 +599,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -655,17 +661,19 @@ Disable an LLM catalog model for a tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -679,12 +687,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM catalog model to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -743,18 +750,20 @@ Disable an LLM catalog model for all tenants or a list of tenants (superadmin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -768,12 +777,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM catalog model to disable.
     tenant_model_bulk_in = neuland_hub_sdk.TenantModelBulkIn() # TenantModelBulkIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -831,17 +839,19 @@ Delete a per-tenant OAuth client configuration and its stored secret.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -855,12 +865,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the platform OAuth client being overridden.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -918,17 +927,19 @@ Disable a tool for a tenant (superadmin or parent tenant admin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -942,12 +953,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     tool_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tool to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1005,18 +1015,19 @@ Get the tenant the current user belongs to.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_out import TenantOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1030,12 +1041,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -1089,19 +1099,21 @@ Enable an LLM catalog model for a tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_llm import TenantLLM
 from neuland_hub_sdk.models.tenant_model_in import TenantModelIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1115,12 +1127,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM catalog model to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1183,18 +1194,20 @@ Enable an LLM catalog model for all tenants or a list of tenants (superadmin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_model_bulk_in import TenantModelBulkIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1208,12 +1221,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     model_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the LLM catalog model to enable.
     tenant_model_bulk_in = neuland_hub_sdk.TenantModelBulkIn() # TenantModelBulkIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1271,17 +1283,19 @@ Remove a library assignment from a tenant (library owner who is tenant admin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1295,12 +1309,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to unassign.
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1358,19 +1371,20 @@ Update the current user's tenant (tenant admin; some fields superadmin-only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_out import TenantOut
 from neuland_hub_sdk.models.tenant_update_in import TenantUpdateIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1384,12 +1398,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_update_in = neuland_hub_sdk.TenantUpdateIn() # TenantUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -1446,19 +1459,21 @@ Update a tenant by id (superadmin or parent tenant admin).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_out import TenantOut
 from neuland_hub_sdk.models.tenant_update_in import TenantUpdateIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1472,12 +1487,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant to update.
     tenant_update_in = neuland_hub_sdk.TenantUpdateIn() # TenantUpdateIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -1537,19 +1551,21 @@ Update an existing per-tenant OAuth client configuration.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.tenant_o_auth_client_out import TenantOAuthClientOut
 from neuland_hub_sdk.models.tenant_o_auth_client_update import TenantOAuthClientUpdate
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1563,12 +1579,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the platform OAuth client being overridden.
     tenant_o_auth_client_update = neuland_hub_sdk.TenantOAuthClientUpdate() # TenantOAuthClientUpdate | 
@@ -1630,18 +1645,20 @@ Replace the stored OAuth client secret for a per-tenant configuration.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.tenant import Tenant
 from neuland_hub_sdk.models.secret_update_in import SecretUpdateIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -1655,12 +1672,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Tenant(api_client)
+    api_instance = Tenant(api_client)
     tenant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the tenant.
     oauth_client_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the platform OAuth client being overridden.
     secret_update_in = neuland_hub_sdk.SecretUpdateIn() # SecretUpdateIn | 

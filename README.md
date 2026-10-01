@@ -2,10 +2,12 @@
 
 The Neuland AI Hub SDK plus runnable sample apps that demonstrate it end-to-end.
 
+Full documentation, API reference and SDK guides: **[https://docs.neuland-hub.ai](https://docs.neuland-hub.ai)**
+
 This README has two paths — pick the one that matches what you're doing:
 
 - **[Integrating the SDK in your project](#integrating-the-sdk-in-your-project)** — install, configure with an API key, call Hub.
-- **[Running the sample apps locally](#running-the-sample-apps-locally)** — clone this repo and play with the FastAPI/Express sample backends + Next.js demo frontend. For evaluation and learning.
+- **[Running the sample apps locally](#running-the-sample-apps-locally)** — clone this repo and run the FastAPI/Express sample backends. For evaluation and learning.
 
 ---
 
@@ -15,30 +17,12 @@ This README has two paths — pick the one that matches what you're doing:
 
 In Hub UI: **Settings → API keys → Create new key**. Copy when shown — it's only displayed once.
 
-## 2. Authenticate consumers (one-time per machine)
-
-The repo is private, so consumers need GitHub authentication to install.
-
-**SSH (recommended for developers):** add your key to GitHub. `git+ssh://` URLs work directly.
-
-**PAT via `~/.netrc`:**
-```bash
-cat >> ~/.netrc <<EOF
-machine github.com
-  login <your-github-username>
-  password <your-PAT>
-EOF
-chmod 600 ~/.netrc
-```
-
-**Token in URL (CI):** set `GITHUB_TOKEN` and embed it in the install URL.
-
-## 3. Install + use
+## 2. Install + use
 
 ### Python
 
 ```bash
-pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sdk"
+pip install neuland-hub-sdk
 ```
 
 ```python
@@ -46,7 +30,7 @@ import os
 from neuland_hub_sdk import ApiClient, Configuration
 from neuland_hub_sdk.api.user import User
 
-config = Configuration(host="https://hub.neuland.ai.com")
+config = Configuration(host="https://api.your-domain.com")
 config.api_key["APIKeyHeader"] = os.environ["NLND_HUB_API_KEY"]
 
 with ApiClient(config) as client:
@@ -56,31 +40,22 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sdk
+neuland-hub-sdk==1.1.0
 ```
 
-Requires Python 3.9+.
+Requires Python 3.9+. Full guide: [https://docs.neuland-hub.ai/sdk/python/installation](https://docs.neuland-hub.ai/sdk/python/installation)
 
 ### Node.js
 
 ```bash
-# npm doesn't support git subdirectory installs natively. Use gitpkg:
-npm install "https://gitpkg.vercel.app/neulandAI/neuland-ai-hub-sdk-sample/nodejs/sdk?dev"
-```
-
-Or local clone:
-```bash
-git clone git@github.com:neulandAI/neuland-ai-hub-sdk-sample.git
-cd neuland-ai-hub-sdk-sample/nodejs/sdk && npm install && npm run build
-# then in your project:
-npm install /absolute/path/to/neuland-ai-hub-sdk-sample/nodejs/sdk
+npm install @neulandai/neuland-hub-sdk
 ```
 
 ```ts
-import { Configuration, User } from "neuland-hub-sdk";
+import { Configuration, User } from "@neulandai/neuland-hub-sdk";
 
 const config = new Configuration({
-  basePath: "https://hub.neuland.ai.com",
+  basePath: "https://api.your-domain.com",
   apiKey: process.env.NLND_HUB_API_KEY,
 });
 
@@ -88,9 +63,9 @@ const { data: me } = await new User(config).usersGetMyself();
 console.log(me);
 ```
 
-Requires Node.js 18+.
+Requires Node.js 18+. Full guide: [https://docs.neuland-hub.ai/sdk/node/installation](https://docs.neuland-hub.ai/sdk/node/installation)
 
-## 4. Streaming (not in the generated SDK)
+## 3. Streaming (not in the generated SDK)
 
 Live, token-by-token responses aren't part of the generated SDK. To use streaming, copy one standalone file into your project — full usage is documented at the top of each file:
 
@@ -106,22 +81,32 @@ for event in stream_message(config, {"content": "Explain quantum tunneling"}):
 
 The stream ends after a terminal `state` event. On disconnect, refetch the message via `GET /messages/{id}` — don't resume.
 
+Streaming must be enabled on your Hub deployment. If the stream endpoints answer `500` or `503` with "Streaming is not configured", poll the chat turns instead (see the SDK usage docs).
+
 ---
 
 # Running the sample apps locally
 
-This section is for running our sample backends on your machine. **You do NOT need this to use the SDK.**
+This section is for running our sample backends on your machine, against your
+**live Hub deployment**. You don't run the Hub yourself. **You do NOT need this
+to use the SDK** — section 1 above is enough for that.
 
-The sample uses a more elaborate auth flow the frontend holds a short-lived JWT, the sample backend verifies it and extracts the API key from inside, then uses the SDK.
+The `frontend/` folder is a demo UI used by the neuland team and is not covered by this guide.
+
+The sample shows the auth flow of an application embedded in the Hub: the Hub
+hands the app a short-lived JWT (service token), the sample backend verifies it,
+extracts the API key from inside, then calls the Hub with the SDK.
 
 ## Prerequisites
 
-- A running Hub backend (default `:8000`)
-- A running Hub frontend (default `:3001`)
-- A registered application on Hub — you'll need its numeric `app_id`
-- Hub backend's RSA public key (for the sample backend to verify JWTs)
+- Your Hub API URL, for example `https://api.your-domain.com`
+- An application registered in your Hub by an admin, with its `app_url` set to
+  where this sample backend is reachable (`http://localhost:9999` while testing
+  locally). You'll need its numeric `app_id`.
+- The Hub's RSA **public key**, used to verify the service tokens. It is not
+  downloadable from the API — ask your Hub administrator for it.
 
-> Ports below (`:8000`, `:3001`, `:9999`, `:3002`) are local-test defaults.
+> Only `:9999`, the sample backend, runs on your machine.
 
 ## 1. Configure the shared backend env
 
@@ -137,12 +122,15 @@ Fill in real values.
 
 ### 2A. Python (FastAPI)
 
+Requires Python 3.10+ (the sample's own dependencies; the SDK alone runs on 3.9+).
+
 ```bash
 cd python
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e sdk
-pip install -r requirements.txt
+pip install -r sample-app/requirements.txt
 set -a && source .env && set +a
+cd sample-app
 uvicorn main:app --host 0.0.0.0 --port 9999 --reload
 ```
 
@@ -151,22 +139,11 @@ API docs: http://localhost:9999/docs
 ### 2B. Node.js (Express)
 
 ```bash
-cd nodejs/sdk && npm install && npm run build
+cd nodejs/sdk && npm ci --ignore-scripts && npm run build
 cd ../sample-app
-npm install
+npm ci
 set -a && source ../../python/.env && set +a
 node src/index.js
 ```
-
-## 3. Run the frontend
-
-```bash
-cd frontend
-npm install
-cp .env.local.example .env.local
-npm run dev -- -p 3002
-```
-
-Open http://localhost:3002 in your browser.
 
 ---

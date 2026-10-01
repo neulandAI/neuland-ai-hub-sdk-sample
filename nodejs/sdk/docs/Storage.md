@@ -1,6 +1,6 @@
 # Storage
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -17,7 +17,7 @@ Stream a stored file as an attachment, authorized by a signed download token.
 import {
     Storage,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Storage(configuration);

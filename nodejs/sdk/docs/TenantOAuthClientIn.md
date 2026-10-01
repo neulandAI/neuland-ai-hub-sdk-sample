@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TenantOAuthClientIn } from 'neuland-hub-sdk';
+import { TenantOAuthClientIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: TenantOAuthClientIn = {
     client_id,

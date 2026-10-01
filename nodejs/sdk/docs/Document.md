@@ -1,6 +1,6 @@
 # Document
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -24,7 +24,7 @@ Delete a document and its associated content.
 import {
     Document,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
@@ -83,7 +83,7 @@ import {
     Document,
     Configuration,
     DocumentUsageRequest
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
@@ -141,7 +141,7 @@ Stream a document\'s content as an attachment to authorized callers.
 import {
     Document,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
@@ -199,7 +199,7 @@ Return the text extracted from a document by the processing pipeline.  Type-agno
 import {
     Document,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
@@ -257,7 +257,7 @@ Import drive items from a connected source as documents; returns an import token
 import {
     Document,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
@@ -337,7 +337,7 @@ Re-run processing for a previously failed or stuck document.
 import {
     Document,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
@@ -395,7 +395,7 @@ Delete documents previously imported from a source for the given entity.
 import {
     Document,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);
@@ -469,7 +469,7 @@ Upload files as documents and kick off async processing for the given entity.
 import {
     Document,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Document(configuration);

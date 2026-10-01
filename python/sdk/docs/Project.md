@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Project
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -26,18 +26,20 @@ Enable a library for a project by creating an association.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.models.project_library import ProjectLibrary
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -51,12 +53,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project.
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to enable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -116,19 +117,21 @@ Add one or more members to a project (project owner only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.models.project_member import ProjectMember
 from neuland_hub_sdk.models.project_member_bulk_in import ProjectMemberBulkIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -142,12 +145,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to add members to.
     project_member_bulk_in = neuland_hub_sdk.ProjectMemberBulkIn() # ProjectMemberBulkIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -207,19 +209,20 @@ Create a project and add the current user as its owner.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.models.project import Project
 from neuland_hub_sdk.models.project_in import ProjectIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -233,12 +236,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_in = neuland_hub_sdk.ProjectIn() # ProjectIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -294,17 +296,19 @@ Remove a single member from a project (project owner only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -318,12 +322,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to remove the member from.
     user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the user to remove.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -381,18 +384,20 @@ Remove multiple members from a project (project owner only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.models.project_member_bulk_delete import ProjectMemberBulkDelete
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -406,12 +411,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to remove members from.
     project_member_bulk_delete = neuland_hub_sdk.ProjectMemberBulkDelete() # ProjectMemberBulkDelete | 
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -469,17 +473,19 @@ Permanently delete a project (project owner only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -493,12 +499,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -554,17 +559,18 @@ Return true if no project already uses the given name.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -578,12 +584,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     name = 'name_example' # str | Project name to check for availability.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -639,17 +644,19 @@ Remove the current user from a project they belong to.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -663,12 +670,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to leave.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -724,17 +730,19 @@ Disable a library for a project by deleting the association.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -748,12 +756,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project.
     library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library to disable.
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -811,19 +818,21 @@ Update an existing project's fields (project owner only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
 from neuland_hub_sdk.models.project import Project
 from neuland_hub_sdk.models.project_in import ProjectIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -837,12 +846,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Project(api_client)
+    api_instance = Project(api_client)
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project to update.
     project_in = neuland_hub_sdk.ProjectIn() # ProjectIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)

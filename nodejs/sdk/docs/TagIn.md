@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TagIn } from 'neuland-hub-sdk';
+import { TagIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: TagIn = {
     name,

@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { MessageSubmitOut } from 'neuland-hub-sdk';
+import { MessageSubmitOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: MessageSubmitOut = {
     id,

@@ -1,6 +1,6 @@
 # LlmCatalog
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -20,7 +20,7 @@ import {
     LlmCatalog,
     Configuration,
     CatalogIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new LlmCatalog(configuration);
@@ -77,7 +77,7 @@ Remove a catalog entry permanently.
 import {
     LlmCatalog,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new LlmCatalog(configuration);
@@ -136,7 +136,7 @@ import {
     LlmCatalog,
     Configuration,
     CatalogUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new LlmCatalog(configuration);

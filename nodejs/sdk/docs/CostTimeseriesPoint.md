@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CostTimeseriesPoint } from 'neuland-hub-sdk';
+import { CostTimeseriesPoint } from '@neulandai/neuland-hub-sdk';
 
 const instance: CostTimeseriesPoint = {
     date,

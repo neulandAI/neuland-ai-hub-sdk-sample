@@ -3,55 +3,29 @@ title: "Installation"
 description: "Install the Neuland AI Hub Python SDK."
 ---
 
-The Python SDK is distributed from the GitHub repository and installed with
-`pip` from a release tag (`sdk-v<version>`).
-
-## Authenticate to GitHub
-
-The repository is private, so `pip` needs GitHub access to install. Pick one:
-
-<Tabs>
-  <Tab title="SSH (developers)">
-    Add your SSH key to GitHub — `git+ssh://` URLs then work with no extra
-    config. Recommended for local development.
-  </Tab>
-  <Tab title="PAT via ~/.netrc">
-    Use a personal access token over HTTPS:
-
-    ```bash
-    cat >> ~/.netrc <<EOF
-    machine github.com
-      login <your-github-username>
-      password <your-PAT>
-    EOF
-    chmod 600 ~/.netrc
-    ```
-  </Tab>
-  <Tab title="Token in URL (CI)">
-    Set `GITHUB_TOKEN` in the environment and embed it in the install URL —
-    convenient for CI pipelines.
-  </Tab>
-</Tabs>
+The Python SDK is published on PyPI as `neuland-hub-sdk`.
 
 ## Install
 
 ```bash
-pip install "git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sdk"
+pip install neuland-hub-sdk
 ```
 
 Or pin it in `requirements.txt`:
 
 ```
-neuland-hub-sdk @ git+ssh://git@github.com/neulandAI/neuland-ai-hub-sdk-sample.git@sdk-v1.0.3#subdirectory=python/sdk
+neuland-hub-sdk==1.1.0
 ```
 
 <Note>
-  Update the tag (`sdk-v1.0.3`) to the release you want to install.
+  Releases are tagged `sdk-v<version>` in the
+  [GitHub repository](https://github.com/neulandAI/neuland-ai-hub-sdk-sample).
+  To install from source instead, clone it and run `pip install ./python/sdk`.
 </Note>
 
 ## Requirements
 
-- Python 3.13+
+- Python 3.9+
 - A base URL for your Hub (for example `https://api.your-domain.com`)
 - An API key (sent in the `X-API-KEY` header) — see [Quickstart](/guides/quickstart).
 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { AssistantGroupsIn } from 'neuland-hub-sdk';
+import { AssistantGroupsIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: AssistantGroupsIn = {
     group_ids,

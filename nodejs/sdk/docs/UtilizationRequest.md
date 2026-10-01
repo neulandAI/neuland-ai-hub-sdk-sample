@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UtilizationRequest } from 'neuland-hub-sdk';
+import { UtilizationRequest } from '@neulandai/neuland-hub-sdk';
 
 const instance: UtilizationRequest = {
     date_start,

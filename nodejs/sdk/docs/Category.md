@@ -1,6 +1,6 @@
 # Category
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -17,7 +17,7 @@ List the active category taxonomy, ordered by sort_order then name.
 import {
     Category,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Category(configuration);

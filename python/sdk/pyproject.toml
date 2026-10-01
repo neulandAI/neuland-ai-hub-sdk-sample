@@ -1,13 +1,14 @@
 [project]
 name = "neuland_hub_sdk"
-version = "1.0.0"
+version = "1.1.0"
 description = "Neuland AI Hub API"
 authors = [
-  {name = "neuland.ai",email = "team@openapitools.org"},
+  {name = "neuland.ai",email = "support@neuland.ai"},
 ]
 readme = "README.md"
 keywords = ["OpenAPI", "OpenAPI-Generator", "Neuland AI Hub API"]
 requires-python = ">=3.9"
+license = {file = "LICENSE"}
 
 dependencies = [
   "urllib3 (>=2.1.0,<3.0.0)",
@@ -17,7 +18,7 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/GIT_USER_ID/GIT_REPO_ID"
+Repository = "https://github.com/neulandAI/neuland-ai-hub-sdk-sample"
 
 [tool.poetry]
 requires-poetry = ">=2.0"

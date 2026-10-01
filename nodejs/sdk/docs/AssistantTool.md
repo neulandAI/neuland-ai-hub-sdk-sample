@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { AssistantTool } from 'neuland-hub-sdk';
+import { AssistantTool } from '@neulandai/neuland-hub-sdk';
 
 const instance: AssistantTool = {
     created_at,

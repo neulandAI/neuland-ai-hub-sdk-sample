@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { LLMConnectionTestIn } from 'neuland-hub-sdk';
+import { LLMConnectionTestIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: LLMConnectionTestIn = {
     model_name,

@@ -1,6 +1,6 @@
 # Transcription
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -18,7 +18,7 @@ Transcribe an uploaded audio file and return the transcript synchronously.
 import {
     Transcription,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Transcription(configuration);
@@ -78,7 +78,7 @@ Accept a signed transcription result pushed back by the Whisper service.
 import {
     Transcription,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Transcription(configuration);

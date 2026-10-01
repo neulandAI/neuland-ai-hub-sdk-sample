@@ -7,104 +7,119 @@ The API authenticates every request with an **API key** sent in the
 `X-API-KEY` header:
 
 ```
-X-API-KEY: ak.<key_id>.<secret>
+X-API-KEY: ak_prod_v1.<key_id>.<secret>
 ```
 
 ## Create an API key
 
-You can create a key two ways: from the Hub dashboard (the easiest way to get
-your first key) or programmatically via the API.
-
-### From the Hub dashboard
+Keys are created in the Hub web app. Every user can create keys for their own
+account; admins can also manage other users' keys.
 
 <Steps>
-  <Step title="Sign in as an admin">
-    Log in to the Neuland AI Hub with an account that has admin privileges.
+  <Step title="Sign in to the Hub">
+    Use your normal Hub login.
   </Step>
-  <Step title="Open Settings → API Keys">
-    Go to **Settings**, then open the **API Keys** section.
+  <Step title="Open Settings, then API Keys">
+    Click your profile, choose **Settings**, then **API Keys** in the left menu.
   </Step>
   <Step title="Create the key">
-    Click **Create** (or **New API Key**), give it a descriptive name, and confirm.
+    Click **Create API Key**, enter an **API Key Name** you will recognise
+    later, for example `Production API`, and confirm.
   </Step>
-  <Step title="Copy and store it safely">
-    The full key is displayed **once**. Copy it immediately and store it in a
-    safe place (a password manager or your secrets manager). It is **not
-    recoverable** afterwards — if you lose it, revoke it and create a new one.
+  <Step title="Copy and store it">
+    Click **Copy Key**. The full key is shown **once**. Store it in a password
+    manager or your secrets manager. It cannot be retrieved again; if you lose
+    it, revoke it and create a new one.
   </Step>
 </Steps>
 
-### Via the API
-
-Create a key with `POST /api/key/`. The request takes a `name` and optional
-`description`; the response returns the full `key`, its `key_id`, and an
-optional `expires_at`.
-
 <Note>
-  Creating a key is itself an authenticated action — make this call while signed
-  in (a session from the web app) or with an existing API key or OAuth bearer
-  token. Bootstrap your first key from the Hub dashboard (above).
+  Don't see **API Keys** under Settings? Key creation is switched on per Hub
+  deployment, and your account needs the "create own API key" permission. Ask
+  your Hub admin.
 </Note>
 
-<CodeGroup>
+<Accordion title="Advanced: create a key from a script">
+  The same action is available as `POST /api/key/`. It only works from a
+  signed-in session: log in with your Hub email and password to get a bearer
+  token, then create the key with it. An API key cannot create or revoke API
+  keys, and accounts that sign in through SSO have no password to use here, so
+  for most people the web app above is the way.
 
-```bash curl
-curl -X POST https://api.your-domain.com/api/key/ \
-  -H "X-API-KEY: ak.<existing_key_id>.<secret>" \
-  -H "Content-Type: application/json" \
-  -d '{"name": "ci-pipeline", "description": "Used by the CI deploy job"}'
-```
+  <CodeGroup>
 
-```python Python
-import neuland_hub_sdk
-from neuland_hub_sdk.models.api_key_create_request import ApiKeyCreateRequest
+  ```bash curl
+  TOKEN=$(curl -sS -X POST https://api.your-domain.com/auth/token \
+    -d "username=you@example.com" -d "password=<your password>" -d "grant_type=password" \
+    | python3 -c "import json,sys; print(json.load(sys.stdin)['access_token'])")
 
-configuration = neuland_hub_sdk.Configuration(host="https://api.your-domain.com")
-configuration.api_key["APIKeyHeader"] = "ak.<existing_key_id>.<secret>"
+  curl -X POST https://api.your-domain.com/api/key/ \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{"name": "ci-pipeline", "description": "Used by the CI deploy job"}'
+  ```
 
-with neuland_hub_sdk.ApiClient(configuration) as api_client:
-    api = neuland_hub_sdk.ApiKey(api_client)
-    created = api.api_create_key(
-        api_key_create_request=ApiKeyCreateRequest(
-            name="ci-pipeline",
-            description="Used by the CI deploy job",
-        ),
-    )
-    print(created.key)  # full secret — shown once
-```
+  ```python Python
+  import neuland_hub_sdk
+  from neuland_hub_sdk.api.api_key import ApiKey
+  from neuland_hub_sdk.api.auth import Auth
+  from neuland_hub_sdk.models.api_key_create_request import ApiKeyCreateRequest
 
-```typescript TypeScript
-import { Configuration, ApiKey } from "neuland-hub-sdk";
+  configuration = neuland_hub_sdk.Configuration(host="https://api.your-domain.com")
 
-const configuration = new Configuration({
-  basePath: "https://api.your-domain.com",
-  apiKey: "ak.<existing_key_id>.<secret>",
-});
+  with neuland_hub_sdk.ApiClient(configuration) as api_client:
+      token = Auth(api_client).auth_login(
+          username="you@example.com", password="<your password>", grant_type="password"
+      )
+      configuration.access_token = token.access_token
 
-const api = new ApiKey(configuration);
-// apiCreateKey(cookieName?, apiKeyCreateRequest?) — pass the body as the 2nd arg.
-const { data } = await api.apiCreateKey(undefined, {
-  name: "ci-pipeline",
-  description: "Used by the CI deploy job",
-});
-console.log(data.key); // full secret — shown once
-```
+      created = ApiKey(api_client).api_create_key(
+          api_key_create_request=ApiKeyCreateRequest(
+              name="ci-pipeline",
+              description="Used by the CI deploy job",
+          ),
+      )
+      print(created.key)  # full secret — shown once
+  ```
 
-</CodeGroup>
+  ```typescript TypeScript
+  import { Configuration, Auth, ApiKey } from "@neulandai/neuland-hub-sdk";
+
+  const configuration = new Configuration({ basePath: "https://api.your-domain.com" });
+
+  // authLogin(username, password, ...headers, sessionId, grantType)
+  const { data: token } = await new Auth(configuration).authLogin(
+    "you@example.com", "<your password>",
+    undefined, undefined, undefined, undefined, undefined, "password",
+  );
+  configuration.accessToken = token.access_token;
+
+  // apiCreateKey(cookieName?, apiKeyCreateRequest?) — the body is the 2nd argument.
+  const { data } = await new ApiKey(configuration).apiCreateKey(undefined, {
+    name: "ci-pipeline",
+    description: "Used by the CI deploy job",
+  });
+  console.log(data.key); // full secret — shown once
+  ```
+
+  </CodeGroup>
 
 The response looks like:
 
 ```json
 {
-  "key": "ak.a1b2c3d4.s3cr3t-value",
-  "key_id": "a1b2c3d4",
+  "key": "ak_prod_v1.a1b2c3d4e5f6g7h8.s3cr3t-value-40-to-80-chars",
+  "key_id": "a1b2c3d4e5f6g7h8",
+  "public_id": "8242077d-c83c-4937-8205-228ff929b26f",
   "expires_at": "2027-01-01T00:00:00Z"
 }
 ```
 
 The full secret (`key`) is shown **once** at creation — store it securely; it
 cannot be retrieved again. To rotate or disable a key, revoke it with
-`PATCH /api/key/revoke/{api_key_id}`.
+`PATCH /api/key/revoke/{public_id}`, again from a signed-in session. The
+`public_id` is in the create response and in the key list under **Settings**.
+</Accordion>
 
 ## Make your first call
 
@@ -112,7 +127,7 @@ Send the key in the `X-API-KEY` header on every request:
 
 ```bash
 curl https://api.your-domain.com/users/me \
-  -H "X-API-KEY: ak.a1b2c3d4.s3cr3t-value"
+  -H "X-API-KEY: ak_prod_v1.a1b2c3d4e5f6g7h8.s3cr3t-value-40-to-80-chars"
 ```
 
 <Note>
@@ -134,9 +149,11 @@ The flow is:
     The Hub passes the service token to your application (for example in the
     request headers or environment when your app is launched).
   </Step>
-  <Step title="Read the API key from the token">
-    The token is a JWT. Decode its payload and read the API key from the
-    embedded claim. The exact claim name depends on your Hub deployment.
+  <Step title="Verify the token and read the API key">
+    The token is an RS256 JWT. Verify it with the Hub's RSA public key (ask
+    your Hub administrator for it; it is not downloadable from the API), then
+    read the API key from the `x-api-key` claim. Both sample backends in this
+    repo do exactly that.
   </Step>
   <Step title="Call the API with the extracted key">
     Send the extracted key in the `X-API-KEY` header on every request.

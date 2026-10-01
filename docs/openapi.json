@@ -38,6 +38,9 @@
         "operationId": "access_get_user_access",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -113,6 +116,9 @@
         "description": "Grant these items directly, on top of what the user's roles already give.\n\nThe complete desired set: an item left out is revoked. That returns the user\nto their roles' set rather than to nothing, so unlike a role change this\ncannot strip anyone bare.",
         "operationId": "access_set_user_grants",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -207,6 +213,9 @@
         "operationId": "access_revoke_user_grant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -298,6 +307,9 @@
         "operationId": "alerts_create_alert",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -369,6 +381,9 @@
         "operationId": "alerts_budget_forecast",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -430,6 +445,9 @@
         "operationId": "alerts_budget_summary",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -481,6 +499,145 @@
         }
       }
     },
+    "/alerts/budgets/top-ups": {
+      "post": {
+        "tags": [
+          "Alert"
+        ],
+        "summary": "Add a budget top-up for the current month",
+        "description": "Raise the tenant's pool budget for the current calendar month.",
+        "operationId": "alerts_create_top_up",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BudgetTopUpRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetTopUpOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required."
+          },
+          "422": {
+            "description": "The tenant's plan has no monthly pool to raise."
+          }
+        }
+      }
+    },
+    "/alerts/budgets/top-ups/{top_up_id}/cancel": {
+      "post": {
+        "tags": [
+          "Alert"
+        ],
+        "summary": "Cancel a budget top-up",
+        "description": "Stop a top-up adding headroom, keeping what it has already covered.",
+        "operationId": "alerts_cancel_top_up",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "top_up_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the budget top-up to cancel.",
+              "title": "Top Up Id"
+            },
+            "description": "Public id of the budget top-up to cancel."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetTopUpOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Admin privileges required, or the top-up belongs to another tenant."
+          },
+          "404": {
+            "description": "No budget top-up exists with the given id."
+          },
+          "422": {
+            "description": "The top-up is already cancelled."
+          }
+        }
+      }
+    },
     "/alerts/{alert_id}": {
       "delete": {
         "tags": [
@@ -490,6 +647,9 @@
         "description": "Delete an existing budget alert.",
         "operationId": "alerts_delete_alert",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -557,6 +717,9 @@
         "description": "Update an existing budget alert.",
         "operationId": "alerts_update_alert",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -644,6 +807,9 @@
         "operationId": "api_create_key",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -719,6 +885,9 @@
         "operationId": "api_revoke_api_key",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -784,6 +953,9 @@
         "description": "Create a new application (superadmin only).",
         "operationId": "applications_create_app",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -853,6 +1025,9 @@
         "description": "Grant or update application access for a user group (tenant admin only).",
         "operationId": "applications_update_group_membership",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -932,6 +1107,9 @@
         "operationId": "applications_update_user_membership",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -1010,6 +1188,9 @@
         "operationId": "applications_delete_app",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -1074,6 +1255,9 @@
         "description": "Update an existing application (superadmin only).",
         "operationId": "applications_update_app",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -1159,6 +1343,9 @@
         "operationId": "assistants_create_assistant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -1229,6 +1416,9 @@
         "description": "Create an assistant via multipart form, with optional knowledge-file uploads.",
         "operationId": "assistants_submit_assistant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -1301,6 +1491,9 @@
         "operationId": "assistants_delete_assistant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -1367,6 +1560,9 @@
         "description": "Update an assistant's configuration.",
         "operationId": "assistants_update_assistant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -1453,6 +1649,9 @@
         "description": "Grant or update assistant access for user groups (replaces the current set).",
         "operationId": "assistants_update_assistant_groups",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -1544,6 +1743,9 @@
         "operationId": "assistants_remove_library_from_assistant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -1622,6 +1824,9 @@
         "description": "Enables a library for a assistant by creating a new association",
         "operationId": "assistants_add_library_to_assistant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -1711,6 +1916,9 @@
         "operationId": "assistants_delete_members",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -1790,6 +1998,9 @@
         "description": "Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is\npromoted to INVITED so it survives a later TENANT->PRIVATE downgrade.\n\nRace-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for\nrows that didn't exist before this call \u2014 promoting a self-joiner from\nDISCOVERED to INVITED is a bookkeeping change, not a new grant.",
         "operationId": "assistants_add_members",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -1881,6 +2092,9 @@
         "operationId": "assistants_remove_member",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -1962,6 +2176,9 @@
         "operationId": "assistants_join_assistant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -2041,6 +2258,9 @@
         "operationId": "assistants_leave_assitant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -2109,6 +2329,9 @@
         "description": "Detach a tag from an assistant.",
         "operationId": "assistants_remove_tag_from_assistant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -2186,6 +2409,9 @@
         "description": "Attach a tag to an assistant.",
         "operationId": "assistants_add_tag_to_assistant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -2268,10 +2494,13 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Stop the assistant being consultable from chats",
-        "description": "Clear the `is_tool` flag; the assistant stops being consultable at once\n(every consultability query keys on the flag alone).",
+        "summary": "Stop the assistant being consultable from your chats",
+        "description": "Clear the caller's own `is_tool` flag; the assistant stops being\nconsultable from their chats at once (every consultability query keys on\nthat flag). Other users' conversions are untouched.",
         "operationId": "assistants_remove_assistant_as_tool",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -2314,10 +2543,10 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "Not the creator, or the assistant is catalog-sourced."
+            "description": "No direct access."
           },
           "404": {
-            "description": "No such assistant, or it is not consultable."
+            "description": "No such assistant, or you have not converted it."
           },
           "422": {
             "description": "Validation Error",
@@ -2335,10 +2564,13 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Make an assistant consultable from the creator's chats",
-        "description": "Make the assistant consultable in every chat of its creator.\n\nPure flag flip: `is_tool` alone makes the assistant consultable via the\n`consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`,\nwhich also derives the handle). Nothing is written to the global `tools`\nregistry \u2014 per-user rows do not belong in a platform table. Form-input\nassistants convert too: consulting one takes the form's values as tool\narguments and renders the instruction template server-side.",
+        "summary": "Make an assistant consultable from your own chats",
+        "description": "Make the assistant consultable in every chat of the calling user.\n\nAnyone the assistant is shared with may convert it, creator or not, a\nmarketplace-installed copy included: the flag is set on the caller's own\nrow, so it changes nothing for the other users it is shared with, and a\ncatalog-sourced row is never itself written.\n\nPure flag flip: `is_tool` alone makes the assistant consultable via the\n`consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`,\nwhich also derives the handle). Nothing is written to the global `tools`\nregistry \u2014 per-user rows do not belong in a platform table. Form-input\nassistants convert too: consulting one takes the form's values as tool\narguments and renders the instruction template server-side.",
         "operationId": "assistants_convert_assistant_to_tool",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -2388,7 +2620,7 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "Not the creator, or the assistant is catalog-sourced."
+            "description": "No direct access."
           },
           "404": {
             "description": "No assistant exists with the given id."
@@ -2418,6 +2650,9 @@
         "description": "Disable a tool for the assistant by removing the association.",
         "operationId": "assistants_remove_tool_from_assistant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -2497,6 +2732,9 @@
         "description": "Enable a tenant tool for the assistant.",
         "operationId": "assistants_add_tool_to_assistant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -2586,6 +2824,9 @@
         "operationId": "assistants_restore_assistant_version",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -2672,6 +2913,9 @@
         "description": "creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.",
         "operationId": "assistants_update_assistant_visibility",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -2944,6 +3188,9 @@
         "operationId": "auth_update_oauth_client",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -3030,6 +3277,9 @@
         "operationId": "auth_list_connector_status",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -3094,6 +3344,9 @@
         "description": "Update a connector (superadmin only).",
         "operationId": "auth_update_connector",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -3181,6 +3434,9 @@
         "operationId": "auth_revoke_consent",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -3241,6 +3497,9 @@
         "description": "Initiate OAuth consent flow for a connector. Returns the provider consent\nURL as JSON, or a 302 redirect when redirect=true.",
         "operationId": "auth_initiate_consent",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -3351,6 +3610,9 @@
         "operationId": "auth_initiate_admin_consent",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -3429,6 +3691,9 @@
         "description": "Store the tenant-wide (admin) credential fields. Admin only.",
         "operationId": "auth_set_admin_credential",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -3509,6 +3774,9 @@
         "operationId": "auth_get_credential_template",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -3581,6 +3849,9 @@
         "description": "Store the caller's per-user credential fields.",
         "operationId": "auth_set_user_credential",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -3656,12 +3927,39 @@
         "summary": "Get Entra group names",
         "description": "Resolve Azure Entra group display names for the current user's groups.",
         "operationId": "auth_get_entra_groups",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
+                  "type": "object",
                   "additionalProperties": {
                     "anyOf": [
                       {
@@ -3672,7 +3970,6 @@
                       }
                     ]
                   },
-                  "type": "object",
                   "title": "Response Auth Get Entra Groups"
                 }
               }
@@ -3680,6 +3977,16 @@
           },
           "401": {
             "description": "Missing or invalid authentication."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
           }
         }
       }
@@ -3693,6 +4000,9 @@
         "description": "Search/browse Entra directory groups (delegated) for binding to a HUB group.",
         "operationId": "auth_search_entra_groups",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -3810,6 +4120,11 @@
         "summary": "Exchange for a service token",
         "description": "Exchange the caller's token for a service token scoped to an AI application.",
         "operationId": "auth_exchange_token",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "app_id",
@@ -3878,7 +4193,12 @@
           "404": {
             "description": "Session not found."
           }
-        }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
       }
     },
     "/auth/request-password-reset": {
@@ -4024,6 +4344,9 @@
         "description": "Send a confirmation email to the current user unless their email is already verified.",
         "operationId": "auth_send_email_confirmation",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -4452,6 +4775,9 @@
         "operationId": "categories_list_categories",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -4513,6 +4839,9 @@
         "description": "Delete a chat and its messages.",
         "operationId": "chats_remove_chat",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -4580,6 +4909,9 @@
         "description": "Update settings of an existing chat (name, model, temperature, etc.).",
         "operationId": "chats_update_chat",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -4667,6 +4999,9 @@
         "operationId": "chats_cancel_message",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -4737,6 +5072,9 @@
         "description": "Re-include previously deactivated documents in the chat's retrieval context.",
         "operationId": "chats_remove_inactive_documents",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -4818,6 +5156,9 @@
         "description": "Exclude the given documents from the chat's retrieval context.",
         "operationId": "chats_deactivate_documents",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -4909,6 +5250,9 @@
         "operationId": "chats_remove_library_from_chat",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -4984,6 +5328,9 @@
         "description": "Enables a library in a chat by creating a new association",
         "operationId": "chats_add_library_to_chat",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -5070,6 +5417,9 @@
         "operationId": "chats_summerize_chat",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -5137,104 +5487,6 @@
         }
       }
     },
-    "/chats/{chat_id}/tools/{tool_id}": {
-      "put": {
-        "tags": [
-          "Chat"
-        ],
-        "summary": "Set a chat tool setting",
-        "description": "Enable or disable a tool for a chat, creating the setting if needed.",
-        "operationId": "chats_update_chat_tool_settings",
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "chat_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "ID of the chat.",
-              "title": "Chat Id"
-            },
-            "description": "ID of the chat."
-          },
-          {
-            "name": "tool_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "description": "Public id of the tool to configure.",
-              "title": "Tool Id"
-            },
-            "description": "Public id of the tool to configure."
-          },
-          {
-            "name": "cookie_name",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Cookie Name"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChatToolSettingsUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChatToolSettingsOut"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing or invalid authentication."
-          },
-          "403": {
-            "description": "No access to the chat, or the tool is not enabled for the tenant."
-          },
-          "404": {
-            "description": "Chat, tool, or owning user does not exist."
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/chats/{chat_id}/turns": {
       "get": {
         "tags": [
@@ -5243,6 +5495,9 @@
         "summary": "List message turns for a chat",
         "operationId": "chats_list_chat_message_turns",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -5335,6 +5590,270 @@
         }
       }
     },
+    "/custom-connectors/": {
+      "get": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "List my custom connectors",
+        "operationId": "customconnectors_list_custom_connectors",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomConnectorOut"
+                  },
+                  "title": "Response Customconnectors List Custom Connectors"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "Add one or more custom connectors",
+        "description": "Add MCP servers from a URL or a pasted JSON config.\n\nA JSON config can declare several servers; all of them are added, so pasting\na real config does not silently drop the entries after the first. The whole\nrequest is rejected if any entry is invalid.",
+        "operationId": "customconnectors_create_custom_connectors",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomConnectorCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomConnectorOut"
+                  },
+                  "title": "Response Customconnectors Create Custom Connectors"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Malformed config, a stdio server, a non-http(s) URL, a URL that does not resolve to a public address, or too many connectors."
+          }
+        }
+      }
+    },
+    "/custom-connectors/{public_id}": {
+      "delete": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "Delete a custom connector",
+        "operationId": "customconnectors_delete_custom_connector",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "public_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the connector.",
+              "title": "Public Id"
+            },
+            "description": "Public id of the connector."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "Rename or enable/disable a custom connector",
+        "description": "URL and headers are not editable: re-add, so a changed endpoint is\nalways re-validated.",
+        "operationId": "customconnectors_update_custom_connector",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "public_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the connector.",
+              "title": "Public Id"
+            },
+            "description": "Public id of the connector."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomConnectorUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomConnectorOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/documents/": {
       "post": {
         "tags": [
@@ -5344,6 +5863,9 @@
         "description": "Upload files as documents and kick off async processing for the given entity.",
         "operationId": "documents_upload_documents",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -5423,6 +5945,9 @@
         "operationId": "documents_unimport_documents",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -5490,6 +6015,9 @@
         "description": "Import drive items from a connected source as documents; returns an import token.",
         "operationId": "documents_import_documents",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -5570,6 +6098,9 @@
         "operationId": "documents_document_usage",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -5644,6 +6175,9 @@
         "operationId": "documents_delete_chat_document",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -5708,6 +6242,9 @@
         "description": "Stream a document's content as an attachment to authorized callers.",
         "operationId": "documents_get_file",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -5781,6 +6318,9 @@
         "operationId": "documents_retry_document",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -5847,6 +6387,9 @@
         "description": "Return the text extracted from a document by the processing pipeline.\n\nType-agnostic: a PDF yields its extracted text, an audio/video upload yields\nits transcript \u2014 both are stored in the same place by the same pipeline.",
         "operationId": "documents_get_text",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -5918,9 +6461,12 @@
           "FeatureFlag"
         ],
         "summary": "List effective feature flags for a tenant",
-        "description": "Return every catalog flag with its effective value for the tenant.\n\nOperator-only: MANAGE_FEATURE_FLAGS is a platform permission, so only the\nOperator role holds it.",
+        "description": "Return every catalog flag with its effective value for the tenant.\n\nTenant admins (MANAGE_FEATURE_FLAGS) may read their own tenant; Operators\nand parent-tenant admins may read any tenant they govern.",
         "operationId": "feature_list_tenant_feature_flags",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -6001,6 +6547,9 @@
         "description": "Remove a tenant override so the flag reverts to its catalog default.",
         "operationId": "feature_clear_tenant_feature_flag",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -6086,6 +6635,9 @@
         "description": "Enable or disable a feature for a tenant (upserts the override row).",
         "operationId": "feature_set_tenant_feature_flag",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -6184,6 +6736,9 @@
         "operationId": "files_download_file",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -6255,6 +6810,9 @@
         "description": "Short-lived read-only URL for streaming media straight from storage.",
         "operationId": "files_presigned_file_url",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -6329,6 +6887,9 @@
         "description": "Set the active Atlassian cloud_id on this connector's consent.",
         "operationId": "integrations_set_atlassian_cloud_id",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -6406,6 +6967,9 @@
         "operationId": "dropbox_capabilities",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -6460,6 +7024,9 @@
         "description": "Report whether the current user has granted consent to browse this source.",
         "operationId": "dropbox_is_connected",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -6519,6 +7086,9 @@
         "description": "Fetch a single drive item's metadata, with imported flag/count.",
         "operationId": "dropbox_get_item_info",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -6681,6 +7251,9 @@
         "description": "List the immediate children of a drive item, with imported flags/counts.",
         "operationId": "dropbox_list_children",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -6860,6 +7433,9 @@
         "operationId": "dropbox_get_user_info",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -6920,6 +7496,9 @@
         "description": "List the top-level browse entries (sites or drives), with imported counts.",
         "operationId": "dropbox_list_roots",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -7071,6 +7650,9 @@
         "description": "List drives under a site, with imported counts per drive.",
         "operationId": "dropbox_list_drives",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -7227,6 +7809,9 @@
         "operationId": "googledrive_capabilities",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -7281,6 +7866,9 @@
         "description": "Report whether the current user has granted consent to browse this source.",
         "operationId": "googledrive_is_connected",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -7340,6 +7928,9 @@
         "description": "Fetch a single drive item's metadata, with imported flag/count.",
         "operationId": "googledrive_get_item_info",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -7502,6 +8093,9 @@
         "description": "List the immediate children of a drive item, with imported flags/counts.",
         "operationId": "googledrive_list_children",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -7681,6 +8275,9 @@
         "operationId": "googledrive_get_user_info",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -7741,6 +8338,9 @@
         "description": "List the top-level browse entries (sites or drives), with imported counts.",
         "operationId": "googledrive_list_roots",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -7892,6 +8492,9 @@
         "description": "List drives under a site, with imported counts per drive.",
         "operationId": "googledrive_list_drives",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -8048,6 +8651,9 @@
         "operationId": "nextcloud_capabilities",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -8102,6 +8708,9 @@
         "description": "Report whether the current user has granted consent to browse this source.",
         "operationId": "nextcloud_is_connected",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -8161,6 +8770,9 @@
         "description": "Fetch a single drive item's metadata, with imported flag/count.",
         "operationId": "nextcloud_get_item_info",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -8323,6 +8935,9 @@
         "description": "List the immediate children of a drive item, with imported flags/counts.",
         "operationId": "nextcloud_list_children",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -8502,6 +9117,9 @@
         "operationId": "nextcloud_get_user_info",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -8562,6 +9180,9 @@
         "description": "List the top-level browse entries (sites or drives), with imported counts.",
         "operationId": "nextcloud_list_roots",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -8713,6 +9334,9 @@
         "description": "List drives under a site, with imported counts per drive.",
         "operationId": "nextcloud_list_drives",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -8869,6 +9493,9 @@
         "operationId": "onedrive_capabilities",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -8923,6 +9550,9 @@
         "description": "Report whether the current user has granted consent to browse this source.",
         "operationId": "onedrive_is_connected",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -8982,6 +9612,9 @@
         "description": "Fetch a single drive item's metadata, with imported flag/count.",
         "operationId": "onedrive_get_item_info",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -9144,6 +9777,9 @@
         "description": "List the immediate children of a drive item, with imported flags/counts.",
         "operationId": "onedrive_list_children",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -9323,6 +9959,9 @@
         "operationId": "onedrive_get_user_info",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -9383,6 +10022,9 @@
         "description": "List the top-level browse entries (sites or drives), with imported counts.",
         "operationId": "onedrive_list_roots",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -9534,6 +10176,9 @@
         "description": "List drives under a site, with imported counts per drive.",
         "operationId": "onedrive_list_drives",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -9690,6 +10335,9 @@
         "operationId": "integrations_is_connected",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -9748,6 +10396,9 @@
         "description": "Get a single SharePoint drive item, annotated with imported counts.",
         "operationId": "integrations_get_item_info",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -9907,6 +10558,9 @@
         "description": "List files and folders under a drive item, annotated with imported counts.",
         "operationId": "integrations_list_children",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -10083,6 +10737,9 @@
         "operationId": "integrations_get_user_info",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -10143,6 +10800,9 @@
         "description": "List the SharePoint sites the user can access, with imported document counts.",
         "operationId": "integrations_list_all_sites",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -10284,6 +10944,9 @@
         "description": "List the document libraries (drives) within a SharePoint site.",
         "operationId": "integrations_list_drives",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -10437,6 +11100,9 @@
         "operationId": "sharepointv1_capabilities",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -10491,6 +11157,9 @@
         "description": "Report whether the current user has granted consent to browse this source.",
         "operationId": "sharepointv1_is_connected",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -10550,6 +11219,9 @@
         "description": "Fetch a single drive item's metadata, with imported flag/count.",
         "operationId": "sharepointv1_get_item_info",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -10712,6 +11384,9 @@
         "description": "List the immediate children of a drive item, with imported flags/counts.",
         "operationId": "sharepointv1_list_children",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -10891,6 +11566,9 @@
         "operationId": "sharepointv1_get_user_info",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -10951,6 +11629,9 @@
         "description": "List the top-level browse entries (sites or drives), with imported counts.",
         "operationId": "sharepointv1_list_roots",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -11102,6 +11783,9 @@
         "description": "List drives under a site, with imported counts per drive.",
         "operationId": "sharepointv1_list_drives",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -11257,6 +11941,9 @@
         "description": "Invite the given email addresses, skipping ones already invited or registered.",
         "operationId": "invitations_create_invitations",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -11428,6 +12115,9 @@
         "operationId": "invitations_resend_invitation",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -11504,6 +12194,9 @@
         "operationId": "invitations_revoke_invitation",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -11573,6 +12266,9 @@
         "operationId": "libraries_new_library",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -11641,6 +12337,9 @@
         "operationId": "libraries_delete_library",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -11707,6 +12406,9 @@
         "description": "Update name and/or description of an existing library.",
         "operationId": "libraries_update_library",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -11794,6 +12496,9 @@
         "operationId": "libraries_remove_library_members",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -11873,6 +12578,9 @@
         "description": "Add one or more members to the library; owner only.",
         "operationId": "libraries_add_library_members",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -11964,6 +12672,9 @@
         "operationId": "libraries_remove_single_member",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -12048,6 +12759,9 @@
         "operationId": "libraries_leave_library",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -12120,6 +12834,9 @@
         "operationId": "llm_create_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -12189,6 +12906,9 @@
         "operationId": "llm_delete_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -12255,6 +12975,9 @@
         "description": "Update fields of an existing catalog entry.",
         "operationId": "llm_update_catalog",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -12341,6 +13064,9 @@
         "deprecated": true,
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -12411,6 +13137,9 @@
         "description": "Period-over-period per-model cost deltas for the tenant.",
         "operationId": "llm_cost_movers",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -12483,6 +13212,9 @@
         "operationId": "llm_utilization",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -12554,6 +13286,9 @@
         "operationId": "llm_get_usage_costs",
         "deprecated": true,
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -12629,6 +13364,9 @@
         "operationId": "llm_create_llm_settings",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -12697,6 +13435,9 @@
         "description": "Verify a (possibly unsaved) chat or embedding config reaches its provider.\n\nA lightweight probe stripped of tools, history, streaming and budget\ntracking: chat models get a one-word `achat` probe, embedding models a\nsingle embed. Each probe is bounded by the client's own timeout. A\nreachable-but-failing config returns `ok=false` with HTTP 200 so the caller\ncan distinguish it from a server error.",
         "operationId": "llm_test_llm_connection",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -12768,6 +13509,9 @@
         "description": "Verify a (possibly unsaved) transcription config by transcribing an upload.\n\nMirrors the real transcription route (`read_audio_file` + a real\n`transcribe` call), but builds the client from the submitted fields so a\nnot-yet-saved model can be tested. `args` is an optional JSON string for\nprovider extras (e.g. gateway `default_headers`). A reachable-but-failing\nconfig returns `ok=false` with HTTP 200.",
         "operationId": "llm_test_transcription_connection",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -12846,6 +13590,9 @@
         "operationId": "llm_delete_llm_settings",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -12912,6 +13659,9 @@
         "description": "Update fields of an existing LLM settings entry.",
         "operationId": "llm_update_llm_settings",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -12998,6 +13748,9 @@
         "deprecated": true,
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -13068,6 +13821,9 @@
         "description": "Aggregate the tenant's usage by any combination of dimensions and time bucket.",
         "operationId": "llm_usage_query",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -13143,6 +13899,9 @@
         "operationId": "llm_api_key_inventory",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -13213,6 +13972,9 @@
         "description": "Tenant-wide message-level token usage (count, totals, average).",
         "operationId": "llm_message_tokens",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -13285,6 +14047,9 @@
         "operationId": "llm_subtenant_usage",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -13355,6 +14120,9 @@
         "description": "Return every application catalog row (both ACTIVE and DEPRECATED).\n\nThe public marketplace view filters DEPRECATED items out; this endpoint\nexposes them so a superadmin UI can render them with a \"Deprecated\" badge\nand PATCH the state back to ACTIVE when needed.",
         "operationId": "application_list_catalog",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -13437,6 +14205,9 @@
         "operationId": "application_create_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -13498,6 +14269,9 @@
         "description": "Update metadata on a marketplace application catalog item (superadmin only).",
         "operationId": "application_update_catalog",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -13585,6 +14359,9 @@
         "operationId": "application_uninstall_from_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -13648,6 +14425,9 @@
         "description": "Materialize a per-tenant application from a catalog item and grant the caller access.\n\nIdempotent: repeat calls by the same user return the existing tenant row.\nA subsequent user in the same tenant joins the existing app instead of\ncreating a new one.",
         "operationId": "application_install_from_catalog",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -13724,6 +14504,9 @@
         "description": "Flip a catalog application between ACTIVE and DEPRECATED (superadmin only).\n\nDEPRECATED items are hidden from the marketplace and reject new installs;\nexisting tenant installations continue to work.",
         "operationId": "application_update_catalog_state",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -13811,6 +14594,9 @@
         "operationId": "application_remove_tag_from_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -13884,6 +14670,9 @@
         "description": "Attach a tenant-scoped tag to a marketplace application catalog item.\n\nTags are per-tenant: the same catalog application can carry different tag\nlabels in different tenants, and the marketplace view surfaces only the\ncaller's tenant's tags on each row.",
         "operationId": "application_add_tag_to_catalog",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -13971,6 +14760,9 @@
         "operationId": "assistant_list_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -14046,6 +14838,9 @@
         "operationId": "marketplace_create_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -14108,6 +14903,9 @@
         "description": "update an existing assistant catalog item.",
         "operationId": "marketplace_update_catalog",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -14184,6 +14982,9 @@
         "operationId": "marketplace_uninstall_from_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -14239,6 +15040,9 @@
         "description": "install a marketplace catalog item into the caller's tenant and join as a member.",
         "operationId": "marketplace_install_from_catalog",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -14304,6 +15108,9 @@
         "description": "update the state of an existing assistant catalog item.",
         "operationId": "marketplace_update_catalog_state",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -14380,6 +15187,9 @@
         "operationId": "marketplace_remove_tag_from_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -14445,6 +15255,9 @@
         "description": "attach a tag (tenant-scoped) to a marketplace catalog item.",
         "operationId": "marketplace_add_tag_to_catalog",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -14521,6 +15334,9 @@
         "operationId": "marketplace_list_tools",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -14590,6 +15406,9 @@
         "operationId": "marketplace_detach_tool",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -14655,6 +15474,9 @@
         "description": "attach a tool to an assistant catalog item.",
         "operationId": "marketplace_attach_tool",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -14731,6 +15553,9 @@
         "operationId": "messages_create_message",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -14805,6 +15630,9 @@
         "operationId": "messages_submit_message",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -14877,6 +15705,9 @@
         "description": "Canonical recovery endpoint: full composed state of a message.",
         "operationId": "messages_get_message",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -14954,6 +15785,9 @@
         "operationId": "messages_continue_message",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -15025,6 +15859,9 @@
         "description": "Convert a message to various document formats.",
         "operationId": "messages_convert_message",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -15109,6 +15946,9 @@
         "description": "Approve, reject, or edit the gated tool call that paused this reply,\nor answer its pending clarification question(s) with 'respond'.",
         "operationId": "messages_resume_message",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -15197,6 +16037,9 @@
         "operationId": "messages_rephrase_message",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -15282,6 +16125,9 @@
         "description": "Translate a message's content into the requested language.",
         "operationId": "messages_translate_message",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -15369,6 +16215,9 @@
         "description": "Ordered step-messages for a turn (future multi-bubble UI).",
         "operationId": "messages_get_message_turn",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -15463,6 +16312,9 @@
         "operationId": "projects_create_project",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -15530,6 +16382,9 @@
         "description": "Return true if no project already uses the given name.",
         "operationId": "projects_is_project_name_free",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -15601,6 +16456,9 @@
         "operationId": "projects_delete_project",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -15667,6 +16525,9 @@
         "description": "Update an existing project's fields (project owner only).",
         "operationId": "projects_update_project",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -15754,6 +16615,9 @@
         "operationId": "projects_remove_library_from_project",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -15832,6 +16696,9 @@
         "description": "Enable a library for a project by creating an association.",
         "operationId": "projects_add_library_to_project",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -15921,6 +16788,9 @@
         "operationId": "projects_delete_members",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -15997,6 +16867,9 @@
         "description": "Add one or more members to a project (project owner only).",
         "operationId": "projects_add_members",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -16088,6 +16961,9 @@
         "operationId": "projects_delete_member",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -16169,6 +17045,9 @@
         "operationId": "projects_leave_project",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -16237,6 +17116,9 @@
         "description": "Create a saved prompt for the current user.",
         "operationId": "prompts_create_prompt",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -16308,6 +17190,9 @@
         "description": "Rewrite a draft prompt into a clearer, better-structured version using an LLM.",
         "operationId": "prompts_optimize_prompt",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -16383,6 +17268,9 @@
         "operationId": "prompts_delete_prompt",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -16449,6 +17337,9 @@
         "description": "Update a prompt owned by the current user.",
         "operationId": "prompts_update_prompt",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -16536,6 +17427,9 @@
         "operationId": "query_query_rpc",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -16606,6 +17500,9 @@
         "operationId": "query_query",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -16675,6 +17572,9 @@
         "description": "Upsert the caller's rating for the target resource.",
         "operationId": "ratings_upsert",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -16753,6 +17653,9 @@
         "operationId": "ratings_remove",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -16829,6 +17732,9 @@
         "operationId": "roles_create_role",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -16900,6 +17806,9 @@
         "operationId": "roles_delete_role",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -16959,6 +17868,9 @@
         "description": "Edit a role's name, permission set and/or the resources it grants.",
         "operationId": "roles_update_role",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -17046,6 +17958,9 @@
         "operationId": "roles_set_default_role",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -17107,6 +18022,9 @@
         "description": "Remove a role from a group.",
         "operationId": "roles_unassign_role_from_group",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -17186,6 +18104,9 @@
         "description": "Assign a role to a group; members inherit it.",
         "operationId": "roles_assign_role_to_group",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -17268,6 +18189,9 @@
         "operationId": "roles_unassign_role_from_user",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -17339,6 +18263,9 @@
         "description": "Assign a role to a user, bounded by the caller's own permissions and rank.",
         "operationId": "roles_assign_role_to_user",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -17421,6 +18348,9 @@
         "operationId": "settings_current",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -17476,6 +18406,9 @@
         "description": "Update the settings for the current user's tenant (tenant admin only).",
         "operationId": "settings_update_current_settings",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -17547,6 +18480,9 @@
         "description": "Update a tenant's settings by id (tenant admin; some fields superadmin-only).",
         "operationId": "settings_update_settings",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -17714,6 +18650,9 @@
         "operationId": "system_read_system_settings",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -17772,6 +18711,9 @@
         "description": "Apply the provided system settings changes and record an audit entry.",
         "operationId": "system_update_system_settings",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -17847,6 +18789,9 @@
         "operationId": "tags_new_tag",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -17915,6 +18860,9 @@
         "operationId": "tags_delete_tag",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -17979,6 +18927,9 @@
         "description": "Rename a tag in the caller's tenant.",
         "operationId": "tags_update_tag",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -18064,6 +19015,9 @@
         "operationId": "tarifs_create_tarif",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -18135,6 +19089,9 @@
         "operationId": "tarifs_delete_tarif",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -18204,6 +19161,9 @@
         "description": "Update an existing tarif plan.",
         "operationId": "tarifs_update_tarif",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -18291,6 +19251,9 @@
         "operationId": "templates_create",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -18362,6 +19325,9 @@
         "operationId": "templates_get_email_catalog",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -18422,6 +19388,9 @@
         "description": "Delete an email template.",
         "operationId": "templates_delete",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -18489,6 +19458,9 @@
         "description": "Update an existing email template.",
         "operationId": "templates_update",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -18576,6 +19548,9 @@
         "operationId": "tenants_create_tenant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -18650,6 +19625,9 @@
         "operationId": "tenants_get_current_tenant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -18705,6 +19683,9 @@
         "description": "Update the current user's tenant (tenant admin; some fields superadmin-only).",
         "operationId": "tenants_update_current_tenant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -18776,6 +19757,9 @@
         "description": "Disable an LLM catalog model for all tenants or a list of tenants (superadmin).",
         "operationId": "tenants_delete_tenant_models_bulk",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -18853,6 +19837,9 @@
         "description": "Enable an LLM catalog model for all tenants or a list of tenants (superadmin).",
         "operationId": "tenants_put_tenant_models_bulk",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -18933,6 +19920,9 @@
         "operationId": "tenants_delete_tenant",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -18999,6 +19989,9 @@
         "description": "Update a tenant by id (superadmin or parent tenant admin).",
         "operationId": "tenants_update_tenant",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -19086,6 +20079,9 @@
         "operationId": "tenants_delete_tenant_connector",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -19164,6 +20160,9 @@
         "description": "Enable a connector for a tenant (superadmin or parent tenant admin).",
         "operationId": "tenants_create_tenant_connector",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -19251,6 +20250,9 @@
         "operationId": "tenants_remove_tenant_library_member",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -19329,6 +20331,9 @@
         "description": "Assign a library to a tenant (library owner who is admin of that tenant).",
         "operationId": "tenants_add_library_to_tenants",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -19416,6 +20421,9 @@
         "operationId": "tenants_delete_tenant_model",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -19497,6 +20505,9 @@
         "description": "Enable an LLM catalog model for a tenant.",
         "operationId": "tenants_put_tenant_model",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -19606,6 +20617,9 @@
         "operationId": "tenants_delete_tenant_oauth_client",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -19684,6 +20698,9 @@
         "description": "Update an existing per-tenant OAuth client configuration.",
         "operationId": "tenants_update_tenant_oauth_client",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -19780,6 +20797,9 @@
         "description": "Provision per-tenant SSO config and secret for a deployment-wide template.",
         "operationId": "tenants_create_tenant_oauth_client",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -19879,6 +20899,9 @@
         "operationId": "tenants_update_tenant_oauth_secret",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -19970,6 +20993,9 @@
         "operationId": "tenants_delete_tenant_tool",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -20048,6 +21074,9 @@
         "description": "Enable a tool for a tenant (superadmin or parent tenant admin).",
         "operationId": "tenants_create_tenant_tool",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -20179,6 +21208,9 @@
         "operationId": "toolactions_create_email_draft",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -20250,6 +21282,9 @@
         "operationId": "toolactions_send_email_from_draft",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -20311,6 +21346,280 @@
         }
       }
     },
+    "/tool-actions/email/shared-mailboxes": {
+      "get": {
+        "tags": [
+          "ToolAction"
+        ],
+        "summary": "List connected shared mailboxes",
+        "description": "Shared mailboxes the caller connected on top of their personal account.",
+        "operationId": "toolactions_list_shared_mailboxes",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SharedMailboxListOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The caller has not connected Outlook Mail."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ToolAction"
+        ],
+        "summary": "Connect a shared mailbox",
+        "description": "Verify the caller can open the mailbox with their own token \u2014 or, for a\nMicrosoft 365 group address, that they are a member \u2014 then add it to their\nallowlist. Idempotent: re-connecting updates the display name.",
+        "operationId": "toolactions_connect_shared_mailbox",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConnectSharedMailboxIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SharedMailbox"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Consent for the shared-mailbox scopes is required (detail.error == 'consent_required')."
+          },
+          "403": {
+            "description": "Microsoft 365 denied access: the caller has no permission on this mailbox, or it does not exist."
+          },
+          "422": {
+            "description": "Invalid address, or the caller's own mailbox."
+          },
+          "503": {
+            "description": "Microsoft Graph is throttling; retry after the Retry-After header."
+          }
+        }
+      }
+    },
+    "/tool-actions/email/shared-mailboxes/search": {
+      "get": {
+        "tags": [
+          "ToolAction"
+        ],
+        "summary": "Search the directory for mailboxes to connect",
+        "description": "Mailboxes the caller can open, found via the People API.\n\nGraph has no \"shared mailbox\" flag and no list of mailboxes a user has\nbeen granted, so candidates come from People (the query, or the caller's\nmost relevant contacts for an empty query) and each one is probed with\nthe caller's token exactly like connecting does. Regular colleagues fail\nthe probe and drop out; what remains are mailboxes the caller holds\nFull Access on. Already-connected ones are reported with ``connected``.\n\nOnly the already-granted read/people caps are required here, so browsing\nnever trips re-consent \u2014 adding a mailbox does that, deliberately.",
+        "operationId": "toolactions_search_shared_mailboxes",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "Name or address fragment; empty returns suggestions.",
+              "default": "",
+              "title": "Q"
+            },
+            "description": "Name or address fragment; empty returns suggestions."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SharedMailboxSearchOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Consent for the shared-mailbox scopes is required (detail.error == 'consent_required')."
+          },
+          "502": {
+            "description": "Microsoft Graph failed."
+          },
+          "503": {
+            "description": "Microsoft Graph is throttling; retry after the Retry-After header."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tool-actions/email/shared-mailboxes/{address}": {
+      "delete": {
+        "tags": [
+          "ToolAction"
+        ],
+        "summary": "Disconnect a shared mailbox",
+        "description": "Remove one shared mailbox from the caller's allowlist. The personal\nconsent and any other shared mailboxes are untouched.",
+        "operationId": "toolactions_disconnect_shared_mailbox",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Address of the connected shared mailbox.",
+              "title": "Address"
+            },
+            "description": "Address of the connected shared mailbox."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "404": {
+            "description": "The mailbox is not connected for the caller."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/tools/": {
       "post": {
         "tags": [
@@ -20320,6 +21629,9 @@
         "description": "Create a new tool (superadmin only).",
         "operationId": "tools_create_tool",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -20384,6 +21696,9 @@
         "description": "Delete a tool (superadmin only).",
         "operationId": "tools_delete_tool",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -20451,6 +21766,9 @@
         "description": "Update a tool's editable fields (superadmin only).",
         "operationId": "tools_update_tool",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -20530,6 +21848,9 @@
         "description": "Transcribe an uploaded audio file and return the transcript synchronously.",
         "operationId": "transcriptions_create_transcription",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -20638,6 +21959,9 @@
         "operationId": "users_create_user",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -20708,6 +22032,9 @@
         "description": "Create a new user group",
         "operationId": "users_create_group",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -20780,6 +22107,9 @@
         "operationId": "users_delete_group",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -20849,6 +22179,9 @@
         "description": "Update an existing user group.",
         "operationId": "users_update_group",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -20939,6 +22272,9 @@
         "operationId": "users_sync_external_group",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -21014,6 +22350,9 @@
         "operationId": "users_get_myself",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -21074,6 +22413,9 @@
         "description": "Create or update the current user's UI preferences.",
         "operationId": "users_upsert_my_preferences",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -21145,6 +22487,9 @@
         "description": "Synchronize group members \u2014 add new ones and remove missing ones.",
         "operationId": "users_upsert_members",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -21244,6 +22589,9 @@
         "operationId": "users_reset_password",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -21307,6 +22655,9 @@
         "description": "Schedule permanent deletion (irreversible): deactivate + flag the user and revoke\ntheir sessions synchronously, then reassign shared resources and hard-delete async.",
         "operationId": "users_delete_user",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -21374,6 +22725,9 @@
         "description": "Update a user's profile, role, tenant, or email; password changes are restricted.",
         "operationId": "users_update_user",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -21461,6 +22815,9 @@
         "operationId": "users_activate_user",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -21536,6 +22893,9 @@
         "description": "Deactivate a user so they can no longer authenticate; you cannot deactivate yourself.",
         "operationId": "users_deactivate_user",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -21630,6 +22990,9 @@
         "operationId": "workflows_create_workflow",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -21695,6 +23058,9 @@
         "operationId": "workflows_delete_workflow",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -21750,6 +23116,9 @@
         "description": "Update a workflow. Only its creator may update it.\n\nArming a disabled draft is a create as far as the quota is concerned \u2014 the\ncap counts enabled rows, so without a check here a tenant at cap would\nsimply enable its old drafts. The lock therefore re-reads the row: a\nconcurrent disable would otherwise leave this request's copy claiming the\nworkflow is already enabled, turning the arming into an unchecked no-op.\n\nThe assistant-chat gate below only covers enable/timezone-only updates; a\nspec PATCH already ran it inside `_validate_runnable_spec`.",
         "operationId": "workflows_update_workflow",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -21826,6 +23195,9 @@
         "operationId": "workflows_refine_workflow",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -21901,6 +23273,9 @@
         "operationId": "workflows_create_run",
         "security": [
           {
+            "OAuth2PasswordBearer": []
+          },
+          {
             "APIKeyHeader": []
           }
         ],
@@ -21964,6 +23339,11 @@
         "summary": "Stream Run Events",
         "description": "Server-sent event stream for a run. Authed by the run-scoped stream token\nin ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE\nconsumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.",
         "operationId": "workflows_stream_run_events",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "workflow_id",
@@ -22017,6 +23397,9 @@
         "description": "Mint a fresh stream token to replay a historical run. Creator-only.",
         "operationId": "workflows_create_run_stream_token",
         "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
           {
             "APIKeyHeader": []
           }
@@ -24627,19 +26010,12 @@
             "title": "Form Fields"
           },
           "files": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string",
-                  "contentMediaType": "application/octet-stream"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Files"
+            "title": "Files",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "type": "array"
           }
         },
         "type": "object",
@@ -24908,7 +26284,7 @@
           "files": {
             "items": {
               "type": "string",
-              "contentMediaType": "application/octet-stream"
+              "format": "binary"
             },
             "type": "array",
             "title": "Files"
@@ -24989,8 +26365,8 @@
         "properties": {
           "file": {
             "type": "string",
-            "contentMediaType": "application/octet-stream",
-            "title": "File"
+            "title": "File",
+            "format": "binary"
           },
           "model_name": {
             "type": "string",
@@ -25094,19 +26470,12 @@
             "title": "Document Ids"
           },
           "files": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string",
-                  "contentMediaType": "application/octet-stream"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Files"
+            "title": "Files",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "type": "array"
           },
           "temperature": {
             "type": "number",
@@ -25139,14 +26508,6 @@
             "type": "string",
             "title": "Model"
           },
-          "tool_ids": {
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "type": "array",
-            "title": "Tool Ids"
-          },
           "private": {
             "type": "boolean",
             "title": "Private",
@@ -25169,6 +26530,13 @@
             "type": "boolean",
             "title": "Playground",
             "default": false
+          },
+          "disabled_tool_names": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Disabled Tool Names"
           }
         },
         "type": "object",
@@ -25178,8 +26546,8 @@
         "properties": {
           "file": {
             "type": "string",
-            "contentMediaType": "application/octet-stream",
-            "title": "File"
+            "title": "File",
+            "format": "binary"
           }
         },
         "type": "object",
@@ -25486,9 +26854,32 @@
               }
             ],
             "title": "Pool Cap",
-            "description": "Monthly tenant pool budget (licenses \u00d7 monthly_limit_per_license). 0 is a real zero-budget cap the gate blocks on \u2014 not 'uncapped'. Null only when there is no tenant pool: unlimited, per-user (legacy), not-configured, or no plan. Check `status` to tell those apart.",
+            "description": "Effective monthly cap the gate enforces: base_cap plus top_up_total. 0 is a real zero-budget cap the gate blocks on \u2014 not 'uncapped'. Null only when there is no tenant pool: unlimited, per-user (legacy), not-configured, or no plan. Check `status` to tell those apart.",
+            "examples": [
+              600.0
+            ]
+          },
+          "base_cap": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Cap",
+            "description": "The plan's own monthly pool (licenses \u00d7 monthly_limit_per_license), before any top-up. Null whenever pool_cap is.",
             "examples": [
               500.0
+            ]
+          },
+          "top_up_total": {
+            "type": "number",
+            "title": "Top Up Total",
+            "description": "Top-up money on the cap this month. A cancelled top-up counts for what was consumed of it, not its face value. 0 on any non-pool plan.",
+            "examples": [
+              100.0
             ]
           },
           "remaining": {
@@ -25574,6 +26965,8 @@
           "period_start",
           "current_spend",
           "pool_cap",
+          "base_cap",
+          "top_up_total",
           "remaining",
           "percent_used",
           "is_unlimited",
@@ -25584,6 +26977,87 @@
         ],
         "title": "BudgetSummary",
         "description": "Current-month spend against the tenant's monthly pool budget."
+      },
+      "BudgetTopUpOut": {
+        "properties": {
+          "public_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Public Id",
+            "description": "Public id of the budget top-up."
+          },
+          "amount": {
+            "type": "number",
+            "title": "Amount",
+            "description": "Amount added to the pool for the month it was created in.",
+            "examples": [
+              500.0
+            ]
+          },
+          "consumed_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consumed Amount",
+            "description": "Spend charged to this top-up, set when it is cancelled.",
+            "examples": [
+              230.0
+            ]
+          },
+          "cancelled_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancelled At",
+            "description": "When the top-up was cancelled (null = live)."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At",
+            "description": "When the top-up was added."
+          }
+        },
+        "type": "object",
+        "required": [
+          "public_id",
+          "amount",
+          "consumed_amount",
+          "cancelled_at",
+          "created_at"
+        ],
+        "title": "BudgetTopUpOut",
+        "description": "A budget top-up. Floats, matching what PostgREST serves for these rows."
+      },
+      "BudgetTopUpRequest": {
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Amount",
+            "description": "Whole euros to add to the tenant's monthly pool.",
+            "examples": [
+              500
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "amount"
+        ],
+        "title": "BudgetTopUpRequest",
+        "description": "Payload for adding a budget top-up."
       },
       "BulkResult": {
         "properties": {
@@ -25641,6 +27115,37 @@
             "description": "Human-readable description of the model.",
             "examples": [
               "OpenAI GPT-4o multimodal model."
+            ]
+          },
+          "badge": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Badge",
+            "description": "One-word positioning shown next to the name, as a JSON object of locale to text like `description`.",
+            "examples": [
+              "{\"en\": \"Fast\", \"de\": \"Schnell\"}"
+            ]
+          },
+          "knowledge_cutoff": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 7
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Knowledge Cutoff",
+            "description": "Training-data cutoff as YYYY-MM.",
+            "examples": [
+              "2024-04"
             ]
           },
           "multi_modal": {
@@ -25782,6 +27287,37 @@
             "description": "Human-readable description of the model.",
             "examples": [
               "OpenAI GPT-4o multimodal model."
+            ]
+          },
+          "badge": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Badge",
+            "description": "One-word positioning shown next to the name, as a JSON object of locale to text like `description`.",
+            "examples": [
+              "{\"en\": \"Fast\", \"de\": \"Schnell\"}"
+            ]
+          },
+          "knowledge_cutoff": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 7
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Knowledge Cutoff",
+            "description": "Training-data cutoff as YYYY-MM.",
+            "examples": [
+              "2024-04"
             ]
           },
           "multi_modal": {
@@ -26198,6 +27734,19 @@
               "You are a helpful assistant."
             ]
           },
+          "disabled_tool_names": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Disabled Tool Names",
+            "description": "Tenant-enabled tools this chat opts out of, by `Tool.name`.",
+            "examples": [
+              [
+                "web_search"
+              ]
+            ]
+          },
           "llm_catalog_id": {
             "anyOf": [
               {
@@ -26434,6 +27983,26 @@
             "examples": [
               false
             ]
+          },
+          "disabled_tool_names": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disabled Tool Names",
+            "description": "Tenant-enabled tools to switch off for this chat, by tool name. Replaces the whole list; an empty list re-enables everything.",
+            "examples": [
+              [
+                "web_search"
+              ]
+            ]
           }
         },
         "type": "object",
@@ -26554,87 +28123,6 @@
         ],
         "title": "ChatLibrary"
       },
-      "ChatToolSettingsOut": {
-        "properties": {
-          "chat_id": {
-            "type": "integer",
-            "title": "Chat Id",
-            "description": "ID of the chat.",
-            "examples": [
-              42
-            ]
-          },
-          "tool_id": {
-            "type": "integer",
-            "title": "Tool Id",
-            "description": "ID of the tool.",
-            "examples": [
-              7
-            ]
-          },
-          "enabled": {
-            "type": "boolean",
-            "title": "Enabled",
-            "description": "Whether the tool is enabled for the chat.",
-            "examples": [
-              true
-            ]
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "description": "When the setting was created.",
-            "examples": [
-              "2026-01-15T10:30:00Z"
-            ]
-          },
-          "updated_at": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Updated At",
-            "description": "When the setting was last updated, or null if never.",
-            "examples": [
-              "2026-01-16T08:00:00Z"
-            ]
-          }
-        },
-        "type": "object",
-        "required": [
-          "chat_id",
-          "tool_id",
-          "enabled",
-          "created_at",
-          "updated_at"
-        ],
-        "title": "ChatToolSettingsOut",
-        "description": "Response schema for chat tool settings"
-      },
-      "ChatToolSettingsUpdate": {
-        "properties": {
-          "enabled": {
-            "type": "boolean",
-            "title": "Enabled",
-            "description": "Whether the tool is enabled for the chat.",
-            "examples": [
-              true
-            ]
-          }
-        },
-        "type": "object",
-        "required": [
-          "enabled"
-        ],
-        "title": "ChatToolSettingsUpdate",
-        "description": "Request schema for updating a single chat tool setting"
-      },
       "ClarificationAnswer": {
         "properties": {
           "selected_option_ids": {
@@ -26670,6 +28158,38 @@
         "type": "object",
         "title": "ClarificationAnswer",
         "description": "User's answer to one pending `ask_user_question` call."
+      },
+      "ConnectSharedMailboxIn": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address",
+            "description": "SMTP address of the shared mailbox to connect.",
+            "examples": [
+              "support@example.com"
+            ]
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name",
+            "description": "Optional label; resolved from the directory when omitted.",
+            "examples": [
+              "Support"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "address"
+        ],
+        "title": "ConnectSharedMailboxIn"
       },
       "Connector": {
         "properties": {
@@ -27342,6 +28862,21 @@
                 "upload:42"
               ]
             ]
+          },
+          "mailbox": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mailbox",
+            "description": "Connected shared mailbox to create the draft in (its Drafts folder, sent from its address). Omit for the personal mailbox.",
+            "examples": [
+              "support@example.com"
+            ]
           }
         },
         "type": "object",
@@ -27386,6 +28921,37 @@
             ],
             "title": "Draft Id",
             "description": "Graph message id of the draft; the client uses it to deep-link straight into OWA's compose editor."
+          },
+          "from_mailbox": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Mailbox",
+            "description": "Sender the draft was created for: a shared mailbox or Microsoft 365 group address, or null for the personal mailbox.",
+            "examples": [
+              "support@example.com"
+            ]
+          },
+          "from_mailbox_kind": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "shared",
+                  "group"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Mailbox Kind",
+            "description": "'shared': the draft sits in that mailbox's Drafts folder. 'group': it sits in the user's own Drafts folder (sent as the group). The client picks where to open it from this, not from its own cache."
           }
         },
         "type": "object",
@@ -27453,6 +29019,22 @@
               [
                 "host_url"
               ]
+            ]
+          },
+          "summary": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Summary",
+            "description": "Non-secret view of the stored values: only fields the template marks public, nested lists included (e.g. the sqlConnector's database names, schemas and descriptions). Never contains secrets. Empty when nothing is stored.",
+            "examples": [
+              {
+                "connections": [
+                  {
+                    "description": "ERP",
+                    "name": "erp"
+                  }
+                ]
+              }
             ]
           }
         },
@@ -27528,6 +29110,128 @@
           "is_admin"
         ],
         "title": "CredentialTemplateOut"
+      },
+      "CustomConnectorCreate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "headers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Headers"
+          },
+          "config": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 16384
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Config",
+            "description": "MCP JSON config, e.g. {\"mcpServers\": {\"notion\": {\"url\": \"...\"}}}"
+          }
+        },
+        "type": "object",
+        "title": "CustomConnectorCreate",
+        "description": "Either `url` (with optional `name`/`headers`), or `config` \u2014 a pasted\n`mcpServers` JSON blob. Never both."
+      },
+      "CustomConnectorOut": {
+        "properties": {
+          "public_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Public Id"
+          },
+          "connector_id": {
+            "type": "string",
+            "title": "Connector Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "header_names": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Header Names"
+          }
+        },
+        "type": "object",
+        "required": [
+          "public_id",
+          "connector_id",
+          "name",
+          "url",
+          "enabled",
+          "header_names"
+        ],
+        "title": "CustomConnectorOut"
+      },
+      "CustomConnectorUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enabled"
+          }
+        },
+        "type": "object",
+        "title": "CustomConnectorUpdate"
       },
       "DataSourceCapabilities": {
         "properties": {
@@ -28903,7 +30607,8 @@
           "apps.members.add",
           "apps.members.remove",
           "budget.alert",
-          "soft.limit.reached"
+          "soft.limit.reached",
+          "budget.topup.added"
         ],
         "title": "EmailTemplateKey",
         "description": "Email template identifiers with namespaced keys."
@@ -29992,18 +31697,28 @@
             ]
           },
           "deployment_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Deployment Name",
+            "description": "Model identifier sent to the provider. The catalog name is only a label; this is what the call uses.",
+            "examples": [
+              "gpt-4.1"
+            ]
+          },
+          "hosted_on": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 100
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Deployment Name",
-            "description": "Provider deployment name for the model.",
+            "title": "Hosted On",
+            "description": "Platform that runs the model, for display.",
             "examples": [
-              "gpt-4o-deployment"
+              "Azure OpenAI"
             ]
           },
           "endpoint": {
@@ -30044,7 +31759,8 @@
           "library",
           "max_tokens",
           "cost_prompt_tokens",
-          "cost_completion_tokens"
+          "cost_completion_tokens",
+          "deployment_name"
         ],
         "title": "LLMSettingsIn"
       },
@@ -30408,16 +32124,33 @@
           "deployment_name": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "minLength": 1
               },
               {
                 "type": "null"
               }
             ],
             "title": "Deployment Name",
-            "description": "Provider deployment name for the model.",
+            "description": "Model identifier sent to the provider. The catalog name is only a label; this is what the call uses.",
             "examples": [
-              "gpt-4o-deployment"
+              "gpt-4.1"
+            ]
+          },
+          "hosted_on": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hosted On",
+            "description": "Platform that runs the model, for display.",
+            "examples": [
+              "Azure OpenAI"
             ]
           },
           "endpoint": {
@@ -31299,12 +33032,11 @@
               ]
             ]
           },
-          "tool_ids": {
+          "disabled_tool_names": {
             "anyOf": [
               {
                 "items": {
-                  "type": "string",
-                  "format": "uuid"
+                  "type": "string"
                 },
                 "type": "array"
               },
@@ -31312,11 +33044,11 @@
                 "type": "null"
               }
             ],
-            "title": "Tool Ids",
-            "description": "IDs of the tools to enable for a new chat.",
+            "title": "Disabled Tool Names",
+            "description": "Names of tenant-enabled tools to keep out of a new chat.",
             "examples": [
               [
-                "4e5f6a7b-8c9d-0e1f-2a3b-4c5d6e7f8091"
+                "web_search"
               ]
             ]
           },
@@ -33427,6 +35159,21 @@
                 "upload:42"
               ]
             ]
+          },
+          "mailbox": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mailbox",
+            "description": "Connected shared mailbox address to send FROM. Must be one of the caller's connected shared mailboxes; omit for the personal mailbox.",
+            "examples": [
+              "support@example.com"
+            ]
           }
         },
         "type": "object",
@@ -33475,6 +35222,21 @@
               [
                 "alice@example.com"
               ]
+            ]
+          },
+          "from_mailbox": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Mailbox",
+            "description": "Shared mailbox the email was sent from, or null for the personal mailbox.",
+            "examples": [
+              "support@example.com"
             ]
           }
         },
@@ -34011,6 +35773,150 @@
         },
         "type": "object",
         "title": "SettingsIn"
+      },
+      "SharedMailbox": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address",
+            "description": "SMTP address of the shared mailbox (lower-cased).",
+            "examples": [
+              "support@example.com"
+            ]
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name",
+            "description": "Label shown in the UI; defaults to the directory name.",
+            "default": "",
+            "examples": [
+              "Support"
+            ]
+          },
+          "added_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Added At",
+            "description": "ISO timestamp of when the user connected the mailbox.",
+            "examples": [
+              "2026-09-08T09:30:00+00:00"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "shared",
+              "group"
+            ],
+            "title": "Kind",
+            "description": "'shared': an Exchange shared mailbox, read via /users/{address}. 'group': a Microsoft 365 group \u2014 its mail is read via /groups/{id}/threads and sends go through the user's own mailbox with the group as sender.",
+            "default": "shared",
+            "examples": [
+              "shared"
+            ]
+          },
+          "group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Group Id",
+            "description": "Entra object id of the group (kind='group' only).",
+            "examples": [
+              "3f0e5b7a-9c2d-4e8a-b1f6-2a7c4d9e0b13"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "address"
+        ],
+        "title": "SharedMailbox",
+        "description": "One connected shared mailbox \u2014 the stored claim shape AND the API\nresponse shape, so a new field is added exactly once."
+      },
+      "SharedMailboxCandidateOut": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address",
+            "examples": [
+              "support@example.com"
+            ]
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name",
+            "examples": [
+              "Support"
+            ]
+          },
+          "connected": {
+            "type": "boolean",
+            "title": "Connected",
+            "description": "Whether the caller has already connected this mailbox."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "shared",
+              "group"
+            ],
+            "title": "Kind",
+            "description": "'shared' = Exchange shared mailbox the caller can open; 'group' = Microsoft 365 group the caller is a member of.",
+            "default": "shared"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "display_name",
+          "connected"
+        ],
+        "title": "SharedMailboxCandidateOut"
+      },
+      "SharedMailboxListOut": {
+        "properties": {
+          "mailboxes": {
+            "items": {
+              "$ref": "#/components/schemas/SharedMailbox"
+            },
+            "type": "array",
+            "title": "Mailboxes",
+            "description": "Shared mailboxes the caller has connected, oldest first."
+          }
+        },
+        "type": "object",
+        "required": [
+          "mailboxes"
+        ],
+        "title": "SharedMailboxListOut"
+      },
+      "SharedMailboxSearchOut": {
+        "properties": {
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/SharedMailboxCandidateOut"
+            },
+            "type": "array",
+            "title": "Results",
+            "description": "Mailboxes the caller can open with their own token, drawn from People-API matches for the query (or the caller's most relevant contacts for an empty query). Every entry passed the same inbox probe that connecting runs, so plain colleagues are filtered out."
+          }
+        },
+        "type": "object",
+        "required": [
+          "results"
+        ],
+        "title": "SharedMailboxSearchOut"
       },
       "SharepointDriveModel": {
         "properties": {
@@ -41762,6 +43668,15 @@
       }
     },
     "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "auth/token"
+          }
+        }
+      },
       "APIKeyHeader": {
         "type": "apiKey",
         "description": "Api key to access backend from external services",

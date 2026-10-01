@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TenantModelIn } from 'neuland-hub-sdk';
+import { TenantModelIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: TenantModelIn = {
     auto_routable,

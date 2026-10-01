@@ -6,6 +6,9 @@ on:
     pull_request:
         branches: [dev]
 
+permissions:
+    contents: read
+
 jobs:
     build-sdk:
         runs-on: ubuntu-latest
@@ -36,3 +39,89 @@ jobs:
               with:
                   name: sdk-dist
                   path: python/sdk/dist/
+
+    build-node-sdk:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [18, 20, 22]
+        defaults:
+            run:
+                working-directory: nodejs/sdk
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "npm"
+                  cache-dependency-path: nodejs/sdk/package-lock.json
+
+            - name: Install dependencies
+              run: npm ci --ignore-scripts
+
+            - name: Build
+              run: npm run build
+
+    import-python-sdk:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Python ${{ matrix.python-version }}
+              uses: actions/setup-python@v5
+              with:
+                  python-version: ${{ matrix.python-version }}
+
+            - name: Install SDK
+              run: pip install ./python/sdk
+
+            - name: Import smoke test
+              run: |
+                  python - <<'PY'
+                  import neuland_hub_sdk
+                  from neuland_hub_sdk import Configuration, ApiClient
+                  from neuland_hub_sdk.api.user import User
+                  from neuland_hub_sdk.models.assistant_in import AssistantIn
+                  c = Configuration(host="https://api.your-domain.com")
+                  c.api_key["APIKeyHeader"] = "x"
+                  with ApiClient(c) as client:
+                      User(client)
+                  AssistantIn(name="n")
+                  import sys; sys.path.insert(0, "python")
+                  import streaming
+                  print("ok", neuland_hub_sdk.__version__)
+                  PY
+
+    # working-branch is the Mintlify editor's sync target and carries end-user
+    # handbook pages that must never reach dev. Curated docs live only in
+    # docs/guides/ and docs/sdk/; any top-level docs/*.mdx is a sign of that
+    # content leaking in.
+    docs-guard:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Fail on handbook content in docs/
+              run: |
+                  stray=$(find docs -maxdepth 1 -name '*.mdx' | sort)
+                  if [ -n "$stray" ]; then
+                      echo "::error::Top-level docs pages are not allowed on dev (handbook content from working-branch?):"
+                      echo "$stray"
+                      exit 1
+                  fi
+                  if grep -qE '"tab": *"(Videoanleitungen|User & Admin Handbuch|User Guide)"' docs/docs.json; then
+                      echo "::error::docs.json contains a handbook tab"
+                      exit 1
+                  fi
+                  echo "docs/ is clean"

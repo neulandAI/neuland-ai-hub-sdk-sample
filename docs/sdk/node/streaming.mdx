@@ -21,9 +21,17 @@ The Hub streams message generation token-by-token over **Server-Sent Events
 
 ## Install the streaming client
 
-The client is a single dependency-light file — copy `streaming.ts` into your
-project. It needs only the platform `fetch` (browsers and Node 18+), so it works
+The client is a single dependency-light file — copy
+[`nodejs/streaming.ts`](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/streaming.ts)
+from the repository into your project. It needs only the platform `fetch` (browsers and Node 18+), so it works
 unchanged in the browser and on the server.
+
+<Warning>
+  Streaming must be enabled on your Hub deployment. If the stream endpoints
+  answer `500` or `503` with "Streaming is not configured", it is off; fall
+  back to polling the chat turns as described under
+  [Usage](/sdk/node/usage#common-questions).
+</Warning>
 
 ## Stream a new message
 
@@ -32,7 +40,7 @@ import { streamMessage } from "./streaming";
 
 for await (const event of streamMessage({
   baseUrl: "https://api.your-domain.com",
-  apiKey: "ak.<key_id>.<secret>", // sent as X-API-KEY
+  apiKey: "ak_prod_v1.<key_id>.<secret>", // sent as X-API-KEY
   message: { content: "Explain quantum tunneling" },
 })) {
   console.log(event.event, event.data);
@@ -48,7 +56,7 @@ import { observeMessage } from "./streaming";
 
 for await (const event of observeMessage({
   baseUrl: "https://api.your-domain.com",
-  apiKey: "ak.<key_id>.<secret>",
+  apiKey: "ak_prod_v1.<key_id>.<secret>",
   messageId: 123,
 })) {
   console.log(event.event, event.data);

@@ -30,6 +30,13 @@ OPENAPI = DOCS_ROOT / "openapi.json"
 
 # Public base URL to substitute for the generator's `http://localhost` default.
 PUBLIC_BASE_URL = "https://api.your-domain.com"
+# Public docs site; linked from both SDK READMEs (which ship to PyPI / npm).
+DOCS_URL = "https://docs.neuland-hub.ai"
+
+# Read from the manifest rather than hardcoded: the generator writes this name
+# (from `npmName=`) into the README heading this script anchors on, so a rename
+# must not silently stop the rewrite below from matching.
+NPM_NAME = json.loads((REPO_ROOT / "nodejs/sdk/package.json").read_text())["name"]
 
 # The Hub is deployed per tenant (one subdomain each), so there is no single
 # base URL to hard-code. Publishing `servers` as a templated host variable makes
@@ -48,6 +55,31 @@ SERVERS = [
         },
     }
 ]
+
+# Package metadata the generator cannot set from the command line. The Python
+# author email comes from the spec's `info.contact.email` (which the Hub does not
+# set), and the Node `author` field is hardcoded in the generator template, so
+# both are patched here after every regen. Change them in one place.
+SDK_AUTHOR_NAME = "neuland.ai"
+SDK_AUTHOR_EMAIL = "support@neuland.ai"
+# License declaration. Until legal picks one, both manifests point at the LICENSE
+# file (placeholder text). When decided, set SDK_LICENSE_SPDX = "MIT" (or
+# "Apache-2.0") and both manifests switch to the SPDX form automatically.
+SDK_LICENSE_SPDX: str | None = None
+PY_PYPROJECT = REPO_ROOT / "python/sdk/pyproject.toml"
+PY_SETUP = REPO_ROOT / "python/sdk/setup.py"
+NODE_PACKAGE = REPO_ROOT / "nodejs/sdk/package.json"
+
+# Injected at the top of the generated Query reference page on every run. The
+# generated methods only take the resource name; the guide shows how to pass
+# PostgREST filters. Lives here so it survives regeneration.
+QUERY_NOTE = """<Note>
+  These methods only take the resource name. Filters, column selection, sorting
+  and embeds go in the query string. See
+  [Read data with Query](/guides/query) for the pattern and ready-made recipes.
+</Note>
+
+"""
 
 # One entry per generated SDK. `lang` selects the fenced-code language used when
 # rewriting method-signature blockquotes.
@@ -353,6 +385,16 @@ def propagate_via_doc_links(model_tag: dict[str, str], src_dir: Path) -> None:
 # --------------------------------------------------------------------------- #
 # Sync + navigation
 # --------------------------------------------------------------------------- #
+def _inject_after_frontmatter(text: str, block: str) -> str:
+    """Insert `block` right after the closing `---` of the MDX frontmatter."""
+    if text.startswith("---"):
+        end = text.find("\n---", 3)
+        if end != -1:
+            end = text.find("\n", end + 1) + 1
+            return text[:end] + "\n" + block + text[end:].lstrip("\n")
+    return block + text
+
+
 def sync_sdk(sdk: dict) -> dict[str, list[str]]:
     src_dir = REPO_ROOT / sdk["src"]
     dest, lang = sdk["dest"], sdk["lang"]
@@ -380,6 +422,8 @@ def sync_sdk(sdk: dict) -> dict[str, list[str]]:
         out_dir = reference_dir / category
         out_dir.mkdir(parents=True, exist_ok=True)
         out_text = transform(contents[f], dest, lang, name_map)
+        if category == "endpoints" and f.stem == "Query":
+            out_text = _inject_after_frontmatter(out_text, QUERY_NOTE)
         (out_dir / f"{f.stem}.mdx").write_text(out_text, encoding="utf-8")
         pages[category].append(f.stem)
 
@@ -608,8 +652,214 @@ def merge_streaming_endpoints() -> None:
     print(f"  injected streaming endpoints into openapi.json: {', '.join(added)}")
 
 
+def fix_sdk_metadata() -> None:
+    """Patch the package metadata the generator leaves at its defaults.
+
+    Idempotent: rewrites the author name/email in `pyproject.toml` and
+    `setup.py`, and the `author` field in the Node `package.json`. Everything
+    the generator *can* set (repo URL, version, package URL) is passed on the
+    command line in MAINTAINING.md instead, so it is not touched here.
+    """
+    changed: list[str] = []
+
+    text = PY_PYPROJECT.read_text()
+    new = re.sub(r'\{name = "[^"]*",\s*email = "[^"]*"\}',
+                 f'{{name = "{SDK_AUTHOR_NAME}",email = "{SDK_AUTHOR_EMAIL}"}}', text, count=1)
+    if new != text:
+        PY_PYPROJECT.write_text(new); changed.append(PY_PYPROJECT.name)
+
+    text = PY_SETUP.read_text()
+    new = re.sub(r'^(\s*)author="[^"]*",', rf'\1author="{SDK_AUTHOR_NAME}",', text, count=1, flags=re.M)
+    new = re.sub(r'^(\s*)author_email="[^"]*",', rf'\1author_email="{SDK_AUTHOR_EMAIL}",', new, count=1, flags=re.M)
+    if new != text:
+        PY_SETUP.write_text(new); changed.append(PY_SETUP.name)
+
+    # Both SDK READMEs ship to the registries, where their relative `docs/*.md`
+    # links are dead (the docs folder is not in the wheel; npm does not serve
+    # it). Point them at the GitHub copies instead.
+    for readme, sub in ((REPO_ROOT / "python/sdk/README.md", "python/sdk"),
+                        (REPO_ROOT / "nodejs/sdk/README.md", "nodejs/sdk")):
+        text = readme.read_text()
+        new = re.sub(r"\]\((?:\./)?docs/([A-Za-z0-9_.-]+\.md(?:#[A-Za-z0-9_-]*)?)\)",
+                     rf"](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/{sub}/docs/\1)", text)
+        if new != text:
+            readme.write_text(new)
+            if readme.name not in changed: changed.append(f"{sub}/README.md")
+
+    # Both SDK READMEs: replace the spec's misleading auth paragraph (bearer
+    # token) with the API-key truth plus a docs-site link, drop generator
+    # boilerplate sections, and fix the localhost base-URL line. The Hub's
+    # info.description is the source of the paragraph; until it is fixed
+    # upstream this keeps the registry pages honest.
+    AUTH_OLD = ("Most endpoints require authentication. Obtain a token via the **Auth**\n"
+                "endpoints (or use an **ApiKey**) and send it as a bearer token in the\n"
+                "`Authorization` header.")
+    AUTH_NEW = ("Every request is authenticated with an **API key** sent in the `X-API-KEY`\n"
+                "header. Create one in the Hub under **Settings → API Keys**.\n\n"
+                f"Full guides, quickstart and API reference: {DOCS_URL}")
+    NODE_INTRO = (f"## {NPM_NAME}@")
+    NODE_INTRO_NEW = ("TypeScript/JavaScript client for the **Neuland AI Hub API**: chat, "
+                      "retrieval-augmented document Q&A, assistants, and the surrounding "
+                      "workspace and integration features.\n\n" + AUTH_NEW.split("\n\n", 1)[0] + "\n\n"
+                      f"Full guides, quickstart and API reference: {DOCS_URL}\n\n## {NPM_NAME}@")
+    for readme in (REPO_ROOT / "python/sdk/README.md", REPO_ROOT / "nodejs/sdk/README.md"):
+        text = readme.read_text(); new = text
+        new = new.replace(AUTH_OLD, AUTH_NEW)
+        if readme.parent.parent.name == "nodejs" and DOCS_URL not in new:
+            new = new.replace(NODE_INTRO, NODE_INTRO_NEW, 1)
+        new = new.replace("All URIs are relative to *http://localhost*", f"All URIs are relative to *{PUBLIC_BASE_URL}*")
+        # python: obsolete setuptools + pytest sections
+        new = re.sub(r"### Setuptools\n\nInstall via \[Setuptools\].*?(?=## Getting Started)", "", new, flags=re.S)
+        new = re.sub(r"### Tests\n\nExecute `pytest` to run the tests\.\n\n", "", new)
+        # node: generator's publish/unpublished instructions
+        new = re.sub(r"### Publishing\n\nFirst build the package then run `npm publish`\n\n", "", new)
+        new = re.sub(r"_unPublished \(not recommended\):_\n\n```\nnpm install PATH_TO_GENERATED_PACKAGE --save\n```\n", "", new)
+        if new != text:
+            readme.write_text(new)
+            key = f"{readme.parent.parent.name}/{readme.parent.name}/README.md"
+            if key not in changed: changed.append(key)
+
+    # The generated Python README ships to PyPI: replace the generator's git-URL
+    # install snippet with the registry install.
+    readme = REPO_ROOT / "python/sdk/README.md"
+    text = readme.read_text()
+    new = re.sub(r"If the python package is hosted on a repository, you can install directly using:\n\n```sh\npip install [^\n]+\n```\n\(you may need to run `pip` with root permission: `sudo pip install [^`]+`\)",
+                 "```sh\npip install neuland-hub-sdk\n```", text, count=1)
+    if new != text:
+        readme.write_text(new); changed.append(readme.name)
+
+    # pyproject: license line right after requires-python (generator emits none)
+    text = PY_PYPROJECT.read_text()
+    py_license = f'license = "{SDK_LICENSE_SPDX}"' if SDK_LICENSE_SPDX else 'license = {file = "LICENSE"}'
+    new = re.sub(r'^license = .*\n', '', text, flags=re.M)
+    new = re.sub(r'^(requires-python = .*\n)', lambda m: m.group(1) + py_license + "\n", new, count=1, flags=re.M)
+    if new != text:
+        PY_PYPROJECT.write_text(new)
+        if PY_PYPROJECT.name not in changed: changed.append(PY_PYPROJECT.name)
+
+    pkg = json.loads(NODE_PACKAGE.read_text())
+    node_license = SDK_LICENSE_SPDX or "SEE LICENSE IN LICENSE"
+    if pkg.get("author") != SDK_AUTHOR_NAME or pkg.get("license") != node_license:
+        pkg["author"] = SDK_AUTHOR_NAME
+        pkg["license"] = node_license
+        NODE_PACKAGE.write_text(json.dumps(pkg, indent=2) + "\n"); changed.append(NODE_PACKAGE.name)
+
+    # package-lock.json mirrors name/version/license in its root entry; keep it
+    # in step so `npm ci` and `npm pack` report the same metadata.
+    lock_path = NODE_PACKAGE.with_name("package-lock.json")
+    if lock_path.exists():
+        lock = json.loads(lock_path.read_text())
+        root = lock.get("packages", {}).get("", {})
+        wanted = {"version": pkg["version"], "license": pkg["license"]}
+        if any(root.get(k) != v for k, v in wanted.items()) or lock.get("version") != pkg["version"]:
+            root.update(wanted); lock["version"] = pkg["version"]
+            lock_path.write_text(json.dumps(lock, indent=2) + "\n"); changed.append(lock_path.name)
+
+    print("  fixed SDK metadata in: " + (", ".join(changed) if changed else "(nothing to change)"))
+
+
+def fix_python_sdk_code() -> None:
+    """Patch two generator defects in the generated Python SDK runtime (this repo).
+
+    1. rest.py sends form-urlencoded and multipart bodies through
+       ``pool_manager.request()``. urllib3 treats DELETE as a body-less method
+       there and rejects the ``encode_multipart`` argument, so every DELETE with
+       a form body raises TypeError. ``request_encode_body()`` accepts the same
+       arguments for any HTTP method.
+    2. api_client.py's deserializer cannot resolve response types wrapped in
+       ``Optional[...]`` (the generator emits ``List[Optional[str]]`` for plain
+       string arrays) and raises AttributeError on a successful response.
+       Unwrap the Optional before resolving the inner type.
+    Idempotent; reapplied after every regeneration.
+    """
+    changed: list[str] = []
+    rest = REPO_ROOT / "python/sdk/neuland_hub_sdk/rest.py"
+    text = rest.read_text(encoding="utf-8")
+    new = re.sub(r"self\.pool_manager\.request\((\s+method,\s+url,\s+fields=post_params,)",
+                 r"self.pool_manager.request_encode_body(\1", text)
+    if new != text:
+        rest.write_text(new, encoding="utf-8"); changed.append(rest.name)
+
+    client = REPO_ROOT / "python/sdk/neuland_hub_sdk/api_client.py"
+    text = client.read_text(encoding="utf-8")
+    anchor = "        if isinstance(klass, str):\n            if klass.startswith('List['):"
+    patch = ("        if isinstance(klass, str):\n"
+             "            if klass.startswith('Optional['):\n"
+             "                klass = klass[len('Optional['):-1]\n"
+             "            if klass.startswith('List['):")
+    if anchor in text and patch not in text:
+        client.write_text(text.replace(anchor, patch, 1), encoding="utf-8"); changed.append(client.name)
+    print("  patched python SDK runtime: " + (", ".join(changed) if changed else "(already patched)"))
+
+
+def fix_python_examples() -> None:
+    """Make the generated Python examples runnable, in place, before they are synced.
+
+    The generator writes `api_instance = neuland_hub_sdk.Chat(api_client)`. With
+    the short class names (apiNameSuffix=), 13 API classes share a name with a
+    data model and the model wins at package level, so that line raises
+    TypeError. Rewrite every example to the module-import form the sample app
+    uses, which always works. Also add the `import os` the examples rely on and
+    drop the OAuth lines: the SDK's only auth scheme is the X-API-KEY header.
+    Idempotent. Applies to python/sdk/docs/*.md and python/sdk/README.md; the
+    Mintlify copies are produced from those files afterwards.
+    """
+    api_dir = REPO_ROOT / "python/sdk/neuland_hub_sdk/api"
+    class_module: dict[str, str] = {}
+    for f in api_dir.glob("*.py"):
+        m = re.search(r"^class ([A-Za-z0-9_]+)\s*[:(]", f.read_text(encoding="utf-8"), re.M)
+        if m:
+            class_module[m.group(1)] = f.stem
+    call_re = re.compile(r"neuland_hub_sdk\.([A-Z][A-Za-z0-9_]*)\(api_client\)")
+    block_re = re.compile(r"```python\n(.*?)```", re.S)
+
+    def fix_block(code: str) -> str:
+        names = {n for n in call_re.findall(code) if n in class_module}
+        if names:
+            code = call_re.sub(lambda m: f"{m.group(1)}(api_client)" if m.group(1) in class_module else m.group(0), code)
+            imports = "".join(f"from neuland_hub_sdk.api.{class_module[n]} import {n}\n" for n in sorted(names))
+            code = code.replace("import neuland_hub_sdk\n", "import neuland_hub_sdk\n" + imports, 1)
+        # Names the generated examples use without importing them.
+        for pat, imp in (
+            (r"\bos\.environ", "import os"),
+            (r"\bUUID\(", "from uuid import UUID"),
+            (r"\bdatetime\.", "import datetime"),
+            (r"\bdate\(", "from datetime import date"),
+            (r"\bDecimal\(", "from decimal import Decimal"),
+        ):
+            if re.search(pat, code) and not re.search("^" + re.escape(imp) + "$", code, re.M):
+                code = imp + "\n" + code
+        lines = [ln for ln in code.split("\n")
+                 if 'configuration.access_token = os.environ["ACCESS_TOKEN"]' not in ln]
+        code = "\n".join(lines)
+        # The generator hard-codes its own default host into every example.
+        code = code.replace('host = "http://localhost"', f'host = "{PUBLIC_BASE_URL}"')
+        code = code.replace("# Defining the host is optional and defaults to http://localhost",
+                            "# Your Hub API URL")
+        return code
+
+    changed = 0
+    # Every generated page states the generator's default base URL.
+    for path in list((REPO_ROOT / "python/sdk/docs").glob("*.md")) + list((REPO_ROOT / "nodejs/sdk/docs").glob("*.md")):
+        text = path.read_text(encoding="utf-8")
+        new = text.replace("All URIs are relative to *http://localhost*", f"All URIs are relative to *{PUBLIC_BASE_URL}*")
+        if new != text:
+            path.write_text(new, encoding="utf-8"); changed += 1
+    targets = list((REPO_ROOT / "python/sdk/docs").glob("*.md")) + [REPO_ROOT / "python/sdk/README.md"]
+    for path in targets:
+        text = path.read_text(encoding="utf-8")
+        new = block_re.sub(lambda m: "```python\n" + fix_block(m.group(1)) + "```", text)
+        new = new.replace("* OAuth Authentication (OAuth2PasswordBearer):\n", "")
+        if new != text:
+            path.write_text(new, encoding="utf-8"); changed += 1
+    print(f"  fixed python examples in {changed} generated file(s)" if changed else "  python examples already fixed")
+
+
 def main() -> None:
     print("Syncing generated SDK docs into the Mintlify tree...")
+    fix_sdk_metadata()
+    fix_python_sdk_code()
+    fix_python_examples()
     ensure_servers()
     merge_streaming_endpoints()
     model_tag, tag_order = build_model_to_tag()

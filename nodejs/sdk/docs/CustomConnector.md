@@ -1,6 +1,6 @@
 # CustomConnector
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -21,7 +21,7 @@ import {
     CustomConnector,
     Configuration,
     CustomConnectorCreate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new CustomConnector(configuration);
@@ -75,7 +75,7 @@ const { status, data } = await apiInstance.customconnectorsCreateCustomConnector
 import {
     CustomConnector,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new CustomConnector(configuration);
@@ -129,7 +129,7 @@ void (empty response body)
 import {
     CustomConnector,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new CustomConnector(configuration);
@@ -182,7 +182,7 @@ import {
     CustomConnector,
     Configuration,
     CustomConnectorUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new CustomConnector(configuration);

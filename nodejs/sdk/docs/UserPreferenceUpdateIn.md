@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UserPreferenceUpdateIn } from 'neuland-hub-sdk';
+import { UserPreferenceUpdateIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: UserPreferenceUpdateIn = {
     theme_mode,

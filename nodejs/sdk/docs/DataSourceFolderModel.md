@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { DataSourceFolderModel } from 'neuland-hub-sdk';
+import { DataSourceFolderModel } from '@neulandai/neuland-hub-sdk';
 
 const instance: DataSourceFolderModel = {
     child_count,

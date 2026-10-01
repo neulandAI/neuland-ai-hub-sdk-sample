@@ -1,6 +1,6 @@
 # Auth
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -30,7 +30,7 @@ Confirm a user\'s email address (or pending email change) using a token from the
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -86,7 +86,7 @@ Exchange the caller\'s token for a service token scoped to an AI application.
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -140,7 +140,7 @@ Resolve Azure Entra group display names for the current user\'s groups.
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -193,7 +193,7 @@ List the Azure Entra OAuth scopes the platform requests.
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -237,7 +237,7 @@ Authenticate with username and password and return an access token.
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -320,7 +320,7 @@ Revoke the current session so its token can no longer authenticate.
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -367,7 +367,7 @@ import {
     Auth,
     Configuration,
     PasswordResetRequestIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -422,7 +422,7 @@ Validate the reset token, set the new password, and revoke all of the user\'s se
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -474,7 +474,7 @@ Render the fallback HTML password-reset form for when no frontend is available.
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -526,7 +526,7 @@ Search/browse Entra directory groups (delegated) for binding to a HUB group.
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -586,7 +586,7 @@ Send a confirmation email to the current user unless their email is already veri
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -640,7 +640,7 @@ import {
     Auth,
     Configuration,
     SsoExchangeIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -714,7 +714,7 @@ Return the IdP authorize URL + signed state token. No cookies, no redirect. Fron
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);
@@ -772,7 +772,7 @@ Pre-login step: resolve a tenant from the email\'s domain, falling back to the e
 import {
     Auth,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Auth(configuration);

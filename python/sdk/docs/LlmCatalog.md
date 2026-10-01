@@ -1,6 +1,6 @@
 # neuland_hub_sdk.LlmCatalog
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -19,18 +19,19 @@ Register a new LLM in the model catalog.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm_catalog import LlmCatalog
 from neuland_hub_sdk.models.catalog_in import CatalogIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -44,12 +45,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmCatalog(api_client)
+    api_instance = LlmCatalog(api_client)
     catalog_in = neuland_hub_sdk.CatalogIn() # CatalogIn | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -106,17 +106,19 @@ Remove a catalog entry permanently.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm_catalog import LlmCatalog
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -130,12 +132,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmCatalog(api_client)
+    api_instance = LlmCatalog(api_client)
     catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog entry to delete.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -191,18 +192,20 @@ Update fields of an existing catalog entry.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm_catalog import LlmCatalog
 from neuland_hub_sdk.models.catalog_update import CatalogUpdate
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -216,12 +219,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.LlmCatalog(api_client)
+    api_instance = LlmCatalog(api_client)
     catalog_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the catalog entry to update.
     catalog_update = neuland_hub_sdk.CatalogUpdate() # CatalogUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)

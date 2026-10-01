@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UserGroupMember } from 'neuland-hub-sdk';
+import { UserGroupMember } from '@neulandai/neuland-hub-sdk';
 
 const instance: UserGroupMember = {
     group_id,

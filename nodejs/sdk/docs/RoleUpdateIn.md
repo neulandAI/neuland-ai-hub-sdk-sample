@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { RoleUpdateIn } from 'neuland-hub-sdk';
+import { RoleUpdateIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: RoleUpdateIn = {
     name,

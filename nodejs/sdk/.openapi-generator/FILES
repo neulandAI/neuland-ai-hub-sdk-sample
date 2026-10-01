@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 README.md
 api.ts
 base.ts
@@ -308,7 +307,6 @@ docs/WorkflowChatIn.md
 docs/WorkflowChatOut.md
 docs/WorkflowIn.md
 docs/WorkflowUpdateIn.md
-git_push.sh
 index.ts
 package.json
 tsconfig.json

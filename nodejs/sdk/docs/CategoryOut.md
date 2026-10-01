@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CategoryOut } from 'neuland-hub-sdk';
+import { CategoryOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: CategoryOut = {
     id,

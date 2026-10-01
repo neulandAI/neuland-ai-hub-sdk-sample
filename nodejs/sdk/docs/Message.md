@@ -1,6 +1,6 @@
 # Message
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -25,7 +25,7 @@ Resume an assistant reply that was cut off by the output-token limit.  Reprocess
 import {
     Message,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
@@ -84,7 +84,7 @@ Convert a message to various document formats.
 import {
     Message,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
@@ -146,7 +146,7 @@ import {
     Message,
     Configuration,
     MessageIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
@@ -204,7 +204,7 @@ Canonical recovery endpoint: full composed state of a message.
 import {
     Message,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
@@ -262,7 +262,7 @@ Ordered step-messages for a turn (future multi-bubble UI).
 import {
     Message,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
@@ -320,7 +320,7 @@ Rephrase a message\'s content in the requested style.
 import {
     Message,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
@@ -382,7 +382,7 @@ import {
     Message,
     Configuration,
     ResumeIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
@@ -444,7 +444,7 @@ Send a multipart message with optional file uploads and enqueue generation.
 import {
     Message,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);
@@ -550,7 +550,7 @@ Translate a message\'s content into the requested language.
 import {
     Message,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Message(configuration);

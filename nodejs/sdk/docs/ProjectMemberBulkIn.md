@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ProjectMemberBulkIn } from 'neuland-hub-sdk';
+import { ProjectMemberBulkIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: ProjectMemberBulkIn = {
     members,

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SsoExchangeIn } from 'neuland-hub-sdk';
+import { SsoExchangeIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: SsoExchangeIn = {
     code,

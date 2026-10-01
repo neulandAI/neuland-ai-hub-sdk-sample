@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { BudgetForecast } from 'neuland-hub-sdk';
+import { BudgetForecast } from '@neulandai/neuland-hub-sdk';
 
 const instance: BudgetForecast = {
     summary,

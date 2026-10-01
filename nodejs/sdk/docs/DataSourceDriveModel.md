@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { DataSourceDriveModel } from 'neuland-hub-sdk';
+import { DataSourceDriveModel } from '@neulandai/neuland-hub-sdk';
 
 const instance: DataSourceDriveModel = {
     id,

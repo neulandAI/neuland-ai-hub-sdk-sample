@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Auth
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -32,20 +32,21 @@ Confirm a user's email address (or pending email change) using a token from the 
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     token = 'token_example' # str | JWT token from confirmation email
     accept = 'accept_example' # str |  (optional)
 
@@ -100,17 +101,19 @@ Exchange the caller's token for a service token scoped to an AI application.
 
 ### Example
 
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+from uuid import UUID
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -118,12 +121,11 @@ configuration = neuland_hub_sdk.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     app_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the AI application to scope the token to.
 
     try:
@@ -178,18 +180,19 @@ Resolve Azure Entra group display names for the current user's groups.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -203,12 +206,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -264,20 +266,21 @@ List the Azure Entra OAuth scopes the platform requests.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
 
     try:
         # List Entra scopes
@@ -327,21 +330,22 @@ Authenticate with username and password and return an access token.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.models.token_out import TokenOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     username = 'username_example' # str | 
     password = 'password_example' # str | 
     user_agent = 'user_agent_example' # str |  (optional)
@@ -414,17 +418,18 @@ Revoke the current session so its token can no longer authenticate.
 
 ### Example
 
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -432,12 +437,11 @@ configuration = neuland_hub_sdk.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
 
     try:
         # Log out
@@ -489,21 +493,22 @@ Send a password reset link if the account exists; always succeeds to prevent enu
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.models.password_reset_request_in import PasswordResetRequestIn
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     password_reset_request_in = neuland_hub_sdk.PasswordResetRequestIn() # PasswordResetRequestIn | 
     origin = 'origin_example' # str |  (optional)
 
@@ -558,20 +563,21 @@ Validate the reset token, set the new password, and revoke all of the user's ses
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     token = 'token_example' # str | Password reset JWT token
 
     try:
@@ -624,20 +630,21 @@ Render the fallback HTML password-reset form for when no frontend is available.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     token = 'token_example' # str | Password reset JWT token
 
     try:
@@ -690,17 +697,18 @@ Search/browse Entra directory groups (delegated) for binding to a HUB group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -714,12 +722,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     q = 'q_example' # str | Name/description search; empty browses alphabetically (optional)
     cursor = 'cursor_example' # str | Page cursor from a prior response's `next` (optional)
     cookie_name = 'cookie_name_example' # str |  (optional)
@@ -778,17 +785,18 @@ Send a confirmation email to the current user unless their email is already veri
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -802,12 +810,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
@@ -862,22 +869,23 @@ for a Hub access token. Stateless: state is an HMAC-signed JWT, not a cookie.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.models.sso_exchange_in import SsoExchangeIn
 from neuland_hub_sdk.models.token_out import TokenOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     slug = 'slug_example' # str | Tenant routing slug from sso/resolve.
     provider = 'provider_example' # str | OAuth provider key, e.g. 'microsoft'.
     sso_exchange_in = neuland_hub_sdk.SsoExchangeIn() # SsoExchangeIn | 
@@ -949,21 +957,22 @@ Frontend uses the response to redirect the browser to the IdP itself.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.models.sso_init_out import SsoInitOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     slug = 'slug_example' # str | Tenant routing slug from sso/resolve.
     provider = 'provider_example' # str | OAuth provider key, e.g. 'microsoft'.
 
@@ -1024,21 +1033,22 @@ the exact (unique) email, and return the routing slug and SSO providers.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
 from neuland_hub_sdk.models.sso_resolve_out import SsoResolveOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Auth(api_client)
+    api_instance = Auth(api_client)
     email = 'email_example' # str | Work email whose domain identifies the tenant.
 
     try:

@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UsageQueryResponse } from 'neuland-hub-sdk';
+import { UsageQueryResponse } from '@neulandai/neuland-hub-sdk';
 
 const instance: UsageQueryResponse = {
     start_date,

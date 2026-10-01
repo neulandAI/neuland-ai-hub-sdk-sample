@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ToolCallProgressStepOut } from 'neuland-hub-sdk';
+import { ToolCallProgressStepOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: ToolCallProgressStepOut = {
     name,

@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ApplicationCatalog } from 'neuland-hub-sdk';
+import { ApplicationCatalog } from '@neulandai/neuland-hub-sdk';
 
 const instance: ApplicationCatalog = {
     created_at,

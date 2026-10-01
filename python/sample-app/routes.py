@@ -14,7 +14,18 @@ from auth import bearer_scheme, decode_service_token, get_api_key
 from schemas import UserInfoResponse, AssistantModel
 
 router = APIRouter()
-sdk_config = Configuration(host=config.NLND_HUB_API_URL)
+
+
+def sdk_config(api_key: str) -> Configuration:
+    """Build a fresh SDK configuration per request.
+
+    A module-level Configuration would be shared across concurrent requests, so
+    one request's API key could leak into another's call. Same pattern as the
+    Node sample's sdkConfig().
+    """
+    cfg = Configuration(host=config.NLND_HUB_API_URL)
+    cfg.api_key["APIKeyHeader"] = api_key
+    return cfg
 
 
 @router.get("/auth/token", status_code=status.HTTP_200_OK)
@@ -30,11 +41,10 @@ async def verify_service_token(
 @router.get("/users/me", response_model=UserInfoResponse)
 async def get_user_info(api_key: str = Depends(get_api_key)) -> UserInfoResponse:
     """ get user info """
-    sdk_config.api_key["APIKeyHeader"] = api_key
-    with neuland_hub_sdk.ApiClient(sdk_config) as api_client:
+    with neuland_hub_sdk.ApiClient(sdk_config(api_key)) as api_client:
         api = User(api_client)
         try:
-            user = api.get_myself()
+            user = api.users_get_myself()
             return UserInfoResponse(name=user.name,
                     email=user.email,
                     first_name=user.first_name,
@@ -48,12 +58,11 @@ async def get_user_info(api_key: str = Depends(get_api_key)) -> UserInfoResponse
 @router.post("/assistants", status_code=status.HTTP_201_CREATED)
 async def create_assistant(payload: AssistantModel, api_key: str = Depends(get_api_key)) -> AssistantModel:
     """ create assistant """
-    sdk_config.api_key["APIKeyHeader"] = api_key
-    with neuland_hub_sdk.ApiClient(sdk_config) as api_client:
+    with neuland_hub_sdk.ApiClient(sdk_config(api_key)) as api_client:
         api = AssistantApi(api_client)
         try:
             assistant_in = AssistantIn(**payload.model_dump(exclude_unset=True))
-            assistant = api.create_assistant(assistant_in=assistant_in)
+            assistant = api.assistants_create_assistant(assistant_in=assistant_in)
             return AssistantModel(name=assistant.name,
                     description=assistant.description,
                     model=payload.model)

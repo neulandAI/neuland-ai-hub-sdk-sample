@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { WorkflowChatOut } from 'neuland-hub-sdk';
+import { WorkflowChatOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: WorkflowChatOut = {
     content,

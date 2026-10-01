@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { CostPromptTokensAboveTier } from 'neuland-hub-sdk';
+import { CostPromptTokensAboveTier } from '@neulandai/neuland-hub-sdk';
 
 const instance: CostPromptTokensAboveTier = {
 };

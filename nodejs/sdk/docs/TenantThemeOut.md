@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TenantThemeOut } from 'neuland-hub-sdk';
+import { TenantThemeOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: TenantThemeOut = {
     name,

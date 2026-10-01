@@ -1,6 +1,6 @@
 # Tenant
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -35,7 +35,7 @@ Assign a library to a tenant (library owner who is admin of that tenant).
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -97,7 +97,7 @@ import {
     Tenant,
     Configuration,
     TenantIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -155,7 +155,7 @@ Enable a connector for a tenant (superadmin or parent tenant admin).
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -217,7 +217,7 @@ import {
     Tenant,
     Configuration,
     TenantOAuthClientIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -281,7 +281,7 @@ Enable a tool for a tenant (superadmin or parent tenant admin).
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -341,7 +341,7 @@ Delete a tenant by id (superadmin or parent tenant admin).
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -399,7 +399,7 @@ Disable a connector for a tenant (superadmin or parent tenant admin).
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -460,7 +460,7 @@ Disable an LLM catalog model for a tenant.
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -523,7 +523,7 @@ import {
     Tenant,
     Configuration,
     TenantModelBulkIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -584,7 +584,7 @@ Delete a per-tenant OAuth client configuration and its stored secret.
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -645,7 +645,7 @@ Disable a tool for a tenant (superadmin or parent tenant admin).
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -706,7 +706,7 @@ Get the tenant the current user belongs to.
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -760,7 +760,7 @@ import {
     Tenant,
     Configuration,
     TenantModelIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -826,7 +826,7 @@ import {
     Tenant,
     Configuration,
     TenantModelBulkIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -887,7 +887,7 @@ Remove a library assignment from a tenant (library owner who is tenant admin).
 import {
     Tenant,
     Configuration
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -949,7 +949,7 @@ import {
     Tenant,
     Configuration,
     TenantUpdateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -1007,7 +1007,7 @@ import {
     Tenant,
     Configuration,
     TenantUpdateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -1069,7 +1069,7 @@ import {
     Tenant,
     Configuration,
     TenantOAuthClientUpdate
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);
@@ -1134,7 +1134,7 @@ import {
     Tenant,
     Configuration,
     SecretUpdateIn
-} from 'neuland-hub-sdk';
+} from '@neulandai/neuland-hub-sdk';
 
 const configuration = new Configuration();
 const apiInstance = new Tenant(configuration);

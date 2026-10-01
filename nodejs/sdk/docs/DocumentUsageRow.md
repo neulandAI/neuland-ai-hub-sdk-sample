@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { DocumentUsageRow } from 'neuland-hub-sdk';
+import { DocumentUsageRow } from '@neulandai/neuland-hub-sdk';
 
 const instance: DocumentUsageRow = {
     document_count,

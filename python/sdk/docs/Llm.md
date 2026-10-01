@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Llm
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -25,19 +25,20 @@ List the tenant's API keys, flagging idle and soon-expiring ones.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.api_key_inventory_request import ApiKeyInventoryRequest
 from neuland_hub_sdk.models.api_key_inventory_response import ApiKeyInventoryResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -51,12 +52,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     api_key_inventory_request = neuland_hub_sdk.ApiKeyInventoryRequest() # ApiKeyInventoryRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -113,19 +113,20 @@ Period-over-period per-model cost deltas for the tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.date_window_request import DateWindowRequest
 from neuland_hub_sdk.models.movers_response import MoversResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -139,12 +140,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     date_window_request = neuland_hub_sdk.DateWindowRequest() # DateWindowRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -201,19 +201,20 @@ Return current-month total LLM cost and per-model cost timeseries for the tenant
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.timeseries_response import TimeseriesResponse
 from neuland_hub_sdk.models.usage_request import UsageRequest
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -227,12 +228,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     usage_request = neuland_hub_sdk.UsageRequest() # UsageRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -289,19 +289,20 @@ Return non-LLM service usage costs aggregated by source, model, and time period.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.usage_cost_request import UsageCostRequest
 from neuland_hub_sdk.models.usage_cost_response import UsageCostResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -315,12 +316,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     usage_cost_request = neuland_hub_sdk.UsageCostRequest() # UsageCostRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -378,19 +378,20 @@ Return current-month token totals and per-model token timeseries for the tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.tokens_timeseries_response import TokensTimeseriesResponse
 from neuland_hub_sdk.models.usage_request import UsageRequest
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -404,12 +405,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     usage_request = neuland_hub_sdk.UsageRequest() # UsageRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -466,19 +466,20 @@ Tenant-wide message-level token usage (count, totals, average).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.date_window_request import DateWindowRequest
 from neuland_hub_sdk.models.message_tokens_response import MessageTokensResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -492,12 +493,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     date_window_request = neuland_hub_sdk.DateWindowRequest() # DateWindowRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -554,19 +554,20 @@ Per-tenant usage for the caller's tenant plus its direct child tenants.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.date_window_request import DateWindowRequest
 from neuland_hub_sdk.models.subtenant_usage_response import SubtenantUsageResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -580,12 +581,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     date_window_request = neuland_hub_sdk.DateWindowRequest() # DateWindowRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -642,19 +642,20 @@ Aggregate the tenant's usage by any combination of dimensions and time bucket.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.usage_query_request import UsageQueryRequest
 from neuland_hub_sdk.models.usage_query_response import UsageQueryResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -668,12 +669,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     usage_query_request = neuland_hub_sdk.UsageQueryRequest() # UsageQueryRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
@@ -731,19 +731,20 @@ Idle assistants and license-utilization counts for the tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* OAuth Authentication (OAuth2PasswordBearer):
 
 ```python
+import os
 import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
 from neuland_hub_sdk.models.utilization_request import UtilizationRequest
 from neuland_hub_sdk.models.utilization_response import UtilizationResponse
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 # The client must configure the authentication and authorization parameters
@@ -757,12 +758,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Llm(api_client)
+    api_instance = Llm(api_client)
     utilization_request = neuland_hub_sdk.UtilizationRequest() # UtilizationRequest | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 

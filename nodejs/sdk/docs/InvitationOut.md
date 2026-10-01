@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { InvitationOut } from 'neuland-hub-sdk';
+import { InvitationOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: InvitationOut = {
     id,

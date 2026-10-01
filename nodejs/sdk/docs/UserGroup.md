@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { UserGroup } from 'neuland-hub-sdk';
+import { UserGroup } from '@neulandai/neuland-hub-sdk';
 
 const instance: UserGroup = {
     created_at,

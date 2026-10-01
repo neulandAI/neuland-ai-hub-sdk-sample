@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TokenOut } from 'neuland-hub-sdk';
+import { TokenOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: TokenOut = {
     access_token,

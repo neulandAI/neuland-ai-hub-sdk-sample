@@ -40,6 +40,7 @@ class EmailTemplateKey(str, Enum):
     APPS_DOT_MEMBERS_DOT_REMOVE = 'apps.members.remove'
     BUDGET_DOT_ALERT = 'budget.alert'
     SOFT_DOT_LIMIT_DOT_REACHED = 'soft.limit.reached'
+    BUDGET_DOT_TOPUP_DOT_ADDED = 'budget.topup.added'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

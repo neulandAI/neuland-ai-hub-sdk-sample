@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SsoInitOut } from 'neuland-hub-sdk';
+import { SsoInitOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: SsoInitOut = {
     authorize_url,

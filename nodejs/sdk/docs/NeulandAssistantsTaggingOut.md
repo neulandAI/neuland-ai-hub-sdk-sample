@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { NeulandAssistantsTaggingOut } from 'neuland-hub-sdk';
+import { NeulandAssistantsTaggingOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: NeulandAssistantsTaggingOut = {
     tag_id,

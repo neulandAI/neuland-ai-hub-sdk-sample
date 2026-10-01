@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { WorkflowIn } from 'neuland-hub-sdk';
+import { WorkflowIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: WorkflowIn = {
     name,

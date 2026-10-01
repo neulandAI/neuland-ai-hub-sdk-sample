@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { EmailCatalogOut } from 'neuland-hub-sdk';
+import { EmailCatalogOut } from '@neulandai/neuland-hub-sdk';
 
 const instance: EmailCatalogOut = {
     supported_languages,

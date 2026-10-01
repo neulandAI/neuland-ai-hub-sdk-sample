@@ -1,0 +1,147 @@
+name: Release SDKs
+
+# Publishes both SDKs when a release tag is pushed. Flow (see MAINTAINING.md):
+#   1. bump the version in python/sdk and nodejs/sdk in a PR, merge to dev
+#   2. fast-forward `release` to dev, tag it: git tag sdk-vX.Y.Z && git push origin release sdk-vX.Y.Z
+# Both registries trust this workflow via OIDC (trusted publishing), so there
+# are no stored tokens. The tag must match the version in both manifests.
+
+on:
+    push:
+        tags: ["sdk-v*"]
+
+permissions:
+    contents: read
+
+jobs:
+    check-version:
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.v.outputs.version }}
+        steps:
+            - uses: actions/checkout@v4
+            - id: v
+              name: Tag must match both manifests
+              run: |
+                  TAG_VERSION="${GITHUB_REF_NAME#sdk-v}"
+                  PY=$(python3 -c "import tomllib;print(tomllib.load(open('python/sdk/pyproject.toml','rb'))['project']['version'])")
+                  NODE=$(node -p "require('./nodejs/sdk/package.json').version")
+                  echo "tag=$TAG_VERSION python=$PY node=$NODE"
+                  [ "$TAG_VERSION" = "$PY" ] && [ "$TAG_VERSION" = "$NODE" ] || { echo "::error::version mismatch between tag and manifests"; exit 1; }
+                  echo "version=$TAG_VERSION" >> "$GITHUB_OUTPUT"
+
+    publish-pypi:
+        needs: check-version
+        runs-on: ubuntu-latest
+        environment: pypi
+        permissions:
+            id-token: write
+            contents: read
+        defaults:
+            run:
+                working-directory: python/sdk
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: "3.12"
+            - name: Build sdist and wheel
+              run: |
+                  python -m pip install --upgrade pip build
+                  python -m build
+            - name: Keep the built artifacts for the GitHub Release
+              uses: actions/upload-artifact@v4
+              with:
+                  name: python-dist
+                  path: python/sdk/dist/
+            - name: Publish to PyPI (trusted publishing)
+              uses: pypa/gh-action-pypi-publish@release/v1
+              with:
+                  packages-dir: python/sdk/dist/
+
+    publish-npm:
+        needs: check-version
+        runs-on: ubuntu-latest
+        environment: npm
+        permissions:
+            id-token: write
+            contents: read
+        defaults:
+            run:
+                working-directory: nodejs/sdk
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  registry-url: https://registry.npmjs.org
+            - name: npm >= 11.5 is required for trusted publishing
+              run: npm install -g npm@latest && npm --version
+            - name: Build
+              run: |
+                  npm ci --ignore-scripts
+                  npm run build
+            - name: Keep the tarball for the GitHub Release
+              run: npm pack --pack-destination "$RUNNER_TEMP"
+            - uses: actions/upload-artifact@v4
+              with:
+                  name: npm-tarball
+                  path: ${{ runner.temp }}/*.tgz
+            - name: Publish to npm (trusted publishing, with provenance)
+              run: npm publish --provenance --access public
+
+    # Same package name as npmjs (@neulandai/...), so no manifest rewriting:
+    # GitHub Packages requires the scope to match the repo owner, which it does.
+    # Auth is the built-in GITHUB_TOKEN -- no stored secret, no trusted publisher.
+    publish-github-packages:
+        needs: check-version
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        defaults:
+            run:
+                working-directory: nodejs/sdk
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  registry-url: https://npm.pkg.github.com
+                  scope: "@neulandai"
+            - name: Build
+              run: |
+                  npm ci --ignore-scripts
+                  npm run build
+            # No --provenance: that is an npmjs feature and is rejected here.
+            - name: Publish to GitHub Packages
+              run: npm publish --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # GitHub Packages has no Python registry, so the GitHub Release is where the
+    # wheel and sdist live. Artifacts are the exact ones the publish jobs sent.
+    github-release:
+        needs:
+            [
+                check-version,
+                publish-pypi,
+                publish-npm,
+                publish-github-packages,
+            ]
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/download-artifact@v4
+              with:
+                  path: artifacts
+            - name: Create the release and attach both SDKs
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  gh release create "$GITHUB_REF_NAME" \
+                      --title "SDK v${{ needs.check-version.outputs.version }}" \
+                      --generate-notes \
+                      artifacts/python-dist/* artifacts/npm-tarball/*

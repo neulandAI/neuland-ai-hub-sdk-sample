@@ -3,8 +3,8 @@
   "theme": "mint",
   "name": "Neuland AI Hub",
   "colors": {
-    "primary": "#8A38F5",
-    "light": "#74FF40",
+    "primary": "#0A0A0A",
+    "light": "#C4B5FD",
     "dark": "#7C3AED"
   },
   "navigation": {
@@ -20,7 +20,8 @@
             "group": "Getting Started",
             "pages": [
               "guides/introduction",
-              "guides/quickstart"
+              "guides/quickstart",
+              "guides/query"
             ]
           }
         ]
@@ -1118,7 +1119,7 @@
     }
   },
   "logo": {
-    "light": "/docs/images/nllogo\u2014design&wordmark\u2014darkpurple@2x4.png",
-    "dark": "/docs/images/nllogo\u2014design&wordmark\u2014darkpurple@2x.png"
+    "light": "/docs/images/nllogo—design&wordmark—darkpurple@2x4.png",
+    "dark": "/docs/images/nllogo—design&wordmark—darkpurple@2x.png"
   }
 }

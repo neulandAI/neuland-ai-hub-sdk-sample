@@ -21,9 +21,17 @@ The Hub streams message generation token-by-token over **Server-Sent Events
 
 ## Install the streaming client
 
-The client is a single dependency-light file — copy `streaming.py` into your
-project. It needs only `urllib3` (already an SDK dependency) and reuses the
+The client is a single dependency-light file — copy
+[`python/streaming.py`](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/python/streaming.py)
+from the repository into your project. It needs only `urllib3` (already an SDK dependency) and reuses the
 SDK's `Configuration` for the host and API key.
+
+<Warning>
+  Streaming must be enabled on your Hub deployment. If the stream endpoints
+  answer `500` or `503` with "Streaming is not configured", it is off; fall
+  back to polling the chat turns as described under
+  [Usage](/sdk/python/usage#common-questions).
+</Warning>
 
 ## Stream a new message
 
@@ -32,7 +40,7 @@ from neuland_hub_sdk import Configuration
 from streaming import stream_message
 
 config = Configuration(host="https://api.your-domain.com")
-config.api_key["APIKeyHeader"] = "ak.<key_id>.<secret>"  # sent as X-API-KEY
+config.api_key["APIKeyHeader"] = "ak_prod_v1.<key_id>.<secret>"  # sent as X-API-KEY
 
 for event in stream_message(config, {"content": "Explain quantum tunneling"}):
     print(event.event, event.data)

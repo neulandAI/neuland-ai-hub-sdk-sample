@@ -1,6 +1,6 @@
 # neuland_hub_sdk.Default
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -24,20 +24,21 @@ Runs comprehensive health checks for all configured services and returns results
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.default import Default
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Default(api_client)
+    api_instance = Default(api_client)
 
     try:
         # Post Check
@@ -87,20 +88,21 @@ A welcome message for the API and testing.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.default import Default
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Default(api_client)
+    api_instance = Default(api_client)
 
     try:
         # Root
@@ -150,20 +152,21 @@ Returns application stat.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.default import Default
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Default(api_client)
+    api_instance = Default(api_client)
 
     try:
         # Stat
@@ -213,21 +216,22 @@ Get the icon for a tenant
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.default import Default
 from neuland_hub_sdk.models.tenant_theme_out import TenantThemeOut
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Default(api_client)
+    api_instance = Default(api_client)
     origin = 'origin_example' # str |  (optional)
 
     try:
@@ -282,20 +286,21 @@ Returns version information about the deployed application.
 
 ```python
 import neuland_hub_sdk
+from neuland_hub_sdk.api.default import Default
 from neuland_hub_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to http://localhost
+# Your Hub API URL
 # See configuration.py for a list of all supported configuration parameters.
 configuration = neuland_hub_sdk.Configuration(
-    host = "http://localhost"
+    host = "https://api.your-domain.com"
 )
 
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = neuland_hub_sdk.Default(api_client)
+    api_instance = Default(api_client)
 
     try:
         # Version

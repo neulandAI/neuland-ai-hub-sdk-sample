@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { FeatureFlagSetIn } from 'neuland-hub-sdk';
+import { FeatureFlagSetIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: FeatureFlagSetIn = {
     enabled,

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { MarketplaceCatalogStateUpdate } from 'neuland-hub-sdk';
+import { MarketplaceCatalogStateUpdate } from '@neulandai/neuland-hub-sdk';
 
 const instance: MarketplaceCatalogStateUpdate = {
     state,

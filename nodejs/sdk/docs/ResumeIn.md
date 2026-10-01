@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { ResumeIn } from 'neuland-hub-sdk';
+import { ResumeIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: ResumeIn = {
     decision,

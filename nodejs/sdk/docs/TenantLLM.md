@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { TenantLLM } from 'neuland-hub-sdk';
+import { TenantLLM } from '@neulandai/neuland-hub-sdk';
 
 const instance: TenantLLM = {
     created_at,

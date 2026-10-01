@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { Connector } from 'neuland-hub-sdk';
+import { Connector } from '@neulandai/neuland-hub-sdk';
 
 const instance: Connector = {
     created_at,

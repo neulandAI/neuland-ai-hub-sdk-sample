@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 ## Example
 
 ```typescript
-import { SharepointFolderModel } from 'neuland-hub-sdk';
+import { SharepointFolderModel } from '@neulandai/neuland-hub-sdk';
 
 const instance: SharepointFolderModel = {
     child_count,

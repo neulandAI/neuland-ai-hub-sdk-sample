@@ -3,38 +3,20 @@ title: "Installation"
 description: "Install the Neuland AI Hub Node SDK."
 ---
 
-The Node SDK lives in the `nodejs/sdk` subdirectory of the GitHub repository.
-npm can't install a git **subdirectory** natively, so use one of the methods
-below.
-
-## Authenticate to GitHub
-
-The repository is private, so installing needs GitHub access — add your SSH key
-to GitHub, or use a personal access token (`~/.netrc` for local, `GITHUB_TOKEN`
-in the URL for CI). See the [Python guide](/sdk/python/installation) for the
-`~/.netrc` snippet; the same credentials apply here.
+The Node SDK is published on npm as `@neulandai/neuland-hub-sdk`. It ships TypeScript
+types and works with CommonJS and ES modules.
 
 ## Install
 
-<Tabs>
-  <Tab title="gitpkg (recommended)">
-    Install the subdirectory directly via [gitpkg](https://gitpkg.vercel.app):
+```bash
+npm install @neulandai/neuland-hub-sdk
+```
 
-    ```bash
-    npm install "https://gitpkg.vercel.app/neulandAI/neuland-ai-hub-sdk-sample/nodejs/sdk?dev"
-    ```
-  </Tab>
-  <Tab title="Local clone">
-    Clone, build, then install from the local path:
-
-    ```bash
-    git clone git@github.com:neulandAI/neuland-ai-hub-sdk-sample.git
-    cd neuland-ai-hub-sdk-sample/nodejs/sdk && npm install && npm run build
-    # then in your project:
-    npm install /absolute/path/to/neuland-ai-hub-sdk-sample/nodejs/sdk
-    ```
-  </Tab>
-</Tabs>
+<Note>
+  Releases are tagged `sdk-v<version>` in the
+  [GitHub repository](https://github.com/neulandAI/neuland-ai-hub-sdk-sample).
+  To build from source instead, clone it, then `cd nodejs/sdk && npm ci && npm run build`.
+</Note>
 
 ## Requirements
 
