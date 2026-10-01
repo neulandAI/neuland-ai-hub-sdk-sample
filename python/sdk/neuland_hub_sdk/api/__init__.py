@@ -16,7 +16,7 @@ from neuland_hub_sdk.api.custom_connector import CustomConnector
 from neuland_hub_sdk.api.document import Document
 from neuland_hub_sdk.api.dropbox import Dropbox
 from neuland_hub_sdk.api.feature_flag import FeatureFlag
-from neuland_hub_sdk.api.file import File
+from neuland_hub_sdk.api.files import Files
 from neuland_hub_sdk.api.google_drive import GoogleDrive
 from neuland_hub_sdk.api.invitation import Invitation
 from neuland_hub_sdk.api.library import Library

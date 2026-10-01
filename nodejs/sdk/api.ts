@@ -7210,12 +7210,12 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
         /**
          * Return every application catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
          * @summary List all application catalog items — superadmin only
-         * @param {MarketplaceCatalogStateEnum | null} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
+         * @param {ApplicationListCatalogStateEnum} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationListCatalog: async (state?: MarketplaceCatalogStateEnum | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        applicationListCatalog: async (state?: ApplicationListCatalogStateEnum, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/marketplace/application/catalog/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7507,12 +7507,12 @@ export const ApplicationMarketplaceFp = function(configuration?: Configuration) 
         /**
          * Return every application catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
          * @summary List all application catalog items — superadmin only
-         * @param {MarketplaceCatalogStateEnum | null} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
+         * @param {ApplicationListCatalogStateEnum} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async applicationListCatalog(state?: MarketplaceCatalogStateEnum | null, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationCatalog>>> {
+        async applicationListCatalog(state?: ApplicationListCatalogStateEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ApplicationCatalog>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.applicationListCatalog(state, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ApplicationMarketplace.applicationListCatalog']?.[localVarOperationServerIndex]?.url;
@@ -7623,12 +7623,12 @@ export const ApplicationMarketplaceFactory = function (configuration?: Configura
         /**
          * Return every application catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
          * @summary List all application catalog items — superadmin only
-         * @param {MarketplaceCatalogStateEnum | null} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
+         * @param {ApplicationListCatalogStateEnum} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationListCatalog(state?: MarketplaceCatalogStateEnum | null, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<ApplicationCatalog>> {
+        applicationListCatalog(state?: ApplicationListCatalogStateEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<ApplicationCatalog>> {
             return localVarFp.applicationListCatalog(state, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7725,12 +7725,12 @@ export class ApplicationMarketplace extends BaseAPI {
     /**
      * Return every application catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
      * @summary List all application catalog items — superadmin only
-     * @param {MarketplaceCatalogStateEnum | null} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
+     * @param {ApplicationListCatalogStateEnum} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public applicationListCatalog(state?: MarketplaceCatalogStateEnum | null, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+    public applicationListCatalog(state?: ApplicationListCatalogStateEnum, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return ApplicationMarketplaceFp(this.configuration).applicationListCatalog(state, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -7786,6 +7786,11 @@ export class ApplicationMarketplace extends BaseAPI {
     }
 }
 
+export const ApplicationListCatalogStateEnum = {
+    ACTIVE: 'ACTIVE',
+    DEPRECATED: 'DEPRECATED',
+} as const;
+export type ApplicationListCatalogStateEnum = typeof ApplicationListCatalogStateEnum[keyof typeof ApplicationListCatalogStateEnum];
 
 
 /**
@@ -9690,12 +9695,12 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
         /**
          * Return every assistant catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
          * @summary List all assistant catalog items — superadmin only
-         * @param {MarketplaceCatalogStateEnum | null} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
+         * @param {AssistantListCatalogStateEnum} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        assistantListCatalog: async (state?: MarketplaceCatalogStateEnum | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        assistantListCatalog: async (state?: AssistantListCatalogStateEnum, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/marketplace/assistant/catalog/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -10233,12 +10238,12 @@ export const AssistantMarketplaceFp = function(configuration?: Configuration) {
         /**
          * Return every assistant catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
          * @summary List all assistant catalog items — superadmin only
-         * @param {MarketplaceCatalogStateEnum | null} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
+         * @param {AssistantListCatalogStateEnum} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async assistantListCatalog(state?: MarketplaceCatalogStateEnum | null, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssistantCatalog>>> {
+        async assistantListCatalog(state?: AssistantListCatalogStateEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssistantCatalog>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.assistantListCatalog(state, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AssistantMarketplace.assistantListCatalog']?.[localVarOperationServerIndex]?.url;
@@ -10402,12 +10407,12 @@ export const AssistantMarketplaceFactory = function (configuration?: Configurati
         /**
          * Return every assistant catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
          * @summary List all assistant catalog items — superadmin only
-         * @param {MarketplaceCatalogStateEnum | null} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
+         * @param {AssistantListCatalogStateEnum} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        assistantListCatalog(state?: MarketplaceCatalogStateEnum | null, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<AssistantCatalog>> {
+        assistantListCatalog(state?: AssistantListCatalogStateEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<AssistantCatalog>> {
             return localVarFp.assistantListCatalog(state, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -10536,12 +10541,12 @@ export class AssistantMarketplace extends BaseAPI {
     /**
      * Return every assistant catalog row (both ACTIVE and DEPRECATED).  The public marketplace view filters DEPRECATED items out; this endpoint exposes them so a superadmin UI can render them with a \"Deprecated\" badge and PATCH the state back to ACTIVE when needed.
      * @summary List all assistant catalog items — superadmin only
-     * @param {MarketplaceCatalogStateEnum | null} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
+     * @param {AssistantListCatalogStateEnum} [state] Filter by state (ACTIVE / DEPRECATED). Omit for all.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public assistantListCatalog(state?: MarketplaceCatalogStateEnum | null, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+    public assistantListCatalog(state?: AssistantListCatalogStateEnum, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return AssistantMarketplaceFp(this.configuration).assistantListCatalog(state, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -10672,6 +10677,11 @@ export class AssistantMarketplace extends BaseAPI {
     }
 }
 
+export const AssistantListCatalogStateEnum = {
+    ACTIVE: 'ACTIVE',
+    DEPRECATED: 'DEPRECATED',
+} as const;
+export type AssistantListCatalogStateEnum = typeof AssistantListCatalogStateEnum[keyof typeof AssistantListCatalogStateEnum];
 
 
 /**
@@ -16467,9 +16477,9 @@ export class FeatureFlag extends BaseAPI {
 
 
 /**
- * File - axios parameter creator
+ * Files - axios parameter creator
  */
-export const FileAxiosParamCreator = function (configuration?: Configuration) {
+export const FilesAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Stream a stored file as an attachment to authorized callers.
@@ -16567,10 +16577,10 @@ export const FileAxiosParamCreator = function (configuration?: Configuration) {
 };
 
 /**
- * File - functional programming interface
+ * Files - functional programming interface
  */
-export const FileFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = FileAxiosParamCreator(configuration)
+export const FilesFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FilesAxiosParamCreator(configuration)
     return {
         /**
          * Stream a stored file as an attachment to authorized callers.
@@ -16583,7 +16593,7 @@ export const FileFp = function(configuration?: Configuration) {
         async filesDownloadFile(fileId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.filesDownloadFile(fileId, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['File.filesDownloadFile']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['Files.filesDownloadFile']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -16597,17 +16607,17 @@ export const FileFp = function(configuration?: Configuration) {
         async filesPresignedFileUrl(fileId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DirectFileUrl>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.filesPresignedFileUrl(fileId, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['File.filesPresignedFileUrl']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['Files.filesPresignedFileUrl']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * File - factory interface
+ * Files - factory interface
  */
-export const FileFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = FileFp(configuration)
+export const FilesFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FilesFp(configuration)
     return {
         /**
          * Stream a stored file as an attachment to authorized callers.
@@ -16635,9 +16645,9 @@ export const FileFactory = function (configuration?: Configuration, basePath?: s
 };
 
 /**
- * File - object-oriented interface
+ * Files - object-oriented interface
  */
-export class File extends BaseAPI {
+export class Files extends BaseAPI {
     /**
      * Stream a stored file as an attachment to authorized callers.
      * @summary Download a file
@@ -16647,7 +16657,7 @@ export class File extends BaseAPI {
      * @throws {RequiredError}
      */
     public filesDownloadFile(fileId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
-        return FileFp(this.configuration).filesDownloadFile(fileId, cookieName, options).then((request) => request(this.axios, this.basePath));
+        return FilesFp(this.configuration).filesDownloadFile(fileId, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -16659,7 +16669,7 @@ export class File extends BaseAPI {
      * @throws {RequiredError}
      */
     public filesPresignedFileUrl(fileId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
-        return FileFp(this.configuration).filesPresignedFileUrl(fileId, cookieName, options).then((request) => request(this.axios, this.basePath));
+        return FilesFp(this.configuration).filesPresignedFileUrl(fileId, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -20153,12 +20163,12 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * Convert a message to various document formats.
          * @summary Convert a message to a document
          * @param {string} messageId ID of the message to convert.
-         * @param {OutputFormat} format Output format
+         * @param {MessagesConvertMessageFormatEnum} format Output format
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesConvertMessage: async (messageId: string, format: OutputFormat, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messagesConvertMessage: async (messageId: string, format: MessagesConvertMessageFormatEnum, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'messageId' is not null or undefined
             assertParamExists('messagesConvertMessage', 'messageId', messageId)
             // verify required parameter 'format' is not null or undefined
@@ -20191,7 +20201,7 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
 
-            localVarHeaderParameter['Accept'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/octet-stream,application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -20345,12 +20355,12 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * Rephrase a message\'s content in the requested style.
          * @summary Rephrase a message
          * @param {string} messageId ID of the message to rephrase.
-         * @param {RephraseStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
+         * @param {MessagesRephraseMessageStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesRephraseMessage: async (messageId: string, style: RephraseStyleEnum, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messagesRephraseMessage: async (messageId: string, style: MessagesRephraseMessageStyleEnum, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'messageId' is not null or undefined
             assertParamExists('messagesRephraseMessage', 'messageId', messageId)
             // verify required parameter 'style' is not null or undefined
@@ -20657,12 +20667,12 @@ export const MessageFp = function(configuration?: Configuration) {
          * Convert a message to various document formats.
          * @summary Convert a message to a document
          * @param {string} messageId ID of the message to convert.
-         * @param {OutputFormat} format Output format
+         * @param {MessagesConvertMessageFormatEnum} format Output format
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messagesConvertMessage(messageId: string, format: OutputFormat, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async messagesConvertMessage(messageId: string, format: MessagesConvertMessageFormatEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.messagesConvertMessage(messageId, format, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Message.messagesConvertMessage']?.[localVarOperationServerIndex]?.url;
@@ -20714,12 +20724,12 @@ export const MessageFp = function(configuration?: Configuration) {
          * Rephrase a message\'s content in the requested style.
          * @summary Rephrase a message
          * @param {string} messageId ID of the message to rephrase.
-         * @param {RephraseStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
+         * @param {MessagesRephraseMessageStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messagesRephraseMessage(messageId: string, style: RephraseStyleEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Translation>> {
+        async messagesRephraseMessage(messageId: string, style: MessagesRephraseMessageStyleEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Translation>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.messagesRephraseMessage(messageId, style, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Message.messagesRephraseMessage']?.[localVarOperationServerIndex]?.url;
@@ -20809,12 +20819,12 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * Convert a message to various document formats.
          * @summary Convert a message to a document
          * @param {string} messageId ID of the message to convert.
-         * @param {OutputFormat} format Output format
+         * @param {MessagesConvertMessageFormatEnum} format Output format
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesConvertMessage(messageId: string, format: OutputFormat, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+        messagesConvertMessage(messageId: string, format: MessagesConvertMessageFormatEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<File> {
             return localVarFp.messagesConvertMessage(messageId, format, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -20854,12 +20864,12 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * Rephrase a message\'s content in the requested style.
          * @summary Rephrase a message
          * @param {string} messageId ID of the message to rephrase.
-         * @param {RephraseStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
+         * @param {MessagesRephraseMessageStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesRephraseMessage(messageId: string, style: RephraseStyleEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Translation> {
+        messagesRephraseMessage(messageId: string, style: MessagesRephraseMessageStyleEnum, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Translation> {
             return localVarFp.messagesRephraseMessage(messageId, style, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -20936,12 +20946,12 @@ export class Message extends BaseAPI {
      * Convert a message to various document formats.
      * @summary Convert a message to a document
      * @param {string} messageId ID of the message to convert.
-     * @param {OutputFormat} format Output format
+     * @param {MessagesConvertMessageFormatEnum} format Output format
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public messagesConvertMessage(messageId: string, format: OutputFormat, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+    public messagesConvertMessage(messageId: string, format: MessagesConvertMessageFormatEnum, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return MessageFp(this.configuration).messagesConvertMessage(messageId, format, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -20985,12 +20995,12 @@ export class Message extends BaseAPI {
      * Rephrase a message\'s content in the requested style.
      * @summary Rephrase a message
      * @param {string} messageId ID of the message to rephrase.
-     * @param {RephraseStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
+     * @param {MessagesRephraseMessageStyleEnum} style Style of rephrasing: \&#39;same\&#39; (same length), \&#39;short\&#39; (shorter), or \&#39;long\&#39; (longer)
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public messagesRephraseMessage(messageId: string, style: RephraseStyleEnum, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+    public messagesRephraseMessage(messageId: string, style: MessagesRephraseMessageStyleEnum, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return MessageFp(this.configuration).messagesRephraseMessage(messageId, style, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -21049,6 +21059,22 @@ export class Message extends BaseAPI {
     }
 }
 
+export const MessagesConvertMessageFormatEnum = {
+    pdf: 'pdf',
+    docx: 'docx',
+    html: 'html',
+    rtf: 'rtf',
+    odt: 'odt',
+    xlsx: 'xlsx',
+    csv: 'csv',
+} as const;
+export type MessagesConvertMessageFormatEnum = typeof MessagesConvertMessageFormatEnum[keyof typeof MessagesConvertMessageFormatEnum];
+export const MessagesRephraseMessageStyleEnum = {
+    same: 'same',
+    short: 'short',
+    long: 'long',
+} as const;
+export type MessagesRephraseMessageStyleEnum = typeof MessagesRephraseMessageStyleEnum[keyof typeof MessagesRephraseMessageStyleEnum];
 
 
 /**
@@ -24017,13 +24043,13 @@ export const RatingAxiosParamCreator = function (configuration?: Configuration) 
         /**
          * Delete the caller\'s rating for the target resource.
          * @summary Delete a rating
-         * @param {RateableTypeEnum} rateableType Kind of resource whose rating to delete.
+         * @param {RatingsRemoveRateableTypeEnum} rateableType Kind of resource whose rating to delete.
          * @param {string} rateableId Public id of the resource whose rating to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ratingsRemove: async (rateableType: RateableTypeEnum, rateableId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        ratingsRemove: async (rateableType: RatingsRemoveRateableTypeEnum, rateableId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'rateableType' is not null or undefined
             assertParamExists('ratingsRemove', 'rateableType', rateableType)
             // verify required parameter 'rateableId' is not null or undefined
@@ -24123,13 +24149,13 @@ export const RatingFp = function(configuration?: Configuration) {
         /**
          * Delete the caller\'s rating for the target resource.
          * @summary Delete a rating
-         * @param {RateableTypeEnum} rateableType Kind of resource whose rating to delete.
+         * @param {RatingsRemoveRateableTypeEnum} rateableType Kind of resource whose rating to delete.
          * @param {string} rateableId Public id of the resource whose rating to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ratingsRemove(rateableType: RateableTypeEnum, rateableId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async ratingsRemove(rateableType: RatingsRemoveRateableTypeEnum, rateableId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.ratingsRemove(rateableType, rateableId, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Rating.ratingsRemove']?.[localVarOperationServerIndex]?.url;
@@ -24161,13 +24187,13 @@ export const RatingFactory = function (configuration?: Configuration, basePath?:
         /**
          * Delete the caller\'s rating for the target resource.
          * @summary Delete a rating
-         * @param {RateableTypeEnum} rateableType Kind of resource whose rating to delete.
+         * @param {RatingsRemoveRateableTypeEnum} rateableType Kind of resource whose rating to delete.
          * @param {string} rateableId Public id of the resource whose rating to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ratingsRemove(rateableType: RateableTypeEnum, rateableId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        ratingsRemove(rateableType: RatingsRemoveRateableTypeEnum, rateableId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.ratingsRemove(rateableType, rateableId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -24191,13 +24217,13 @@ export class Rating extends BaseAPI {
     /**
      * Delete the caller\'s rating for the target resource.
      * @summary Delete a rating
-     * @param {RateableTypeEnum} rateableType Kind of resource whose rating to delete.
+     * @param {RatingsRemoveRateableTypeEnum} rateableType Kind of resource whose rating to delete.
      * @param {string} rateableId Public id of the resource whose rating to delete.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public ratingsRemove(rateableType: RateableTypeEnum, rateableId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+    public ratingsRemove(rateableType: RatingsRemoveRateableTypeEnum, rateableId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return RatingFp(this.configuration).ratingsRemove(rateableType, rateableId, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -24214,6 +24240,12 @@ export class Rating extends BaseAPI {
     }
 }
 
+export const RatingsRemoveRateableTypeEnum = {
+    ASSISTANT_CATALOG: 'ASSISTANT_CATALOG',
+    COMMUNITY_ASSISTANT: 'COMMUNITY_ASSISTANT',
+    APP_CATALOG: 'APP_CATALOG',
+} as const;
+export type RatingsRemoveRateableTypeEnum = typeof RatingsRemoveRateableTypeEnum[keyof typeof RatingsRemoveRateableTypeEnum];
 
 
 /**
@@ -24271,13 +24303,13 @@ export const ResourceAccessAxiosParamCreator = function (configuration?: Configu
          * Revoke one direct grant. The user keeps whatever their roles grant.
          * @summary Revoke one direct grant from a user
          * @param {string} userId Public id of the user.
-         * @param {AccessKind} kind Which resource kind to revoke.
+         * @param {AccessRevokeUserGrantKindEnum} kind Which resource kind to revoke.
          * @param {string} itemId Public id of the item to revoke.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        accessRevokeUserGrant: async (userId: string, kind: AccessKind, itemId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        accessRevokeUserGrant: async (userId: string, kind: AccessRevokeUserGrantKindEnum, itemId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('accessRevokeUserGrant', 'userId', userId)
             // verify required parameter 'kind' is not null or undefined
@@ -24325,13 +24357,13 @@ export const ResourceAccessAxiosParamCreator = function (configuration?: Configu
          * Grant these items directly, on top of what the user\'s roles already give.  The complete desired set: an item left out is revoked. That returns the user to their roles\' set rather than to nothing, so unlike a role change this cannot strip anyone bare.
          * @summary Set a user\'s direct grants for one kind
          * @param {string} userId Public id of the user to grant to.
-         * @param {AccessKind} kind Which resource kind to set.
+         * @param {AccessSetUserGrantsKindEnum} kind Which resource kind to set.
          * @param {UserGrantIn} userGrantIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        accessSetUserGrants: async (userId: string, kind: AccessKind, userGrantIn: UserGrantIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        accessSetUserGrants: async (userId: string, kind: AccessSetUserGrantsKindEnum, userGrantIn: UserGrantIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             assertParamExists('accessSetUserGrants', 'userId', userId)
             // verify required parameter 'kind' is not null or undefined
@@ -24403,13 +24435,13 @@ export const ResourceAccessFp = function(configuration?: Configuration) {
          * Revoke one direct grant. The user keeps whatever their roles grant.
          * @summary Revoke one direct grant from a user
          * @param {string} userId Public id of the user.
-         * @param {AccessKind} kind Which resource kind to revoke.
+         * @param {AccessRevokeUserGrantKindEnum} kind Which resource kind to revoke.
          * @param {string} itemId Public id of the item to revoke.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async accessRevokeUserGrant(userId: string, kind: AccessKind, itemId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async accessRevokeUserGrant(userId: string, kind: AccessRevokeUserGrantKindEnum, itemId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.accessRevokeUserGrant(userId, kind, itemId, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ResourceAccess.accessRevokeUserGrant']?.[localVarOperationServerIndex]?.url;
@@ -24419,13 +24451,13 @@ export const ResourceAccessFp = function(configuration?: Configuration) {
          * Grant these items directly, on top of what the user\'s roles already give.  The complete desired set: an item left out is revoked. That returns the user to their roles\' set rather than to nothing, so unlike a role change this cannot strip anyone bare.
          * @summary Set a user\'s direct grants for one kind
          * @param {string} userId Public id of the user to grant to.
-         * @param {AccessKind} kind Which resource kind to set.
+         * @param {AccessSetUserGrantsKindEnum} kind Which resource kind to set.
          * @param {UserGrantIn} userGrantIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async accessSetUserGrants(userId: string, kind: AccessKind, userGrantIn: UserGrantIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserGrantOut>>> {
+        async accessSetUserGrants(userId: string, kind: AccessSetUserGrantsKindEnum, userGrantIn: UserGrantIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserGrantOut>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.accessSetUserGrants(userId, kind, userGrantIn, cookieName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ResourceAccess.accessSetUserGrants']?.[localVarOperationServerIndex]?.url;
@@ -24455,26 +24487,26 @@ export const ResourceAccessFactory = function (configuration?: Configuration, ba
          * Revoke one direct grant. The user keeps whatever their roles grant.
          * @summary Revoke one direct grant from a user
          * @param {string} userId Public id of the user.
-         * @param {AccessKind} kind Which resource kind to revoke.
+         * @param {AccessRevokeUserGrantKindEnum} kind Which resource kind to revoke.
          * @param {string} itemId Public id of the item to revoke.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        accessRevokeUserGrant(userId: string, kind: AccessKind, itemId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        accessRevokeUserGrant(userId: string, kind: AccessRevokeUserGrantKindEnum, itemId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.accessRevokeUserGrant(userId, kind, itemId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
          * Grant these items directly, on top of what the user\'s roles already give.  The complete desired set: an item left out is revoked. That returns the user to their roles\' set rather than to nothing, so unlike a role change this cannot strip anyone bare.
          * @summary Set a user\'s direct grants for one kind
          * @param {string} userId Public id of the user to grant to.
-         * @param {AccessKind} kind Which resource kind to set.
+         * @param {AccessSetUserGrantsKindEnum} kind Which resource kind to set.
          * @param {UserGrantIn} userGrantIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        accessSetUserGrants(userId: string, kind: AccessKind, userGrantIn: UserGrantIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<UserGrantOut>> {
+        accessSetUserGrants(userId: string, kind: AccessSetUserGrantsKindEnum, userGrantIn: UserGrantIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<UserGrantOut>> {
             return localVarFp.accessSetUserGrants(userId, kind, userGrantIn, cookieName, options).then((request) => request(axios, basePath));
         },
     };
@@ -24500,13 +24532,13 @@ export class ResourceAccess extends BaseAPI {
      * Revoke one direct grant. The user keeps whatever their roles grant.
      * @summary Revoke one direct grant from a user
      * @param {string} userId Public id of the user.
-     * @param {AccessKind} kind Which resource kind to revoke.
+     * @param {AccessRevokeUserGrantKindEnum} kind Which resource kind to revoke.
      * @param {string} itemId Public id of the item to revoke.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public accessRevokeUserGrant(userId: string, kind: AccessKind, itemId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+    public accessRevokeUserGrant(userId: string, kind: AccessRevokeUserGrantKindEnum, itemId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return ResourceAccessFp(this.configuration).accessRevokeUserGrant(userId, kind, itemId, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -24514,17 +24546,29 @@ export class ResourceAccess extends BaseAPI {
      * Grant these items directly, on top of what the user\'s roles already give.  The complete desired set: an item left out is revoked. That returns the user to their roles\' set rather than to nothing, so unlike a role change this cannot strip anyone bare.
      * @summary Set a user\'s direct grants for one kind
      * @param {string} userId Public id of the user to grant to.
-     * @param {AccessKind} kind Which resource kind to set.
+     * @param {AccessSetUserGrantsKindEnum} kind Which resource kind to set.
      * @param {UserGrantIn} userGrantIn 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public accessSetUserGrants(userId: string, kind: AccessKind, userGrantIn: UserGrantIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+    public accessSetUserGrants(userId: string, kind: AccessSetUserGrantsKindEnum, userGrantIn: UserGrantIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return ResourceAccessFp(this.configuration).accessSetUserGrants(userId, kind, userGrantIn, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
+export const AccessRevokeUserGrantKindEnum = {
+    model: 'model',
+    tool: 'tool',
+    connector: 'connector',
+} as const;
+export type AccessRevokeUserGrantKindEnum = typeof AccessRevokeUserGrantKindEnum[keyof typeof AccessRevokeUserGrantKindEnum];
+export const AccessSetUserGrantsKindEnum = {
+    model: 'model',
+    tool: 'tool',
+    connector: 'connector',
+} as const;
+export type AccessSetUserGrantsKindEnum = typeof AccessSetUserGrantsKindEnum[keyof typeof AccessSetUserGrantsKindEnum];
 
 
 /**

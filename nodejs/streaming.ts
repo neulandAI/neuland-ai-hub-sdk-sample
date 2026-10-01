@@ -53,9 +53,9 @@ export function streamMessage(
   return request("POST", url, opts, JSON.stringify(opts.message));
 }
 
-/** GET /messages/{id}/stream — observe an existing message's stream. */
+/** GET /messages/{id}/stream — observe an existing message's stream. `messageId` is the message's public id (UUID). */
 export function observeMessage(
-  opts: StreamOptions & { messageId: number },
+  opts: StreamOptions & { messageId: string },
 ): AsyncGenerator<StreamEvent> {
   const url = `${trimEnd(opts.baseUrl)}/messages/${opts.messageId}/stream`;
   return request("GET", url, opts);

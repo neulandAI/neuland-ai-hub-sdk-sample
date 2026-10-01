@@ -48,12 +48,13 @@ for event in stream_message(config, {"content": "Explain quantum tunneling"}):
 
 ## Observe an existing message
 
-Already created a message and want to watch its generation? Stream it by id:
+Already created a message and want to watch its generation? Stream it by its
+public id (the `public_id` field of the message, a UUID):
 
 ```python
 from streaming import observe_message
 
-for event in observe_message(config, message_id=123):
+for event in observe_message(config, message_id="<message public_id>"):
     print(event.event, event.data)
 ```
 

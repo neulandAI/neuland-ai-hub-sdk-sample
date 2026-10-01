@@ -141,8 +141,13 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/AccessKind",
-              "description": "Which resource kind to set."
+              "type": "string",
+              "enum": [
+                "model",
+                "tool",
+                "connector"
+              ],
+              "description": "The resource kinds access is resolved for."
             },
             "description": "Which resource kind to set."
           },
@@ -237,8 +242,13 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/AccessKind",
-              "description": "Which resource kind to revoke."
+              "type": "string",
+              "enum": [
+                "model",
+                "tool",
+                "connector"
+              ],
+              "description": "The resource kinds access is resolved for."
             },
             "description": "Which resource kind to revoke."
           },
@@ -6729,7 +6739,7 @@
     "/files/{file_id}": {
       "get": {
         "tags": [
-          "File"
+          "Files"
         ],
         "summary": "Download a file",
         "description": "Stream a stored file as an attachment to authorized callers.",
@@ -6804,7 +6814,7 @@
     "/files/{file_id}/url": {
       "get": {
         "tags": [
-          "File"
+          "Files"
         ],
         "summary": "Get a short-lived direct download URL for a file",
         "description": "Short-lived read-only URL for streaming media straight from storage.",
@@ -14133,16 +14143,12 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/MarketplaceCatalogStateEnum"
-                },
-                {
-                  "type": "null"
-                }
+              "type": "string",
+              "enum": [
+                "ACTIVE",
+                "DEPRECATED"
               ],
-              "description": "Filter by state (ACTIVE / DEPRECATED). Omit for all.",
-              "title": "State"
+              "description": "Lifecycle state shared by every marketplace catalog table.\n\nKept intentionally minimal: catalog rows are soft-deleted by flipping to\nDEPRECATED, not hard-deleted, so tenant installs referencing them survive."
             },
             "description": "Filter by state (ACTIVE / DEPRECATED). Omit for all."
           },
@@ -14772,16 +14778,12 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/MarketplaceCatalogStateEnum"
-                },
-                {
-                  "type": "null"
-                }
+              "type": "string",
+              "enum": [
+                "ACTIVE",
+                "DEPRECATED"
               ],
-              "description": "Filter by state (ACTIVE / DEPRECATED). Omit for all.",
-              "title": "State"
+              "description": "Lifecycle state shared by every marketplace catalog table.\n\nKept intentionally minimal: catalog rows are soft-deleted by flipping to\nDEPRECATED, not hard-deleted, so tenant installs referencing them survive."
             },
             "description": "Filter by state (ACTIVE / DEPRECATED). Omit for all."
           },
@@ -15884,8 +15886,16 @@
             "in": "query",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/OutputFormat",
-              "description": "Output format"
+              "type": "string",
+              "enum": [
+                "pdf",
+                "docx",
+                "html",
+                "rtf",
+                "odt",
+                "xlsx",
+                "csv"
+              ]
             },
             "description": "Output format"
           },
@@ -15910,8 +15920,11 @@
           "200": {
             "description": "Successful Response",
             "content": {
-              "application/json": {
-                "schema": {}
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
               }
             }
           },
@@ -16061,8 +16074,12 @@
             "in": "query",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/RephraseStyleEnum",
-              "description": "Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)"
+              "type": "string",
+              "enum": [
+                "same",
+                "short",
+                "long"
+              ]
             },
             "description": "Style of rephrasing: 'same' (same length), 'short' (shorter), or 'long' (longer)"
           },
@@ -17665,8 +17682,13 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/RateableTypeEnum",
-              "description": "Kind of resource whose rating to delete."
+              "type": "string",
+              "enum": [
+                "ASSISTANT_CATALOG",
+                "COMMUNITY_ASSISTANT",
+                "APP_CATALOG"
+              ],
+              "description": "Resources that can be rated through the generic rating system."
             },
             "description": "Kind of resource whose rating to delete."
           },
@@ -43735,7 +43757,7 @@
       "description": "Document libraries: collections of documents and their settings."
     },
     {
-      "name": "File",
+      "name": "Files",
       "description": "Raw file upload, download, and management."
     },
     {

@@ -5,7 +5,7 @@ header. Create one in the Hub under **Settings → API Keys**.
 
 Full guides, quickstart and API reference: https://docs.neuland-hub.ai
 
-## @neulandai/neuland-hub-sdk@1.1.0
+## @neulandai/neuland-hub-sdk@1.2.0
 
 This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
 
@@ -39,7 +39,7 @@ navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install @neulandai/neuland-hub-sdk@1.1.0 --save
+npm install @neulandai/neuland-hub-sdk@1.2.0 --save
 ```
 
 
@@ -164,8 +164,8 @@ Class | Method | HTTP request | Description
 *FeatureFlag* | [**featureClearTenantFeatureFlag**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/FeatureFlag.md#featurecleartenantfeatureflag) | **DELETE** /feature/flags/tenants/{tenant_id}/{flag_key} | Clear a tenant\&#39;s feature-flag override
 *FeatureFlag* | [**featureListTenantFeatureFlags**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/FeatureFlag.md#featurelisttenantfeatureflags) | **GET** /feature/flags/tenants/{tenant_id} | List effective feature flags for a tenant
 *FeatureFlag* | [**featureSetTenantFeatureFlag**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/FeatureFlag.md#featuresettenantfeatureflag) | **PUT** /feature/flags/tenants/{tenant_id}/{flag_key} | Set a tenant\&#39;s feature-flag override
-*File* | [**filesDownloadFile**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/File.md#filesdownloadfile) | **GET** /files/{file_id} | Download a file
-*File* | [**filesPresignedFileUrl**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/File.md#filespresignedfileurl) | **GET** /files/{file_id}/url | Get a short-lived direct download URL for a file
+*Files* | [**filesDownloadFile**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Files.md#filesdownloadfile) | **GET** /files/{file_id} | Download a file
+*Files* | [**filesPresignedFileUrl**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Files.md#filespresignedfileurl) | **GET** /files/{file_id}/url | Get a short-lived direct download URL for a file
 *GoogleDrive* | [**googledriveCapabilities**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/GoogleDrive.md#googledrivecapabilities) | **GET** /integrations/googledrive/capabilities | Get data source capabilities
 *GoogleDrive* | [**googledriveGetItemInfo**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/GoogleDrive.md#googledrivegetiteminfo) | **GET** /integrations/googledrive/drives/{drive_id}/items/{drive_item_id} | Get a drive item
 *GoogleDrive* | [**googledriveGetUserInfo**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/GoogleDrive.md#googledrivegetuserinfo) | **GET** /integrations/googledrive/me | Get connected user profile

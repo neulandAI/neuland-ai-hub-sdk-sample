@@ -83,7 +83,7 @@ const configuration = new Configuration();
 const apiInstance = new ResourceAccess(configuration);
 
 let userId: string; //Public id of the user. (default to undefined)
-let kind: AccessKind; //Which resource kind to revoke. (default to undefined)
+let kind: 'model' | 'tool' | 'connector'; //Which resource kind to revoke. (default to undefined)
 let itemId: string; //Public id of the item to revoke. (default to undefined)
 let cookieName: string; // (optional) (default to undefined)
 
@@ -100,7 +100,7 @@ const { status, data } = await apiInstance.accessRevokeUserGrant(
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
 | **userId** | [**string**] | Public id of the user. | defaults to undefined|
-| **kind** | **AccessKind** | Which resource kind to revoke. | defaults to undefined|
+| **kind** | [**&#39;model&#39; | &#39;tool&#39; | &#39;connector&#39;**]**Array<&#39;model&#39; &#124; &#39;tool&#39; &#124; &#39;connector&#39;>** | Which resource kind to revoke. | defaults to undefined|
 | **itemId** | [**string**] | Public id of the item to revoke. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
@@ -148,7 +148,7 @@ const configuration = new Configuration();
 const apiInstance = new ResourceAccess(configuration);
 
 let userId: string; //Public id of the user to grant to. (default to undefined)
-let kind: AccessKind; //Which resource kind to set. (default to undefined)
+let kind: 'model' | 'tool' | 'connector'; //Which resource kind to set. (default to undefined)
 let userGrantIn: UserGrantIn; //
 let cookieName: string; // (optional) (default to undefined)
 
@@ -166,7 +166,7 @@ const { status, data } = await apiInstance.accessSetUserGrants(
 |------------- | ------------- | ------------- | -------------|
 | **userGrantIn** | **UserGrantIn**|  | |
 | **userId** | [**string**] | Public id of the user to grant to. | defaults to undefined|
-| **kind** | **AccessKind** | Which resource kind to set. | defaults to undefined|
+| **kind** | [**&#39;model&#39; | &#39;tool&#39; | &#39;connector&#39;**]**Array<&#39;model&#39; &#124; &#39;tool&#39; &#124; &#39;connector&#39;>** | Which resource kind to set. | defaults to undefined|
 | **cookieName** | [**string**] |  | (optional) defaults to undefined|
 
 

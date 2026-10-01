@@ -21,10 +21,11 @@ The Hub streams message generation token-by-token over **Server-Sent Events
 
 ## Install the streaming client
 
-The client is a single dependency-light file — copy
+The client is a single dependency-light TypeScript file — copy
 [`nodejs/streaming.ts`](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/streaming.ts)
 from the repository into your project. It needs only the platform `fetch` (browsers and Node 18+), so it works
-unchanged in the browser and on the server.
+unchanged in the browser and on the server. Run it with `tsx`, or compile it with
+the rest of your TypeScript.
 
 <Warning>
   Streaming must be enabled on your Hub deployment. If the stream endpoints
@@ -49,7 +50,8 @@ for await (const event of streamMessage({
 
 ## Observe an existing message
 
-Already created a message and want to watch its generation? Stream it by id:
+Already created a message and want to watch its generation? Stream it by its
+public id (the `public_id` field of the message, a UUID):
 
 ```typescript
 import { observeMessage } from "./streaming";
@@ -57,7 +59,7 @@ import { observeMessage } from "./streaming";
 for await (const event of observeMessage({
   baseUrl: "https://api.your-domain.com",
   apiKey: "ak_prod_v1.<key_id>.<secret>",
-  messageId: 123,
+  messageId: "<message public_id>",
 })) {
   console.log(event.event, event.data);
 }

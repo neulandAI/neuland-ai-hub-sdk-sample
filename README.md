@@ -40,10 +40,12 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk==1.1.0
+neuland-hub-sdk==1.2.0
 ```
 
-Requires Python 3.9+. Full guide: [https://docs.neuland-hub.ai/sdk/python/installation](https://docs.neuland-hub.ai/sdk/python/installation)
+Requires Python 3.9+. On macOS with the python.org installer, run
+`Install Certificates.command` once (or `pip install certifi`) so HTTPS works.
+Full guide: [https://docs.neuland-hub.ai/sdk/python/installation](https://docs.neuland-hub.ai/sdk/python/installation)
 
 ### Node.js
 
@@ -63,14 +65,15 @@ const { data: me } = await new User(config).usersGetMyself();
 console.log(me);
 ```
 
-Requires Node.js 18+. Full guide: [https://docs.neuland-hub.ai/sdk/node/installation](https://docs.neuland-hub.ai/sdk/node/installation)
+Requires Node.js 18+. The example uses top-level `await`, so your project needs
+`"type": "module"` in `package.json` (or save it as `.mjs`). Full guide: [https://docs.neuland-hub.ai/sdk/node/installation](https://docs.neuland-hub.ai/sdk/node/installation)
 
 ## 3. Streaming (not in the generated SDK)
 
 Live, token-by-token responses aren't part of the generated SDK. To use streaming, copy one standalone file into your project — full usage is documented at the top of each file:
 
 - **Python** — [python/streaming.py](python/streaming.py) (needs only `urllib3`, already an SDK dependency)
-- **Node.js** — [nodejs/streaming.ts](nodejs/streaming.ts) (needs only `fetch`)
+- **Node.js** — [nodejs/streaming.ts](nodejs/streaming.ts) (needs only `fetch`; run with `tsx` or compile it)
 
 ```python
 from streaming import stream_message
@@ -102,7 +105,7 @@ extracts the API key from inside, then calls the Hub with the SDK.
 - Your Hub API URL, for example `https://api.your-domain.com`
 - An application registered in your Hub by an admin, with its `app_url` set to
   where this sample backend is reachable (`http://localhost:9999` while testing
-  locally). You'll need its numeric `app_id`.
+  locally). You'll need its public id (a UUID), shown in the Hub.
 - The Hub's RSA **public key**, used to verify the service tokens. It is not
   downloadable from the API — ask your Hub administrator for it.
 
@@ -145,5 +148,7 @@ npm ci
 set -a && source ../../python/.env && set +a
 node src/index.js
 ```
+
+Both backends listen on `:9999`; the Node one also honours `PORT`.
 
 ---

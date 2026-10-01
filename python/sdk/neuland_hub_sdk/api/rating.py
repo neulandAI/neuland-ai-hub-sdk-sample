@@ -15,8 +15,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
-from typing import Any, Optional
+from pydantic import Field, StrictStr, field_validator
+from typing import Optional
 from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.rating import Rating
@@ -43,7 +43,7 @@ class Rating:
     @validate_call
     def ratings_remove(
         self,
-        rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
+        rateable_type: Annotated[StrictStr, Field(description="Kind of resource whose rating to delete.")],
         rateable_id: Annotated[UUID, Field(description="Public id of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -64,7 +64,7 @@ class Rating:
         Delete the caller's rating for the target resource.
 
         :param rateable_type: Kind of resource whose rating to delete. (required)
-        :type rateable_type: RateableTypeEnum
+        :type rateable_type: str
         :param rateable_id: Public id of the resource whose rating to delete. (required)
         :type rateable_id: UUID
         :param cookie_name:
@@ -121,7 +121,7 @@ class Rating:
     @validate_call
     def ratings_remove_with_http_info(
         self,
-        rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
+        rateable_type: Annotated[StrictStr, Field(description="Kind of resource whose rating to delete.")],
         rateable_id: Annotated[UUID, Field(description="Public id of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -142,7 +142,7 @@ class Rating:
         Delete the caller's rating for the target resource.
 
         :param rateable_type: Kind of resource whose rating to delete. (required)
-        :type rateable_type: RateableTypeEnum
+        :type rateable_type: str
         :param rateable_id: Public id of the resource whose rating to delete. (required)
         :type rateable_id: UUID
         :param cookie_name:
@@ -199,7 +199,7 @@ class Rating:
     @validate_call
     def ratings_remove_without_preload_content(
         self,
-        rateable_type: Annotated[Any, Field(description="Kind of resource whose rating to delete.")],
+        rateable_type: Annotated[StrictStr, Field(description="Kind of resource whose rating to delete.")],
         rateable_id: Annotated[UUID, Field(description="Public id of the resource whose rating to delete.")],
         cookie_name: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -220,7 +220,7 @@ class Rating:
         Delete the caller's rating for the target resource.
 
         :param rateable_type: Kind of resource whose rating to delete. (required)
-        :type rateable_type: RateableTypeEnum
+        :type rateable_type: str
         :param rateable_id: Public id of the resource whose rating to delete. (required)
         :type rateable_id: UUID
         :param cookie_name:
@@ -297,7 +297,7 @@ class Rating:
 
         # process the path parameters
         if rateable_type is not None:
-            _path_params['rateable_type'] = rateable_type.value
+            _path_params['rateable_type'] = rateable_type
         if rateable_id is not None:
             _path_params['rateable_id'] = rateable_id
         # process the query parameters

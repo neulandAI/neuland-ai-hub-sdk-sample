@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 # Define package exports
 __all__ = [
@@ -33,7 +33,7 @@ __all__ = [
     "Document",
     "Dropbox",
     "FeatureFlag",
-    "File",
+    "Files",
     "GoogleDrive",
     "Invitation",
     "Library",
@@ -347,7 +347,7 @@ from neuland_hub_sdk.api.custom_connector import CustomConnector as CustomConnec
 from neuland_hub_sdk.api.document import Document as Document
 from neuland_hub_sdk.api.dropbox import Dropbox as Dropbox
 from neuland_hub_sdk.api.feature_flag import FeatureFlag as FeatureFlag
-from neuland_hub_sdk.api.file import File as File
+from neuland_hub_sdk.api.files import Files as Files
 from neuland_hub_sdk.api.google_drive import GoogleDrive as GoogleDrive
 from neuland_hub_sdk.api.invitation import Invitation as Invitation
 from neuland_hub_sdk.api.library import Library as Library
