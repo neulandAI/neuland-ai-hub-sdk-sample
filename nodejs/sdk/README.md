@@ -1,11 +1,12 @@
 TypeScript/JavaScript client for the **Neuland AI Hub API**: chat, retrieval-augmented document Q&A, assistants, and the surrounding workspace and integration features.
 
 Every request is authenticated with an **API key** sent in the `X-API-KEY`
-header. Create one in the Hub under **Settings → API Keys**.
+header. Create one in the Hub under **Settings → API Keys**. API methods take
+an object's `public_id` (a UUID), never its integer `id`.
 
 Full guides, quickstart and API reference: https://docs.neuland-hub.ai
 
-## @neulandai/neuland-hub-sdk@1.2.0
+## @neulandai/neuland-hub-sdk@1.2.1
 
 This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
 
@@ -39,7 +40,7 @@ navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install @neulandai/neuland-hub-sdk@1.2.0 --save
+npm install @neulandai/neuland-hub-sdk@1.2.1 --save
 ```
 
 

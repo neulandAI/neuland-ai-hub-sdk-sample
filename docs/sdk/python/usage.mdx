@@ -73,8 +73,10 @@ Ready-made recipes for the common cases are in
   assistant's replies).
   It is done when every step's `state` is `COMPLETED`; the answer is the
   `content` of the step whose `role` is `assistant`.
-- **Which id do I pass?** Always the `public_id` (a UUID). Objects also carry
-  an integer `id`; that is the database key and is not accepted by the API.
+- **Which id do I pass?** API methods take the `public_id` (a UUID). Objects
+  also carry an integer `id`, the database key; API methods reject it. The
+  [Query endpoint](/guides/query) is the one exception: it filters on database
+  columns, so there `id` and `chat_id` are the integers.
 - **Enum parameters** (for example `format`, `style`, `rateable_type`) take plain
   strings: `format="pdf"`.
 - **How do I download a converted message (PDF, DOCX, XLSX)?**

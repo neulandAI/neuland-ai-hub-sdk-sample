@@ -38,6 +38,9 @@ import urllib3
 _API_KEY_ID = "APIKeyHeader"  # auth-scheme name in the generated Configuration
 _API_KEY_HEADER = "X-API-KEY"  # actual header the Hub reads
 TERMINAL_EVENT = "state"  # last event; the server closes the connection after it
+# The Hub sends an SSE heartbeat every few seconds, so a read that is silent
+# for this long means the connection is dead. Override per call with `timeout=`.
+DEFAULT_TIMEOUT = urllib3.Timeout(connect=10.0, read=60.0)
 
 
 @dataclass
@@ -90,15 +93,13 @@ def _headers(config: Any, *, post: bool) -> dict[str, str]:
 
 
 def _to_body(message_in: Any) -> bytes:
-    if hasattr(message_in, "to_dict"):  # generated MessageIn model
-        payload = message_in.to_dict()
-    elif hasattr(message_in, "model_dump"):  # raw pydantic model
-        payload = message_in.model_dump(exclude_none=True)
-    elif isinstance(message_in, dict):
-        payload = message_in
-    else:
-        raise TypeError(f"Unsupported message_in type: {type(message_in)!r}")
-    return json.dumps(payload).encode("utf-8")
+    if hasattr(message_in, "to_json"):  # generated MessageIn model: handles UUID/datetime fields
+        return message_in.to_json().encode("utf-8")
+    if hasattr(message_in, "model_dump_json"):  # raw pydantic model
+        return message_in.model_dump_json(exclude_none=True).encode("utf-8")
+    if isinstance(message_in, dict):
+        return json.dumps(message_in, default=str).encode("utf-8")
+    raise TypeError(f"Unsupported message_in type: {type(message_in)!r}")
 
 
 def _stream(
@@ -108,9 +109,11 @@ def _stream(
     body: bytes | None,
     *,
     pool: urllib3.PoolManager,
+    timeout: urllib3.Timeout | float | None,
 ) -> Iterator[StreamEvent]:
     resp = pool.request(
-        method, url, body=body, headers=headers, preload_content=False
+        method, url, body=body, headers=headers, preload_content=False,
+        timeout=DEFAULT_TIMEOUT if timeout is None else timeout,
     )
     try:
         if resp.status >= 400:
@@ -136,19 +139,25 @@ def _stream(
 
 
 def stream_message(
-    config: Any, message_in: Any, *, pool: urllib3.PoolManager | None = None
+    config: Any,
+    message_in: Any,
+    *,
+    pool: urllib3.PoolManager | None = None,
+    timeout: urllib3.Timeout | float | None = None,
 ) -> Iterator[StreamEvent]:
     """POST /messages/stream — create a message and stream its generation.
 
     ``message_in`` may be a generated ``MessageIn`` model or a plain dict; only
-    ``content`` is required.
+    ``content`` is required. ``timeout`` overrides ``DEFAULT_TIMEOUT``; the read
+    timeout is the maximum silence tolerated between events.
     """
     own = pool is None
     pool = pool or urllib3.PoolManager()
     try:
         url = config.host.rstrip("/") + "/messages/stream"
         yield from _stream(
-            "POST", url, _headers(config, post=True), _to_body(message_in), pool=pool
+            "POST", url, _headers(config, post=True), _to_body(message_in),
+            pool=pool, timeout=timeout,
         )
     finally:
         if own:
@@ -156,18 +165,25 @@ def stream_message(
 
 
 def observe_message(
-    config: Any, message_id: str, *, pool: urllib3.PoolManager | None = None
+    config: Any,
+    message_id: str,
+    *,
+    pool: urllib3.PoolManager | None = None,
+    timeout: urllib3.Timeout | float | None = None,
 ) -> Iterator[StreamEvent]:
     """GET /messages/{message_id}/stream — observe an existing message's stream.
 
-    ``message_id`` is the message's public id (UUID string), as returned in
-    ``MessageSubmitOut.public_id``.
+    ``message_id`` is a message's public id (UUID string): the ``child_id`` from
+    the first event of ``stream_message``, or any message's ``public_id``. Either
+    the user turn or the assistant reply works.
     """
     own = pool is None
     pool = pool or urllib3.PoolManager()
     try:
         url = f"{config.host.rstrip('/')}/messages/{message_id}/stream"
-        yield from _stream("GET", url, _headers(config, post=False), None, pool=pool)
+        yield from _stream(
+            "GET", url, _headers(config, post=False), None, pool=pool, timeout=timeout
+        )
     finally:
         if own:
             pool.clear()

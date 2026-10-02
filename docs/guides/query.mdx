@@ -14,6 +14,10 @@ GET https://api.your-domain.com/query/rpc/<function>?<parameters>
 X-API-KEY: ak_prod_v1.<key_id>.<secret>
 ```
 
+Ids here are the database columns: `id` and `chat_id` are integers, unlike the
+REST endpoints, which take `public_id` UUIDs. Select both when you need to
+call a REST method on a row afterwards.
+
 You only ever see the rows your user can see in the Hub. The same row-level
 rules apply to the API key as to the browser session, so a key can never read
 another user's private chats.

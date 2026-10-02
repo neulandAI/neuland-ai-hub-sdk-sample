@@ -1,3 +1,4 @@
+import logging
 from typing import Dict, Any
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -7,6 +8,7 @@ from cryptography.hazmat.primitives import serialization
 import config
 
 bearer_scheme = HTTPBearer()
+logger = logging.getLogger(__name__)
 
 
 def public_key_pem_from_env(public_key) -> bytes:
@@ -63,7 +65,8 @@ async def get_api_key(
     try:
         payload = decode_service_token(credentials.credentials)
     except jwt.InvalidTokenError as e:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
+        logger.info("service token rejected: %s", e)
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid service token")
     api_key = payload.get("x-api-key")
     if not api_key:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="x-api-key claim missing from token")
