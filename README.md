@@ -40,11 +40,12 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk==1.2.0
+neuland-hub-sdk==1.2.1
 ```
 
 Requires Python 3.9+. On macOS with the python.org installer, run
-`Install Certificates.command` once (or `pip install certifi`) so HTTPS works.
+`Install Certificates.command` once so HTTPS works (or point `SSL_CERT_FILE`
+at a CA bundle such as certifi's).
 Full guide: [https://docs.neuland-hub.ai/sdk/python/installation](https://docs.neuland-hub.ai/sdk/python/installation)
 
 ### Node.js
@@ -67,6 +68,10 @@ console.log(me);
 
 Requires Node.js 18+. The example uses top-level `await`, so your project needs
 `"type": "module"` in `package.json` (or save it as `.mjs`). Full guide: [https://docs.neuland-hub.ai/sdk/node/installation](https://docs.neuland-hub.ai/sdk/node/installation)
+
+Ids: API methods take an object's `public_id` (a UUID), never its integer `id`.
+Uploads return before processing finishes; poll the document's text endpoint
+until it has content. Details in the usage guides.
 
 ## 3. Streaming (not in the generated SDK)
 

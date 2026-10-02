@@ -48,8 +48,10 @@ for event in stream_message(config, {"content": "Explain quantum tunneling"}):
 
 ## Observe an existing message
 
-Already created a message and want to watch its generation? Stream it by its
-public id (the `public_id` field of the message, a UUID):
+Already created a message and want to watch its generation? Stream it by a
+message public id: the `child_id` carried by the first event of
+`stream_message`, or any message's `public_id`. Either the user turn or the
+assistant reply works.
 
 ```python
 from streaming import observe_message
@@ -57,6 +59,9 @@ from streaming import observe_message
 for event in observe_message(config, message_id="<message public_id>"):
     print(event.event, event.data)
 ```
+
+Both functions take an optional `timeout` (a `urllib3.Timeout`); the default
+tolerates 60 seconds of silence before giving up.
 
 ## Event model
 

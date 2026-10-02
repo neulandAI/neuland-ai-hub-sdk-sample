@@ -1,3 +1,4 @@
+import logging
 from typing import List, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials
@@ -14,6 +15,7 @@ from auth import bearer_scheme, decode_service_token, get_api_key
 from schemas import UserInfoResponse, AssistantModel
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 def sdk_config(api_key: str) -> Configuration:
@@ -35,7 +37,8 @@ async def verify_service_token(
     try:
         return decode_service_token(credentials.credentials)
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
+        logger.info("service token rejected: %s", e)
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid service token")
 
 
 @router.get("/users/me", response_model=UserInfoResponse)

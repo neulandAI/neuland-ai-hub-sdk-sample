@@ -1,6 +1,6 @@
 {
   "name": "@neulandai/neuland-hub-sdk",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "OpenAPI client for @neulandai/neuland-hub-sdk",
   "author": "neuland.ai",
   "repository": {

@@ -695,7 +695,8 @@ def fix_sdk_metadata() -> None:
                 "endpoints (or use an **ApiKey**) and send it as a bearer token in the\n"
                 "`Authorization` header.")
     AUTH_NEW = ("Every request is authenticated with an **API key** sent in the `X-API-KEY`\n"
-                "header. Create one in the Hub under **Settings → API Keys**.\n\n"
+                "header. Create one in the Hub under **Settings → API Keys**. API methods take\n"
+                "an object's `public_id` (a UUID), never its integer `id`.\n\n"
                 f"Full guides, quickstart and API reference: {DOCS_URL}")
     NODE_INTRO = (f"## {NPM_NAME}@")
     NODE_INTRO_NEW = ("TypeScript/JavaScript client for the **Neuland AI Hub API**: chat, "
@@ -705,6 +706,10 @@ def fix_sdk_metadata() -> None:
     for readme in (REPO_ROOT / "python/sdk/README.md", REPO_ROOT / "nodejs/sdk/README.md"):
         text = readme.read_text(); new = text
         new = new.replace(AUTH_OLD, AUTH_NEW)
+        # Upgrade the paragraph from earlier releases, where this sentence was shorter.
+        new = new.replace("header. Create one in the Hub under **Settings → API Keys**.\n\n",
+                          "header. Create one in the Hub under **Settings → API Keys**. API methods take\n"
+                          "an object's `public_id` (a UUID), never its integer `id`.\n\n")
         if readme.parent.parent.name == "nodejs" and DOCS_URL not in new:
             new = new.replace(NODE_INTRO, NODE_INTRO_NEW, 1)
         new = new.replace("All URIs are relative to *http://localhost*", f"All URIs are relative to *{PUBLIC_BASE_URL}*")
