@@ -58,34 +58,9 @@ export NLND_HUB_API_KEY=ak_prod_v1.<key_id>.<secret>
 ```
 
 ```python Python
-import json
-from neuland_hub_sdk import ApiClient, Configuration
-
-config = Configuration(host="https://api.your-domain.com")
-config.api_key["APIKeyHeader"] = "ak_prod_v1.<key_id>.<secret>"
-
-
-def query(client: ApiClient, resource: str, **params) -> list[dict]:
-    """GET /query/<resource> with PostgREST parameters. Auth comes from config."""
-    method, url, headers, body, post = client.param_serialize(
-        "GET",
-        f"/query/{resource}",
-        query_params=list(params.items()),
-        auth_settings=["APIKeyHeader"],
-    )
-    response = client.call_api(method, url, header_params=headers)
-    response.read()
-    return json.loads(response.data)
 ```
 
 ```ts Node
-import { Configuration, Query } from "@neulandai/neuland-hub-sdk";
-
-const config = new Configuration({
-  basePath: "https://api.your-domain.com",
-  apiKey: "ak_prod_v1.<key_id>.<secret>",
-});
-const query = new Query(config);
 ```
 
 </CodeGroup>
@@ -104,19 +79,9 @@ curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
 ```
 
 ```python Python
-with ApiClient(config) as client:
-    chats = query(client, "chats",
-                  select="id,name,updated_at",
-                  order="updated_at.desc", limit=10)
-    for chat in chats:
-        print(f"{chat['updated_at'][:10]}  {chat['name']}")
 ```
 
 ```ts Node
-const { data: chats } = await query.queryQuery("chats", undefined, {
-  params: { select: "id,name,updated_at", order: "updated_at.desc", limit: 10 },
-});
-for (const chat of chats) console.log(chat.updated_at.slice(0, 10), chat.name);
 ```
 
 </CodeGroup>
@@ -136,32 +101,9 @@ curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
 ```
 
 ```python Python
-with ApiClient(config) as client:
-    history = query(client, "messages_limited",
-                    select="id,role,content,created_at,"
-                           "tool_calls:tool_calls_limited(id,call_input,call_output,tools(name)),"
-                           "documents:documents_limited(id,filename)",
-                    chat_id="eq.42", order="created_at.asc")
-    with open("chat-42.json", "w") as f:
-        json.dump(history, f, indent=2)
-    print(f"{len(history)} messages exported")
 ```
 
 ```ts Node
-import { writeFile } from "node:fs/promises";
-
-const { data: history } = await query.queryQuery("messages_limited", undefined, {
-  params: {
-    select:
-      "id,role,content,created_at," +
-      "tool_calls:tool_calls_limited(id,call_input,call_output,tools(name))," +
-      "documents:documents_limited(id,filename)",
-    chat_id: "eq.42",
-    order: "created_at.asc",
-  },
-});
-await writeFile("chat-42.json", JSON.stringify(history, null, 2));
-console.log(`${history.length} messages exported`);
 ```
 
 </CodeGroup>
@@ -178,18 +120,9 @@ curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
 ```
 
 ```python Python
-with ApiClient(config) as client:
-    for a in query(client, "assistants",
-                   select="id,name,description,created_at",
-                   order="created_at.desc"):
-        print(f"[{a['id']}] {a['name']}: {a['description'] or '-'}")
 ```
 
 ```ts Node
-const { data: assistants } = await query.queryQuery("assistants", undefined, {
-  params: { select: "id,name,description,created_at", order: "created_at.desc" },
-});
-for (const a of assistants) console.log(`[${a.id}] ${a.name}: ${a.description ?? "-"}`);
 ```
 
 </CodeGroup>
@@ -206,16 +139,9 @@ curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
 ```
 
 ```python Python
-with ApiClient(config) as client:
-    for p in query(client, "projects", select="id,name,chats(count)", order="name.asc"):
-        print(f"{p['name']}: {p['chats'][0]['count']} chats")
 ```
 
 ```ts Node
-const { data: projects } = await query.queryQuery("projects", undefined, {
-  params: { select: "id,name,chats(count)", order: "name.asc" },
-});
-for (const p of projects) console.log(`${p.name}: ${p.chats[0].count} chats`);
 ```
 
 </CodeGroup>
@@ -230,21 +156,9 @@ curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
 ```
 
 ```python Python
-with ApiClient(config) as client:
-    for lib in query(client, "libraries", select="id,name,documents(id,filename)"):
-        print(lib["name"])
-        for doc in lib["documents"]:
-            print("   ", doc["filename"])
 ```
 
 ```ts Node
-const { data: libraries } = await query.queryQuery("libraries", undefined, {
-  params: { select: "id,name,documents(id,filename)" },
-});
-for (const lib of libraries) {
-  console.log(lib.name);
-  for (const doc of lib.documents) console.log("   ", doc.filename);
-}
 ```
 
 </CodeGroup>
@@ -259,26 +173,9 @@ curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
 ```
 
 ```python Python
-with ApiClient(config) as client:
-    pdfs = query(client, "documents",
-                 select="id,filename,created_at",
-                 content_type="eq.application/pdf",
-                 created_at="gte.2026-09-01",
-                 order="created_at.desc")
-    for d in pdfs:
-        print(d["created_at"][:10], d["filename"])
 ```
 
 ```ts Node
-const { data: pdfs } = await query.queryQuery("documents", undefined, {
-  params: {
-    select: "id,filename,created_at",
-    content_type: "eq.application/pdf",
-    created_at: "gte.2026-09-01",
-    order: "created_at.desc",
-  },
-});
-for (const d of pdfs) console.log(d.created_at.slice(0, 10), d.filename);
 ```
 
 </CodeGroup>
@@ -295,16 +192,9 @@ curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
 ```
 
 ```python Python
-with ApiClient(config) as client:
-    for p in query(client, "prompts", select="id,name,prompt", name="ilike.*meeting*"):
-        print(p["name"], "->", p["prompt"][:60])
 ```
 
 ```ts Node
-const { data: prompts } = await query.queryQuery("prompts", undefined, {
-  params: { select: "id,name,prompt", name: "ilike.*meeting*" },
-});
-for (const p of prompts) console.log(p.name, "->", p.prompt.slice(0, 60));
 ```
 
 </CodeGroup>
@@ -323,25 +213,9 @@ curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
 ```
 
 ```python Python
-with ApiClient(config) as client:
-    top = query(client, "rpc/assistant_marketplace_rows",
-                select="name,description,rating_avg,rating_count",
-                already_added="is.false",
-                order="rating_avg.desc.nullslast", limit=10)
-    for a in top:
-        print(f"{a['rating_avg'] or 0:.1f} ({a['rating_count']})  {a['name']}")
 ```
 
 ```ts Node
-const { data: top } = await query.queryQueryRpc("assistant_marketplace_rows", undefined, {
-  params: {
-    select: "name,description,rating_avg,rating_count",
-    already_added: "is.false",
-    order: "rating_avg.desc.nullslast",
-    limit: 10,
-  },
-});
-for (const a of top) console.log(`${(a.rating_avg ?? 0).toFixed(1)} (${a.rating_count})  ${a.name}`);
 ```
 
 </CodeGroup>
