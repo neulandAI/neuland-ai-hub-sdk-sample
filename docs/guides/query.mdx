@@ -60,6 +60,7 @@ export NLND_HUB_API_KEY=ak_prod_v1.<key_id>.<secret>
 ```python Python
 import json
 from neuland_hub_sdk import ApiClient, Configuration
+from neuland_hub_sdk.exceptions import ApiException
 
 config = Configuration(host="https://api.your-domain.com")
 config.api_key["APIKeyHeader"] = "ak_prod_v1.<key_id>.<secret>"
@@ -75,6 +76,8 @@ def query(client: ApiClient, resource: str, **params) -> list[dict]:
     )
     response = client.call_api(method, url, header_params=headers)
     response.read()
+    if not 200 <= response.status < 300:
+        raise ApiException(http_resp=response)
     return json.loads(response.data)
 ```
 
@@ -319,13 +322,13 @@ top-rated assistants you have not added yet.
 
 ```bash curl
 curl -H "X-API-KEY: $NLND_HUB_API_KEY" \
-  "$HUB/query/rpc/assistant_marketplace_rows?select=name,description,rating_avg,rating_count&already_added=is.false&order=rating_avg.desc.nullslast&limit=10"
+  "$HUB/query/rpc/assistant_marketplace_rows?select=name,description,rating_avg,rating_count,already_added&already_added=is.false&order=rating_avg.desc.nullslast&limit=10"
 ```
 
 ```python Python
 with ApiClient(config) as client:
     top = query(client, "rpc/assistant_marketplace_rows",
-                select="name,description,rating_avg,rating_count",
+                select="name,description,rating_avg,rating_count,already_added",
                 already_added="is.false",
                 order="rating_avg.desc.nullslast", limit=10)
     for a in top:
@@ -335,7 +338,7 @@ with ApiClient(config) as client:
 ```ts Node
 const { data: top } = await query.queryQueryRpc("assistant_marketplace_rows", undefined, {
   params: {
-    select: "name,description,rating_avg,rating_count",
+    select: "name,description,rating_avg,rating_count,already_added",
     already_added: "is.false",
     order: "rating_avg.desc.nullslast",
     limit: 10,

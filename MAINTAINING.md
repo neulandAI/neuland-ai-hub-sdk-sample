@@ -78,9 +78,11 @@ npx --yes @openapitools/openapi-generator-cli generate \
 ```
 
 > Keep `package-lock.json` and install with `npm ci`, not `npm install`. The
-> generated `common.ts` does not compile against axios 1.20+ with TypeScript 5.9
-> (`TS2527` in `createRequestFunction`); the lockfile pins axios 1.15.x, which
-> works. Bump axios only when the build passes with the new version.
+> unpatched generated `common.ts` does not compile against axios 1.20+ with
+> TypeScript 5.9 (`TS2527` in `createRequestFunction`). The `sync-sdk-docs.py`
+> patch types that variable explicitly, and the build passes with axios 1.21.0,
+> the version in the lockfile now. Run `npm audit` after a regen and bump only
+> when the build and the tests still pass.
 
 ### 5. Update the API Reference spec, then sync the SDK docs
 

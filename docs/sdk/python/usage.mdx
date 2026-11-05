@@ -85,9 +85,10 @@ Ready-made recipes for the common cases are in
 - **When is an uploaded document ready?** Upload returns before processing
   finishes. Poll `Document(api_client).documents_get_text(document_id)`
   until it returns text.
-- **Updating with a model: use the constructor.** `ChatIn(name="x")` sends only
-  `name`. `ChatIn.from_dict({"name": "x"})` sends every other field as `null`,
-  which a `PATCH` applies.
+- **Updating with a model.** `ChatIn(name="x")` and `ChatIn.from_dict({"name": "x"})`
+  both send only `name`, so a `PATCH` leaves the other fields alone. To clear a
+  field, pass it explicitly as `None`; it is sent as `null`. (Before 1.3.1,
+  `from_dict` sent every missing field as `null`.)
 - **Fields that accept several shapes** (for example `LLMSettingsIn.cost_prompt_tokens`,
   `SendEmailRequest.to`) take a small wrapper class: `CostPromptTokens("0.001")`,
   `To1(["a@example.com"])`.

@@ -65,6 +65,35 @@ function trimEnd(s: string): string {
   return s.replace(/\/+$/, "");
 }
 
+const MAX_REDIRECTS = 5;
+
+/**
+ * fetch() keeps custom headers such as X-API-KEY when a redirect goes to
+ * another origin. Follow redirects by hand and drop the key once the origin
+ * changes, so it never reaches another host.
+ */
+async function fetchKeepingKeyOnOrigin(url: string, init: RequestInit & { headers: Record<string, string> }): Promise<Response> {
+  const origin = new URL(url).origin;
+  let current = url;
+  let { method, body } = init;
+  let headers = init.headers;
+  for (let hop = 0; ; hop++) {
+    const resp = await fetch(current, { ...init, method, body, headers, redirect: "manual" });
+    const location = resp.headers.get("location");
+    if (resp.status < 300 || resp.status >= 400 || !location) return resp;
+    if (hop >= MAX_REDIRECTS) throw new Error(`${init.method} ${url} failed: too many redirects`);
+    current = new URL(location, current).toString();
+    if (new URL(current).origin !== origin) {
+      headers = Object.fromEntries(Object.entries(headers).filter(([k]) => k.toLowerCase() !== "x-api-key"));
+    }
+    if (resp.status === 303 || ((resp.status === 301 || resp.status === 302) && method === "POST")) {
+      method = "GET"; // same method change fetch() itself applies
+      body = undefined;
+      headers = Object.fromEntries(Object.entries(headers).filter(([k]) => k.toLowerCase() !== "content-type"));
+    }
+  }
+}
+
 async function* request(
   method: string,
   url: string,
@@ -77,7 +106,7 @@ async function* request(
   };
   if (body !== undefined) headers["Content-Type"] = "application/json";
 
-  const resp = await fetch(url, { method, headers, body, signal: opts.signal });
+  const resp = await fetchKeepingKeyOnOrigin(url, { method, headers, body, signal: opts.signal });
   if (!resp.ok) {
     const detail = await resp.text().catch(() => "");
     throw new Error(`${method} ${url} failed: HTTP ${resp.status}: ${detail}`);
