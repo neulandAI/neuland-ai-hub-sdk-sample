@@ -63,6 +63,14 @@ npx --yes @openapitools/openapi-generator-cli generate \
 > (Homebrew ships a newer version). A different generator version changes the
 > emitted code and `.openapi-generator/VERSION` in the same commit.
 
+> `apiNameSuffix=` keeps the short API class names (`Chat`, not `ChatApi`). In
+> Python, 13 of them (`Application`, `Assistant`, `Chat`, `Document`, `Library`,
+> `Project`, `Prompt`, `Rating`, `Role`, `Settings`, `Tag`, `Tarif`, `Workflow`)
+> share a name with a model, and `from neuland_hub_sdk import Chat` gives the
+> model. This is a known trade-off: renaming would break every caller. Import API
+> classes from their module (`from neuland_hub_sdk.api.chat import Chat`); the
+> sync script rewrites all generated examples to that form (`fix_python_examples`).
+
 ### 4. Regenerate the Node SDK
 
 ```bash
