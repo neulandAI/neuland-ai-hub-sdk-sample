@@ -578,6 +578,7 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'APIKeyHeader', 
             'OAuth2PasswordBearer'
         ]
 

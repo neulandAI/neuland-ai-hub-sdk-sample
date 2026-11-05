@@ -112,6 +112,9 @@ REQUEST_BODY_OVERRIDES = {
 # {(method, path): {parameter names}} removed from the SDK (rule 8).
 DROPPED_PARAMETERS = {
     ("post", "/workflows/{workflow_id}/runs/{run_id}/events"): {"after"},
+    # Added in Hub rc.47; would turn authExchangeToken(appId, options) into
+    # (appId, cookieName, options). Browser-session only, not needed by SDK users.
+    ("post", "/auth/exchange/token"): {"cookie_name"},
 }
 
 

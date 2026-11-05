@@ -101,6 +101,7 @@ Exchange the caller's token for a service token scoped to an AI application.
 
 ### Example
 
+* Api Key Authentication (APIKeyHeader):
 
 ```python
 from uuid import UUID
@@ -120,6 +121,12 @@ configuration = neuland_hub_sdk.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
 
 # Enter a context with an instance of the API client
@@ -152,7 +159,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

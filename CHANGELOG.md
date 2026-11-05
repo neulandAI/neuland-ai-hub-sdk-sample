@@ -4,7 +4,8 @@ Python (`neuland-hub-sdk`) and Node (`@neulandai/neuland-hub-sdk`) share one ver
 
 ## 1.3.1
 
-Generated from Hub `v3.0.0-rc.46` (same spec as 1.3.0). Fixes regressions in 1.3.0.
+Generated from Hub `v3.0.0-rc.47` (`release` branch). Fixes regressions in 1.3.0.
+rc.47 also lets `authExchangeToken` / `auth_exchange_token` authenticate with the API key.
 Upgrade from 1.3.0 is recommended; code written for 1.2.1 works again unchanged.
 
 ### Fixed
@@ -38,6 +39,8 @@ Upgrade from 1.3.0 is recommended; code written for 1.2.1 works again unchanged.
 - `ReasoningEffort` (the 1.3.0 wrapper type). Use `ReasoningEffortOrAutoEnum` or a plain string.
 - The `after` parameter of `workflowsStreamRunEvents` / `workflows_stream_run_events`
   (added in 1.3.0). Python callers cannot pass it in 1.3.1.
+- The `cookie_name` query parameter Hub rc.47 added to `/auth/exchange/token`. It is
+  for browser sessions, and it would have shifted Node's `options` argument the same way.
 
 ## 1.3.0
 

@@ -11139,6 +11139,9 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
