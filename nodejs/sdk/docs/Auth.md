@@ -165,7 +165,7 @@ const { status, data } = await apiInstance.authGetEntraGroups(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -557,7 +557,7 @@ const { status, data } = await apiInstance.authSearchEntraGroups(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -611,7 +611,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -764,7 +764,7 @@ No authorization required
 # **authSsoResolve**
 > SsoResolveOut authSsoResolve()
 
-Pre-login step: resolve a tenant from the email\'s domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email\'s domain for unknown emails, and return the routing slug and SSO providers.
 
 ### Example
 

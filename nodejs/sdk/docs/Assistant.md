@@ -4,26 +4,26 @@ All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**assistantsAddLibraryToAssistant**](#assistantsaddlibrarytoassistant) | **POST** /assistants/{assistant_id}/libraries/{library_id} | Add a library to an assistant|
-|[**assistantsAddMembers**](#assistantsaddmembers) | **POST** /assistants/{assistant_id}/members | Add members to an assistant|
-|[**assistantsAddTagToAssistant**](#assistantsaddtagtoassistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant|
-|[**assistantsAddToolToAssistant**](#assistantsaddtooltoassistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant|
-|[**assistantsConvertAssistantToTool**](#assistantsconvertassistanttotool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from your own chats|
-|[**assistantsCreateAssistant**](#assistantscreateassistant) | **POST** /assistants/ | Create an assistant|
-|[**assistantsDeleteAssistant**](#assistantsdeleteassistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant|
-|[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant|
-|[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant|
-|[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant|
-|[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from your chats|
-|[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant|
-|[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member|
-|[**assistantsRemoveTagFromAssistant**](#assistantsremovetagfromassistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant|
-|[**assistantsRemoveToolFromAssistant**](#assistantsremovetoolfromassistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant|
-|[**assistantsRestoreAssistantVersion**](#assistantsrestoreassistantversion) | **POST** /assistants/{assistant_id}/versions/{version}/restore | Restore an assistant version|
-|[**assistantsSubmitAssistant**](#assistantssubmitassistant) | **POST** /assistants/submit | Create an assistant with attachments|
-|[**assistantsUpdateAssistant**](#assistantsupdateassistant) | **PATCH** /assistants/{assistant_id} | Update an assistant|
-|[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/{assistant_id}/groups | Set assistant group access|
-|[**assistantsUpdateAssistantVisibility**](#assistantsupdateassistantvisibility) | **PATCH** /assistants/{assistant_id}/visibility | Set assistant visibility|
+|[**assistantsAddLibraryToAssistant**](#assistantsaddlibrarytoassistant) | **POST** /assistants/{assistant_id}/libraries/{library_id} | Add a library to an assistant (agent)|
+|[**assistantsAddMembers**](#assistantsaddmembers) | **POST** /assistants/{assistant_id}/members | Add members to an assistant (agent)|
+|[**assistantsAddTagToAssistant**](#assistantsaddtagtoassistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant (agent)|
+|[**assistantsAddToolToAssistant**](#assistantsaddtooltoassistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant (agent)|
+|[**assistantsConvertAssistantToTool**](#assistantsconvertassistanttotool) | **POST** /assistants/{assistant_id}/tool | Make an assistant (agent) consultable from your own chats|
+|[**assistantsCreateAssistant**](#assistantscreateassistant) | **POST** /assistants/ | Create an assistant (agent)|
+|[**assistantsDeleteAssistant**](#assistantsdeleteassistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant (agent)|
+|[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant (agent)|
+|[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant (agent)|
+|[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant (agent)|
+|[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant (agent) being consultable from your chats|
+|[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant (agent)|
+|[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member from an assistant (agent)|
+|[**assistantsRemoveTagFromAssistant**](#assistantsremovetagfromassistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant (agent)|
+|[**assistantsRemoveToolFromAssistant**](#assistantsremovetoolfromassistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant (agent)|
+|[**assistantsRestoreAssistantVersion**](#assistantsrestoreassistantversion) | **POST** /assistants/{assistant_id}/versions/{version}/restore | Restore an assistant (agent) version|
+|[**assistantsSubmitAssistant**](#assistantssubmitassistant) | **POST** /assistants/submit | Create an assistant (agent) with attachments|
+|[**assistantsUpdateAssistant**](#assistantsupdateassistant) | **PATCH** /assistants/{assistant_id} | Update an assistant (agent)|
+|[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/{assistant_id}/groups | Set assistant (agent) group access|
+|[**assistantsUpdateAssistantVisibility**](#assistantsupdateassistantvisibility) | **PATCH** /assistants/{assistant_id}/visibility | Set assistant (agent) visibility|
 
 # **assistantsAddLibraryToAssistant**
 > AssistantLibrary assistantsAddLibraryToAssistant()
@@ -67,7 +67,7 @@ const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -129,7 +129,7 @@ const { status, data } = await apiInstance.assistantsAddMembers(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -190,7 +190,7 @@ const { status, data } = await apiInstance.assistantsAddTagToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -251,7 +251,7 @@ const { status, data } = await apiInstance.assistantsAddToolToAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -309,7 +309,7 @@ const { status, data } = await apiInstance.assistantsConvertAssistantToTool(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -369,7 +369,7 @@ const { status, data } = await apiInstance.assistantsCreateAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -426,7 +426,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -488,7 +488,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -547,7 +547,7 @@ const { status, data } = await apiInstance.assistantsJoinAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -606,7 +606,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -664,7 +664,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -725,7 +725,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -786,7 +786,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -847,7 +847,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -908,7 +908,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -969,7 +969,7 @@ const { status, data } = await apiInstance.assistantsRestoreAssistantVersion(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -1063,7 +1063,7 @@ const { status, data } = await apiInstance.assistantsSubmitAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -1124,7 +1124,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistant(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -1186,7 +1186,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantGroups(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -1248,7 +1248,7 @@ const { status, data } = await apiInstance.assistantsUpdateAssistantVisibility(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 

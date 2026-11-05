@@ -67,7 +67,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AssistantLibrary:
-        """Add a library to an assistant
+        """Add a library to an assistant (agent)
 
         Enables a library for a assistant by creating a new association
 
@@ -146,7 +146,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AssistantLibrary]:
-        """Add a library to an assistant
+        """Add a library to an assistant (agent)
 
         Enables a library for a assistant by creating a new association
 
@@ -225,7 +225,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add a library to an assistant
+        """Add a library to an assistant (agent)
 
         Enables a library for a assistant by creating a new association
 
@@ -333,7 +333,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -373,7 +374,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[AssistantMemberOut]:
-        """Add members to an assistant
+        """Add members to an assistant (agent)
 
         Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn't exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 
@@ -452,7 +453,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[AssistantMemberOut]]:
-        """Add members to an assistant
+        """Add members to an assistant (agent)
 
         Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn't exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 
@@ -531,7 +532,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add members to an assistant
+        """Add members to an assistant (agent)
 
         Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn't exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
 
@@ -652,7 +653,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -692,7 +694,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> NeulandAssistantsTaggingOut:
-        """Add a tag to an assistant
+        """Add a tag to an assistant (agent)
 
         Attach a tag to an assistant.
 
@@ -771,7 +773,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[NeulandAssistantsTaggingOut]:
-        """Add a tag to an assistant
+        """Add a tag to an assistant (agent)
 
         Attach a tag to an assistant.
 
@@ -850,7 +852,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add a tag to an assistant
+        """Add a tag to an assistant (agent)
 
         Attach a tag to an assistant.
 
@@ -958,7 +960,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -998,7 +1001,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AssistantTool:
-        """Add a tool to an assistant
+        """Add a tool to an assistant (agent)
 
         Enable a tenant tool for the assistant.
 
@@ -1077,7 +1080,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AssistantTool]:
-        """Add a tool to an assistant
+        """Add a tool to an assistant (agent)
 
         Enable a tenant tool for the assistant.
 
@@ -1156,7 +1159,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Add a tool to an assistant
+        """Add a tool to an assistant (agent)
 
         Enable a tenant tool for the assistant.
 
@@ -1264,7 +1267,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1303,7 +1307,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Assistant:
-        """Make an assistant consultable from your own chats
+        """Make an assistant (agent) consultable from your own chats
 
         Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller's own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
 
@@ -1379,7 +1383,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Assistant]:
-        """Make an assistant consultable from your own chats
+        """Make an assistant (agent) consultable from your own chats
 
         Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller's own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
 
@@ -1455,7 +1459,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Make an assistant consultable from your own chats
+        """Make an assistant (agent) consultable from your own chats
 
         Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller's own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form's values as tool arguments and renders the instruction template server-side.
 
@@ -1558,7 +1562,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1597,7 +1602,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Assistant:
-        """Create an assistant
+        """Create an assistant (agent)
 
         Create an assistant from a JSON payload.
 
@@ -1671,7 +1676,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Assistant]:
-        """Create an assistant
+        """Create an assistant (agent)
 
         Create an assistant from a JSON payload.
 
@@ -1745,7 +1750,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create an assistant
+        """Create an assistant (agent)
 
         Create an assistant from a JSON payload.
 
@@ -1859,7 +1864,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1898,7 +1904,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Delete an assistant
+        """Delete an assistant (agent)
 
         Delete an assistant and orphan its associated chats.
 
@@ -1973,7 +1979,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Delete an assistant
+        """Delete an assistant (agent)
 
         Delete an assistant and orphan its associated chats.
 
@@ -2048,7 +2054,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Delete an assistant
+        """Delete an assistant (agent)
 
         Delete an assistant and orphan its associated chats.
 
@@ -2150,7 +2156,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2190,7 +2197,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Remove members from an assistant
+        """Remove members from an assistant (agent)
 
         Remove one or more users from the assistant's membership.
 
@@ -2270,7 +2277,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Remove members from an assistant
+        """Remove members from an assistant (agent)
 
         Remove one or more users from the assistant's membership.
 
@@ -2350,7 +2357,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Remove members from an assistant
+        """Remove members from an assistant (agent)
 
         Remove one or more users from the assistant's membership.
 
@@ -2472,7 +2479,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2511,7 +2519,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> AssistantMemberOut:
-        """Join a community assistant
+        """Join a community assistant (agent)
 
         self-add to a tenant-shared community assistant.
 
@@ -2587,7 +2595,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[AssistantMemberOut]:
-        """Join a community assistant
+        """Join a community assistant (agent)
 
         self-add to a tenant-shared community assistant.
 
@@ -2663,7 +2671,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Join a community assistant
+        """Join a community assistant (agent)
 
         self-add to a tenant-shared community assistant.
 
@@ -2766,7 +2774,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2805,7 +2814,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Leave an assistant
+        """Leave an assistant (agent)
 
         user can leave the assistant by themselves.
 
@@ -2880,7 +2889,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Leave an assistant
+        """Leave an assistant (agent)
 
         user can leave the assistant by themselves.
 
@@ -2955,7 +2964,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Leave an assistant
+        """Leave an assistant (agent)
 
         user can leave the assistant by themselves.
 
@@ -3057,7 +3066,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -3096,7 +3106,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Stop the assistant being consultable from your chats
+        """Stop the assistant (agent) being consultable from your chats
 
         Clear the caller's own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users' conversions are untouched.
 
@@ -3171,7 +3181,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Stop the assistant being consultable from your chats
+        """Stop the assistant (agent) being consultable from your chats
 
         Clear the caller's own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users' conversions are untouched.
 
@@ -3246,7 +3256,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Stop the assistant being consultable from your chats
+        """Stop the assistant (agent) being consultable from your chats
 
         Clear the caller's own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users' conversions are untouched.
 
@@ -3348,7 +3358,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -3388,7 +3399,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Remove a library from an assistant
+        """Remove a library from an assistant (agent)
 
         Disables a library from an assistant by removing the association
 
@@ -3467,7 +3478,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Remove a library from an assistant
+        """Remove a library from an assistant (agent)
 
         Disables a library from an assistant by removing the association
 
@@ -3546,7 +3557,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Remove a library from an assistant
+        """Remove a library from an assistant (agent)
 
         Disables a library from an assistant by removing the association
 
@@ -3654,7 +3665,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -3694,7 +3706,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Remove a single member
+        """Remove a single member from an assistant (agent)
 
         Remove a specific user from the assistant's membership.
 
@@ -3773,7 +3785,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Remove a single member
+        """Remove a single member from an assistant (agent)
 
         Remove a specific user from the assistant's membership.
 
@@ -3852,7 +3864,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Remove a single member
+        """Remove a single member from an assistant (agent)
 
         Remove a specific user from the assistant's membership.
 
@@ -3960,7 +3972,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -4000,7 +4013,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Remove a tag from an assistant
+        """Remove a tag from an assistant (agent)
 
         Detach a tag from an assistant.
 
@@ -4079,7 +4092,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Remove a tag from an assistant
+        """Remove a tag from an assistant (agent)
 
         Detach a tag from an assistant.
 
@@ -4158,7 +4171,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Remove a tag from an assistant
+        """Remove a tag from an assistant (agent)
 
         Detach a tag from an assistant.
 
@@ -4266,7 +4279,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -4306,7 +4320,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> None:
-        """Remove a tool from an assistant
+        """Remove a tool from an assistant (agent)
 
         Disable a tool for the assistant by removing the association.
 
@@ -4385,7 +4399,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[None]:
-        """Remove a tool from an assistant
+        """Remove a tool from an assistant (agent)
 
         Disable a tool for the assistant by removing the association.
 
@@ -4464,7 +4478,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Remove a tool from an assistant
+        """Remove a tool from an assistant (agent)
 
         Disable a tool for the assistant by removing the association.
 
@@ -4572,7 +4586,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -4612,7 +4627,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Assistant:
-        """Restore an assistant version
+        """Restore an assistant (agent) version
 
         Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
 
@@ -4691,7 +4706,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Assistant]:
-        """Restore an assistant version
+        """Restore an assistant (agent) version
 
         Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
 
@@ -4770,7 +4785,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Restore an assistant version
+        """Restore an assistant (agent) version
 
         Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
 
@@ -4878,7 +4893,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -4929,7 +4945,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Assistant:
-        """Create an assistant with attachments
+        """Create an assistant (agent) with attachments
 
         Create an assistant via multipart form, with optional knowledge-file uploads.
 
@@ -5051,7 +5067,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Assistant]:
-        """Create an assistant with attachments
+        """Create an assistant (agent) with attachments
 
         Create an assistant via multipart form, with optional knowledge-file uploads.
 
@@ -5173,7 +5189,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Create an assistant with attachments
+        """Create an assistant (agent) with attachments
 
         Create an assistant via multipart form, with optional knowledge-file uploads.
 
@@ -5360,7 +5376,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -5400,7 +5417,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Assistant:
-        """Update an assistant
+        """Update an assistant (agent)
 
         Update an assistant's configuration.
 
@@ -5479,7 +5496,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Assistant]:
-        """Update an assistant
+        """Update an assistant (agent)
 
         Update an assistant's configuration.
 
@@ -5558,7 +5575,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Update an assistant
+        """Update an assistant (agent)
 
         Update an assistant's configuration.
 
@@ -5679,7 +5696,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -5719,7 +5737,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[AssistantGroupOut]:
-        """Set assistant group access
+        """Set assistant (agent) group access
 
         Grant or update assistant access for user groups (replaces the current set).
 
@@ -5798,7 +5816,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[AssistantGroupOut]]:
-        """Set assistant group access
+        """Set assistant (agent) group access
 
         Grant or update assistant access for user groups (replaces the current set).
 
@@ -5877,7 +5895,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Set assistant group access
+        """Set assistant (agent) group access
 
         Grant or update assistant access for user groups (replaces the current set).
 
@@ -5998,7 +6016,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -6038,7 +6057,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> Assistant:
-        """Set assistant visibility
+        """Set assistant (agent) visibility
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
@@ -6117,7 +6136,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[Assistant]:
-        """Set assistant visibility
+        """Set assistant (agent) visibility
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
@@ -6196,7 +6215,7 @@ class Assistant:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Set assistant visibility
+        """Set assistant (agent) visibility
 
         creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
@@ -6317,7 +6336,8 @@ class Assistant:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(

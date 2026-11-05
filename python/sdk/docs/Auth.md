@@ -180,6 +180,7 @@ Resolve Azure Entra group display names for the current user's groups.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 import os
@@ -206,6 +207,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -237,7 +244,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -697,6 +704,7 @@ Search/browse Entra directory groups (delegated) for binding to a HUB group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 import os
@@ -722,6 +730,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -757,7 +771,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -785,6 +799,7 @@ Send a confirmation email to the current user unless their email is already veri
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 import os
@@ -810,6 +825,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -839,7 +860,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -1025,8 +1046,9 @@ No authorization required
 
 Resolve SSO providers for an email
 
-Pre-login step: resolve a tenant from the email's domain, falling back to
-the exact (unique) email, and return the routing slug and SSO providers.
+Pre-login step: resolve a tenant from the exact (unique) email of an
+existing user, falling back to the email's domain for unknown emails, and
+return the routing slug and SSO providers.
 
 ### Example
 

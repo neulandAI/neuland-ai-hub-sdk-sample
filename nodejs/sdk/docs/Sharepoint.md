@@ -65,7 +65,7 @@ const { status, data } = await apiInstance.integrationsGetItemInfo(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -78,7 +78,7 @@ const { status, data } = await apiInstance.integrationsGetItemInfo(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**403** | User has not consented to the required SharePoint scope, or the site is not enabled for the tenant. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -119,7 +119,7 @@ const { status, data } = await apiInstance.integrationsGetUserInfo(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -173,7 +173,7 @@ const { status, data } = await apiInstance.integrationsIsConnected(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -193,7 +193,7 @@ const { status, data } = await apiInstance.integrationsIsConnected(
 # **integrationsListAllSites**
 > Array<SharepointSiteModel> integrationsListAllSites()
 
-List the SharePoint sites the user can access, with imported document counts.
+List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
 
 ### Example
 
@@ -238,7 +238,7 @@ const { status, data } = await apiInstance.integrationsListAllSites(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -251,7 +251,7 @@ const { status, data } = await apiInstance.integrationsListAllSites(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**403** | User has not consented to the required SharePoint scope, or has no access to allowed sites. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -313,7 +313,7 @@ const { status, data } = await apiInstance.integrationsListChildren(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -326,7 +326,7 @@ const { status, data } = await apiInstance.integrationsListChildren(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**403** | User has not consented to the required SharePoint scope, or the site is not enabled for the tenant. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -382,7 +382,7 @@ const { status, data } = await apiInstance.integrationsListDrives(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -395,7 +395,7 @@ const { status, data } = await apiInstance.integrationsListDrives(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication, or no valid connector token. |  -  |
-|**403** | User has not consented to the required SharePoint scope. |  -  |
+|**403** | User has not consented to the required SharePoint scope, or the site is not enabled for the tenant. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

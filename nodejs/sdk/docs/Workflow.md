@@ -15,7 +15,7 @@ All URIs are relative to *https://api.your-domain.com*
 # **workflowsCreateRun**
 > RunCreateOut workflowsCreateRun()
 
-Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
 
 ### Example
 
@@ -51,7 +51,7 @@ const { status, data } = await apiInstance.workflowsCreateRun(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -109,7 +109,7 @@ const { status, data } = await apiInstance.workflowsCreateRunStreamToken(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -165,7 +165,7 @@ const { status, data } = await apiInstance.workflowsCreateWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -220,7 +220,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -279,7 +279,7 @@ const { status, data } = await apiInstance.workflowsRefineWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -298,7 +298,7 @@ const { status, data } = await apiInstance.workflowsRefineWorkflow(
 # **workflowsStreamRunEvents**
 > any workflowsStreamRunEvents()
 
-Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
 
 ### Example
 
@@ -313,10 +313,12 @@ const apiInstance = new Workflow(configuration);
 
 let workflowId: string; // (default to undefined)
 let runId: string; // (default to undefined)
+let after: number; // (optional) (default to 0)
 
 const { status, data } = await apiInstance.workflowsStreamRunEvents(
     workflowId,
-    runId
+    runId,
+    after
 );
 ```
 
@@ -326,6 +328,7 @@ const { status, data } = await apiInstance.workflowsStreamRunEvents(
 |------------- | ------------- | ------------- | -------------|
 | **workflowId** | [**string**] |  | defaults to undefined|
 | **runId** | [**string**] |  | defaults to undefined|
+| **after** | [**number**] |  | (optional) defaults to 0|
 
 
 ### Return type
@@ -393,7 +396,7 @@ const { status, data } = await apiInstance.workflowsUpdateWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 

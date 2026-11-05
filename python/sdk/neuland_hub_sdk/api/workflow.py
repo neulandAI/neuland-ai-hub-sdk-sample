@@ -15,8 +15,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictStr
+from pydantic import Field, StrictStr
 from typing import Any, Optional
+from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.run_create_out import RunCreateOut
 from neuland_hub_sdk.models.stream_token_out import StreamTokenOut
@@ -64,7 +65,7 @@ class Workflow:
     ) -> RunCreateOut:
         """Create Run
 
-        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run's id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -136,7 +137,7 @@ class Workflow:
     ) -> ApiResponse[RunCreateOut]:
         """Create Run
 
-        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run's id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -208,7 +209,7 @@ class Workflow:
     ) -> RESTResponseType:
         """Create Run
 
-        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run's id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -305,7 +306,8 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -602,7 +604,8 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -897,7 +900,8 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1179,7 +1183,8 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1489,7 +1494,8 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1515,6 +1521,7 @@ class Workflow:
         self,
         workflow_id: UUID,
         run_id: UUID,
+        after: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1530,12 +1537,14 @@ class Workflow:
     ) -> object:
         """Stream Run Events
 
-        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
         :param run_id: (required)
         :type run_id: UUID
+        :param after:
+        :type after: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1561,6 +1570,7 @@ class Workflow:
         _param = self._workflows_stream_run_events_serialize(
             workflow_id=workflow_id,
             run_id=run_id,
+            after=after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1587,6 +1597,7 @@ class Workflow:
         self,
         workflow_id: UUID,
         run_id: UUID,
+        after: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1602,12 +1613,14 @@ class Workflow:
     ) -> ApiResponse[object]:
         """Stream Run Events
 
-        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
         :param run_id: (required)
         :type run_id: UUID
+        :param after:
+        :type after: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1633,6 +1646,7 @@ class Workflow:
         _param = self._workflows_stream_run_events_serialize(
             workflow_id=workflow_id,
             run_id=run_id,
+            after=after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1659,6 +1673,7 @@ class Workflow:
         self,
         workflow_id: UUID,
         run_id: UUID,
+        after: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1674,12 +1689,14 @@ class Workflow:
     ) -> RESTResponseType:
         """Stream Run Events
 
-        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
         :param run_id: (required)
         :type run_id: UUID
+        :param after:
+        :type after: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1705,6 +1722,7 @@ class Workflow:
         _param = self._workflows_stream_run_events_serialize(
             workflow_id=workflow_id,
             run_id=run_id,
+            after=after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1726,6 +1744,7 @@ class Workflow:
         self,
         workflow_id,
         run_id,
+        after,
         _request_auth,
         _content_type,
         _headers,
@@ -1752,6 +1771,10 @@ class Workflow:
         if run_id is not None:
             _path_params['run_id'] = run_id
         # process the query parameters
+        if after is not None:
+            
+            _query_params.append(('after', after))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -2078,7 +2101,8 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(

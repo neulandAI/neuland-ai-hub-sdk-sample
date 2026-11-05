@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,12 +28,12 @@ class WorkflowUpdateIn(BaseModel):
     """
     WorkflowUpdateIn
     """ # noqa: E501
-    name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
+    name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=200)]] = 'Workflow'
     spec: Optional[Dict[str, Any]] = None
     is_enabled: Optional[StrictBool] = True
     timezone: Optional[StrictStr] = 'UTC'
-    __properties: ClassVar[List[str]] = ["name", "description", "spec", "is_enabled", "timezone"]
+    __properties: ClassVar[List[str]] = ["description", "name", "spec", "is_enabled", "timezone"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -73,11 +74,6 @@ class WorkflowUpdateIn(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
-
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
@@ -95,8 +91,8 @@ class WorkflowUpdateIn(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
             "description": obj.get("description"),
+            "name": obj.get("name") if obj.get("name") is not None else 'Workflow',
             "spec": obj.get("spec"),
             "is_enabled": obj.get("is_enabled") if obj.get("is_enabled") is not None else True,
             "timezone": obj.get("timezone") if obj.get("timezone") is not None else 'UTC'

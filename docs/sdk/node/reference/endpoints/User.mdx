@@ -13,6 +13,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**usersDeleteGroup**](#usersdeletegroup) | **DELETE** /users/groups/&#123;group_id&#125; | Delete a user group|
 |[**usersDeleteUser**](#usersdeleteuser) | **DELETE** /users/&#123;user_id&#125; | Delete a user|
 |[**usersGetMyself**](#usersgetmyself) | **GET** /users/me | Get current user|
+|[**usersRelinkSso**](#usersrelinksso) | **POST** /users/&#123;survivor_user_id&#125;/relink-sso | Move an orphan account\&#39;s SSO identity onto the surviving account|
 |[**usersResetPassword**](#usersresetpassword) | **POST** /users/passwd | Change own password|
 |[**usersSyncExternalGroup**](#userssyncexternalgroup) | **POST** /users/groups/&#123;group_id&#125;/sync | Sync an external group\&#39;s members|
 |[**usersUpdateGroup**](#usersupdategroup) | **PATCH** /users/groups/&#123;group_id&#125; | Update a user group|
@@ -61,7 +62,7 @@ const { status, data } = await apiInstance.usersActivateUser(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -121,7 +122,7 @@ const { status, data } = await apiInstance.usersCreateGroup(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -180,7 +181,7 @@ const { status, data } = await apiInstance.usersCreateUser(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -238,7 +239,7 @@ const { status, data } = await apiInstance.usersDeactivateUser(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -297,7 +298,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -357,7 +358,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -413,7 +414,7 @@ const { status, data } = await apiInstance.usersGetMyself(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -427,6 +428,71 @@ const { status, data } = await apiInstance.usersGetMyself(
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
 |**404** | The current user no longer exists. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **usersRelinkSso**
+```typescript
+usersRelinkSso(relinkSsoIn)
+```
+
+Merge the orphan\'s data, IdP identity and email onto the surviving account.
+
+### Example
+
+```typescript
+import {
+    User,
+    Configuration,
+    RelinkSsoIn
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new User(configuration);
+
+let survivorUserId: string; // (default to undefined)
+let relinkSsoIn: RelinkSsoIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.usersRelinkSso(
+    survivorUserId,
+    relinkSsoIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **relinkSsoIn** | **RelinkSsoIn**|  | |
+| **survivorUserId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**400** | Same account, different tenants, or the orphan has no SSO identity. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator privileges required. |  -  |
+|**404** | Survivor or orphan account not found. |  -  |
+|**409** | An account is being deleted, or the accounts belong to different IdP identities. |  -  |
 |**422** | Validation Error |  -  |
 
 
@@ -472,7 +538,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -530,7 +596,7 @@ const { status, data } = await apiInstance.usersSyncExternalGroup(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -595,7 +661,7 @@ const { status, data } = await apiInstance.usersUpdateGroup(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -619,7 +685,7 @@ const { status, data } = await apiInstance.usersUpdateGroup(
 UserOut usersUpdateUser(userUpdateIn)
 ```
 
-Update a user\'s profile, role, tenant, or email; password changes are restricted.
+Update a user\'s profile, role, tenant, or email (not for SSO accounts); password changes are restricted.
 
 ### Example
 
@@ -659,7 +725,7 @@ const { status, data } = await apiInstance.usersUpdateUser(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -674,7 +740,7 @@ const { status, data } = await apiInstance.usersUpdateUser(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Insufficient privileges to change the requested fields or tenant. |  -  |
 |**404** | No user exists with the given id. |  -  |
-|**422** | Validation Error |  -  |
+|**422** | Email change on an account that signs in with SSO. |  -  |
 
 
 ## **usersUpsertMembers**
@@ -721,7 +787,7 @@ const { status, data } = await apiInstance.usersUpsertMembers(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -782,7 +848,7 @@ const { status, data } = await apiInstance.usersUpsertMyPreferences(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 

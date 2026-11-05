@@ -10,6 +10,9 @@ Name | Type | Description | Notes
 **prompt_tokens** | **number** | Prompt tokens. | [default to undefined]
 **completion_tokens** | **number** | Completion tokens. | [default to undefined]
 **requests** | **number** | Number of usage records. | [default to undefined]
+**cached_prompt_tokens** | **number** | Prompt tokens read from the provider cache. | [optional] [default to 0]
+**cache_creation_tokens** | **number** | Prompt tokens written to the provider cache. | [optional] [default to 0]
+**reasoning_tokens** | **number** | Reasoning tokens, already included in completion_tokens. | [optional] [default to 0]
 **group** | [**{ [key: string]: ResponseAuthGetEntraGroupsValue; }**](ResponseAuthGetEntraGroupsValue.md) | Dimension values for this group, keyed by dimension name. A null value means the dimension was unattributed for these rows. | [default to undefined]
 **bucket** | **string** |  | [optional] [default to undefined]
 
@@ -24,6 +27,9 @@ const instance: UsageRow = {
     prompt_tokens,
     completion_tokens,
     requests,
+    cached_prompt_tokens,
+    cache_creation_tokens,
+    reasoning_tokens,
     group,
     bucket,
 };

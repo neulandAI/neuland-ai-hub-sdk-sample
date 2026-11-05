@@ -33,7 +33,7 @@ class AccessItemOut(BaseModel):
     name: StrictStr = Field(description="Name of the model, tool or connector.")
     roles: Optional[List[Optional[StrictStr]]] = Field(default=None, description="Names of the user's roles that grant this item.")
     granted_directly: Optional[StrictBool] = Field(default=False, description="Whether the user holds an unrevoked direct grant for it.")
-    always_available: Optional[StrictBool] = Field(default=False, description="Whether the item reaches every user whatever their roles say. Only default tools do — they are bound in code for every chat — so an empty `roles` with no direct grant is expected rather than unexplained.")
+    always_available: Optional[StrictBool] = Field(default=False, description="Whether the item reaches every user whatever their roles say: default tools, bound in code for every chat, and custom MCPs added for everyone. So an empty `roles` with no direct grant is expected rather than unexplained.")
     __properties: ClassVar[List[str]] = ["item_id", "item_public_id", "name", "roles", "granted_directly", "always_available"]
 
     model_config = ConfigDict(

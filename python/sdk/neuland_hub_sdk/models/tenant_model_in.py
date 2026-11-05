@@ -28,7 +28,8 @@ class TenantModelIn(BaseModel):
     TenantModelIn
     """ # noqa: E501
     auto_routable: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["auto_routable"]
+    prompt_caching: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["auto_routable", "prompt_caching"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -74,6 +75,11 @@ class TenantModelIn(BaseModel):
         if self.auto_routable is None and "auto_routable" in self.model_fields_set:
             _dict['auto_routable'] = None
 
+        # set to None if prompt_caching (nullable) is None
+        # and model_fields_set contains the field
+        if self.prompt_caching is None and "prompt_caching" in self.model_fields_set:
+            _dict['prompt_caching'] = None
+
         return _dict
 
     @classmethod
@@ -86,7 +92,8 @@ class TenantModelIn(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "auto_routable": obj.get("auto_routable")
+            "auto_routable": obj.get("auto_routable"),
+            "prompt_caching": obj.get("prompt_caching")
         })
         return _obj
 

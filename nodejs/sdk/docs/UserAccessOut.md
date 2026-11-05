@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **models** | [**Array&lt;AccessItemOut&gt;**](AccessItemOut.md) |  | [optional] [default to undefined]
 **tools** | [**Array&lt;AccessItemOut&gt;**](AccessItemOut.md) |  | [optional] [default to undefined]
 **connectors** | [**Array&lt;AccessItemOut&gt;**](AccessItemOut.md) |  | [optional] [default to undefined]
+**custom_connectors** | [**Array&lt;AccessItemOut&gt;**](AccessItemOut.md) |  | [optional] [default to undefined]
 
 ## Example
 
@@ -25,6 +26,7 @@ const instance: UserAccessOut = {
     models,
     tools,
     connectors,
+    custom_connectors,
 };
 ```
 

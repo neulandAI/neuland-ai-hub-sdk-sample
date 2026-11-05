@@ -317,7 +317,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -626,7 +627,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -930,7 +932,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1221,7 +1224,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1512,7 +1516,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1820,7 +1825,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2142,7 +2148,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2173,7 +2180,7 @@ class Message:
         document_ids: Optional[List[UUID]] = None,
         files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
-        reasoning_effort: Optional[Any] = None,
+        reasoning_effort: Optional[StrictStr] = None,
         similarity_top_k: Optional[StrictInt] = None,
         system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
@@ -2216,7 +2223,7 @@ class Message:
         :param temperature:
         :type temperature: float
         :param reasoning_effort:
-        :type reasoning_effort: ReasoningEffortEnum
+        :type reasoning_effort: str
         :param similarity_top_k:
         :type similarity_top_k: int
         :param system_prompt:
@@ -2312,7 +2319,7 @@ class Message:
         document_ids: Optional[List[UUID]] = None,
         files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
-        reasoning_effort: Optional[Any] = None,
+        reasoning_effort: Optional[StrictStr] = None,
         similarity_top_k: Optional[StrictInt] = None,
         system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
@@ -2355,7 +2362,7 @@ class Message:
         :param temperature:
         :type temperature: float
         :param reasoning_effort:
-        :type reasoning_effort: ReasoningEffortEnum
+        :type reasoning_effort: str
         :param similarity_top_k:
         :type similarity_top_k: int
         :param system_prompt:
@@ -2451,7 +2458,7 @@ class Message:
         document_ids: Optional[List[UUID]] = None,
         files: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None,
         temperature: Optional[Union[StrictFloat, StrictInt]] = None,
-        reasoning_effort: Optional[Any] = None,
+        reasoning_effort: Optional[StrictStr] = None,
         similarity_top_k: Optional[StrictInt] = None,
         system_prompt: Optional[StrictStr] = None,
         assistant_id: Optional[UUID] = None,
@@ -2494,7 +2501,7 @@ class Message:
         :param temperature:
         :type temperature: float
         :param reasoning_effort:
-        :type reasoning_effort: ReasoningEffortEnum
+        :type reasoning_effort: str
         :param similarity_top_k:
         :type similarity_top_k: int
         :param system_prompt:
@@ -2689,7 +2696,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2997,7 +3005,8 @@ class Message:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(

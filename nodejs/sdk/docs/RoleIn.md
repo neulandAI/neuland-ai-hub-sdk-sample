@@ -13,9 +13,11 @@ Name | Type | Description | Notes
 **all_models** | **boolean** | Whether the role grants every model the tenant enables. | [optional] [default to true]
 **all_tools** | **boolean** | Whether the role grants every tool the tenant enables. | [optional] [default to true]
 **all_connectors** | **boolean** | Whether the role grants every connector the tenant enables. | [optional] [default to true]
+**all_custom_connectors** | **boolean** | Whether the role grants every organisation custom MCP. | [optional] [default to false]
 **models** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **tools** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **connectors** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**custom_connectors** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -30,9 +32,11 @@ const instance: RoleIn = {
     all_models,
     all_tools,
     all_connectors,
+    all_custom_connectors,
     models,
     tools,
     connectors,
+    custom_connectors,
 };
 ```
 

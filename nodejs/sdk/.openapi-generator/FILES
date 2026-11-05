@@ -54,6 +54,7 @@ docs/BudgetSummary.md
 docs/BudgetTopUpOut.md
 docs/BudgetTopUpRequest.md
 docs/BulkResult.md
+docs/CallbackOut.md
 docs/CatalogIn.md
 docs/CatalogUpdate.md
 docs/Category.md
@@ -103,6 +104,8 @@ docs/DataSourceSiteModel.md
 docs/DataSourceUserModel.md
 docs/DateWindowRequest.md
 docs/Default.md
+docs/DetectIn.md
+docs/DetectOut.md
 docs/DirectFileUrl.md
 docs/Document.md
 docs/Document.md
@@ -123,6 +126,7 @@ docs/Files.md
 docs/FormField.md
 docs/FormFieldTypeEnum.md
 docs/GoogleDrive.md
+docs/GooglePickerTokenOut.md
 docs/GroupAppAccessIn.md
 docs/GroupIn.md
 docs/GroupSyncOut.md
@@ -157,7 +161,10 @@ docs/MessageIn.md
 docs/MessageSubmitOut.md
 docs/MessageTokensResponse.md
 docs/MessageTurnOut.md
+docs/ModelApi.md
 docs/ModelDelta.md
+docs/ModelList.md
+docs/ModelObject.md
 docs/ModelTierEnum.md
 docs/MoversResponse.md
 docs/NeulandAssistantsTaggingOut.md
@@ -189,7 +196,9 @@ docs/RateableTypeEnum.md
 docs/Rating.md
 docs/Rating.md
 docs/RatingIn.md
+docs/ReasoningEffort.md
 docs/ReasoningEffortEnum.md
+docs/RelinkSsoIn.md
 docs/RephraseStyleEnum.md
 docs/ResourceAccess.md
 docs/ResponseAuthGetEntraGroupsValue.md
@@ -202,6 +211,8 @@ docs/ResumeIn.md
 docs/Role.md
 docs/Role.md
 docs/RoleIn.md
+docs/RoleReassignIn.md
+docs/RoleReassignOut.md
 docs/RoleUpdateIn.md
 docs/RunCreateOut.md
 docs/SecretUpdateIn.md
@@ -222,6 +233,7 @@ docs/SharepointItemModel.md
 docs/SharepointSiteModel.md
 docs/SharepointUserModel.md
 docs/SharepointV1.md
+docs/SignInOut.md
 docs/SsoExchangeIn.md
 docs/SsoInitOut.md
 docs/SsoResolveOut.md

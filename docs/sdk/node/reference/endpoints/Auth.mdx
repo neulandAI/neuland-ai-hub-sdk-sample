@@ -171,7 +171,7 @@ const { status, data } = await apiInstance.authGetEntraGroups(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -570,7 +570,7 @@ const { status, data } = await apiInstance.authSearchEntraGroups(
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -625,7 +625,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage), [EntraAccessToken](/sdk/node/usage)
 
 ### HTTP request headers
 
@@ -781,7 +781,7 @@ No authorization required
 SsoResolveOut authSsoResolve()
 ```
 
-Pre-login step: resolve a tenant from the email\'s domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email\'s domain for unknown emails, and return the routing slug and SSO providers.
 
 ### Example
 

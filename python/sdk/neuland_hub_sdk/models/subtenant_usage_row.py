@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Union
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -32,10 +32,13 @@ class SubtenantUsageRow(BaseModel):
     prompt_tokens: StrictInt = Field(description="Prompt tokens.")
     completion_tokens: StrictInt = Field(description="Completion tokens.")
     requests: StrictInt = Field(description="Number of usage records.")
+    cached_prompt_tokens: Optional[StrictInt] = Field(default=0, description="Prompt tokens read from the provider cache.")
+    cache_creation_tokens: Optional[StrictInt] = Field(default=0, description="Prompt tokens written to the provider cache.")
+    reasoning_tokens: Optional[StrictInt] = Field(default=0, description="Reasoning tokens, already included in completion_tokens.")
     tenant_id: StrictInt = Field(description="Tenant id.")
     tenant_name: StrictStr = Field(description="Tenant name.")
     is_self: StrictBool = Field(description="Whether this row is the requesting (parent) tenant.")
-    __properties: ClassVar[List[str]] = ["cost", "total_tokens", "prompt_tokens", "completion_tokens", "requests", "tenant_id", "tenant_name", "is_self"]
+    __properties: ClassVar[List[str]] = ["cost", "total_tokens", "prompt_tokens", "completion_tokens", "requests", "cached_prompt_tokens", "cache_creation_tokens", "reasoning_tokens", "tenant_id", "tenant_name", "is_self"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -93,6 +96,9 @@ class SubtenantUsageRow(BaseModel):
             "prompt_tokens": obj.get("prompt_tokens"),
             "completion_tokens": obj.get("completion_tokens"),
             "requests": obj.get("requests"),
+            "cached_prompt_tokens": obj.get("cached_prompt_tokens") if obj.get("cached_prompt_tokens") is not None else 0,
+            "cache_creation_tokens": obj.get("cache_creation_tokens") if obj.get("cache_creation_tokens") is not None else 0,
+            "reasoning_tokens": obj.get("reasoning_tokens") if obj.get("reasoning_tokens") is not None else 0,
             "tenant_id": obj.get("tenant_id"),
             "tenant_name": obj.get("tenant_name"),
             "is_self": obj.get("is_self")

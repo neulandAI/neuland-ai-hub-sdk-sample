@@ -331,7 +331,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -632,7 +633,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -936,7 +938,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1243,7 +1246,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1547,7 +1551,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -1848,7 +1853,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2149,7 +2155,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2453,7 +2460,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(
@@ -2754,7 +2762,8 @@ class Llm:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer'
+            'OAuth2PasswordBearer', 
+            'EntraAccessToken'
         ]
 
         return self.api_client.param_serialize(

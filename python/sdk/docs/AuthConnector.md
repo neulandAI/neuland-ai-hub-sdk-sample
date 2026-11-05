@@ -5,10 +5,12 @@ All URIs are relative to *https://api.your-domain.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**auth_get_credential_template**](AuthConnector.md#auth_get_credential_template) | **GET** /auth/connectors/{connector_id}/credential/template | Get connector credential template
+[**auth_google_picker_token**](AuthConnector.md#auth_google_picker_token) | **GET** /auth/connectors/google/picker-token | Get a Google Picker token
 [**auth_initiate_admin_consent**](AuthConnector.md#auth_initiate_admin_consent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate admin connector consent
 [**auth_initiate_consent**](AuthConnector.md#auth_initiate_consent) | **GET** /auth/connectors/{connector_id}/consent | Initiate connector consent
 [**auth_list_connector_status**](AuthConnector.md#auth_list_connector_status) | **GET** /auth/connectors/status | List connector status
 [**auth_oauth_callback**](AuthConnector.md#auth_oauth_callback) | **GET** /auth/connectors/callback | Connector OAuth callback
+[**auth_remove_admin_credential**](AuthConnector.md#auth_remove_admin_credential) | **DELETE** /auth/connectors/{connector_id}/credential/admin | Remove the tenant-wide connector credential
 [**auth_revoke_consent**](AuthConnector.md#auth_revoke_consent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke connector consent
 [**auth_set_admin_credential**](AuthConnector.md#auth_set_admin_credential) | **PUT** /auth/connectors/{connector_id}/credential/admin | Set the tenant-wide connector credential
 [**auth_set_user_credential**](AuthConnector.md#auth_set_user_credential) | **PUT** /auth/connectors/{connector_id}/credential/user | Set the caller&#39;s connector credential
@@ -27,6 +29,7 @@ Never returns stored secret values — only which fields are present.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -54,6 +57,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -87,7 +96,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -105,6 +114,100 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **auth_google_picker_token**
+> GooglePickerTokenOut auth_google_picker_token(cookie_name=cookie_name)
+
+Get a Google Picker token
+
+Return a fresh `drive.file`-only access token and the Picker config. The
+stored access token never leaves the backend.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
+
+```python
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
+from neuland_hub_sdk.models.google_picker_token_out import GooglePickerTokenOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = AuthConnector(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Get a Google Picker token
+        api_response = api_instance.auth_google_picker_token(cookie_name=cookie_name)
+        print("The response of AuthConnector->auth_google_picker_token:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_google_picker_token: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**GooglePickerTokenOut**](GooglePickerTokenOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Not authenticated, or Drive consent required (&#x60;consent_required&#x60;). |  -  |
+**404** | Picker or connector not set up. |  -  |
+**503** | Refreshing the &#x60;drive.file&#x60; token failed; retry or reconnect. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **auth_initiate_admin_consent**
 > ConnectorConsentOut auth_initiate_admin_consent(connector_id, cookie_name=cookie_name)
 
@@ -115,6 +218,7 @@ Start the admin consent flow for connectors that require organization-wide admin
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -142,6 +246,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -175,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -206,6 +316,7 @@ URL as JSON, or a 302 redirect when redirect=true.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -233,6 +344,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -270,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -300,6 +417,7 @@ List the connectors the user may use with their per-user consent status.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 import os
@@ -326,6 +444,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -357,7 +481,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -448,24 +572,24 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
-**403** | The provider granted insufficient scopes for the requested capabilities. |  -  |
+**403** | The provider granted insufficient scopes for the requested capabilities (&#x60;insufficient_scopes&#x60;), or none at all (&#x60;no_scopes_granted&#x60;). |  -  |
 **404** | No connector or OAuth client exists for the consent state. |  -  |
 **503** | Token exchange with the OAuth provider failed. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **auth_revoke_consent**
-> auth_revoke_consent(connector_id, cookie_name=cookie_name)
+# **auth_remove_admin_credential**
+> auth_remove_admin_credential(connector_id, cookie_name=cookie_name)
 
-Revoke connector consent
+Remove the tenant-wide connector credential
 
-Disconnect a connector for the caller: revoke OAuth consent for OAuth
-connectors, or clear the caller's own credential for non-OAuth ones.
+Remove the tenant-wide (admin) credential. Admin only.
 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -492,6 +616,106 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = AuthConnector(api_client)
+    connector_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector whose credential is being accessed.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Remove the tenant-wide connector credential
+        api_instance.auth_remove_admin_credential(connector_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling AuthConnector->auth_remove_admin_credential: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connector_id** | **UUID**| Public id of the connector whose credential is being accessed. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Administrator privileges required. |  -  |
+**404** | No connector/template exists, it has no admin credential fields, or none is set. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **auth_revoke_consent**
+> auth_revoke_consent(connector_id, cookie_name=cookie_name)
+
+Revoke connector consent
+
+Disconnect a connector for the caller: revoke OAuth consent for OAuth
+connectors, or clear the caller's own credential for non-OAuth ones.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.auth_connector import AuthConnector
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -523,7 +747,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -536,6 +760,7 @@ void (empty response body)
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
+**404** | No connector exists for the given id, or it has no per-user part to disconnect. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -550,6 +775,7 @@ Store the tenant-wide (admin) credential fields. Admin only.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -577,6 +803,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -610,7 +842,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -639,6 +871,7 @@ Store the caller's per-user credential fields.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -666,6 +899,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -699,7 +938,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -727,6 +966,7 @@ Update a connector (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -755,6 +995,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -790,7 +1036,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -819,6 +1065,7 @@ Update an OAuth client (superadmin only).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
+* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -847,6 +1094,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
+
+# Configure API key authorization: EntraAccessToken
+configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -882,7 +1135,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 

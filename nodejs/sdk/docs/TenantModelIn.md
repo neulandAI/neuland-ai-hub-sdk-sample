@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **auto_routable** | **boolean** |  | [optional] [default to undefined]
+**prompt_caching** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -14,6 +15,7 @@ import { TenantModelIn } from '@neulandai/neuland-hub-sdk';
 
 const instance: TenantModelIn = {
     auto_routable,
+    prompt_caching,
 };
 ```
 

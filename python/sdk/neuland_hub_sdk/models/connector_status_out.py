@@ -33,13 +33,16 @@ class ConnectorStatusOut(BaseModel):
     connector_public_id: UUID = Field(description="Public id of the connector. Use it for the consent, credential, and config endpoints (which are keyed by public id).")
     name: StrictStr = Field(description="Human-readable connector name.")
     auth_type: ConnectorAuthType = Field(description="Authentication mechanism the connector uses.")
-    connected: StrictBool = Field(description="Whether the connector is fully usable for the caller (consent granted and all required config present).")
+    connected: StrictBool = Field(description="Whether the caller can use the connector: all required config is present and consent covers at least one capability. A partial grant is connected while `needs_consent` is still true.")
     needs_consent: StrictBool = Field(description="OAuth authorization is required before the connector can be used.")
     needs_config: StrictBool = Field(description="An admin credential template part is required but not yet set.")
     needs_user_config: StrictBool = Field(description="A per-user credential template part is required but not yet set.")
     has_admin_config: StrictBool = Field(description="The connector has an admin-managed credential part.")
+    can_disconnect: StrictBool = Field(description="The caller has a per-user part to remove (OAuth consent or per-user credential).")
     missing_caps: List[Optional[StrictStr]] = Field(description="Capabilities not yet granted; empty unless consent is needed.")
-    __properties: ClassVar[List[str]] = ["connector_id", "connector_public_id", "name", "auth_type", "connected", "needs_consent", "needs_config", "needs_user_config", "has_admin_config", "missing_caps"]
+    granted_caps: Optional[List[Optional[StrictStr]]] = Field(default=None, description="Capabilities the caller's consent covers; on a partial grant `connected` and `needs_consent` are both true and `missing_caps` lists the rest.")
+    picker_available: Optional[StrictBool] = Field(default=False, description="The Google Drive file picker can open: an admin set the Picker API key and this consent covers `drive.file`.")
+    __properties: ClassVar[List[str]] = ["connector_id", "connector_public_id", "name", "auth_type", "connected", "needs_consent", "needs_config", "needs_user_config", "has_admin_config", "can_disconnect", "missing_caps", "granted_caps", "picker_available"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -101,7 +104,10 @@ class ConnectorStatusOut(BaseModel):
             "needs_config": obj.get("needs_config"),
             "needs_user_config": obj.get("needs_user_config"),
             "has_admin_config": obj.get("has_admin_config"),
-            "missing_caps": obj.get("missing_caps")
+            "can_disconnect": obj.get("can_disconnect"),
+            "missing_caps": obj.get("missing_caps"),
+            "granted_caps": obj.get("granted_caps"),
+            "picker_available": obj.get("picker_available") if obj.get("picker_available") is not None else False
         })
         return _obj
 

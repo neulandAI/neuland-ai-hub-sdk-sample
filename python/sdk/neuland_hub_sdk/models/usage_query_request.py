@@ -59,8 +59,8 @@ class UsageQueryRequest(BaseModel):
             return value
 
         for i in value:
-            if i not in set(['model', 'provider', 'source', 'assistant', 'project', 'user', 'group']):
-                raise ValueError("each list item must be one of ('model', 'provider', 'source', 'assistant', 'project', 'user', 'group')")
+            if i not in set(['model', 'provider', 'source', 'assistant', 'project', 'user', 'group', 'api_key']):
+                raise ValueError("each list item must be one of ('model', 'provider', 'source', 'assistant', 'project', 'user', 'group', 'api_key')")
         return value
 
     model_config = ConfigDict(

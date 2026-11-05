@@ -42,6 +42,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -121,6 +124,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -145,7 +151,8 @@
               "enum": [
                 "model",
                 "tool",
-                "connector"
+                "connector",
+                "custom_mcp"
               ],
               "description": "The resource kinds access is resolved for."
             },
@@ -222,6 +229,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -246,7 +256,8 @@
               "enum": [
                 "model",
                 "tool",
-                "connector"
+                "connector",
+                "custom_mcp"
               ],
               "description": "The resource kinds access is resolved for."
             },
@@ -321,6 +332,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -395,6 +409,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -459,6 +476,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -523,6 +543,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -590,6 +613,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -662,6 +688,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -732,6 +761,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -821,6 +853,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -899,6 +934,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -968,6 +1006,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1040,6 +1081,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1121,6 +1165,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1202,6 +1249,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1270,6 +1320,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1348,7 +1401,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Create an assistant",
+        "summary": "Create an assistant (agent)",
         "description": "Create an assistant from a JSON payload.",
         "operationId": "assistants_create_assistant",
         "security": [
@@ -1357,6 +1410,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1414,6 +1470,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -1422,7 +1481,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Create an assistant with attachments",
+        "summary": "Create an assistant (agent) with attachments",
         "description": "Create an assistant via multipart form, with optional knowledge-file uploads.",
         "operationId": "assistants_submit_assistant",
         "security": [
@@ -1431,6 +1490,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1496,7 +1558,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Delete an assistant",
+        "summary": "Delete an assistant (agent)",
         "description": "Delete an assistant and orphan its associated chats.",
         "operationId": "assistants_delete_assistant",
         "security": [
@@ -1505,6 +1567,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1560,13 +1625,16 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       },
       "patch": {
         "tags": [
           "Assistant"
         ],
-        "summary": "Update an assistant",
+        "summary": "Update an assistant (agent)",
         "description": "Update an assistant's configuration.",
         "operationId": "assistants_update_assistant",
         "security": [
@@ -1575,6 +1643,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1647,6 +1718,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -1655,7 +1729,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Set assistant group access",
+        "summary": "Set assistant (agent) group access",
         "description": "Grant or update assistant access for user groups (replaces the current set).",
         "operationId": "assistants_update_assistant_groups",
         "security": [
@@ -1664,6 +1738,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1748,7 +1825,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Remove a library from an assistant",
+        "summary": "Remove a library from an assistant (agent)",
         "description": "Disables a library from an assistant by removing the association",
         "operationId": "assistants_remove_library_from_assistant",
         "security": [
@@ -1757,6 +1834,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1824,13 +1904,16 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       },
       "post": {
         "tags": [
           "Assistant"
         ],
-        "summary": "Add a library to an assistant",
+        "summary": "Add a library to an assistant (agent)",
         "description": "Enables a library for a assistant by creating a new association",
         "operationId": "assistants_add_library_to_assistant",
         "security": [
@@ -1839,6 +1922,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1913,6 +1999,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -1921,7 +2010,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Remove members from an assistant",
+        "summary": "Remove members from an assistant (agent)",
         "description": "Remove one or more users from the assistant's membership.",
         "operationId": "assistants_delete_members",
         "security": [
@@ -1930,6 +2019,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1998,13 +2090,16 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       },
       "post": {
         "tags": [
           "Assistant"
         ],
-        "summary": "Add members to an assistant",
+        "summary": "Add members to an assistant (agent)",
         "description": "Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is\npromoted to INVITED so it survives a later TENANT->PRIVATE downgrade.\n\nRace-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for\nrows that didn't exist before this call \u2014 promoting a self-joiner from\nDISCOVERED to INVITED is a bookkeeping change, not a new grant.",
         "operationId": "assistants_add_members",
         "security": [
@@ -2013,6 +2108,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2089,6 +2187,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       }
     },
@@ -2097,7 +2198,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Remove a single member",
+        "summary": "Remove a single member from an assistant (agent)",
         "description": "Remove a specific user from the assistant's membership.",
         "operationId": "assistants_remove_member",
         "security": [
@@ -2106,6 +2207,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2173,6 +2277,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       }
     },
@@ -2181,7 +2288,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Join a community assistant",
+        "summary": "Join a community assistant (agent)",
         "description": "self-add to a tenant-shared community assistant.",
         "operationId": "assistants_join_assistant",
         "security": [
@@ -2190,6 +2297,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2255,6 +2365,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -2263,7 +2376,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Leave an assistant",
+        "summary": "Leave an assistant (agent)",
         "description": "user can leave the assistant by themselves.",
         "operationId": "assistants_leave_assitant",
         "security": [
@@ -2272,6 +2385,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2327,6 +2443,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -2335,7 +2454,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Remove a tag from an assistant",
+        "summary": "Remove a tag from an assistant (agent)",
         "description": "Detach a tag from an assistant.",
         "operationId": "assistants_remove_tag_from_assistant",
         "security": [
@@ -2344,6 +2463,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2409,13 +2531,16 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       },
       "post": {
         "tags": [
           "Assistant"
         ],
-        "summary": "Add a tag to an assistant",
+        "summary": "Add a tag to an assistant (agent)",
         "description": "Attach a tag to an assistant.",
         "operationId": "assistants_add_tag_to_assistant",
         "security": [
@@ -2424,6 +2549,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2496,6 +2624,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -2504,7 +2635,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Stop the assistant being consultable from your chats",
+        "summary": "Stop the assistant (agent) being consultable from your chats",
         "description": "Clear the caller's own `is_tool` flag; the assistant stops being\nconsultable from their chats at once (every consultability query keys on\nthat flag). Other users' conversions are untouched.",
         "operationId": "assistants_remove_assistant_as_tool",
         "security": [
@@ -2513,6 +2644,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2568,13 +2702,16 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       },
       "post": {
         "tags": [
           "Assistant"
         ],
-        "summary": "Make an assistant consultable from your own chats",
+        "summary": "Make an assistant (agent) consultable from your own chats",
         "description": "Make the assistant consultable in every chat of the calling user.\n\nAnyone the assistant is shared with may convert it, creator or not, a\nmarketplace-installed copy included: the flag is set on the caller's own\nrow, so it changes nothing for the other users it is shared with, and a\ncatalog-sourced row is never itself written.\n\nPure flag flip: `is_tool` alone makes the assistant consultable via the\n`consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`,\nwhich also derives the handle). Nothing is written to the global `tools`\nregistry \u2014 per-user rows do not belong in a platform table. Form-input\nassistants convert too: consulting one takes the form's values as tool\narguments and renders the instruction template server-side.",
         "operationId": "assistants_convert_assistant_to_tool",
         "security": [
@@ -2583,6 +2720,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2648,6 +2788,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -2656,7 +2799,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Remove a tool from an assistant",
+        "summary": "Remove a tool from an assistant (agent)",
         "description": "Disable a tool for the assistant by removing the association.",
         "operationId": "assistants_remove_tool_from_assistant",
         "security": [
@@ -2665,6 +2808,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2732,13 +2878,16 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       },
       "post": {
         "tags": [
           "Assistant"
         ],
-        "summary": "Add a tool to an assistant",
+        "summary": "Add a tool to an assistant (agent)",
         "description": "Enable a tenant tool for the assistant.",
         "operationId": "assistants_add_tool_to_assistant",
         "security": [
@@ -2747,6 +2896,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2821,6 +2973,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -2829,7 +2984,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Restore an assistant version",
+        "summary": "Restore an assistant (agent) version",
         "description": "Copy a version snapshot onto the live assistant and append a new version.\n\nRestoring a version identical to the live config is a no-op: nothing is\nwritten and no version is appended, mirroring update semantics.",
         "operationId": "assistants_restore_assistant_version",
         "security": [
@@ -2838,6 +2993,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2911,6 +3069,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -2919,7 +3080,7 @@
         "tags": [
           "Assistant"
         ],
-        "summary": "Set assistant visibility",
+        "summary": "Set assistant (agent) visibility",
         "description": "creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.",
         "operationId": "assistants_update_assistant_visibility",
         "security": [
@@ -2928,6 +3089,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3000,6 +3164,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       }
     },
@@ -3167,13 +3334,83 @@
             }
           },
           "403": {
-            "description": "The provider granted insufficient scopes for the requested capabilities."
+            "description": "The provider granted insufficient scopes for the requested capabilities (`insufficient_scopes`), or none at all (`no_scopes_granted`)."
           },
           "404": {
             "description": "No connector or OAuth client exists for the consent state."
           },
           "503": {
             "description": "Token exchange with the OAuth provider failed."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/connectors/google/picker-token": {
+      "get": {
+        "tags": [
+          "AuthConnector"
+        ],
+        "summary": "Get a Google Picker token",
+        "description": "Return a fresh `drive.file`-only access token and the Picker config. The\nstored access token never leaves the backend.",
+        "operationId": "auth_google_picker_token",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GooglePickerTokenOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated, or Drive consent required (`consent_required`)."
+          },
+          "404": {
+            "description": "Picker or connector not set up."
+          },
+          "503": {
+            "description": "Refreshing the `drive.file` token failed; retry or reconnect."
           },
           "422": {
             "description": "Validation Error",
@@ -3202,6 +3439,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3291,6 +3531,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3359,6 +3602,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3448,6 +3694,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3487,6 +3736,9 @@
           "401": {
             "description": "Missing or invalid authentication."
           },
+          "404": {
+            "description": "No connector exists for the given id, or it has no per-user part to disconnect."
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -3512,6 +3764,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3624,6 +3879,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3693,6 +3951,79 @@
       }
     },
     "/auth/connectors/{connector_id}/credential/admin": {
+      "delete": {
+        "tags": [
+          "AuthConnector"
+        ],
+        "summary": "Remove the tenant-wide connector credential",
+        "description": "Remove the tenant-wide (admin) credential. Admin only.",
+        "operationId": "auth_remove_admin_credential",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "connector_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the connector whose credential is being accessed.",
+              "title": "Connector Id"
+            },
+            "description": "Public id of the connector whose credential is being accessed."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Administrator privileges required."
+          },
+          "404": {
+            "description": "No connector/template exists, it has no admin credential fields, or none is set."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "AuthConnector"
@@ -3706,6 +4037,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3788,6 +4122,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3864,6 +4201,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3943,6 +4283,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4015,6 +4358,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4359,6 +4705,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4405,7 +4754,7 @@
           "Auth"
         ],
         "summary": "Resolve SSO providers for an email",
-        "description": "Pre-login step: resolve a tenant from the email's domain, falling back to\nthe exact (unique) email, and return the routing slug and SSO providers.",
+        "description": "Pre-login step: resolve a tenant from the exact (unique) email of an\nexisting user, falling back to the email's domain for unknown emails, and\nreturn the routing slug and SSO providers.",
         "operationId": "auth_sso_resolve",
         "parameters": [
           {
@@ -4789,6 +5138,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4854,6 +5206,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4909,6 +5264,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       },
       "patch": {
@@ -4924,6 +5282,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4996,6 +5357,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -5013,6 +5377,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5087,6 +5454,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5171,6 +5541,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5264,6 +5637,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5328,6 +5704,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       },
       "post": {
@@ -5343,6 +5722,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5414,6 +5796,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -5431,6 +5816,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5494,6 +5882,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "read"
         }
       }
     },
@@ -5510,6 +5901,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5605,7 +5999,7 @@
         "tags": [
           "CustomConnector"
         ],
-        "summary": "List my custom connectors",
+        "summary": "List the custom MCPs I can use or manage",
         "operationId": "customconnectors_list_custom_connectors",
         "security": [
           {
@@ -5613,6 +6007,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5664,8 +6061,8 @@
         "tags": [
           "CustomConnector"
         ],
-        "summary": "Add one or more custom connectors",
-        "description": "Add MCP servers from a URL or a pasted JSON config.\n\nA JSON config can declare several servers; all of them are added, so pasting\na real config does not silently drop the entries after the first. The whole\nrequest is rejected if any entry is invalid.",
+        "summary": "Add one or more custom MCPs",
+        "description": "Add MCP servers from a URL or a pasted JSON config.\n\nA JSON config can declare several servers; all of them are added, so pasting\na real config does not silently drop the entries after the first. The whole\nrequest is rejected if any entry is invalid. An OAuth server is checked for\nsign-in metadata and its client is set up here, once for all its users.",
         "operationId": "customconnectors_create_custom_connectors",
         "security": [
           {
@@ -5673,6 +6070,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5719,7 +6119,227 @@
             }
           },
           "422": {
-            "description": "Malformed config, a stdio server, a non-http(s) URL, a URL that does not resolve to a public address, or too many connectors."
+            "description": "Malformed config, a stdio server, a non-http(s) URL, a URL that does not resolve to a public address, an OAuth setup the server rejects, or too many MCPs."
+          }
+        }
+      }
+    },
+    "/custom-connectors/detect": {
+      "post": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "Detect how an MCP server wants to be signed in to",
+        "description": "Connect once without signing in. A server that lists its tools needs no\nsign-in; one that answers 401 is checked for OAuth metadata.",
+        "operationId": "customconnectors_detect_custom_connector",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DetectIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DetectOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/custom-connectors/oauth/callback": {
+      "get": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "Finish signing in to a custom MCP",
+        "description": "Called by the Hub's callback page with the query the authorization server\nredirected the browser to. The state must have been issued to this same user.",
+        "operationId": "customconnectors_finish_custom_connector_sign_in",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "State"
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Code"
+            }
+          },
+          {
+            "name": "error",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error"
+            }
+          },
+          {
+            "name": "error_description",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error Description"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CallbackOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/custom-connectors/oauth/client-metadata.json": {
+      "get": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "The Hub's OAuth client metadata document (CIMD)",
+        "description": "Authorization servers that accept URL client ids fetch this to learn the\nHub's name and redirect URI. Public by design: it holds no secret.",
+        "operationId": "customconnectors_custom_connector_client_metadata",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Customconnectors Custom Connector Client Metadata"
+                }
+              }
+            }
           }
         }
       }
@@ -5729,7 +6349,8 @@
         "tags": [
           "CustomConnector"
         ],
-        "summary": "Delete a custom connector",
+        "summary": "Delete a custom MCP",
+        "description": "Deletes every user's sign-in with it (cascade).",
         "operationId": "customconnectors_delete_custom_connector",
         "security": [
           {
@@ -5737,6 +6358,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5747,10 +6371,10 @@
             "schema": {
               "type": "string",
               "format": "uuid",
-              "description": "Public id of the connector.",
+              "description": "Public id of the MCP.",
               "title": "Public Id"
             },
-            "description": "Public id of the connector."
+            "description": "Public id of the MCP."
           },
           {
             "name": "cookie_name",
@@ -5789,8 +6413,8 @@
         "tags": [
           "CustomConnector"
         ],
-        "summary": "Rename or enable/disable a custom connector",
-        "description": "URL and headers are not editable: re-add, so a changed endpoint is\nalways re-validated.",
+        "summary": "Rename or switch a custom MCP",
+        "description": "`enabled` on an organisation MCP is the caller's own switch, so anyone\nwho may use it may flip it. Everything else needs `_may_manage`. URL,\nheaders and auth are not editable: re-add, so a changed endpoint is always\nre-validated.",
         "operationId": "customconnectors_update_custom_connector",
         "security": [
           {
@@ -5798,6 +6422,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5808,10 +6435,10 @@
             "schema": {
               "type": "string",
               "format": "uuid",
-              "description": "Public id of the connector.",
+              "description": "Public id of the MCP.",
               "title": "Public Id"
             },
-            "description": "Public id of the connector."
+            "description": "Public id of the MCP."
           },
           {
             "name": "cookie_name",
@@ -5864,6 +6491,145 @@
         }
       }
     },
+    "/custom-connectors/{public_id}/oauth": {
+      "delete": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "Sign out of a custom MCP",
+        "description": "Forget the caller's tokens. The server's own session is not revoked.",
+        "operationId": "customconnectors_sign_out_of_custom_connector",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "public_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the MCP.",
+              "title": "Public Id"
+            },
+            "description": "Public id of the MCP."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/custom-connectors/{public_id}/oauth/start": {
+      "post": {
+        "tags": [
+          "CustomConnector"
+        ],
+        "summary": "Start signing in to a custom MCP",
+        "description": "The authorization URL to send the browser to. The single-use `state`\nbinds the callback to this user and this MCP.",
+        "operationId": "customconnectors_start_custom_connector_sign_in",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "public_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the MCP.",
+              "title": "Public Id"
+            },
+            "description": "Public id of the MCP."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignInOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/documents/": {
       "post": {
         "tags": [
@@ -5878,6 +6644,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5959,6 +6728,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6030,6 +6802,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6080,7 +6855,7 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "Usage limit exceeded, or caller lacks access to the target entity."
+            "description": "Usage limit exceeded, caller lacks access to the target entity, or the SharePoint site is not enabled for the tenant."
           },
           "404": {
             "description": "The referenced project, chat, assistant, or library does not exist."
@@ -6112,6 +6887,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6189,6 +6967,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6257,6 +7038,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6332,6 +7116,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6402,6 +7189,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6462,6 +7252,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "read"
         }
       }
     },
@@ -6479,6 +7272,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6562,6 +7358,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6650,6 +7449,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6750,6 +7552,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6825,6 +7630,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6902,6 +7710,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6981,6 +7792,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7039,6 +7853,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7101,6 +7918,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7266,6 +8086,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7447,6 +8270,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7511,6 +8337,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7665,6 +8494,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7823,6 +8655,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7881,6 +8716,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7943,6 +8781,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8108,6 +8949,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8289,6 +9133,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8353,6 +9200,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8507,6 +9357,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8665,6 +9518,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8723,6 +9579,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8785,6 +9644,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8950,6 +9812,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9131,6 +9996,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9195,6 +10063,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9349,6 +10220,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9507,6 +10381,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9565,6 +10442,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9627,6 +10507,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9760,7 +10643,7 @@
             "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "Connector token lacks the required permissions."
+            "description": "Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint)."
           },
           "404": {
             "description": "No drive or item exists with the given ids."
@@ -9792,6 +10675,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9941,7 +10827,7 @@
             "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "Connector token lacks the required permissions."
+            "description": "Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint)."
           },
           "404": {
             "description": "No drive or item exists with the given ids."
@@ -9973,6 +10859,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10037,6 +10926,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10191,6 +11083,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10317,7 +11212,7 @@
             "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "Connector token lacks the required permissions."
+            "description": "Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint)."
           },
           "404": {
             "description": "No site exists with the given id."
@@ -10349,6 +11244,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10411,6 +11309,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10544,7 +11445,7 @@
             "description": "Missing or invalid authentication, or no valid connector token."
           },
           "403": {
-            "description": "User has not consented to the required SharePoint scope."
+            "description": "User has not consented to the required SharePoint scope, or the site is not enabled for the tenant."
           },
           "422": {
             "description": "Validation Error",
@@ -10573,6 +11474,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10722,7 +11626,7 @@
             "description": "Missing or invalid authentication, or no valid connector token."
           },
           "403": {
-            "description": "User has not consented to the required SharePoint scope."
+            "description": "User has not consented to the required SharePoint scope, or the site is not enabled for the tenant."
           },
           "422": {
             "description": "Validation Error",
@@ -10751,6 +11655,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10807,7 +11714,7 @@
           "Sharepoint"
         ],
         "summary": "List SharePoint sites",
-        "description": "List the SharePoint sites the user can access, with imported document counts.",
+        "description": "List the SharePoint sites the user can access, with imported document counts. \nFiltered to allowed sites by the tenant admin.",
         "operationId": "integrations_list_all_sites",
         "security": [
           {
@@ -10815,6 +11722,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10930,7 +11840,7 @@
             "description": "Missing or invalid authentication, or no valid connector token."
           },
           "403": {
-            "description": "User has not consented to the required SharePoint scope."
+            "description": "User has not consented to the required SharePoint scope, or has no access to allowed sites."
           },
           "422": {
             "description": "Validation Error",
@@ -10959,6 +11869,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11085,7 +11998,7 @@
             "description": "Missing or invalid authentication, or no valid connector token."
           },
           "403": {
-            "description": "User has not consented to the required SharePoint scope."
+            "description": "User has not consented to the required SharePoint scope, or the site is not enabled for the tenant."
           },
           "422": {
             "description": "Validation Error",
@@ -11114,6 +12027,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11172,6 +12088,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11234,6 +12153,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11367,7 +12289,7 @@
             "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "Connector token lacks the required permissions."
+            "description": "Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint)."
           },
           "404": {
             "description": "No drive or item exists with the given ids."
@@ -11399,6 +12321,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11548,7 +12473,7 @@
             "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "Connector token lacks the required permissions."
+            "description": "Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint)."
           },
           "404": {
             "description": "No drive or item exists with the given ids."
@@ -11580,6 +12505,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11644,6 +12572,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11798,6 +12729,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11924,7 +12858,7 @@
             "description": "Missing authentication or connector consent required."
           },
           "403": {
-            "description": "Connector token lacks the required permissions."
+            "description": "Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint)."
           },
           "404": {
             "description": "No site exists with the given id."
@@ -11956,6 +12890,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12129,6 +13066,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12208,6 +13148,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12280,6 +13223,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12334,6 +13280,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -12351,6 +13300,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12421,6 +13373,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12493,6 +13448,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -12510,6 +13468,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12578,6 +13539,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       },
       "post": {
@@ -12593,6 +13557,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12669,6 +13636,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       }
     },
@@ -12686,6 +13656,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12756,6 +13729,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       }
     },
@@ -12773,6 +13749,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12831,6 +13810,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -12848,6 +13830,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12920,6 +13905,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12990,6 +13978,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13078,6 +14069,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13152,6 +14146,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13226,6 +14223,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13301,6 +14301,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13378,6 +14381,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13450,6 +14456,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13524,6 +14533,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13604,6 +14616,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13674,6 +14689,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13762,6 +14780,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13836,6 +14857,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13896,6 +14920,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "read"
         }
       }
     },
@@ -13913,6 +14940,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13987,6 +15017,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14061,6 +15094,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14135,6 +15171,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14215,6 +15254,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14280,6 +15322,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14369,6 +15414,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14436,6 +15484,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14515,6 +15566,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14604,6 +15658,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14681,6 +15738,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14770,6 +15830,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14844,6 +15907,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14910,6 +15976,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14988,6 +16057,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15047,6 +16119,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15115,6 +16190,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15193,6 +16271,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15262,6 +16343,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15340,6 +16424,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15412,6 +16499,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15481,6 +16571,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15559,6 +16652,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15636,6 +16732,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15712,6 +16811,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15791,6 +16893,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15866,6 +16971,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15964,6 +17072,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16019,7 +17130,7 @@
             "description": "Missing or invalid authentication."
           },
           "403": {
-            "description": "No access to the chat the message belongs to."
+            "description": "No access to the chat the message belongs to, or usage budget exceeded (a 'reject' is still accepted)."
           },
           "404": {
             "description": "Message or its chat does not exist."
@@ -16054,6 +17165,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16147,6 +17261,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16237,6 +17354,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16333,6 +17453,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16387,6 +17510,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -16404,6 +17530,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16477,6 +17606,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16547,6 +17679,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16619,6 +17754,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -16636,6 +17774,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16703,6 +17844,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       },
       "post": {
@@ -16718,6 +17862,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16792,6 +17939,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -16809,6 +17959,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16874,6 +18027,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       },
       "post": {
@@ -16889,6 +18045,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16965,6 +18124,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       }
     },
@@ -16982,6 +18144,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17049,6 +18214,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       }
     },
@@ -17066,6 +18234,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17121,6 +18292,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -17138,6 +18312,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17195,6 +18372,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -17212,6 +18392,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17289,6 +18472,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17344,6 +18530,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       },
       "patch": {
@@ -17359,6 +18548,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17431,6 +18623,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -17448,6 +18643,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17521,6 +18719,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17594,6 +18795,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17674,6 +18878,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17758,6 +18965,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17832,6 +19042,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17895,6 +19108,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17984,6 +19200,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18049,6 +19268,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18131,6 +19353,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18201,6 +19426,91 @@
         }
       }
     },
+    "/roles/{role_id}/reassign": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Move every holder of a role to another role",
+        "description": "Move every direct holder of a role to another role in one transaction.\n\nOnly the source role is revoked, so holders keep their other roles. The\ncaller and the excluded users stay on the source role.",
+        "operationId": "roles_reassign_role_holders",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Public id of the role to move the holders off.",
+              "title": "Role Id"
+            },
+            "description": "Public id of the role to move the holders off."
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleReassignIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleReassignOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "MANAGE_USERS required, or the grant would exceed the caller's own permissions."
+          },
+          "404": {
+            "description": "No such role or excluded user."
+          },
+          "422": {
+            "description": "The roles are the same, belong to different tenants, or one is the Operator role."
+          }
+        }
+      }
+    },
     "/roles/{role_id}/users/{user_id}": {
       "delete": {
         "tags": [
@@ -18215,6 +19525,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18290,6 +19603,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18374,6 +19690,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18433,6 +19752,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18507,6 +19829,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18676,6 +20001,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18738,6 +20066,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18815,6 +20146,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18869,6 +20203,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -18886,6 +20223,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18939,6 +20279,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm_always"
         }
       },
       "patch": {
@@ -18954,6 +20297,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19024,6 +20370,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "confirm"
         }
       }
     },
@@ -19041,6 +20390,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19115,6 +20467,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19188,6 +20543,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19277,6 +20635,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19351,6 +20712,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19415,6 +20779,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19485,6 +20852,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19574,6 +20944,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19651,6 +21024,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19710,6 +21086,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19784,6 +21163,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19864,6 +21246,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19946,6 +21331,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20016,6 +21404,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20105,6 +21496,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20187,6 +21581,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20276,6 +21673,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20358,6 +21758,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20447,6 +21850,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20532,6 +21938,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20643,6 +22052,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20725,6 +22137,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20824,6 +22239,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20925,6 +22343,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21019,6 +22440,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21101,6 +22525,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21234,6 +22661,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21308,6 +22738,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21382,6 +22815,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21441,6 +22877,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21511,6 +22950,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21591,6 +23033,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21656,6 +23101,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21723,6 +23171,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21793,6 +23244,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21875,6 +23329,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21985,6 +23442,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22059,6 +23519,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22133,6 +23596,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22206,6 +23672,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22298,6 +23767,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22376,6 +23848,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22423,6 +23898,9 @@
               }
             }
           }
+        },
+        "x-agent": {
+          "tier": "read"
         }
       }
     },
@@ -22440,6 +23918,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22514,6 +23995,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22615,6 +24099,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22668,6 +24155,95 @@
         }
       }
     },
+    "/users/{survivor_user_id}/relink-sso": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Move an orphan account's SSO identity onto the surviving account",
+        "description": "Merge the orphan's data, IdP identity and email onto the surviving account.",
+        "operationId": "users_relink_sso",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "survivor_user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survivor User Id"
+            }
+          },
+          {
+            "name": "cookie_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cookie Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RelinkSsoIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "400": {
+            "description": "Same account, different tenants, or the orphan has no SSO identity."
+          },
+          "401": {
+            "description": "Missing or invalid authentication."
+          },
+          "403": {
+            "description": "Platform operator privileges required."
+          },
+          "404": {
+            "description": "Survivor or orphan account not found."
+          },
+          "409": {
+            "description": "An account is being deleted, or the accounts belong to different IdP identities."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/{user_id}": {
       "delete": {
         "tags": [
@@ -22682,6 +24258,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22744,7 +24323,7 @@
           "User"
         ],
         "summary": "Update a user",
-        "description": "Update a user's profile, role, tenant, or email; password changes are restricted.",
+        "description": "Update a user's profile, role, tenant, or email (not for SSO accounts);\npassword changes are restricted.",
         "operationId": "users_update_user",
         "security": [
           {
@@ -22752,6 +24331,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22815,14 +24397,7 @@
             "description": "No user exists with the given id."
           },
           "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
+            "description": "Email change on an account that signs in with SSO."
           }
         }
       }
@@ -22841,6 +24416,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22920,6 +24498,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22985,6 +24566,84 @@
         }
       }
     },
+    "/v1/chat/completions": {
+      "post": {
+        "tags": [
+          "ModelApi"
+        ],
+        "summary": "Create a chat completion",
+        "description": "OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.",
+        "operationId": "v1_chat_completions",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed request body."
+          },
+          "401": {
+            "description": "Missing or invalid API key."
+          },
+          "403": {
+            "description": "Model API disabled for tenant."
+          },
+          "404": {
+            "description": "Unknown or inaccessible model."
+          },
+          "429": {
+            "description": "Usage quota exhausted."
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/models": {
+      "get": {
+        "tags": [
+          "ModelApi"
+        ],
+        "summary": "List the models the API key may call",
+        "operationId": "v1_list_models",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid API key."
+          },
+          "403": {
+            "description": "Model API disabled for tenant."
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/version": {
       "get": {
         "summary": "Version",
@@ -23016,6 +24675,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23084,6 +24746,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23143,6 +24808,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23221,6 +24889,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23291,7 +24962,7 @@
           "Workflow"
         ],
         "summary": "Create Run",
-        "description": "Trigger a manual run. Creator-only. Inserts a pending run, mints a\nrun-scoped stream token, and enqueues execution on the ``heavy`` queue.\nRejected with 400 once the workflow is at its non-terminal-run cap.",
+        "description": "Trigger a manual run. Creator-only. Inserts a pending run, mints a\nrun-scoped stream token, and enqueues execution on the ``heavy`` queue.\n\nRejected with 409 while another run of the workflow is pending or running \u2014\nthe detail carries that run's id so the client can attach to it. Overlapping\nruns read the same window (a list cursor advances only once a run\nfinishes), so a second run would process \u2014 and deliver \u2014 the same items\nagain. The scheduler skips busy slots for the same reason.",
         "operationId": "workflows_create_run",
         "security": [
           {
@@ -23299,6 +24970,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23359,7 +25033,7 @@
           "Workflow"
         ],
         "summary": "Stream Run Events",
-        "description": "Server-sent event stream for a run. Authed by the run-scoped stream token\nin ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE\nconsumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.",
+        "description": "Server-sent event stream for a run. Authed by the run-scoped stream token\nin ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE\nconsumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.\n\nEvery persisted event carries its ``id``; a reconnecting client passes the\nlast one it saw as ``after`` and resumes there instead of replaying the run.\nA ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced\nby ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each\nreplay megabytes, while a typical deliverable (a summary, a generated text)\nstill streams. The full result stays in ``workflow_run_events``.",
         "operationId": "workflows_stream_run_events",
         "security": [
           {
@@ -23385,6 +25059,17 @@
               "type": "string",
               "format": "uuid",
               "title": "Run Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "After"
             }
           }
         ],
@@ -23424,6 +25109,9 @@
           },
           {
             "APIKeyHeader": []
+          },
+          {
+            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23620,7 +25308,7 @@
           "always_available": {
             "type": "boolean",
             "title": "Always Available",
-            "description": "Whether the item reaches every user whatever their roles say. Only default tools do \u2014 they are bound in code for every chat \u2014 so an empty `roles` with no direct grant is expected rather than unexplained.",
+            "description": "Whether the item reaches every user whatever their roles say: default tools, bound in code for every chat, and custom MCPs added for everyone. So an empty `roles` with no direct grant is expected rather than unexplained.",
             "default": false,
             "examples": [
               false
@@ -23641,7 +25329,8 @@
         "enum": [
           "model",
           "tool",
-          "connector"
+          "connector",
+          "custom_mcp"
         ],
         "title": "AccessKind",
         "description": "The resource kinds access is resolved for."
@@ -26509,9 +28198,14 @@
                 "$ref": "#/components/schemas/ReasoningEffortEnum"
               },
               {
+                "type": "string",
+                "const": "auto"
+              },
+              {
                 "type": "null"
               }
-            ]
+            ],
+            "title": "Reasoning Effort"
           },
           "similarity_top_k": {
             "type": "integer",
@@ -26629,6 +28323,19 @@
             "title": "Triggered",
             "description": "If the alert is triggered or not",
             "default": false
+          },
+          "triggered_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Triggered At",
+            "description": "When the alert last fired."
           },
           "active": {
             "type": "boolean",
@@ -27113,6 +28820,19 @@
           "ids"
         ],
         "title": "BulkResult"
+      },
+      "CallbackOut": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "CallbackOut"
       },
       "CatalogIn": {
         "properties": {
@@ -28516,7 +30236,7 @@
           "connected": {
             "type": "boolean",
             "title": "Connected",
-            "description": "Whether the connector is fully usable for the caller (consent granted and all required config present).",
+            "description": "Whether the caller can use the connector: all required config is present and consent covers at least one capability. A partial grant is connected while `needs_consent` is still true.",
             "examples": [
               false
             ]
@@ -28553,6 +30273,14 @@
               true
             ]
           },
+          "can_disconnect": {
+            "type": "boolean",
+            "title": "Can Disconnect",
+            "description": "The caller has a per-user part to remove (OAuth consent or per-user credential).",
+            "examples": [
+              true
+            ]
+          },
           "missing_caps": {
             "items": {
               "type": "string"
@@ -28565,6 +30293,25 @@
                 "files.read"
               ]
             ]
+          },
+          "granted_caps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Granted Caps",
+            "description": "Capabilities the caller's consent covers; on a partial grant `connected` and `needs_consent` are both true and `missing_caps` lists the rest.",
+            "examples": [
+              [
+                "google:DOCS:READ"
+              ]
+            ]
+          },
+          "picker_available": {
+            "type": "boolean",
+            "title": "Picker Available",
+            "description": "The Google Drive file picker can open: an admin set the Picker API key and this consent covers `drive.file`.",
+            "default": false
           }
         },
         "type": "object",
@@ -28578,6 +30325,7 @@
           "needs_config",
           "needs_user_config",
           "has_admin_config",
+          "can_disconnect",
           "missing_caps"
         ],
         "title": "ConnectorStatusOut"
@@ -29178,14 +30926,89 @@
             ],
             "title": "Config",
             "description": "MCP JSON config, e.g. {\"mcpServers\": {\"notion\": {\"url\": \"...\"}}}"
+          },
+          "auth_mode": {
+            "type": "string",
+            "enum": [
+              "none",
+              "oauth",
+              "oauth_when_needed"
+            ],
+            "title": "Auth Mode",
+            "default": "none"
+          },
+          "oauth_client_mode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "cimd",
+                  "dcr",
+                  "manual"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Oauth Client Mode"
+          },
+          "oauth_client_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Oauth Client Id"
+          },
+          "oauth_client_secret": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Oauth Client Secret"
+          },
+          "organization": {
+            "type": "boolean",
+            "title": "Organization",
+            "description": "Add for the organisation instead of yourself (needs `MANAGE_CONNECTORS` and `MANAGE_CONNECTOR_ACCESS`).",
+            "default": false
+          },
+          "all_users": {
+            "type": "boolean",
+            "title": "All Users",
+            "default": false
+          },
+          "role_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Role Ids",
+            "description": "Roles to grant an organisation MCP to (also needs `MANAGE_ROLES`); further roles and single users can be given it later in the role editor and the user access settings."
           }
         },
         "type": "object",
         "title": "CustomConnectorCreate",
-        "description": "Either `url` (with optional `name`/`headers`), or `config` \u2014 a pasted\n`mcpServers` JSON blob. Never both."
+        "description": "Either `url` (with optional `name`/`headers` and auth settings), or\n`config` \u2014 a pasted `mcpServers` JSON blob of fixed-header servers. Never both."
       },
       "CustomConnectorOut": {
         "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id",
+            "description": "Internal id, as the role grant lists key it."
+          },
           "public_id": {
             "type": "string",
             "format": "uuid",
@@ -29205,7 +31028,8 @@
           },
           "enabled": {
             "type": "boolean",
-            "title": "Enabled"
+            "title": "Enabled",
+            "description": "Switched on for, and usable by, the caller."
           },
           "header_names": {
             "items": {
@@ -29213,16 +31037,53 @@
             },
             "type": "array",
             "title": "Header Names"
+          },
+          "owner": {
+            "type": "string",
+            "enum": [
+              "personal",
+              "organization"
+            ],
+            "title": "Owner"
+          },
+          "auth_mode": {
+            "type": "string",
+            "enum": [
+              "none",
+              "oauth",
+              "oauth_when_needed"
+            ],
+            "title": "Auth Mode"
+          },
+          "signed_in": {
+            "type": "boolean",
+            "title": "Signed In",
+            "description": "The caller has a stored sign-in."
+          },
+          "usable": {
+            "type": "boolean",
+            "title": "Usable",
+            "description": "The caller may use it in chat; false for an organisation MCP an admin manages but is outside the audience of."
+          },
+          "can_manage": {
+            "type": "boolean",
+            "title": "Can Manage"
           }
         },
         "type": "object",
         "required": [
+          "id",
           "public_id",
           "connector_id",
           "name",
           "url",
           "enabled",
-          "header_names"
+          "header_names",
+          "owner",
+          "auth_mode",
+          "signed_in",
+          "usable",
+          "can_manage"
         ],
         "title": "CustomConnectorOut"
       },
@@ -29789,6 +31650,85 @@
         "title": "DateWindowRequest",
         "description": "A [date_start, date_end] window shared by the analytics endpoints."
       },
+      "DetectIn": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "maxLength": 2048,
+            "title": "Url"
+          },
+          "headers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Headers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "title": "DetectIn"
+      },
+      "DetectOut": {
+        "properties": {
+          "auth_mode": {
+            "type": "string",
+            "enum": [
+              "none",
+              "oauth",
+              "oauth_when_needed"
+            ],
+            "title": "Auth Mode"
+          },
+          "oauth_client_mode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "cimd",
+                  "dcr",
+                  "manual"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Oauth Client Mode"
+          },
+          "supports_cimd": {
+            "type": "boolean",
+            "title": "Supports Cimd",
+            "default": false
+          },
+          "supports_dcr": {
+            "type": "boolean",
+            "title": "Supports Dcr",
+            "default": false
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message",
+            "description": "Why sign-in could not be set up, if it can't."
+          }
+        },
+        "type": "object",
+        "required": [
+          "auth_mode",
+          "oauth_client_mode"
+        ],
+        "title": "DetectOut",
+        "description": "What the add dialog pre-selects: the auth the server asks for and the\nclient registrations it accepts."
+      },
       "DirectFileUrl": {
         "properties": {
           "url": {
@@ -30211,6 +32151,12 @@
             "examples": [
               "Permission denied"
             ]
+          },
+          "changed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Changed At",
+            "description": "When the document last became worth (re)reading: created, content attached or re-imported, import failed, or its content reached COMPLETED/FAILED. Maintained by the documents_bump_changed_at triggers (migration sidecar); drives documents.list windows and its keyset cursor."
           }
         },
         "type": "object",
@@ -30787,6 +32733,32 @@
           "file"
         ],
         "title": "FormFieldTypeEnum"
+      },
+      "GooglePickerTokenOut": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token",
+            "description": "Short-lived Google access token limited to `drive.file`."
+          },
+          "api_key": {
+            "type": "string",
+            "title": "Api Key",
+            "description": "Google Picker API key."
+          },
+          "app_id": {
+            "type": "string",
+            "title": "App Id",
+            "description": "OAuth client's Cloud project number."
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "api_key",
+          "app_id"
+        ],
+        "title": "GooglePickerTokenOut"
       },
       "GroupAppAccessIn": {
         "properties": {
@@ -32979,10 +34951,15 @@
                 "$ref": "#/components/schemas/ReasoningEffortEnum"
               },
               {
+                "type": "string",
+                "const": "auto"
+              },
+              {
                 "type": "null"
               }
             ],
-            "description": "Reasoning effort for a new chat.",
+            "title": "Reasoning Effort",
+            "description": "Reasoning effort for a new chat. `auto` means the model default; a playground run then skips the assistant's pin.",
             "examples": [
               "high"
             ]
@@ -33513,6 +35490,70 @@
         ],
         "title": "ModelDelta"
       },
+      "ModelList": {
+        "properties": {
+          "object": {
+            "type": "string",
+            "title": "Object",
+            "default": "list",
+            "examples": [
+              "list"
+            ]
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ModelObject"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ModelList"
+      },
+      "ModelObject": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Model id to send as `model`.",
+            "examples": [
+              "gpt-5.1"
+            ]
+          },
+          "object": {
+            "type": "string",
+            "title": "Object",
+            "default": "model",
+            "examples": [
+              "model"
+            ]
+          },
+          "created": {
+            "type": "integer",
+            "title": "Created",
+            "description": "Unix time the model was added to the Hub."
+          },
+          "owned_by": {
+            "type": "string",
+            "title": "Owned By",
+            "description": "Model provider.",
+            "examples": [
+              "azure"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "created",
+          "owned_by"
+        ],
+        "title": "ModelObject"
+      },
       "ModelTierEnum": {
         "type": "string",
         "enum": [
@@ -33612,7 +35653,8 @@
           "nextcloud",
           "abas",
           "google",
-          "dropbox"
+          "dropbox",
+          "topdesk"
         ],
         "title": "OAuth2ProviderEnum",
         "description": "Enum for OAuth providers."
@@ -34561,6 +36603,20 @@
         "title": "ReasoningEffortEnum",
         "description": "How much reasoning a model should spend, forwarded as `reasoning_effort`."
       },
+      "RelinkSsoIn": {
+        "properties": {
+          "orphan_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Orphan User Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "orphan_user_id"
+        ],
+        "title": "RelinkSsoIn"
+      },
       "RephraseStyleEnum": {
         "type": "string",
         "enum": [
@@ -34751,6 +36807,12 @@
             "description": "Whether the role grants every connector the tenant enables.",
             "default": true
           },
+          "all_custom_connectors": {
+            "type": "boolean",
+            "title": "All Custom Connectors",
+            "description": "Whether the role grants every organisation custom MCP. Off by default: each MCP says who it is for (`all_users`, roles, grants).",
+            "default": false
+          },
           "creator_user_id": {
             "anyOf": [
               {
@@ -34851,6 +36913,12 @@
             "description": "Whether the role grants every connector the tenant enables.",
             "default": true
           },
+          "all_custom_connectors": {
+            "type": "boolean",
+            "title": "All Custom Connectors",
+            "description": "Whether the role grants every organisation custom MCP.",
+            "default": false
+          },
           "models": {
             "anyOf": [
               {
@@ -34898,6 +36966,22 @@
             ],
             "title": "Connectors",
             "description": "Connector public ids the role grants, when `all_connectors` is false."
+          },
+          "custom_connectors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Connectors",
+            "description": "Organisation custom MCP public ids the role grants, when `all_custom_connectors` is false."
           }
         },
         "type": "object",
@@ -34906,6 +36990,58 @@
         ],
         "title": "RoleIn",
         "description": "A new role."
+      },
+      "RoleReassignIn": {
+        "properties": {
+          "role_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Role Id",
+            "description": "Public id of the role to move the holders to."
+          },
+          "exclude_user_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Exclude User Ids",
+            "description": "Public ids of users to leave on the source role."
+          }
+        },
+        "type": "object",
+        "required": [
+          "role_id"
+        ],
+        "title": "RoleReassignIn",
+        "description": "Move every holder of a role to another role."
+      },
+      "RoleReassignOut": {
+        "properties": {
+          "holder_count": {
+            "type": "integer",
+            "title": "Holder Count",
+            "description": "Number of users directly holding the source role."
+          },
+          "moved_count": {
+            "type": "integer",
+            "title": "Moved Count",
+            "description": "Number of users moved to the target role."
+          },
+          "skipped_count": {
+            "type": "integer",
+            "title": "Skipped Count",
+            "description": "Number of holders left on the source role: the caller and the excluded users."
+          }
+        },
+        "type": "object",
+        "required": [
+          "holder_count",
+          "moved_count",
+          "skipped_count"
+        ],
+        "title": "RoleReassignOut",
+        "description": "Result of moving every holder of a role to another role."
       },
       "RoleUpdateIn": {
         "properties": {
@@ -34984,6 +37120,18 @@
             "title": "All Connectors",
             "description": "Whether the role grants every connector the tenant enables. False falls back to the explicit `connectors` list."
           },
+          "all_custom_connectors": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "All Custom Connectors",
+            "description": "Whether the role grants every organisation custom MCP. False falls back to the explicit `custom_connectors` list."
+          },
           "models": {
             "anyOf": [
               {
@@ -35031,6 +37179,22 @@
             ],
             "title": "Connectors",
             "description": "Replacement set of connector public ids the role grants. Stored whatever `all_connectors` says, but only read while it is false."
+          },
+          "custom_connectors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Connectors",
+            "description": "Replacement set of organisation custom MCP public ids the role grants. Stored whatever `all_custom_connectors` says, but only read while it is false."
           }
         },
         "type": "object",
@@ -35367,6 +37531,26 @@
               true
             ]
           },
+          "sharepoint_allowed_sites": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sharepoint Allowed Sites",
+            "description": "SharePoint site URLs users may browse, import and sync from (subsites included). Null means no restriction.",
+            "examples": [
+              [
+                "https://contoso.sharepoint.com/sites/hr"
+              ]
+            ]
+          },
           "inbound_guardrail": {
             "anyOf": [
               {
@@ -35522,6 +37706,15 @@
             "examples": [
               false
             ]
+          },
+          "ai_image_label_enabled": {
+            "type": "boolean",
+            "title": "Ai Image Label Enabled",
+            "description": "Whether generated images get a visible EU 'AI' icon stamped into them. Off by default: stamping re-encodes the image, which drops the provider's C2PA Content Credentials.",
+            "default": false,
+            "examples": [
+              false
+            ]
           }
         },
         "type": "object",
@@ -35578,6 +37771,26 @@
             "description": "Whether the SharePoint integration is enabled for the tenant.",
             "examples": [
               false
+            ]
+          },
+          "sharepoint_allowed_sites": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sharepoint Allowed Sites",
+            "description": "SharePoint site URLs users may browse, import and sync from (https://<tenant>.sharepoint.com/sites/<name>); subsites are included. Null removes the restriction; an empty list is rejected.",
+            "examples": [
+              [
+                "https://contoso.sharepoint.com/sites/hr"
+              ]
             ]
           },
           "inbound_guardrail": {
@@ -35791,6 +38004,21 @@
             "examples": [
               false
             ]
+          },
+          "ai_image_label_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ai Image Label Enabled",
+            "description": "Whether generated images get a visible EU 'AI' icon stamped into them. Off by default.",
+            "examples": [
+              false
+            ]
           }
         },
         "type": "object",
@@ -35856,6 +38084,21 @@
             "description": "Entra object id of the group (kind='group' only).",
             "examples": [
               "3f0e5b7a-9c2d-4e8a-b1f6-2a7c4d9e0b13"
+            ]
+          },
+          "principal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Principal",
+            "description": "How Graph addresses the mailbox when that differs from its SMTP address: /users/{id | userPrincipalName} takes a UPN or object id, not an alias. None = the address itself works (kind='shared').",
+            "examples": [
+              "svc.support@contoso.onmicrosoft.com"
             ]
           }
         },
@@ -36404,6 +38647,19 @@
         "title": "SharepointUserModel",
         "description": "The signed-in user's SharePoint / Microsoft Graph profile."
       },
+      "SignInOut": {
+        "properties": {
+          "authorize_url": {
+            "type": "string",
+            "title": "Authorize Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "authorize_url"
+        ],
+        "title": "SignInOut"
+      },
       "SsoExchangeIn": {
         "properties": {
           "code": {
@@ -36553,6 +38809,33 @@
             "description": "Number of usage records.",
             "examples": [
               420
+            ]
+          },
+          "cached_prompt_tokens": {
+            "type": "integer",
+            "title": "Cached Prompt Tokens",
+            "description": "Prompt tokens read from the provider cache.",
+            "default": 0,
+            "examples": [
+              30000
+            ]
+          },
+          "cache_creation_tokens": {
+            "type": "integer",
+            "title": "Cache Creation Tokens",
+            "description": "Prompt tokens written to the provider cache.",
+            "default": 0,
+            "examples": [
+              5000
+            ]
+          },
+          "reasoning_tokens": {
+            "type": "integer",
+            "title": "Reasoning Tokens",
+            "description": "Reasoning tokens, already included in completion_tokens.",
+            "default": 0,
+            "examples": [
+              10000
             ]
           },
           "tenant_id": {
@@ -37727,9 +40010,30 @@
               }
             ],
             "title": "Domain",
-            "description": "Primary email/web domain associated with the tenant.",
+            "description": "Deprecated: use `domains`. Replaces the first domain; null removes it. Other domains are kept. Ignored when `domains` is given.",
             "examples": [
               "acme.com"
+            ]
+          },
+          "domains": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Domains",
+            "description": "Email/web domains owned by the tenant; replaces the full set. Null or omitted leaves them unchanged.",
+            "examples": [
+              [
+                "acme.com",
+                "acme.de"
+              ]
             ]
           },
           "parent_tenant_id": {
@@ -38153,6 +40457,12 @@
             "examples": [
               false
             ]
+          },
+          "prompt_caching": {
+            "type": "boolean",
+            "title": "Prompt Caching",
+            "description": "Whether Claude requests for this tenant ask to cache the prompt.",
+            "default": true
           }
         },
         "type": "object",
@@ -38218,6 +40528,21 @@
             ],
             "title": "Auto Routable",
             "description": "Per-tenant override for whether the router may pick this model on its own. Null inherits the catalogue value.",
+            "examples": [
+              false
+            ]
+          },
+          "prompt_caching": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prompt Caching",
+            "description": "Whether Claude requests for this tenant ask the provider to cache the prompt for 5 minutes (on by default). Null or omitted keeps the stored value. OpenAI and Gemini cache on their own.",
             "examples": [
               false
             ]
@@ -38589,6 +40914,20 @@
             "description": "Primary email/web domain associated with the tenant.",
             "examples": [
               "acme.com"
+            ]
+          },
+          "domains": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Domains",
+            "description": "All email/web domains owned by the tenant.",
+            "examples": [
+              [
+                "acme.com",
+                "acme.de"
+              ]
             ]
           },
           "parent_tenant_id": {
@@ -39135,9 +41474,30 @@
               }
             ],
             "title": "Domain",
-            "description": "Primary email/web domain associated with the tenant.",
+            "description": "Deprecated: use `domains`. Replaces the first domain; null removes it. Other domains are kept. Ignored when `domains` is given.",
             "examples": [
               "acme.com"
+            ]
+          },
+          "domains": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Domains",
+            "description": "Email/web domains owned by the tenant; replaces the full set. Null or omitted leaves them unchanged.",
+            "examples": [
+              [
+                "acme.com",
+                "acme.de"
+              ]
             ]
           },
           "parent_tenant_id": {
@@ -40553,6 +42913,33 @@
             "examples": [
               420
             ]
+          },
+          "cached_prompt_tokens": {
+            "type": "integer",
+            "title": "Cached Prompt Tokens",
+            "description": "Prompt tokens read from the provider cache.",
+            "default": 0,
+            "examples": [
+              30000
+            ]
+          },
+          "cache_creation_tokens": {
+            "type": "integer",
+            "title": "Cache Creation Tokens",
+            "description": "Prompt tokens written to the provider cache.",
+            "default": 0,
+            "examples": [
+              5000
+            ]
+          },
+          "reasoning_tokens": {
+            "type": "integer",
+            "title": "Reasoning Tokens",
+            "description": "Reasoning tokens, already included in completion_tokens.",
+            "default": 0,
+            "examples": [
+              10000
+            ]
           }
         },
         "type": "object",
@@ -40616,7 +43003,8 @@
                 "assistant",
                 "project",
                 "user",
-                "group"
+                "group",
+                "api_key"
               ]
             },
             "type": "array",
@@ -40888,6 +43276,33 @@
               420
             ]
           },
+          "cached_prompt_tokens": {
+            "type": "integer",
+            "title": "Cached Prompt Tokens",
+            "description": "Prompt tokens read from the provider cache.",
+            "default": 0,
+            "examples": [
+              30000
+            ]
+          },
+          "cache_creation_tokens": {
+            "type": "integer",
+            "title": "Cache Creation Tokens",
+            "description": "Prompt tokens written to the provider cache.",
+            "default": 0,
+            "examples": [
+              5000
+            ]
+          },
+          "reasoning_tokens": {
+            "type": "integer",
+            "title": "Reasoning Tokens",
+            "description": "Reasoning tokens, already included in completion_tokens.",
+            "default": 0,
+            "examples": [
+              10000
+            ]
+          },
           "group": {
             "additionalProperties": {
               "anyOf": [
@@ -40971,6 +43386,13 @@
             },
             "type": "array",
             "title": "Connectors"
+          },
+          "custom_connectors": {
+            "items": {
+              "$ref": "#/components/schemas/AccessItemOut"
+            },
+            "type": "array",
+            "title": "Custom Connectors"
           }
         },
         "type": "object",
@@ -42354,8 +44776,7 @@
                   "Universal",
                   "W-SU",
                   "WET",
-                  "Zulu",
-                  "localtime"
+                  "Zulu"
                 ],
                 "minLength": 1
               },
@@ -43011,8 +45432,7 @@
                   "Universal",
                   "W-SU",
                   "WET",
-                  "Zulu",
-                  "localtime"
+                  "Zulu"
                 ],
                 "minLength": 1
               },
@@ -43500,6 +45920,8 @@
         "properties": {
           "name": {
             "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
             "title": "Name"
           },
           "description": {
@@ -43542,17 +45964,6 @@
       },
       "WorkflowUpdateIn": {
         "properties": {
-          "name": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Name"
-          },
           "description": {
             "anyOf": [
               {
@@ -43563,6 +45974,13 @@
               }
             ],
             "title": "Description"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "default": "Workflow"
           },
           "spec": {
             "additionalProperties": true,
@@ -43704,6 +46122,17 @@
         "description": "Api key to access backend from external services",
         "in": "header",
         "name": "X-API-KEY"
+      },
+      "EntraAccessToken": {
+        "type": "apiKey",
+        "description": "Delegated Entra access token for the hub API, acquired by a trusted customer platform for its user. Optional feature: only accepted when the deployment configures it and the tenant has the PLATFORM_ENTRA_AUTH feature flag on (on by default; a tenant can switch it off).",
+        "in": "header",
+        "name": "X-Entra-Access-Token"
+      },
+      "HTTPBearer": {
+        "type": "http",
+        "description": "Hub API key, sent the way OpenAI SDKs send it.",
+        "scheme": "bearer"
       }
     }
   },

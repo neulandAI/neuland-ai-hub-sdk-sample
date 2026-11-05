@@ -42,9 +42,10 @@ class Role(BaseModel):
     all_models: Optional[StrictBool] = Field(default=True, description="Whether the role grants every model the tenant enables.")
     all_tools: Optional[StrictBool] = Field(default=True, description="Whether the role grants every tool the tenant enables.")
     all_connectors: Optional[StrictBool] = Field(default=True, description="Whether the role grants every connector the tenant enables.")
+    all_custom_connectors: Optional[StrictBool] = Field(default=False, description="Whether the role grants every organisation custom MCP. Off by default: each MCP says who it is for (`all_users`, roles, grants).")
     creator_user_id: Optional[StrictInt] = None
     updater_user_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "public_id", "tenant_id", "key", "name", "description", "is_system", "is_default", "all_models", "all_tools", "all_connectors", "creator_user_id", "updater_user_id"]
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "id", "public_id", "tenant_id", "key", "name", "description", "is_system", "is_default", "all_models", "all_tools", "all_connectors", "all_custom_connectors", "creator_user_id", "updater_user_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -135,6 +136,7 @@ class Role(BaseModel):
             "all_models": obj.get("all_models") if obj.get("all_models") is not None else True,
             "all_tools": obj.get("all_tools") if obj.get("all_tools") is not None else True,
             "all_connectors": obj.get("all_connectors") if obj.get("all_connectors") is not None else True,
+            "all_custom_connectors": obj.get("all_custom_connectors") if obj.get("all_custom_connectors") is not None else False,
             "creator_user_id": obj.get("creator_user_id"),
             "updater_user_id": obj.get("updater_user_id")
         })

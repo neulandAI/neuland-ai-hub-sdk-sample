@@ -40,6 +40,7 @@ class OAuth2ProviderEnum(str, Enum):
     ABAS = 'abas'
     GOOGLE = 'google'
     DROPBOX = 'dropbox'
+    TOPDESK = 'topdesk'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

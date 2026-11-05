@@ -113,6 +113,8 @@ AuthSettings = TypedDict(
     {
         "OAuth2PasswordBearer": OAuth2AuthSetting,
         "APIKeyHeader": APIKeyAuthSetting,
+        "EntraAccessToken": APIKeyAuthSetting,
+        "HTTPBearer": BearerAuthSetting,
     },
     total=False,
 )
@@ -551,6 +553,22 @@ conf = neuland_hub_sdk.Configuration(
                     'APIKeyHeader',
                 ),
             }
+        if 'EntraAccessToken' in self.api_key:
+            auth['EntraAccessToken'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'X-Entra-Access-Token',
+                'value': self.get_api_key_with_prefix(
+                    'EntraAccessToken',
+                ),
+            }
+        if self.access_token is not None:
+            auth['HTTPBearer'] = {
+                'type': 'bearer',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': 'Bearer ' + self.access_token
+            }
         return auth
 
     def to_debug_report(self) -> str:
@@ -562,7 +580,7 @@ conf = neuland_hub_sdk.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 0.1.0\n"\
-               "SDK Package Version: 1.2.1".\
+               "SDK Package Version: 1.3.0".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self) -> List[HostSetting]:

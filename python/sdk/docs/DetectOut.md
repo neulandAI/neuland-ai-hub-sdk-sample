@@ -1,0 +1,34 @@
+# DetectOut
+
+What the add dialog pre-selects: the auth the server asks for and the client registrations it accepts.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**auth_mode** | **str** |  | 
+**oauth_client_mode** | **str** |  | 
+**supports_cimd** | **bool** |  | [optional] [default to False]
+**supports_dcr** | **bool** |  | [optional] [default to False]
+**message** | **str** |  | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.detect_out import DetectOut
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of DetectOut from a JSON string
+detect_out_instance = DetectOut.from_json(json)
+# print the JSON string representation of the object
+print(DetectOut.to_json())
+
+# convert the object into a dict
+detect_out_dict = detect_out_instance.to_dict()
+# create an instance of DetectOut from a dict
+detect_out_from_dict = DetectOut.from_dict(detect_out_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

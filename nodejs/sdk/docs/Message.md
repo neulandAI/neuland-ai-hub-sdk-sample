@@ -53,7 +53,7 @@ const { status, data } = await apiInstance.messagesContinueMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -115,7 +115,7 @@ const { status, data } = await apiInstance.messagesConvertMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -174,7 +174,7 @@ const { status, data } = await apiInstance.messagesCreateMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -232,7 +232,7 @@ const { status, data } = await apiInstance.messagesGetMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -290,7 +290,7 @@ const { status, data } = await apiInstance.messagesGetMessageTurn(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -351,7 +351,7 @@ const { status, data } = await apiInstance.messagesRephraseMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -413,7 +413,7 @@ const { status, data } = await apiInstance.messagesResumeMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -426,7 +426,7 @@ const { status, data } = await apiInstance.messagesResumeMessage(
 |-------------|-------------|------------------|
 |**202** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | No access to the chat the message belongs to. |  -  |
+|**403** | No access to the chat the message belongs to, or usage budget exceeded (a \&#39;reject\&#39; is still accepted). |  -  |
 |**404** | Message or its chat does not exist. |  -  |
 |**409** | Message is not an assistant reply awaiting approval or user input. |  -  |
 |**422** | Validation Error |  -  |
@@ -456,7 +456,7 @@ let chatId: string; // (optional) (default to undefined)
 let documentIds: Array<string>; // (optional) (default to undefined)
 let files: Array<File>; // (optional) (default to undefined)
 let temperature: number; // (optional) (default to undefined)
-let reasoningEffort: ReasoningEffortEnum; // (optional) (default to undefined)
+let reasoningEffort: string; // (optional) (default to undefined)
 let similarityTopK: number; // (optional) (default to undefined)
 let systemPrompt: string; // (optional) (default to undefined)
 let assistantId: string; // (optional) (default to undefined)
@@ -501,7 +501,7 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 | **documentIds** | **Array&lt;string&gt;** |  | (optional) defaults to undefined|
 | **files** | **Array&lt;File&gt;** |  | (optional) defaults to undefined|
 | **temperature** | [**number**] |  | (optional) defaults to undefined|
-| **reasoningEffort** | **ReasoningEffortEnum** |  | (optional) defaults to undefined|
+| **reasoningEffort** | [**string**]**Array<&#39;low&#39; &#124; &#39;medium&#39; &#124; &#39;high&#39; &#124; &#39;auto&#39;>** |  | (optional) defaults to undefined|
 | **similarityTopK** | [**number**] |  | (optional) defaults to undefined|
 | **systemPrompt** | [**string**] |  | (optional) defaults to undefined|
 | **assistantId** | [**string**] |  | (optional) defaults to undefined|
@@ -520,7 +520,7 @@ const { status, data } = await apiInstance.messagesSubmitMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -581,7 +581,7 @@ const { status, data } = await apiInstance.messagesTranslateMessage(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 

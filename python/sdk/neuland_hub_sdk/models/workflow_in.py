@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,7 +28,7 @@ class WorkflowIn(BaseModel):
     """
     WorkflowIn
     """ # noqa: E501
-    name: StrictStr
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)]
     description: Optional[StrictStr] = ''
     spec: Optional[Dict[str, Any]] = None
     chat_id: Optional[StrictInt] = None

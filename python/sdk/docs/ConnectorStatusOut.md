@@ -9,12 +9,15 @@ Name | Type | Description | Notes
 **connector_public_id** | **UUID** | Public id of the connector. Use it for the consent, credential, and config endpoints (which are keyed by public id). | 
 **name** | **str** | Human-readable connector name. | 
 **auth_type** | [**ConnectorAuthType**](ConnectorAuthType.md) | Authentication mechanism the connector uses. | 
-**connected** | **bool** | Whether the connector is fully usable for the caller (consent granted and all required config present). | 
+**connected** | **bool** | Whether the caller can use the connector: all required config is present and consent covers at least one capability. A partial grant is connected while &#x60;needs_consent&#x60; is still true. | 
 **needs_consent** | **bool** | OAuth authorization is required before the connector can be used. | 
 **needs_config** | **bool** | An admin credential template part is required but not yet set. | 
 **needs_user_config** | **bool** | A per-user credential template part is required but not yet set. | 
 **has_admin_config** | **bool** | The connector has an admin-managed credential part. | 
+**can_disconnect** | **bool** | The caller has a per-user part to remove (OAuth consent or per-user credential). | 
 **missing_caps** | **List[Optional[str]]** | Capabilities not yet granted; empty unless consent is needed. | 
+**granted_caps** | **List[Optional[str]]** | Capabilities the caller&#39;s consent covers; on a partial grant &#x60;connected&#x60; and &#x60;needs_consent&#x60; are both true and &#x60;missing_caps&#x60; lists the rest. | [optional] 
+**picker_available** | **bool** | The Google Drive file picker can open: an admin set the Picker API key and this consent covers &#x60;drive.file&#x60;. | [optional] [default to False]
 
 ## Example
 

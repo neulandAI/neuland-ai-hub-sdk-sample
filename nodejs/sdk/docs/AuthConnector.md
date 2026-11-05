@@ -5,10 +5,12 @@ All URIs are relative to *https://api.your-domain.com*
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
 |[**authGetCredentialTemplate**](#authgetcredentialtemplate) | **GET** /auth/connectors/{connector_id}/credential/template | Get connector credential template|
+|[**authGooglePickerToken**](#authgooglepickertoken) | **GET** /auth/connectors/google/picker-token | Get a Google Picker token|
 |[**authInitiateAdminConsent**](#authinitiateadminconsent) | **GET** /auth/connectors/{connector_id}/consent/admin | Initiate admin connector consent|
 |[**authInitiateConsent**](#authinitiateconsent) | **GET** /auth/connectors/{connector_id}/consent | Initiate connector consent|
 |[**authListConnectorStatus**](#authlistconnectorstatus) | **GET** /auth/connectors/status | List connector status|
 |[**authOauthCallback**](#authoauthcallback) | **GET** /auth/connectors/callback | Connector OAuth callback|
+|[**authRemoveAdminCredential**](#authremoveadmincredential) | **DELETE** /auth/connectors/{connector_id}/credential/admin | Remove the tenant-wide connector credential|
 |[**authRevokeConsent**](#authrevokeconsent) | **DELETE** /auth/connectors/{connector_id}/consent | Revoke connector consent|
 |[**authSetAdminCredential**](#authsetadmincredential) | **PUT** /auth/connectors/{connector_id}/credential/admin | Set the tenant-wide connector credential|
 |[**authSetUserCredential**](#authsetusercredential) | **PUT** /auth/connectors/{connector_id}/credential/user | Set the caller\&#39;s connector credential|
@@ -54,7 +56,7 @@ const { status, data } = await apiInstance.authGetCredentialTemplate(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -68,6 +70,61 @@ const { status, data } = await apiInstance.authGetCredentialTemplate(
 |**200** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
 |**404** | No connector or credential template exists for the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authGooglePickerToken**
+> GooglePickerTokenOut authGooglePickerToken()
+
+Return a fresh `drive.file`-only access token and the Picker config. The stored access token never leaves the backend.
+
+### Example
+
+```typescript
+import {
+    AuthConnector,
+    Configuration
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AuthConnector(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authGooglePickerToken(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**GooglePickerTokenOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Not authenticated, or Drive consent required (&#x60;consent_required&#x60;). |  -  |
+|**404** | Picker or connector not set up. |  -  |
+|**503** | Refreshing the &#x60;drive.file&#x60; token failed; retry or reconnect. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -111,7 +168,7 @@ const { status, data } = await apiInstance.authInitiateAdminConsent(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -176,7 +233,7 @@ const { status, data } = await apiInstance.authInitiateConsent(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -232,7 +289,7 @@ const { status, data } = await apiInstance.authListConnectorStatus(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -310,9 +367,67 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
-|**403** | The provider granted insufficient scopes for the requested capabilities. |  -  |
+|**403** | The provider granted insufficient scopes for the requested capabilities (&#x60;insufficient_scopes&#x60;), or none at all (&#x60;no_scopes_granted&#x60;). |  -  |
 |**404** | No connector or OAuth client exists for the consent state. |  -  |
 |**503** | Token exchange with the OAuth provider failed. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authRemoveAdminCredential**
+> authRemoveAdminCredential()
+
+Remove the tenant-wide (admin) credential. Admin only.
+
+### Example
+
+```typescript
+import {
+    AuthConnector,
+    Configuration
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new AuthConnector(configuration);
+
+let connectorId: string; //Public id of the connector whose credential is being accessed. (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authRemoveAdminCredential(
+    connectorId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **connectorId** | [**string**] | Public id of the connector whose credential is being accessed. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Administrator privileges required. |  -  |
+|**404** | No connector/template exists, it has no admin credential fields, or none is set. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -356,7 +471,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -369,6 +484,7 @@ void (empty response body)
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
+|**404** | No connector exists for the given id, or it has no per-user part to disconnect. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -416,7 +532,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -478,7 +594,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -539,7 +655,7 @@ const { status, data } = await apiInstance.authUpdateConnector(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -601,7 +717,7 @@ const { status, data } = await apiInstance.authUpdateOauthClient(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 

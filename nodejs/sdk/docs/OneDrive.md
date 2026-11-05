@@ -48,7 +48,7 @@ const { status, data } = await apiInstance.onedriveCapabilities(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -118,7 +118,7 @@ const { status, data } = await apiInstance.onedriveGetItemInfo(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -131,7 +131,7 @@ const { status, data } = await apiInstance.onedriveGetItemInfo(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing authentication or connector consent required. |  -  |
-|**403** | Connector token lacks the required permissions. |  -  |
+|**403** | Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint). |  -  |
 |**404** | No drive or item exists with the given ids. |  -  |
 |**422** | Validation Error |  -  |
 
@@ -173,7 +173,7 @@ const { status, data } = await apiInstance.onedriveGetUserInfo(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -227,7 +227,7 @@ const { status, data } = await apiInstance.onedriveIsConnected(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -301,7 +301,7 @@ const { status, data } = await apiInstance.onedriveListChildren(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -314,7 +314,7 @@ const { status, data } = await apiInstance.onedriveListChildren(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing authentication or connector consent required. |  -  |
-|**403** | Connector token lacks the required permissions. |  -  |
+|**403** | Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint). |  -  |
 |**404** | No drive or item exists with the given ids. |  -  |
 |**422** | Validation Error |  -  |
 
@@ -371,7 +371,7 @@ const { status, data } = await apiInstance.onedriveListDrives(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 
@@ -384,7 +384,7 @@ const { status, data } = await apiInstance.onedriveListDrives(
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**401** | Missing authentication or connector consent required. |  -  |
-|**403** | Connector token lacks the required permissions. |  -  |
+|**403** | Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint). |  -  |
 |**404** | No site exists with the given id. |  -  |
 |**422** | Validation Error |  -  |
 
@@ -438,7 +438,7 @@ const { status, data } = await apiInstance.onedriveListRoots(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
 
 ### HTTP request headers
 

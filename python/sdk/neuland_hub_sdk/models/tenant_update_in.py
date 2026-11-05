@@ -31,6 +31,7 @@ class TenantUpdateIn(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = None
     domain: Optional[StrictStr] = None
+    domains: Optional[List[StrictStr]] = None
     parent_tenant_id: Optional[UUID] = None
     subtenants_enabled: Optional[StrictBool] = None
     timezone: Optional[StrictStr] = None
@@ -53,7 +54,7 @@ class TenantUpdateIn(BaseModel):
     api_rate_limit: Optional[StrictInt] = None
     upstream_tenant_id: Optional[StrictStr] = None
     upstream_oidc_issuer: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["name", "domain", "parent_tenant_id", "subtenants_enabled", "timezone", "locale", "tarif_id", "tarif_expires_at", "max_users", "max_projects", "licenses", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "upstream_tenant_id", "upstream_oidc_issuer"]
+    __properties: ClassVar[List[str]] = ["name", "domain", "domains", "parent_tenant_id", "subtenants_enabled", "timezone", "locale", "tarif_id", "tarif_expires_at", "max_users", "max_projects", "licenses", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "upstream_tenant_id", "upstream_oidc_issuer"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -103,6 +104,11 @@ class TenantUpdateIn(BaseModel):
         # and model_fields_set contains the field
         if self.domain is None and "domain" in self.model_fields_set:
             _dict['domain'] = None
+
+        # set to None if domains (nullable) is None
+        # and model_fields_set contains the field
+        if self.domains is None and "domains" in self.model_fields_set:
+            _dict['domains'] = None
 
         # set to None if parent_tenant_id (nullable) is None
         # and model_fields_set contains the field
@@ -228,6 +234,7 @@ class TenantUpdateIn(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "domain": obj.get("domain"),
+            "domains": obj.get("domains"),
             "parent_tenant_id": obj.get("parent_tenant_id"),
             "subtenants_enabled": obj.get("subtenants_enabled"),
             "timezone": obj.get("timezone"),

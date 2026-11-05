@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **threshold_amount** | **number** | Budget threshold, for notification. | [optional] [default to 0]
 **current_spend** | **string** | Total Spent. In decimal to have more accuracy | [optional] [default to '0.000000']
 **triggered** | **boolean** | If the alert is triggered or not | [optional] [default to false]
+**triggered_at** | **string** |  | [optional] [default to undefined]
 **active** | **boolean** | If the alert is enabled | [optional] [default to true]
 **created_at** | **string** | Timestamp when the alert was created. | [optional] [default to undefined]
 **updated_at** | **string** | Timestamp when alert was updated. | [optional] [default to undefined]
@@ -31,6 +32,7 @@ const instance: BudgetAlert = {
     threshold_amount,
     current_spend,
     triggered,
+    triggered_at,
     active,
     created_at,
     updated_at,

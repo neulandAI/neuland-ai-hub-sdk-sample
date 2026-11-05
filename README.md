@@ -40,7 +40,7 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk==1.2.1
+neuland-hub-sdk==1.3.0
 ```
 
 Requires Python 3.9+. On macOS with the python.org installer, run

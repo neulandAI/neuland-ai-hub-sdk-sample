@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **name** | **string** | Name of the model, tool or connector. | [default to undefined]
 **roles** | **Array&lt;string | null&gt;** | Names of the user\&#39;s roles that grant this item. | [optional] [default to undefined]
 **granted_directly** | **boolean** | Whether the user holds an unrevoked direct grant for it. | [optional] [default to false]
-**always_available** | **boolean** | Whether the item reaches every user whatever their roles say. Only default tools do — they are bound in code for every chat — so an empty &#x60;roles&#x60; with no direct grant is expected rather than unexplained. | [optional] [default to false]
+**always_available** | **boolean** | Whether the item reaches every user whatever their roles say: default tools, bound in code for every chat, and custom MCPs added for everyone. So an empty &#x60;roles&#x60; with no direct grant is expected rather than unexplained. | [optional] [default to false]
 
 ## Example
 

@@ -34,10 +34,12 @@ class RoleUpdateIn(BaseModel):
     all_models: Optional[StrictBool] = None
     all_tools: Optional[StrictBool] = None
     all_connectors: Optional[StrictBool] = None
+    all_custom_connectors: Optional[StrictBool] = None
     models: Optional[List[UUID]] = None
     tools: Optional[List[UUID]] = None
     connectors: Optional[List[UUID]] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "permissions", "all_models", "all_tools", "all_connectors", "models", "tools", "connectors"]
+    custom_connectors: Optional[List[UUID]] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "permissions", "all_models", "all_tools", "all_connectors", "all_custom_connectors", "models", "tools", "connectors", "custom_connectors"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -108,6 +110,11 @@ class RoleUpdateIn(BaseModel):
         if self.all_connectors is None and "all_connectors" in self.model_fields_set:
             _dict['all_connectors'] = None
 
+        # set to None if all_custom_connectors (nullable) is None
+        # and model_fields_set contains the field
+        if self.all_custom_connectors is None and "all_custom_connectors" in self.model_fields_set:
+            _dict['all_custom_connectors'] = None
+
         # set to None if models (nullable) is None
         # and model_fields_set contains the field
         if self.models is None and "models" in self.model_fields_set:
@@ -122,6 +129,11 @@ class RoleUpdateIn(BaseModel):
         # and model_fields_set contains the field
         if self.connectors is None and "connectors" in self.model_fields_set:
             _dict['connectors'] = None
+
+        # set to None if custom_connectors (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_connectors is None and "custom_connectors" in self.model_fields_set:
+            _dict['custom_connectors'] = None
 
         return _dict
 
@@ -141,9 +153,11 @@ class RoleUpdateIn(BaseModel):
             "all_models": obj.get("all_models"),
             "all_tools": obj.get("all_tools"),
             "all_connectors": obj.get("all_connectors"),
+            "all_custom_connectors": obj.get("all_custom_connectors"),
             "models": obj.get("models"),
             "tools": obj.get("tools"),
-            "connectors": obj.get("connectors")
+            "connectors": obj.get("connectors"),
+            "custom_connectors": obj.get("custom_connectors")
         })
         return _obj
 

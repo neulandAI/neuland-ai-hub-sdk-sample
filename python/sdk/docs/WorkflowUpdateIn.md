@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
+**name** | **str** |  | [optional] [default to 'Workflow']
 **spec** | **Dict[str, object]** |  | [optional] 
 **is_enabled** | **bool** |  | [optional] [default to True]
 **timezone** | **str** |  | [optional] [default to 'UTC']

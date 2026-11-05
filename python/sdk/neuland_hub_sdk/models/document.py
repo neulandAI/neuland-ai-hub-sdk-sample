@@ -58,7 +58,8 @@ class Document(BaseModel):
     import_started_at: Optional[datetime]
     import_finished_at: Optional[datetime]
     import_error: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "public_id", "created_at", "updated_at", "creator_user_id", "tenant_id", "project_id", "chat_id", "assistant_id", "message_id", "library_id", "filename", "content_type", "description", "content_id", "src", "url", "sp_site_id", "sp_drive_id", "sp_drive_item_id", "sp_parent_folder_id", "sp_parent_path", "sp_last_modified_date_time", "sp_import_folder_id", "autosync", "import_token", "import_started_at", "import_finished_at", "import_error"]
+    changed_at: Optional[datetime] = Field(default=None, description="When the document last became worth (re)reading: created, content attached or re-imported, import failed, or its content reached COMPLETED/FAILED. Maintained by the documents_bump_changed_at triggers (migration sidecar); drives documents.list windows and its keyset cursor.")
+    __properties: ClassVar[List[str]] = ["id", "public_id", "created_at", "updated_at", "creator_user_id", "tenant_id", "project_id", "chat_id", "assistant_id", "message_id", "library_id", "filename", "content_type", "description", "content_id", "src", "url", "sp_site_id", "sp_drive_id", "sp_drive_item_id", "sp_parent_folder_id", "sp_parent_path", "sp_last_modified_date_time", "sp_import_folder_id", "autosync", "import_token", "import_started_at", "import_finished_at", "import_error", "changed_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -249,7 +250,8 @@ class Document(BaseModel):
             "import_token": obj.get("import_token"),
             "import_started_at": obj.get("import_started_at"),
             "import_finished_at": obj.get("import_finished_at"),
-            "import_error": obj.get("import_error")
+            "import_error": obj.get("import_error"),
+            "changed_at": obj.get("changed_at")
         })
         return _obj
 
