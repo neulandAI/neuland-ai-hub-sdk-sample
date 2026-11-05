@@ -143,7 +143,7 @@ class TenantThemeOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "slug": obj.get("slug"),
             "domain": obj.get("domain"),
@@ -158,7 +158,7 @@ class TenantThemeOut(BaseModel):
             "primary_color": obj.get("primary_color"),
             "secondary_color": obj.get("secondary_color"),
             "theme": obj.get("theme")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

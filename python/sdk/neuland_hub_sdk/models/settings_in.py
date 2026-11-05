@@ -194,7 +194,7 @@ class SettingsIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "default_llm_catalog_id": obj.get("default_llm_catalog_id"),
             "guardrails_enabled": obj.get("guardrails_enabled"),
             "sharepoint_enabled": obj.get("sharepoint_enabled"),
@@ -214,7 +214,7 @@ class SettingsIn(BaseModel):
             "user_level_analytics_enabled": obj.get("user_level_analytics_enabled"),
             "user_analytics_reveal_names": obj.get("user_analytics_reveal_names"),
             "ai_image_label_enabled": obj.get("ai_image_label_enabled")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

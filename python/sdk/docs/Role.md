@@ -25,7 +25,6 @@ Assign a role to a group; members inherit it.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -52,12 +51,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -91,7 +84,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -120,7 +113,6 @@ Assign a role to a user, bounded by the caller's own permissions and rank.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -147,12 +139,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -186,7 +172,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -215,7 +201,6 @@ Create a tenant-scoped custom role and grant it the requested permissions.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 import os
@@ -243,12 +228,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -282,7 +261,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -311,7 +290,6 @@ roles and the current default are protected.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -338,12 +316,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -375,7 +347,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -407,7 +379,6 @@ caller and the excluded users stay on the source role.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -436,12 +407,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -477,7 +442,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -507,7 +472,6 @@ fallback when a user would be left with no role. Exactly one per tenant.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -534,12 +498,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -571,7 +529,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -600,7 +558,6 @@ Remove a role from a group.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -627,12 +584,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -666,7 +617,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -695,7 +646,6 @@ Remove a role from a user.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -722,12 +672,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -761,7 +705,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -790,7 +734,6 @@ Edit a role's name, permission set and/or the resources it grants.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -819,12 +762,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -860,7 +797,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

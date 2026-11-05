@@ -159,7 +159,7 @@ class Settings(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
@@ -182,7 +182,7 @@ class Settings(BaseModel):
             "user_level_analytics_enabled": obj.get("user_level_analytics_enabled") if obj.get("user_level_analytics_enabled") is not None else False,
             "user_analytics_reveal_names": obj.get("user_analytics_reveal_names") if obj.get("user_analytics_reveal_names") is not None else False,
             "ai_image_label_enabled": obj.get("ai_image_label_enabled") if obj.get("ai_image_label_enabled") is not None else False
-        })
+        }.items() if k in _keep})
         return _obj
 
 

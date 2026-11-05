@@ -15,9 +15,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import StrictStr
 from typing import Any, Optional
-from typing_extensions import Annotated
 from uuid import UUID
 from neuland_hub_sdk.models.run_create_out import RunCreateOut
 from neuland_hub_sdk.models.stream_token_out import StreamTokenOut
@@ -306,8 +305,7 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer', 
-            'EntraAccessToken'
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -604,8 +602,7 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer', 
-            'EntraAccessToken'
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -900,8 +897,7 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer', 
-            'EntraAccessToken'
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1183,8 +1179,7 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer', 
-            'EntraAccessToken'
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1494,8 +1489,7 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer', 
-            'EntraAccessToken'
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -1521,7 +1515,6 @@ class Workflow:
         self,
         workflow_id: UUID,
         run_id: UUID,
-        after: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1543,8 +1536,6 @@ class Workflow:
         :type workflow_id: UUID
         :param run_id: (required)
         :type run_id: UUID
-        :param after:
-        :type after: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1570,7 +1561,6 @@ class Workflow:
         _param = self._workflows_stream_run_events_serialize(
             workflow_id=workflow_id,
             run_id=run_id,
-            after=after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1597,7 +1587,6 @@ class Workflow:
         self,
         workflow_id: UUID,
         run_id: UUID,
-        after: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1619,8 +1608,6 @@ class Workflow:
         :type workflow_id: UUID
         :param run_id: (required)
         :type run_id: UUID
-        :param after:
-        :type after: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1646,7 +1633,6 @@ class Workflow:
         _param = self._workflows_stream_run_events_serialize(
             workflow_id=workflow_id,
             run_id=run_id,
-            after=after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1673,7 +1659,6 @@ class Workflow:
         self,
         workflow_id: UUID,
         run_id: UUID,
-        after: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1695,8 +1680,6 @@ class Workflow:
         :type workflow_id: UUID
         :param run_id: (required)
         :type run_id: UUID
-        :param after:
-        :type after: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1722,7 +1705,6 @@ class Workflow:
         _param = self._workflows_stream_run_events_serialize(
             workflow_id=workflow_id,
             run_id=run_id,
-            after=after,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1744,7 +1726,6 @@ class Workflow:
         self,
         workflow_id,
         run_id,
-        after,
         _request_auth,
         _content_type,
         _headers,
@@ -1771,10 +1752,6 @@ class Workflow:
         if run_id is not None:
             _path_params['run_id'] = run_id
         # process the query parameters
-        if after is not None:
-            
-            _query_params.append(('after', after))
-            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -2101,8 +2078,7 @@ class Workflow:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer', 
-            'EntraAccessToken'
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

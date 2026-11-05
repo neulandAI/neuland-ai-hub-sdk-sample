@@ -87,7 +87,7 @@ class UsageMetrics(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "cost": obj.get("cost"),
             "total_tokens": obj.get("total_tokens"),
             "prompt_tokens": obj.get("prompt_tokens"),
@@ -96,7 +96,7 @@ class UsageMetrics(BaseModel):
             "cached_prompt_tokens": obj.get("cached_prompt_tokens") if obj.get("cached_prompt_tokens") is not None else 0,
             "cache_creation_tokens": obj.get("cache_creation_tokens") if obj.get("cache_creation_tokens") is not None else 0,
             "reasoning_tokens": obj.get("reasoning_tokens") if obj.get("reasoning_tokens") is not None else 0
-        })
+        }.items() if k in _keep})
         return _obj
 
 

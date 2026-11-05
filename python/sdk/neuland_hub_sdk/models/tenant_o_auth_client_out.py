@@ -104,7 +104,7 @@ class TenantOAuthClientOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "tenant_id": obj.get("tenant_id"),
             "oauth_client_id": obj.get("oauth_client_id"),
             "provider_key": obj.get("provider_key"),
@@ -114,7 +114,7 @@ class TenantOAuthClientOut(BaseModel):
             "revocation_url": obj.get("revocation_url"),
             "redirect_uri": obj.get("redirect_uri"),
             "admin_consent_url": obj.get("admin_consent_url")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

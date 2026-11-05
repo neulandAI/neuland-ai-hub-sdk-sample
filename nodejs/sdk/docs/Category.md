@@ -42,7 +42,7 @@ const { status, data } = await apiInstance.categoriesListCategories(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

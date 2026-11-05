@@ -120,7 +120,7 @@ class Connector(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "creator_user_id": obj.get("creator_user_id"),
@@ -134,7 +134,7 @@ class Connector(BaseModel):
             "caps": obj.get("caps"),
             "auto_attach": obj.get("auto_attach") if obj.get("auto_attach") is not None else False,
             "auth_type": obj.get("auth_type")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

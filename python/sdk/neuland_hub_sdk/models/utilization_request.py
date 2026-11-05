@@ -84,11 +84,11 @@ class UtilizationRequest(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "date_start": obj.get("date_start"),
             "date_end": obj.get("date_end"),
             "idle_days": obj.get("idle_days") if obj.get("idle_days") is not None else 30
-        })
+        }.items() if k in _keep})
         return _obj
 
 

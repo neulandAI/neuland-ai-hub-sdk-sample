@@ -103,12 +103,12 @@ class OAuthClientUpdate(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "description": obj.get("description"),
             "icon_url": obj.get("icon_url"),
             "oidc_issuer": obj.get("oidc_issuer")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

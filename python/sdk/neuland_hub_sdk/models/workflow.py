@@ -122,7 +122,7 @@ class Workflow(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
@@ -139,7 +139,7 @@ class Workflow(BaseModel):
             "timezone": obj.get("timezone") if obj.get("timezone") is not None else 'UTC',
             "next_fire_at": obj.get("next_fire_at"),
             "last_dispatched_at": obj.get("last_dispatched_at")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

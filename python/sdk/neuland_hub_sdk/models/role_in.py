@@ -122,7 +122,7 @@ class RoleIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "description": obj.get("description"),
             "permissions": obj.get("permissions"),
@@ -135,7 +135,7 @@ class RoleIn(BaseModel):
             "tools": obj.get("tools"),
             "connectors": obj.get("connectors"),
             "custom_connectors": obj.get("custom_connectors")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

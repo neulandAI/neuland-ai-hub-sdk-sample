@@ -21,6 +21,7 @@ from __future__ import annotations
 import json
 import re
 import shutil
+import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -794,7 +795,135 @@ def fix_python_sdk_code() -> None:
              "            if klass.startswith('List['):")
     if anchor in text and patch not in text:
         client.write_text(text.replace(anchor, patch, 1), encoding="utf-8"); changed.append(client.name)
+
+    # 3. urllib3 strips only Authorization, Cookie and Proxy-Authorization when a
+    #    redirect leaves the host, so X-API-KEY followed it. Give the pool a Retry
+    #    that also strips the SDK's credential headers. A user-supplied
+    #    `configuration.retries` (int or Retry) is kept and extended.
+    text = rest.read_text(encoding="utf-8")
+    anchor = ("        if configuration.retries is not None:\n"
+              "            pool_args['retries'] = configuration.retries\n")
+    patch = ("        # Never forward credentials to another host on a redirect.\n"
+             "        retries = urllib3.util.Retry.from_int(configuration.retries)\n"
+             "        pool_args['retries'] = retries.new(remove_headers_on_redirect=(\n"
+             "            set(retries.remove_headers_on_redirect) | SENSITIVE_HEADERS))\n")
+    const = ('\n# Credential headers stripped when a redirect points to another host.\n'
+             'SENSITIVE_HEADERS = {"x-api-key", "x-entra-access-token", "authorization", "cookie"}\n')
+    if anchor in text:
+        text = text.replace(anchor, patch, 1)
+        imp = "from neuland_hub_sdk.exceptions import ApiException, ApiValueError\n"
+        text = text.replace(imp, imp + const, 1)
+        rest.write_text(text, encoding="utf-8")
+        if rest.name not in changed:
+            changed.append(rest.name)
     print("  patched python SDK runtime: " + (", ".join(changed) if changed else "(already patched)"))
+    fix_python_from_dict()
+
+
+FROM_DICT_RE = re.compile(
+    r"(        _obj = cls\.model_validate\(\{\n)(.*?)(\n        \}\))", re.S)
+
+
+def fix_python_from_dict() -> None:
+    """Make generated ``Model.from_dict`` keep only the keys the caller passed.
+
+    The generator builds every field with ``obj.get(...)``, so a missing key
+    becomes an explicit ``None``. ``to_dict()`` then sends it as ``null`` because
+    it was "set", and a PATCH built with ``from_dict({"name": ...})`` nulled every
+    other field (the Hub answered 500). Absent optional keys now fall back to the
+    model default and stay out of the request body; required keys keep the old
+    behaviour (missing -> None) so response parsing is unchanged. Idempotent.
+    """
+    count = 0
+    for path in sorted((REPO_ROOT / "python/sdk/neuland_hub_sdk/models").glob("*.py")):
+        text = path.read_text(encoding="utf-8")
+        new = FROM_DICT_RE.sub(
+            lambda m: ("        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {\n"
+                       + m.group(2) + "\n        }.items() if k in _keep})"), text)
+        if new != text:
+            path.write_text(new, encoding="utf-8")
+            count += 1
+    print(f"  patched python from_dict: {count} model(s)")
+
+
+NODE_REQUEST_ANCHOR = """        const axiosRequestArgs = {...axiosArgs.options, url: (axios.defaults.baseURL ? '' : configuration?.basePath ?? basePath) + axiosArgs.url};
+        return axios.request<T, R>(axiosRequestArgs);"""
+
+NODE_REQUEST_PATCH = """        const axiosRequestArgs: RawAxiosRequestConfig = {...axiosArgs.options, url: (axios.defaults.baseURL ? '' : configuration?.basePath ?? basePath) + axiosArgs.url};
+        guardRedirects(axiosRequestArgs, axios.defaults.baseURL);
+        return axios.request<T, R>(axiosRequestArgs).catch((error: unknown) => { throw redactError(error); });"""
+
+NODE_HELPERS = """
+/** Credential headers the SDK must never forward to another host or print. */
+const SENSITIVE_HEADERS = ['x-api-key', 'x-entra-access-token', 'authorization', 'cookie', 'proxy-authorization'];
+
+/**
+ * axios (follow-redirects) strips only Authorization and Cookie when a redirect
+ * leaves the host. Strip X-API-KEY and the other credential headers as well.
+ */
+function guardRedirects(args: RawAxiosRequestConfig, baseURL?: string) {
+    let origin: string | undefined;
+    try { origin = new URL(args.url ?? '', baseURL).host; } catch { return; }
+    const userHook = (args as any).beforeRedirect;
+    (args as any).beforeRedirect = (options: any, responseDetails: any) => {
+        const target = options.host ?? options.hostname;
+        if (target && target !== origin && options.headers) {
+            for (const name of Object.keys(options.headers)) {
+                if (SENSITIVE_HEADERS.includes(name.toLowerCase())) delete options.headers[name];
+            }
+        }
+        if (typeof userHook === 'function') userHook(options, responseDetails);
+    };
+}
+
+function redactHeaders(headers: any) {
+    if (!headers || typeof headers !== 'object') return;
+    for (const name of Object.keys(headers)) {
+        if (SENSITIVE_HEADERS.includes(name.toLowerCase())) headers[name] = '[REDACTED]';
+    }
+}
+
+/**
+ * An axios error carries the request config (headers included) and the raw
+ * Node request, so printing it showed the API key many times. Redact the
+ * headers and hide the raw request objects from console output.
+ */
+function redactError(error: unknown): unknown {
+    const err = error as any;
+    if (!err || typeof err !== 'object' || !err.isAxiosError) return error;
+    redactHeaders(err.config?.headers);
+    redactHeaders(err.response?.config?.headers);
+    for (const holder of [err, err.response]) {
+        if (holder && 'request' in holder) {
+            Object.defineProperty(holder, 'request', { value: holder.request, enumerable: false, configurable: true, writable: true });
+        }
+    }
+    return err;
+}
+"""
+
+
+def fix_node_sdk_code() -> None:
+    """Patch the generated Node SDK's request function (common.ts).
+
+    Adds redirect credential stripping and API-key redaction on axios errors;
+    see NODE_HELPERS. Idempotent; reapplied after every regeneration. Rebuild
+    the Node SDK (`npm run build`) after running this script.
+    """
+    common = REPO_ROOT / "nodejs/sdk/common.ts"
+    text = common.read_text(encoding="utf-8")
+    if "function redactError" in text:
+        print("  patched node SDK runtime: (already patched)")
+        return
+    if NODE_REQUEST_ANCHOR not in text:
+        sys.exit("common.ts: createRequestFunction changed shape; update NODE_REQUEST_ANCHOR")
+    text = text.replace(NODE_REQUEST_ANCHOR, NODE_REQUEST_PATCH, 1)
+    text = text.replace("import type { AxiosInstance, AxiosResponse } from 'axios';",
+                        "import type { AxiosInstance, AxiosResponse, RawAxiosRequestConfig } from 'axios';", 1)
+    marker = "export const createRequestFunction"
+    text = text.replace(marker, NODE_HELPERS.lstrip("\n") + "\n" + marker, 1)
+    common.write_text(text, encoding="utf-8")
+    print("  patched node SDK runtime: common.ts")
 
 
 def fix_python_examples() -> None:
@@ -864,6 +993,7 @@ def main() -> None:
     print("Syncing generated SDK docs into the Mintlify tree...")
     fix_sdk_metadata()
     fix_python_sdk_code()
+    fix_node_sdk_code()
     fix_python_examples()
     ensure_servers()
     merge_streaming_endpoints()

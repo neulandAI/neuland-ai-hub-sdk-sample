@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **project_id** | **string** |  | [optional] [default to undefined]
 **model** | **string** |  | [optional] [default to undefined]
 **temperature** | **number** |  | [optional] [default to undefined]
-**reasoning_effort** | [**ReasoningEffort**](ReasoningEffort.md) |  | [optional] [default to undefined]
+**reasoning_effort** | [**ReasoningEffortOrAutoEnum**](ReasoningEffortOrAutoEnum.md) |  | [optional] [default to undefined]
 **similarity_top_k** | **number** |  | [optional] [default to undefined]
 **system_prompt** | **string** |  | [optional] [default to undefined]
 **assistant_id** | **string** |  | [optional] [default to undefined]

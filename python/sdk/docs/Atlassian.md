@@ -17,7 +17,6 @@ Set the active Atlassian cloud_id on this connector's consent.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -45,12 +44,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -84,7 +77,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

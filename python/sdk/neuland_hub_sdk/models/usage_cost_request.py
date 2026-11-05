@@ -121,14 +121,14 @@ class UsageCostRequest(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "granularity": obj.get("granularity") if obj.get("granularity") is not None else 'monthly',
             "date_start": obj.get("date_start"),
             "date_end": obj.get("date_end"),
             "source": obj.get("source"),
             "model": obj.get("model"),
             "provider": obj.get("provider")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

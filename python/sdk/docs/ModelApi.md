@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **v1_chat_completions**
-> object v1_chat_completions()
+> object v1_chat_completions(request_body)
 
 Create a chat completion
 
@@ -18,7 +18,6 @@ OpenAI Chat Completions request and response, streamed or not. `model` is an id 
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Bearer Authentication (HTTPBearer):
 
 ```python
 import os
@@ -44,19 +43,15 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-# Configure Bearer authorization: HTTPBearer
-configuration = neuland_hub_sdk.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ModelApi(api_client)
+    request_body = None # Dict[str, object] | 
 
     try:
         # Create a chat completion
-        api_response = api_instance.v1_chat_completions()
+        api_response = api_instance.v1_chat_completions(request_body)
         print("The response of ModelApi->v1_chat_completions:\n")
         pprint(api_response)
     except Exception as e:
@@ -67,7 +62,10 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request_body** | [**Dict[str, object]**](object.md)|  | 
 
 ### Return type
 
@@ -75,11 +73,11 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
@@ -103,7 +101,6 @@ List the models the API key may call
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Bearer Authentication (HTTPBearer):
 
 ```python
 import os
@@ -129,11 +126,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
-
-# Configure Bearer authorization: HTTPBearer
-configuration = neuland_hub_sdk.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -161,7 +153,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

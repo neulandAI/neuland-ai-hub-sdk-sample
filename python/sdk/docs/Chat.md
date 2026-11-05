@@ -25,7 +25,6 @@ Enables a library in a chat by creating a new association
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -53,12 +52,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -94,7 +87,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -122,7 +115,6 @@ Cancel any pending or streaming message generation in the chat.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -149,12 +141,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -188,7 +174,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -216,7 +202,6 @@ Exclude the given documents from the chat's retrieval context.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -244,12 +229,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -285,7 +264,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -312,7 +291,6 @@ List message turns for a chat
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -339,12 +317,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -382,7 +354,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -411,7 +383,6 @@ Delete a chat and its messages.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -438,12 +409,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -475,7 +440,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -504,7 +469,6 @@ Re-include previously deactivated documents in the chat's retrieval context.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -532,12 +496,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -573,7 +531,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -601,7 +559,6 @@ Disables a library from a chat by removing the association
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -628,12 +585,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -667,7 +618,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -695,7 +646,6 @@ Generate a short LLM summary of the chat's recent conversation.
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -722,12 +672,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -761,7 +705,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -790,7 +734,6 @@ Update settings of an existing chat (name, model, temperature, etc.).
 ### Example
 
 * Api Key Authentication (APIKeyHeader):
-* Api Key Authentication (EntraAccessToken):
 
 ```python
 from uuid import UUID
@@ -819,12 +762,6 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
 
-
-# Configure API key authorization: EntraAccessToken
-configuration.api_key['EntraAccessToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['EntraAccessToken'] = 'Bearer'
 
 # Enter a context with an instance of the API client
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
@@ -860,7 +797,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

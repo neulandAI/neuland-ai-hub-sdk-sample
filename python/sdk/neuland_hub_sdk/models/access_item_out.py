@@ -86,14 +86,14 @@ class AccessItemOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "item_id": obj.get("item_id"),
             "item_public_id": obj.get("item_public_id"),
             "name": obj.get("name"),
             "roles": obj.get("roles"),
             "granted_directly": obj.get("granted_directly") if obj.get("granted_directly") is not None else False,
             "always_available": obj.get("always_available") if obj.get("always_available") is not None else False
-        })
+        }.items() if k in _keep})
         return _obj
 
 

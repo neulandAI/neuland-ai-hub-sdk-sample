@@ -15,7 +15,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from typing import Any
+from typing import Any, Dict
 from neuland_hub_sdk.models.model_list import ModelList
 
 from neuland_hub_sdk.api_client import ApiClient, RequestSerialized
@@ -39,6 +39,7 @@ class ModelApi:
     @validate_call
     def v1_chat_completions(
         self,
+        request_body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -56,6 +57,8 @@ class ModelApi:
 
         OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
 
+        :param request_body: (required)
+        :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -79,6 +82,7 @@ class ModelApi:
         """ # noqa: E501
 
         _param = self._v1_chat_completions_serialize(
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -107,6 +111,7 @@ class ModelApi:
     @validate_call
     def v1_chat_completions_with_http_info(
         self,
+        request_body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -124,6 +129,8 @@ class ModelApi:
 
         OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
 
+        :param request_body: (required)
+        :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -147,6 +154,7 @@ class ModelApi:
         """ # noqa: E501
 
         _param = self._v1_chat_completions_serialize(
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -175,6 +183,7 @@ class ModelApi:
     @validate_call
     def v1_chat_completions_without_preload_content(
         self,
+        request_body: Dict[str, Any],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -192,6 +201,8 @@ class ModelApi:
 
         OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
 
+        :param request_body: (required)
+        :type request_body: Dict[str, object]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -215,6 +226,7 @@ class ModelApi:
         """ # noqa: E501
 
         _param = self._v1_chat_completions_serialize(
+            request_body=request_body,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -238,6 +250,7 @@ class ModelApi:
 
     def _v1_chat_completions_serialize(
         self,
+        request_body,
         _request_auth,
         _content_type,
         _headers,
@@ -263,6 +276,8 @@ class ModelApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if request_body is not None:
+            _body_params = request_body
 
 
         # set the HTTP header `Accept`
@@ -273,11 +288,23 @@ class ModelApi:
                 ]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'HTTPBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(
@@ -526,8 +553,7 @@ class ModelApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'APIKeyHeader', 
-            'HTTPBearer'
+            'APIKeyHeader'
         ]
 
         return self.api_client.param_serialize(

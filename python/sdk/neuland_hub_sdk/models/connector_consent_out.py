@@ -85,10 +85,10 @@ class ConnectorConsentOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "consent_url": obj.get("consent_url"),
             "connector": ConnectorOut.from_dict(obj["connector"]) if obj.get("connector") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

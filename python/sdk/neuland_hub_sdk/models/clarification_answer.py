@@ -92,11 +92,11 @@ class ClarificationAnswer(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "selected_option_ids": obj.get("selected_option_ids"),
             "text": obj.get("text"),
             "confirmed": obj.get("confirmed")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

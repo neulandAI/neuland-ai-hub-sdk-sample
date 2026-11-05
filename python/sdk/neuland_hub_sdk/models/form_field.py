@@ -107,7 +107,7 @@ class FormField(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "label": obj.get("label"),
             "type": obj.get("type"),
@@ -115,7 +115,7 @@ class FormField(BaseModel):
             "options": obj.get("options"),
             "placeholder": obj.get("placeholder"),
             "description": obj.get("description")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

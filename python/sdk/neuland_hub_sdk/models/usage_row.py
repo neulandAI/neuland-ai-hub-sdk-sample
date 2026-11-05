@@ -102,7 +102,7 @@ class UsageRow(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "cost": obj.get("cost"),
             "total_tokens": obj.get("total_tokens"),
             "prompt_tokens": obj.get("prompt_tokens"),
@@ -118,7 +118,7 @@ class UsageRow(BaseModel):
             if obj.get("group") is not None
             else None,
             "bucket": obj.get("bucket")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

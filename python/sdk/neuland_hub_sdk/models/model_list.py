@@ -89,10 +89,10 @@ class ModelList(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "object": obj.get("object") if obj.get("object") is not None else 'list',
             "data": [ModelObject.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

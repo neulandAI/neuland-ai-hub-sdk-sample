@@ -83,12 +83,12 @@ class ModelObject(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "object": obj.get("object") if obj.get("object") is not None else 'model',
             "created": obj.get("created"),
             "owned_by": obj.get("owned_by")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

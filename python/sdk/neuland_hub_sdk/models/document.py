@@ -221,7 +221,7 @@ class Document(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "created_at": obj.get("created_at"),
@@ -252,7 +252,7 @@ class Document(BaseModel):
             "import_finished_at": obj.get("import_finished_at"),
             "import_error": obj.get("import_error"),
             "changed_at": obj.get("changed_at")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

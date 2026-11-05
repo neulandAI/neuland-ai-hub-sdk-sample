@@ -117,7 +117,7 @@ class ToolCallOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "call_id": obj.get("call_id"),
             "tool_name": obj.get("tool_name"),
@@ -128,7 +128,7 @@ class ToolCallOut(BaseModel):
             "description": obj.get("description"),
             "parent_tool_call_id": obj.get("parent_tool_call_id"),
             "progress_steps": [ToolCallProgressStepOut.from_dict(_item) for _item in obj["progress_steps"]] if obj.get("progress_steps") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -142,7 +142,7 @@ class AssistantCatalogUpdate(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "description": obj.get("description"),
             "avatar": obj.get("avatar"),
@@ -153,7 +153,7 @@ class AssistantCatalogUpdate(BaseModel):
             "similarity_top_k": obj.get("similarity_top_k"),
             "version": obj.get("version"),
             "predefined_prompts": obj.get("predefined_prompts")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

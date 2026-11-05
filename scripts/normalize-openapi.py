@@ -17,6 +17,21 @@
 #    `{ responseType: "arraybuffer" }`.
 # 4. The `File` API tag is renamed `Files`: in the Node SDK a class named `File`
 #    shadows the web `File` type, so upload methods typed `Array<File>` were wrong.
+# 5. Only the `X-API-KEY` and OAuth2 schemes are kept. The Hub also declares
+#    `EntraAccessToken` (an apiKey scheme on `X-Entra-Access-Token`) and
+#    `HTTPBearer`. The Node generator sends `configuration.apiKey` to every
+#    apiKey scheme, so a plain API key also went out as an Entra token and the
+#    Hub answered 400. The /v1 endpoints accept `X-API-KEY` too.
+# 6. Nullable unions of a string-enum `$ref` plus string consts
+#    (`anyOf: [<ReasoningEffortEnum>, {const: "auto"}, null]`) become one
+#    nullable enum. Otherwise the generator emits a wrapper type that rejects
+#    plain strings in Python ("low") and rejects null in Node.
+# 7. Request bodies the Hub reads by hand and does not declare get a free-form
+#    JSON object body (REQUEST_BODY_OVERRIDES), so the method takes a body.
+# 8. Query parameters added after a release are dropped from the SDK when they
+#    shift Node's positional `options` argument (DROPPED_PARAMETERS). A 1.2.1
+#    call `workflowsStreamRunEvents(wf, run, { headers })` would otherwise send
+#    the options object, stream token included, as `?after=` in the URL.
 #
 # Usage: python3 scripts/normalize-openapi.py <input.json> <output.json>
 
@@ -74,6 +89,31 @@ BINARY_RESPONSE_OPERATIONS = {
 # API tags to rename before generation: {spec tag: SDK class name}.
 TAG_RENAMES = {"File": "Files"}
 
+# Security schemes the SDK keeps; every other scheme is removed (rule 5).
+KEPT_SECURITY_SCHEMES = {"APIKeyHeader", "OAuth2PasswordBearer"}
+
+# Operations whose JSON body the Hub parses by hand (rule 7).
+REQUEST_BODY_OVERRIDES = {
+    ("post", "/v1/chat/completions"): {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "additionalProperties": True,
+                    "description": "OpenAI Chat Completions request body. `model` (an id "
+                                   "from GET /v1/models) and `messages` are required.",
+                }
+            }
+        },
+    },
+}
+
+# {(method, path): {parameter names}} removed from the SDK (rule 8).
+DROPPED_PARAMETERS = {
+    ("post", "/workflows/{workflow_id}/runs/{run_id}/events"): {"after"},
+}
+
 
 def _operations(spec):
     for path, methods in spec.get("paths", {}).items():
@@ -128,6 +168,84 @@ def rename_tags(spec):
     return count
 
 
+def restrict_security(spec):
+    comps = spec.setdefault("components", {})
+    schemes = comps.get("securitySchemes", {})
+    dropped = set(schemes) - KEPT_SECURITY_SCHEMES
+    comps["securitySchemes"] = {n: s for n, s in schemes.items() if n not in dropped}
+    for _, _, op in _operations(spec):
+        if "security" not in op:
+            continue
+        kept = [{k: v for k, v in req.items() if k not in dropped} for req in op["security"]]
+        kept = [req for req in kept if req]
+        if kept:
+            op["security"] = kept
+        else:
+            op.pop("security")
+    return len(dropped)
+
+
+def merge_enum_unions(spec):
+    schemas = spec.get("components", {}).get("schemas", {})
+    count = 0
+
+    def visit(node):
+        nonlocal count
+        if isinstance(node, list):
+            for v in node:
+                visit(v)
+            return
+        if not isinstance(node, dict):
+            return
+        any_of = node.get("anyOf")
+        if isinstance(any_of, list):
+            nulls = [b for b in any_of if b.get("type") == "null"]
+            refs = [b for b in any_of if "$ref" in b]
+            consts = [b for b in any_of if b.get("type") == "string" and "const" in b]
+            if len(refs) == 1 and consts and len(refs) + len(consts) + len(nulls) == len(any_of):
+                ref_name = refs[0]["$ref"].split("/")[-1]
+                target = schemas.get(ref_name, {})
+                if target.get("type") == "string" and "enum" in target:
+                    extra = [c["const"] for c in consts]
+                    base = ref_name.removesuffix("Enum")
+                    name = base + "Or" + "".join(e.title() for e in extra) + "Enum"
+                    schemas.setdefault(name, {
+                        "type": "string",
+                        "enum": target["enum"] + [e for e in extra if e not in target["enum"]],
+                        "title": name,
+                        "description": target.get("description", ""),
+                    })
+                    branch = {"$ref": f"#/components/schemas/{name}"}
+                    node["anyOf"] = [branch] + nulls
+                    count += 1
+        for v in list(node.values()):
+            visit(v)
+
+    visit(spec)
+    return count
+
+
+def override_request_bodies(spec):
+    count = 0
+    for method, path, op in _operations(spec):
+        body = REQUEST_BODY_OVERRIDES.get((method, path))
+        if body and "requestBody" not in op:
+            op["requestBody"] = json.loads(json.dumps(body))
+            count += 1
+    return count
+
+
+def drop_parameters(spec):
+    count = 0
+    for method, path, op in _operations(spec):
+        names = DROPPED_PARAMETERS.get((method, path))
+        if names:
+            before = len(op.get("parameters", []))
+            op["parameters"] = [p for p in op.get("parameters", []) if p.get("name") not in names]
+            count += before - len(op["parameters"])
+    return count
+
+
 def main():
     if len(sys.argv) != 3:
         print("usage: normalize-openapi.py <input.json> <output.json>", file=sys.stderr)
@@ -142,6 +260,10 @@ def main():
         "enum params inlined": inline_enum_params(normalized),
         "binary responses": binary_responses(normalized),
         "tags renamed": rename_tags(normalized),
+        "security schemes dropped": restrict_security(normalized),
+        "enum unions merged": merge_enum_unions(normalized),
+        "request bodies added": override_request_bodies(normalized),
+        "parameters dropped": drop_parameters(normalized),
     }
 
     with open(dst, "w") as f:

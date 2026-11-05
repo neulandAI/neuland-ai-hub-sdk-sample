@@ -6,7 +6,7 @@ an object's `public_id` (a UUID), never its integer `id`.
 
 Full guides, quickstart and API reference: https://docs.neuland-hub.ai
 
-## @neulandai/neuland-hub-sdk@1.3.0
+## @neulandai/neuland-hub-sdk@1.3.1
 
 This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
 
@@ -40,7 +40,7 @@ navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install @neulandai/neuland-hub-sdk@1.3.0 --save
+npm install @neulandai/neuland-hub-sdk@1.3.1 --save
 ```
 
 
@@ -509,8 +509,8 @@ Class | Method | HTTP request | Description
  - [RateableTypeEnum](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RateableTypeEnum.md)
  - [Rating](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Rating.md)
  - [RatingIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RatingIn.md)
- - [ReasoningEffort](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ReasoningEffort.md)
  - [ReasoningEffortEnum](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ReasoningEffortEnum.md)
+ - [ReasoningEffortOrAutoEnum](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ReasoningEffortOrAutoEnum.md)
  - [RelinkSsoIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RelinkSsoIn.md)
  - [RephraseStyleEnum](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RephraseStyleEnum.md)
  - [ResponseAuthGetEntraGroupsValue](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ResponseAuthGetEntraGroupsValue.md)
@@ -637,16 +637,4 @@ Authentication schemes defined for the API:
 - **Type**: API key
 - **API key parameter name**: X-API-KEY
 - **Location**: HTTP header
-
-<a id="EntraAccessToken"></a>
-### EntraAccessToken
-
-- **Type**: API key
-- **API key parameter name**: X-Entra-Access-Token
-- **Location**: HTTP header
-
-<a id="HTTPBearer"></a>
-### HTTPBearer
-
-- **Type**: Bearer authentication
 

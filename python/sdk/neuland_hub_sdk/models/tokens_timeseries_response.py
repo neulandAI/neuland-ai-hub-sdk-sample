@@ -101,14 +101,14 @@ class TokensTimeseriesResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "total_prompt_tokens": obj.get("total_prompt_tokens"),
             "total_completion_tokens": obj.get("total_completion_tokens"),
             "total_requests": obj.get("total_requests"),
             "total_tokens": obj.get("total_tokens"),
             "tokens_per_model": [TokensPerModel.from_dict(_item) for _item in obj["tokens_per_model"]] if obj.get("tokens_per_model") is not None else None,
             "timeseries_per_model": [TokenTimeseriesPerModel.from_dict(_item) for _item in obj["timeseries_per_model"]] if obj.get("timeseries_per_model") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

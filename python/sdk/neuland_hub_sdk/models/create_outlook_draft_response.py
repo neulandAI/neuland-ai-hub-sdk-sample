@@ -115,14 +115,14 @@ class CreateOutlookDraftResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "success": obj.get("success"),
             "message": obj.get("message"),
             "web_link": obj.get("web_link"),
             "draft_id": obj.get("draft_id"),
             "from_mailbox": obj.get("from_mailbox"),
             "from_mailbox_kind": obj.get("from_mailbox_kind")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -108,7 +108,7 @@ class UserIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "first_name": obj.get("first_name"),
             "last_name": obj.get("last_name"),
             "email": obj.get("email"),
@@ -117,7 +117,7 @@ class UserIn(BaseModel):
             "superadmin": obj.get("superadmin"),
             "tenant_id": obj.get("tenant_id"),
             "role_id": obj.get("role_id")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -115,7 +115,7 @@ class UsageCostResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "start_date": obj.get("start_date"),
             "end_date": obj.get("end_date"),
             "total_cost": obj.get("total_cost"),
@@ -127,7 +127,7 @@ class UsageCostResponse(BaseModel):
             "by_source": [CostBySource.from_dict(_item) for _item in obj["by_source"]] if obj.get("by_source") is not None else None,
             "by_model": [CostByModel.from_dict(_item) for _item in obj["by_model"]] if obj.get("by_model") is not None else None,
             "timeseries": [CostTimeseriesPoint.from_dict(_item) for _item in obj["timeseries"]] if obj.get("timeseries") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

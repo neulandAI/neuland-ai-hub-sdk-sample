@@ -308,8 +308,7 @@ class Files:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer', 
-            'EntraAccessToken'
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(
@@ -600,8 +599,7 @@ class Files:
         # authentication setting
         _auth_settings: List[str] = [
             'APIKeyHeader', 
-            'OAuth2PasswordBearer', 
-            'EntraAccessToken'
+            'OAuth2PasswordBearer'
         ]
 
         return self.api_client.param_serialize(

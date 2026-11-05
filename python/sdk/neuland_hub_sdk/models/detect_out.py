@@ -111,13 +111,13 @@ class DetectOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "auth_mode": obj.get("auth_mode"),
             "oauth_client_mode": obj.get("oauth_client_mode"),
             "supports_cimd": obj.get("supports_cimd") if obj.get("supports_cimd") is not None else False,
             "supports_dcr": obj.get("supports_dcr") if obj.get("supports_dcr") is not None else False,
             "message": obj.get("message")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

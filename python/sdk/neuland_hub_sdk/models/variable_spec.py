@@ -92,12 +92,12 @@ class VariableSpec(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "required": obj.get("required") if obj.get("required") is not None else False,
             "description": obj.get("description"),
             "example": Example.from_dict(obj["example"]) if obj.get("example") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

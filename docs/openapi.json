@@ -42,9 +42,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -124,9 +121,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -229,9 +223,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -332,9 +323,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -409,9 +397,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -476,9 +461,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -543,9 +525,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -613,9 +592,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -688,9 +664,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -761,9 +734,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -853,9 +823,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -934,9 +901,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1006,9 +970,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1081,9 +1042,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1165,9 +1123,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1249,9 +1204,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1320,9 +1272,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1410,9 +1359,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1490,9 +1436,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1567,9 +1510,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1643,9 +1583,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1738,9 +1675,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1834,9 +1768,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -1922,9 +1853,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2019,9 +1947,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2108,9 +2033,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2207,9 +2129,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2297,9 +2216,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2385,9 +2301,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2463,9 +2376,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2549,9 +2459,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2644,9 +2551,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2720,9 +2624,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2808,9 +2709,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2896,9 +2794,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -2993,9 +2888,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3089,9 +2981,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3369,9 +3258,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3439,9 +3325,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3531,9 +3414,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3602,9 +3482,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3694,9 +3571,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3764,9 +3638,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3879,9 +3750,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -3964,9 +3832,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4037,9 +3902,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4122,9 +3984,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4201,9 +4060,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4283,9 +4139,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4358,9 +4211,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -4705,9 +4555,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5138,9 +4985,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5206,9 +5050,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5282,9 +5123,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5377,9 +5215,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5454,9 +5289,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5541,9 +5373,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5637,9 +5466,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5722,9 +5548,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5816,9 +5639,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -5901,9 +5721,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6007,9 +5824,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6070,9 +5884,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6138,9 +5949,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6209,9 +6017,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6358,9 +6163,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6422,9 +6224,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6505,9 +6304,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6571,9 +6367,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6644,9 +6437,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6728,9 +6518,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6802,9 +6589,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6887,9 +6671,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -6967,9 +6748,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7038,9 +6816,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7116,9 +6891,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7189,9 +6961,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7272,9 +7041,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7358,9 +7124,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7449,9 +7212,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7552,9 +7312,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7630,9 +7387,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7710,9 +7464,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7792,9 +7543,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7853,9 +7601,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -7918,9 +7663,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8086,9 +7828,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8270,9 +8009,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8337,9 +8073,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8494,9 +8227,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8655,9 +8385,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8716,9 +8443,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8781,9 +8505,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -8949,9 +8670,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9133,9 +8851,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9200,9 +8915,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9357,9 +9069,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9518,9 +9227,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9579,9 +9285,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9644,9 +9347,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9812,9 +9512,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -9996,9 +9693,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10063,9 +9757,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10220,9 +9911,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10381,9 +10069,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10442,9 +10127,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10507,9 +10189,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10675,9 +10354,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10859,9 +10535,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -10926,9 +10599,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11083,9 +10753,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11244,9 +10911,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11309,9 +10973,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11474,9 +11135,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11655,9 +11313,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11722,9 +11377,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -11869,9 +11521,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12027,9 +11676,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12088,9 +11734,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12153,9 +11796,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12321,9 +11961,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12505,9 +12142,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12572,9 +12206,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12729,9 +12360,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -12890,9 +12518,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13066,9 +12691,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13148,9 +12770,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13223,9 +12842,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13300,9 +12916,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13373,9 +12986,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13468,9 +13078,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13557,9 +13164,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13656,9 +13260,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13749,9 +13350,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13830,9 +13428,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13905,9 +13500,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -13978,9 +13570,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14069,9 +13658,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14146,9 +13732,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14223,9 +13806,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14301,9 +13881,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14381,9 +13958,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14456,9 +14030,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14533,9 +14104,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14616,9 +14184,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14689,9 +14254,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14780,9 +14342,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14857,9 +14416,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -14940,9 +14496,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15017,9 +14570,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15094,9 +14644,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15171,9 +14718,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15254,9 +14798,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15322,9 +14863,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15414,9 +14952,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15484,9 +15019,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15566,9 +15098,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15658,9 +15187,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15738,9 +15264,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15830,9 +15353,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15907,9 +15427,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -15976,9 +15493,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16057,9 +15571,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16119,9 +15630,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16190,9 +15698,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16271,9 +15776,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16343,9 +15845,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16424,9 +15923,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16499,9 +15995,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16571,9 +16064,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16652,9 +16142,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16732,9 +16219,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16811,9 +16295,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16893,9 +16374,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -16971,9 +16449,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17072,9 +16547,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17165,9 +16637,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17261,9 +16730,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17354,9 +16820,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17453,9 +16916,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17530,9 +16990,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17606,9 +17063,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17679,9 +17133,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17774,9 +17225,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17862,9 +17310,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -17959,9 +17404,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18045,9 +17487,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18144,9 +17583,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18234,9 +17670,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18312,9 +17745,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18392,9 +17822,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18472,9 +17899,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18548,9 +17972,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18643,9 +18064,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18719,9 +18137,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18795,9 +18210,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18878,9 +18290,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -18965,9 +18374,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19042,9 +18448,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19108,9 +18511,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19200,9 +18600,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19268,9 +18665,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19353,9 +18747,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19440,9 +18831,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19525,9 +18913,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19603,9 +18988,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19690,9 +19072,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19752,9 +19131,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -19829,9 +19205,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20001,9 +19374,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20066,9 +19436,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20146,9 +19513,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20223,9 +19587,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20297,9 +19658,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20390,9 +19748,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20467,9 +19822,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20543,9 +19895,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20635,9 +19984,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20712,9 +20058,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20779,9 +20122,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20852,9 +20192,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -20944,9 +20281,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21024,9 +20358,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21086,9 +20417,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21163,9 +20491,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21246,9 +20571,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21331,9 +20653,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21404,9 +20723,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21496,9 +20812,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21581,9 +20894,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21673,9 +20983,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21758,9 +21065,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21850,9 +21154,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -21938,9 +21239,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22052,9 +21350,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22137,9 +21432,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22239,9 +21531,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22343,9 +21632,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22440,9 +21726,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22525,9 +21808,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22661,9 +21941,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22738,9 +22015,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22815,9 +22089,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22877,9 +22148,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -22950,9 +22218,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23033,9 +22298,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23101,9 +22363,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23171,9 +22430,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23244,9 +22500,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23329,9 +22582,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23442,9 +22692,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23519,9 +22766,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23596,9 +22840,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23672,9 +22913,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23767,9 +23005,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23848,9 +23083,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23918,9 +23150,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -23995,9 +23224,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24099,9 +23325,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24169,9 +23392,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24258,9 +23478,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24331,9 +23548,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24416,9 +23630,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24498,9 +23709,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24601,12 +23809,21 @@
         },
         "security": [
           {
-            "HTTPBearer": []
-          },
-          {
             "APIKeyHeader": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "OpenAI Chat Completions request body. `model` (an id from GET /v1/models) and `messages` are required."
+              }
+            }
+          }
+        }
       }
     },
     "/v1/models": {
@@ -24635,9 +23852,6 @@
           }
         },
         "security": [
-          {
-            "HTTPBearer": []
-          },
           {
             "APIKeyHeader": []
           }
@@ -24675,9 +23889,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24746,9 +23957,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24808,9 +24016,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24889,9 +24094,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -24970,9 +24172,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -25060,17 +24259,6 @@
               "format": "uuid",
               "title": "Run Id"
             }
-          },
-          {
-            "name": "after",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "default": 0,
-              "title": "After"
-            }
           }
         ],
         "responses": {
@@ -25109,9 +24297,6 @@
           },
           {
             "APIKeyHeader": []
-          },
-          {
-            "EntraAccessToken": []
           }
         ],
         "parameters": [
@@ -28195,11 +27380,7 @@
           "reasoning_effort": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/ReasoningEffortEnum"
-              },
-              {
-                "type": "string",
-                "const": "auto"
+                "$ref": "#/components/schemas/ReasoningEffortOrAutoEnum"
               },
               {
                 "type": "null"
@@ -34948,11 +34129,7 @@
           "reasoning_effort": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/ReasoningEffortEnum"
-              },
-              {
-                "type": "string",
-                "const": "auto"
+                "$ref": "#/components/schemas/ReasoningEffortOrAutoEnum"
               },
               {
                 "type": "null"
@@ -46105,6 +45282,17 @@
         ],
         "title": "TaggingOut",
         "description": "A tag applied to a polymorphic resource, identifying tag and resource by public id.\n\n`tag_id`/`taggable_id` (int) are kept alongside the public ids (dual-key \u2014 both\nare returned permanently); external clients should reference `tag_public_id`/`taggable_public_id`."
+      },
+      "ReasoningEffortOrAutoEnum": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "auto"
+        ],
+        "title": "ReasoningEffortOrAutoEnum",
+        "description": "How much reasoning a model should spend, forwarded as `reasoning_effort`."
       }
     },
     "securitySchemes": {
@@ -46122,17 +45310,6 @@
         "description": "Api key to access backend from external services",
         "in": "header",
         "name": "X-API-KEY"
-      },
-      "EntraAccessToken": {
-        "type": "apiKey",
-        "description": "Delegated Entra access token for the hub API, acquired by a trusted customer platform for its user. Optional feature: only accepted when the deployment configures it and the tenant has the PLATFORM_ENTRA_AUTH feature flag on (on by default; a tenant can switch it off).",
-        "in": "header",
-        "name": "X-Entra-Access-Token"
-      },
-      "HTTPBearer": {
-        "type": "http",
-        "description": "Hub API key, sent the way OpenAI SDKs send it.",
-        "scheme": "bearer"
       }
     }
   },

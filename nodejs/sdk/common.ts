@@ -14,7 +14,7 @@
 
 import type { Configuration } from "./configuration";
 import type { RequestArgs } from "./base";
-import type { AxiosInstance, AxiosResponse } from 'axios';
+import type { AxiosInstance, AxiosResponse, RawAxiosRequestConfig } from 'axios';
 import { RequiredError } from "./base";
 
 export const DUMMY_BASE_URL = 'https://example.com'
@@ -119,9 +119,57 @@ export const toPathString = function (url: URL) {
     return url.pathname + url.search + url.hash
 }
 
+/** Credential headers the SDK must never forward to another host or print. */
+const SENSITIVE_HEADERS = ['x-api-key', 'x-entra-access-token', 'authorization', 'cookie', 'proxy-authorization'];
+
+/**
+ * axios (follow-redirects) strips only Authorization and Cookie when a redirect
+ * leaves the host. Strip X-API-KEY and the other credential headers as well.
+ */
+function guardRedirects(args: RawAxiosRequestConfig, baseURL?: string) {
+    let origin: string | undefined;
+    try { origin = new URL(args.url ?? '', baseURL).host; } catch { return; }
+    const userHook = (args as any).beforeRedirect;
+    (args as any).beforeRedirect = (options: any, responseDetails: any) => {
+        const target = options.host ?? options.hostname;
+        if (target && target !== origin && options.headers) {
+            for (const name of Object.keys(options.headers)) {
+                if (SENSITIVE_HEADERS.includes(name.toLowerCase())) delete options.headers[name];
+            }
+        }
+        if (typeof userHook === 'function') userHook(options, responseDetails);
+    };
+}
+
+function redactHeaders(headers: any) {
+    if (!headers || typeof headers !== 'object') return;
+    for (const name of Object.keys(headers)) {
+        if (SENSITIVE_HEADERS.includes(name.toLowerCase())) headers[name] = '[REDACTED]';
+    }
+}
+
+/**
+ * An axios error carries the request config (headers included) and the raw
+ * Node request, so printing it showed the API key many times. Redact the
+ * headers and hide the raw request objects from console output.
+ */
+function redactError(error: unknown): unknown {
+    const err = error as any;
+    if (!err || typeof err !== 'object' || !err.isAxiosError) return error;
+    redactHeaders(err.config?.headers);
+    redactHeaders(err.response?.config?.headers);
+    for (const holder of [err, err.response]) {
+        if (holder && 'request' in holder) {
+            Object.defineProperty(holder, 'request', { value: holder.request, enumerable: false, configurable: true, writable: true });
+        }
+    }
+    return err;
+}
+
 export const createRequestFunction = function (axiosArgs: RequestArgs, globalAxios: AxiosInstance, BASE_PATH: string, configuration?: Configuration) {
     return <T = unknown, R = AxiosResponse<T>>(axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-        const axiosRequestArgs = {...axiosArgs.options, url: (axios.defaults.baseURL ? '' : configuration?.basePath ?? basePath) + axiosArgs.url};
-        return axios.request<T, R>(axiosRequestArgs);
+        const axiosRequestArgs: RawAxiosRequestConfig = {...axiosArgs.options, url: (axios.defaults.baseURL ? '' : configuration?.basePath ?? basePath) + axiosArgs.url};
+        guardRedirects(axiosRequestArgs, axios.defaults.baseURL);
+        return axios.request<T, R>(axiosRequestArgs).catch((error: unknown) => { throw redactError(error); });
     };
 }

@@ -82,10 +82,10 @@ class PromptOptimizeIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "prompt": obj.get("prompt"),
             "temperature": obj.get("temperature") if obj.get("temperature") is not None else 0.0
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -234,7 +234,7 @@ class LLMSettingsIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "llm_catalog_id": obj.get("llm_catalog_id"),
             "provider": obj.get("provider"),
             "library": obj.get("library"),
@@ -260,7 +260,7 @@ class LLMSettingsIn(BaseModel):
             "hosted_on": obj.get("hosted_on"),
             "endpoint": obj.get("endpoint"),
             "api_key": obj.get("api_key")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

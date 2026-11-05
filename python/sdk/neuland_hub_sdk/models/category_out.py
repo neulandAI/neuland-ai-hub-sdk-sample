@@ -92,7 +92,7 @@ class CategoryOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "name": obj.get("name"),
@@ -100,7 +100,7 @@ class CategoryOut(BaseModel):
             "description": obj.get("description"),
             "sort_order": obj.get("sort_order"),
             "is_active": obj.get("is_active")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

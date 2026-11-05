@@ -142,7 +142,7 @@ class CustomConnectorCreate(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "url": obj.get("url"),
             "headers": obj.get("headers"),
@@ -154,7 +154,7 @@ class CustomConnectorCreate(BaseModel):
             "organization": obj.get("organization") if obj.get("organization") is not None else False,
             "all_users": obj.get("all_users") if obj.get("all_users") is not None else False,
             "role_ids": obj.get("role_ids")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -51,7 +51,7 @@ const { status, data } = await apiInstance.workflowsCreateRun(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -109,7 +109,7 @@ const { status, data } = await apiInstance.workflowsCreateRunStreamToken(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -165,7 +165,7 @@ const { status, data } = await apiInstance.workflowsCreateWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -220,7 +220,7 @@ void (empty response body)
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -279,7 +279,7 @@ const { status, data } = await apiInstance.workflowsRefineWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 
@@ -313,12 +313,10 @@ const apiInstance = new Workflow(configuration);
 
 let workflowId: string; // (default to undefined)
 let runId: string; // (default to undefined)
-let after: number; // (optional) (default to 0)
 
 const { status, data } = await apiInstance.workflowsStreamRunEvents(
     workflowId,
-    runId,
-    after
+    runId
 );
 ```
 
@@ -328,7 +326,6 @@ const { status, data } = await apiInstance.workflowsStreamRunEvents(
 |------------- | ------------- | ------------- | -------------|
 | **workflowId** | [**string**] |  | defaults to undefined|
 | **runId** | [**string**] |  | defaults to undefined|
-| **after** | [**number**] |  | (optional) defaults to 0|
 
 
 ### Return type
@@ -396,7 +393,7 @@ const { status, data } = await apiInstance.workflowsUpdateWorkflow(
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer), [EntraAccessToken](../README.md#EntraAccessToken)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

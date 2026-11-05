@@ -8,7 +8,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**v1ListModels**](#v1listmodels) | **GET** /v1/models | List the models the API key may call|
 
 # **v1ChatCompletions**
-> any v1ChatCompletions()
+> any v1ChatCompletions(requestBody)
 
 OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
 
@@ -23,11 +23,18 @@ import {
 const configuration = new Configuration();
 const apiInstance = new ModelApi(configuration);
 
-const { status, data } = await apiInstance.v1ChatCompletions();
+let requestBody: { [key: string]: any; }; //
+
+const { status, data } = await apiInstance.v1ChatCompletions(
+    requestBody
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **requestBody** | **{ [key: string]: any; }**|  | |
 
 
 ### Return type
@@ -36,11 +43,11 @@ This endpoint does not have any parameters.
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -84,7 +91,7 @@ This endpoint does not have any parameters.
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader), [HTTPBearer](../README.md#HTTPBearer)
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

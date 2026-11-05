@@ -19,10 +19,15 @@ curl -fsSL "${HUB_URL:-http://localhost:8000}/openapi.json" -o /tmp/hub-openapi.
 
 ### 2. Normalize the spec for the pinned generator
 
-The normalizer applies four rules; each is documented at the top of
+The normalizer applies eight rules; each is documented at the top of
 [scripts/normalize-openapi.py](scripts/normalize-openapi.py): 3.1 binary
-fields, inlined enum parameters, binary download responses, and the `File`
-tag renamed to `Files`. The first one:
+fields, inlined enum parameters, binary download responses, the `File`
+tag renamed to `Files`, only the `X-API-KEY` and OAuth2 auth schemes kept,
+enum-plus-const unions merged into one enum, request bodies the Hub does not
+declare (`/v1/chat/completions`), and query parameters dropped where they would
+shift Node's positional `options` argument. When a new Hub release adds a
+security scheme, an undeclared body or a new query parameter to an existing
+operation, check whether it needs an entry there. The first rule:
 
 FastAPI ≥ 0.129.1 emits binary fields using OpenAPI 3.1's `contentMediaType: application/octet-stream`. The pinned generator (7.21.0) doesn't recognize that keyword yet (tracking: [openapi-generator#23095](https://github.com/OpenAPITools/openapi-generator/issues/23095)) and emits broken multipart upload code unless the spec is rewritten to the 3.0-style `format: binary` shape.
 
@@ -95,10 +100,15 @@ matching navigation in [docs/docs.json](docs/docs.json):
 
 ```bash
 python3 scripts/sync-sdk-docs.py
+( cd nodejs/sdk && npm run build )   # rebuild: the script patches common.ts
 ```
 
 It first patches the package metadata the generator cannot set (author name and
-email; see `SDK_AUTHOR_*` at the top of the script). Then it writes to
+email; see `SDK_AUTHOR_*` at the top of the script) and the generated runtime:
+Python `rest.py` strips credential headers on cross-host redirects, Python
+`from_dict` keeps only the keys it was given (a PATCH no longer nulls every
+other field), and Node `common.ts` strips credentials on cross-host redirects
+and redacts them from axios errors. Then it writes to
 `docs/sdk/python/reference/` and `docs/sdk/node/reference/`, and
 rebuilds each SDK tab's navigation: the per-resource method pages are listed
 flat in the spec's tag order (no individual headers), followed by a single

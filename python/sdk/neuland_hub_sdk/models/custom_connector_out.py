@@ -106,7 +106,7 @@ class CustomConnectorOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "connector_id": obj.get("connector_id"),
@@ -119,7 +119,7 @@ class CustomConnectorOut(BaseModel):
             "signed_in": obj.get("signed_in"),
             "usable": obj.get("usable"),
             "can_manage": obj.get("can_manage")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

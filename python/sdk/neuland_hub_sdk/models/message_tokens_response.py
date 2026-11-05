@@ -87,7 +87,7 @@ class MessageTokensResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "start_date": obj.get("start_date"),
             "end_date": obj.get("end_date"),
             "message_count": obj.get("message_count"),
@@ -95,7 +95,7 @@ class MessageTokensResponse(BaseModel):
             "prompt_tokens": obj.get("prompt_tokens"),
             "completion_tokens": obj.get("completion_tokens"),
             "avg_tokens_per_message": obj.get("avg_tokens_per_message")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -116,7 +116,7 @@ class UserAccessOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "user_id": obj.get("user_id"),
             "user_public_id": obj.get("user_public_id"),
             "tenant_id": obj.get("tenant_id"),
@@ -124,7 +124,7 @@ class UserAccessOut(BaseModel):
             "tools": [AccessItemOut.from_dict(_item) for _item in obj["tools"]] if obj.get("tools") is not None else None,
             "connectors": [AccessItemOut.from_dict(_item) for _item in obj["connectors"]] if obj.get("connectors") is not None else None,
             "custom_connectors": [AccessItemOut.from_dict(_item) for _item in obj["custom_connectors"]] if obj.get("custom_connectors") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

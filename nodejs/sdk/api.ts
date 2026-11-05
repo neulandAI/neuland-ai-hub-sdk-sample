@@ -2407,7 +2407,7 @@ export interface MessageIn {
     'project_id'?: string | null;
     'model'?: string | null;
     'temperature'?: number | null;
-    'reasoning_effort'?: ReasoningEffort | null;
+    'reasoning_effort'?: ReasoningEffortOrAutoEnum | null;
     'similarity_top_k'?: number | null;
     'system_prompt'?: string | null;
     'assistant_id'?: string | null;
@@ -2422,6 +2422,8 @@ export interface MessageIn {
      */
     'playground'?: boolean;
 }
+
+
 /**
  * Response for the message-creating routes: the created message, dual-key.
  */
@@ -2928,11 +2930,6 @@ export interface RatingIn {
 
 
 /**
- * Reasoning effort for a new chat. `auto` means the model default; a playground run then skips the assistant\'s pin.
- */
-export interface ReasoningEffort {
-}
-/**
  * How much reasoning a model should spend, forwarded as `reasoning_effort`.
  */
 
@@ -2943,6 +2940,20 @@ export const ReasoningEffortEnum = {
 } as const;
 
 export type ReasoningEffortEnum = typeof ReasoningEffortEnum[keyof typeof ReasoningEffortEnum];
+
+
+/**
+ * How much reasoning a model should spend, forwarded as `reasoning_effort`.
+ */
+
+export const ReasoningEffortOrAutoEnum = {
+    low: 'low',
+    medium: 'medium',
+    high: 'high',
+    auto: 'auto',
+} as const;
+
+export type ReasoningEffortOrAutoEnum = typeof ReasoningEffortOrAutoEnum[keyof typeof ReasoningEffortOrAutoEnum];
 
 
 export interface RelinkSsoIn {
@@ -6076,9 +6087,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -6120,9 +6128,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -6170,9 +6175,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -6217,9 +6219,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -6267,9 +6266,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -6319,9 +6315,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -6370,9 +6363,6 @@ export const AlertAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -6708,9 +6698,6 @@ export const ApiKeyAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -6758,9 +6745,6 @@ export const ApiKeyAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -6914,9 +6898,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -6964,9 +6945,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -7017,9 +6995,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -7067,9 +7042,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -7116,9 +7088,6 @@ export const ApplicationAxiosParamCreator = function (configuration?: Configurat
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -7393,9 +7362,6 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -7440,9 +7406,6 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -7492,9 +7455,6 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -7537,9 +7497,6 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (state !== undefined) {
                 localVarQueryParameter['state'] = state;
@@ -7595,9 +7552,6 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -7643,9 +7597,6 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -7695,9 +7646,6 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -7749,9 +7697,6 @@ export const ApplicationMarketplaceAxiosParamCreator = function (configuration?:
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8151,9 +8096,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8202,9 +8144,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8258,9 +8197,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8311,9 +8247,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8360,9 +8293,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8407,9 +8337,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8458,9 +8385,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8511,9 +8435,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8562,9 +8483,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8611,9 +8529,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8659,9 +8574,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8713,9 +8625,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8765,9 +8674,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8819,9 +8725,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8872,9 +8775,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -8924,9 +8824,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -8985,9 +8882,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -9094,9 +8988,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -9148,9 +9039,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -9201,9 +9089,6 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -10098,9 +9983,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (state !== undefined) {
                 localVarQueryParameter['state'] = state;
             }
@@ -10155,9 +10037,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10208,9 +10087,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10255,9 +10131,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -10311,9 +10184,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10360,9 +10230,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10408,9 +10275,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -10462,9 +10326,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -10510,9 +10371,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -10562,9 +10420,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -10616,9 +10471,6 @@ export const AssistantMarketplaceAxiosParamCreator = function (configuration?: C
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -11134,9 +10986,6 @@ export const AtlassianAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -11335,9 +11184,6 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -11644,9 +11490,6 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (q !== undefined) {
                 localVarQueryParameter['q'] = q;
             }
@@ -11696,9 +11539,6 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12446,9 +12286,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -12490,9 +12327,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12539,9 +12373,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12590,9 +12421,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (returnUrl !== undefined) {
                 localVarQueryParameter['return_url'] = returnUrl;
@@ -12643,9 +12471,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12748,9 +12573,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -12796,9 +12618,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12848,9 +12667,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -12903,9 +12719,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -12957,9 +12770,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -13010,9 +12820,6 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -13556,9 +13363,6 @@ export const CategoryAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -13676,9 +13480,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -13724,9 +13525,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -13777,9 +13575,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -13835,9 +13630,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
             }
@@ -13892,9 +13684,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -13944,9 +13733,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -14004,9 +13790,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14052,9 +13835,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -14104,9 +13884,6 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -14542,9 +14319,6 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14623,9 +14397,6 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14670,9 +14441,6 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -14721,9 +14489,6 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (state !== undefined) {
                 localVarQueryParameter['state'] = state;
@@ -14783,9 +14548,6 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14832,9 +14594,6 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -14880,9 +14639,6 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -14932,9 +14688,6 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15698,9 +15451,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -15745,9 +15495,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15797,9 +15544,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -15845,9 +15589,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15905,9 +15646,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -15989,9 +15727,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -16046,9 +15781,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -16126,9 +15858,6 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -16580,9 +16309,6 @@ export const DropboxAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -16636,9 +16362,6 @@ export const DropboxAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -16698,9 +16421,6 @@ export const DropboxAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -16742,9 +16462,6 @@ export const DropboxAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -16800,9 +16517,6 @@ export const DropboxAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -16874,9 +16588,6 @@ export const DropboxAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -16938,9 +16649,6 @@ export const DropboxAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -17345,9 +17053,6 @@ export const FeatureFlagAxiosParamCreator = function (configuration?: Configurat
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -17393,9 +17098,6 @@ export const FeatureFlagAxiosParamCreator = function (configuration?: Configurat
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -17449,9 +17151,6 @@ export const FeatureFlagAxiosParamCreator = function (configuration?: Configurat
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -17654,9 +17353,6 @@ export const FilesAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -17702,9 +17398,6 @@ export const FilesAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -17855,9 +17548,6 @@ export const GoogleDriveAxiosParamCreator = function (configuration?: Configurat
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -17911,9 +17601,6 @@ export const GoogleDriveAxiosParamCreator = function (configuration?: Configurat
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -17973,9 +17660,6 @@ export const GoogleDriveAxiosParamCreator = function (configuration?: Configurat
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18017,9 +17701,6 @@ export const GoogleDriveAxiosParamCreator = function (configuration?: Configurat
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -18075,9 +17756,6 @@ export const GoogleDriveAxiosParamCreator = function (configuration?: Configurat
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -18149,9 +17827,6 @@ export const GoogleDriveAxiosParamCreator = function (configuration?: Configurat
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -18213,9 +17888,6 @@ export const GoogleDriveAxiosParamCreator = function (configuration?: Configurat
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -18689,9 +18361,6 @@ export const InvitationAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18740,9 +18409,6 @@ export const InvitationAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -18788,9 +18454,6 @@ export const InvitationAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19053,9 +18716,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19104,9 +18764,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19153,9 +18810,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19200,9 +18854,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19254,9 +18905,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19310,9 +18958,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19361,9 +19006,6 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19716,9 +19358,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19765,9 +19404,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19817,9 +19453,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19867,9 +19500,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -19919,9 +19549,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -19968,9 +19595,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20019,9 +19643,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20069,9 +19690,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20118,9 +19736,6 @@ export const LlmAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20544,9 +20159,6 @@ export const LlmCatalogAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20594,9 +20206,6 @@ export const LlmCatalogAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20646,9 +20255,6 @@ export const LlmCatalogAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -20844,9 +20450,6 @@ export const LlmSettingAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20895,9 +20498,6 @@ export const LlmSettingAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -20942,9 +20542,6 @@ export const LlmSettingAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -21007,9 +20604,6 @@ export const LlmSettingAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -21097,9 +20691,6 @@ export const LlmSettingAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -21394,9 +20985,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -21445,9 +21033,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (format !== undefined) {
                 localVarQueryParameter['format'] = format;
@@ -21498,9 +21083,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -21549,9 +21131,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -21597,9 +21176,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -21649,9 +21225,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (style !== undefined) {
                 localVarQueryParameter['style'] = style;
@@ -21706,9 +21279,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -21736,7 +21306,7 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * @param {Array<string>} [documentIds] 
          * @param {Array<File>} [files] 
          * @param {number} [temperature] 
-         * @param {MessagesSubmitMessageReasoningEffortEnum} [reasoningEffort] 
+         * @param {ReasoningEffortOrAutoEnum | null} [reasoningEffort] 
          * @param {number} [similarityTopK] 
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
@@ -21750,7 +21320,7 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: MessagesSubmitMessageReasoningEffortEnum, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortOrAutoEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/messages/submit`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -21770,9 +21340,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -21894,9 +21461,6 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (lang !== undefined) {
                 localVarQueryParameter['lang'] = lang;
@@ -22037,7 +21601,7 @@ export const MessageFp = function(configuration?: Configuration) {
          * @param {Array<string>} [documentIds] 
          * @param {Array<File>} [files] 
          * @param {number} [temperature] 
-         * @param {MessagesSubmitMessageReasoningEffortEnum} [reasoningEffort] 
+         * @param {ReasoningEffortOrAutoEnum | null} [reasoningEffort] 
          * @param {number} [similarityTopK] 
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
@@ -22051,7 +21615,7 @@ export const MessageFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: MessagesSubmitMessageReasoningEffortEnum, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageSubmitOut>> {
+        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortOrAutoEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageSubmitOut>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Message.messagesSubmitMessage']?.[localVarOperationServerIndex]?.url;
@@ -22171,7 +21735,7 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * @param {Array<string>} [documentIds] 
          * @param {Array<File>} [files] 
          * @param {number} [temperature] 
-         * @param {MessagesSubmitMessageReasoningEffortEnum} [reasoningEffort] 
+         * @param {ReasoningEffortOrAutoEnum | null} [reasoningEffort] 
          * @param {number} [similarityTopK] 
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
@@ -22185,7 +21749,7 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: MessagesSubmitMessageReasoningEffortEnum, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): AxiosPromise<MessageSubmitOut> {
+        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortOrAutoEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): AxiosPromise<MessageSubmitOut> {
             return localVarFp.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options).then((request) => request(axios, basePath));
         },
         /**
@@ -22304,7 +21868,7 @@ export class Message extends BaseAPI {
      * @param {Array<string>} [documentIds] 
      * @param {Array<File>} [files] 
      * @param {number} [temperature] 
-     * @param {MessagesSubmitMessageReasoningEffortEnum} [reasoningEffort] 
+     * @param {ReasoningEffortOrAutoEnum | null} [reasoningEffort] 
      * @param {number} [similarityTopK] 
      * @param {string} [systemPrompt] 
      * @param {string} [assistantId] 
@@ -22318,7 +21882,7 @@ export class Message extends BaseAPI {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: MessagesSubmitMessageReasoningEffortEnum, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig) {
+    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortOrAutoEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig) {
         return MessageFp(this.configuration).messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -22352,13 +21916,6 @@ export const MessagesRephraseMessageStyleEnum = {
     long: 'long',
 } as const;
 export type MessagesRephraseMessageStyleEnum = typeof MessagesRephraseMessageStyleEnum[keyof typeof MessagesRephraseMessageStyleEnum];
-export const MessagesSubmitMessageReasoningEffortEnum = {
-    low: 'low',
-    medium: 'medium',
-    high: 'high',
-    auto: 'auto',
-} as const;
-export type MessagesSubmitMessageReasoningEffortEnum = typeof MessagesSubmitMessageReasoningEffortEnum[keyof typeof MessagesSubmitMessageReasoningEffortEnum];
 
 
 /**
@@ -22369,10 +21926,13 @@ export const ModelApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
          * @summary Create a chat completion
+         * @param {{ [key: string]: any; }} requestBody 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1ChatCompletions: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v1ChatCompletions: async (requestBody: { [key: string]: any; }, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'requestBody' is not null or undefined
+            assertParamExists('v1ChatCompletions', 'requestBody', requestBody)
             const localVarPath = `/v1/chat/completions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -22388,15 +21948,13 @@ export const ModelApiAxiosParamCreator = function (configuration?: Configuration
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication HTTPBearer required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
+            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarHeaderParameter['Accept'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -22425,10 +21983,6 @@ export const ModelApiAxiosParamCreator = function (configuration?: Configuration
             // authentication APIKeyHeader required
             await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
 
-            // authentication HTTPBearer required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
             localVarHeaderParameter['Accept'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -22452,11 +22006,12 @@ export const ModelApiFp = function(configuration?: Configuration) {
         /**
          * OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
          * @summary Create a chat completion
+         * @param {{ [key: string]: any; }} requestBody 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1ChatCompletions(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1ChatCompletions(options);
+        async v1ChatCompletions(requestBody: { [key: string]: any; }, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.v1ChatCompletions(requestBody, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ModelApi.v1ChatCompletions']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -22485,11 +22040,12 @@ export const ModelApiFactory = function (configuration?: Configuration, basePath
         /**
          * OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
          * @summary Create a chat completion
+         * @param {{ [key: string]: any; }} requestBody 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1ChatCompletions(options?: RawAxiosRequestConfig): AxiosPromise<any> {
-            return localVarFp.v1ChatCompletions(options).then((request) => request(axios, basePath));
+        v1ChatCompletions(requestBody: { [key: string]: any; }, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.v1ChatCompletions(requestBody, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -22510,11 +22066,12 @@ export class ModelApi extends BaseAPI {
     /**
      * OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
      * @summary Create a chat completion
+     * @param {{ [key: string]: any; }} requestBody 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public v1ChatCompletions(options?: RawAxiosRequestConfig) {
-        return ModelApiFp(this.configuration).v1ChatCompletions(options).then((request) => request(this.axios, this.basePath));
+    public v1ChatCompletions(requestBody: { [key: string]: any; }, options?: RawAxiosRequestConfig) {
+        return ModelApiFp(this.configuration).v1ChatCompletions(requestBody, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -22561,9 +22118,6 @@ export const NextcloudAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -22618,9 +22172,6 @@ export const NextcloudAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -22680,9 +22231,6 @@ export const NextcloudAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -22724,9 +22272,6 @@ export const NextcloudAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -22782,9 +22327,6 @@ export const NextcloudAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -22856,9 +22398,6 @@ export const NextcloudAxiosParamCreator = function (configuration?: Configuratio
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -22920,9 +22459,6 @@ export const NextcloudAxiosParamCreator = function (configuration?: Configuratio
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -23319,9 +22855,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -23375,9 +22908,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -23437,9 +22967,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -23481,9 +23008,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -23539,9 +23063,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -23613,9 +23134,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -23677,9 +23195,6 @@ export const OneDriveAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -24084,9 +23599,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -24136,9 +23648,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -24185,9 +23694,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -24241,9 +23747,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -24293,9 +23796,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -24344,9 +23844,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -24391,9 +23888,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (name !== undefined) {
                 localVarQueryParameter['name'] = name;
@@ -24445,9 +23939,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -24498,9 +23989,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -24549,9 +24037,6 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -25021,9 +24506,6 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -25072,9 +24554,6 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -25119,9 +24598,6 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -25173,9 +24649,6 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -25409,9 +24882,6 @@ export const QueryAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -25457,9 +24927,6 @@ export const QueryAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -25618,9 +25085,6 @@ export const RatingAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -25665,9 +25129,6 @@ export const RatingAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -25833,9 +25294,6 @@ export const ResourceAccessAxiosParamCreator = function (configuration?: Configu
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -25890,9 +25348,6 @@ export const ResourceAccessAxiosParamCreator = function (configuration?: Configu
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -25945,9 +25400,6 @@ export const ResourceAccessAxiosParamCreator = function (configuration?: Configu
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -26171,9 +25623,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -26224,9 +25673,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -26271,9 +25717,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -26323,9 +25766,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -26373,9 +25813,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -26425,9 +25862,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -26476,9 +25910,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -26530,9 +25961,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -26580,9 +26008,6 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -27012,9 +26437,6 @@ export const SettingsAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -27059,9 +26481,6 @@ export const SettingsAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -27113,9 +26532,6 @@ export const SettingsAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -27317,9 +26733,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -27378,9 +26791,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -27422,9 +26832,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -27471,9 +26878,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -27546,9 +26950,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -27618,9 +27019,6 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -27983,9 +27381,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -28039,9 +27434,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -28101,9 +27493,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -28145,9 +27534,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -28203,9 +27589,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -28277,9 +27660,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
             }
@@ -28341,9 +27721,6 @@ export const SharepointV1AxiosParamCreator = function (configuration?: Configura
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (chatId !== undefined) {
                 localVarQueryParameter['chat_id'] = chatId;
@@ -28851,9 +28228,6 @@ export const SystemAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -28898,9 +28272,6 @@ export const SystemAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -29054,9 +28425,6 @@ export const TagAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -29101,9 +28469,6 @@ export const TagAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -29155,9 +28520,6 @@ export const TagAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -29353,9 +28715,6 @@ export const TarifAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -29403,9 +28762,6 @@ export const TarifAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -29455,9 +28811,6 @@ export const TarifAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -29653,9 +29006,6 @@ export const TemplateAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -29704,9 +29054,6 @@ export const TemplateAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -29748,9 +29095,6 @@ export const TemplateAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -29800,9 +29144,6 @@ export const TemplateAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30037,9 +29378,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30084,9 +29422,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30139,9 +29474,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30196,9 +29528,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30251,9 +29580,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30299,9 +29625,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30353,9 +29676,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30406,9 +29726,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30457,9 +29774,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30513,9 +29827,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30566,9 +29877,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30610,9 +29918,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30665,9 +29970,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30718,9 +30020,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30774,9 +30073,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30821,9 +30117,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30875,9 +30168,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -30934,9 +30224,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -30991,9 +30278,6 @@ export const TenantAxiosParamCreator = function (configuration?: Configuration) 
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -31832,9 +31116,6 @@ export const ToolAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -31882,9 +31163,6 @@ export const ToolAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -31934,9 +31212,6 @@ export const ToolAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -32132,9 +31407,6 @@ export const ToolActionAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -32181,9 +31453,6 @@ export const ToolActionAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -32233,9 +31502,6 @@ export const ToolActionAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -32277,9 +31543,6 @@ export const ToolActionAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -32323,9 +31586,6 @@ export const ToolActionAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (q !== undefined) {
                 localVarQueryParameter['q'] = q;
@@ -32375,9 +31635,6 @@ export const ToolActionAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -32679,9 +31936,6 @@ export const TranscriptionAxiosParamCreator = function (configuration?: Configur
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -32865,9 +32119,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -32912,9 +32163,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -32962,9 +32210,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -33014,9 +32259,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -33062,9 +32304,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -33112,9 +32351,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -33156,9 +32392,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -33209,9 +32442,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -33258,9 +32488,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -33310,9 +32537,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -33361,9 +32585,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -33416,9 +32637,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -33470,9 +32688,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -33519,9 +32734,6 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -34131,9 +33343,6 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -34184,9 +33393,6 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -34231,9 +33437,6 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -34282,9 +33485,6 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -34335,9 +33535,6 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
 
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
-
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
             }
@@ -34360,11 +33557,10 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
          * @summary Stream Run Events
          * @param {string} workflowId 
          * @param {string} runId 
-         * @param {number} [after] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workflowsStreamRunEvents: async (workflowId: string, runId: string, after?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        workflowsStreamRunEvents: async (workflowId: string, runId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'workflowId' is not null or undefined
             assertParamExists('workflowsStreamRunEvents', 'workflowId', workflowId)
             // verify required parameter 'runId' is not null or undefined
@@ -34386,10 +33582,6 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            if (after !== undefined) {
-                localVarQueryParameter['after'] = after;
-            }
 
             localVarHeaderParameter['Accept'] = 'application/json';
 
@@ -34435,9 +33627,6 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
-
-            // authentication EntraAccessToken required
-            await setApiKeyToObject(localVarHeaderParameter, "X-Entra-Access-Token", configuration)
 
             if (cookieName !== undefined) {
                 localVarQueryParameter['cookie_name'] = cookieName;
@@ -34542,12 +33731,11 @@ export const WorkflowFp = function(configuration?: Configuration) {
          * @summary Stream Run Events
          * @param {string} workflowId 
          * @param {string} runId 
-         * @param {number} [after] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async workflowsStreamRunEvents(workflowId: string, runId: string, after?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.workflowsStreamRunEvents(workflowId, runId, after, options);
+        async workflowsStreamRunEvents(workflowId: string, runId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workflowsStreamRunEvents(workflowId, runId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Workflow.workflowsStreamRunEvents']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -34638,12 +33826,11 @@ export const WorkflowFactory = function (configuration?: Configuration, basePath
          * @summary Stream Run Events
          * @param {string} workflowId 
          * @param {string} runId 
-         * @param {number} [after] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workflowsStreamRunEvents(workflowId: string, runId: string, after?: number, options?: RawAxiosRequestConfig): AxiosPromise<any> {
-            return localVarFp.workflowsStreamRunEvents(workflowId, runId, after, options).then((request) => request(axios, basePath));
+        workflowsStreamRunEvents(workflowId: string, runId: string, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.workflowsStreamRunEvents(workflowId, runId, options).then((request) => request(axios, basePath));
         },
         /**
          * Update a workflow. Only its creator may update it.  Arming a disabled draft is a create as far as the quota is concerned — the cap counts enabled rows, so without a check here a tenant at cap would simply enable its old drafts. The lock therefore re-reads the row: a concurrent disable would otherwise leave this request\'s copy claiming the workflow is already enabled, turning the arming into an unchecked no-op.  The assistant-chat gate below only covers enable/timezone-only updates; a spec PATCH already ran it inside `_validate_runnable_spec`.
@@ -34731,12 +33918,11 @@ export class Workflow extends BaseAPI {
      * @summary Stream Run Events
      * @param {string} workflowId 
      * @param {string} runId 
-     * @param {number} [after] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public workflowsStreamRunEvents(workflowId: string, runId: string, after?: number, options?: RawAxiosRequestConfig) {
-        return WorkflowFp(this.configuration).workflowsStreamRunEvents(workflowId, runId, after, options).then((request) => request(this.axios, this.basePath));
+    public workflowsStreamRunEvents(workflowId: string, runId: string, options?: RawAxiosRequestConfig) {
+        return WorkflowFp(this.configuration).workflowsStreamRunEvents(workflowId, runId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

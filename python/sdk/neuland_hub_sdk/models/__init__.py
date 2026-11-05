@@ -173,8 +173,8 @@ from neuland_hub_sdk.models.prompt_optimize_out import PromptOptimizeOut
 from neuland_hub_sdk.models.rateable_type_enum import RateableTypeEnum
 from neuland_hub_sdk.models.rating import Rating
 from neuland_hub_sdk.models.rating_in import RatingIn
-from neuland_hub_sdk.models.reasoning_effort import ReasoningEffort
 from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum
+from neuland_hub_sdk.models.reasoning_effort_or_auto_enum import ReasoningEffortOrAutoEnum
 from neuland_hub_sdk.models.relink_sso_in import RelinkSsoIn
 from neuland_hub_sdk.models.rephrase_style_enum import RephraseStyleEnum
 from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue

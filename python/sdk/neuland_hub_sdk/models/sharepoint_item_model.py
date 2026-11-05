@@ -148,7 +148,7 @@ class SharepointItemModel(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "web_url": obj.get("web_url"),
             "drive_id": obj.get("drive_id"),
@@ -163,7 +163,7 @@ class SharepointItemModel(BaseModel):
             "folder": SharepointFolderModel.from_dict(obj["folder"]) if obj.get("folder") is not None else None,
             "imported": obj.get("imported"),
             "imported_count": obj.get("imported_count")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

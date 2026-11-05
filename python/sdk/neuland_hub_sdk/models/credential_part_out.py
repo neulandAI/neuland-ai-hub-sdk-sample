@@ -83,12 +83,12 @@ class CredentialPartOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "json_schema": obj.get("json_schema"),
             "configured": obj.get("configured"),
             "set_fields": obj.get("set_fields"),
             "summary": obj.get("summary")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

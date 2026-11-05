@@ -183,7 +183,7 @@ class Chat(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "state": obj.get("state"),
             "state_reason": obj.get("state_reason"),
             "state_changed_at": obj.get("state_changed_at"),
@@ -209,7 +209,7 @@ class Chat(BaseModel):
             "form_data": obj.get("form_data"),
             "model_user_picked": obj.get("model_user_picked") if obj.get("model_user_picked") is not None else False,
             "routed_tier": obj.get("routed_tier")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

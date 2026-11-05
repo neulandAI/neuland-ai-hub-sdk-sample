@@ -231,7 +231,7 @@ class TenantUpdateIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "domain": obj.get("domain"),
             "domains": obj.get("domains"),
@@ -257,7 +257,7 @@ class TenantUpdateIn(BaseModel):
             "api_rate_limit": obj.get("api_rate_limit"),
             "upstream_tenant_id": obj.get("upstream_tenant_id"),
             "upstream_oidc_issuer": obj.get("upstream_oidc_issuer")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

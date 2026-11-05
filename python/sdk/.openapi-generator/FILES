@@ -191,8 +191,8 @@ docs/RateableTypeEnum.md
 docs/Rating.md
 docs/Rating.md
 docs/RatingIn.md
-docs/ReasoningEffort.md
 docs/ReasoningEffortEnum.md
+docs/ReasoningEffortOrAutoEnum.md
 docs/RelinkSsoIn.md
 docs/RephraseStyleEnum.md
 docs/ResourceAccess.md
@@ -528,8 +528,8 @@ neuland_hub_sdk/models/prompt_optimize_out.py
 neuland_hub_sdk/models/rateable_type_enum.py
 neuland_hub_sdk/models/rating.py
 neuland_hub_sdk/models/rating_in.py
-neuland_hub_sdk/models/reasoning_effort.py
 neuland_hub_sdk/models/reasoning_effort_enum.py
+neuland_hub_sdk/models/reasoning_effort_or_auto_enum.py
 neuland_hub_sdk/models/relink_sso_in.py
 neuland_hub_sdk/models/rephrase_style_enum.py
 neuland_hub_sdk/models/response_auth_get_entra_groups_value.py

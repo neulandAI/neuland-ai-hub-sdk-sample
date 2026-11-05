@@ -94,7 +94,7 @@ class ConnectorStatusOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "connector_id": obj.get("connector_id"),
             "connector_public_id": obj.get("connector_public_id"),
             "name": obj.get("name"),
@@ -108,7 +108,7 @@ class ConnectorStatusOut(BaseModel):
             "missing_caps": obj.get("missing_caps"),
             "granted_caps": obj.get("granted_caps"),
             "picker_available": obj.get("picker_available") if obj.get("picker_available") is not None else False
-        })
+        }.items() if k in _keep})
         return _obj
 
 

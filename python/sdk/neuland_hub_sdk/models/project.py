@@ -99,7 +99,7 @@ class Project(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
@@ -108,7 +108,7 @@ class Project(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "description_show_in_chat": obj.get("description_show_in_chat") if obj.get("description_show_in_chat") is not None else False
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -106,7 +106,7 @@ class BudgetForecast(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "summary": BudgetSummary.from_dict(obj["summary"]) if obj.get("summary") is not None else None,
             "days_elapsed": obj.get("days_elapsed"),
             "days_in_month": obj.get("days_in_month"),
@@ -115,7 +115,7 @@ class BudgetForecast(BaseModel):
             "projected_over_budget": obj.get("projected_over_budget"),
             "projected_overage": obj.get("projected_overage"),
             "days_until_budget_exhausted": obj.get("days_until_budget_exhausted")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

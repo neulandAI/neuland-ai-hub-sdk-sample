@@ -131,7 +131,7 @@ class LLMConnectionTestIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "model_name": obj.get("model_name"),
             "provider": obj.get("provider"),
             "library": obj.get("library"),
@@ -144,7 +144,7 @@ class LLMConnectionTestIn(BaseModel):
             "deployment_name": obj.get("deployment_name"),
             "endpoint": obj.get("endpoint"),
             "api_key": obj.get("api_key")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

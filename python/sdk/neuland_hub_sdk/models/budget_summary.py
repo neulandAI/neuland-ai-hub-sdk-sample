@@ -118,7 +118,7 @@ class BudgetSummary(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "period_start": obj.get("period_start"),
             "current_spend": obj.get("current_spend"),
             "pool_cap": obj.get("pool_cap"),
@@ -131,7 +131,7 @@ class BudgetSummary(BaseModel):
             "status": obj.get("status"),
             "expires_at": obj.get("expires_at"),
             "expired": obj.get("expired")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

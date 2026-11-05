@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.3.0"
+__version__ = "1.3.1"
 
 # Define package exports
 __all__ = [
@@ -234,8 +234,8 @@ __all__ = [
     "RateableTypeEnum",
     "Rating",
     "RatingIn",
-    "ReasoningEffort",
     "ReasoningEffortEnum",
+    "ReasoningEffortOrAutoEnum",
     "RelinkSsoIn",
     "RephraseStyleEnum",
     "ResponseAuthGetEntraGroupsValue",
@@ -564,8 +564,8 @@ from neuland_hub_sdk.models.prompt_optimize_out import PromptOptimizeOut as Prom
 from neuland_hub_sdk.models.rateable_type_enum import RateableTypeEnum as RateableTypeEnum
 from neuland_hub_sdk.models.rating import Rating as Rating
 from neuland_hub_sdk.models.rating_in import RatingIn as RatingIn
-from neuland_hub_sdk.models.reasoning_effort import ReasoningEffort as ReasoningEffort
 from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum as ReasoningEffortEnum
+from neuland_hub_sdk.models.reasoning_effort_or_auto_enum import ReasoningEffortOrAutoEnum as ReasoningEffortOrAutoEnum
 from neuland_hub_sdk.models.relink_sso_in import RelinkSsoIn as RelinkSsoIn
 from neuland_hub_sdk.models.rephrase_style_enum import RephraseStyleEnum as RephraseStyleEnum
 from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue as ResponseAuthGetEntraGroupsValue

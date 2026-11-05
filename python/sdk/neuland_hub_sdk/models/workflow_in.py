@@ -91,14 +91,14 @@ class WorkflowIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "description": obj.get("description") if obj.get("description") is not None else '',
             "spec": obj.get("spec"),
             "chat_id": obj.get("chat_id"),
             "timezone": obj.get("timezone") if obj.get("timezone") is not None else 'UTC',
             "is_enabled": obj.get("is_enabled") if obj.get("is_enabled") is not None else True
-        })
+        }.items() if k in _keep})
         return _obj
 
 

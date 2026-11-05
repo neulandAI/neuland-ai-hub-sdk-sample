@@ -85,14 +85,14 @@ class TokensPerModel(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "llm_model": obj.get("llm_model"),
             "duration": obj.get("duration"),
             "total_tokens_count": obj.get("total_tokens_count"),
             "prompt_token_count": obj.get("prompt_token_count"),
             "completion_token_count": obj.get("completion_token_count"),
             "total_requests": obj.get("total_requests")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

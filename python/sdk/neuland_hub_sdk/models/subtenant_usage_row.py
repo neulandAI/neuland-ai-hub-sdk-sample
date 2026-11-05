@@ -90,7 +90,7 @@ class SubtenantUsageRow(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "cost": obj.get("cost"),
             "total_tokens": obj.get("total_tokens"),
             "prompt_tokens": obj.get("prompt_tokens"),
@@ -102,7 +102,7 @@ class SubtenantUsageRow(BaseModel):
             "tenant_id": obj.get("tenant_id"),
             "tenant_name": obj.get("tenant_name"),
             "is_self": obj.get("is_self")
-        })
+        }.items() if k in _keep})
         return _obj
 
 
