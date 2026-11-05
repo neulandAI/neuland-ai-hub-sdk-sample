@@ -83,6 +83,7 @@
           "sdk/python/reference/endpoints/Dropbox",
           "sdk/python/reference/endpoints/FeatureFlag",
           "sdk/python/reference/endpoints/GoogleDrive",
+          "sdk/python/reference/endpoints/ModelApi",
           "sdk/python/reference/endpoints/ResourceAccess",
           "sdk/python/reference/endpoints/Role",
           "sdk/python/reference/endpoints/SharepointV1",
@@ -113,6 +114,7 @@
                   "sdk/python/reference/models/CredentialIn",
                   "sdk/python/reference/models/CredentialPartOut",
                   "sdk/python/reference/models/CredentialTemplateOut",
+                  "sdk/python/reference/models/GooglePickerTokenOut",
                   "sdk/python/reference/models/OAuth2ProviderEnum",
                   "sdk/python/reference/models/OAuthClient",
                   "sdk/python/reference/models/OAuthClientUpdate"
@@ -124,6 +126,7 @@
                   "sdk/python/reference/models/GroupIn",
                   "sdk/python/reference/models/GroupSyncOut",
                   "sdk/python/reference/models/PasswordResetIn",
+                  "sdk/python/reference/models/RelinkSsoIn",
                   "sdk/python/reference/models/ThemeModeEnum",
                   "sdk/python/reference/models/UserGroup",
                   "sdk/python/reference/models/UserGroupMember",
@@ -188,6 +191,7 @@
                   "sdk/python/reference/models/MessageIn",
                   "sdk/python/reference/models/MessageSubmitOut",
                   "sdk/python/reference/models/MessageTurnOut",
+                  "sdk/python/reference/models/ReasoningEffortOrAutoEnum",
                   "sdk/python/reference/models/ResumeIn",
                   "sdk/python/reference/models/ToolCallOut",
                   "sdk/python/reference/models/ToolCallProgressStepOut",
@@ -478,9 +482,13 @@
               {
                 "group": "CustomConnector",
                 "pages": [
+                  "sdk/python/reference/models/CallbackOut",
                   "sdk/python/reference/models/CustomConnectorCreate",
                   "sdk/python/reference/models/CustomConnectorOut",
-                  "sdk/python/reference/models/CustomConnectorUpdate"
+                  "sdk/python/reference/models/CustomConnectorUpdate",
+                  "sdk/python/reference/models/DetectIn",
+                  "sdk/python/reference/models/DetectOut",
+                  "sdk/python/reference/models/SignInOut"
                 ]
               },
               {
@@ -515,6 +523,13 @@
                 ]
               },
               {
+                "group": "ModelApi",
+                "pages": [
+                  "sdk/python/reference/models/ModelList",
+                  "sdk/python/reference/models/ModelObject"
+                ]
+              },
+              {
                 "group": "ResourceAccess",
                 "pages": [
                   "sdk/python/reference/models/AccessItemOut",
@@ -530,6 +545,8 @@
                 "group": "Role",
                 "pages": [
                   "sdk/python/reference/models/RoleIn",
+                  "sdk/python/reference/models/RoleReassignIn",
+                  "sdk/python/reference/models/RoleReassignOut",
                   "sdk/python/reference/models/RoleUpdateIn"
                 ]
               },
@@ -615,6 +632,7 @@
           "sdk/node/reference/endpoints/Dropbox",
           "sdk/node/reference/endpoints/FeatureFlag",
           "sdk/node/reference/endpoints/GoogleDrive",
+          "sdk/node/reference/endpoints/ModelApi",
           "sdk/node/reference/endpoints/ResourceAccess",
           "sdk/node/reference/endpoints/Role",
           "sdk/node/reference/endpoints/SharepointV1",
@@ -645,6 +663,7 @@
                   "sdk/node/reference/models/CredentialIn",
                   "sdk/node/reference/models/CredentialPartOut",
                   "sdk/node/reference/models/CredentialTemplateOut",
+                  "sdk/node/reference/models/GooglePickerTokenOut",
                   "sdk/node/reference/models/OAuth2ProviderEnum",
                   "sdk/node/reference/models/OAuthClient",
                   "sdk/node/reference/models/OAuthClientUpdate"
@@ -656,6 +675,7 @@
                   "sdk/node/reference/models/GroupIn",
                   "sdk/node/reference/models/GroupSyncOut",
                   "sdk/node/reference/models/PasswordResetIn",
+                  "sdk/node/reference/models/RelinkSsoIn",
                   "sdk/node/reference/models/ThemeModeEnum",
                   "sdk/node/reference/models/UserGroup",
                   "sdk/node/reference/models/UserGroupMember",
@@ -720,6 +740,7 @@
                   "sdk/node/reference/models/MessageIn",
                   "sdk/node/reference/models/MessageSubmitOut",
                   "sdk/node/reference/models/MessageTurnOut",
+                  "sdk/node/reference/models/ReasoningEffortOrAutoEnum",
                   "sdk/node/reference/models/ResumeIn",
                   "sdk/node/reference/models/ToolCallOut",
                   "sdk/node/reference/models/ToolCallProgressStepOut",
@@ -1010,9 +1031,13 @@
               {
                 "group": "CustomConnector",
                 "pages": [
+                  "sdk/node/reference/models/CallbackOut",
                   "sdk/node/reference/models/CustomConnectorCreate",
                   "sdk/node/reference/models/CustomConnectorOut",
-                  "sdk/node/reference/models/CustomConnectorUpdate"
+                  "sdk/node/reference/models/CustomConnectorUpdate",
+                  "sdk/node/reference/models/DetectIn",
+                  "sdk/node/reference/models/DetectOut",
+                  "sdk/node/reference/models/SignInOut"
                 ]
               },
               {
@@ -1047,6 +1072,13 @@
                 ]
               },
               {
+                "group": "ModelApi",
+                "pages": [
+                  "sdk/node/reference/models/ModelList",
+                  "sdk/node/reference/models/ModelObject"
+                ]
+              },
+              {
                 "group": "ResourceAccess",
                 "pages": [
                   "sdk/node/reference/models/AccessItemOut",
@@ -1062,6 +1094,8 @@
                 "group": "Role",
                 "pages": [
                   "sdk/node/reference/models/RoleIn",
+                  "sdk/node/reference/models/RoleReassignIn",
+                  "sdk/node/reference/models/RoleReassignOut",
                   "sdk/node/reference/models/RoleUpdateIn"
                 ]
               },

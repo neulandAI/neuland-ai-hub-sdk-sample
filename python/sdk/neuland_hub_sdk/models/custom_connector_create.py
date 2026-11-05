@@ -17,22 +17,50 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
 class CustomConnectorCreate(BaseModel):
     """
-    Either `url` (with optional `name`/`headers`), or `config` — a pasted `mcpServers` JSON blob. Never both.
+    Either `url` (with optional `name`/`headers` and auth settings), or `config` — a pasted `mcpServers` JSON blob of fixed-header servers. Never both.
     """ # noqa: E501
     name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = None
     headers: Optional[Dict[str, StrictStr]] = None
     config: Optional[Annotated[str, Field(strict=True, max_length=16384)]] = None
-    __properties: ClassVar[List[str]] = ["name", "url", "headers", "config"]
+    auth_mode: Optional[StrictStr] = 'none'
+    oauth_client_mode: Optional[StrictStr] = None
+    oauth_client_id: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = None
+    oauth_client_secret: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = None
+    organization: Optional[StrictBool] = Field(default=False, description="Add for the organisation instead of yourself (needs `MANAGE_CONNECTORS` and `MANAGE_CONNECTOR_ACCESS`).")
+    all_users: Optional[StrictBool] = False
+    role_ids: Optional[List[UUID]] = Field(default=None, description="Roles to grant an organisation MCP to (also needs `MANAGE_ROLES`); further roles and single users can be given it later in the role editor and the user access settings.")
+    __properties: ClassVar[List[str]] = ["name", "url", "headers", "config", "auth_mode", "oauth_client_mode", "oauth_client_id", "oauth_client_secret", "organization", "all_users", "role_ids"]
+
+    @field_validator('auth_mode')
+    def auth_mode_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['none', 'oauth', 'oauth_when_needed']):
+            raise ValueError("must be one of enum values ('none', 'oauth', 'oauth_when_needed')")
+        return value
+
+    @field_validator('oauth_client_mode')
+    def oauth_client_mode_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['cimd', 'dcr', 'manual']):
+            raise ValueError("must be one of enum values ('cimd', 'dcr', 'manual')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -88,6 +116,21 @@ class CustomConnectorCreate(BaseModel):
         if self.config is None and "config" in self.model_fields_set:
             _dict['config'] = None
 
+        # set to None if oauth_client_mode (nullable) is None
+        # and model_fields_set contains the field
+        if self.oauth_client_mode is None and "oauth_client_mode" in self.model_fields_set:
+            _dict['oauth_client_mode'] = None
+
+        # set to None if oauth_client_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.oauth_client_id is None and "oauth_client_id" in self.model_fields_set:
+            _dict['oauth_client_id'] = None
+
+        # set to None if oauth_client_secret (nullable) is None
+        # and model_fields_set contains the field
+        if self.oauth_client_secret is None and "oauth_client_secret" in self.model_fields_set:
+            _dict['oauth_client_secret'] = None
+
         return _dict
 
     @classmethod
@@ -99,12 +142,19 @@ class CustomConnectorCreate(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "url": obj.get("url"),
             "headers": obj.get("headers"),
-            "config": obj.get("config")
-        })
+            "config": obj.get("config"),
+            "auth_mode": obj.get("auth_mode") if obj.get("auth_mode") is not None else 'none',
+            "oauth_client_mode": obj.get("oauth_client_mode"),
+            "oauth_client_id": obj.get("oauth_client_id"),
+            "oauth_client_secret": obj.get("oauth_client_secret"),
+            "organization": obj.get("organization") if obj.get("organization") is not None else False,
+            "all_users": obj.get("all_users") if obj.get("all_users") is not None else False,
+            "role_ids": obj.get("role_ids")
+        }.items() if k in _keep})
         return _obj
 
 

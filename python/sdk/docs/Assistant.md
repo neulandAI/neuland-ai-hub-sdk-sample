@@ -4,32 +4,32 @@ All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assistants_add_library_to_assistant**](Assistant.md#assistants_add_library_to_assistant) | **POST** /assistants/{assistant_id}/libraries/{library_id} | Add a library to an assistant
-[**assistants_add_members**](Assistant.md#assistants_add_members) | **POST** /assistants/{assistant_id}/members | Add members to an assistant
-[**assistants_add_tag_to_assistant**](Assistant.md#assistants_add_tag_to_assistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant
-[**assistants_add_tool_to_assistant**](Assistant.md#assistants_add_tool_to_assistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant
-[**assistants_convert_assistant_to_tool**](Assistant.md#assistants_convert_assistant_to_tool) | **POST** /assistants/{assistant_id}/tool | Make an assistant consultable from your own chats
-[**assistants_create_assistant**](Assistant.md#assistants_create_assistant) | **POST** /assistants/ | Create an assistant
-[**assistants_delete_assistant**](Assistant.md#assistants_delete_assistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant
-[**assistants_delete_members**](Assistant.md#assistants_delete_members) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant
-[**assistants_join_assistant**](Assistant.md#assistants_join_assistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant
-[**assistants_leave_assitant**](Assistant.md#assistants_leave_assitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant
-[**assistants_remove_assistant_as_tool**](Assistant.md#assistants_remove_assistant_as_tool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant being consultable from your chats
-[**assistants_remove_library_from_assistant**](Assistant.md#assistants_remove_library_from_assistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant
-[**assistants_remove_member**](Assistant.md#assistants_remove_member) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member
-[**assistants_remove_tag_from_assistant**](Assistant.md#assistants_remove_tag_from_assistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant
-[**assistants_remove_tool_from_assistant**](Assistant.md#assistants_remove_tool_from_assistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant
-[**assistants_restore_assistant_version**](Assistant.md#assistants_restore_assistant_version) | **POST** /assistants/{assistant_id}/versions/{version}/restore | Restore an assistant version
-[**assistants_submit_assistant**](Assistant.md#assistants_submit_assistant) | **POST** /assistants/submit | Create an assistant with attachments
-[**assistants_update_assistant**](Assistant.md#assistants_update_assistant) | **PATCH** /assistants/{assistant_id} | Update an assistant
-[**assistants_update_assistant_groups**](Assistant.md#assistants_update_assistant_groups) | **PUT** /assistants/{assistant_id}/groups | Set assistant group access
-[**assistants_update_assistant_visibility**](Assistant.md#assistants_update_assistant_visibility) | **PATCH** /assistants/{assistant_id}/visibility | Set assistant visibility
+[**assistants_add_library_to_assistant**](Assistant.md#assistants_add_library_to_assistant) | **POST** /assistants/{assistant_id}/libraries/{library_id} | Add a library to an assistant (agent)
+[**assistants_add_members**](Assistant.md#assistants_add_members) | **POST** /assistants/{assistant_id}/members | Add members to an assistant (agent)
+[**assistants_add_tag_to_assistant**](Assistant.md#assistants_add_tag_to_assistant) | **POST** /assistants/{assistant_id}/tags/{tag_id} | Add a tag to an assistant (agent)
+[**assistants_add_tool_to_assistant**](Assistant.md#assistants_add_tool_to_assistant) | **POST** /assistants/{assistant_id}/tools/{tool_id} | Add a tool to an assistant (agent)
+[**assistants_convert_assistant_to_tool**](Assistant.md#assistants_convert_assistant_to_tool) | **POST** /assistants/{assistant_id}/tool | Make an assistant (agent) consultable from your own chats
+[**assistants_create_assistant**](Assistant.md#assistants_create_assistant) | **POST** /assistants/ | Create an assistant (agent)
+[**assistants_delete_assistant**](Assistant.md#assistants_delete_assistant) | **DELETE** /assistants/{assistant_id} | Delete an assistant (agent)
+[**assistants_delete_members**](Assistant.md#assistants_delete_members) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant (agent)
+[**assistants_join_assistant**](Assistant.md#assistants_join_assistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant (agent)
+[**assistants_leave_assitant**](Assistant.md#assistants_leave_assitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant (agent)
+[**assistants_remove_assistant_as_tool**](Assistant.md#assistants_remove_assistant_as_tool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant (agent) being consultable from your chats
+[**assistants_remove_library_from_assistant**](Assistant.md#assistants_remove_library_from_assistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant (agent)
+[**assistants_remove_member**](Assistant.md#assistants_remove_member) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member from an assistant (agent)
+[**assistants_remove_tag_from_assistant**](Assistant.md#assistants_remove_tag_from_assistant) | **DELETE** /assistants/{assistant_id}/tags/{tag_id} | Remove a tag from an assistant (agent)
+[**assistants_remove_tool_from_assistant**](Assistant.md#assistants_remove_tool_from_assistant) | **DELETE** /assistants/{assistant_id}/tools/{tool_id} | Remove a tool from an assistant (agent)
+[**assistants_restore_assistant_version**](Assistant.md#assistants_restore_assistant_version) | **POST** /assistants/{assistant_id}/versions/{version}/restore | Restore an assistant (agent) version
+[**assistants_submit_assistant**](Assistant.md#assistants_submit_assistant) | **POST** /assistants/submit | Create an assistant (agent) with attachments
+[**assistants_update_assistant**](Assistant.md#assistants_update_assistant) | **PATCH** /assistants/{assistant_id} | Update an assistant (agent)
+[**assistants_update_assistant_groups**](Assistant.md#assistants_update_assistant_groups) | **PUT** /assistants/{assistant_id}/groups | Set assistant (agent) group access
+[**assistants_update_assistant_visibility**](Assistant.md#assistants_update_assistant_visibility) | **PATCH** /assistants/{assistant_id}/visibility | Set assistant (agent) visibility
 
 
 # **assistants_add_library_to_assistant**
 > AssistantLibrary assistants_add_library_to_assistant(assistant_id, library_id, cookie_name=cookie_name)
 
-Add a library to an assistant
+Add a library to an assistant (agent)
 
 Enables a library for a assistant by creating a new association
 
@@ -73,7 +73,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add a library to an assistant
+        # Add a library to an assistant (agent)
         api_response = api_instance.assistants_add_library_to_assistant(assistant_id, library_id, cookie_name=cookie_name)
         print("The response of Assistant->assistants_add_library_to_assistant:\n")
         pprint(api_response)
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 # **assistants_add_members**
 > List[AssistantMemberOut] assistants_add_members(assistant_id, assistant_members_in, cookie_name=cookie_name)
 
-Add members to an assistant
+Add members to an assistant (agent)
 
 Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is
 promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.
@@ -170,7 +170,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add members to an assistant
+        # Add members to an assistant (agent)
         api_response = api_instance.assistants_add_members(assistant_id, assistant_members_in, cookie_name=cookie_name)
         print("The response of Assistant->assistants_add_members:\n")
         pprint(api_response)
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 # **assistants_add_tag_to_assistant**
 > NeulandAssistantsTaggingOut assistants_add_tag_to_assistant(assistant_id, tag_id, cookie_name=cookie_name)
 
-Add a tag to an assistant
+Add a tag to an assistant (agent)
 
 Attach a tag to an assistant.
 
@@ -261,7 +261,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add a tag to an assistant
+        # Add a tag to an assistant (agent)
         api_response = api_instance.assistants_add_tag_to_assistant(assistant_id, tag_id, cookie_name=cookie_name)
         print("The response of Assistant->assistants_add_tag_to_assistant:\n")
         pprint(api_response)
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 # **assistants_add_tool_to_assistant**
 > AssistantTool assistants_add_tool_to_assistant(assistant_id, tool_id, cookie_name=cookie_name)
 
-Add a tool to an assistant
+Add a tool to an assistant (agent)
 
 Enable a tenant tool for the assistant.
 
@@ -352,7 +352,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add a tool to an assistant
+        # Add a tool to an assistant (agent)
         api_response = api_instance.assistants_add_tool_to_assistant(assistant_id, tool_id, cookie_name=cookie_name)
         print("The response of Assistant->assistants_add_tool_to_assistant:\n")
         pprint(api_response)
@@ -399,7 +399,7 @@ Name | Type | Description  | Notes
 # **assistants_convert_assistant_to_tool**
 > Assistant assistants_convert_assistant_to_tool(assistant_id, cookie_name=cookie_name)
 
-Make an assistant consultable from your own chats
+Make an assistant (agent) consultable from your own chats
 
 Make the assistant consultable in every chat of the calling user.
 
@@ -454,7 +454,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Make an assistant consultable from your own chats
+        # Make an assistant (agent) consultable from your own chats
         api_response = api_instance.assistants_convert_assistant_to_tool(assistant_id, cookie_name=cookie_name)
         print("The response of Assistant->assistants_convert_assistant_to_tool:\n")
         pprint(api_response)
@@ -501,7 +501,7 @@ Name | Type | Description  | Notes
 # **assistants_create_assistant**
 > Assistant assistants_create_assistant(assistant_in, cookie_name=cookie_name)
 
-Create an assistant
+Create an assistant (agent)
 
 Create an assistant from a JSON payload.
 
@@ -544,7 +544,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Create an assistant
+        # Create an assistant (agent)
         api_response = api_instance.assistants_create_assistant(assistant_in, cookie_name=cookie_name)
         print("The response of Assistant->assistants_create_assistant:\n")
         pprint(api_response)
@@ -589,7 +589,7 @@ Name | Type | Description  | Notes
 # **assistants_delete_assistant**
 > assistants_delete_assistant(assistant_id, cookie_name=cookie_name)
 
-Delete an assistant
+Delete an assistant (agent)
 
 Delete an assistant and orphan its associated chats.
 
@@ -631,7 +631,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete an assistant
+        # Delete an assistant (agent)
         api_instance.assistants_delete_assistant(assistant_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_delete_assistant: %s\n" % e)
@@ -675,7 +675,7 @@ void (empty response body)
 # **assistants_delete_members**
 > assistants_delete_members(assistant_id, assistant_members_in, cookie_name=cookie_name)
 
-Remove members from an assistant
+Remove members from an assistant (agent)
 
 Remove one or more users from the assistant's membership.
 
@@ -719,7 +719,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove members from an assistant
+        # Remove members from an assistant (agent)
         api_instance.assistants_delete_members(assistant_id, assistant_members_in, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_delete_members: %s\n" % e)
@@ -765,7 +765,7 @@ void (empty response body)
 # **assistants_join_assistant**
 > AssistantMemberOut assistants_join_assistant(assistant_id, cookie_name=cookie_name)
 
-Join a community assistant
+Join a community assistant (agent)
 
 self-add to a tenant-shared community assistant.
 
@@ -808,7 +808,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Join a community assistant
+        # Join a community assistant (agent)
         api_response = api_instance.assistants_join_assistant(assistant_id, cookie_name=cookie_name)
         print("The response of Assistant->assistants_join_assistant:\n")
         pprint(api_response)
@@ -855,7 +855,7 @@ Name | Type | Description  | Notes
 # **assistants_leave_assitant**
 > assistants_leave_assitant(assistant_id, cookie_name=cookie_name)
 
-Leave an assistant
+Leave an assistant (agent)
 
 user can leave the assistant by themselves.
 
@@ -897,7 +897,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Leave an assistant
+        # Leave an assistant (agent)
         api_instance.assistants_leave_assitant(assistant_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_leave_assitant: %s\n" % e)
@@ -941,7 +941,7 @@ void (empty response body)
 # **assistants_remove_assistant_as_tool**
 > assistants_remove_assistant_as_tool(assistant_id, cookie_name=cookie_name)
 
-Stop the assistant being consultable from your chats
+Stop the assistant (agent) being consultable from your chats
 
 Clear the caller's own `is_tool` flag; the assistant stops being
 consultable from their chats at once (every consultability query keys on
@@ -985,7 +985,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Stop the assistant being consultable from your chats
+        # Stop the assistant (agent) being consultable from your chats
         api_instance.assistants_remove_assistant_as_tool(assistant_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_remove_assistant_as_tool: %s\n" % e)
@@ -1029,7 +1029,7 @@ void (empty response body)
 # **assistants_remove_library_from_assistant**
 > assistants_remove_library_from_assistant(assistant_id, library_id, cookie_name=cookie_name)
 
-Remove a library from an assistant
+Remove a library from an assistant (agent)
 
 Disables a library from an assistant by removing the association
 
@@ -1072,7 +1072,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove a library from an assistant
+        # Remove a library from an assistant (agent)
         api_instance.assistants_remove_library_from_assistant(assistant_id, library_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_remove_library_from_assistant: %s\n" % e)
@@ -1117,7 +1117,7 @@ void (empty response body)
 # **assistants_remove_member**
 > assistants_remove_member(assistant_id, user_id, cookie_name=cookie_name)
 
-Remove a single member
+Remove a single member from an assistant (agent)
 
 Remove a specific user from the assistant's membership.
 
@@ -1160,7 +1160,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove a single member
+        # Remove a single member from an assistant (agent)
         api_instance.assistants_remove_member(assistant_id, user_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_remove_member: %s\n" % e)
@@ -1205,7 +1205,7 @@ void (empty response body)
 # **assistants_remove_tag_from_assistant**
 > assistants_remove_tag_from_assistant(assistant_id, tag_id, cookie_name=cookie_name)
 
-Remove a tag from an assistant
+Remove a tag from an assistant (agent)
 
 Detach a tag from an assistant.
 
@@ -1248,7 +1248,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove a tag from an assistant
+        # Remove a tag from an assistant (agent)
         api_instance.assistants_remove_tag_from_assistant(assistant_id, tag_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_remove_tag_from_assistant: %s\n" % e)
@@ -1293,7 +1293,7 @@ void (empty response body)
 # **assistants_remove_tool_from_assistant**
 > assistants_remove_tool_from_assistant(assistant_id, tool_id, cookie_name=cookie_name)
 
-Remove a tool from an assistant
+Remove a tool from an assistant (agent)
 
 Disable a tool for the assistant by removing the association.
 
@@ -1336,7 +1336,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Remove a tool from an assistant
+        # Remove a tool from an assistant (agent)
         api_instance.assistants_remove_tool_from_assistant(assistant_id, tool_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling Assistant->assistants_remove_tool_from_assistant: %s\n" % e)
@@ -1381,7 +1381,7 @@ void (empty response body)
 # **assistants_restore_assistant_version**
 > Assistant assistants_restore_assistant_version(assistant_id, version, cookie_name=cookie_name)
 
-Restore an assistant version
+Restore an assistant (agent) version
 
 Copy a version snapshot onto the live assistant and append a new version.
 
@@ -1428,7 +1428,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Restore an assistant version
+        # Restore an assistant (agent) version
         api_response = api_instance.assistants_restore_assistant_version(assistant_id, version, cookie_name=cookie_name)
         print("The response of Assistant->assistants_restore_assistant_version:\n")
         pprint(api_response)
@@ -1475,7 +1475,7 @@ Name | Type | Description  | Notes
 # **assistants_submit_assistant**
 > Assistant assistants_submit_assistant(name, cookie_name=cookie_name, model=model, description=description, description_show_in_chat=description_show_in_chat, predefined_prompts=predefined_prompts, avatar=avatar, instructions=instructions, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, input_type=input_type, form_fields=form_fields, files=files)
 
-Create an assistant with attachments
+Create an assistant (agent) with attachments
 
 Create an assistant via multipart form, with optional knowledge-file uploads.
 
@@ -1529,7 +1529,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     files = None # List[bytes] |  (optional)
 
     try:
-        # Create an assistant with attachments
+        # Create an assistant (agent) with attachments
         api_response = api_instance.assistants_submit_assistant(name, cookie_name=cookie_name, model=model, description=description, description_show_in_chat=description_show_in_chat, predefined_prompts=predefined_prompts, avatar=avatar, instructions=instructions, temperature=temperature, reasoning_effort=reasoning_effort, similarity_top_k=similarity_top_k, input_type=input_type, form_fields=form_fields, files=files)
         print("The response of Assistant->assistants_submit_assistant:\n")
         pprint(api_response)
@@ -1586,7 +1586,7 @@ Name | Type | Description  | Notes
 # **assistants_update_assistant**
 > Assistant assistants_update_assistant(assistant_id, assistant_in, cookie_name=cookie_name)
 
-Update an assistant
+Update an assistant (agent)
 
 Update an assistant's configuration.
 
@@ -1631,7 +1631,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Update an assistant
+        # Update an assistant (agent)
         api_response = api_instance.assistants_update_assistant(assistant_id, assistant_in, cookie_name=cookie_name)
         print("The response of Assistant->assistants_update_assistant:\n")
         pprint(api_response)
@@ -1678,7 +1678,7 @@ Name | Type | Description  | Notes
 # **assistants_update_assistant_groups**
 > List[AssistantGroupOut] assistants_update_assistant_groups(assistant_id, assistant_groups_in, cookie_name=cookie_name)
 
-Set assistant group access
+Set assistant (agent) group access
 
 Grant or update assistant access for user groups (replaces the current set).
 
@@ -1723,7 +1723,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Set assistant group access
+        # Set assistant (agent) group access
         api_response = api_instance.assistants_update_assistant_groups(assistant_id, assistant_groups_in, cookie_name=cookie_name)
         print("The response of Assistant->assistants_update_assistant_groups:\n")
         pprint(api_response)
@@ -1770,7 +1770,7 @@ Name | Type | Description  | Notes
 # **assistants_update_assistant_visibility**
 > Assistant assistants_update_assistant_visibility(assistant_id, assistant_visibility_update, cookie_name=cookie_name)
 
-Set assistant visibility
+Set assistant (agent) visibility
 
 creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
 
@@ -1815,7 +1815,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Set assistant visibility
+        # Set assistant (agent) visibility
         api_response = api_instance.assistants_update_assistant_visibility(assistant_id, assistant_visibility_update, cookie_name=cookie_name)
         print("The response of Assistant->assistants_update_assistant_visibility:\n")
         pprint(api_response)

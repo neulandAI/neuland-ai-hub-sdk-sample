@@ -646,7 +646,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **202** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | No access to the chat the message belongs to. |  -  |
+**403** | No access to the chat the message belongs to, or usage budget exceeded (a &#39;reject&#39; is still accepted). |  -  |
 **404** | Message or its chat does not exist. |  -  |
 **409** | Message is not an assistant reply awaiting approval or user input. |  -  |
 **422** | Validation Error |  -  |
@@ -702,7 +702,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     document_ids = None # List[UUID] |  (optional)
     files = None # List[bytes] |  (optional)
     temperature = 3.4 # float |  (optional)
-    reasoning_effort = neuland_hub_sdk.ReasoningEffortEnum() # ReasoningEffortEnum |  (optional)
+    reasoning_effort = neuland_hub_sdk.ReasoningEffortOrAutoEnum() # ReasoningEffortOrAutoEnum |  (optional)
     similarity_top_k = 56 # int |  (optional)
     system_prompt = 'system_prompt_example' # str |  (optional)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
@@ -737,7 +737,7 @@ Name | Type | Description  | Notes
  **document_ids** | [**List[UUID]**](UUID.md)|  | [optional] 
  **files** | **List[bytes]**|  | [optional] 
  **temperature** | **float**|  | [optional] 
- **reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md)|  | [optional] 
+ **reasoning_effort** | [**ReasoningEffortOrAutoEnum**](ReasoningEffortOrAutoEnum.md)|  | [optional] 
  **similarity_top_k** | **int**|  | [optional] 
  **system_prompt** | **str**|  | [optional] 
  **assistant_id** | **UUID**|  | [optional] 

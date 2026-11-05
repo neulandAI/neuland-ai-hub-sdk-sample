@@ -86,13 +86,13 @@ class NeulandMarketplaceAssistantSchemasTaggingOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "tag_id": obj.get("tag_id"),
             "tag_public_id": obj.get("tag_public_id"),
             "taggable_type": obj.get("taggable_type"),
             "taggable_id": obj.get("taggable_id"),
             "taggable_public_id": obj.get("taggable_public_id")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

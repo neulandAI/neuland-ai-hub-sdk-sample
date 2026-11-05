@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **prompt_tokens** | **int** | Prompt tokens. | 
 **completion_tokens** | **int** | Completion tokens. | 
 **requests** | **int** | Number of usage records. | 
+**cached_prompt_tokens** | **int** | Prompt tokens read from the provider cache. | [optional] [default to 0]
+**cache_creation_tokens** | **int** | Prompt tokens written to the provider cache. | [optional] [default to 0]
+**reasoning_tokens** | **int** | Reasoning tokens, already included in completion_tokens. | [optional] [default to 0]
 
 ## Example
 

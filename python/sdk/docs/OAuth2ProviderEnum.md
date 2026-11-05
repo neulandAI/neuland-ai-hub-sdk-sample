@@ -32,6 +32,8 @@ Enum for OAuth providers.
 
 * `DROPBOX` (value: `'dropbox'`)
 
+* `TOPDESK` (value: `'topdesk'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

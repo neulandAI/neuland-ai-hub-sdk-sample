@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**roles_assign_role_to_user**](Role.md#roles_assign_role_to_user) | **POST** /roles/{role_id}/users/{user_id} | Assign a role to a user
 [**roles_create_role**](Role.md#roles_create_role) | **POST** /roles/ | Create a custom role
 [**roles_delete_role**](Role.md#roles_delete_role) | **DELETE** /roles/{role_id} | Delete a role
+[**roles_reassign_role_holders**](Role.md#roles_reassign_role_holders) | **POST** /roles/{role_id}/reassign | Move every holder of a role to another role
 [**roles_set_default_role**](Role.md#roles_set_default_role) | **PUT** /roles/{role_id}/default | Set a role as the tenant default
 [**roles_unassign_role_from_group**](Role.md#roles_unassign_role_from_group) | **DELETE** /roles/{role_id}/groups/{group_id} | Unassign a role from a group
 [**roles_unassign_role_from_user**](Role.md#roles_unassign_role_from_user) | **DELETE** /roles/{role_id}/users/{user_id} | Unassign a role from a user
@@ -362,6 +363,101 @@ void (empty response body)
 **403** | MANAGE_ROLES required. |  -  |
 **404** | No role exists with the given id. |  -  |
 **422** | The Operator role and default roles cannot be deleted. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **roles_reassign_role_holders**
+> RoleReassignOut roles_reassign_role_holders(role_id, role_reassign_in, cookie_name=cookie_name)
+
+Move every holder of a role to another role
+
+Move every direct holder of a role to another role in one transaction.
+
+Only the source role is revoked, so holders keep their other roles. The
+caller and the excluded users stay on the source role.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.role import Role
+from neuland_hub_sdk.models.role_reassign_in import RoleReassignIn
+from neuland_hub_sdk.models.role_reassign_out import RoleReassignOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Role(api_client)
+    role_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the role to move the holders off.
+    role_reassign_in = neuland_hub_sdk.RoleReassignIn() # RoleReassignIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Move every holder of a role to another role
+        api_response = api_instance.roles_reassign_role_holders(role_id, role_reassign_in, cookie_name=cookie_name)
+        print("The response of Role->roles_reassign_role_holders:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Role->roles_reassign_role_holders: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **role_id** | **UUID**| Public id of the role to move the holders off. | 
+ **role_reassign_in** | [**RoleReassignIn**](RoleReassignIn.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**RoleReassignOut**](RoleReassignOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | MANAGE_USERS required, or the grant would exceed the caller&#39;s own permissions. |  -  |
+**404** | No such role or excluded user. |  -  |
+**422** | The roles are the same, belong to different tenants, or one is the Operator role. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

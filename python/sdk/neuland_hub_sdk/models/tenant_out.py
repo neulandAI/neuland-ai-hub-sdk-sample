@@ -36,6 +36,7 @@ class TenantOut(BaseModel):
     name: StrictStr = Field(description="Internal name of the tenant.")
     slug: StrictStr = Field(description="URL-safe unique identifier for the tenant.")
     domain: Optional[StrictStr] = None
+    domains: Optional[List[Optional[StrictStr]]] = Field(default=None, description="All email/web domains owned by the tenant.")
     parent_tenant_id: Optional[StrictInt] = None
     subtenants_enabled: StrictBool = Field(description="Whether this tenant may create child tenants.")
     timezone: StrictStr = Field(description="Default IANA timezone for the tenant.")
@@ -58,7 +59,7 @@ class TenantOut(BaseModel):
     state: Optional[StrictStr] = None
     upstream_tenant_id: Optional[StrictStr] = None
     upstream_oidc_issuer: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "public_id", "created_at", "creator_user_id", "name", "slug", "domain", "parent_tenant_id", "subtenants_enabled", "timezone", "locale", "tarif_id", "max_users", "max_projects", "licenses", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "state", "upstream_tenant_id", "upstream_oidc_issuer"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "created_at", "creator_user_id", "name", "slug", "domain", "domains", "parent_tenant_id", "subtenants_enabled", "timezone", "locale", "tarif_id", "max_users", "max_projects", "licenses", "display_name", "motto", "logo_url", "square_logo_url", "favicon_url", "chat_square_logo_url", "primary_color", "secondary_color", "theme", "storage_limit_gb", "api_rate_limit", "state", "upstream_tenant_id", "upstream_oidc_issuer"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -215,7 +216,7 @@ class TenantOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "created_at": obj.get("created_at"),
@@ -223,6 +224,7 @@ class TenantOut(BaseModel):
             "name": obj.get("name"),
             "slug": obj.get("slug"),
             "domain": obj.get("domain"),
+            "domains": obj.get("domains"),
             "parent_tenant_id": obj.get("parent_tenant_id"),
             "subtenants_enabled": obj.get("subtenants_enabled"),
             "timezone": obj.get("timezone"),
@@ -245,7 +247,7 @@ class TenantOut(BaseModel):
             "state": obj.get("state"),
             "upstream_tenant_id": obj.get("upstream_tenant_id"),
             "upstream_oidc_issuer": obj.get("upstream_oidc_issuer")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

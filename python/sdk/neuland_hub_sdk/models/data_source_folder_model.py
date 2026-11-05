@@ -80,9 +80,9 @@ class DataSourceFolderModel(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "child_count": obj.get("child_count")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

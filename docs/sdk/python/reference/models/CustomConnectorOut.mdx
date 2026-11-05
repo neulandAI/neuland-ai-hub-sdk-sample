@@ -6,12 +6,18 @@ title: "CustomConnectorOut"
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **int** | Internal id, as the role grant lists key it. | 
 **public_id** | **UUID** |  | 
 **connector_id** | **str** |  | 
 **name** | **str** |  | 
 **url** | **str** |  | 
-**enabled** | **bool** |  | 
+**enabled** | **bool** | Switched on for, and usable by, the caller. | 
 **header_names** | **List[str]** |  | 
+**owner** | **str** |  | 
+**auth_mode** | **str** |  | 
+**signed_in** | **bool** | The caller has a stored sign-in. | 
+**usable** | **bool** | The caller may use it in chat; false for an organisation MCP an admin manages but is outside the audience of. | 
+**can_manage** | **bool** |  | 
 
 ## Example
 

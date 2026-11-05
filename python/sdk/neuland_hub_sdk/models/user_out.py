@@ -131,7 +131,7 @@ class UserOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "created_at": obj.get("created_at"),
@@ -147,7 +147,7 @@ class UserOut(BaseModel):
             "tenant_id": obj.get("tenant_id"),
             "tenant_public_id": obj.get("tenant_public_id"),
             "permissions": obj.get("permissions")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

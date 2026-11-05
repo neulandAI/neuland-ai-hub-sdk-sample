@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -27,7 +28,7 @@ class WorkflowIn(BaseModel):
     """
     WorkflowIn
     """ # noqa: E501
-    name: StrictStr
+    name: Annotated[str, Field(min_length=1, strict=True, max_length=200)]
     description: Optional[StrictStr] = ''
     spec: Optional[Dict[str, Any]] = None
     chat_id: Optional[StrictInt] = None
@@ -90,14 +91,14 @@ class WorkflowIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "description": obj.get("description") if obj.get("description") is not None else '',
             "spec": obj.get("spec"),
             "chat_id": obj.get("chat_id"),
             "timezone": obj.get("timezone") if obj.get("timezone") is not None else 'UTC',
             "is_enabled": obj.get("is_enabled") if obj.get("is_enabled") is not None else True
-        })
+        }.items() if k in _keep})
         return _obj
 
 

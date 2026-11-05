@@ -91,7 +91,7 @@ class TimeseriesResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "total_cost": obj.get("total_cost"),
             "timeseries": dict(
                 (_k,
@@ -101,7 +101,7 @@ class TimeseriesResponse(BaseModel):
                 )
                 for _k, _v in obj.get("timeseries", {}).items()
             )
-        })
+        }.items() if k in _keep})
         return _obj
 
 

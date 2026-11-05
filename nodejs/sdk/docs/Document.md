@@ -320,7 +320,7 @@ const { status, data } = await apiInstance.documentsImportDocuments(
 |**201** | Successful Response |  -  |
 |**400** | The provided source type is not supported. |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Usage limit exceeded, or caller lacks access to the target entity. |  -  |
+|**403** | Usage limit exceeded, caller lacks access to the target entity, or the SharePoint site is not enabled for the tenant. |  -  |
 |**404** | The referenced project, chat, assistant, or library does not exist. |  -  |
 |**422** | Validation Error |  -  |
 

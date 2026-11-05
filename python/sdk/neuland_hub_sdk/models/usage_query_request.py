@@ -59,8 +59,8 @@ class UsageQueryRequest(BaseModel):
             return value
 
         for i in value:
-            if i not in set(['model', 'provider', 'source', 'assistant', 'project', 'user', 'group']):
-                raise ValueError("each list item must be one of ('model', 'provider', 'source', 'assistant', 'project', 'user', 'group')")
+            if i not in set(['model', 'provider', 'source', 'assistant', 'project', 'user', 'group', 'api_key']):
+                raise ValueError("each list item must be one of ('model', 'provider', 'source', 'assistant', 'project', 'user', 'group', 'api_key')")
         return value
 
     model_config = ConfigDict(
@@ -148,7 +148,7 @@ class UsageQueryRequest(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "date_start": obj.get("date_start"),
             "date_end": obj.get("date_end"),
             "bucket": obj.get("bucket"),
@@ -160,7 +160,7 @@ class UsageQueryRequest(BaseModel):
             "project_id": obj.get("project_id"),
             "limit": obj.get("limit"),
             "offset": obj.get("offset") if obj.get("offset") is not None else 0
-        })
+        }.items() if k in _keep})
         return _obj
 
 

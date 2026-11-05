@@ -48,7 +48,7 @@ export interface AccessItemOut {
      */
     'granted_directly'?: boolean;
     /**
-     * Whether the item reaches every user whatever their roles say. Only default tools do — they are bound in code for every chat — so an empty `roles` with no direct grant is expected rather than unexplained.
+     * Whether the item reaches every user whatever their roles say: default tools, bound in code for every chat, and custom MCPs added for everyone. So an empty `roles` with no direct grant is expected rather than unexplained.
      */
     'always_available'?: boolean;
 }
@@ -60,6 +60,7 @@ export const AccessKind = {
     model: 'model',
     tool: 'tool',
     connector: 'connector',
+    custom_mcp: 'custom_mcp',
 } as const;
 
 export type AccessKind = typeof AccessKind[keyof typeof AccessKind];
@@ -670,6 +671,7 @@ export interface BudgetAlert {
      * If the alert is triggered or not
      */
     'triggered'?: boolean;
+    'triggered_at'?: string | null;
     /**
      * If the alert is enabled
      */
@@ -810,6 +812,9 @@ export interface BulkResult {
      * Public ids that were targeted by the operation.
      */
     'ids': Array<string>;
+}
+export interface CallbackOut {
+    'name': string;
 }
 export interface CatalogIn {
     /**
@@ -1147,7 +1152,7 @@ export interface ConnectorStatusOut {
      */
     'auth_type': ConnectorAuthType;
     /**
-     * Whether the connector is fully usable for the caller (consent granted and all required config present).
+     * Whether the caller can use the connector: all required config is present and consent covers at least one capability. A partial grant is connected while `needs_consent` is still true.
      */
     'connected': boolean;
     /**
@@ -1167,9 +1172,21 @@ export interface ConnectorStatusOut {
      */
     'has_admin_config': boolean;
     /**
+     * The caller has a per-user part to remove (OAuth consent or per-user credential).
+     */
+    'can_disconnect': boolean;
+    /**
      * Capabilities not yet granted; empty unless consent is needed.
      */
     'missing_caps': Array<string | null>;
+    /**
+     * Capabilities the caller\'s consent covers; on a partial grant `connected` and `needs_consent` are both true and `missing_caps` lists the rest.
+     */
+    'granted_caps'?: Array<string | null>;
+    /**
+     * The Google Drive file picker can open: an admin set the Picker API key and this consent covers `drive.file`.
+     */
+    'picker_available'?: boolean;
 }
 
 
@@ -1399,22 +1416,84 @@ export interface CredentialTemplateOut {
 
 
 /**
- * Either `url` (with optional `name`/`headers`), or `config` — a pasted `mcpServers` JSON blob. Never both.
+ * Either `url` (with optional `name`/`headers` and auth settings), or `config` — a pasted `mcpServers` JSON blob of fixed-header servers. Never both.
  */
 export interface CustomConnectorCreate {
     'name'?: string | null;
     'url'?: string | null;
     'headers'?: { [key: string]: string; };
     'config'?: string | null;
+    'auth_mode'?: CustomConnectorCreateAuthModeEnum;
+    'oauth_client_mode'?: CustomConnectorCreateOauthClientModeEnum | null;
+    'oauth_client_id'?: string | null;
+    'oauth_client_secret'?: string | null;
+    /**
+     * Add for the organisation instead of yourself (needs `MANAGE_CONNECTORS` and `MANAGE_CONNECTOR_ACCESS`).
+     */
+    'organization'?: boolean;
+    'all_users'?: boolean;
+    /**
+     * Roles to grant an organisation MCP to (also needs `MANAGE_ROLES`); further roles and single users can be given it later in the role editor and the user access settings.
+     */
+    'role_ids'?: Array<string>;
 }
+
+export const CustomConnectorCreateAuthModeEnum = {
+    none: 'none',
+    oauth: 'oauth',
+    oauth_when_needed: 'oauth_when_needed',
+} as const;
+
+export type CustomConnectorCreateAuthModeEnum = typeof CustomConnectorCreateAuthModeEnum[keyof typeof CustomConnectorCreateAuthModeEnum];
+export const CustomConnectorCreateOauthClientModeEnum = {
+    cimd: 'cimd',
+    dcr: 'dcr',
+    manual: 'manual',
+} as const;
+
+export type CustomConnectorCreateOauthClientModeEnum = typeof CustomConnectorCreateOauthClientModeEnum[keyof typeof CustomConnectorCreateOauthClientModeEnum];
+
 export interface CustomConnectorOut {
+    /**
+     * Internal id, as the role grant lists key it.
+     */
+    'id': number;
     'public_id': string;
     'connector_id': string;
     'name': string;
     'url': string;
+    /**
+     * Switched on for, and usable by, the caller.
+     */
     'enabled': boolean;
     'header_names': Array<string>;
+    'owner': CustomConnectorOutOwnerEnum;
+    'auth_mode': CustomConnectorOutAuthModeEnum;
+    /**
+     * The caller has a stored sign-in.
+     */
+    'signed_in': boolean;
+    /**
+     * The caller may use it in chat; false for an organisation MCP an admin manages but is outside the audience of.
+     */
+    'usable': boolean;
+    'can_manage': boolean;
 }
+
+export const CustomConnectorOutOwnerEnum = {
+    personal: 'personal',
+    organization: 'organization',
+} as const;
+
+export type CustomConnectorOutOwnerEnum = typeof CustomConnectorOutOwnerEnum[keyof typeof CustomConnectorOutOwnerEnum];
+export const CustomConnectorOutAuthModeEnum = {
+    none: 'none',
+    oauth: 'oauth',
+    oauth_when_needed: 'oauth_when_needed',
+} as const;
+
+export type CustomConnectorOutAuthModeEnum = typeof CustomConnectorOutAuthModeEnum[keyof typeof CustomConnectorOutAuthModeEnum];
+
 export interface CustomConnectorUpdate {
     'name'?: string | null;
     'enabled'?: boolean | null;
@@ -1550,6 +1629,36 @@ export interface DateWindowRequest {
      */
     'date_end': string;
 }
+export interface DetectIn {
+    'url': string;
+    'headers'?: { [key: string]: string; };
+}
+/**
+ * What the add dialog pre-selects: the auth the server asks for and the client registrations it accepts.
+ */
+export interface DetectOut {
+    'auth_mode': DetectOutAuthModeEnum;
+    'oauth_client_mode': DetectOutOauthClientModeEnum | null;
+    'supports_cimd'?: boolean;
+    'supports_dcr'?: boolean;
+    'message'?: string | null;
+}
+
+export const DetectOutAuthModeEnum = {
+    none: 'none',
+    oauth: 'oauth',
+    oauth_when_needed: 'oauth_when_needed',
+} as const;
+
+export type DetectOutAuthModeEnum = typeof DetectOutAuthModeEnum[keyof typeof DetectOutAuthModeEnum];
+export const DetectOutOauthClientModeEnum = {
+    cimd: 'cimd',
+    dcr: 'dcr',
+    manual: 'manual',
+} as const;
+
+export type DetectOutOauthClientModeEnum = typeof DetectOutOauthClientModeEnum[keyof typeof DetectOutOauthClientModeEnum];
+
 export interface DirectFileUrl {
     'url': string | null;
     /**
@@ -1608,6 +1717,10 @@ export interface Document {
     'import_started_at': string | null;
     'import_finished_at': string | null;
     'import_error'?: string | null;
+    /**
+     * When the document last became worth (re)reading: created, content attached or re-imported, import failed, or its content reached COMPLETED/FAILED. Maintained by the documents_bump_changed_at triggers (migration sidecar); drives documents.list windows and its keyset cursor.
+     */
+    'changed_at'?: string;
 }
 export interface DocumentMetrics {
     /**
@@ -1864,6 +1977,20 @@ export const FormFieldTypeEnum = {
 export type FormFieldTypeEnum = typeof FormFieldTypeEnum[keyof typeof FormFieldTypeEnum];
 
 
+export interface GooglePickerTokenOut {
+    /**
+     * Short-lived Google access token limited to `drive.file`.
+     */
+    'access_token': string;
+    /**
+     * Google Picker API key.
+     */
+    'api_key': string;
+    /**
+     * OAuth client\'s Cloud project number.
+     */
+    'app_id': string;
+}
 /**
  * Schema for granting app access to a group
  */
@@ -2280,7 +2407,7 @@ export interface MessageIn {
     'project_id'?: string | null;
     'model'?: string | null;
     'temperature'?: number | null;
-    'reasoning_effort'?: ReasoningEffortEnum | null;
+    'reasoning_effort'?: ReasoningEffortOrAutoEnum | null;
     'similarity_top_k'?: number | null;
     'system_prompt'?: string | null;
     'assistant_id'?: string | null;
@@ -2380,6 +2507,25 @@ export interface ModelDelta {
      */
     'delta': number;
 }
+export interface ModelList {
+    'object'?: string;
+    'data': Array<ModelObject>;
+}
+export interface ModelObject {
+    /**
+     * Model id to send as `model`.
+     */
+    'id': string;
+    'object'?: string;
+    /**
+     * Unix time the model was added to the Hub.
+     */
+    'created': number;
+    /**
+     * Model provider.
+     */
+    'owned_by': string;
+}
 /**
  * Capability class of a chat model, as an ordered scale.  Routing rules never name a tier directly; they raise a *minimum* tier and the router takes the cheapest model at or above it. The order itself lives in ``neuland.llm.routing.TIER_ORDER``, because \"which tier outranks which\" is a routing concept rather than a property of the model.
  */
@@ -2474,6 +2620,7 @@ export const OAuth2ProviderEnum = {
     abas: 'abas',
     google: 'google',
     dropbox: 'dropbox',
+    topdesk: 'topdesk',
 } as const;
 
 export type OAuth2ProviderEnum = typeof OAuth2ProviderEnum[keyof typeof OAuth2ProviderEnum];
@@ -2795,6 +2942,23 @@ export const ReasoningEffortEnum = {
 export type ReasoningEffortEnum = typeof ReasoningEffortEnum[keyof typeof ReasoningEffortEnum];
 
 
+/**
+ * How much reasoning a model should spend, forwarded as `reasoning_effort`.
+ */
+
+export const ReasoningEffortOrAutoEnum = {
+    low: 'low',
+    medium: 'medium',
+    high: 'high',
+    auto: 'auto',
+} as const;
+
+export type ReasoningEffortOrAutoEnum = typeof ReasoningEffortOrAutoEnum[keyof typeof ReasoningEffortOrAutoEnum];
+
+
+export interface RelinkSsoIn {
+    'orphan_user_id': string;
+}
 
 export const RephraseStyleEnum = {
     same: 'same',
@@ -2880,6 +3044,10 @@ export interface Role {
      * Whether the role grants every connector the tenant enables.
      */
     'all_connectors'?: boolean;
+    /**
+     * Whether the role grants every organisation custom MCP. Off by default: each MCP says who it is for (`all_users`, roles, grants).
+     */
+    'all_custom_connectors'?: boolean;
     'creator_user_id'?: number | null;
     'updater_user_id'?: number | null;
 }
@@ -2909,9 +3077,44 @@ export interface RoleIn {
      * Whether the role grants every connector the tenant enables.
      */
     'all_connectors'?: boolean;
+    /**
+     * Whether the role grants every organisation custom MCP.
+     */
+    'all_custom_connectors'?: boolean;
     'models'?: Array<string> | null;
     'tools'?: Array<string> | null;
     'connectors'?: Array<string> | null;
+    'custom_connectors'?: Array<string> | null;
+}
+/**
+ * Move every holder of a role to another role.
+ */
+export interface RoleReassignIn {
+    /**
+     * Public id of the role to move the holders to.
+     */
+    'role_id': string;
+    /**
+     * Public ids of users to leave on the source role.
+     */
+    'exclude_user_ids'?: Array<string>;
+}
+/**
+ * Result of moving every holder of a role to another role.
+ */
+export interface RoleReassignOut {
+    /**
+     * Number of users directly holding the source role.
+     */
+    'holder_count': number;
+    /**
+     * Number of users moved to the target role.
+     */
+    'moved_count': number;
+    /**
+     * Number of holders left on the source role: the caller and the excluded users.
+     */
+    'skipped_count': number;
 }
 export interface RoleUpdateIn {
     'name'?: string | null;
@@ -2920,9 +3123,11 @@ export interface RoleUpdateIn {
     'all_models'?: boolean | null;
     'all_tools'?: boolean | null;
     'all_connectors'?: boolean | null;
+    'all_custom_connectors'?: boolean | null;
     'models'?: Array<string> | null;
     'tools'?: Array<string> | null;
     'connectors'?: Array<string> | null;
+    'custom_connectors'?: Array<string> | null;
 }
 export interface RunCreateOut {
     'run_id': string;
@@ -3000,6 +3205,7 @@ export interface Settings {
      */
     'guardrails_enabled'?: boolean;
     'sharepoint_enabled': boolean | null;
+    'sharepoint_allowed_sites'?: Array<string> | null;
     'inbound_guardrail'?: string | null;
     'outbound_guardrail'?: string | null;
     'system_prompt'?: string | null;
@@ -3031,11 +3237,16 @@ export interface Settings {
      * When user-level analytics is on, whether the user dimension carries real user ids (so the UI can show names) or opaque per-request pseudonyms. Off by default (GDPR): pseudonymized. Only takes effect while user_level_analytics_enabled is on.
      */
     'user_analytics_reveal_names'?: boolean;
+    /**
+     * Whether generated images get a visible EU \'AI\' icon stamped into them. Off by default: stamping re-encodes the image, which drops the provider\'s C2PA Content Credentials.
+     */
+    'ai_image_label_enabled'?: boolean;
 }
 export interface SettingsIn {
     'default_llm_catalog_id'?: string | null;
     'guardrails_enabled'?: boolean | null;
     'sharepoint_enabled'?: boolean | null;
+    'sharepoint_allowed_sites'?: Array<string> | null;
     'inbound_guardrail'?: string | null;
     'outbound_guardrail'?: string | null;
     'welcome_email_template_id'?: string | null;
@@ -3050,6 +3261,7 @@ export interface SettingsIn {
     'default_language'?: string | null;
     'user_level_analytics_enabled'?: boolean | null;
     'user_analytics_reveal_names'?: boolean | null;
+    'ai_image_label_enabled'?: boolean | null;
 }
 /**
  * One connected shared mailbox — the stored claim shape AND the API response shape, so a new field is added exactly once.
@@ -3069,6 +3281,7 @@ export interface SharedMailbox {
      */
     'kind'?: SharedMailboxKindEnum;
     'group_id'?: string | null;
+    'principal'?: string | null;
 }
 
 export const SharedMailboxKindEnum = {
@@ -3203,6 +3416,9 @@ export interface SharepointUserModel {
     'surname': string | null;
     'user_principal_name': string | null;
 }
+export interface SignInOut {
+    'authorize_url': string;
+}
 export interface SsoExchangeIn {
     'code': string;
     'state': string;
@@ -3252,6 +3468,18 @@ export interface SubtenantUsageRow {
      * Number of usage records.
      */
     'requests': number;
+    /**
+     * Prompt tokens read from the provider cache.
+     */
+    'cached_prompt_tokens'?: number;
+    /**
+     * Prompt tokens written to the provider cache.
+     */
+    'cache_creation_tokens'?: number;
+    /**
+     * Reasoning tokens, already included in completion_tokens.
+     */
+    'reasoning_tokens'?: number;
     /**
      * Tenant id.
      */
@@ -3533,6 +3761,7 @@ export interface TenantIn {
      */
     'slug': string;
     'domain'?: string | null;
+    'domains'?: Array<string> | null;
     'parent_tenant_id'?: string | null;
     'subtenants_enabled'?: boolean | null;
     'timezone'?: string | null;
@@ -3579,6 +3808,10 @@ export interface TenantLLM {
      */
     'llm_catalog_id': number;
     'auto_routable'?: boolean | null;
+    /**
+     * Whether Claude requests for this tenant ask to cache the prompt.
+     */
+    'prompt_caching'?: boolean;
 }
 export interface TenantModelBulkIn {
     'all'?: boolean | null;
@@ -3586,6 +3819,7 @@ export interface TenantModelBulkIn {
 }
 export interface TenantModelIn {
     'auto_routable'?: boolean | null;
+    'prompt_caching'?: boolean | null;
 }
 export interface TenantOAuthClientIn {
     /**
@@ -3670,6 +3904,10 @@ export interface TenantOut {
      */
     'slug': string;
     'domain'?: string | null;
+    /**
+     * All email/web domains owned by the tenant.
+     */
+    'domains'?: Array<string | null>;
     'parent_tenant_id'?: number | null;
     /**
      * Whether this tenant may create child tenants.
@@ -3733,6 +3971,7 @@ export interface TenantThemeOut {
 export interface TenantUpdateIn {
     'name'?: string | null;
     'domain'?: string | null;
+    'domains'?: Array<string> | null;
     'parent_tenant_id'?: string | null;
     'subtenants_enabled'?: boolean | null;
     'timezone'?: string | null;
@@ -4112,6 +4351,18 @@ export interface UsageMetrics {
      * Number of usage records.
      */
     'requests': number;
+    /**
+     * Prompt tokens read from the provider cache.
+     */
+    'cached_prompt_tokens'?: number;
+    /**
+     * Prompt tokens written to the provider cache.
+     */
+    'cache_creation_tokens'?: number;
+    /**
+     * Reasoning tokens, already included in completion_tokens.
+     */
+    'reasoning_tokens'?: number;
 }
 /**
  * Request for the unified usage aggregation.
@@ -4158,6 +4409,7 @@ export const UsageQueryRequestGroupByEnum = {
     project: 'project',
     user: 'user',
     group: 'group',
+    api_key: 'api_key',
 } as const;
 
 export type UsageQueryRequestGroupByEnum = typeof UsageQueryRequestGroupByEnum[keyof typeof UsageQueryRequestGroupByEnum];
@@ -4241,6 +4493,18 @@ export interface UsageRow {
      */
     'requests': number;
     /**
+     * Prompt tokens read from the provider cache.
+     */
+    'cached_prompt_tokens'?: number;
+    /**
+     * Prompt tokens written to the provider cache.
+     */
+    'cache_creation_tokens'?: number;
+    /**
+     * Reasoning tokens, already included in completion_tokens.
+     */
+    'reasoning_tokens'?: number;
+    /**
      * Dimension values for this group, keyed by dimension name. A null value means the dimension was unattributed for these rows.
      */
     'group': { [key: string]: ResponseAuthGetEntraGroupsValue; };
@@ -4256,6 +4520,7 @@ export interface UserAccessOut {
     'models'?: Array<AccessItemOut>;
     'tools'?: Array<AccessItemOut>;
     'connectors'?: Array<AccessItemOut>;
+    'custom_connectors'?: Array<AccessItemOut>;
 }
 /**
  * The complete set of direct grants a user should hold for one kind.  An item left out is revoked, which returns the user to what their roles grant — never to nothing, because grants only ever add.
@@ -5066,7 +5331,6 @@ export const UserPreferenceOutTimezoneEnum = {
     W_SU: 'W-SU',
     WET: 'WET',
     Zulu: 'Zulu',
-    localtime: 'localtime',
 } as const;
 
 export type UserPreferenceOutTimezoneEnum = typeof UserPreferenceOutTimezoneEnum[keyof typeof UserPreferenceOutTimezoneEnum];
@@ -5676,7 +5940,6 @@ export const UserPreferenceUpdateInTimezoneEnum = {
     W_SU: 'W-SU',
     WET: 'WET',
     Zulu: 'Zulu',
-    localtime: 'localtime',
 } as const;
 
 export type UserPreferenceUpdateInTimezoneEnum = typeof UserPreferenceUpdateInTimezoneEnum[keyof typeof UserPreferenceUpdateInTimezoneEnum];
@@ -5785,8 +6048,8 @@ export interface WorkflowIn {
     'is_enabled'?: boolean;
 }
 export interface WorkflowUpdateIn {
-    'name'?: string | null;
     'description'?: string | null;
+    'name'?: string;
     'spec'?: { [key: string]: any; };
     'is_enabled'?: boolean;
     'timezone'?: string;
@@ -7800,7 +8063,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          * Enables a library for a assistant by creating a new association
-         * @summary Add a library to an assistant
+         * @summary Add a library to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} libraryId Public id of the library to enable.
          * @param {string | null} [cookieName] 
@@ -7850,7 +8113,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn\'t exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
-         * @summary Add members to an assistant
+         * @summary Add members to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantMembersIn} assistantMembersIn 
          * @param {string | null} [cookieName] 
@@ -7901,7 +8164,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Attach a tag to an assistant.
-         * @summary Add a tag to an assistant
+         * @summary Add a tag to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} tagId 
          * @param {string | null} [cookieName] 
@@ -7951,7 +8214,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Enable a tenant tool for the assistant.
-         * @summary Add a tool to an assistant
+         * @summary Add a tool to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} toolId Public id of the tool to enable.
          * @param {string | null} [cookieName] 
@@ -8001,7 +8264,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
-         * @summary Make an assistant consultable from your own chats
+         * @summary Make an assistant (agent) consultable from your own chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8047,7 +8310,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Create an assistant from a JSON payload.
-         * @summary Create an assistant
+         * @summary Create an assistant (agent)
          * @param {AssistantIn} assistantIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8094,7 +8357,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Delete an assistant and orphan its associated chats.
-         * @summary Delete an assistant
+         * @summary Delete an assistant (agent)
          * @param {string} assistantId Public id of the assistant to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8140,7 +8403,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Remove one or more users from the assistant\'s membership.
-         * @summary Remove members from an assistant
+         * @summary Remove members from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantMembersIn} assistantMembersIn 
          * @param {string | null} [cookieName] 
@@ -8191,7 +8454,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * self-add to a tenant-shared community assistant.
-         * @summary Join a community assistant
+         * @summary Join a community assistant (agent)
          * @param {string} assistantId Public id of the assistant to join.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8237,7 +8500,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * user can leave the assistant by themselves.
-         * @summary Leave an assistant
+         * @summary Leave an assistant (agent)
          * @param {string} assistantId Public id of the assistant to leave.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8283,7 +8546,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
-         * @summary Stop the assistant being consultable from your chats
+         * @summary Stop the assistant (agent) being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8329,7 +8592,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Disables a library from an assistant by removing the association
-         * @summary Remove a library from an assistant
+         * @summary Remove a library from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} libraryId Public id of the library to disable.
          * @param {string | null} [cookieName] 
@@ -8379,7 +8642,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Remove a specific user from the assistant\'s membership.
-         * @summary Remove a single member
+         * @summary Remove a single member from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} userId Public id of the member to remove.
          * @param {string | null} [cookieName] 
@@ -8429,7 +8692,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Detach a tag from an assistant.
-         * @summary Remove a tag from an assistant
+         * @summary Remove a tag from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} tagId 
          * @param {string | null} [cookieName] 
@@ -8479,7 +8742,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Disable a tool for the assistant by removing the association.
-         * @summary Remove a tool from an assistant
+         * @summary Remove a tool from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} toolId Public id of the tool to disable.
          * @param {string | null} [cookieName] 
@@ -8529,7 +8792,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
-         * @summary Restore an assistant version
+         * @summary Restore an assistant (agent) version
          * @param {string} assistantId Public id of the assistant to restore.
          * @param {number} version Version number to restore.
          * @param {string | null} [cookieName] 
@@ -8579,7 +8842,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Create an assistant via multipart form, with optional knowledge-file uploads.
-         * @summary Create an assistant with attachments
+         * @summary Create an assistant (agent) with attachments
          * @param {string} name 
          * @param {string | null} [cookieName] 
          * @param {string | null} [model] 
@@ -8693,7 +8956,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Update an assistant\'s configuration.
-         * @summary Update an assistant
+         * @summary Update an assistant (agent)
          * @param {string} assistantId Public id of the assistant to update.
          * @param {AssistantIn} assistantIn 
          * @param {string | null} [cookieName] 
@@ -8744,7 +9007,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * Grant or update assistant access for user groups (replaces the current set).
-         * @summary Set assistant group access
+         * @summary Set assistant (agent) group access
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantGroupsIn} assistantGroupsIn 
          * @param {string | null} [cookieName] 
@@ -8795,7 +9058,7 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
-         * @summary Set assistant visibility
+         * @summary Set assistant (agent) visibility
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantVisibilityUpdate} assistantVisibilityUpdate 
          * @param {string | null} [cookieName] 
@@ -8855,7 +9118,7 @@ export const AssistantFp = function(configuration?: Configuration) {
     return {
         /**
          * Enables a library for a assistant by creating a new association
-         * @summary Add a library to an assistant
+         * @summary Add a library to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} libraryId Public id of the library to enable.
          * @param {string | null} [cookieName] 
@@ -8870,7 +9133,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn\'t exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
-         * @summary Add members to an assistant
+         * @summary Add members to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantMembersIn} assistantMembersIn 
          * @param {string | null} [cookieName] 
@@ -8885,7 +9148,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Attach a tag to an assistant.
-         * @summary Add a tag to an assistant
+         * @summary Add a tag to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} tagId 
          * @param {string | null} [cookieName] 
@@ -8900,7 +9163,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Enable a tenant tool for the assistant.
-         * @summary Add a tool to an assistant
+         * @summary Add a tool to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} toolId Public id of the tool to enable.
          * @param {string | null} [cookieName] 
@@ -8915,7 +9178,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
-         * @summary Make an assistant consultable from your own chats
+         * @summary Make an assistant (agent) consultable from your own chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8929,7 +9192,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Create an assistant from a JSON payload.
-         * @summary Create an assistant
+         * @summary Create an assistant (agent)
          * @param {AssistantIn} assistantIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8943,7 +9206,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Delete an assistant and orphan its associated chats.
-         * @summary Delete an assistant
+         * @summary Delete an assistant (agent)
          * @param {string} assistantId Public id of the assistant to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8957,7 +9220,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Remove one or more users from the assistant\'s membership.
-         * @summary Remove members from an assistant
+         * @summary Remove members from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantMembersIn} assistantMembersIn 
          * @param {string | null} [cookieName] 
@@ -8972,7 +9235,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * self-add to a tenant-shared community assistant.
-         * @summary Join a community assistant
+         * @summary Join a community assistant (agent)
          * @param {string} assistantId Public id of the assistant to join.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -8986,7 +9249,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * user can leave the assistant by themselves.
-         * @summary Leave an assistant
+         * @summary Leave an assistant (agent)
          * @param {string} assistantId Public id of the assistant to leave.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9000,7 +9263,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
-         * @summary Stop the assistant being consultable from your chats
+         * @summary Stop the assistant (agent) being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9014,7 +9277,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Disables a library from an assistant by removing the association
-         * @summary Remove a library from an assistant
+         * @summary Remove a library from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} libraryId Public id of the library to disable.
          * @param {string | null} [cookieName] 
@@ -9029,7 +9292,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Remove a specific user from the assistant\'s membership.
-         * @summary Remove a single member
+         * @summary Remove a single member from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} userId Public id of the member to remove.
          * @param {string | null} [cookieName] 
@@ -9044,7 +9307,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Detach a tag from an assistant.
-         * @summary Remove a tag from an assistant
+         * @summary Remove a tag from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} tagId 
          * @param {string | null} [cookieName] 
@@ -9059,7 +9322,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Disable a tool for the assistant by removing the association.
-         * @summary Remove a tool from an assistant
+         * @summary Remove a tool from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} toolId Public id of the tool to disable.
          * @param {string | null} [cookieName] 
@@ -9074,7 +9337,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
-         * @summary Restore an assistant version
+         * @summary Restore an assistant (agent) version
          * @param {string} assistantId Public id of the assistant to restore.
          * @param {number} version Version number to restore.
          * @param {string | null} [cookieName] 
@@ -9089,7 +9352,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Create an assistant via multipart form, with optional knowledge-file uploads.
-         * @summary Create an assistant with attachments
+         * @summary Create an assistant (agent) with attachments
          * @param {string} name 
          * @param {string | null} [cookieName] 
          * @param {string | null} [model] 
@@ -9115,7 +9378,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Update an assistant\'s configuration.
-         * @summary Update an assistant
+         * @summary Update an assistant (agent)
          * @param {string} assistantId Public id of the assistant to update.
          * @param {AssistantIn} assistantIn 
          * @param {string | null} [cookieName] 
@@ -9130,7 +9393,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * Grant or update assistant access for user groups (replaces the current set).
-         * @summary Set assistant group access
+         * @summary Set assistant (agent) group access
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantGroupsIn} assistantGroupsIn 
          * @param {string | null} [cookieName] 
@@ -9145,7 +9408,7 @@ export const AssistantFp = function(configuration?: Configuration) {
         },
         /**
          * creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
-         * @summary Set assistant visibility
+         * @summary Set assistant (agent) visibility
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantVisibilityUpdate} assistantVisibilityUpdate 
          * @param {string | null} [cookieName] 
@@ -9169,7 +9432,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
     return {
         /**
          * Enables a library for a assistant by creating a new association
-         * @summary Add a library to an assistant
+         * @summary Add a library to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} libraryId Public id of the library to enable.
          * @param {string | null} [cookieName] 
@@ -9181,7 +9444,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn\'t exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
-         * @summary Add members to an assistant
+         * @summary Add members to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantMembersIn} assistantMembersIn 
          * @param {string | null} [cookieName] 
@@ -9193,7 +9456,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Attach a tag to an assistant.
-         * @summary Add a tag to an assistant
+         * @summary Add a tag to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} tagId 
          * @param {string | null} [cookieName] 
@@ -9205,7 +9468,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Enable a tenant tool for the assistant.
-         * @summary Add a tool to an assistant
+         * @summary Add a tool to an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} toolId Public id of the tool to enable.
          * @param {string | null} [cookieName] 
@@ -9217,7 +9480,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
-         * @summary Make an assistant consultable from your own chats
+         * @summary Make an assistant (agent) consultable from your own chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9228,7 +9491,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Create an assistant from a JSON payload.
-         * @summary Create an assistant
+         * @summary Create an assistant (agent)
          * @param {AssistantIn} assistantIn 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9239,7 +9502,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Delete an assistant and orphan its associated chats.
-         * @summary Delete an assistant
+         * @summary Delete an assistant (agent)
          * @param {string} assistantId Public id of the assistant to delete.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9250,7 +9513,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Remove one or more users from the assistant\'s membership.
-         * @summary Remove members from an assistant
+         * @summary Remove members from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantMembersIn} assistantMembersIn 
          * @param {string | null} [cookieName] 
@@ -9262,7 +9525,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * self-add to a tenant-shared community assistant.
-         * @summary Join a community assistant
+         * @summary Join a community assistant (agent)
          * @param {string} assistantId Public id of the assistant to join.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9273,7 +9536,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * user can leave the assistant by themselves.
-         * @summary Leave an assistant
+         * @summary Leave an assistant (agent)
          * @param {string} assistantId Public id of the assistant to leave.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9284,7 +9547,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
-         * @summary Stop the assistant being consultable from your chats
+         * @summary Stop the assistant (agent) being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -9295,7 +9558,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Disables a library from an assistant by removing the association
-         * @summary Remove a library from an assistant
+         * @summary Remove a library from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} libraryId Public id of the library to disable.
          * @param {string | null} [cookieName] 
@@ -9307,7 +9570,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Remove a specific user from the assistant\'s membership.
-         * @summary Remove a single member
+         * @summary Remove a single member from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} userId Public id of the member to remove.
          * @param {string | null} [cookieName] 
@@ -9319,7 +9582,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Detach a tag from an assistant.
-         * @summary Remove a tag from an assistant
+         * @summary Remove a tag from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} tagId 
          * @param {string | null} [cookieName] 
@@ -9331,7 +9594,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Disable a tool for the assistant by removing the association.
-         * @summary Remove a tool from an assistant
+         * @summary Remove a tool from an assistant (agent)
          * @param {string} assistantId Public id of the assistant.
          * @param {string} toolId Public id of the tool to disable.
          * @param {string | null} [cookieName] 
@@ -9343,7 +9606,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
-         * @summary Restore an assistant version
+         * @summary Restore an assistant (agent) version
          * @param {string} assistantId Public id of the assistant to restore.
          * @param {number} version Version number to restore.
          * @param {string | null} [cookieName] 
@@ -9355,7 +9618,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Create an assistant via multipart form, with optional knowledge-file uploads.
-         * @summary Create an assistant with attachments
+         * @summary Create an assistant (agent) with attachments
          * @param {string} name 
          * @param {string | null} [cookieName] 
          * @param {string | null} [model] 
@@ -9378,7 +9641,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Update an assistant\'s configuration.
-         * @summary Update an assistant
+         * @summary Update an assistant (agent)
          * @param {string} assistantId Public id of the assistant to update.
          * @param {AssistantIn} assistantIn 
          * @param {string | null} [cookieName] 
@@ -9390,7 +9653,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * Grant or update assistant access for user groups (replaces the current set).
-         * @summary Set assistant group access
+         * @summary Set assistant (agent) group access
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantGroupsIn} assistantGroupsIn 
          * @param {string | null} [cookieName] 
@@ -9402,7 +9665,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
         },
         /**
          * creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
-         * @summary Set assistant visibility
+         * @summary Set assistant (agent) visibility
          * @param {string} assistantId Public id of the assistant.
          * @param {AssistantVisibilityUpdate} assistantVisibilityUpdate 
          * @param {string | null} [cookieName] 
@@ -9421,7 +9684,7 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
 export class Assistant extends BaseAPI {
     /**
      * Enables a library for a assistant by creating a new association
-     * @summary Add a library to an assistant
+     * @summary Add a library to an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {string} libraryId Public id of the library to enable.
      * @param {string | null} [cookieName] 
@@ -9434,7 +9697,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Idempotent on re-add. A pre-existing DISCOVERED (self-joined) row is promoted to INVITED so it survives a later TENANT->PRIVATE downgrade.  Race-safe via ON CONFLICT DO UPDATE. ASSISTANT_MEMBER_ADDED fires only for rows that didn\'t exist before this call — promoting a self-joiner from DISCOVERED to INVITED is a bookkeeping change, not a new grant.
-     * @summary Add members to an assistant
+     * @summary Add members to an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {AssistantMembersIn} assistantMembersIn 
      * @param {string | null} [cookieName] 
@@ -9447,7 +9710,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Attach a tag to an assistant.
-     * @summary Add a tag to an assistant
+     * @summary Add a tag to an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {string} tagId 
      * @param {string | null} [cookieName] 
@@ -9460,7 +9723,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Enable a tenant tool for the assistant.
-     * @summary Add a tool to an assistant
+     * @summary Add a tool to an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {string} toolId Public id of the tool to enable.
      * @param {string | null} [cookieName] 
@@ -9473,7 +9736,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Make the assistant consultable in every chat of the calling user.  Anyone the assistant is shared with may convert it, creator or not, a marketplace-installed copy included: the flag is set on the caller\'s own row, so it changes nothing for the other users it is shared with, and a catalog-sourced row is never itself written.  Pure flag flip: `is_tool` alone makes the assistant consultable via the `consult_assistant` meta-tool (see `neuland.llm.tools.builtins.consult_assistant`, which also derives the handle). Nothing is written to the global `tools` registry — per-user rows do not belong in a platform table. Form-input assistants convert too: consulting one takes the form\'s values as tool arguments and renders the instruction template server-side.
-     * @summary Make an assistant consultable from your own chats
+     * @summary Make an assistant (agent) consultable from your own chats
      * @param {string} assistantId Public id of the assistant.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -9485,7 +9748,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Create an assistant from a JSON payload.
-     * @summary Create an assistant
+     * @summary Create an assistant (agent)
      * @param {AssistantIn} assistantIn 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -9497,7 +9760,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Delete an assistant and orphan its associated chats.
-     * @summary Delete an assistant
+     * @summary Delete an assistant (agent)
      * @param {string} assistantId Public id of the assistant to delete.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -9509,7 +9772,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Remove one or more users from the assistant\'s membership.
-     * @summary Remove members from an assistant
+     * @summary Remove members from an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {AssistantMembersIn} assistantMembersIn 
      * @param {string | null} [cookieName] 
@@ -9522,7 +9785,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * self-add to a tenant-shared community assistant.
-     * @summary Join a community assistant
+     * @summary Join a community assistant (agent)
      * @param {string} assistantId Public id of the assistant to join.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -9534,7 +9797,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * user can leave the assistant by themselves.
-     * @summary Leave an assistant
+     * @summary Leave an assistant (agent)
      * @param {string} assistantId Public id of the assistant to leave.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -9546,7 +9809,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
-     * @summary Stop the assistant being consultable from your chats
+     * @summary Stop the assistant (agent) being consultable from your chats
      * @param {string} assistantId Public id of the assistant.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -9558,7 +9821,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Disables a library from an assistant by removing the association
-     * @summary Remove a library from an assistant
+     * @summary Remove a library from an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {string} libraryId Public id of the library to disable.
      * @param {string | null} [cookieName] 
@@ -9571,7 +9834,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Remove a specific user from the assistant\'s membership.
-     * @summary Remove a single member
+     * @summary Remove a single member from an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {string} userId Public id of the member to remove.
      * @param {string | null} [cookieName] 
@@ -9584,7 +9847,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Detach a tag from an assistant.
-     * @summary Remove a tag from an assistant
+     * @summary Remove a tag from an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {string} tagId 
      * @param {string | null} [cookieName] 
@@ -9597,7 +9860,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Disable a tool for the assistant by removing the association.
-     * @summary Remove a tool from an assistant
+     * @summary Remove a tool from an assistant (agent)
      * @param {string} assistantId Public id of the assistant.
      * @param {string} toolId Public id of the tool to disable.
      * @param {string | null} [cookieName] 
@@ -9610,7 +9873,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Copy a version snapshot onto the live assistant and append a new version.  Restoring a version identical to the live config is a no-op: nothing is written and no version is appended, mirroring update semantics.
-     * @summary Restore an assistant version
+     * @summary Restore an assistant (agent) version
      * @param {string} assistantId Public id of the assistant to restore.
      * @param {number} version Version number to restore.
      * @param {string | null} [cookieName] 
@@ -9623,7 +9886,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Create an assistant via multipart form, with optional knowledge-file uploads.
-     * @summary Create an assistant with attachments
+     * @summary Create an assistant (agent) with attachments
      * @param {string} name 
      * @param {string | null} [cookieName] 
      * @param {string | null} [model] 
@@ -9647,7 +9910,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Update an assistant\'s configuration.
-     * @summary Update an assistant
+     * @summary Update an assistant (agent)
      * @param {string} assistantId Public id of the assistant to update.
      * @param {AssistantIn} assistantIn 
      * @param {string | null} [cookieName] 
@@ -9660,7 +9923,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * Grant or update assistant access for user groups (replaces the current set).
-     * @summary Set assistant group access
+     * @summary Set assistant (agent) group access
      * @param {string} assistantId Public id of the assistant.
      * @param {AssistantGroupsIn} assistantGroupsIn 
      * @param {string | null} [cookieName] 
@@ -9673,7 +9936,7 @@ export class Assistant extends BaseAPI {
 
     /**
      * creator-only visibility toggle. on TENANT -> PRIVATE, revokes marketplace-added members.
-     * @summary Set assistant visibility
+     * @summary Set assistant (agent) visibility
      * @param {string} assistantId Public id of the assistant.
      * @param {AssistantVisibilityUpdate} assistantVisibilityUpdate 
      * @param {string | null} [cookieName] 
@@ -10876,6 +11139,9 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
             // authentication OAuth2PasswordBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
@@ -11390,7 +11656,7 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
-         * Pre-login step: resolve a tenant from the email\'s domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+         * Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email\'s domain for unknown emails, and return the routing slug and SSO providers.
          * @summary Resolve SSO providers for an email
          * @param {string} email Work email whose domain identifies the tenant.
          * @param {*} [options] Override http request option.
@@ -11624,7 +11890,7 @@ export const AuthFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Pre-login step: resolve a tenant from the email\'s domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+         * Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email\'s domain for unknown emails, and return the routing slug and SSO providers.
          * @summary Resolve SSO providers for an email
          * @param {string} email Work email whose domain identifies the tenant.
          * @param {*} [options] Override http request option.
@@ -11795,7 +12061,7 @@ export const AuthFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.authSsoInit(slug, provider, options).then((request) => request(axios, basePath));
         },
         /**
-         * Pre-login step: resolve a tenant from the email\'s domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+         * Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email\'s domain for unknown emails, and return the routing slug and SSO providers.
          * @summary Resolve SSO providers for an email
          * @param {string} email Work email whose domain identifies the tenant.
          * @param {*} [options] Override http request option.
@@ -11974,7 +12240,7 @@ export class Auth extends BaseAPI {
     }
 
     /**
-     * Pre-login step: resolve a tenant from the email\'s domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+     * Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email\'s domain for unknown emails, and return the routing slug and SSO providers.
      * @summary Resolve SSO providers for an email
      * @param {string} email Work email whose domain identifies the tenant.
      * @param {*} [options] Override http request option.
@@ -12005,6 +12271,48 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
             assertParamExists('authGetCredentialTemplate', 'connectorId', connectorId)
             const localVarPath = `/auth/connectors/{connector_id}/credential/template`
                 .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Return a fresh `drive.file`-only access token and the Picker config. The stored access token never leaves the backend.
+         * @summary Get a Google Picker token
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGooglePickerToken: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/connectors/google/picker-token`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -12224,6 +12532,52 @@ export const AuthConnectorAxiosParamCreator = function (configuration?: Configur
 
             if (errorSubcode !== undefined) {
                 localVarQueryParameter['error_subcode'] = errorSubcode;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Remove the tenant-wide (admin) credential. Admin only.
+         * @summary Remove the tenant-wide connector credential
+         * @param {string} connectorId Public id of the connector whose credential is being accessed.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authRemoveAdminCredential: async (connectorId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connectorId' is not null or undefined
+            assertParamExists('authRemoveAdminCredential', 'connectorId', connectorId)
+            const localVarPath = `/auth/connectors/{connector_id}/credential/admin`
+                .replace(`{${"connector_id"}}`, encodeURIComponent(String(connectorId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
             }
 
             localVarHeaderParameter['Accept'] = 'application/json';
@@ -12511,6 +12865,19 @@ export const AuthConnectorFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Return a fresh `drive.file`-only access token and the Picker config. The stored access token never leaves the backend.
+         * @summary Get a Google Picker token
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authGooglePickerToken(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GooglePickerTokenOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authGooglePickerToken(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authGooglePickerToken']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Start the admin consent flow for connectors that require organization-wide admin consent.
          * @summary Initiate admin connector consent
          * @param {string} connectorId Public id of the connector to consent to.
@@ -12568,6 +12935,20 @@ export const AuthConnectorFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authOauthCallback(state, code, error, errorDescription, errorSubcode, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthConnector.authOauthCallback']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Remove the tenant-wide (admin) credential. Admin only.
+         * @summary Remove the tenant-wide connector credential
+         * @param {string} connectorId Public id of the connector whose credential is being accessed.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authRemoveAdminCredential(connectorId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authRemoveAdminCredential(connectorId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthConnector.authRemoveAdminCredential']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -12665,6 +13046,16 @@ export const AuthConnectorFactory = function (configuration?: Configuration, bas
             return localVarFp.authGetCredentialTemplate(connectorId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
+         * Return a fresh `drive.file`-only access token and the Picker config. The stored access token never leaves the backend.
+         * @summary Get a Google Picker token
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGooglePickerToken(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<GooglePickerTokenOut> {
+            return localVarFp.authGooglePickerToken(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Start the admin consent flow for connectors that require organization-wide admin consent.
          * @summary Initiate admin connector consent
          * @param {string} connectorId Public id of the connector to consent to.
@@ -12711,6 +13102,17 @@ export const AuthConnectorFactory = function (configuration?: Configuration, bas
          */
         authOauthCallback(state?: string | null, code?: string | null, error?: string | null, errorDescription?: string | null, errorSubcode?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<any> {
             return localVarFp.authOauthCallback(state, code, error, errorDescription, errorSubcode, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Remove the tenant-wide (admin) credential. Admin only.
+         * @summary Remove the tenant-wide connector credential
+         * @param {string} connectorId Public id of the connector whose credential is being accessed.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authRemoveAdminCredential(connectorId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.authRemoveAdminCredential(connectorId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
          * Disconnect a connector for the caller: revoke OAuth consent for OAuth connectors, or clear the caller\'s own credential for non-OAuth ones.
@@ -12791,6 +13193,17 @@ export class AuthConnector extends BaseAPI {
     }
 
     /**
+     * Return a fresh `drive.file`-only access token and the Picker config. The stored access token never leaves the backend.
+     * @summary Get a Google Picker token
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authGooglePickerToken(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authGooglePickerToken(cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Start the admin consent flow for connectors that require organization-wide admin consent.
      * @summary Initiate admin connector consent
      * @param {string} connectorId Public id of the connector to consent to.
@@ -12840,6 +13253,18 @@ export class AuthConnector extends BaseAPI {
      */
     public authOauthCallback(state?: string | null, code?: string | null, error?: string | null, errorDescription?: string | null, errorSubcode?: string | null, options?: RawAxiosRequestConfig) {
         return AuthConnectorFp(this.configuration).authOauthCallback(state, code, error, errorDescription, errorSubcode, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Remove the tenant-wide (admin) credential. Admin only.
+     * @summary Remove the tenant-wide connector credential
+     * @param {string} connectorId Public id of the connector whose credential is being accessed.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authRemoveAdminCredential(connectorId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthConnectorFp(this.configuration).authRemoveAdminCredential(connectorId, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13868,8 +14293,8 @@ export class Chat extends BaseAPI {
 export const CustomConnectorAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid.
-         * @summary Add one or more custom connectors
+         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid. An OAuth server is checked for sign-in metadata and its client is set up here, once for all its users.
+         * @summary Add one or more custom MCPs
          * @param {CustomConnectorCreate} customConnectorCreate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -13915,9 +14340,39 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * 
-         * @summary Delete a custom connector
-         * @param {string} publicId Public id of the connector.
+         * Authorization servers that accept URL client ids fetch this to learn the Hub\'s name and redirect URI. Public by design: it holds no secret.
+         * @summary The Hub\'s OAuth client metadata document (CIMD)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsCustomConnectorClientMetadata: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/custom-connectors/oauth/client-metadata.json`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deletes every user\'s sign-in with it (cascade).
+         * @summary Delete a custom MCP
+         * @param {string} publicId Public id of the MCP.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -13961,8 +14416,117 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
+         * Connect once without signing in. A server that lists its tools needs no sign-in; one that answers 401 is checked for OAuth metadata.
+         * @summary Detect how an MCP server wants to be signed in to
+         * @param {DetectIn} detectIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsDetectCustomConnector: async (detectIn: DetectIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'detectIn' is not null or undefined
+            assertParamExists('customconnectorsDetectCustomConnector', 'detectIn', detectIn)
+            const localVarPath = `/custom-connectors/detect`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(detectIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Called by the Hub\'s callback page with the query the authorization server redirected the browser to. The state must have been issued to this same user.
+         * @summary Finish signing in to a custom MCP
+         * @param {string | null} [state] 
+         * @param {string | null} [code] 
+         * @param {string | null} [error] 
+         * @param {string | null} [errorDescription] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsFinishCustomConnectorSignIn: async (state?: string | null, code?: string | null, error?: string | null, errorDescription?: string | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/custom-connectors/oauth/callback`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (state !== undefined) {
+                localVarQueryParameter['state'] = state;
+            }
+
+            if (code !== undefined) {
+                localVarQueryParameter['code'] = code;
+            }
+
+            if (error !== undefined) {
+                localVarQueryParameter['error'] = error;
+            }
+
+            if (errorDescription !== undefined) {
+                localVarQueryParameter['error_description'] = errorDescription;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
-         * @summary List my custom connectors
+         * @summary List the custom MCPs I can use or manage
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -14003,9 +14567,101 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * URL and headers are not editable: re-add, so a changed endpoint is always re-validated.
-         * @summary Rename or enable/disable a custom connector
-         * @param {string} publicId Public id of the connector.
+         * Forget the caller\'s tokens. The server\'s own session is not revoked.
+         * @summary Sign out of a custom MCP
+         * @param {string} publicId Public id of the MCP.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsSignOutOfCustomConnector: async (publicId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'publicId' is not null or undefined
+            assertParamExists('customconnectorsSignOutOfCustomConnector', 'publicId', publicId)
+            const localVarPath = `/custom-connectors/{public_id}/oauth`
+                .replace(`{${"public_id"}}`, encodeURIComponent(String(publicId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * The authorization URL to send the browser to. The single-use `state` binds the callback to this user and this MCP.
+         * @summary Start signing in to a custom MCP
+         * @param {string} publicId Public id of the MCP.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsStartCustomConnectorSignIn: async (publicId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'publicId' is not null or undefined
+            assertParamExists('customconnectorsStartCustomConnectorSignIn', 'publicId', publicId)
+            const localVarPath = `/custom-connectors/{public_id}/oauth/start`
+                .replace(`{${"public_id"}}`, encodeURIComponent(String(publicId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * `enabled` on an organisation MCP is the caller\'s own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
+         * @summary Rename or switch a custom MCP
+         * @param {string} publicId Public id of the MCP.
          * @param {CustomConnectorUpdate} customConnectorUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -14063,8 +14719,8 @@ export const CustomConnectorFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = CustomConnectorAxiosParamCreator(configuration)
     return {
         /**
-         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid.
-         * @summary Add one or more custom connectors
+         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid. An OAuth server is checked for sign-in metadata and its client is set up here, once for all its users.
+         * @summary Add one or more custom MCPs
          * @param {CustomConnectorCreate} customConnectorCreate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -14077,9 +14733,21 @@ export const CustomConnectorFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
-         * @summary Delete a custom connector
-         * @param {string} publicId Public id of the connector.
+         * Authorization servers that accept URL client ids fetch this to learn the Hub\'s name and redirect URI. Public by design: it holds no secret.
+         * @summary The Hub\'s OAuth client metadata document (CIMD)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsCustomConnectorClientMetadata(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsCustomConnectorClientMetadata(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsCustomConnectorClientMetadata']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Deletes every user\'s sign-in with it (cascade).
+         * @summary Delete a custom MCP
+         * @param {string} publicId Public id of the MCP.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -14091,8 +14759,39 @@ export const CustomConnectorFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Connect once without signing in. A server that lists its tools needs no sign-in; one that answers 401 is checked for OAuth metadata.
+         * @summary Detect how an MCP server wants to be signed in to
+         * @param {DetectIn} detectIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsDetectCustomConnector(detectIn: DetectIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DetectOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsDetectCustomConnector(detectIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsDetectCustomConnector']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Called by the Hub\'s callback page with the query the authorization server redirected the browser to. The state must have been issued to this same user.
+         * @summary Finish signing in to a custom MCP
+         * @param {string | null} [state] 
+         * @param {string | null} [code] 
+         * @param {string | null} [error] 
+         * @param {string | null} [errorDescription] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsFinishCustomConnectorSignIn(state?: string | null, code?: string | null, error?: string | null, errorDescription?: string | null, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CallbackOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsFinishCustomConnectorSignIn(state, code, error, errorDescription, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsFinishCustomConnectorSignIn']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * 
-         * @summary List my custom connectors
+         * @summary List the custom MCPs I can use or manage
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -14104,9 +14803,37 @@ export const CustomConnectorFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * URL and headers are not editable: re-add, so a changed endpoint is always re-validated.
-         * @summary Rename or enable/disable a custom connector
-         * @param {string} publicId Public id of the connector.
+         * Forget the caller\'s tokens. The server\'s own session is not revoked.
+         * @summary Sign out of a custom MCP
+         * @param {string} publicId Public id of the MCP.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsSignOutOfCustomConnector(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsSignOutOfCustomConnector(publicId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsSignOutOfCustomConnector']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * The authorization URL to send the browser to. The single-use `state` binds the callback to this user and this MCP.
+         * @summary Start signing in to a custom MCP
+         * @param {string} publicId Public id of the MCP.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async customconnectorsStartCustomConnectorSignIn(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SignInOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.customconnectorsStartCustomConnectorSignIn(publicId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CustomConnector.customconnectorsStartCustomConnectorSignIn']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * `enabled` on an organisation MCP is the caller\'s own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
+         * @summary Rename or switch a custom MCP
+         * @param {string} publicId Public id of the MCP.
          * @param {CustomConnectorUpdate} customConnectorUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -14128,8 +14855,8 @@ export const CustomConnectorFactory = function (configuration?: Configuration, b
     const localVarFp = CustomConnectorFp(configuration)
     return {
         /**
-         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid.
-         * @summary Add one or more custom connectors
+         * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid. An OAuth server is checked for sign-in metadata and its client is set up here, once for all its users.
+         * @summary Add one or more custom MCPs
          * @param {CustomConnectorCreate} customConnectorCreate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -14139,9 +14866,18 @@ export const CustomConnectorFactory = function (configuration?: Configuration, b
             return localVarFp.customconnectorsCreateCustomConnectors(customConnectorCreate, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Delete a custom connector
-         * @param {string} publicId Public id of the connector.
+         * Authorization servers that accept URL client ids fetch this to learn the Hub\'s name and redirect URI. Public by design: it holds no secret.
+         * @summary The Hub\'s OAuth client metadata document (CIMD)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsCustomConnectorClientMetadata(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.customconnectorsCustomConnectorClientMetadata(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes every user\'s sign-in with it (cascade).
+         * @summary Delete a custom MCP
+         * @param {string} publicId Public id of the MCP.
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -14150,8 +14886,33 @@ export const CustomConnectorFactory = function (configuration?: Configuration, b
             return localVarFp.customconnectorsDeleteCustomConnector(publicId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
+         * Connect once without signing in. A server that lists its tools needs no sign-in; one that answers 401 is checked for OAuth metadata.
+         * @summary Detect how an MCP server wants to be signed in to
+         * @param {DetectIn} detectIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsDetectCustomConnector(detectIn: DetectIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<DetectOut> {
+            return localVarFp.customconnectorsDetectCustomConnector(detectIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Called by the Hub\'s callback page with the query the authorization server redirected the browser to. The state must have been issued to this same user.
+         * @summary Finish signing in to a custom MCP
+         * @param {string | null} [state] 
+         * @param {string | null} [code] 
+         * @param {string | null} [error] 
+         * @param {string | null} [errorDescription] 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsFinishCustomConnectorSignIn(state?: string | null, code?: string | null, error?: string | null, errorDescription?: string | null, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<CallbackOut> {
+            return localVarFp.customconnectorsFinishCustomConnectorSignIn(state, code, error, errorDescription, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 
-         * @summary List my custom connectors
+         * @summary List the custom MCPs I can use or manage
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -14160,9 +14921,31 @@ export const CustomConnectorFactory = function (configuration?: Configuration, b
             return localVarFp.customconnectorsListCustomConnectors(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * URL and headers are not editable: re-add, so a changed endpoint is always re-validated.
-         * @summary Rename or enable/disable a custom connector
-         * @param {string} publicId Public id of the connector.
+         * Forget the caller\'s tokens. The server\'s own session is not revoked.
+         * @summary Sign out of a custom MCP
+         * @param {string} publicId Public id of the MCP.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsSignOutOfCustomConnector(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.customconnectorsSignOutOfCustomConnector(publicId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * The authorization URL to send the browser to. The single-use `state` binds the callback to this user and this MCP.
+         * @summary Start signing in to a custom MCP
+         * @param {string} publicId Public id of the MCP.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        customconnectorsStartCustomConnectorSignIn(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<SignInOut> {
+            return localVarFp.customconnectorsStartCustomConnectorSignIn(publicId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * `enabled` on an organisation MCP is the caller\'s own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
+         * @summary Rename or switch a custom MCP
+         * @param {string} publicId Public id of the MCP.
          * @param {CustomConnectorUpdate} customConnectorUpdate 
          * @param {string | null} [cookieName] 
          * @param {*} [options] Override http request option.
@@ -14179,8 +14962,8 @@ export const CustomConnectorFactory = function (configuration?: Configuration, b
  */
 export class CustomConnector extends BaseAPI {
     /**
-     * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid.
-     * @summary Add one or more custom connectors
+     * Add MCP servers from a URL or a pasted JSON config.  A JSON config can declare several servers; all of them are added, so pasting a real config does not silently drop the entries after the first. The whole request is rejected if any entry is invalid. An OAuth server is checked for sign-in metadata and its client is set up here, once for all its users.
+     * @summary Add one or more custom MCPs
      * @param {CustomConnectorCreate} customConnectorCreate 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -14191,9 +14974,19 @@ export class CustomConnector extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Delete a custom connector
-     * @param {string} publicId Public id of the connector.
+     * Authorization servers that accept URL client ids fetch this to learn the Hub\'s name and redirect URI. Public by design: it holds no secret.
+     * @summary The Hub\'s OAuth client metadata document (CIMD)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public customconnectorsCustomConnectorClientMetadata(options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsCustomConnectorClientMetadata(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Deletes every user\'s sign-in with it (cascade).
+     * @summary Delete a custom MCP
+     * @param {string} publicId Public id of the MCP.
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -14203,8 +14996,35 @@ export class CustomConnector extends BaseAPI {
     }
 
     /**
+     * Connect once without signing in. A server that lists its tools needs no sign-in; one that answers 401 is checked for OAuth metadata.
+     * @summary Detect how an MCP server wants to be signed in to
+     * @param {DetectIn} detectIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public customconnectorsDetectCustomConnector(detectIn: DetectIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsDetectCustomConnector(detectIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Called by the Hub\'s callback page with the query the authorization server redirected the browser to. The state must have been issued to this same user.
+     * @summary Finish signing in to a custom MCP
+     * @param {string | null} [state] 
+     * @param {string | null} [code] 
+     * @param {string | null} [error] 
+     * @param {string | null} [errorDescription] 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public customconnectorsFinishCustomConnectorSignIn(state?: string | null, code?: string | null, error?: string | null, errorDescription?: string | null, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsFinishCustomConnectorSignIn(state, code, error, errorDescription, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * 
-     * @summary List my custom connectors
+     * @summary List the custom MCPs I can use or manage
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -14214,9 +15034,33 @@ export class CustomConnector extends BaseAPI {
     }
 
     /**
-     * URL and headers are not editable: re-add, so a changed endpoint is always re-validated.
-     * @summary Rename or enable/disable a custom connector
-     * @param {string} publicId Public id of the connector.
+     * Forget the caller\'s tokens. The server\'s own session is not revoked.
+     * @summary Sign out of a custom MCP
+     * @param {string} publicId Public id of the MCP.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public customconnectorsSignOutOfCustomConnector(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsSignOutOfCustomConnector(publicId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * The authorization URL to send the browser to. The single-use `state` binds the callback to this user and this MCP.
+     * @summary Start signing in to a custom MCP
+     * @param {string} publicId Public id of the MCP.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public customconnectorsStartCustomConnectorSignIn(publicId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return CustomConnectorFp(this.configuration).customconnectorsStartCustomConnectorSignIn(publicId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * `enabled` on an organisation MCP is the caller\'s own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
+     * @summary Rename or switch a custom MCP
+     * @param {string} publicId Public id of the MCP.
      * @param {CustomConnectorUpdate} customConnectorUpdate 
      * @param {string | null} [cookieName] 
      * @param {*} [options] Override http request option.
@@ -20465,7 +21309,7 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * @param {Array<string>} [documentIds] 
          * @param {Array<File>} [files] 
          * @param {number} [temperature] 
-         * @param {ReasoningEffortEnum | null} [reasoningEffort] 
+         * @param {ReasoningEffortOrAutoEnum | null} [reasoningEffort] 
          * @param {number} [similarityTopK] 
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
@@ -20479,7 +21323,7 @@ export const MessageAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messagesSubmitMessage: async (cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortOrAutoEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/messages/submit`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -20760,7 +21604,7 @@ export const MessageFp = function(configuration?: Configuration) {
          * @param {Array<string>} [documentIds] 
          * @param {Array<File>} [files] 
          * @param {number} [temperature] 
-         * @param {ReasoningEffortEnum | null} [reasoningEffort] 
+         * @param {ReasoningEffortOrAutoEnum | null} [reasoningEffort] 
          * @param {number} [similarityTopK] 
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
@@ -20774,7 +21618,7 @@ export const MessageFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageSubmitOut>> {
+        async messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortOrAutoEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageSubmitOut>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Message.messagesSubmitMessage']?.[localVarOperationServerIndex]?.url;
@@ -20894,7 +21738,7 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * @param {Array<string>} [documentIds] 
          * @param {Array<File>} [files] 
          * @param {number} [temperature] 
-         * @param {ReasoningEffortEnum | null} [reasoningEffort] 
+         * @param {ReasoningEffortOrAutoEnum | null} [reasoningEffort] 
          * @param {number} [similarityTopK] 
          * @param {string} [systemPrompt] 
          * @param {string} [assistantId] 
@@ -20908,7 +21752,7 @@ export const MessageFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): AxiosPromise<MessageSubmitOut> {
+        messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortOrAutoEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig): AxiosPromise<MessageSubmitOut> {
             return localVarFp.messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options).then((request) => request(axios, basePath));
         },
         /**
@@ -21027,7 +21871,7 @@ export class Message extends BaseAPI {
      * @param {Array<string>} [documentIds] 
      * @param {Array<File>} [files] 
      * @param {number} [temperature] 
-     * @param {ReasoningEffortEnum | null} [reasoningEffort] 
+     * @param {ReasoningEffortOrAutoEnum | null} [reasoningEffort] 
      * @param {number} [similarityTopK] 
      * @param {string} [systemPrompt] 
      * @param {string} [assistantId] 
@@ -21041,7 +21885,7 @@ export class Message extends BaseAPI {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig) {
+    public messagesSubmitMessage(cookieName?: string | null, content?: string, projectId?: string, chatId?: string, documentIds?: Array<string>, files?: Array<File>, temperature?: number, reasoningEffort?: ReasoningEffortOrAutoEnum | null, similarityTopK?: number, systemPrompt?: string, assistantId?: string, model?: string, _private?: boolean, libraryId?: string, formData?: string, formFields?: string, playground?: boolean, disabledToolNames?: Array<string>, options?: RawAxiosRequestConfig) {
         return MessageFp(this.configuration).messagesSubmitMessage(cookieName, content, projectId, chatId, documentIds, files, temperature, reasoningEffort, similarityTopK, systemPrompt, assistantId, model, _private, libraryId, formData, formFields, playground, disabledToolNames, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -21075,6 +21919,175 @@ export const MessagesRephraseMessageStyleEnum = {
     long: 'long',
 } as const;
 export type MessagesRephraseMessageStyleEnum = typeof MessagesRephraseMessageStyleEnum[keyof typeof MessagesRephraseMessageStyleEnum];
+
+
+/**
+ * ModelApi - axios parameter creator
+ */
+export const ModelApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
+         * @summary Create a chat completion
+         * @param {{ [key: string]: any; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        v1ChatCompletions: async (requestBody: { [key: string]: any; }, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'requestBody' is not null or undefined
+            assertParamExists('v1ChatCompletions', 'requestBody', requestBody)
+            const localVarPath = `/v1/chat/completions`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List the models the API key may call
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        v1ListModels: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/v1/models`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ModelApi - functional programming interface
+ */
+export const ModelApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ModelApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
+         * @summary Create a chat completion
+         * @param {{ [key: string]: any; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async v1ChatCompletions(requestBody: { [key: string]: any; }, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.v1ChatCompletions(requestBody, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ModelApi.v1ChatCompletions']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List the models the API key may call
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async v1ListModels(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.v1ListModels(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ModelApi.v1ListModels']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * ModelApi - factory interface
+ */
+export const ModelApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ModelApiFp(configuration)
+    return {
+        /**
+         * OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
+         * @summary Create a chat completion
+         * @param {{ [key: string]: any; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        v1ChatCompletions(requestBody: { [key: string]: any; }, options?: RawAxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.v1ChatCompletions(requestBody, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List the models the API key may call
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        v1ListModels(options?: RawAxiosRequestConfig): AxiosPromise<ModelList> {
+            return localVarFp.v1ListModels(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ModelApi - object-oriented interface
+ */
+export class ModelApi extends BaseAPI {
+    /**
+     * OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `\"cache_control\": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
+     * @summary Create a chat completion
+     * @param {{ [key: string]: any; }} requestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public v1ChatCompletions(requestBody: { [key: string]: any; }, options?: RawAxiosRequestConfig) {
+        return ModelApiFp(this.configuration).v1ChatCompletions(requestBody, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List the models the API key may call
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public v1ListModels(options?: RawAxiosRequestConfig) {
+        return ModelApiFp(this.configuration).v1ListModels(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 /**
@@ -24561,12 +25574,14 @@ export const AccessRevokeUserGrantKindEnum = {
     model: 'model',
     tool: 'tool',
     connector: 'connector',
+    custom_mcp: 'custom_mcp',
 } as const;
 export type AccessRevokeUserGrantKindEnum = typeof AccessRevokeUserGrantKindEnum[keyof typeof AccessRevokeUserGrantKindEnum];
 export const AccessSetUserGrantsKindEnum = {
     model: 'model',
     tool: 'tool',
     connector: 'connector',
+    custom_mcp: 'custom_mcp',
 } as const;
 export type AccessSetUserGrantsKindEnum = typeof AccessSetUserGrantsKindEnum[keyof typeof AccessSetUserGrantsKindEnum];
 
@@ -24762,6 +25777,57 @@ export const RoleAxiosParamCreator = function (configuration?: Configuration) {
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Move every direct holder of a role to another role in one transaction.  Only the source role is revoked, so holders keep their other roles. The caller and the excluded users stay on the source role.
+         * @summary Move every holder of a role to another role
+         * @param {string} roleId Public id of the role to move the holders off.
+         * @param {RoleReassignIn} roleReassignIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rolesReassignRoleHolders: async (roleId: string, roleReassignIn: RoleReassignIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roleId' is not null or undefined
+            assertParamExists('rolesReassignRoleHolders', 'roleId', roleId)
+            // verify required parameter 'roleReassignIn' is not null or undefined
+            assertParamExists('rolesReassignRoleHolders', 'roleReassignIn', roleReassignIn)
+            const localVarPath = `/roles/{role_id}/reassign`
+                .replace(`{${"role_id"}}`, encodeURIComponent(String(roleId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(roleReassignIn, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -25031,6 +26097,21 @@ export const RoleFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Move every direct holder of a role to another role in one transaction.  Only the source role is revoked, so holders keep their other roles. The caller and the excluded users stay on the source role.
+         * @summary Move every holder of a role to another role
+         * @param {string} roleId Public id of the role to move the holders off.
+         * @param {RoleReassignIn} roleReassignIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rolesReassignRoleHolders(roleId: string, roleReassignIn: RoleReassignIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoleReassignOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rolesReassignRoleHolders(roleId, roleReassignIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Role.rolesReassignRoleHolders']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Make a role the tenant\'s default: assigned to new users and used as the fallback when a user would be left with no role. Exactly one per tenant.
          * @summary Set a role as the tenant default
          * @param {string} roleId Public id of the role to make default.
@@ -25145,6 +26226,18 @@ export const RoleFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.rolesDeleteRole(roleId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
+         * Move every direct holder of a role to another role in one transaction.  Only the source role is revoked, so holders keep their other roles. The caller and the excluded users stay on the source role.
+         * @summary Move every holder of a role to another role
+         * @param {string} roleId Public id of the role to move the holders off.
+         * @param {RoleReassignIn} roleReassignIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rolesReassignRoleHolders(roleId: string, roleReassignIn: RoleReassignIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<RoleReassignOut> {
+            return localVarFp.rolesReassignRoleHolders(roleId, roleReassignIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Make a role the tenant\'s default: assigned to new users and used as the fallback when a user would be left with no role. Exactly one per tenant.
          * @summary Set a role as the tenant default
          * @param {string} roleId Public id of the role to make default.
@@ -25246,6 +26339,19 @@ export class Role extends BaseAPI {
      */
     public rolesDeleteRole(roleId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return RoleFp(this.configuration).rolesDeleteRole(roleId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Move every direct holder of a role to another role in one transaction.  Only the source role is revoked, so holders keep their other roles. The caller and the excluded users stay on the source role.
+     * @summary Move every holder of a role to another role
+     * @param {string} roleId Public id of the role to move the holders off.
+     * @param {RoleReassignIn} roleReassignIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public rolesReassignRoleHolders(roleId: string, roleReassignIn: RoleReassignIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return RoleFp(this.configuration).rolesReassignRoleHolders(roleId, roleReassignIn, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -25746,7 +26852,7 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * List the SharePoint sites the user can access, with imported document counts.
+         * List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
          * @summary List SharePoint sites
          * @param {string | null} [chatId] Scope imported counts to this chat.
          * @param {string | null} [libraryId] Scope imported counts to this library.
@@ -26003,7 +27109,7 @@ export const SharepointFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * List the SharePoint sites the user can access, with imported document counts.
+         * List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
          * @summary List SharePoint sites
          * @param {string | null} [chatId] Scope imported counts to this chat.
          * @param {string | null} [libraryId] Scope imported counts to this library.
@@ -26103,7 +27209,7 @@ export const SharepointFactory = function (configuration?: Configuration, basePa
             return localVarFp.integrationsIsConnected(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * List the SharePoint sites the user can access, with imported document counts.
+         * List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
          * @summary List SharePoint sites
          * @param {string | null} [chatId] Scope imported counts to this chat.
          * @param {string | null} [libraryId] Scope imported counts to this library.
@@ -26195,7 +27301,7 @@ export class Sharepoint extends BaseAPI {
     }
 
     /**
-     * List the SharePoint sites the user can access, with imported document counts.
+     * List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
      * @summary List SharePoint sites
      * @param {string | null} [chatId] Scope imported counts to this chat.
      * @param {string | null} [libraryId] Scope imported counts to this library.
@@ -31306,6 +32412,57 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
+         * Merge the orphan\'s data, IdP identity and email onto the surviving account.
+         * @summary Move an orphan account\'s SSO identity onto the surviving account
+         * @param {string} survivorUserId 
+         * @param {RelinkSsoIn} relinkSsoIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersRelinkSso: async (survivorUserId: string, relinkSsoIn: RelinkSsoIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'survivorUserId' is not null or undefined
+            assertParamExists('usersRelinkSso', 'survivorUserId', survivorUserId)
+            // verify required parameter 'relinkSsoIn' is not null or undefined
+            assertParamExists('usersRelinkSso', 'relinkSsoIn', relinkSsoIn)
+            const localVarPath = `/users/{survivor_user_id}/relink-sso`
+                .replace(`{${"survivor_user_id"}}`, encodeURIComponent(String(survivorUserId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(relinkSsoIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Change the current user\'s password and revoke all of their sessions.
          * @summary Change own password
          * @param {PasswordResetIn} passwordResetIn 
@@ -31450,7 +32607,7 @@ export const UserAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
-         * Update a user\'s profile, role, tenant, or email; password changes are restricted.
+         * Update a user\'s profile, role, tenant, or email (not for SSO accounts); password changes are restricted.
          * @summary Update a user
          * @param {string} userId Public id of the user to update.
          * @param {UserUpdateIn} userUpdateIn 
@@ -31705,6 +32862,21 @@ export const UserFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Merge the orphan\'s data, IdP identity and email onto the surviving account.
+         * @summary Move an orphan account\'s SSO identity onto the surviving account
+         * @param {string} survivorUserId 
+         * @param {RelinkSsoIn} relinkSsoIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersRelinkSso(survivorUserId: string, relinkSsoIn: RelinkSsoIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersRelinkSso(survivorUserId, relinkSsoIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['User.usersRelinkSso']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Change the current user\'s password and revoke all of their sessions.
          * @summary Change own password
          * @param {PasswordResetIn} passwordResetIn 
@@ -31748,7 +32920,7 @@ export const UserFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Update a user\'s profile, role, tenant, or email; password changes are restricted.
+         * Update a user\'s profile, role, tenant, or email (not for SSO accounts); password changes are restricted.
          * @summary Update a user
          * @param {string} userId Public id of the user to update.
          * @param {UserUpdateIn} userUpdateIn 
@@ -31877,6 +33049,18 @@ export const UserFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.usersGetMyself(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
+         * Merge the orphan\'s data, IdP identity and email onto the surviving account.
+         * @summary Move an orphan account\'s SSO identity onto the surviving account
+         * @param {string} survivorUserId 
+         * @param {RelinkSsoIn} relinkSsoIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersRelinkSso(survivorUserId: string, relinkSsoIn: RelinkSsoIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.usersRelinkSso(survivorUserId, relinkSsoIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Change the current user\'s password and revoke all of their sessions.
          * @summary Change own password
          * @param {PasswordResetIn} passwordResetIn 
@@ -31911,7 +33095,7 @@ export const UserFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.usersUpdateGroup(groupId, groupIn, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update a user\'s profile, role, tenant, or email; password changes are restricted.
+         * Update a user\'s profile, role, tenant, or email (not for SSO accounts); password changes are restricted.
          * @summary Update a user
          * @param {string} userId Public id of the user to update.
          * @param {UserUpdateIn} userUpdateIn 
@@ -32036,6 +33220,19 @@ export class User extends BaseAPI {
     }
 
     /**
+     * Merge the orphan\'s data, IdP identity and email onto the surviving account.
+     * @summary Move an orphan account\'s SSO identity onto the surviving account
+     * @param {string} survivorUserId 
+     * @param {RelinkSsoIn} relinkSsoIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public usersRelinkSso(survivorUserId: string, relinkSsoIn: RelinkSsoIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return UserFp(this.configuration).usersRelinkSso(survivorUserId, relinkSsoIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Change the current user\'s password and revoke all of their sessions.
      * @summary Change own password
      * @param {PasswordResetIn} passwordResetIn 
@@ -32073,7 +33270,7 @@ export class User extends BaseAPI {
     }
 
     /**
-     * Update a user\'s profile, role, tenant, or email; password changes are restricted.
+     * Update a user\'s profile, role, tenant, or email (not for SSO accounts); password changes are restricted.
      * @summary Update a user
      * @param {string} userId Public id of the user to update.
      * @param {UserUpdateIn} userUpdateIn 
@@ -32119,7 +33316,7 @@ export class User extends BaseAPI {
 export const WorkflowAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+         * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
          * @summary Create Run
          * @param {string} workflowId 
          * @param {string | null} [cookieName] 
@@ -32359,7 +33556,7 @@ export const WorkflowAxiosParamCreator = function (configuration?: Configuration
             };
         },
         /**
-         * Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+         * Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
          * @summary Stream Run Events
          * @param {string} workflowId 
          * @param {string} runId 
@@ -32461,7 +33658,7 @@ export const WorkflowFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = WorkflowAxiosParamCreator(configuration)
     return {
         /**
-         * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+         * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
          * @summary Create Run
          * @param {string} workflowId 
          * @param {string | null} [cookieName] 
@@ -32533,7 +33730,7 @@ export const WorkflowFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+         * Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
          * @summary Stream Run Events
          * @param {string} workflowId 
          * @param {string} runId 
@@ -32571,7 +33768,7 @@ export const WorkflowFactory = function (configuration?: Configuration, basePath
     const localVarFp = WorkflowFp(configuration)
     return {
         /**
-         * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+         * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
          * @summary Create Run
          * @param {string} workflowId 
          * @param {string | null} [cookieName] 
@@ -32628,7 +33825,7 @@ export const WorkflowFactory = function (configuration?: Configuration, basePath
             return localVarFp.workflowsRefineWorkflow(workflowId, workflowChatIn, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+         * Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
          * @summary Stream Run Events
          * @param {string} workflowId 
          * @param {string} runId 
@@ -32658,7 +33855,7 @@ export const WorkflowFactory = function (configuration?: Configuration, basePath
  */
 export class Workflow extends BaseAPI {
     /**
-     * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+     * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
      * @summary Create Run
      * @param {string} workflowId 
      * @param {string | null} [cookieName] 
@@ -32720,7 +33917,7 @@ export class Workflow extends BaseAPI {
     }
 
     /**
-     * Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+     * Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
      * @summary Stream Run Events
      * @param {string} workflowId 
      * @param {string} runId 

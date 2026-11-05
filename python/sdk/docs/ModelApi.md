@@ -1,0 +1,172 @@
+# neuland_hub_sdk.ModelApi
+
+All URIs are relative to *https://api.your-domain.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**v1_chat_completions**](ModelApi.md#v1_chat_completions) | **POST** /v1/chat/completions | Create a chat completion
+[**v1_list_models**](ModelApi.md#v1_list_models) | **GET** /v1/models | List the models the API key may call
+
+
+# **v1_chat_completions**
+> object v1_chat_completions(request_body)
+
+Create a chat completion
+
+OpenAI Chat Completions request and response, streamed or not. `model` is an id from GET /v1/models. Claude models are asked to cache the prompt when your organization has prompt caching on for the model and the request sets no `cache_control`; a top-level `"cache_control": null` is removed and opts out. OpenAI and Azure OpenAI models get a `prompt_cache_key` per API key unless the request sets one.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.model_api import ModelApi
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ModelApi(api_client)
+    request_body = None # Dict[str, object] | 
+
+    try:
+        # Create a chat completion
+        api_response = api_instance.v1_chat_completions(request_body)
+        print("The response of ModelApi->v1_chat_completions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ModelApi->v1_chat_completions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request_body** | [**Dict[str, object]**](object.md)|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**400** | Malformed request body. |  -  |
+**401** | Missing or invalid API key. |  -  |
+**403** | Model API disabled for tenant. |  -  |
+**404** | Unknown or inaccessible model. |  -  |
+**429** | Usage quota exhausted. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1_list_models**
+> ModelList v1_list_models()
+
+List the models the API key may call
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.model_api import ModelApi
+from neuland_hub_sdk.models.model_list import ModelList
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ModelApi(api_client)
+
+    try:
+        # List the models the API key may call
+        api_response = api_instance.v1_list_models()
+        print("The response of ModelApi->v1_list_models:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ModelApi->v1_list_models: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**ModelList**](ModelList.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid API key. |  -  |
+**403** | Model API disabled for tenant. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

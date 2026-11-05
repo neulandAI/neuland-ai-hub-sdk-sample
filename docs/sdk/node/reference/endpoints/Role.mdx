@@ -10,6 +10,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**rolesAssignRoleToUser**](#rolesassignroletouser) | **POST** /roles/&#123;role_id&#125;/users/&#123;user_id&#125; | Assign a role to a user|
 |[**rolesCreateRole**](#rolescreaterole) | **POST** /roles/ | Create a custom role|
 |[**rolesDeleteRole**](#rolesdeleterole) | **DELETE** /roles/&#123;role_id&#125; | Delete a role|
+|[**rolesReassignRoleHolders**](#rolesreassignroleholders) | **POST** /roles/&#123;role_id&#125;/reassign | Move every holder of a role to another role|
 |[**rolesSetDefaultRole**](#rolessetdefaultrole) | **PUT** /roles/&#123;role_id&#125;/default | Set a role as the tenant default|
 |[**rolesUnassignRoleFromGroup**](#rolesunassignrolefromgroup) | **DELETE** /roles/&#123;role_id&#125;/groups/&#123;group_id&#125; | Unassign a role from a group|
 |[**rolesUnassignRoleFromUser**](#rolesunassignrolefromuser) | **DELETE** /roles/&#123;role_id&#125;/users/&#123;user_id&#125; | Unassign a role from a user|
@@ -255,6 +256,69 @@ void (empty response body)
 |**403** | MANAGE_ROLES required. |  -  |
 |**404** | No role exists with the given id. |  -  |
 |**422** | The Operator role and default roles cannot be deleted. |  -  |
+
+
+## **rolesReassignRoleHolders**
+```typescript
+RoleReassignOut rolesReassignRoleHolders(roleReassignIn)
+```
+
+Move every direct holder of a role to another role in one transaction.  Only the source role is revoked, so holders keep their other roles. The caller and the excluded users stay on the source role.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration,
+    RoleReassignIn
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to move the holders off. (default to undefined)
+let roleReassignIn: RoleReassignIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesReassignRoleHolders(
+    roleId,
+    roleReassignIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleReassignIn** | **RoleReassignIn**|  | |
+| **roleId** | [**string**] | Public id of the role to move the holders off. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**RoleReassignOut**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_USERS required, or the grant would exceed the caller\&#39;s own permissions. |  -  |
+|**404** | No such role or excluded user. |  -  |
+|**422** | The roles are the same, belong to different tenants, or one is the Operator role. |  -  |
 
 
 ## **rolesSetDefaultRole**

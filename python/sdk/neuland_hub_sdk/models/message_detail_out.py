@@ -166,7 +166,7 @@ class MessageDetailOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "chat_id": obj.get("chat_id"),
@@ -186,7 +186,7 @@ class MessageDetailOut(BaseModel):
             "reasoning": obj.get("reasoning"),
             "turn_step_index": obj.get("turn_step_index"),
             "is_final_step": obj.get("is_final_step")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

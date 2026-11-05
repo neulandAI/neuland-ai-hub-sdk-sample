@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **default_llm_catalog_id** | **UUID** |  | [optional] 
 **guardrails_enabled** | **bool** |  | [optional] 
 **sharepoint_enabled** | **bool** |  | [optional] 
+**sharepoint_allowed_sites** | **List[str]** |  | [optional] 
 **inbound_guardrail** | **str** |  | [optional] 
 **outbound_guardrail** | **str** |  | [optional] 
 **welcome_email_template_id** | **UUID** |  | [optional] 
@@ -22,6 +23,7 @@ Name | Type | Description | Notes
 **default_language** | **str** |  | [optional] 
 **user_level_analytics_enabled** | **bool** |  | [optional] 
 **user_analytics_reveal_names** | **bool** |  | [optional] 
+**ai_image_label_enabled** | **bool** |  | [optional] 
 
 ## Example
 

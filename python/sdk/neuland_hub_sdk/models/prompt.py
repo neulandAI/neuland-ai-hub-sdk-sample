@@ -106,7 +106,7 @@ class Prompt(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
@@ -116,7 +116,7 @@ class Prompt(BaseModel):
             "prompt": obj.get("prompt"),
             "is_public": obj.get("is_public") if obj.get("is_public") is not None else False,
             "description": obj.get("description")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

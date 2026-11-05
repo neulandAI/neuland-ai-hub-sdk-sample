@@ -105,13 +105,13 @@ class InvitationIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "emails": obj.get("emails"),
             "tenant_id": obj.get("tenant_id"),
             "project_id": obj.get("project_id"),
             "admin": obj.get("admin"),
             "role_id": obj.get("role_id")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

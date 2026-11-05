@@ -102,14 +102,14 @@ class TemplateIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "subject": obj.get("subject"),
             "html_body": obj.get("html_body"),
             "key": obj.get("key"),
             "language": obj.get("language") if obj.get("language") is not None else 'en',
             "is_draft": obj.get("is_draft") if obj.get("is_draft") is not None else False
-        })
+        }.items() if k in _keep})
         return _obj
 
 

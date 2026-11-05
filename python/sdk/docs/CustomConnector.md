@@ -4,22 +4,28 @@ All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**customconnectors_create_custom_connectors**](CustomConnector.md#customconnectors_create_custom_connectors) | **POST** /custom-connectors/ | Add one or more custom connectors
-[**customconnectors_delete_custom_connector**](CustomConnector.md#customconnectors_delete_custom_connector) | **DELETE** /custom-connectors/{public_id} | Delete a custom connector
-[**customconnectors_list_custom_connectors**](CustomConnector.md#customconnectors_list_custom_connectors) | **GET** /custom-connectors/ | List my custom connectors
-[**customconnectors_update_custom_connector**](CustomConnector.md#customconnectors_update_custom_connector) | **PATCH** /custom-connectors/{public_id} | Rename or enable/disable a custom connector
+[**customconnectors_create_custom_connectors**](CustomConnector.md#customconnectors_create_custom_connectors) | **POST** /custom-connectors/ | Add one or more custom MCPs
+[**customconnectors_custom_connector_client_metadata**](CustomConnector.md#customconnectors_custom_connector_client_metadata) | **GET** /custom-connectors/oauth/client-metadata.json | The Hub&#39;s OAuth client metadata document (CIMD)
+[**customconnectors_delete_custom_connector**](CustomConnector.md#customconnectors_delete_custom_connector) | **DELETE** /custom-connectors/{public_id} | Delete a custom MCP
+[**customconnectors_detect_custom_connector**](CustomConnector.md#customconnectors_detect_custom_connector) | **POST** /custom-connectors/detect | Detect how an MCP server wants to be signed in to
+[**customconnectors_finish_custom_connector_sign_in**](CustomConnector.md#customconnectors_finish_custom_connector_sign_in) | **GET** /custom-connectors/oauth/callback | Finish signing in to a custom MCP
+[**customconnectors_list_custom_connectors**](CustomConnector.md#customconnectors_list_custom_connectors) | **GET** /custom-connectors/ | List the custom MCPs I can use or manage
+[**customconnectors_sign_out_of_custom_connector**](CustomConnector.md#customconnectors_sign_out_of_custom_connector) | **DELETE** /custom-connectors/{public_id}/oauth | Sign out of a custom MCP
+[**customconnectors_start_custom_connector_sign_in**](CustomConnector.md#customconnectors_start_custom_connector_sign_in) | **POST** /custom-connectors/{public_id}/oauth/start | Start signing in to a custom MCP
+[**customconnectors_update_custom_connector**](CustomConnector.md#customconnectors_update_custom_connector) | **PATCH** /custom-connectors/{public_id} | Rename or switch a custom MCP
 
 
 # **customconnectors_create_custom_connectors**
 > List[CustomConnectorOut] customconnectors_create_custom_connectors(custom_connector_create, cookie_name=cookie_name)
 
-Add one or more custom connectors
+Add one or more custom MCPs
 
 Add MCP servers from a URL or a pasted JSON config.
 
 A JSON config can declare several servers; all of them are added, so pasting
 a real config does not silently drop the entries after the first. The whole
-request is rejected if any entry is invalid.
+request is rejected if any entry is invalid. An OAuth server is checked for
+sign-in metadata and its client is set up here, once for all its users.
 
 ### Example
 
@@ -60,7 +66,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Add one or more custom connectors
+        # Add one or more custom MCPs
         api_response = api_instance.customconnectors_create_custom_connectors(custom_connector_create, cookie_name=cookie_name)
         print("The response of CustomConnector->customconnectors_create_custom_connectors:\n")
         pprint(api_response)
@@ -96,14 +102,81 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
-**422** | Malformed config, a stdio server, a non-http(s) URL, a URL that does not resolve to a public address, or too many connectors. |  -  |
+**422** | Malformed config, a stdio server, a non-http(s) URL, a URL that does not resolve to a public address, an OAuth setup the server rejects, or too many MCPs. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **customconnectors_custom_connector_client_metadata**
+> Dict[str, object] customconnectors_custom_connector_client_metadata()
+
+The Hub's OAuth client metadata document (CIMD)
+
+Authorization servers that accept URL client ids fetch this to learn the
+Hub's name and redirect URI. Public by design: it holds no secret.
+
+### Example
+
+
+```python
+import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = CustomConnector(api_client)
+
+    try:
+        # The Hub's OAuth client metadata document (CIMD)
+        api_response = api_instance.customconnectors_custom_connector_client_metadata()
+        print("The response of CustomConnector->customconnectors_custom_connector_client_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_custom_connector_client_metadata: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**Dict[str, object]**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **customconnectors_delete_custom_connector**
 > customconnectors_delete_custom_connector(public_id, cookie_name=cookie_name)
 
-Delete a custom connector
+Delete a custom MCP
+
+Deletes every user's sign-in with it (cascade).
 
 ### Example
 
@@ -139,11 +212,11 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = CustomConnector(api_client)
-    public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector.
+    public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the MCP.
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Delete a custom connector
+        # Delete a custom MCP
         api_instance.customconnectors_delete_custom_connector(public_id, cookie_name=cookie_name)
     except Exception as e:
         print("Exception when calling CustomConnector->customconnectors_delete_custom_connector: %s\n" % e)
@@ -156,7 +229,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **public_id** | **UUID**| Public id of the connector. | 
+ **public_id** | **UUID**| Public id of the MCP. | 
  **cookie_name** | **str**|  | [optional] 
 
 ### Return type
@@ -181,10 +254,189 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **customconnectors_detect_custom_connector**
+> DetectOut customconnectors_detect_custom_connector(detect_in, cookie_name=cookie_name)
+
+Detect how an MCP server wants to be signed in to
+
+Connect once without signing in. A server that lists its tools needs no
+sign-in; one that answers 401 is checked for OAuth metadata.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
+from neuland_hub_sdk.models.detect_in import DetectIn
+from neuland_hub_sdk.models.detect_out import DetectOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = CustomConnector(api_client)
+    detect_in = neuland_hub_sdk.DetectIn() # DetectIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Detect how an MCP server wants to be signed in to
+        api_response = api_instance.customconnectors_detect_custom_connector(detect_in, cookie_name=cookie_name)
+        print("The response of CustomConnector->customconnectors_detect_custom_connector:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_detect_custom_connector: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **detect_in** | [**DetectIn**](DetectIn.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**DetectOut**](DetectOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **customconnectors_finish_custom_connector_sign_in**
+> CallbackOut customconnectors_finish_custom_connector_sign_in(state=state, code=code, error=error, error_description=error_description, cookie_name=cookie_name)
+
+Finish signing in to a custom MCP
+
+Called by the Hub's callback page with the query the authorization server
+redirected the browser to. The state must have been issued to this same user.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
+from neuland_hub_sdk.models.callback_out import CallbackOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = CustomConnector(api_client)
+    state = 'state_example' # str |  (optional)
+    code = 'code_example' # str |  (optional)
+    error = 'error_example' # str |  (optional)
+    error_description = 'error_description_example' # str |  (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Finish signing in to a custom MCP
+        api_response = api_instance.customconnectors_finish_custom_connector_sign_in(state=state, code=code, error=error, error_description=error_description, cookie_name=cookie_name)
+        print("The response of CustomConnector->customconnectors_finish_custom_connector_sign_in:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_finish_custom_connector_sign_in: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **state** | **str**|  | [optional] 
+ **code** | **str**|  | [optional] 
+ **error** | **str**|  | [optional] 
+ **error_description** | **str**|  | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**CallbackOut**](CallbackOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **customconnectors_list_custom_connectors**
 > List[CustomConnectorOut] customconnectors_list_custom_connectors(cookie_name=cookie_name)
 
-List my custom connectors
+List the custom MCPs I can use or manage
 
 ### Example
 
@@ -223,7 +475,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # List my custom connectors
+        # List the custom MCPs I can use or manage
         api_response = api_instance.customconnectors_list_custom_connectors(cookie_name=cookie_name)
         print("The response of CustomConnector->customconnectors_list_custom_connectors:\n")
         pprint(api_response)
@@ -262,13 +514,185 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **customconnectors_sign_out_of_custom_connector**
+> customconnectors_sign_out_of_custom_connector(public_id, cookie_name=cookie_name)
+
+Sign out of a custom MCP
+
+Forget the caller's tokens. The server's own session is not revoked.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = CustomConnector(api_client)
+    public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the MCP.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Sign out of a custom MCP
+        api_instance.customconnectors_sign_out_of_custom_connector(public_id, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_sign_out_of_custom_connector: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **public_id** | **UUID**| Public id of the MCP. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **customconnectors_start_custom_connector_sign_in**
+> SignInOut customconnectors_start_custom_connector_sign_in(public_id, cookie_name=cookie_name)
+
+Start signing in to a custom MCP
+
+The authorization URL to send the browser to. The single-use `state`
+binds the callback to this user and this MCP.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.custom_connector import CustomConnector
+from neuland_hub_sdk.models.sign_in_out import SignInOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = CustomConnector(api_client)
+    public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the MCP.
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Start signing in to a custom MCP
+        api_response = api_instance.customconnectors_start_custom_connector_sign_in(public_id, cookie_name=cookie_name)
+        print("The response of CustomConnector->customconnectors_start_custom_connector_sign_in:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomConnector->customconnectors_start_custom_connector_sign_in: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **public_id** | **UUID**| Public id of the MCP. | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**SignInOut**](SignInOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **customconnectors_update_custom_connector**
 > CustomConnectorOut customconnectors_update_custom_connector(public_id, custom_connector_update, cookie_name=cookie_name)
 
-Rename or enable/disable a custom connector
+Rename or switch a custom MCP
 
-URL and headers are not editable: re-add, so a changed endpoint is
-always re-validated.
+`enabled` on an organisation MCP is the caller's own switch, so anyone
+who may use it may flip it. Everything else needs `_may_manage`. URL,
+headers and auth are not editable: re-add, so a changed endpoint is always
+re-validated.
 
 ### Example
 
@@ -306,12 +730,12 @@ configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
 with neuland_hub_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = CustomConnector(api_client)
-    public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the connector.
+    public_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the MCP.
     custom_connector_update = neuland_hub_sdk.CustomConnectorUpdate() # CustomConnectorUpdate | 
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Rename or enable/disable a custom connector
+        # Rename or switch a custom MCP
         api_response = api_instance.customconnectors_update_custom_connector(public_id, custom_connector_update, cookie_name=cookie_name)
         print("The response of CustomConnector->customconnectors_update_custom_connector:\n")
         pprint(api_response)
@@ -326,7 +750,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **public_id** | **UUID**| Public id of the connector. | 
+ **public_id** | **UUID**| Public id of the MCP. | 
  **custom_connector_update** | [**CustomConnectorUpdate**](CustomConnectorUpdate.md)|  | 
  **cookie_name** | **str**|  | [optional] 
 

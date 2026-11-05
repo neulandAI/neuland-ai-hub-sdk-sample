@@ -103,14 +103,14 @@ class CredentialTemplateOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "connector_id": obj.get("connector_id"),
             "name": obj.get("name"),
             "auth_type": obj.get("auth_type"),
             "is_admin": obj.get("is_admin"),
             "admin": CredentialPartOut.from_dict(obj["admin"]) if obj.get("admin") is not None else None,
             "user": CredentialPartOut.from_dict(obj["user"]) if obj.get("user") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **auto_routable** | **bool** |  | [optional] 
+**prompt_caching** | **bool** |  | [optional] 
 
 ## Example
 

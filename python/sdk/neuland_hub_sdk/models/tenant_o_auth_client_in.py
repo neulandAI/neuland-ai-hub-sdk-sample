@@ -101,7 +101,7 @@ class TenantOAuthClientIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "client_id": obj.get("client_id"),
             "authorize_url": obj.get("authorize_url"),
             "token_url": obj.get("token_url"),
@@ -109,7 +109,7 @@ class TenantOAuthClientIn(BaseModel):
             "redirect_uri": obj.get("redirect_uri"),
             "admin_consent_url": obj.get("admin_consent_url"),
             "secret": obj.get("secret")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

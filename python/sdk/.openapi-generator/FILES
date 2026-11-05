@@ -49,6 +49,7 @@ docs/BudgetSummary.md
 docs/BudgetTopUpOut.md
 docs/BudgetTopUpRequest.md
 docs/BulkResult.md
+docs/CallbackOut.md
 docs/CatalogIn.md
 docs/CatalogUpdate.md
 docs/Category.md
@@ -98,6 +99,8 @@ docs/DataSourceSiteModel.md
 docs/DataSourceUserModel.md
 docs/DateWindowRequest.md
 docs/Default.md
+docs/DetectIn.md
+docs/DetectOut.md
 docs/DirectFileUrl.md
 docs/Document.md
 docs/Document.md
@@ -118,6 +121,7 @@ docs/Files.md
 docs/FormField.md
 docs/FormFieldTypeEnum.md
 docs/GoogleDrive.md
+docs/GooglePickerTokenOut.md
 docs/GroupAppAccessIn.md
 docs/GroupIn.md
 docs/GroupSyncOut.md
@@ -152,7 +156,10 @@ docs/MessageIn.md
 docs/MessageSubmitOut.md
 docs/MessageTokensResponse.md
 docs/MessageTurnOut.md
+docs/ModelApi.md
 docs/ModelDelta.md
+docs/ModelList.md
+docs/ModelObject.md
 docs/ModelTierEnum.md
 docs/MoversResponse.md
 docs/NeulandAssistantsTaggingOut.md
@@ -185,6 +192,8 @@ docs/Rating.md
 docs/Rating.md
 docs/RatingIn.md
 docs/ReasoningEffortEnum.md
+docs/ReasoningEffortOrAutoEnum.md
+docs/RelinkSsoIn.md
 docs/RephraseStyleEnum.md
 docs/ResourceAccess.md
 docs/ResponseAuthGetEntraGroupsValue.md
@@ -197,6 +206,8 @@ docs/ResumeIn.md
 docs/Role.md
 docs/Role.md
 docs/RoleIn.md
+docs/RoleReassignIn.md
+docs/RoleReassignOut.md
 docs/RoleUpdateIn.md
 docs/RunCreateOut.md
 docs/SecretUpdateIn.md
@@ -217,6 +228,7 @@ docs/SharepointItemModel.md
 docs/SharepointSiteModel.md
 docs/SharepointUserModel.md
 docs/SharepointV1.md
+docs/SignInOut.md
 docs/SsoExchangeIn.md
 docs/SsoInitOut.md
 docs/SsoResolveOut.md
@@ -328,6 +340,7 @@ neuland_hub_sdk/api/llm.py
 neuland_hub_sdk/api/llm_catalog.py
 neuland_hub_sdk/api/llm_setting.py
 neuland_hub_sdk/api/message.py
+neuland_hub_sdk/api/model_api.py
 neuland_hub_sdk/api/nextcloud.py
 neuland_hub_sdk/api/one_drive.py
 neuland_hub_sdk/api/project.py
@@ -395,6 +408,7 @@ neuland_hub_sdk/models/budget_summary.py
 neuland_hub_sdk/models/budget_top_up_out.py
 neuland_hub_sdk/models/budget_top_up_request.py
 neuland_hub_sdk/models/bulk_result.py
+neuland_hub_sdk/models/callback_out.py
 neuland_hub_sdk/models/catalog_in.py
 neuland_hub_sdk/models/catalog_update.py
 neuland_hub_sdk/models/category_out.py
@@ -440,6 +454,8 @@ neuland_hub_sdk/models/data_source_item_model.py
 neuland_hub_sdk/models/data_source_site_model.py
 neuland_hub_sdk/models/data_source_user_model.py
 neuland_hub_sdk/models/date_window_request.py
+neuland_hub_sdk/models/detect_in.py
+neuland_hub_sdk/models/detect_out.py
 neuland_hub_sdk/models/direct_file_url.py
 neuland_hub_sdk/models/document.py
 neuland_hub_sdk/models/document_metrics.py
@@ -455,6 +471,7 @@ neuland_hub_sdk/models/feature_flag_out.py
 neuland_hub_sdk/models/feature_flag_set_in.py
 neuland_hub_sdk/models/form_field.py
 neuland_hub_sdk/models/form_field_type_enum.py
+neuland_hub_sdk/models/google_picker_token_out.py
 neuland_hub_sdk/models/group_app_access_in.py
 neuland_hub_sdk/models/group_in.py
 neuland_hub_sdk/models/group_sync_out.py
@@ -484,6 +501,8 @@ neuland_hub_sdk/models/message_submit_out.py
 neuland_hub_sdk/models/message_tokens_response.py
 neuland_hub_sdk/models/message_turn_out.py
 neuland_hub_sdk/models/model_delta.py
+neuland_hub_sdk/models/model_list.py
+neuland_hub_sdk/models/model_object.py
 neuland_hub_sdk/models/model_tier_enum.py
 neuland_hub_sdk/models/movers_response.py
 neuland_hub_sdk/models/neuland_assistants_tagging_out.py
@@ -510,6 +529,8 @@ neuland_hub_sdk/models/rateable_type_enum.py
 neuland_hub_sdk/models/rating.py
 neuland_hub_sdk/models/rating_in.py
 neuland_hub_sdk/models/reasoning_effort_enum.py
+neuland_hub_sdk/models/reasoning_effort_or_auto_enum.py
+neuland_hub_sdk/models/relink_sso_in.py
 neuland_hub_sdk/models/rephrase_style_enum.py
 neuland_hub_sdk/models/response_auth_get_entra_groups_value.py
 neuland_hub_sdk/models/response_dropbox_list_roots.py
@@ -520,6 +541,8 @@ neuland_hub_sdk/models/response_sharepointv1_list_roots.py
 neuland_hub_sdk/models/resume_in.py
 neuland_hub_sdk/models/role.py
 neuland_hub_sdk/models/role_in.py
+neuland_hub_sdk/models/role_reassign_in.py
+neuland_hub_sdk/models/role_reassign_out.py
 neuland_hub_sdk/models/role_update_in.py
 neuland_hub_sdk/models/run_create_out.py
 neuland_hub_sdk/models/secret_update_in.py
@@ -537,6 +560,7 @@ neuland_hub_sdk/models/sharepoint_folder_model.py
 neuland_hub_sdk/models/sharepoint_item_model.py
 neuland_hub_sdk/models/sharepoint_site_model.py
 neuland_hub_sdk/models/sharepoint_user_model.py
+neuland_hub_sdk/models/sign_in_out.py
 neuland_hub_sdk/models/sso_exchange_in.py
 neuland_hub_sdk/models/sso_init_out.py
 neuland_hub_sdk/models/sso_resolve_out.py

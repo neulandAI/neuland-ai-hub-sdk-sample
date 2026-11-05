@@ -35,7 +35,8 @@ class UserAccessOut(BaseModel):
     models: Optional[List[AccessItemOut]] = None
     tools: Optional[List[AccessItemOut]] = None
     connectors: Optional[List[AccessItemOut]] = None
-    __properties: ClassVar[List[str]] = ["user_id", "user_public_id", "tenant_id", "models", "tools", "connectors"]
+    custom_connectors: Optional[List[AccessItemOut]] = None
+    __properties: ClassVar[List[str]] = ["user_id", "user_public_id", "tenant_id", "models", "tools", "connectors", "custom_connectors"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -97,6 +98,13 @@ class UserAccessOut(BaseModel):
                 if _item_connectors:
                     _items.append(_item_connectors.to_dict())
             _dict['connectors'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in custom_connectors (list)
+        _items = []
+        if self.custom_connectors:
+            for _item_custom_connectors in self.custom_connectors:
+                if _item_custom_connectors:
+                    _items.append(_item_custom_connectors.to_dict())
+            _dict['custom_connectors'] = _items
         return _dict
 
     @classmethod
@@ -108,14 +116,15 @@ class UserAccessOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "user_id": obj.get("user_id"),
             "user_public_id": obj.get("user_public_id"),
             "tenant_id": obj.get("tenant_id"),
             "models": [AccessItemOut.from_dict(_item) for _item in obj["models"]] if obj.get("models") is not None else None,
             "tools": [AccessItemOut.from_dict(_item) for _item in obj["tools"]] if obj.get("tools") is not None else None,
-            "connectors": [AccessItemOut.from_dict(_item) for _item in obj["connectors"]] if obj.get("connectors") is not None else None
-        })
+            "connectors": [AccessItemOut.from_dict(_item) for _item in obj["connectors"]] if obj.get("connectors") is not None else None,
+            "custom_connectors": [AccessItemOut.from_dict(_item) for _item in obj["custom_connectors"]] if obj.get("custom_connectors") is not None else None
+        }.items() if k in _keep})
         return _obj
 
 

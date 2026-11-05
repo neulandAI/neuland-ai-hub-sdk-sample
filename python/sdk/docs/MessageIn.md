@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **project_id** | **UUID** |  | [optional] 
 **model** | **str** |  | [optional] 
 **temperature** | **float** |  | [optional] 
-**reasoning_effort** | [**ReasoningEffortEnum**](ReasoningEffortEnum.md) |  | [optional] 
+**reasoning_effort** | [**ReasoningEffortOrAutoEnum**](ReasoningEffortOrAutoEnum.md) |  | [optional] 
 **similarity_top_k** | **int** |  | [optional] 
 **system_prompt** | **str** |  | [optional] 
 **assistant_id** | **UUID** |  | [optional] 

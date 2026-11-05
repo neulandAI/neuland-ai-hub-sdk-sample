@@ -169,7 +169,7 @@ class MessageSubmitOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "chat_id": obj.get("chat_id"),
@@ -193,7 +193,7 @@ class MessageSubmitOut(BaseModel):
             "llm_settings_id": obj.get("llm_settings_id"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

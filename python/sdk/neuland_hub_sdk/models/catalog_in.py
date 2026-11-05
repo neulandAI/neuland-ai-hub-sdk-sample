@@ -120,7 +120,7 @@ class CatalogIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "description": obj.get("description"),
             "badge": obj.get("badge"),
@@ -135,7 +135,7 @@ class CatalogIn(BaseModel):
             "auto_seed": obj.get("auto_seed") if obj.get("auto_seed") is not None else False,
             "tier": obj.get("tier"),
             "auto_routable": obj.get("auto_routable") if obj.get("auto_routable") is not None else True
-        })
+        }.items() if k in _keep})
         return _obj
 
 

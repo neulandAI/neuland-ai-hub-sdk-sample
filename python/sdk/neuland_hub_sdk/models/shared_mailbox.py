@@ -32,7 +32,8 @@ class SharedMailbox(BaseModel):
     added_at: Optional[StrictStr] = None
     kind: Optional[StrictStr] = Field(default='shared', description="'shared': an Exchange shared mailbox, read via /users/{address}. 'group': a Microsoft 365 group — its mail is read via /groups/{id}/threads and sends go through the user's own mailbox with the group as sender.")
     group_id: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["address", "display_name", "added_at", "kind", "group_id"]
+    principal: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["address", "display_name", "added_at", "kind", "group_id", "principal"]
 
     @field_validator('kind')
     def kind_validate_enum(cls, value):
@@ -93,6 +94,11 @@ class SharedMailbox(BaseModel):
         if self.group_id is None and "group_id" in self.model_fields_set:
             _dict['group_id'] = None
 
+        # set to None if principal (nullable) is None
+        # and model_fields_set contains the field
+        if self.principal is None and "principal" in self.model_fields_set:
+            _dict['principal'] = None
+
         return _dict
 
     @classmethod
@@ -104,13 +110,14 @@ class SharedMailbox(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "address": obj.get("address"),
             "display_name": obj.get("display_name") if obj.get("display_name") is not None else '',
             "added_at": obj.get("added_at"),
             "kind": obj.get("kind") if obj.get("kind") is not None else 'shared',
-            "group_id": obj.get("group_id")
-        })
+            "group_id": obj.get("group_id"),
+            "principal": obj.get("principal")
+        }.items() if k in _keep})
         return _obj
 
 

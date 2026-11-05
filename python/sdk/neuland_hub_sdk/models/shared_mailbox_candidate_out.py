@@ -93,12 +93,12 @@ class SharedMailboxCandidateOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "address": obj.get("address"),
             "display_name": obj.get("display_name"),
             "connected": obj.get("connected"),
             "kind": obj.get("kind") if obj.get("kind") is not None else 'shared'
-        })
+        }.items() if k in _keep})
         return _obj
 
 

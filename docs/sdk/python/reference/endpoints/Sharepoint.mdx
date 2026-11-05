@@ -109,7 +109,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required SharePoint scope. |  -  |
+**403** | User has not consented to the required SharePoint scope, or the site is not enabled for the tenant. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -290,7 +290,8 @@ List[SharepointSiteModel] integrations_list_all_sites(chat_id=chat_id, library_i
 
 List SharePoint sites
 
-List the SharePoint sites the user can access, with imported document counts.
+List the SharePoint sites the user can access, with imported document counts. 
+Filtered to allowed sites by the tenant admin.
 
 ### Example
 
@@ -374,7 +375,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required SharePoint scope. |  -  |
+**403** | User has not consented to the required SharePoint scope, or has no access to allowed sites. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -475,7 +476,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required SharePoint scope. |  -  |
+**403** | User has not consented to the required SharePoint scope, or the site is not enabled for the tenant. |  -  |
 **422** | Validation Error |  -  |
 
 
@@ -572,5 +573,5 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing or invalid authentication, or no valid connector token. |  -  |
-**403** | User has not consented to the required SharePoint scope. |  -  |
+**403** | User has not consented to the required SharePoint scope, or the site is not enabled for the tenant. |  -  |
 **422** | Validation Error |  -  |

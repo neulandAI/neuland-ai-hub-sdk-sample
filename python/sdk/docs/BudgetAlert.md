@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **threshold_amount** | **float** | Budget threshold, for notification. | [optional] [default to 0]
 **current_spend** | **str** | Total Spent. In decimal to have more accuracy | [optional] [default to '0.000000']
 **triggered** | **bool** | If the alert is triggered or not | [optional] [default to False]
+**triggered_at** | **datetime** |  | [optional] 
 **active** | **bool** | If the alert is enabled | [optional] [default to True]
 **created_at** | **datetime** | Timestamp when the alert was created. | [optional] 
 **updated_at** | **datetime** | Timestamp when alert was updated. | [optional] 

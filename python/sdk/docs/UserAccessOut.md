@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **models** | [**List[AccessItemOut]**](AccessItemOut.md) |  | [optional] 
 **tools** | [**List[AccessItemOut]**](AccessItemOut.md) |  | [optional] 
 **connectors** | [**List[AccessItemOut]**](AccessItemOut.md) |  | [optional] 
+**custom_connectors** | [**List[AccessItemOut]**](AccessItemOut.md) |  | [optional] 
 
 ## Example
 

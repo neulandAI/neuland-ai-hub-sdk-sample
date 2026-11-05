@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**users_delete_group**](User.md#users_delete_group) | **DELETE** /users/groups/{group_id} | Delete a user group
 [**users_delete_user**](User.md#users_delete_user) | **DELETE** /users/{user_id} | Delete a user
 [**users_get_myself**](User.md#users_get_myself) | **GET** /users/me | Get current user
+[**users_relink_sso**](User.md#users_relink_sso) | **POST** /users/{survivor_user_id}/relink-sso | Move an orphan account&#39;s SSO identity onto the surviving account
 [**users_reset_password**](User.md#users_reset_password) | **POST** /users/passwd | Change own password
 [**users_sync_external_group**](User.md#users_sync_external_group) | **POST** /users/groups/{group_id}/sync | Sync an external group&#39;s members
 [**users_update_group**](User.md#users_update_group) | **PATCH** /users/groups/{group_id} | Update a user group
@@ -633,6 +634,97 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **users_relink_sso**
+> users_relink_sso(survivor_user_id, relink_sso_in, cookie_name=cookie_name)
+
+Move an orphan account's SSO identity onto the surviving account
+
+Merge the orphan's data, IdP identity and email onto the surviving account.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.user import User
+from neuland_hub_sdk.models.relink_sso_in import RelinkSsoIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = User(api_client)
+    survivor_user_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    relink_sso_in = neuland_hub_sdk.RelinkSsoIn() # RelinkSsoIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Move an orphan account's SSO identity onto the surviving account
+        api_instance.users_relink_sso(survivor_user_id, relink_sso_in, cookie_name=cookie_name)
+    except Exception as e:
+        print("Exception when calling User->users_relink_sso: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **survivor_user_id** | **UUID**|  | 
+ **relink_sso_in** | [**RelinkSsoIn**](RelinkSsoIn.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Successful Response |  -  |
+**400** | Same account, different tenants, or the orphan has no SSO identity. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Platform operator privileges required. |  -  |
+**404** | Survivor or orphan account not found. |  -  |
+**409** | An account is being deleted, or the accounts belong to different IdP identities. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **users_reset_password**
 > users_reset_password(password_reset_in, cookie_name=cookie_name)
 
@@ -907,7 +999,8 @@ Name | Type | Description  | Notes
 
 Update a user
 
-Update a user's profile, role, tenant, or email; password changes are restricted.
+Update a user's profile, role, tenant, or email (not for SSO accounts);
+password changes are restricted.
 
 ### Example
 
@@ -990,7 +1083,7 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | Insufficient privileges to change the requested fields or tenant. |  -  |
 **404** | No user exists with the given id. |  -  |
-**422** | Validation Error |  -  |
+**422** | Email change on an account that signs in with SSO. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

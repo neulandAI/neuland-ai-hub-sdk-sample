@@ -109,13 +109,13 @@ class DataSourceUserModel(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "display_name": obj.get("display_name"),
             "job_title": obj.get("job_title"),
             "mail": obj.get("mail"),
             "surname": obj.get("surname"),
             "user_principal_name": obj.get("user_principal_name")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

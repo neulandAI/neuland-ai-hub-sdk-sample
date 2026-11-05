@@ -82,11 +82,11 @@ class GroupSyncOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "directory_member_count": obj.get("directory_member_count"),
             "synced_member_count": obj.get("synced_member_count"),
             "unprovisioned_member_count": obj.get("unprovisioned_member_count")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

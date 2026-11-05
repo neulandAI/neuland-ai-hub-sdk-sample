@@ -8,6 +8,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**rolesAssignRoleToUser**](#rolesassignroletouser) | **POST** /roles/{role_id}/users/{user_id} | Assign a role to a user|
 |[**rolesCreateRole**](#rolescreaterole) | **POST** /roles/ | Create a custom role|
 |[**rolesDeleteRole**](#rolesdeleterole) | **DELETE** /roles/{role_id} | Delete a role|
+|[**rolesReassignRoleHolders**](#rolesreassignroleholders) | **POST** /roles/{role_id}/reassign | Move every holder of a role to another role|
 |[**rolesSetDefaultRole**](#rolessetdefaultrole) | **PUT** /roles/{role_id}/default | Set a role as the tenant default|
 |[**rolesUnassignRoleFromGroup**](#rolesunassignrolefromgroup) | **DELETE** /roles/{role_id}/groups/{group_id} | Unassign a role from a group|
 |[**rolesUnassignRoleFromUser**](#rolesunassignrolefromuser) | **DELETE** /roles/{role_id}/users/{user_id} | Unassign a role from a user|
@@ -248,6 +249,68 @@ void (empty response body)
 |**403** | MANAGE_ROLES required. |  -  |
 |**404** | No role exists with the given id. |  -  |
 |**422** | The Operator role and default roles cannot be deleted. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **rolesReassignRoleHolders**
+> RoleReassignOut rolesReassignRoleHolders(roleReassignIn)
+
+Move every direct holder of a role to another role in one transaction.  Only the source role is revoked, so holders keep their other roles. The caller and the excluded users stay on the source role.
+
+### Example
+
+```typescript
+import {
+    Role,
+    Configuration,
+    RoleReassignIn
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Role(configuration);
+
+let roleId: string; //Public id of the role to move the holders off. (default to undefined)
+let roleReassignIn: RoleReassignIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.rolesReassignRoleHolders(
+    roleId,
+    roleReassignIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **roleReassignIn** | **RoleReassignIn**|  | |
+| **roleId** | [**string**] | Public id of the role to move the holders off. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**RoleReassignOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | MANAGE_USERS required, or the grant would exceed the caller\&#39;s own permissions. |  -  |
+|**404** | No such role or excluded user. |  -  |
+|**422** | The roles are the same, belong to different tenants, or one is the Operator role. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

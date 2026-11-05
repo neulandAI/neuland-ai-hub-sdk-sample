@@ -37,11 +37,12 @@ class BudgetAlert(BaseModel):
     threshold_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="Budget threshold, for notification.")
     current_spend: Optional[Annotated[str, Field(strict=True)]] = Field(default='0.000000', description="Total Spent. In decimal to have more accuracy")
     triggered: Optional[StrictBool] = Field(default=False, description="If the alert is triggered or not")
+    triggered_at: Optional[datetime] = None
     active: Optional[StrictBool] = Field(default=True, description="If the alert is enabled")
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the alert was created.")
     updated_at: Optional[datetime] = Field(default=None, description="Timestamp when alert was updated.")
     created_user_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "name", "threshold_amount", "current_spend", "triggered", "active", "created_at", "updated_at", "created_user_id"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "name", "threshold_amount", "current_spend", "triggered", "triggered_at", "active", "created_at", "updated_at", "created_user_id"]
 
     @field_validator('current_spend')
     def current_spend_validate_regular_expression(cls, value):
@@ -97,6 +98,11 @@ class BudgetAlert(BaseModel):
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
 
+        # set to None if triggered_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.triggered_at is None and "triggered_at" in self.model_fields_set:
+            _dict['triggered_at'] = None
+
         # set to None if created_user_id (nullable) is None
         # and model_fields_set contains the field
         if self.created_user_id is None and "created_user_id" in self.model_fields_set:
@@ -113,7 +119,7 @@ class BudgetAlert(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
@@ -121,11 +127,12 @@ class BudgetAlert(BaseModel):
             "threshold_amount": obj.get("threshold_amount") if obj.get("threshold_amount") is not None else 0,
             "current_spend": obj.get("current_spend") if obj.get("current_spend") is not None else '0.000000',
             "triggered": obj.get("triggered") if obj.get("triggered") is not None else False,
+            "triggered_at": obj.get("triggered_at"),
             "active": obj.get("active") if obj.get("active") is not None else True,
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "created_user_id": obj.get("created_user_id")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

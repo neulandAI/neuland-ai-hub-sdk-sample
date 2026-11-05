@@ -138,7 +138,7 @@ class SystemSettings(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "id": obj.get("id"),
@@ -152,7 +152,7 @@ class SystemSettings(BaseModel):
             "maintenance_start_at": obj.get("maintenance_start_at"),
             "maintenance_end_at": obj.get("maintenance_end_at"),
             "maintenance_message": obj.get("maintenance_message")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

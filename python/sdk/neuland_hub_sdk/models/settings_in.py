@@ -31,6 +31,7 @@ class SettingsIn(BaseModel):
     default_llm_catalog_id: Optional[UUID] = None
     guardrails_enabled: Optional[StrictBool] = None
     sharepoint_enabled: Optional[StrictBool] = None
+    sharepoint_allowed_sites: Optional[List[StrictStr]] = None
     inbound_guardrail: Optional[StrictStr] = None
     outbound_guardrail: Optional[StrictStr] = None
     welcome_email_template_id: Optional[UUID] = None
@@ -45,7 +46,8 @@ class SettingsIn(BaseModel):
     default_language: Optional[StrictStr] = None
     user_level_analytics_enabled: Optional[StrictBool] = None
     user_analytics_reveal_names: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "system_prompt_extension", "errlog_webhook_url", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "default_language", "user_level_analytics_enabled", "user_analytics_reveal_names"]
+    ai_image_label_enabled: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "sharepoint_allowed_sites", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "system_prompt_extension", "errlog_webhook_url", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "default_language", "user_level_analytics_enabled", "user_analytics_reveal_names", "ai_image_label_enabled"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -100,6 +102,11 @@ class SettingsIn(BaseModel):
         # and model_fields_set contains the field
         if self.sharepoint_enabled is None and "sharepoint_enabled" in self.model_fields_set:
             _dict['sharepoint_enabled'] = None
+
+        # set to None if sharepoint_allowed_sites (nullable) is None
+        # and model_fields_set contains the field
+        if self.sharepoint_allowed_sites is None and "sharepoint_allowed_sites" in self.model_fields_set:
+            _dict['sharepoint_allowed_sites'] = None
 
         # set to None if inbound_guardrail (nullable) is None
         # and model_fields_set contains the field
@@ -171,6 +178,11 @@ class SettingsIn(BaseModel):
         if self.user_analytics_reveal_names is None and "user_analytics_reveal_names" in self.model_fields_set:
             _dict['user_analytics_reveal_names'] = None
 
+        # set to None if ai_image_label_enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.ai_image_label_enabled is None and "ai_image_label_enabled" in self.model_fields_set:
+            _dict['ai_image_label_enabled'] = None
+
         return _dict
 
     @classmethod
@@ -182,10 +194,11 @@ class SettingsIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "default_llm_catalog_id": obj.get("default_llm_catalog_id"),
             "guardrails_enabled": obj.get("guardrails_enabled"),
             "sharepoint_enabled": obj.get("sharepoint_enabled"),
+            "sharepoint_allowed_sites": obj.get("sharepoint_allowed_sites"),
             "inbound_guardrail": obj.get("inbound_guardrail"),
             "outbound_guardrail": obj.get("outbound_guardrail"),
             "welcome_email_template_id": obj.get("welcome_email_template_id"),
@@ -199,8 +212,9 @@ class SettingsIn(BaseModel):
             "document_retention_days": obj.get("document_retention_days"),
             "default_language": obj.get("default_language"),
             "user_level_analytics_enabled": obj.get("user_level_analytics_enabled"),
-            "user_analytics_reveal_names": obj.get("user_analytics_reveal_names")
-        })
+            "user_analytics_reveal_names": obj.get("user_analytics_reveal_names"),
+            "ai_image_label_enabled": obj.get("ai_image_label_enabled")
+        }.items() if k in _keep})
         return _obj
 
 

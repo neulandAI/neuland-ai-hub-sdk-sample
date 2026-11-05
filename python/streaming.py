@@ -41,6 +41,12 @@ TERMINAL_EVENT = "state"  # last event; the server closes the connection after i
 # The Hub sends an SSE heartbeat every few seconds, so a read that is silent
 # for this long means the connection is dead. Override per call with `timeout=`.
 DEFAULT_TIMEOUT = urllib3.Timeout(connect=10.0, read=60.0)
+# urllib3 strips only Authorization and Cookie when a redirect leaves the host.
+# Strip the API key as well, so it never reaches another host.
+_REDIRECT_SAFE_RETRIES = urllib3.Retry.DEFAULT.new(
+    remove_headers_on_redirect=set(urllib3.Retry.DEFAULT_REMOVE_HEADERS_ON_REDIRECT)
+    | {_API_KEY_HEADER.lower()}
+)
 
 
 @dataclass
@@ -114,6 +120,7 @@ def _stream(
     resp = pool.request(
         method, url, body=body, headers=headers, preload_content=False,
         timeout=DEFAULT_TIMEOUT if timeout is None else timeout,
+        retries=_REDIRECT_SAFE_RETRIES,
     )
     try:
         if resp.status >= 400:

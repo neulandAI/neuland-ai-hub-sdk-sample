@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing authentication or connector consent required. |  -  |
-**403** | Connector token lacks the required permissions. |  -  |
+**403** | Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint). |  -  |
 **404** | No drive or item exists with the given ids. |  -  |
 **422** | Validation Error |  -  |
 
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing authentication or connector consent required. |  -  |
-**403** | Connector token lacks the required permissions. |  -  |
+**403** | Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint). |  -  |
 **404** | No drive or item exists with the given ids. |  -  |
 **422** | Validation Error |  -  |
 
@@ -555,7 +555,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **401** | Missing authentication or connector consent required. |  -  |
-**403** | Connector token lacks the required permissions. |  -  |
+**403** | Connector token lacks the required permissions, or the site is not allowed for the tenant (sharepoint). |  -  |
 **404** | No site exists with the given id. |  -  |
 **422** | Validation Error |  -  |
 

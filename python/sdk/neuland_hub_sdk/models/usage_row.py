@@ -33,9 +33,12 @@ class UsageRow(BaseModel):
     prompt_tokens: StrictInt = Field(description="Prompt tokens.")
     completion_tokens: StrictInt = Field(description="Completion tokens.")
     requests: StrictInt = Field(description="Number of usage records.")
+    cached_prompt_tokens: Optional[StrictInt] = Field(default=0, description="Prompt tokens read from the provider cache.")
+    cache_creation_tokens: Optional[StrictInt] = Field(default=0, description="Prompt tokens written to the provider cache.")
+    reasoning_tokens: Optional[StrictInt] = Field(default=0, description="Reasoning tokens, already included in completion_tokens.")
     group: Dict[str, Optional[ResponseAuthGetEntraGroupsValue]] = Field(description="Dimension values for this group, keyed by dimension name. A null value means the dimension was unattributed for these rows.")
     bucket: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["cost", "total_tokens", "prompt_tokens", "completion_tokens", "requests", "group", "bucket"]
+    __properties: ClassVar[List[str]] = ["cost", "total_tokens", "prompt_tokens", "completion_tokens", "requests", "cached_prompt_tokens", "cache_creation_tokens", "reasoning_tokens", "group", "bucket"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -99,12 +102,15 @@ class UsageRow(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "cost": obj.get("cost"),
             "total_tokens": obj.get("total_tokens"),
             "prompt_tokens": obj.get("prompt_tokens"),
             "completion_tokens": obj.get("completion_tokens"),
             "requests": obj.get("requests"),
+            "cached_prompt_tokens": obj.get("cached_prompt_tokens") if obj.get("cached_prompt_tokens") is not None else 0,
+            "cache_creation_tokens": obj.get("cache_creation_tokens") if obj.get("cache_creation_tokens") is not None else 0,
+            "reasoning_tokens": obj.get("reasoning_tokens") if obj.get("reasoning_tokens") is not None else 0,
             "group": dict(
                 (_k, ResponseAuthGetEntraGroupsValue.from_dict(_v))
                 for _k, _v in obj["group"].items()
@@ -112,7 +118,7 @@ class UsageRow(BaseModel):
             if obj.get("group") is not None
             else None,
             "bucket": obj.get("bucket")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

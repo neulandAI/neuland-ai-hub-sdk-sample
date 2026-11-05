@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
 **domain** | **str** |  | [optional] 
+**domains** | **List[str]** |  | [optional] 
 **parent_tenant_id** | **UUID** |  | [optional] 
 **subtenants_enabled** | **bool** |  | [optional] 
 **timezone** | **str** |  | [optional] 

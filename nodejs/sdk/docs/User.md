@@ -11,6 +11,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**usersDeleteGroup**](#usersdeletegroup) | **DELETE** /users/groups/{group_id} | Delete a user group|
 |[**usersDeleteUser**](#usersdeleteuser) | **DELETE** /users/{user_id} | Delete a user|
 |[**usersGetMyself**](#usersgetmyself) | **GET** /users/me | Get current user|
+|[**usersRelinkSso**](#usersrelinksso) | **POST** /users/{survivor_user_id}/relink-sso | Move an orphan account\&#39;s SSO identity onto the surviving account|
 |[**usersResetPassword**](#usersresetpassword) | **POST** /users/passwd | Change own password|
 |[**usersSyncExternalGroup**](#userssyncexternalgroup) | **POST** /users/groups/{group_id}/sync | Sync an external group\&#39;s members|
 |[**usersUpdateGroup**](#usersupdategroup) | **PATCH** /users/groups/{group_id} | Update a user group|
@@ -421,6 +422,70 @@ const { status, data } = await apiInstance.usersGetMyself(
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **usersRelinkSso**
+> usersRelinkSso(relinkSsoIn)
+
+Merge the orphan\'s data, IdP identity and email onto the surviving account.
+
+### Example
+
+```typescript
+import {
+    User,
+    Configuration,
+    RelinkSsoIn
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new User(configuration);
+
+let survivorUserId: string; // (default to undefined)
+let relinkSsoIn: RelinkSsoIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.usersRelinkSso(
+    survivorUserId,
+    relinkSsoIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **relinkSsoIn** | **RelinkSsoIn**|  | |
+| **survivorUserId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**204** | Successful Response |  -  |
+|**400** | Same account, different tenants, or the orphan has no SSO identity. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Platform operator privileges required. |  -  |
+|**404** | Survivor or orphan account not found. |  -  |
+|**409** | An account is being deleted, or the accounts belong to different IdP identities. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **usersResetPassword**
 > usersResetPassword(passwordResetIn)
 
@@ -605,7 +670,7 @@ const { status, data } = await apiInstance.usersUpdateGroup(
 # **usersUpdateUser**
 > UserOut usersUpdateUser(userUpdateIn)
 
-Update a user\'s profile, role, tenant, or email; password changes are restricted.
+Update a user\'s profile, role, tenant, or email (not for SSO accounts); password changes are restricted.
 
 ### Example
 
@@ -660,7 +725,7 @@ const { status, data } = await apiInstance.usersUpdateUser(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Insufficient privileges to change the requested fields or tenant. |  -  |
 |**404** | No user exists with the given id. |  -  |
-|**422** | Validation Error |  -  |
+|**422** | Email change on an account that signs in with SSO. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

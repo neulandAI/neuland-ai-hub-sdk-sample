@@ -119,7 +119,7 @@ class ApplicationIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "is_active": obj.get("is_active") if obj.get("is_active") is not None else True,
             "tenant_id": obj.get("tenant_id"),
@@ -129,7 +129,7 @@ class ApplicationIn(BaseModel):
             "description": obj.get("description"),
             "version": obj.get("version"),
             "avatar": obj.get("avatar")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

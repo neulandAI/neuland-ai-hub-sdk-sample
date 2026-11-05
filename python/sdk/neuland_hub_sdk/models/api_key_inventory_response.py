@@ -89,10 +89,10 @@ class ApiKeyInventoryResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "rows": [ApiKeyInventoryRow.from_dict(_item) for _item in obj["rows"]] if obj.get("rows") is not None else None,
             "truncated": obj.get("truncated") if obj.get("truncated") is not None else False
-        })
+        }.items() if k in _keep})
         return _obj
 
 

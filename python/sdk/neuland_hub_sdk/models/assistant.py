@@ -182,7 +182,7 @@ class Assistant(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "state": obj.get("state"),
             "state_reason": obj.get("state_reason"),
             "state_changed_at": obj.get("state_changed_at"),
@@ -207,7 +207,7 @@ class Assistant(BaseModel):
             "assistant_catalog_id": obj.get("assistant_catalog_id"),
             "visibility": obj.get("visibility"),
             "is_tool": obj.get("is_tool") if obj.get("is_tool") is not None else False
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -99,14 +99,14 @@ class SharepointDriveModel(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "web_url": obj.get("web_url"),
             "name": obj.get("name"),
             "description": obj.get("description"),
             "root": SharepointItemModel.from_dict(obj["root"]) if obj.get("root") is not None else None,
             "imported_count": obj.get("imported_count") if obj.get("imported_count") is not None else 0
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -120,7 +120,7 @@ class MoversResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "start_date": obj.get("start_date"),
             "end_date": obj.get("end_date"),
             "previous_start": obj.get("previous_start"),
@@ -129,7 +129,7 @@ class MoversResponse(BaseModel):
             "biggest_increase": ModelDelta.from_dict(obj["biggest_increase"]) if obj.get("biggest_increase") is not None else None,
             "biggest_decrease": ModelDelta.from_dict(obj["biggest_decrease"]) if obj.get("biggest_decrease") is not None else None,
             "per_model": [ModelDelta.from_dict(_item) for _item in obj["per_model"]] if obj.get("per_model") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

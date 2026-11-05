@@ -146,7 +146,7 @@ class AssistantIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "model": obj.get("model"),
             "avatar": obj.get("avatar"),
@@ -159,7 +159,7 @@ class AssistantIn(BaseModel):
             "similarity_top_k": obj.get("similarity_top_k"),
             "input_type": obj.get("input_type"),
             "form_fields": [FormField.from_dict(_item) for _item in obj["form_fields"]] if obj.get("form_fields") is not None else None
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -35,10 +35,12 @@ class RoleIn(BaseModel):
     all_models: Optional[StrictBool] = Field(default=True, description="Whether the role grants every model the tenant enables.")
     all_tools: Optional[StrictBool] = Field(default=True, description="Whether the role grants every tool the tenant enables.")
     all_connectors: Optional[StrictBool] = Field(default=True, description="Whether the role grants every connector the tenant enables.")
+    all_custom_connectors: Optional[StrictBool] = Field(default=False, description="Whether the role grants every organisation custom MCP.")
     models: Optional[List[UUID]] = None
     tools: Optional[List[UUID]] = None
     connectors: Optional[List[UUID]] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "permissions", "tenant_id", "all_models", "all_tools", "all_connectors", "models", "tools", "connectors"]
+    custom_connectors: Optional[List[UUID]] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "permissions", "tenant_id", "all_models", "all_tools", "all_connectors", "all_custom_connectors", "models", "tools", "connectors", "custom_connectors"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -104,6 +106,11 @@ class RoleIn(BaseModel):
         if self.connectors is None and "connectors" in self.model_fields_set:
             _dict['connectors'] = None
 
+        # set to None if custom_connectors (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_connectors is None and "custom_connectors" in self.model_fields_set:
+            _dict['custom_connectors'] = None
+
         return _dict
 
     @classmethod
@@ -115,7 +122,7 @@ class RoleIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "description": obj.get("description"),
             "permissions": obj.get("permissions"),
@@ -123,10 +130,12 @@ class RoleIn(BaseModel):
             "all_models": obj.get("all_models") if obj.get("all_models") is not None else True,
             "all_tools": obj.get("all_tools") if obj.get("all_tools") is not None else True,
             "all_connectors": obj.get("all_connectors") if obj.get("all_connectors") is not None else True,
+            "all_custom_connectors": obj.get("all_custom_connectors") if obj.get("all_custom_connectors") is not None else False,
             "models": obj.get("models"),
             "tools": obj.get("tools"),
-            "connectors": obj.get("connectors")
-        })
+            "connectors": obj.get("connectors"),
+            "custom_connectors": obj.get("custom_connectors")
+        }.items() if k in _keep})
         return _obj
 
 

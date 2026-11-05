@@ -35,7 +35,8 @@ class TenantLLM(BaseModel):
     tenant_id: StrictInt = Field(description="ID of the tenant the LLM is enabled for.")
     llm_catalog_id: StrictInt = Field(description="ID of the LLM catalog entry enabled for the tenant.")
     auto_routable: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "tenant_id", "llm_catalog_id", "auto_routable"]
+    prompt_caching: Optional[StrictBool] = Field(default=True, description="Whether Claude requests for this tenant ask to cache the prompt.")
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "tenant_id", "llm_catalog_id", "auto_routable", "prompt_caching"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -102,15 +103,16 @@ class TenantLLM(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "creator_user_id": obj.get("creator_user_id"),
             "updater_user_id": obj.get("updater_user_id"),
             "tenant_id": obj.get("tenant_id"),
             "llm_catalog_id": obj.get("llm_catalog_id"),
-            "auto_routable": obj.get("auto_routable")
-        })
+            "auto_routable": obj.get("auto_routable"),
+            "prompt_caching": obj.get("prompt_caching") if obj.get("prompt_caching") is not None else True
+        }.items() if k in _keep})
         return _obj
 
 

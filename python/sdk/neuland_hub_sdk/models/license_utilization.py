@@ -93,12 +93,12 @@ class LicenseUtilization(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "licenses": obj.get("licenses"),
             "active_users": obj.get("active_users"),
             "active_unused_users": obj.get("active_unused_users"),
             "utilization_pct": obj.get("utilization_pct")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

@@ -5,6 +5,8 @@ description: "Install the Neuland AI Hub Python SDK."
 
 The Python SDK is published on PyPI as `neuland-hub-sdk`.
 
+SDK 1.3.1 needs Hub `v3.0.0-rc.47` or later. Older Hubs lack endpoints the SDK calls (for example `/v1/models`) and reject the API key on `/auth/exchange/token`.
+
 ## Install
 
 ```bash
@@ -14,7 +16,7 @@ pip install neuland-hub-sdk
 Or pin it in `requirements.txt`:
 
 ```
-neuland-hub-sdk==1.2.1
+neuland-hub-sdk==1.3.1
 ```
 
 <Note>

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **default_llm_catalog_id** | **string** |  | [optional] [default to undefined]
 **guardrails_enabled** | **boolean** |  | [optional] [default to undefined]
 **sharepoint_enabled** | **boolean** |  | [optional] [default to undefined]
+**sharepoint_allowed_sites** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **inbound_guardrail** | **string** |  | [optional] [default to undefined]
 **outbound_guardrail** | **string** |  | [optional] [default to undefined]
 **welcome_email_template_id** | **string** |  | [optional] [default to undefined]
@@ -22,6 +23,7 @@ Name | Type | Description | Notes
 **default_language** | **string** |  | [optional] [default to undefined]
 **user_level_analytics_enabled** | **boolean** |  | [optional] [default to undefined]
 **user_analytics_reveal_names** | **boolean** |  | [optional] [default to undefined]
+**ai_image_label_enabled** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -32,6 +34,7 @@ const instance: SettingsIn = {
     default_llm_catalog_id,
     guardrails_enabled,
     sharepoint_enabled,
+    sharepoint_allowed_sites,
     inbound_guardrail,
     outbound_guardrail,
     welcome_email_template_id,
@@ -46,6 +49,7 @@ const instance: SettingsIn = {
     default_language,
     user_level_analytics_enabled,
     user_analytics_reveal_names,
+    ai_image_label_enabled,
 };
 ```
 

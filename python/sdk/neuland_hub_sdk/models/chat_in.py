@@ -128,7 +128,7 @@ class ChatIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
             "temperature": obj.get("temperature"),
             "reasoning_effort": obj.get("reasoning_effort"),
@@ -137,7 +137,7 @@ class ChatIn(BaseModel):
             "model": obj.get("model"),
             "private": obj.get("private"),
             "disabled_tool_names": obj.get("disabled_tool_names")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

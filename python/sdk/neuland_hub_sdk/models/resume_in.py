@@ -113,12 +113,12 @@ class ResumeIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "decision": obj.get("decision"),
             "edited_args": obj.get("edited_args"),
             "answers": [ClarificationAnswer.from_dict(_item) for _item in obj["answers"]] if obj.get("answers") is not None else None,
             "model": obj.get("model")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

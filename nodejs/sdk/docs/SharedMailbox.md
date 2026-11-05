@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **added_at** | **string** |  | [optional] [default to undefined]
 **kind** | **string** | \&#39;shared\&#39;: an Exchange shared mailbox, read via /users/{address}. \&#39;group\&#39;: a Microsoft 365 group — its mail is read via /groups/{id}/threads and sends go through the user\&#39;s own mailbox with the group as sender. | [optional] [default to KindEnum_shared]
 **group_id** | **string** |  | [optional] [default to undefined]
+**principal** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -23,6 +24,7 @@ const instance: SharedMailbox = {
     added_at,
     kind,
     group_id,
+    principal,
 };
 ```
 

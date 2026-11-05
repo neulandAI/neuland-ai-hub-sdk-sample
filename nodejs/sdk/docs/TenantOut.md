@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **name** | **string** | Internal name of the tenant. | [default to undefined]
 **slug** | **string** | URL-safe unique identifier for the tenant. | [default to undefined]
 **domain** | **string** |  | [optional] [default to undefined]
+**domains** | **Array&lt;string | null&gt;** | All email/web domains owned by the tenant. | [optional] [default to undefined]
 **parent_tenant_id** | **number** |  | [optional] [default to undefined]
 **subtenants_enabled** | **boolean** | Whether this tenant may create child tenants. | [default to undefined]
 **timezone** | **string** | Default IANA timezone for the tenant. | [default to undefined]
@@ -48,6 +49,7 @@ const instance: TenantOut = {
     name,
     slug,
     domain,
+    domains,
     parent_tenant_id,
     subtenants_enabled,
     timezone,

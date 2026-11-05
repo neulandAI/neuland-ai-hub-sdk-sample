@@ -979,7 +979,7 @@ class Sharepoint:
     ) -> List[SharepointSiteModel]:
         """List SharePoint sites
 
-        List the SharePoint sites the user can access, with imported document counts.
+        List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
 
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: UUID
@@ -1065,7 +1065,7 @@ class Sharepoint:
     ) -> ApiResponse[List[SharepointSiteModel]]:
         """List SharePoint sites
 
-        List the SharePoint sites the user can access, with imported document counts.
+        List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
 
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: UUID
@@ -1151,7 +1151,7 @@ class Sharepoint:
     ) -> RESTResponseType:
         """List SharePoint sites
 
-        List the SharePoint sites the user can access, with imported document counts.
+        List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
 
         :param chat_id: Scope imported counts to this chat.
         :type chat_id: UUID

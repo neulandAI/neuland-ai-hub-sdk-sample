@@ -1,0 +1,30 @@
+---
+title: "RoleReassignIn"
+---
+
+Move every holder of a role to another role.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**role_id** | **UUID** | Public id of the role to move the holders to. | 
+**exclude_user_ids** | **List[UUID]** | Public ids of users to leave on the source role. | [optional] 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.role_reassign_in import RoleReassignIn
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of RoleReassignIn from a JSON string
+role_reassign_in_instance = RoleReassignIn.from_json(json)
+# print the JSON string representation of the object
+print(RoleReassignIn.to_json())
+
+# convert the object into a dict
+role_reassign_in_dict = role_reassign_in_instance.to_dict()
+# create an instance of RoleReassignIn from a dict
+role_reassign_in_from_dict = RoleReassignIn.from_dict(role_reassign_in_dict)
+```

@@ -87,14 +87,14 @@ class ApplicationGroupOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "app_id": obj.get("app_id"),
             "app_public_id": obj.get("app_public_id"),
             "group_id": obj.get("group_id"),
             "group_public_id": obj.get("group_public_id"),
             "tenant_id": obj.get("tenant_id"),
             "created_at": obj.get("created_at")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

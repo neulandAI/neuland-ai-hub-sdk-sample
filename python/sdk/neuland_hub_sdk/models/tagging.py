@@ -93,7 +93,7 @@ class Tagging(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "tag_id": obj.get("tag_id"),
@@ -101,7 +101,7 @@ class Tagging(BaseModel):
             "taggable_id": obj.get("taggable_id"),
             "tenant_id": obj.get("tenant_id"),
             "creator_user_id": obj.get("creator_user_id")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

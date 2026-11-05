@@ -124,7 +124,7 @@ class CreateOutlookDraftRequest(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "tool_call_id": obj.get("tool_call_id"),
             "to": To.from_dict(obj["to"]) if obj.get("to") is not None else None,
             "subject": obj.get("subject") if obj.get("subject") is not None else '',
@@ -133,7 +133,7 @@ class CreateOutlookDraftRequest(BaseModel):
             "bcc": Bcc.from_dict(obj["bcc"]) if obj.get("bcc") is not None else None,
             "attachment_ids": obj.get("attachment_ids"),
             "mailbox": obj.get("mailbox")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

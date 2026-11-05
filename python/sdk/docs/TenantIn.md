@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **name** | **str** | Internal name of the tenant. | 
 **slug** | **str** | URL-safe unique identifier for the tenant. | 
 **domain** | **str** |  | [optional] 
+**domains** | **List[str]** |  | [optional] 
 **parent_tenant_id** | **UUID** |  | [optional] 
 **subtenants_enabled** | **bool** |  | [optional] 
 **timezone** | **str** |  | [optional] 

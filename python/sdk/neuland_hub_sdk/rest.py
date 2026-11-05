@@ -21,6 +21,9 @@ import urllib3
 
 from neuland_hub_sdk.exceptions import ApiException, ApiValueError
 
+# Credential headers stripped when a redirect points to another host.
+SENSITIVE_HEADERS = {"x-api-key", "x-entra-access-token", "authorization", "cookie"}
+
 SUPPORTED_SOCKS_PROXIES = {"socks5", "socks5h", "socks4", "socks4a"}
 RESTResponseType = urllib3.HTTPResponse
 
@@ -88,8 +91,10 @@ class RESTClientObject:
                 configuration.assert_hostname
             )
 
-        if configuration.retries is not None:
-            pool_args['retries'] = configuration.retries
+        # Never forward credentials to another host on a redirect.
+        retries = urllib3.util.Retry.from_int(configuration.retries)
+        pool_args['retries'] = retries.new(remove_headers_on_redirect=(
+            set(retries.remove_headers_on_redirect) | SENSITIVE_HEADERS))
 
         if configuration.tls_server_name:
             pool_args['server_hostname'] = configuration.tls_server_name

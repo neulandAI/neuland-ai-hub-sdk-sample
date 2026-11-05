@@ -1,0 +1,25 @@
+# RoleReassignOut
+
+Result of moving every holder of a role to another role.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**holder_count** | **number** | Number of users directly holding the source role. | [default to undefined]
+**moved_count** | **number** | Number of users moved to the target role. | [default to undefined]
+**skipped_count** | **number** | Number of holders left on the source role: the caller and the excluded users. | [default to undefined]
+
+## Example
+
+```typescript
+import { RoleReassignOut } from '@neulandai/neuland-hub-sdk';
+
+const instance: RoleReassignOut = {
+    holder_count,
+    moved_count,
+    skipped_count,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

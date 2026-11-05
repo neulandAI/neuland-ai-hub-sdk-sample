@@ -6,26 +6,26 @@ All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**assistantsAddLibraryToAssistant**](#assistantsaddlibrarytoassistant) | **POST** /assistants/&#123;assistant_id&#125;/libraries/&#123;library_id&#125; | Add a library to an assistant|
-|[**assistantsAddMembers**](#assistantsaddmembers) | **POST** /assistants/&#123;assistant_id&#125;/members | Add members to an assistant|
-|[**assistantsAddTagToAssistant**](#assistantsaddtagtoassistant) | **POST** /assistants/&#123;assistant_id&#125;/tags/&#123;tag_id&#125; | Add a tag to an assistant|
-|[**assistantsAddToolToAssistant**](#assistantsaddtooltoassistant) | **POST** /assistants/&#123;assistant_id&#125;/tools/&#123;tool_id&#125; | Add a tool to an assistant|
-|[**assistantsConvertAssistantToTool**](#assistantsconvertassistanttotool) | **POST** /assistants/&#123;assistant_id&#125;/tool | Make an assistant consultable from your own chats|
-|[**assistantsCreateAssistant**](#assistantscreateassistant) | **POST** /assistants/ | Create an assistant|
-|[**assistantsDeleteAssistant**](#assistantsdeleteassistant) | **DELETE** /assistants/&#123;assistant_id&#125; | Delete an assistant|
-|[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/&#123;assistant_id&#125;/members | Remove members from an assistant|
-|[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/&#123;assistant_id&#125;/membership | Join a community assistant|
-|[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/&#123;assistant_id&#125;/remove/me | Leave an assistant|
-|[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/&#123;assistant_id&#125;/tool | Stop the assistant being consultable from your chats|
-|[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/libraries/&#123;library_id&#125; | Remove a library from an assistant|
-|[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/&#123;assistant_id&#125;/members/&#123;user_id&#125; | Remove a single member|
-|[**assistantsRemoveTagFromAssistant**](#assistantsremovetagfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/tags/&#123;tag_id&#125; | Remove a tag from an assistant|
-|[**assistantsRemoveToolFromAssistant**](#assistantsremovetoolfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/tools/&#123;tool_id&#125; | Remove a tool from an assistant|
-|[**assistantsRestoreAssistantVersion**](#assistantsrestoreassistantversion) | **POST** /assistants/&#123;assistant_id&#125;/versions/&#123;version&#125;/restore | Restore an assistant version|
-|[**assistantsSubmitAssistant**](#assistantssubmitassistant) | **POST** /assistants/submit | Create an assistant with attachments|
-|[**assistantsUpdateAssistant**](#assistantsupdateassistant) | **PATCH** /assistants/&#123;assistant_id&#125; | Update an assistant|
-|[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/&#123;assistant_id&#125;/groups | Set assistant group access|
-|[**assistantsUpdateAssistantVisibility**](#assistantsupdateassistantvisibility) | **PATCH** /assistants/&#123;assistant_id&#125;/visibility | Set assistant visibility|
+|[**assistantsAddLibraryToAssistant**](#assistantsaddlibrarytoassistant) | **POST** /assistants/&#123;assistant_id&#125;/libraries/&#123;library_id&#125; | Add a library to an assistant (agent)|
+|[**assistantsAddMembers**](#assistantsaddmembers) | **POST** /assistants/&#123;assistant_id&#125;/members | Add members to an assistant (agent)|
+|[**assistantsAddTagToAssistant**](#assistantsaddtagtoassistant) | **POST** /assistants/&#123;assistant_id&#125;/tags/&#123;tag_id&#125; | Add a tag to an assistant (agent)|
+|[**assistantsAddToolToAssistant**](#assistantsaddtooltoassistant) | **POST** /assistants/&#123;assistant_id&#125;/tools/&#123;tool_id&#125; | Add a tool to an assistant (agent)|
+|[**assistantsConvertAssistantToTool**](#assistantsconvertassistanttotool) | **POST** /assistants/&#123;assistant_id&#125;/tool | Make an assistant (agent) consultable from your own chats|
+|[**assistantsCreateAssistant**](#assistantscreateassistant) | **POST** /assistants/ | Create an assistant (agent)|
+|[**assistantsDeleteAssistant**](#assistantsdeleteassistant) | **DELETE** /assistants/&#123;assistant_id&#125; | Delete an assistant (agent)|
+|[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/&#123;assistant_id&#125;/members | Remove members from an assistant (agent)|
+|[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/&#123;assistant_id&#125;/membership | Join a community assistant (agent)|
+|[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/&#123;assistant_id&#125;/remove/me | Leave an assistant (agent)|
+|[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/&#123;assistant_id&#125;/tool | Stop the assistant (agent) being consultable from your chats|
+|[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/libraries/&#123;library_id&#125; | Remove a library from an assistant (agent)|
+|[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/&#123;assistant_id&#125;/members/&#123;user_id&#125; | Remove a single member from an assistant (agent)|
+|[**assistantsRemoveTagFromAssistant**](#assistantsremovetagfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/tags/&#123;tag_id&#125; | Remove a tag from an assistant (agent)|
+|[**assistantsRemoveToolFromAssistant**](#assistantsremovetoolfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/tools/&#123;tool_id&#125; | Remove a tool from an assistant (agent)|
+|[**assistantsRestoreAssistantVersion**](#assistantsrestoreassistantversion) | **POST** /assistants/&#123;assistant_id&#125;/versions/&#123;version&#125;/restore | Restore an assistant (agent) version|
+|[**assistantsSubmitAssistant**](#assistantssubmitassistant) | **POST** /assistants/submit | Create an assistant (agent) with attachments|
+|[**assistantsUpdateAssistant**](#assistantsupdateassistant) | **PATCH** /assistants/&#123;assistant_id&#125; | Update an assistant (agent)|
+|[**assistantsUpdateAssistantGroups**](#assistantsupdateassistantgroups) | **PUT** /assistants/&#123;assistant_id&#125;/groups | Set assistant (agent) group access|
+|[**assistantsUpdateAssistantVisibility**](#assistantsupdateassistantvisibility) | **PATCH** /assistants/&#123;assistant_id&#125;/visibility | Set assistant (agent) visibility|
 
 ## **assistantsAddLibraryToAssistant**
 ```typescript

@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "1.2.1"
+__version__ = "1.3.1"
 
 # Define package exports
 __all__ = [
@@ -41,6 +41,7 @@ __all__ = [
     "LlmCatalog",
     "LlmSetting",
     "Message",
+    "ModelApi",
     "Nextcloud",
     "OneDrive",
     "Project",
@@ -113,6 +114,7 @@ __all__ = [
     "BudgetTopUpOut",
     "BudgetTopUpRequest",
     "BulkResult",
+    "CallbackOut",
     "CatalogIn",
     "CatalogUpdate",
     "CategoryOut",
@@ -158,6 +160,8 @@ __all__ = [
     "DataSourceSiteModel",
     "DataSourceUserModel",
     "DateWindowRequest",
+    "DetectIn",
+    "DetectOut",
     "DirectFileUrl",
     "Document",
     "DocumentMetrics",
@@ -173,6 +177,7 @@ __all__ = [
     "FeatureFlagSetIn",
     "FormField",
     "FormFieldTypeEnum",
+    "GooglePickerTokenOut",
     "GroupAppAccessIn",
     "GroupIn",
     "GroupSyncOut",
@@ -202,6 +207,8 @@ __all__ = [
     "MessageTokensResponse",
     "MessageTurnOut",
     "ModelDelta",
+    "ModelList",
+    "ModelObject",
     "ModelTierEnum",
     "MoversResponse",
     "NeulandAssistantsTaggingOut",
@@ -228,6 +235,8 @@ __all__ = [
     "Rating",
     "RatingIn",
     "ReasoningEffortEnum",
+    "ReasoningEffortOrAutoEnum",
+    "RelinkSsoIn",
     "RephraseStyleEnum",
     "ResponseAuthGetEntraGroupsValue",
     "ResponseDropboxListRoots",
@@ -238,6 +247,8 @@ __all__ = [
     "ResumeIn",
     "Role",
     "RoleIn",
+    "RoleReassignIn",
+    "RoleReassignOut",
     "RoleUpdateIn",
     "RunCreateOut",
     "SecretUpdateIn",
@@ -255,6 +266,7 @@ __all__ = [
     "SharepointItemModel",
     "SharepointSiteModel",
     "SharepointUserModel",
+    "SignInOut",
     "SsoExchangeIn",
     "SsoInitOut",
     "SsoResolveOut",
@@ -355,6 +367,7 @@ from neuland_hub_sdk.api.llm import Llm as Llm
 from neuland_hub_sdk.api.llm_catalog import LlmCatalog as LlmCatalog
 from neuland_hub_sdk.api.llm_setting import LlmSetting as LlmSetting
 from neuland_hub_sdk.api.message import Message as Message
+from neuland_hub_sdk.api.model_api import ModelApi as ModelApi
 from neuland_hub_sdk.api.nextcloud import Nextcloud as Nextcloud
 from neuland_hub_sdk.api.one_drive import OneDrive as OneDrive
 from neuland_hub_sdk.api.project import Project as Project
@@ -431,6 +444,7 @@ from neuland_hub_sdk.models.budget_summary import BudgetSummary as BudgetSummary
 from neuland_hub_sdk.models.budget_top_up_out import BudgetTopUpOut as BudgetTopUpOut
 from neuland_hub_sdk.models.budget_top_up_request import BudgetTopUpRequest as BudgetTopUpRequest
 from neuland_hub_sdk.models.bulk_result import BulkResult as BulkResult
+from neuland_hub_sdk.models.callback_out import CallbackOut as CallbackOut
 from neuland_hub_sdk.models.catalog_in import CatalogIn as CatalogIn
 from neuland_hub_sdk.models.catalog_update import CatalogUpdate as CatalogUpdate
 from neuland_hub_sdk.models.category_out import CategoryOut as CategoryOut
@@ -476,6 +490,8 @@ from neuland_hub_sdk.models.data_source_item_model import DataSourceItemModel as
 from neuland_hub_sdk.models.data_source_site_model import DataSourceSiteModel as DataSourceSiteModel
 from neuland_hub_sdk.models.data_source_user_model import DataSourceUserModel as DataSourceUserModel
 from neuland_hub_sdk.models.date_window_request import DateWindowRequest as DateWindowRequest
+from neuland_hub_sdk.models.detect_in import DetectIn as DetectIn
+from neuland_hub_sdk.models.detect_out import DetectOut as DetectOut
 from neuland_hub_sdk.models.direct_file_url import DirectFileUrl as DirectFileUrl
 from neuland_hub_sdk.models.document import Document as Document
 from neuland_hub_sdk.models.document_metrics import DocumentMetrics as DocumentMetrics
@@ -491,6 +507,7 @@ from neuland_hub_sdk.models.feature_flag_out import FeatureFlagOut as FeatureFla
 from neuland_hub_sdk.models.feature_flag_set_in import FeatureFlagSetIn as FeatureFlagSetIn
 from neuland_hub_sdk.models.form_field import FormField as FormField
 from neuland_hub_sdk.models.form_field_type_enum import FormFieldTypeEnum as FormFieldTypeEnum
+from neuland_hub_sdk.models.google_picker_token_out import GooglePickerTokenOut as GooglePickerTokenOut
 from neuland_hub_sdk.models.group_app_access_in import GroupAppAccessIn as GroupAppAccessIn
 from neuland_hub_sdk.models.group_in import GroupIn as GroupIn
 from neuland_hub_sdk.models.group_sync_out import GroupSyncOut as GroupSyncOut
@@ -520,6 +537,8 @@ from neuland_hub_sdk.models.message_submit_out import MessageSubmitOut as Messag
 from neuland_hub_sdk.models.message_tokens_response import MessageTokensResponse as MessageTokensResponse
 from neuland_hub_sdk.models.message_turn_out import MessageTurnOut as MessageTurnOut
 from neuland_hub_sdk.models.model_delta import ModelDelta as ModelDelta
+from neuland_hub_sdk.models.model_list import ModelList as ModelList
+from neuland_hub_sdk.models.model_object import ModelObject as ModelObject
 from neuland_hub_sdk.models.model_tier_enum import ModelTierEnum as ModelTierEnum
 from neuland_hub_sdk.models.movers_response import MoversResponse as MoversResponse
 from neuland_hub_sdk.models.neuland_assistants_tagging_out import NeulandAssistantsTaggingOut as NeulandAssistantsTaggingOut
@@ -546,6 +565,8 @@ from neuland_hub_sdk.models.rateable_type_enum import RateableTypeEnum as Rateab
 from neuland_hub_sdk.models.rating import Rating as Rating
 from neuland_hub_sdk.models.rating_in import RatingIn as RatingIn
 from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum as ReasoningEffortEnum
+from neuland_hub_sdk.models.reasoning_effort_or_auto_enum import ReasoningEffortOrAutoEnum as ReasoningEffortOrAutoEnum
+from neuland_hub_sdk.models.relink_sso_in import RelinkSsoIn as RelinkSsoIn
 from neuland_hub_sdk.models.rephrase_style_enum import RephraseStyleEnum as RephraseStyleEnum
 from neuland_hub_sdk.models.response_auth_get_entra_groups_value import ResponseAuthGetEntraGroupsValue as ResponseAuthGetEntraGroupsValue
 from neuland_hub_sdk.models.response_dropbox_list_roots import ResponseDropboxListRoots as ResponseDropboxListRoots
@@ -556,6 +577,8 @@ from neuland_hub_sdk.models.response_sharepointv1_list_roots import ResponseShar
 from neuland_hub_sdk.models.resume_in import ResumeIn as ResumeIn
 from neuland_hub_sdk.models.role import Role as Role
 from neuland_hub_sdk.models.role_in import RoleIn as RoleIn
+from neuland_hub_sdk.models.role_reassign_in import RoleReassignIn as RoleReassignIn
+from neuland_hub_sdk.models.role_reassign_out import RoleReassignOut as RoleReassignOut
 from neuland_hub_sdk.models.role_update_in import RoleUpdateIn as RoleUpdateIn
 from neuland_hub_sdk.models.run_create_out import RunCreateOut as RunCreateOut
 from neuland_hub_sdk.models.secret_update_in import SecretUpdateIn as SecretUpdateIn
@@ -573,6 +596,7 @@ from neuland_hub_sdk.models.sharepoint_folder_model import SharepointFolderModel
 from neuland_hub_sdk.models.sharepoint_item_model import SharepointItemModel as SharepointItemModel
 from neuland_hub_sdk.models.sharepoint_site_model import SharepointSiteModel as SharepointSiteModel
 from neuland_hub_sdk.models.sharepoint_user_model import SharepointUserModel as SharepointUserModel
+from neuland_hub_sdk.models.sign_in_out import SignInOut as SignInOut
 from neuland_hub_sdk.models.sso_exchange_in import SsoExchangeIn as SsoExchangeIn
 from neuland_hub_sdk.models.sso_init_out import SsoInitOut as SsoInitOut
 from neuland_hub_sdk.models.sso_resolve_out import SsoResolveOut as SsoResolveOut

@@ -11,9 +11,11 @@ Name | Type | Description | Notes
 **all_models** | **boolean** |  | [optional] [default to undefined]
 **all_tools** | **boolean** |  | [optional] [default to undefined]
 **all_connectors** | **boolean** |  | [optional] [default to undefined]
+**all_custom_connectors** | **boolean** |  | [optional] [default to undefined]
 **models** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **tools** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **connectors** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**custom_connectors** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -27,9 +29,11 @@ const instance: RoleUpdateIn = {
     all_models,
     all_tools,
     all_connectors,
+    all_custom_connectors,
     models,
     tools,
     connectors,
+    custom_connectors,
 };
 ```
 

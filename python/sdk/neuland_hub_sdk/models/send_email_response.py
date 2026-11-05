@@ -93,12 +93,12 @@ class SendEmailResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "success": obj.get("success"),
             "message": obj.get("message"),
             "recipients": obj.get("recipients"),
             "from_mailbox": obj.get("from_mailbox")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

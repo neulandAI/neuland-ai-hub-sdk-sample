@@ -37,6 +37,7 @@ class Settings(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="Timestamp when the settings record was created.")
     guardrails_enabled: Optional[StrictBool] = Field(default=False, description="Whether guardrails are enabled for the tenant.")
     sharepoint_enabled: Optional[StrictBool]
+    sharepoint_allowed_sites: Optional[List[StrictStr]] = None
     inbound_guardrail: Optional[StrictStr] = None
     outbound_guardrail: Optional[StrictStr] = None
     system_prompt: Optional[StrictStr] = None
@@ -50,7 +51,8 @@ class Settings(BaseModel):
     document_retention_days: Optional[StrictInt] = None
     user_level_analytics_enabled: Optional[StrictBool] = Field(default=False, description="Whether identifiable per-user / per-group analytics are shown to this tenant's admins. Off by default (GDPR data-minimization); the tenant admin opts in. Aggregated/anonymized analytics are unaffected.")
     user_analytics_reveal_names: Optional[StrictBool] = Field(default=False, description="When user-level analytics is on, whether the user dimension carries real user ids (so the UI can show names) or opaque per-request pseudonyms. Off by default (GDPR): pseudonymized. Only takes effect while user_level_analytics_enabled is on.")
-    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "inbound_guardrail", "outbound_guardrail", "system_prompt", "system_prompt_extension", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "user_level_analytics_enabled", "user_analytics_reveal_names"]
+    ai_image_label_enabled: Optional[StrictBool] = Field(default=False, description="Whether generated images get a visible EU 'AI' icon stamped into them. Off by default: stamping re-encodes the image, which drops the provider's C2PA Content Credentials.")
+    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "sharepoint_allowed_sites", "inbound_guardrail", "outbound_guardrail", "system_prompt", "system_prompt_extension", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "user_level_analytics_enabled", "user_analytics_reveal_names", "ai_image_label_enabled"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -106,6 +108,11 @@ class Settings(BaseModel):
         if self.sharepoint_enabled is None and "sharepoint_enabled" in self.model_fields_set:
             _dict['sharepoint_enabled'] = None
 
+        # set to None if sharepoint_allowed_sites (nullable) is None
+        # and model_fields_set contains the field
+        if self.sharepoint_allowed_sites is None and "sharepoint_allowed_sites" in self.model_fields_set:
+            _dict['sharepoint_allowed_sites'] = None
+
         # set to None if inbound_guardrail (nullable) is None
         # and model_fields_set contains the field
         if self.inbound_guardrail is None and "inbound_guardrail" in self.model_fields_set:
@@ -152,7 +159,7 @@ class Settings(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "tenant_id": obj.get("tenant_id"),
@@ -160,6 +167,7 @@ class Settings(BaseModel):
             "created_at": obj.get("created_at"),
             "guardrails_enabled": obj.get("guardrails_enabled") if obj.get("guardrails_enabled") is not None else False,
             "sharepoint_enabled": obj.get("sharepoint_enabled"),
+            "sharepoint_allowed_sites": obj.get("sharepoint_allowed_sites"),
             "inbound_guardrail": obj.get("inbound_guardrail"),
             "outbound_guardrail": obj.get("outbound_guardrail"),
             "system_prompt": obj.get("system_prompt"),
@@ -172,8 +180,9 @@ class Settings(BaseModel):
             "soft_limit_warning_enabled": obj.get("soft_limit_warning_enabled") if obj.get("soft_limit_warning_enabled") is not None else False,
             "document_retention_days": obj.get("document_retention_days"),
             "user_level_analytics_enabled": obj.get("user_level_analytics_enabled") if obj.get("user_level_analytics_enabled") is not None else False,
-            "user_analytics_reveal_names": obj.get("user_analytics_reveal_names") if obj.get("user_analytics_reveal_names") is not None else False
-        })
+            "user_analytics_reveal_names": obj.get("user_analytics_reveal_names") if obj.get("user_analytics_reveal_names") is not None else False,
+            "ai_image_label_enabled": obj.get("ai_image_label_enabled") if obj.get("ai_image_label_enabled") is not None else False
+        }.items() if k in _keep})
         return _obj
 
 

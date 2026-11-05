@@ -20,7 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from uuid import UUID
-from neuland_hub_sdk.models.reasoning_effort_enum import ReasoningEffortEnum
+from neuland_hub_sdk.models.reasoning_effort_or_auto_enum import ReasoningEffortOrAutoEnum
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -34,7 +34,7 @@ class MessageIn(BaseModel):
     project_id: Optional[UUID] = None
     model: Optional[StrictStr] = None
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
-    reasoning_effort: Optional[ReasoningEffortEnum] = None
+    reasoning_effort: Optional[ReasoningEffortOrAutoEnum] = None
     similarity_top_k: Optional[StrictInt] = None
     system_prompt: Optional[StrictStr] = None
     assistant_id: Optional[UUID] = None
@@ -172,7 +172,7 @@ class MessageIn(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "content": obj.get("content"),
             "chat_id": obj.get("chat_id"),
             "project_id": obj.get("project_id"),
@@ -189,7 +189,7 @@ class MessageIn(BaseModel):
             "form_data": obj.get("form_data"),
             "form_fields": obj.get("form_fields"),
             "playground": obj.get("playground") if obj.get("playground") is not None else False
-        })
+        }.items() if k in _keep})
         return _obj
 
 

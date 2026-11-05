@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **added_at** | **str** |  | [optional] 
 **kind** | **str** | &#39;shared&#39;: an Exchange shared mailbox, read via /users/{address}. &#39;group&#39;: a Microsoft 365 group — its mail is read via /groups/{id}/threads and sends go through the user&#39;s own mailbox with the group as sender. | [optional] [default to 'shared']
 **group_id** | **str** |  | [optional] 
+**principal** | **str** |  | [optional] 
 
 ## Example
 

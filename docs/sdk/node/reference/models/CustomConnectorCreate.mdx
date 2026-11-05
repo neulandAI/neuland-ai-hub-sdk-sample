@@ -2,7 +2,7 @@
 title: "CustomConnectorCreate"
 ---
 
-Either `url` (with optional `name`/`headers`), or `config` — a pasted `mcpServers` JSON blob. Never both.
+Either `url` (with optional `name`/`headers` and auth settings), or `config` — a pasted `mcpServers` JSON blob of fixed-header servers. Never both.
 
 ## Properties
 
@@ -12,6 +12,13 @@ Name | Type | Description | Notes
 **url** | **string** |  | [optional] [default to undefined]
 **headers** | **&#123; [key: string]: string; &#125;** |  | [optional] [default to undefined]
 **config** | **string** |  | [optional] [default to undefined]
+**auth_mode** | **string** |  | [optional] [default to AuthModeEnum_none]
+**oauth_client_mode** | **string** |  | [optional] [default to undefined]
+**oauth_client_id** | **string** |  | [optional] [default to undefined]
+**oauth_client_secret** | **string** |  | [optional] [default to undefined]
+**organization** | **boolean** | Add for the organisation instead of yourself (needs &#x60;MANAGE_CONNECTORS&#x60; and &#x60;MANAGE_CONNECTOR_ACCESS&#x60;). | [optional] [default to false]
+**all_users** | **boolean** |  | [optional] [default to false]
+**role_ids** | **Array&lt;string&gt;** | Roles to grant an organisation MCP to (also needs &#x60;MANAGE_ROLES&#x60;); further roles and single users can be given it later in the role editor and the user access settings. | [optional] [default to undefined]
 
 ## Example
 
@@ -23,5 +30,12 @@ const instance: CustomConnectorCreate = {
     url,
     headers,
     config,
+    auth_mode,
+    oauth_client_mode,
+    oauth_client_id,
+    oauth_client_secret,
+    organization,
+    all_users,
+    role_ids,
 };
 ```

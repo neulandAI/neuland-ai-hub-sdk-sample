@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] [default to undefined]
 **domain** | **string** |  | [optional] [default to undefined]
+**domains** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 **parent_tenant_id** | **string** |  | [optional] [default to undefined]
 **subtenants_enabled** | **boolean** |  | [optional] [default to undefined]
 **timezone** | **string** |  | [optional] [default to undefined]
@@ -38,6 +39,7 @@ import { TenantUpdateIn } from '@neulandai/neuland-hub-sdk';
 const instance: TenantUpdateIn = {
     name,
     domain,
+    domains,
     parent_tenant_id,
     subtenants_enabled,
     timezone,

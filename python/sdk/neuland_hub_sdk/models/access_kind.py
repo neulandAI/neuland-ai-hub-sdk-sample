@@ -29,6 +29,7 @@ class AccessKind(str, Enum):
     MODEL = 'model'
     TOOL = 'tool'
     CONNECTOR = 'connector'
+    CUSTOM_MCP = 'custom_mcp'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

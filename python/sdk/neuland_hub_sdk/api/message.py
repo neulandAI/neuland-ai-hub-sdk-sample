@@ -2216,7 +2216,7 @@ class Message:
         :param temperature:
         :type temperature: float
         :param reasoning_effort:
-        :type reasoning_effort: ReasoningEffortEnum
+        :type reasoning_effort: ReasoningEffortOrAutoEnum
         :param similarity_top_k:
         :type similarity_top_k: int
         :param system_prompt:
@@ -2355,7 +2355,7 @@ class Message:
         :param temperature:
         :type temperature: float
         :param reasoning_effort:
-        :type reasoning_effort: ReasoningEffortEnum
+        :type reasoning_effort: ReasoningEffortOrAutoEnum
         :param similarity_top_k:
         :type similarity_top_k: int
         :param system_prompt:
@@ -2494,7 +2494,7 @@ class Message:
         :param temperature:
         :type temperature: float
         :param reasoning_effort:
-        :type reasoning_effort: ReasoningEffortEnum
+        :type reasoning_effort: ReasoningEffortOrAutoEnum
         :param similarity_top_k:
         :type similarity_top_k: int
         :param system_prompt:

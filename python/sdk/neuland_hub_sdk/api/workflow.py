@@ -64,7 +64,7 @@ class Workflow:
     ) -> RunCreateOut:
         """Create Run
 
-        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run's id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -136,7 +136,7 @@ class Workflow:
     ) -> ApiResponse[RunCreateOut]:
         """Create Run
 
-        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run's id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -208,7 +208,7 @@ class Workflow:
     ) -> RESTResponseType:
         """Create Run
 
-        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue. Rejected with 400 once the workflow is at its non-terminal-run cap.
+        Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run's id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -1530,7 +1530,7 @@ class Workflow:
     ) -> object:
         """Stream Run Events
 
-        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -1602,7 +1602,7 @@ class Workflow:
     ) -> ApiResponse[object]:
         """Stream Run Events
 
-        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
 
         :param workflow_id: (required)
         :type workflow_id: UUID
@@ -1674,7 +1674,7 @@ class Workflow:
     ) -> RESTResponseType:
         """Stream Run Events
 
-        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.
+        Server-sent event stream for a run. Authed by the run-scoped stream token in ``Authorization: Bearer <token>`` (not the standard Hub bearer), so the FE consumes it via ``fetch`` + ``ReadableStream``. Ends with ``data: [DONE]``.  Every persisted event carries its ``id``; a reconnecting client passes the last one it saw as ``after`` and resumes there instead of replaying the run. A ``node_completed`` result larger than STREAM_RESULT_MAX_CHARS is replaced by ``result_omitted: {\"chars\": n}``: a fan-out over full documents made each replay megabytes, while a typical deliverable (a summary, a generated text) still streams. The full result stays in ``workflow_run_events``.
 
         :param workflow_id: (required)
         :type workflow_id: UUID

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
 from uuid import UUID
 from typing import Optional, Set
@@ -28,13 +28,33 @@ class CustomConnectorOut(BaseModel):
     """
     CustomConnectorOut
     """ # noqa: E501
+    id: StrictInt = Field(description="Internal id, as the role grant lists key it.")
     public_id: UUID
     connector_id: StrictStr
     name: StrictStr
     url: StrictStr
-    enabled: StrictBool
+    enabled: StrictBool = Field(description="Switched on for, and usable by, the caller.")
     header_names: List[StrictStr]
-    __properties: ClassVar[List[str]] = ["public_id", "connector_id", "name", "url", "enabled", "header_names"]
+    owner: StrictStr
+    auth_mode: StrictStr
+    signed_in: StrictBool = Field(description="The caller has a stored sign-in.")
+    usable: StrictBool = Field(description="The caller may use it in chat; false for an organisation MCP an admin manages but is outside the audience of.")
+    can_manage: StrictBool
+    __properties: ClassVar[List[str]] = ["id", "public_id", "connector_id", "name", "url", "enabled", "header_names", "owner", "auth_mode", "signed_in", "usable", "can_manage"]
+
+    @field_validator('owner')
+    def owner_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['personal', 'organization']):
+            raise ValueError("must be one of enum values ('personal', 'organization')")
+        return value
+
+    @field_validator('auth_mode')
+    def auth_mode_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['none', 'oauth', 'oauth_when_needed']):
+            raise ValueError("must be one of enum values ('none', 'oauth', 'oauth_when_needed')")
+        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -86,14 +106,20 @@ class CustomConnectorOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
+            "id": obj.get("id"),
             "public_id": obj.get("public_id"),
             "connector_id": obj.get("connector_id"),
             "name": obj.get("name"),
             "url": obj.get("url"),
             "enabled": obj.get("enabled"),
-            "header_names": obj.get("header_names")
-        })
+            "header_names": obj.get("header_names"),
+            "owner": obj.get("owner"),
+            "auth_mode": obj.get("auth_mode"),
+            "signed_in": obj.get("signed_in"),
+            "usable": obj.get("usable"),
+            "can_manage": obj.get("can_manage")
+        }.items() if k in _keep})
         return _obj
 
 

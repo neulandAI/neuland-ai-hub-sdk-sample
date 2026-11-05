@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **tenant_id** | **number** | ID of the tenant the LLM is enabled for. | [default to undefined]
 **llm_catalog_id** | **number** | ID of the LLM catalog entry enabled for the tenant. | [default to undefined]
 **auto_routable** | **boolean** |  | [optional] [default to undefined]
+**prompt_caching** | **boolean** | Whether Claude requests for this tenant ask to cache the prompt. | [optional] [default to true]
 
 ## Example
 
@@ -27,6 +28,7 @@ const instance: TenantLLM = {
     tenant_id,
     llm_catalog_id,
     auto_routable,
+    prompt_caching,
 };
 ```
 

@@ -83,12 +83,12 @@ class DocumentMetrics(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "document_count": obj.get("document_count"),
             "pending_count": obj.get("pending_count"),
             "stored_bytes": obj.get("stored_bytes"),
             "attributed_bytes": obj.get("attributed_bytes")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

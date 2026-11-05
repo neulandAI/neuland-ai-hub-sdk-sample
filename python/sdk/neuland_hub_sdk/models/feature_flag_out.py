@@ -84,13 +84,13 @@ class FeatureFlagOut(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "key": obj.get("key"),
             "description": obj.get("description"),
             "enabled": obj.get("enabled"),
             "default": obj.get("default"),
             "overridden": obj.get("overridden")
-        })
+        }.items() if k in _keep})
         return _obj
 
 

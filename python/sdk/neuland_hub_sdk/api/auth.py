@@ -578,6 +578,7 @@ class Auth:
 
         # authentication setting
         _auth_settings: List[str] = [
+            'APIKeyHeader', 
             'OAuth2PasswordBearer'
         ]
 
@@ -3876,7 +3877,7 @@ class Auth:
     ) -> SsoResolveOut:
         """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from the email's domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+        Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email's domain for unknown emails, and return the routing slug and SSO providers.
 
         :param email: Work email whose domain identifies the tenant. (required)
         :type email: str
@@ -3945,7 +3946,7 @@ class Auth:
     ) -> ApiResponse[SsoResolveOut]:
         """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from the email's domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+        Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email's domain for unknown emails, and return the routing slug and SSO providers.
 
         :param email: Work email whose domain identifies the tenant. (required)
         :type email: str
@@ -4014,7 +4015,7 @@ class Auth:
     ) -> RESTResponseType:
         """Resolve SSO providers for an email
 
-        Pre-login step: resolve a tenant from the email's domain, falling back to the exact (unique) email, and return the routing slug and SSO providers.
+        Pre-login step: resolve a tenant from the exact (unique) email of an existing user, falling back to the email's domain for unknown emails, and return the routing slug and SSO providers.
 
         :param email: Work email whose domain identifies the tenant. (required)
         :type email: str
