@@ -40,10 +40,11 @@ class CatalogUpdate(BaseModel):
     supports_transcription: Optional[StrictBool] = None
     supports_reasoning_effort: Optional[StrictBool] = None
     supports_clarification: Optional[StrictBool] = None
+    supports_google_grounding: Optional[StrictBool] = None
     auto_seed: Optional[StrictBool] = None
     tier: Optional[ModelTierEnum] = None
     auto_routable: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "badge", "knowledge_cutoff", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "auto_seed", "tier", "auto_routable"]
+    __properties: ClassVar[List[str]] = ["name", "description", "badge", "knowledge_cutoff", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "supports_google_grounding", "auto_seed", "tier", "auto_routable"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -139,6 +140,11 @@ class CatalogUpdate(BaseModel):
         if self.supports_clarification is None and "supports_clarification" in self.model_fields_set:
             _dict['supports_clarification'] = None
 
+        # set to None if supports_google_grounding (nullable) is None
+        # and model_fields_set contains the field
+        if self.supports_google_grounding is None and "supports_google_grounding" in self.model_fields_set:
+            _dict['supports_google_grounding'] = None
+
         # set to None if auto_seed (nullable) is None
         # and model_fields_set contains the field
         if self.auto_seed is None and "auto_seed" in self.model_fields_set:
@@ -177,6 +183,7 @@ class CatalogUpdate(BaseModel):
             "supports_transcription": obj.get("supports_transcription"),
             "supports_reasoning_effort": obj.get("supports_reasoning_effort"),
             "supports_clarification": obj.get("supports_clarification"),
+            "supports_google_grounding": obj.get("supports_google_grounding"),
             "auto_seed": obj.get("auto_seed"),
             "tier": obj.get("tier"),
             "auto_routable": obj.get("auto_routable")

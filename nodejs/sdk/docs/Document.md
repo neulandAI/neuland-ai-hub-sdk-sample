@@ -320,7 +320,7 @@ const { status, data } = await apiInstance.documentsImportDocuments(
 |**201** | Successful Response |  -  |
 |**400** | The provided source type is not supported. |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | Usage limit exceeded, caller lacks access to the target entity, or the SharePoint site is not enabled for the tenant. |  -  |
+|**403** | Usage limit exceeded, caller lacks access to the target entity, the SharePoint site is not enabled for the tenant, or the caller lacks the Sync data sources permission. |  -  |
 |**404** | The referenced project, chat, assistant, or library does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
@@ -407,6 +407,7 @@ let cookieName: string; // (optional) (default to undefined)
 let projectId: string; // (optional) (default to undefined)
 let chatId: string; // (optional) (default to undefined)
 let assistantId: string; // (optional) (default to undefined)
+let libraryId: string; // (optional) (default to undefined)
 
 const { status, data } = await apiInstance.documentsUnimportDocuments(
     src,
@@ -415,7 +416,8 @@ const { status, data } = await apiInstance.documentsUnimportDocuments(
     cookieName,
     projectId,
     chatId,
-    assistantId
+    assistantId,
+    libraryId
 );
 ```
 
@@ -430,6 +432,7 @@ const { status, data } = await apiInstance.documentsUnimportDocuments(
 | **projectId** | [**string**] |  | (optional) defaults to undefined|
 | **chatId** | [**string**] |  | (optional) defaults to undefined|
 | **assistantId** | [**string**] |  | (optional) defaults to undefined|
+| **libraryId** | [**string**] |  | (optional) defaults to undefined|
 
 
 ### Return type

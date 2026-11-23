@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**customconnectors_list_custom_connectors**](CustomConnector.md#customconnectors_list_custom_connectors) | **GET** /custom-connectors/ | List the custom MCPs I can use or manage
 [**customconnectors_sign_out_of_custom_connector**](CustomConnector.md#customconnectors_sign_out_of_custom_connector) | **DELETE** /custom-connectors/{public_id}/oauth | Sign out of a custom MCP
 [**customconnectors_start_custom_connector_sign_in**](CustomConnector.md#customconnectors_start_custom_connector_sign_in) | **POST** /custom-connectors/{public_id}/oauth/start | Start signing in to a custom MCP
-[**customconnectors_update_custom_connector**](CustomConnector.md#customconnectors_update_custom_connector) | **PATCH** /custom-connectors/{public_id} | Rename or switch a custom MCP
+[**customconnectors_update_custom_connector**](CustomConnector.md#customconnectors_update_custom_connector) | **PATCH** /custom-connectors/{public_id} | Rename, describe or switch a custom MCP, or tell it who signs in
 
 
 # **customconnectors_create_custom_connectors**
@@ -687,7 +687,7 @@ Name | Type | Description  | Notes
 # **customconnectors_update_custom_connector**
 > CustomConnectorOut customconnectors_update_custom_connector(public_id, custom_connector_update, cookie_name=cookie_name)
 
-Rename or switch a custom MCP
+Rename, describe or switch a custom MCP, or tell it who signs in
 
 `enabled` on an organisation MCP is the caller's own switch, so anyone
 who may use it may flip it. Everything else needs `_may_manage`. URL,
@@ -735,7 +735,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Rename or switch a custom MCP
+        # Rename, describe or switch a custom MCP, or tell it who signs in
         api_response = api_instance.customconnectors_update_custom_connector(public_id, custom_connector_update, cookie_name=cookie_name)
         print("The response of CustomConnector->customconnectors_update_custom_connector:\n")
         pprint(api_response)

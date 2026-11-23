@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **supports_transcription** | **boolean** |  | [optional] [default to undefined]
 **supports_reasoning_effort** | **boolean** |  | [optional] [default to undefined]
 **supports_clarification** | **boolean** |  | [optional] [default to undefined]
+**supports_google_grounding** | **boolean** |  | [optional] [default to undefined]
 **auto_seed** | **boolean** |  | [optional] [default to undefined]
 **tier** | [**ModelTierEnum**](ModelTierEnum.md) |  | [optional] [default to undefined]
 **auto_routable** | **boolean** |  | [optional] [default to undefined]
@@ -37,6 +38,7 @@ const instance: CatalogUpdate = {
     supports_transcription,
     supports_reasoning_effort,
     supports_clarification,
+    supports_google_grounding,
     auto_seed,
     tier,
     auto_routable,

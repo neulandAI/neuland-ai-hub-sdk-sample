@@ -466,7 +466,7 @@ Name | Type | Description  | Notes
 **201** | Successful Response |  -  |
 **400** | The provided source type is not supported. |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | Usage limit exceeded, caller lacks access to the target entity, or the SharePoint site is not enabled for the tenant. |  -  |
+**403** | Usage limit exceeded, caller lacks access to the target entity, the SharePoint site is not enabled for the tenant, or the caller lacks the Sync data sources permission. |  -  |
 **404** | The referenced project, chat, assistant, or library does not exist. |  -  |
 **422** | Validation Error |  -  |
 
@@ -559,7 +559,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **documents_unimport_documents**
-> documents_unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id)
+> documents_unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, library_id=library_id)
 
 Remove imported documents
 
@@ -606,10 +606,11 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
     chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
     assistant_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID |  (optional)
 
     try:
         # Remove imported documents
-        api_instance.documents_unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id)
+        api_instance.documents_unimport_documents(src, drive_id, drive_item_ids, cookie_name=cookie_name, project_id=project_id, chat_id=chat_id, assistant_id=assistant_id, library_id=library_id)
     except Exception as e:
         print("Exception when calling Document->documents_unimport_documents: %s\n" % e)
 ```
@@ -628,6 +629,7 @@ Name | Type | Description  | Notes
  **project_id** | **UUID**|  | [optional] 
  **chat_id** | **UUID**|  | [optional] 
  **assistant_id** | **UUID**|  | [optional] 
+ **library_id** | **UUID**|  | [optional] 
 
 ### Return type
 

@@ -1,0 +1,28 @@
+# AgentUsageResponse
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **string** | Start of the window. | [default to undefined]
+**end_date** | **string** | End of the window. | [default to undefined]
+**totals** | [**AgentUsageMetrics**](AgentUsageMetrics.md) | Window totals across all usage, with or without an agent. | [default to undefined]
+**rows** | [**Array&lt;AgentUsageRow&gt;**](AgentUsageRow.md) | One entry per agent, most tokens first. | [default to undefined]
+**truncated** | **boolean** | True when more agents matched than were returned (capped at MAX_USAGE_ROWS). | [optional] [default to false]
+
+## Example
+
+```typescript
+import { AgentUsageResponse } from '@neulandai/neuland-hub-sdk';
+
+const instance: AgentUsageResponse = {
+    start_date,
+    end_date,
+    totals,
+    rows,
+    truncated,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

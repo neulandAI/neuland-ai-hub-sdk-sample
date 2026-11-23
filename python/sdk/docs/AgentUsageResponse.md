@@ -1,0 +1,33 @@
+# AgentUsageResponse
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**start_date** | **datetime** | Start of the window. | 
+**end_date** | **datetime** | End of the window. | 
+**totals** | [**AgentUsageMetrics**](AgentUsageMetrics.md) | Window totals across all usage, with or without an agent. | 
+**rows** | [**List[AgentUsageRow]**](AgentUsageRow.md) | One entry per agent, most tokens first. | 
+**truncated** | **bool** | True when more agents matched than were returned (capped at MAX_USAGE_ROWS). | [optional] [default to False]
+
+## Example
+
+```python
+from neuland_hub_sdk.models.agent_usage_response import AgentUsageResponse
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of AgentUsageResponse from a JSON string
+agent_usage_response_instance = AgentUsageResponse.from_json(json)
+# print the JSON string representation of the object
+print(AgentUsageResponse.to_json())
+
+# convert the object into a dict
+agent_usage_response_dict = agent_usage_response_instance.to_dict()
+# create an instance of AgentUsageResponse from a dict
+agent_usage_response_from_dict = AgentUsageResponse.from_dict(agent_usage_response_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

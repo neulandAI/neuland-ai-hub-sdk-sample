@@ -23,6 +23,9 @@ Name | Type | Description | Notes
 **version** | **string** |  | [optional] [default to undefined]
 **state** | [**MarketplaceCatalogStateEnum**](MarketplaceCatalogStateEnum.md) |  | [optional] [default to undefined]
 **predefined_prompts** | **Array&lt;any&gt;** |  | [optional] [default to undefined]
+**departments** | **Array&lt;string&gt;** | Departments the agent is for; a marketplace filter. | [optional] [default to undefined]
+**industries** | **Array&lt;string&gt;** | Industries the agent is for; a marketplace filter. | [optional] [default to undefined]
+**use_cases** | **Array&lt;string&gt;** | Use cases the agent covers; a marketplace filter. | [optional] [default to undefined]
 
 ## Example
 
@@ -47,6 +50,9 @@ const instance: AssistantCatalog = {
     version,
     state,
     predefined_prompts,
+    departments,
+    industries,
+    use_cases,
 };
 ```
 

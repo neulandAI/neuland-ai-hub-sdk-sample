@@ -43,7 +43,10 @@ class ApplicationCatalog(BaseModel):
     app_url: Annotated[str, Field(strict=True, max_length=100)] = Field(description="Canonical URL of the application; unique across the catalog.")
     version: Optional[StrictStr] = None
     state: Optional[MarketplaceCatalogStateEnum] = Field(default=None, description="Lifecycle state; DEPRECATED items are hidden from the marketplace and reject new installs.")
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "name", "description", "avatar", "app_url", "version", "state"]
+    departments: Optional[List[StrictStr]] = Field(default=None, description="Departments the application is for; a marketplace filter.")
+    industries: Optional[List[StrictStr]] = Field(default=None, description="Industries the application is for; a marketplace filter.")
+    use_cases: Optional[List[StrictStr]] = Field(default=None, description="Use cases the application covers; a marketplace filter.")
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "name", "description", "avatar", "app_url", "version", "state", "departments", "industries", "use_cases"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -137,7 +140,10 @@ class ApplicationCatalog(BaseModel):
             "avatar": obj.get("avatar"),
             "app_url": obj.get("app_url"),
             "version": obj.get("version"),
-            "state": obj.get("state")
+            "state": obj.get("state"),
+            "departments": obj.get("departments"),
+            "industries": obj.get("industries"),
+            "use_cases": obj.get("use_cases")
         }.items() if k in _keep})
         return _obj
 

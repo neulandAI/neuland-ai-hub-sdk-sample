@@ -16,6 +16,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/&#123;assistant_id&#125;/members | Remove members from an assistant (agent)|
 |[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/&#123;assistant_id&#125;/membership | Join a community assistant (agent)|
 |[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/&#123;assistant_id&#125;/remove/me | Leave an assistant (agent)|
+|[**assistantsMyMemberships**](#assistantsmymemberships) | **GET** /assistants/my-memberships | The caller\&#39;s own assistant memberships|
 |[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/&#123;assistant_id&#125;/tool | Stop the assistant (agent) being consultable from your chats|
 |[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/&#123;assistant_id&#125;/libraries/&#123;library_id&#125; | Remove a library from an assistant (agent)|
 |[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/&#123;assistant_id&#125;/members/&#123;user_id&#125; | Remove a single member from an assistant (agent)|
@@ -84,7 +85,7 @@ const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | No access to the library, or not the creator of the assistant. |  -  |
+|**403** | Not an owner of the library, or not the creator of the assistant. |  -  |
 |**404** | Assistant or library does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
@@ -330,7 +331,7 @@ const { status, data } = await apiInstance.assistantsConvertAssistantToTool(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | No direct access. |  -  |
+|**403** | No access to the assistant. |  -  |
 |**404** | No assistant exists with the given id. |  -  |
 |**409** | The assistant is already consultable. |  -  |
 |**422** | Validation Error |  -  |
@@ -637,6 +638,60 @@ void (empty response body)
 |**422** | Validation Error |  -  |
 
 
+## **assistantsMyMemberships**
+```typescript
+Array<MyAssistantMembershipOut> assistantsMyMemberships()
+```
+
+The caller\'s direct membership rows, then the assistants they reach only through a group (`granted_via: \"GROUP\"`); `is_tool` also counts a conversion made through a group — what the tool badge and convert gating read.
+
+### Example
+
+```typescript
+import {
+    Assistant,
+    Configuration
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Assistant(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.assistantsMyMemberships(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;MyAssistantMembershipOut>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**422** | Validation Error |  -  |
+
+
 ## **assistantsRemoveAssistantAsTool**
 ```typescript
 assistantsRemoveAssistantAsTool()
@@ -691,7 +746,7 @@ void (empty response body)
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | No direct access. |  -  |
+|**403** | No access to the assistant. |  -  |
 |**404** | No such assistant, or you have not converted it. |  -  |
 |**422** | Validation Error |  -  |
 

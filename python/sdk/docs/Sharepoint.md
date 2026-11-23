@@ -283,7 +283,7 @@ Name | Type | Description  | Notes
 
 List SharePoint sites
 
-List the SharePoint sites the user can access, with imported document counts. 
+List the SharePoint sites the user can access, with imported document counts.
 Filtered to allowed sites by the tenant admin.
 
 ### Example

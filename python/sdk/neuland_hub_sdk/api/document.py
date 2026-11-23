@@ -1933,6 +1933,7 @@ class Document:
         project_id: Optional[UUID] = None,
         chat_id: Optional[UUID] = None,
         assistant_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1964,6 +1965,8 @@ class Document:
         :type chat_id: UUID
         :param assistant_id:
         :type assistant_id: UUID
+        :param library_id:
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1994,6 +1997,7 @@ class Document:
             project_id=project_id,
             chat_id=chat_id,
             assistant_id=assistant_id,
+            library_id=library_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2029,6 +2033,7 @@ class Document:
         project_id: Optional[UUID] = None,
         chat_id: Optional[UUID] = None,
         assistant_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2060,6 +2065,8 @@ class Document:
         :type chat_id: UUID
         :param assistant_id:
         :type assistant_id: UUID
+        :param library_id:
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2090,6 +2097,7 @@ class Document:
             project_id=project_id,
             chat_id=chat_id,
             assistant_id=assistant_id,
+            library_id=library_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2125,6 +2133,7 @@ class Document:
         project_id: Optional[UUID] = None,
         chat_id: Optional[UUID] = None,
         assistant_id: Optional[UUID] = None,
+        library_id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2156,6 +2165,8 @@ class Document:
         :type chat_id: UUID
         :param assistant_id:
         :type assistant_id: UUID
+        :param library_id:
+        :type library_id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2186,6 +2197,7 @@ class Document:
             project_id=project_id,
             chat_id=chat_id,
             assistant_id=assistant_id,
+            library_id=library_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -2216,6 +2228,7 @@ class Document:
         project_id,
         chat_id,
         assistant_id,
+        library_id,
         _request_auth,
         _content_type,
         _headers,
@@ -2257,6 +2270,8 @@ class Document:
             _form_params.append(('chat_id', chat_id))
         if assistant_id is not None:
             _form_params.append(('assistant_id', assistant_id))
+        if library_id is not None:
+            _form_params.append(('library_id', library_id))
         # process the body parameter
 
 

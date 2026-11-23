@@ -32,6 +32,8 @@ class SettingsIn(BaseModel):
     guardrails_enabled: Optional[StrictBool] = None
     sharepoint_enabled: Optional[StrictBool] = None
     sharepoint_allowed_sites: Optional[List[StrictStr]] = None
+    sharepoint_anonymous_links: Optional[StrictBool] = None
+    sharepoint_external_invites: Optional[StrictBool] = None
     inbound_guardrail: Optional[StrictStr] = None
     outbound_guardrail: Optional[StrictStr] = None
     welcome_email_template_id: Optional[UUID] = None
@@ -47,7 +49,8 @@ class SettingsIn(BaseModel):
     user_level_analytics_enabled: Optional[StrictBool] = None
     user_analytics_reveal_names: Optional[StrictBool] = None
     ai_image_label_enabled: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "sharepoint_allowed_sites", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "system_prompt_extension", "errlog_webhook_url", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "default_language", "user_level_analytics_enabled", "user_analytics_reveal_names", "ai_image_label_enabled"]
+    web_search_engine: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["default_llm_catalog_id", "guardrails_enabled", "sharepoint_enabled", "sharepoint_allowed_sites", "sharepoint_anonymous_links", "sharepoint_external_invites", "inbound_guardrail", "outbound_guardrail", "welcome_email_template_id", "project_member_added_email_template_id", "system_prompt", "system_prompt_extension", "errlog_webhook_url", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "default_language", "user_level_analytics_enabled", "user_analytics_reveal_names", "ai_image_label_enabled", "web_search_engine"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -107,6 +110,16 @@ class SettingsIn(BaseModel):
         # and model_fields_set contains the field
         if self.sharepoint_allowed_sites is None and "sharepoint_allowed_sites" in self.model_fields_set:
             _dict['sharepoint_allowed_sites'] = None
+
+        # set to None if sharepoint_anonymous_links (nullable) is None
+        # and model_fields_set contains the field
+        if self.sharepoint_anonymous_links is None and "sharepoint_anonymous_links" in self.model_fields_set:
+            _dict['sharepoint_anonymous_links'] = None
+
+        # set to None if sharepoint_external_invites (nullable) is None
+        # and model_fields_set contains the field
+        if self.sharepoint_external_invites is None and "sharepoint_external_invites" in self.model_fields_set:
+            _dict['sharepoint_external_invites'] = None
 
         # set to None if inbound_guardrail (nullable) is None
         # and model_fields_set contains the field
@@ -183,6 +196,11 @@ class SettingsIn(BaseModel):
         if self.ai_image_label_enabled is None and "ai_image_label_enabled" in self.model_fields_set:
             _dict['ai_image_label_enabled'] = None
 
+        # set to None if web_search_engine (nullable) is None
+        # and model_fields_set contains the field
+        if self.web_search_engine is None and "web_search_engine" in self.model_fields_set:
+            _dict['web_search_engine'] = None
+
         return _dict
 
     @classmethod
@@ -199,6 +217,8 @@ class SettingsIn(BaseModel):
             "guardrails_enabled": obj.get("guardrails_enabled"),
             "sharepoint_enabled": obj.get("sharepoint_enabled"),
             "sharepoint_allowed_sites": obj.get("sharepoint_allowed_sites"),
+            "sharepoint_anonymous_links": obj.get("sharepoint_anonymous_links"),
+            "sharepoint_external_invites": obj.get("sharepoint_external_invites"),
             "inbound_guardrail": obj.get("inbound_guardrail"),
             "outbound_guardrail": obj.get("outbound_guardrail"),
             "welcome_email_template_id": obj.get("welcome_email_template_id"),
@@ -213,7 +233,8 @@ class SettingsIn(BaseModel):
             "default_language": obj.get("default_language"),
             "user_level_analytics_enabled": obj.get("user_level_analytics_enabled"),
             "user_analytics_reveal_names": obj.get("user_analytics_reveal_names"),
-            "ai_image_label_enabled": obj.get("ai_image_label_enabled")
+            "ai_image_label_enabled": obj.get("ai_image_label_enabled"),
+            "web_search_engine": obj.get("web_search_engine")
         }.items() if k in _keep})
         return _obj
 

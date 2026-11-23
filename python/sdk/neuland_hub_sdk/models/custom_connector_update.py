@@ -29,8 +29,10 @@ class CustomConnectorUpdate(BaseModel):
     CustomConnectorUpdate
     """ # noqa: E501
     name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
+    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = None
     enabled: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "enabled"]
+    send_identity: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "enabled", "send_identity"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -76,10 +78,20 @@ class CustomConnectorUpdate(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
         # set to None if enabled (nullable) is None
         # and model_fields_set contains the field
         if self.enabled is None and "enabled" in self.model_fields_set:
             _dict['enabled'] = None
+
+        # set to None if send_identity (nullable) is None
+        # and model_fields_set contains the field
+        if self.send_identity is None and "send_identity" in self.model_fields_set:
+            _dict['send_identity'] = None
 
         return _dict
 
@@ -94,7 +106,9 @@ class CustomConnectorUpdate(BaseModel):
 
         _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
-            "enabled": obj.get("enabled")
+            "description": obj.get("description"),
+            "enabled": obj.get("enabled"),
+            "send_identity": obj.get("send_identity")
         }.items() if k in _keep})
         return _obj
 

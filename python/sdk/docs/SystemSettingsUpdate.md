@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **inbound_guardrail_llm_settings_id** | **UUID** |  | [optional] 
 **outbound_guardrail_llm_settings_id** | **UUID** |  | [optional] 
 **title_llm_settings_id** | **UUID** |  | [optional] 
+**web_search_llm_settings_id** | **UUID** |  | [optional] 
 **embedding_llm_settings_id** | **UUID** |  | [optional] 
 **transcription_llm_settings_id** | **UUID** |  | [optional] 
 **maintenance_start_at** | **datetime** |  | [optional] 

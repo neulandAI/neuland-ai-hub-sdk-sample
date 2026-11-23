@@ -6,7 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
 **enabled** | **bool** |  | [optional] 
+**send_identity** | **bool** |  | [optional] 
 
 ## Example
 

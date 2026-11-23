@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **missing_caps** | **Array&lt;string | null&gt;** | Capabilities not yet granted; empty unless consent is needed. | [default to undefined]
 **granted_caps** | **Array&lt;string | null&gt;** | Capabilities the caller\&#39;s consent covers; on a partial grant &#x60;connected&#x60; and &#x60;needs_consent&#x60; are both true and &#x60;missing_caps&#x60; lists the rest. | [optional] [default to undefined]
 **picker_available** | **boolean** | The Google Drive file picker can open: an admin set the Picker API key and this consent covers &#x60;drive.file&#x60;. | [optional] [default to false]
+**admin_consent_available** | **boolean** | The tenant has an admin consent URL for this connector\&#39;s provider, so an admin can approve it for the whole organization. | [optional] [default to false]
 
 ## Example
 
@@ -38,6 +39,7 @@ const instance: ConnectorStatusOut = {
     missing_caps,
     granted_caps,
     picker_available,
+    admin_consent_available,
 };
 ```
 

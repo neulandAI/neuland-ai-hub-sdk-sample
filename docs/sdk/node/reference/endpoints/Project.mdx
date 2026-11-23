@@ -16,6 +16,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**projectsLeaveProject**](#projectsleaveproject) | **DELETE** /projects/&#123;project_id&#125;/remove/me | Leave a project|
 |[**projectsRemoveLibraryFromProject**](#projectsremovelibraryfromproject) | **DELETE** /projects/&#123;project_id&#125;/libraries/&#123;library_id&#125; | Remove a library from a project|
 |[**projectsUpdateProject**](#projectsupdateproject) | **PATCH** /projects/&#123;project_id&#125; | Update a project|
+|[**projectsUpdateProjectGroups**](#projectsupdateprojectgroups) | **PUT** /projects/&#123;project_id&#125;/groups | Set project group access|
 
 ## **projectsAddLibraryToProject**
 ```typescript
@@ -494,6 +495,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
+|**400** | Access is granted through a group and cannot be removed here. |  -  |
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Current user is not a member of the project. |  -  |
 |**404** | Project not found, or the user is not a member of it. |  -  |
@@ -622,4 +624,67 @@ const { status, data } = await apiInstance.projectsUpdateProject(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Current user is not an owner of the project. |  -  |
 |**404** | No project exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+
+## **projectsUpdateProjectGroups**
+```typescript
+Array<ProjectGroupOut> projectsUpdateProjectGroups(projectGroupsIn)
+```
+
+Grant or update project access for user groups (replaces the current set).
+
+### Example
+
+```typescript
+import {
+    Project,
+    Configuration,
+    ProjectGroupsIn
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Project(configuration);
+
+let projectId: string; //Public id of the project. (default to undefined)
+let projectGroupsIn: ProjectGroupsIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.projectsUpdateProjectGroups(
+    projectId,
+    projectGroupsIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **projectGroupsIn** | **ProjectGroupsIn**|  | |
+| **projectId** | [**string**] | Public id of the project. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array&lt;ProjectGroupOut>**
+
+### Authorization
+
+[APIKeyHeader](/sdk/node/usage), [OAuth2PasswordBearer](/sdk/node/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Current user is not an owner of the project. |  -  |
+|**404** | Project does not exist, or one or more groups not found. |  -  |
 |**422** | Validation Error |  -  |

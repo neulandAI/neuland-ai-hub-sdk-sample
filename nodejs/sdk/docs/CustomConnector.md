@@ -12,7 +12,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**customconnectorsListCustomConnectors**](#customconnectorslistcustomconnectors) | **GET** /custom-connectors/ | List the custom MCPs I can use or manage|
 |[**customconnectorsSignOutOfCustomConnector**](#customconnectorssignoutofcustomconnector) | **DELETE** /custom-connectors/{public_id}/oauth | Sign out of a custom MCP|
 |[**customconnectorsStartCustomConnectorSignIn**](#customconnectorsstartcustomconnectorsignin) | **POST** /custom-connectors/{public_id}/oauth/start | Start signing in to a custom MCP|
-|[**customconnectorsUpdateCustomConnector**](#customconnectorsupdatecustomconnector) | **PATCH** /custom-connectors/{public_id} | Rename or switch a custom MCP|
+|[**customconnectorsUpdateCustomConnector**](#customconnectorsupdatecustomconnector) | **PATCH** /custom-connectors/{public_id} | Rename, describe or switch a custom MCP, or tell it who signs in|
 
 # **customconnectorsCreateCustomConnectors**
 > Array<CustomConnectorOut> customconnectorsCreateCustomConnectors(customConnectorCreate)

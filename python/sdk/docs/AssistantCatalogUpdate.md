@@ -15,6 +15,9 @@ Name | Type | Description | Notes
 **similarity_top_k** | **int** |  | [optional] 
 **version** | **str** |  | [optional] 
 **predefined_prompts** | **List[str]** |  | [optional] 
+**departments** | **List[str]** |  | [optional] 
+**industries** | **List[str]** |  | [optional] 
+**use_cases** | **List[str]** |  | [optional] 
 
 ## Example
 

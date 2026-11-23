@@ -4,6 +4,7 @@ All URIs are relative to *https://api.your-domain.com*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
+|[**workflowsCancelWorkflowRun**](#workflowscancelworkflowrun) | **POST** /workflows/{workflow_id}/runs/{run_id}/cancel | Cancel Workflow Run|
 |[**workflowsCreateRun**](#workflowscreaterun) | **POST** /workflows/{workflow_id}/runs | Create Run|
 |[**workflowsCreateRunStreamToken**](#workflowscreaterunstreamtoken) | **POST** /workflows/{workflow_id}/runs/{run_id}/stream-token | Create Run Stream Token|
 |[**workflowsCreateWorkflow**](#workflowscreateworkflow) | **POST** /workflows/ | Create Workflow|
@@ -11,6 +12,64 @@ All URIs are relative to *https://api.your-domain.com*
 |[**workflowsRefineWorkflow**](#workflowsrefineworkflow) | **POST** /workflows/{workflow_id}/chat | Refine Workflow|
 |[**workflowsStreamRunEvents**](#workflowsstreamrunevents) | **POST** /workflows/{workflow_id}/runs/{run_id}/events | Stream Run Events|
 |[**workflowsUpdateWorkflow**](#workflowsupdateworkflow) | **PATCH** /workflows/{workflow_id} | Update Workflow|
+
+# **workflowsCancelWorkflowRun**
+> RunCancelOut workflowsCancelWorkflowRun()
+
+Stop a pending or running run. Creator-only. Only this run stops: no further step starts, the step in progress is aborted, and what earlier steps produced stays. The run ends as ``cancelled`` — neither failed nor done, so the next run processes its items again — and a new run can start right away. A run that already ended is left as it is; ``status`` reports its end state either way.
+
+### Example
+
+```typescript
+import {
+    Workflow,
+    Configuration
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Workflow(configuration);
+
+let workflowId: string; // (default to undefined)
+let runId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.workflowsCancelWorkflowRun(
+    workflowId,
+    runId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **workflowId** | [**string**] |  | defaults to undefined|
+| **runId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**RunCancelOut**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **workflowsCreateRun**
 > RunCreateOut workflowsCreateRun()

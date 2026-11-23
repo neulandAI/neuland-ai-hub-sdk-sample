@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -37,10 +38,11 @@ class UsageQueryRequest(BaseModel):
     model: Optional[StrictStr] = None
     provider: Optional[StrictStr] = None
     assistant_id: Optional[StrictInt] = None
+    assistant_public_id: Optional[UUID] = None
     project_id: Optional[StrictInt] = None
     limit: Optional[Annotated[int, Field(strict=True, ge=1)]] = None
     offset: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=0, description="Row offset, for paginating rankings.")
-    __properties: ClassVar[List[str]] = ["date_start", "date_end", "bucket", "group_by", "source", "model", "provider", "assistant_id", "project_id", "limit", "offset"]
+    __properties: ClassVar[List[str]] = ["date_start", "date_end", "bucket", "group_by", "source", "model", "provider", "assistant_id", "assistant_public_id", "project_id", "limit", "offset"]
 
     @field_validator('bucket')
     def bucket_validate_enum(cls, value):
@@ -127,6 +129,11 @@ class UsageQueryRequest(BaseModel):
         if self.assistant_id is None and "assistant_id" in self.model_fields_set:
             _dict['assistant_id'] = None
 
+        # set to None if assistant_public_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.assistant_public_id is None and "assistant_public_id" in self.model_fields_set:
+            _dict['assistant_public_id'] = None
+
         # set to None if project_id (nullable) is None
         # and model_fields_set contains the field
         if self.project_id is None and "project_id" in self.model_fields_set:
@@ -157,6 +164,7 @@ class UsageQueryRequest(BaseModel):
             "model": obj.get("model"),
             "provider": obj.get("provider"),
             "assistant_id": obj.get("assistant_id"),
+            "assistant_public_id": obj.get("assistant_public_id"),
             "project_id": obj.get("project_id"),
             "limit": obj.get("limit"),
             "offset": obj.get("offset") if obj.get("offset") is not None else 0

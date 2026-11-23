@@ -46,6 +46,7 @@ from neuland_hub_sdk.api.tool import Tool
 from neuland_hub_sdk.api.tool_action import ToolAction
 from neuland_hub_sdk.api.transcription import Transcription
 from neuland_hub_sdk.api.user import User
+from neuland_hub_sdk.api.well_known import WellKnown
 from neuland_hub_sdk.api.workflow import Workflow
 from neuland_hub_sdk.api.default import Default
 

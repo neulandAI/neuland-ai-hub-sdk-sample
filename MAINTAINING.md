@@ -19,13 +19,14 @@ curl -fsSL "${HUB_URL:-http://localhost:8000}/openapi.json" -o /tmp/hub-openapi.
 
 ### 2. Normalize the spec for the pinned generator
 
-The normalizer applies eight rules; each is documented at the top of
+The normalizer applies nine rules; each is documented at the top of
 [scripts/normalize-openapi.py](scripts/normalize-openapi.py): 3.1 binary
 fields, inlined enum parameters, binary download responses, the `File`
 tag renamed to `Files`, only the `X-API-KEY` and OAuth2 auth schemes kept,
 enum-plus-const unions merged into one enum, request bodies the Hub does not
-declare (`/v1/chat/completions`), and query parameters dropped where they would
-shift Node's positional `options` argument. When a new Hub release adds a
+declare (`/v1/chat/completions`), query parameters dropped where they would
+shift Node's positional `options` argument, and operation ids that give an
+unusable method name (`.wellknown_jwks`). When a new Hub release adds a
 security scheme, an undeclared body or a new query parameter to an existing
 operation, check whether it needs an entry there. The first rule:
 

@@ -40,10 +40,11 @@ class CatalogIn(BaseModel):
     supports_transcription: Optional[StrictBool] = Field(default=False, description="Whether the model can transcribe audio.")
     supports_reasoning_effort: Optional[StrictBool] = Field(default=False, description="Whether the model accepts a `reasoning_effort` hint. Chats only offer the effort picker for models where this is true.")
     supports_clarification: Optional[StrictBool] = Field(default=True, description="Whether the model reliably drives the ask_user_question clarification tool; when false it asks in plain text instead.")
+    supports_google_grounding: Optional[StrictBool] = Field(default=False, description="Whether the model may serve Google web search.")
     auto_seed: Optional[StrictBool] = Field(default=False, description="Whether to auto-create default settings for this catalog entry on seed.")
     tier: Optional[ModelTierEnum] = None
     auto_routable: Optional[StrictBool] = Field(default=True, description="Whether the router may pick this model on its own. Turn it off for preview or specialist models that should stay hand-selectable.")
-    __properties: ClassVar[List[str]] = ["name", "description", "badge", "knowledge_cutoff", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "auto_seed", "tier", "auto_routable"]
+    __properties: ClassVar[List[str]] = ["name", "description", "badge", "knowledge_cutoff", "multi_modal", "gdpr_compliant", "embedding_dimension", "supports_embedding", "supports_transcription", "supports_reasoning_effort", "supports_clarification", "supports_google_grounding", "auto_seed", "tier", "auto_routable"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -132,6 +133,7 @@ class CatalogIn(BaseModel):
             "supports_transcription": obj.get("supports_transcription") if obj.get("supports_transcription") is not None else False,
             "supports_reasoning_effort": obj.get("supports_reasoning_effort") if obj.get("supports_reasoning_effort") is not None else False,
             "supports_clarification": obj.get("supports_clarification") if obj.get("supports_clarification") is not None else True,
+            "supports_google_grounding": obj.get("supports_google_grounding") if obj.get("supports_google_grounding") is not None else False,
             "auto_seed": obj.get("auto_seed") if obj.get("auto_seed") is not None else False,
             "tier": obj.get("tier"),
             "auto_routable": obj.get("auto_routable") if obj.get("auto_routable") is not None else True

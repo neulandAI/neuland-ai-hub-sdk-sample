@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **avatar** | **string** |  | [optional] [default to undefined]
 **app_url** | **string** |  | [optional] [default to undefined]
 **version** | **string** |  | [optional] [default to undefined]
+**departments** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**industries** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**use_cases** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -23,6 +26,9 @@ const instance: ApplicationCatalogUpdate = {
     avatar,
     app_url,
     version,
+    departments,
+    industries,
+    use_cases,
 };
 ```
 

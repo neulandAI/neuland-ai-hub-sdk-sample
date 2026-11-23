@@ -14,6 +14,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**assistantsDeleteMembers**](#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant (agent)|
 |[**assistantsJoinAssistant**](#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant (agent)|
 |[**assistantsLeaveAssitant**](#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant (agent)|
+|[**assistantsMyMemberships**](#assistantsmymemberships) | **GET** /assistants/my-memberships | The caller\&#39;s own assistant memberships|
 |[**assistantsRemoveAssistantAsTool**](#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant (agent) being consultable from your chats|
 |[**assistantsRemoveLibraryFromAssistant**](#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant (agent)|
 |[**assistantsRemoveMember**](#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member from an assistant (agent)|
@@ -80,7 +81,7 @@ const { status, data } = await apiInstance.assistantsAddLibraryToAssistant(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | No access to the library, or not the creator of the assistant. |  -  |
+|**403** | Not an owner of the library, or not the creator of the assistant. |  -  |
 |**404** | Assistant or library does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
@@ -322,7 +323,7 @@ const { status, data } = await apiInstance.assistantsConvertAssistantToTool(
 |-------------|-------------|------------------|
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | No direct access. |  -  |
+|**403** | No access to the assistant. |  -  |
 |**404** | No assistant exists with the given id. |  -  |
 |**409** | The assistant is already consultable. |  -  |
 |**422** | Validation Error |  -  |
@@ -625,6 +626,59 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **assistantsMyMemberships**
+> Array<MyAssistantMembershipOut> assistantsMyMemberships()
+
+The caller\'s direct membership rows, then the assistants they reach only through a group (`granted_via: \"GROUP\"`); `is_tool` also counts a conversion made through a group — what the tool badge and convert gating read.
+
+### Example
+
+```typescript
+import {
+    Assistant,
+    Configuration
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Assistant(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.assistantsMyMemberships(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array<MyAssistantMembershipOut>**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **assistantsRemoveAssistantAsTool**
 > assistantsRemoveAssistantAsTool()
 
@@ -677,7 +731,7 @@ void (empty response body)
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
-|**403** | No direct access. |  -  |
+|**403** | No access to the assistant. |  -  |
 |**404** | No such assistant, or you have not converted it. |  -  |
 |**422** | Validation Error |  -  |
 

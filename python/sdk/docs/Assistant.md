@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**assistants_delete_members**](Assistant.md#assistants_delete_members) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant (agent)
 [**assistants_join_assistant**](Assistant.md#assistants_join_assistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant (agent)
 [**assistants_leave_assitant**](Assistant.md#assistants_leave_assitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant (agent)
+[**assistants_my_memberships**](Assistant.md#assistants_my_memberships) | **GET** /assistants/my-memberships | The caller&#39;s own assistant memberships
 [**assistants_remove_assistant_as_tool**](Assistant.md#assistants_remove_assistant_as_tool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant (agent) being consultable from your chats
 [**assistants_remove_library_from_assistant**](Assistant.md#assistants_remove_library_from_assistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant (agent)
 [**assistants_remove_member**](Assistant.md#assistants_remove_member) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member from an assistant (agent)
@@ -111,7 +112,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | No access to the library, or not the creator of the assistant. |  -  |
+**403** | Not an owner of the library, or not the creator of the assistant. |  -  |
 **404** | Assistant or library does not exist. |  -  |
 **422** | Validation Error |  -  |
 
@@ -491,7 +492,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | No direct access. |  -  |
+**403** | No access to the assistant. |  -  |
 **404** | No assistant exists with the given id. |  -  |
 **409** | The assistant is already consultable. |  -  |
 **422** | Validation Error |  -  |
@@ -938,6 +939,92 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **assistants_my_memberships**
+> List[MyAssistantMembershipOut] assistants_my_memberships(cookie_name=cookie_name)
+
+The caller's own assistant memberships
+
+The caller's direct membership rows, then the assistants they reach only
+through a group (`granted_via: "GROUP"`); `is_tool` also counts a conversion
+made through a group — what the tool badge and convert gating read.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.assistant import Assistant
+from neuland_hub_sdk.models.my_assistant_membership_out import MyAssistantMembershipOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Assistant(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # The caller's own assistant memberships
+        api_response = api_instance.assistants_my_memberships(cookie_name=cookie_name)
+        print("The response of Assistant->assistants_my_memberships:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Assistant->assistants_my_memberships: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[MyAssistantMembershipOut]**](MyAssistantMembershipOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **assistants_remove_assistant_as_tool**
 > assistants_remove_assistant_as_tool(assistant_id, cookie_name=cookie_name)
 
@@ -1020,7 +1107,7 @@ void (empty response body)
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
-**403** | No direct access. |  -  |
+**403** | No access to the assistant. |  -  |
 **404** | No such assistant, or you have not converted it. |  -  |
 **422** | Validation Error |  -  |
 

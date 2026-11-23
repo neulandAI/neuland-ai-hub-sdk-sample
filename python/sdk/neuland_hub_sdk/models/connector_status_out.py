@@ -42,7 +42,8 @@ class ConnectorStatusOut(BaseModel):
     missing_caps: List[Optional[StrictStr]] = Field(description="Capabilities not yet granted; empty unless consent is needed.")
     granted_caps: Optional[List[Optional[StrictStr]]] = Field(default=None, description="Capabilities the caller's consent covers; on a partial grant `connected` and `needs_consent` are both true and `missing_caps` lists the rest.")
     picker_available: Optional[StrictBool] = Field(default=False, description="The Google Drive file picker can open: an admin set the Picker API key and this consent covers `drive.file`.")
-    __properties: ClassVar[List[str]] = ["connector_id", "connector_public_id", "name", "auth_type", "connected", "needs_consent", "needs_config", "needs_user_config", "has_admin_config", "can_disconnect", "missing_caps", "granted_caps", "picker_available"]
+    admin_consent_available: Optional[StrictBool] = Field(default=False, description="The tenant has an admin consent URL for this connector's provider, so an admin can approve it for the whole organization.")
+    __properties: ClassVar[List[str]] = ["connector_id", "connector_public_id", "name", "auth_type", "connected", "needs_consent", "needs_config", "needs_user_config", "has_admin_config", "can_disconnect", "missing_caps", "granted_caps", "picker_available", "admin_consent_available"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -107,7 +108,8 @@ class ConnectorStatusOut(BaseModel):
             "can_disconnect": obj.get("can_disconnect"),
             "missing_caps": obj.get("missing_caps"),
             "granted_caps": obj.get("granted_caps"),
-            "picker_available": obj.get("picker_available") if obj.get("picker_available") is not None else False
+            "picker_available": obj.get("picker_available") if obj.get("picker_available") is not None else False,
+            "admin_consent_available": obj.get("admin_consent_available") if obj.get("admin_consent_available") is not None else False
         }.items() if k in _keep})
         return _obj
 

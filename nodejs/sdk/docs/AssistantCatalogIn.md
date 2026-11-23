@@ -15,6 +15,9 @@ Name | Type | Description | Notes
 **similarity_top_k** | **number** |  | [optional] [default to undefined]
 **version** | **string** |  | [optional] [default to undefined]
 **predefined_prompts** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**departments** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**industries** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**use_cases** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -32,6 +35,9 @@ const instance: AssistantCatalogIn = {
     similarity_top_k,
     version,
     predefined_prompts,
+    departments,
+    industries,
+    use_cases,
 };
 ```
 

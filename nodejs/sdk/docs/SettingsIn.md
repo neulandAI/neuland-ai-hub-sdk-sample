@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **guardrails_enabled** | **boolean** |  | [optional] [default to undefined]
 **sharepoint_enabled** | **boolean** |  | [optional] [default to undefined]
 **sharepoint_allowed_sites** | **Array&lt;string&gt;** |  | [optional] [default to undefined]
+**sharepoint_anonymous_links** | **boolean** |  | [optional] [default to undefined]
+**sharepoint_external_invites** | **boolean** |  | [optional] [default to undefined]
 **inbound_guardrail** | **string** |  | [optional] [default to undefined]
 **outbound_guardrail** | **string** |  | [optional] [default to undefined]
 **welcome_email_template_id** | **string** |  | [optional] [default to undefined]
@@ -24,6 +26,7 @@ Name | Type | Description | Notes
 **user_level_analytics_enabled** | **boolean** |  | [optional] [default to undefined]
 **user_analytics_reveal_names** | **boolean** |  | [optional] [default to undefined]
 **ai_image_label_enabled** | **boolean** |  | [optional] [default to undefined]
+**web_search_engine** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -35,6 +38,8 @@ const instance: SettingsIn = {
     guardrails_enabled,
     sharepoint_enabled,
     sharepoint_allowed_sites,
+    sharepoint_anonymous_links,
+    sharepoint_external_invites,
     inbound_guardrail,
     outbound_guardrail,
     welcome_email_template_id,
@@ -50,6 +55,7 @@ const instance: SettingsIn = {
     user_level_analytics_enabled,
     user_analytics_reveal_names,
     ai_image_label_enabled,
+    web_search_engine,
 };
 ```
 

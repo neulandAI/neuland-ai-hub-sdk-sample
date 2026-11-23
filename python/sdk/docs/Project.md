@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**projects_leave_project**](Project.md#projects_leave_project) | **DELETE** /projects/{project_id}/remove/me | Leave a project
 [**projects_remove_library_from_project**](Project.md#projects_remove_library_from_project) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove a library from a project
 [**projects_update_project**](Project.md#projects_update_project) | **PATCH** /projects/{project_id} | Update a project
+[**projects_update_project_groups**](Project.md#projects_update_project_groups) | **PUT** /projects/{project_id}/groups | Set project group access
 
 
 # **projects_add_library_to_project**
@@ -713,6 +714,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
+**400** | Access is granted through a group and cannot be removed here. |  -  |
 **401** | Missing or invalid authentication. |  -  |
 **403** | Current user is not a member of the project. |  -  |
 **404** | Project not found, or the user is not a member of it. |  -  |
@@ -896,6 +898,98 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | Current user is not an owner of the project. |  -  |
 **404** | No project exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **projects_update_project_groups**
+> List[ProjectGroupOut] projects_update_project_groups(project_id, project_groups_in, cookie_name=cookie_name)
+
+Set project group access
+
+Grant or update project access for user groups (replaces the current set).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.project import Project
+from neuland_hub_sdk.models.project_group_out import ProjectGroupOut
+from neuland_hub_sdk.models.project_groups_in import ProjectGroupsIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Project(api_client)
+    project_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the project.
+    project_groups_in = neuland_hub_sdk.ProjectGroupsIn() # ProjectGroupsIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Set project group access
+        api_response = api_instance.projects_update_project_groups(project_id, project_groups_in, cookie_name=cookie_name)
+        print("The response of Project->projects_update_project_groups:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Project->projects_update_project_groups: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **UUID**| Public id of the project. | 
+ **project_groups_in** | [**ProjectGroupsIn**](ProjectGroupsIn.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[ProjectGroupOut]**](ProjectGroupOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Current user is not an owner of the project. |  -  |
+**404** | Project does not exist, or one or more groups not found. |  -  |
 **422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

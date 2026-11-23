@@ -7,6 +7,9 @@ common.ts
 configuration.ts
 docs/AccessItemOut.md
 docs/AccessKind.md
+docs/AgentUsageMetrics.md
+docs/AgentUsageResponse.md
+docs/AgentUsageRow.md
 docs/Alert.md
 docs/ApiKey.md
 docs/ApiKeyCreateRequest.md
@@ -62,6 +65,7 @@ docs/CategoryOut.md
 docs/Cc.md
 docs/Chat.md
 docs/Chat.md
+docs/ChatExportFormat.md
 docs/ChatIn.md
 docs/ChatInactiveDocumentOut.md
 docs/ChatLibrary.md
@@ -141,6 +145,8 @@ docs/LLMSettingsIn.md
 docs/LLMSettingsUpdate.md
 docs/Library.md
 docs/Library.md
+docs/LibraryGroupOut.md
+docs/LibraryGroupsIn.md
 docs/LibraryIn.md
 docs/LibraryMemberBulkDelete.md
 docs/LibraryMemberBulkIn.md
@@ -167,6 +173,7 @@ docs/ModelList.md
 docs/ModelObject.md
 docs/ModelTierEnum.md
 docs/MoversResponse.md
+docs/MyAssistantMembershipOut.md
 docs/NeulandAssistantsTaggingOut.md
 docs/NeulandMarketplaceAssistantSchemasTaggingOut.md
 docs/Nextcloud.md
@@ -180,6 +187,8 @@ docs/PasswordResetRequestIn.md
 docs/PlanStatus.md
 docs/Project.md
 docs/Project.md
+docs/ProjectGroupOut.md
+docs/ProjectGroupsIn.md
 docs/ProjectIn.md
 docs/ProjectLibrary.md
 docs/ProjectMember.md
@@ -188,6 +197,8 @@ docs/ProjectMemberBulkIn.md
 docs/ProjectMemberIn.md
 docs/Prompt.md
 docs/Prompt.md
+docs/PromptGroupOut.md
+docs/PromptGroupsIn.md
 docs/PromptIn.md
 docs/PromptOptimizeIn.md
 docs/PromptOptimizeOut.md
@@ -214,6 +225,7 @@ docs/RoleIn.md
 docs/RoleReassignIn.md
 docs/RoleReassignOut.md
 docs/RoleUpdateIn.md
+docs/RunCancelOut.md
 docs/RunCreateOut.md
 docs/SecretUpdateIn.md
 docs/SendEmailRequest.md
@@ -313,6 +325,7 @@ docs/UtilizationRequest.md
 docs/UtilizationResponse.md
 docs/ValidationError.md
 docs/VariableSpec.md
+docs/WellKnown.md
 docs/Workflow.md
 docs/Workflow.md
 docs/WorkflowChatIn.md

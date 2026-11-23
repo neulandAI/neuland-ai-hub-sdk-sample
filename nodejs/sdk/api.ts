@@ -66,6 +66,146 @@ export const AccessKind = {
 export type AccessKind = typeof AccessKind[keyof typeof AccessKind];
 
 
+export interface AgentUsageMetrics {
+    /**
+     * Total cost.
+     */
+    'cost': number;
+    /**
+     * Total tokens.
+     */
+    'total_tokens': number;
+    /**
+     * Prompt tokens.
+     */
+    'prompt_tokens': number;
+    /**
+     * Completion tokens.
+     */
+    'completion_tokens': number;
+    /**
+     * Number of usage records.
+     */
+    'requests': number;
+    /**
+     * Prompt tokens read from the provider cache.
+     */
+    'cached_prompt_tokens'?: number;
+    /**
+     * Prompt tokens written to the provider cache.
+     */
+    'cache_creation_tokens'?: number;
+    /**
+     * Reasoning tokens, already included in completion_tokens.
+     */
+    'reasoning_tokens'?: number;
+    /**
+     * Distinct chats with usage in the window.
+     */
+    'sessions': number;
+    /**
+     * Distinct users with usage in the window.
+     */
+    'users': number;
+    /**
+     * Of the sessions, those in an agent\'s playground (test chats).
+     */
+    'playground_sessions': number;
+    /**
+     * Of the tokens, those spent in playground test chats.
+     */
+    'playground_tokens': number;
+    /**
+     * Of the requests, those made in playground test chats.
+     */
+    'playground_requests': number;
+    /**
+     * Of the cost, the part spent in playground test chats.
+     */
+    'playground_cost': number;
+}
+export interface AgentUsageResponse {
+    /**
+     * Start of the window.
+     */
+    'start_date': string;
+    /**
+     * End of the window.
+     */
+    'end_date': string;
+    /**
+     * Window totals across all usage, with or without an agent.
+     */
+    'totals': AgentUsageMetrics;
+    /**
+     * One entry per agent, most tokens first.
+     */
+    'rows': Array<AgentUsageRow>;
+    /**
+     * True when more agents matched than were returned (capped at MAX_USAGE_ROWS).
+     */
+    'truncated'?: boolean;
+}
+export interface AgentUsageRow {
+    /**
+     * Total cost.
+     */
+    'cost': number;
+    /**
+     * Total tokens.
+     */
+    'total_tokens': number;
+    /**
+     * Prompt tokens.
+     */
+    'prompt_tokens': number;
+    /**
+     * Completion tokens.
+     */
+    'completion_tokens': number;
+    /**
+     * Number of usage records.
+     */
+    'requests': number;
+    /**
+     * Prompt tokens read from the provider cache.
+     */
+    'cached_prompt_tokens'?: number;
+    /**
+     * Prompt tokens written to the provider cache.
+     */
+    'cache_creation_tokens'?: number;
+    /**
+     * Reasoning tokens, already included in completion_tokens.
+     */
+    'reasoning_tokens'?: number;
+    /**
+     * Distinct chats with usage in the window.
+     */
+    'sessions': number;
+    /**
+     * Distinct users with usage in the window.
+     */
+    'users': number;
+    /**
+     * Of the sessions, those in an agent\'s playground (test chats).
+     */
+    'playground_sessions': number;
+    /**
+     * Of the tokens, those spent in playground test chats.
+     */
+    'playground_tokens': number;
+    /**
+     * Of the requests, those made in playground test chats.
+     */
+    'playground_requests': number;
+    /**
+     * Of the cost, the part spent in playground test chats.
+     */
+    'playground_cost': number;
+    'assistant_public_id': string | null;
+    'name': string | null;
+}
 /**
  * Payload for creating an API key. All fields are optional.
  */
@@ -224,6 +364,18 @@ export interface ApplicationCatalog {
      * Lifecycle state; DEPRECATED items are hidden from the marketplace and reject new installs.
      */
     'state'?: MarketplaceCatalogStateEnum;
+    /**
+     * Departments the application is for; a marketplace filter.
+     */
+    'departments'?: Array<string>;
+    /**
+     * Industries the application is for; a marketplace filter.
+     */
+    'industries'?: Array<string>;
+    /**
+     * Use cases the application covers; a marketplace filter.
+     */
+    'use_cases'?: Array<string>;
 }
 
 
@@ -242,6 +394,9 @@ export interface ApplicationCatalogIn {
      */
     'app_url': string;
     'version'?: string | null;
+    'departments'?: Array<string> | null;
+    'industries'?: Array<string> | null;
+    'use_cases'?: Array<string> | null;
 }
 /**
  * Partial update for catalog metadata; state lives on its own endpoint.
@@ -252,6 +407,9 @@ export interface ApplicationCatalogUpdate {
     'avatar'?: string | null;
     'app_url'?: string | null;
     'version'?: string | null;
+    'departments'?: Array<string> | null;
+    'industries'?: Array<string> | null;
+    'use_cases'?: Array<string> | null;
 }
 /**
  * A group\'s application access, identifying app and group by public id.  `app_id`/`group_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `app_public_id`/`group_public_id`.
@@ -419,6 +577,18 @@ export interface AssistantCatalog {
     'version'?: string | null;
     'state'?: MarketplaceCatalogStateEnum;
     'predefined_prompts'?: Array<any> | null;
+    /**
+     * Departments the agent is for; a marketplace filter.
+     */
+    'departments'?: Array<string>;
+    /**
+     * Industries the agent is for; a marketplace filter.
+     */
+    'industries'?: Array<string>;
+    /**
+     * Use cases the agent covers; a marketplace filter.
+     */
+    'use_cases'?: Array<string>;
 }
 
 
@@ -433,6 +603,9 @@ export interface AssistantCatalogIn {
     'similarity_top_k'?: number | null;
     'version'?: string | null;
     'predefined_prompts'?: Array<string> | null;
+    'departments'?: Array<string> | null;
+    'industries'?: Array<string> | null;
+    'use_cases'?: Array<string> | null;
 }
 
 
@@ -468,6 +641,9 @@ export interface AssistantCatalogUpdate {
     'similarity_top_k'?: number | null;
     'version'?: string | null;
     'predefined_prompts'?: Array<string> | null;
+    'departments'?: Array<string> | null;
+    'industries'?: Array<string> | null;
+    'use_cases'?: Array<string> | null;
 }
 
 
@@ -850,6 +1026,10 @@ export interface CatalogIn {
      */
     'supports_clarification'?: boolean;
     /**
+     * Whether the model may serve Google web search.
+     */
+    'supports_google_grounding'?: boolean;
+    /**
      * Whether to auto-create default settings for this catalog entry on seed.
      */
     'auto_seed'?: boolean;
@@ -873,6 +1053,7 @@ export interface CatalogUpdate {
     'supports_transcription'?: boolean | null;
     'supports_reasoning_effort'?: boolean | null;
     'supports_clarification'?: boolean | null;
+    'supports_google_grounding'?: boolean | null;
     'auto_seed'?: boolean | null;
     'tier'?: ModelTierEnum | null;
     'auto_routable'?: boolean | null;
@@ -971,6 +1152,14 @@ export interface Chat {
     'model_user_picked'?: boolean;
     'routed_tier'?: ModelTierEnum | null;
 }
+
+
+
+export const ChatExportFormat = {
+    pdf: 'pdf',
+} as const;
+
+export type ChatExportFormat = typeof ChatExportFormat[keyof typeof ChatExportFormat];
 
 
 export interface ChatIn {
@@ -1187,6 +1376,10 @@ export interface ConnectorStatusOut {
      * The Google Drive file picker can open: an admin set the Picker API key and this consent covers `drive.file`.
      */
     'picker_available'?: boolean;
+    /**
+     * The tenant has an admin consent URL for this connector\'s provider, so an admin can approve it for the whole organization.
+     */
+    'admin_consent_available'?: boolean;
 }
 
 
@@ -1420,6 +1613,7 @@ export interface CredentialTemplateOut {
  */
 export interface CustomConnectorCreate {
     'name'?: string | null;
+    'description'?: string | null;
     'url'?: string | null;
     'headers'?: { [key: string]: string; };
     'config'?: string | null;
@@ -1431,6 +1625,10 @@ export interface CustomConnectorCreate {
      * Add for the organisation instead of yourself (needs `MANAGE_CONNECTORS` and `MANAGE_CONNECTOR_ACCESS`).
      */
     'organization'?: boolean;
+    /**
+     * Tell this server which Hub user is signing in, as a signed assertion on the authorize redirect. Only for a server you run that expects it: it puts the user\'s name, email and ids in that server\'s authorize URL. Organisation connectors with sign-in only.
+     */
+    'send_identity'?: boolean;
     'all_users'?: boolean;
     /**
      * Roles to grant an organisation MCP to (also needs `MANAGE_ROLES`); further roles and single users can be given it later in the role editor and the user access settings.
@@ -1461,6 +1659,7 @@ export interface CustomConnectorOut {
     'public_id': string;
     'connector_id': string;
     'name': string;
+    'description': string | null;
     'url': string;
     /**
      * Switched on for, and usable by, the caller.
@@ -1469,6 +1668,7 @@ export interface CustomConnectorOut {
     'header_names': Array<string>;
     'owner': CustomConnectorOutOwnerEnum;
     'auth_mode': CustomConnectorOutAuthModeEnum;
+    'send_identity'?: boolean | null;
     /**
      * The caller has a stored sign-in.
      */
@@ -1496,7 +1696,9 @@ export type CustomConnectorOutAuthModeEnum = typeof CustomConnectorOutAuthModeEn
 
 export interface CustomConnectorUpdate {
     'name'?: string | null;
+    'description'?: string | null;
     'enabled'?: boolean | null;
+    'send_identity'?: boolean | null;
 }
 /**
  * Metadata the frontend uses to render the right browse hierarchy.
@@ -2039,8 +2241,8 @@ export interface HTTPValidationError {
     'detail'?: Array<ValidationError>;
 }
 export interface IdleAssistant {
-    'assistant_id': number;
-    'name': string;
+    'assistant_public_id': string;
+    'name': string | null;
     'last_used_at': string | null;
 }
 export interface InvitationIn {
@@ -2239,6 +2441,38 @@ export interface Library {
      */
     'name': string;
     'description'?: string | null;
+}
+/**
+ * A group\'s access to a library, identifying library and group by public id.  `library_id`/`group_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `library_public_id`/`group_public_id`.
+ */
+export interface LibraryGroupOut {
+    /**
+     * Internal id of the library (deprecated; use library_public_id).
+     */
+    'library_id': number;
+    /**
+     * Public id of the library.
+     */
+    'library_public_id': string;
+    /**
+     * Internal id of the user group (deprecated; use group_public_id).
+     */
+    'group_id': number;
+    /**
+     * Public id of the user group.
+     */
+    'group_public_id': string;
+    /**
+     * Internal id of the tenant the grant belongs to.
+     */
+    'tenant_id': number;
+    /**
+     * Timestamp when access was granted.
+     */
+    'created_at': string;
+}
+export interface LibraryGroupsIn {
+    'group_ids'?: Array<string> | null;
 }
 export interface LibraryIn {
     /**
@@ -2550,6 +2784,27 @@ export interface MoversResponse {
     'per_model': Array<ModelDelta>;
 }
 /**
+ * The caller\'s own access to one assistant: a direct membership row, or `GROUP` when only a group grants it, with the caller\'s conversion flag.
+ */
+export interface MyAssistantMembershipOut {
+    /**
+     * Internal id of the assistant (deprecated; use assistant_public_id).
+     */
+    'assistant_id': number;
+    /**
+     * Public id of the assistant.
+     */
+    'assistant_public_id': string;
+    /**
+     * INVITED or DISCOVERED for a direct membership, GROUP for group-only access.
+     */
+    'granted_via': string;
+    /**
+     * Whether the caller has converted the assistant into a tool.
+     */
+    'is_tool': boolean;
+}
+/**
  * A tagging, identifying the tag and taggable resource by public id.  `tag_id`/`taggable_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `tag_public_id`/`taggable_public_id`.
  */
 export interface NeulandAssistantsTaggingOut {
@@ -2736,6 +2991,38 @@ export interface Project {
      */
     'description_show_in_chat'?: boolean;
 }
+/**
+ * A group\'s access to a project, identifying project and group by public id.  `project_id`/`group_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `project_public_id`/`group_public_id`.
+ */
+export interface ProjectGroupOut {
+    /**
+     * Internal id of the project (deprecated; use project_public_id).
+     */
+    'project_id': number;
+    /**
+     * Public id of the project.
+     */
+    'project_public_id': string;
+    /**
+     * Internal id of the user group (deprecated; use group_public_id).
+     */
+    'group_id': number;
+    /**
+     * Public id of the user group.
+     */
+    'group_public_id': string;
+    /**
+     * Internal id of the tenant the grant belongs to.
+     */
+    'tenant_id': number;
+    /**
+     * Timestamp when access was granted.
+     */
+    'created_at': string;
+}
+export interface ProjectGroupsIn {
+    'group_ids'?: Array<string> | null;
+}
 export interface ProjectIn {
     /**
      * Display name of the project.
@@ -2842,6 +3129,38 @@ export interface Prompt {
      */
     'is_public'?: boolean;
     'description': string | null;
+}
+/**
+ * A group\'s access to a prompt, identifying prompt and group by public id.  `prompt_id`/`group_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `prompt_public_id`/`group_public_id`.
+ */
+export interface PromptGroupOut {
+    /**
+     * Internal id of the prompt (deprecated; use prompt_public_id).
+     */
+    'prompt_id': number;
+    /**
+     * Public id of the prompt.
+     */
+    'prompt_public_id': string;
+    /**
+     * Internal id of the user group (deprecated; use group_public_id).
+     */
+    'group_id': number;
+    /**
+     * Public id of the user group.
+     */
+    'group_public_id': string;
+    /**
+     * Internal id of the tenant the grant belongs to.
+     */
+    'tenant_id': number;
+    /**
+     * Timestamp when access was granted.
+     */
+    'created_at': string;
+}
+export interface PromptGroupsIn {
+    'group_ids'?: Array<string> | null;
 }
 export interface PromptIn {
     'name'?: string | null;
@@ -3129,6 +3448,10 @@ export interface RoleUpdateIn {
     'connectors'?: Array<string> | null;
     'custom_connectors'?: Array<string> | null;
 }
+export interface RunCancelOut {
+    'run_id': string;
+    'status': string;
+}
 export interface RunCreateOut {
     'run_id': string;
     'stream_token': string;
@@ -3206,6 +3529,14 @@ export interface Settings {
     'guardrails_enabled'?: boolean;
     'sharepoint_enabled': boolean | null;
     'sharepoint_allowed_sites'?: Array<string> | null;
+    /**
+     * Whether the AI may create SharePoint links anyone can open.
+     */
+    'sharepoint_anonymous_links'?: boolean;
+    /**
+     * Whether the AI may share SharePoint items with people outside the tenant\'s own email domains.
+     */
+    'sharepoint_external_invites'?: boolean;
     'inbound_guardrail'?: string | null;
     'outbound_guardrail'?: string | null;
     'system_prompt'?: string | null;
@@ -3241,12 +3572,18 @@ export interface Settings {
      * Whether generated images get a visible EU \'AI\' icon stamped into them. Off by default: stamping re-encodes the image, which drops the provider\'s C2PA Content Credentials.
      */
     'ai_image_label_enabled'?: boolean;
+    /**
+     * Engine behind the tenant\'s web search: native (Perplexity), google_search or google_enterprise.
+     */
+    'web_search_engine'?: string;
 }
 export interface SettingsIn {
     'default_llm_catalog_id'?: string | null;
     'guardrails_enabled'?: boolean | null;
     'sharepoint_enabled'?: boolean | null;
     'sharepoint_allowed_sites'?: Array<string> | null;
+    'sharepoint_anonymous_links'?: boolean | null;
+    'sharepoint_external_invites'?: boolean | null;
     'inbound_guardrail'?: string | null;
     'outbound_guardrail'?: string | null;
     'welcome_email_template_id'?: string | null;
@@ -3262,6 +3599,7 @@ export interface SettingsIn {
     'user_level_analytics_enabled'?: boolean | null;
     'user_analytics_reveal_names'?: boolean | null;
     'ai_image_label_enabled'?: boolean | null;
+    'web_search_engine'?: string | null;
 }
 /**
  * One connected shared mailbox — the stored claim shape AND the API response shape, so a new field is added exactly once.
@@ -3514,6 +3852,7 @@ export interface SystemSettings {
     'inbound_guardrail_llm_settings_id'?: number | null;
     'outbound_guardrail_llm_settings_id'?: number | null;
     'title_llm_settings_id'?: number | null;
+    'web_search_llm_settings_id'?: number | null;
     'embedding_llm_settings_id'?: number | null;
     'transcription_llm_settings_id'?: number | null;
     'maintenance_start_at'?: string | null;
@@ -3529,6 +3868,7 @@ export interface SystemSettingsUpdate {
     'inbound_guardrail_llm_settings_id'?: string | null;
     'outbound_guardrail_llm_settings_id'?: string | null;
     'title_llm_settings_id'?: string | null;
+    'web_search_llm_settings_id'?: string | null;
     'embedding_llm_settings_id'?: string | null;
     'transcription_llm_settings_id'?: string | null;
     'maintenance_start_at'?: string | null;
@@ -4385,6 +4725,7 @@ export interface UsageQueryRequest {
     'model'?: string | null;
     'provider'?: string | null;
     'assistant_id'?: number | null;
+    'assistant_public_id'?: string | null;
     'project_id'?: number | null;
     'limit'?: number | null;
     /**
@@ -8545,6 +8886,48 @@ export const AssistantAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * The caller\'s direct membership rows, then the assistants they reach only through a group (`granted_via: \"GROUP\"`); `is_tool` also counts a conversion made through a group — what the tool badge and convert gating read.
+         * @summary The caller\'s own assistant memberships
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        assistantsMyMemberships: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/assistants/my-memberships`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
          * @summary Stop the assistant (agent) being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
@@ -9262,6 +9645,19 @@ export const AssistantFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * The caller\'s direct membership rows, then the assistants they reach only through a group (`granted_via: \"GROUP\"`); `is_tool` also counts a conversion made through a group — what the tool badge and convert gating read.
+         * @summary The caller\'s own assistant memberships
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async assistantsMyMemberships(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MyAssistantMembershipOut>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.assistantsMyMemberships(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Assistant.assistantsMyMemberships']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
          * @summary Stop the assistant (agent) being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
@@ -9546,6 +9942,16 @@ export const AssistantFactory = function (configuration?: Configuration, basePat
             return localVarFp.assistantsLeaveAssitant(assistantId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
+         * The caller\'s direct membership rows, then the assistants they reach only through a group (`granted_via: \"GROUP\"`); `is_tool` also counts a conversion made through a group — what the tool badge and convert gating read.
+         * @summary The caller\'s own assistant memberships
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        assistantsMyMemberships(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<MyAssistantMembershipOut>> {
+            return localVarFp.assistantsMyMemberships(cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Clear the caller\'s own `is_tool` flag; the assistant stops being consultable from their chats at once (every consultability query keys on that flag). Other users\' conversions are untouched.
          * @summary Stop the assistant (agent) being consultable from your chats
          * @param {string} assistantId Public id of the assistant.
@@ -9805,6 +10211,17 @@ export class Assistant extends BaseAPI {
      */
     public assistantsLeaveAssitant(assistantId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return AssistantFp(this.configuration).assistantsLeaveAssitant(assistantId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * The caller\'s direct membership rows, then the assistants they reach only through a group (`granted_via: \"GROUP\"`); `is_tool` also counts a conversion made through a group — what the tool badge and convert gating read.
+     * @summary The caller\'s own assistant memberships
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public assistantsMyMemberships(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AssistantFp(this.configuration).assistantsMyMemberships(cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -11162,6 +11579,52 @@ export const AuthAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
+         * Resolve the Entra directory group a HUB group is bound to (delegated).
+         * @summary Get an Entra directory group
+         * @param {string} groupId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGetEntraGroup: async (groupId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'groupId' is not null or undefined
+            assertParamExists('authGetEntraGroup', 'groupId', groupId)
+            const localVarPath = `/auth/entra/groups/{group_id}`
+                .replace(`{${"group_id"}}`, encodeURIComponent(String(groupId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Resolve Azure Entra group display names for the current user\'s groups.
          * @summary Get Entra group names
          * @param {string | null} [cookieName] 
@@ -11729,6 +12192,20 @@ export const AuthFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Resolve the Entra directory group a HUB group is bound to (delegated).
+         * @summary Get an Entra directory group
+         * @param {string} groupId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authGetEntraGroup(groupId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authGetEntraGroup(groupId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Auth.authGetEntraGroup']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Resolve Azure Entra group display names for the current user\'s groups.
          * @summary Get Entra group names
          * @param {string | null} [cookieName] 
@@ -11933,6 +12410,17 @@ export const AuthFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.authExchangeToken(appId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Resolve the Entra directory group a HUB group is bound to (delegated).
+         * @summary Get an Entra directory group
+         * @param {string} groupId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authGetEntraGroup(groupId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.authGetEntraGroup(groupId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Resolve Azure Entra group display names for the current user\'s groups.
          * @summary Get Entra group names
          * @param {string | null} [cookieName] 
@@ -12098,6 +12586,18 @@ export class Auth extends BaseAPI {
      */
     public authExchangeToken(appId: string, options?: RawAxiosRequestConfig) {
         return AuthFp(this.configuration).authExchangeToken(appId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Resolve the Entra directory group a HUB group is bound to (delegated).
+     * @summary Get an Entra directory group
+     * @param {string} groupId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public authGetEntraGroup(groupId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return AuthFp(this.configuration).authGetEntraGroup(groupId, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13545,6 +14045,67 @@ export const ChatAxiosParamCreator = function (configuration?: Configuration) {
             };
         },
         /**
+         * Every message of the chat, oldest first, in one document: the same rendering as a single-message export, with the author and time of each. A long chat is rendered in chunks and merged, so it has no size limit.
+         * @summary Export a whole chat as a document
+         * @param {string} chatId Public id of the chat.
+         * @param {ChatsConvertChatFormatEnum} [format] Output format.
+         * @param {string | null} [lang] Language of the export\&#39;s labels (&#x60;en&#x60;, &#x60;de&#x60;). Defaults to the caller\&#39;s saved language, else &#x60;en&#x60;.
+         * @param {string | null} [tz] IANA timezone for the timestamps. Defaults to the caller\&#39;s saved timezone, else UTC.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsConvertChat: async (chatId: string, format?: ChatsConvertChatFormatEnum, lang?: string | null, tz?: string | null, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatId' is not null or undefined
+            assertParamExists('chatsConvertChat', 'chatId', chatId)
+            const localVarPath = `/chats/{chat_id}/convert`
+                .replace(`{${"chat_id"}}`, encodeURIComponent(String(chatId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (format !== undefined) {
+                localVarQueryParameter['format'] = format;
+            }
+
+            if (lang !== undefined) {
+                localVarQueryParameter['lang'] = lang;
+            }
+
+            if (tz !== undefined) {
+                localVarQueryParameter['tz'] = tz;
+            }
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/octet-stream,application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Exclude the given documents from the chat\'s retrieval context.
          * @summary Deactivate documents in a chat
          * @param {string} chatId ID of the chat.
@@ -13944,6 +14505,23 @@ export const ChatFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
+         * Every message of the chat, oldest first, in one document: the same rendering as a single-message export, with the author and time of each. A long chat is rendered in chunks and merged, so it has no size limit.
+         * @summary Export a whole chat as a document
+         * @param {string} chatId Public id of the chat.
+         * @param {ChatsConvertChatFormatEnum} [format] Output format.
+         * @param {string | null} [lang] Language of the export\&#39;s labels (&#x60;en&#x60;, &#x60;de&#x60;). Defaults to the caller\&#39;s saved language, else &#x60;en&#x60;.
+         * @param {string | null} [tz] IANA timezone for the timestamps. Defaults to the caller\&#39;s saved timezone, else UTC.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async chatsConvertChat(chatId: string, format?: ChatsConvertChatFormatEnum, lang?: string | null, tz?: string | null, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.chatsConvertChat(chatId, format, lang, tz, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Chat.chatsConvertChat']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Exclude the given documents from the chat\'s retrieval context.
          * @summary Deactivate documents in a chat
          * @param {string} chatId ID of the chat.
@@ -14080,6 +14658,20 @@ export const ChatFactory = function (configuration?: Configuration, basePath?: s
             return localVarFp.chatsCancelMessage(chatId, cookieName, options).then((request) => request(axios, basePath));
         },
         /**
+         * Every message of the chat, oldest first, in one document: the same rendering as a single-message export, with the author and time of each. A long chat is rendered in chunks and merged, so it has no size limit.
+         * @summary Export a whole chat as a document
+         * @param {string} chatId Public id of the chat.
+         * @param {ChatsConvertChatFormatEnum} [format] Output format.
+         * @param {string | null} [lang] Language of the export\&#39;s labels (&#x60;en&#x60;, &#x60;de&#x60;). Defaults to the caller\&#39;s saved language, else &#x60;en&#x60;.
+         * @param {string | null} [tz] IANA timezone for the timestamps. Defaults to the caller\&#39;s saved timezone, else UTC.
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        chatsConvertChat(chatId: string, format?: ChatsConvertChatFormatEnum, lang?: string | null, tz?: string | null, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.chatsConvertChat(chatId, format, lang, tz, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Exclude the given documents from the chat\'s retrieval context.
          * @summary Deactivate documents in a chat
          * @param {string} chatId ID of the chat.
@@ -14195,6 +14787,21 @@ export class Chat extends BaseAPI {
     }
 
     /**
+     * Every message of the chat, oldest first, in one document: the same rendering as a single-message export, with the author and time of each. A long chat is rendered in chunks and merged, so it has no size limit.
+     * @summary Export a whole chat as a document
+     * @param {string} chatId Public id of the chat.
+     * @param {ChatsConvertChatFormatEnum} [format] Output format.
+     * @param {string | null} [lang] Language of the export\&#39;s labels (&#x60;en&#x60;, &#x60;de&#x60;). Defaults to the caller\&#39;s saved language, else &#x60;en&#x60;.
+     * @param {string | null} [tz] IANA timezone for the timestamps. Defaults to the caller\&#39;s saved timezone, else UTC.
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public chatsConvertChat(chatId: string, format?: ChatsConvertChatFormatEnum, lang?: string | null, tz?: string | null, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ChatFp(this.configuration).chatsConvertChat(chatId, format, lang, tz, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Exclude the given documents from the chat\'s retrieval context.
      * @summary Deactivate documents in a chat
      * @param {string} chatId ID of the chat.
@@ -14285,6 +14892,10 @@ export class Chat extends BaseAPI {
     }
 }
 
+export const ChatsConvertChatFormatEnum = {
+    pdf: 'pdf',
+} as const;
+export type ChatsConvertChatFormatEnum = typeof ChatsConvertChatFormatEnum[keyof typeof ChatsConvertChatFormatEnum];
 
 
 /**
@@ -14660,7 +15271,7 @@ export const CustomConnectorAxiosParamCreator = function (configuration?: Config
         },
         /**
          * `enabled` on an organisation MCP is the caller\'s own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
-         * @summary Rename or switch a custom MCP
+         * @summary Rename, describe or switch a custom MCP, or tell it who signs in
          * @param {string} publicId Public id of the MCP.
          * @param {CustomConnectorUpdate} customConnectorUpdate 
          * @param {string | null} [cookieName] 
@@ -14832,7 +15443,7 @@ export const CustomConnectorFp = function(configuration?: Configuration) {
         },
         /**
          * `enabled` on an organisation MCP is the caller\'s own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
-         * @summary Rename or switch a custom MCP
+         * @summary Rename, describe or switch a custom MCP, or tell it who signs in
          * @param {string} publicId Public id of the MCP.
          * @param {CustomConnectorUpdate} customConnectorUpdate 
          * @param {string | null} [cookieName] 
@@ -14944,7 +15555,7 @@ export const CustomConnectorFactory = function (configuration?: Configuration, b
         },
         /**
          * `enabled` on an organisation MCP is the caller\'s own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
-         * @summary Rename or switch a custom MCP
+         * @summary Rename, describe or switch a custom MCP, or tell it who signs in
          * @param {string} publicId Public id of the MCP.
          * @param {CustomConnectorUpdate} customConnectorUpdate 
          * @param {string | null} [cookieName] 
@@ -15059,7 +15670,7 @@ export class CustomConnector extends BaseAPI {
 
     /**
      * `enabled` on an organisation MCP is the caller\'s own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
-     * @summary Rename or switch a custom MCP
+     * @summary Rename, describe or switch a custom MCP, or tell it who signs in
      * @param {string} publicId Public id of the MCP.
      * @param {CustomConnectorUpdate} customConnectorUpdate 
      * @param {string | null} [cookieName] 
@@ -15755,10 +16366,11 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
          * @param {string | null} [projectId] 
          * @param {string | null} [chatId] 
          * @param {string | null} [assistantId] 
+         * @param {string | null} [libraryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsUnimportDocuments: async (src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: string | null, chatId?: string | null, assistantId?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentsUnimportDocuments: async (src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: string | null, chatId?: string | null, assistantId?: string | null, libraryId?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'src' is not null or undefined
             assertParamExists('documentsUnimportDocuments', 'src', src)
             // verify required parameter 'driveId' is not null or undefined
@@ -15812,6 +16424,10 @@ export const DocumentAxiosParamCreator = function (configuration?: Configuration
 
             if (assistantId !== undefined) { 
                 localVarFormParams.set('assistant_id', assistantId as any);
+            }
+
+            if (libraryId !== undefined) { 
+                localVarFormParams.set('library_id', libraryId as any);
             }
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
             localVarHeaderParameter['Accept'] = 'application/json';
@@ -16015,11 +16631,12 @@ export const DocumentFp = function(configuration?: Configuration) {
          * @param {string | null} [projectId] 
          * @param {string | null} [chatId] 
          * @param {string | null} [assistantId] 
+         * @param {string | null} [libraryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: string | null, chatId?: string | null, assistantId?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, options);
+        async documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: string | null, chatId?: string | null, assistantId?: string | null, libraryId?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, libraryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['Document.documentsUnimportDocuments']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -16135,11 +16752,12 @@ export const DocumentFactory = function (configuration?: Configuration, basePath
          * @param {string | null} [projectId] 
          * @param {string | null} [chatId] 
          * @param {string | null} [assistantId] 
+         * @param {string | null} [libraryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: string | null, chatId?: string | null, assistantId?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, options).then((request) => request(axios, basePath));
+        documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: string | null, chatId?: string | null, assistantId?: string | null, libraryId?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, libraryId, options).then((request) => request(axios, basePath));
         },
         /**
          * Upload files as documents and kick off async processing for the given entity.
@@ -16253,11 +16871,12 @@ export class Document extends BaseAPI {
      * @param {string | null} [projectId] 
      * @param {string | null} [chatId] 
      * @param {string | null} [assistantId] 
+     * @param {string | null} [libraryId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    public documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: string | null, chatId?: string | null, assistantId?: string | null, options?: RawAxiosRequestConfig) {
-        return DocumentFp(this.configuration).documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, options).then((request) => request(this.axios, this.basePath));
+    public documentsUnimportDocuments(src: string, driveId: string, driveItemIds: Array<string>, cookieName?: string | null, projectId?: string | null, chatId?: string | null, assistantId?: string | null, libraryId?: string | null, options?: RawAxiosRequestConfig) {
+        return DocumentFp(this.configuration).documentsUnimportDocuments(src, driveId, driveItemIds, cookieName, projectId, chatId, assistantId, libraryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -19027,6 +19646,57 @@ export const LibraryAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Grant or update library access for user groups (replaces the current set).
+         * @summary Set library group access
+         * @param {string} libraryId Public id of the library.
+         * @param {LibraryGroupsIn} libraryGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        librariesUpdateLibraryGroups: async (libraryId: string, libraryGroupsIn: LibraryGroupsIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'libraryId' is not null or undefined
+            assertParamExists('librariesUpdateLibraryGroups', 'libraryId', libraryId)
+            // verify required parameter 'libraryGroupsIn' is not null or undefined
+            assertParamExists('librariesUpdateLibraryGroups', 'libraryGroupsIn', libraryGroupsIn)
+            const localVarPath = `/libraries/{library_id}/groups`
+                .replace(`{${"library_id"}}`, encodeURIComponent(String(libraryId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(libraryGroupsIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -19138,6 +19808,21 @@ export const LibraryFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['Library.librariesUpdateLibrary']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Grant or update library access for user groups (replaces the current set).
+         * @summary Set library group access
+         * @param {string} libraryId Public id of the library.
+         * @param {LibraryGroupsIn} libraryGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async librariesUpdateLibraryGroups(libraryId: string, libraryGroupsIn: LibraryGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<LibraryGroupOut>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.librariesUpdateLibraryGroups(libraryId, libraryGroupsIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Library.librariesUpdateLibraryGroups']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -19227,6 +19912,18 @@ export const LibraryFactory = function (configuration?: Configuration, basePath?
          */
         librariesUpdateLibrary(libraryId: string, libraryUpdateIn: LibraryUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Library> {
             return localVarFp.librariesUpdateLibrary(libraryId, libraryUpdateIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Grant or update library access for user groups (replaces the current set).
+         * @summary Set library group access
+         * @param {string} libraryId Public id of the library.
+         * @param {LibraryGroupsIn} libraryGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        librariesUpdateLibraryGroups(libraryId: string, libraryGroupsIn: LibraryGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<LibraryGroupOut>> {
+            return localVarFp.librariesUpdateLibraryGroups(libraryId, libraryGroupsIn, cookieName, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -19322,6 +20019,19 @@ export class Library extends BaseAPI {
     public librariesUpdateLibrary(libraryId: string, libraryUpdateIn: LibraryUpdateIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return LibraryFp(this.configuration).librariesUpdateLibrary(libraryId, libraryUpdateIn, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
+
+    /**
+     * Grant or update library access for user groups (replaces the current set).
+     * @summary Set library group access
+     * @param {string} libraryId Public id of the library.
+     * @param {LibraryGroupsIn} libraryGroupsIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public librariesUpdateLibraryGroups(libraryId: string, libraryGroupsIn: LibraryGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return LibraryFp(this.configuration).librariesUpdateLibraryGroups(libraryId, libraryGroupsIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
 }
 
 
@@ -19331,6 +20041,53 @@ export class Library extends BaseAPI {
  */
 export const LlmAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Per-agent usage, sessions and users for the tenant.
+         * @summary Usage per agent with sessions, users and names
+         * @param {DateWindowRequest} dateWindowRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmAgentUsage: async (dateWindowRequest: DateWindowRequest, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dateWindowRequest' is not null or undefined
+            assertParamExists('llmAgentUsage', 'dateWindowRequest', dateWindowRequest)
+            const localVarPath = `/llm/usage/agents`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(dateWindowRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * List the tenant\'s API keys, flagging idle and soon-expiring ones.
          * @summary API key inventory with idleness and expiry flags
@@ -19767,6 +20524,20 @@ export const LlmFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = LlmAxiosParamCreator(configuration)
     return {
         /**
+         * Per-agent usage, sessions and users for the tenant.
+         * @summary Usage per agent with sessions, users and names
+         * @param {DateWindowRequest} dateWindowRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async llmAgentUsage(dateWindowRequest: DateWindowRequest, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AgentUsageResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.llmAgentUsage(dateWindowRequest, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Llm.llmAgentUsage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * List the tenant\'s API keys, flagging idle and soon-expiring ones.
          * @summary API key inventory with idleness and expiry flags
          * @param {ApiKeyInventoryRequest} apiKeyInventoryRequest 
@@ -19905,6 +20676,17 @@ export const LlmFactory = function (configuration?: Configuration, basePath?: st
     const localVarFp = LlmFp(configuration)
     return {
         /**
+         * Per-agent usage, sessions and users for the tenant.
+         * @summary Usage per agent with sessions, users and names
+         * @param {DateWindowRequest} dateWindowRequest 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        llmAgentUsage(dateWindowRequest: DateWindowRequest, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<AgentUsageResponse> {
+            return localVarFp.llmAgentUsage(dateWindowRequest, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * List the tenant\'s API keys, flagging idle and soon-expiring ones.
          * @summary API key inventory with idleness and expiry flags
          * @param {ApiKeyInventoryRequest} apiKeyInventoryRequest 
@@ -20013,6 +20795,18 @@ export const LlmFactory = function (configuration?: Configuration, basePath?: st
  * Llm - object-oriented interface
  */
 export class Llm extends BaseAPI {
+    /**
+     * Per-agent usage, sessions and users for the tenant.
+     * @summary Usage per agent with sessions, users and names
+     * @param {DateWindowRequest} dateWindowRequest 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public llmAgentUsage(dateWindowRequest: DateWindowRequest, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return LlmFp(this.configuration).llmAgentUsage(dateWindowRequest, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * List the tenant\'s API keys, flagging idle and soon-expiring ones.
      * @summary API key inventory with idleness and expiry flags
@@ -24058,6 +24852,57 @@ export const ProjectAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Grant or update project access for user groups (replaces the current set).
+         * @summary Set project group access
+         * @param {string} projectId Public id of the project.
+         * @param {ProjectGroupsIn} projectGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsUpdateProjectGroups: async (projectId: string, projectGroupsIn: ProjectGroupsIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('projectsUpdateProjectGroups', 'projectId', projectId)
+            // verify required parameter 'projectGroupsIn' is not null or undefined
+            assertParamExists('projectsUpdateProjectGroups', 'projectGroupsIn', projectGroupsIn)
+            const localVarPath = `/projects/{project_id}/groups`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(projectGroupsIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -24213,6 +25058,21 @@ export const ProjectFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['Project.projectsUpdateProject']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Grant or update project access for user groups (replaces the current set).
+         * @summary Set project group access
+         * @param {string} projectId Public id of the project.
+         * @param {ProjectGroupsIn} projectGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async projectsUpdateProjectGroups(projectId: string, projectGroupsIn: ProjectGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProjectGroupOut>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.projectsUpdateProjectGroups(projectId, projectGroupsIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Project.projectsUpdateProjectGroups']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -24337,6 +25197,18 @@ export const ProjectFactory = function (configuration?: Configuration, basePath?
          */
         projectsUpdateProject(projectId: string, projectIn: ProjectIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Project> {
             return localVarFp.projectsUpdateProject(projectId, projectIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Grant or update project access for user groups (replaces the current set).
+         * @summary Set project group access
+         * @param {string} projectId Public id of the project.
+         * @param {ProjectGroupsIn} projectGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        projectsUpdateProjectGroups(projectId: string, projectGroupsIn: ProjectGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<ProjectGroupOut>> {
+            return localVarFp.projectsUpdateProjectGroups(projectId, projectGroupsIn, cookieName, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -24469,6 +25341,19 @@ export class Project extends BaseAPI {
      */
     public projectsUpdateProject(projectId: string, projectIn: ProjectIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return ProjectFp(this.configuration).projectsUpdateProject(projectId, projectIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Grant or update project access for user groups (replaces the current set).
+     * @summary Set project group access
+     * @param {string} projectId Public id of the project.
+     * @param {ProjectGroupsIn} projectGroupsIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public projectsUpdateProjectGroups(projectId: string, projectGroupsIn: ProjectGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return ProjectFp(this.configuration).projectsUpdateProjectGroups(projectId, projectGroupsIn, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -24670,6 +25555,57 @@ export const PromptAxiosParamCreator = function (configuration?: Configuration) 
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Grant or update prompt access for user groups (replaces the current set).
+         * @summary Set prompt group access
+         * @param {string} promptId Public id of the prompt.
+         * @param {PromptGroupsIn} promptGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        promptsUpdatePromptGroups: async (promptId: string, promptGroupsIn: PromptGroupsIn, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'promptId' is not null or undefined
+            assertParamExists('promptsUpdatePromptGroups', 'promptId', promptId)
+            // verify required parameter 'promptGroupsIn' is not null or undefined
+            assertParamExists('promptsUpdatePromptGroups', 'promptGroupsIn', promptGroupsIn)
+            const localVarPath = `/prompts/{prompt_id}/groups`
+                .replace(`{${"prompt_id"}}`, encodeURIComponent(String(promptId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(promptGroupsIn, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -24736,6 +25672,21 @@ export const PromptFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['Prompt.promptsUpdatePrompt']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Grant or update prompt access for user groups (replaces the current set).
+         * @summary Set prompt group access
+         * @param {string} promptId Public id of the prompt.
+         * @param {PromptGroupsIn} promptGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async promptsUpdatePromptGroups(promptId: string, promptGroupsIn: PromptGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PromptGroupOut>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.promptsUpdatePromptGroups(promptId, promptGroupsIn, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Prompt.promptsUpdatePromptGroups']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -24789,6 +25740,18 @@ export const PromptFactory = function (configuration?: Configuration, basePath?:
          */
         promptsUpdatePrompt(promptId: string, promptIn: PromptIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Prompt> {
             return localVarFp.promptsUpdatePrompt(promptId, promptIn, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Grant or update prompt access for user groups (replaces the current set).
+         * @summary Set prompt group access
+         * @param {string} promptId Public id of the prompt.
+         * @param {PromptGroupsIn} promptGroupsIn 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        promptsUpdatePromptGroups(promptId: string, promptGroupsIn: PromptGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<PromptGroupOut>> {
+            return localVarFp.promptsUpdatePromptGroups(promptId, promptGroupsIn, cookieName, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -24844,6 +25807,19 @@ export class Prompt extends BaseAPI {
      */
     public promptsUpdatePrompt(promptId: string, promptIn: PromptIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return PromptFp(this.configuration).promptsUpdatePrompt(promptId, promptIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Grant or update prompt access for user groups (replaces the current set).
+     * @summary Set prompt group access
+     * @param {string} promptId Public id of the prompt.
+     * @param {PromptGroupsIn} promptGroupsIn 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public promptsUpdatePromptGroups(promptId: string, promptGroupsIn: PromptGroupsIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return PromptFp(this.configuration).promptsUpdatePromptGroups(promptId, promptGroupsIn, cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -26553,6 +27529,48 @@ export const SettingsAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * List the web search engines a tenant can use on this deployment.
+         * @summary List available web search engines
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsWebSearchEngines: async (cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/settings/web-search-engines`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -26604,6 +27622,19 @@ export const SettingsFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['Settings.settingsUpdateSettings']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * List the web search engines a tenant can use on this deployment.
+         * @summary List available web search engines
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async settingsWebSearchEngines(cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string | null>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settingsWebSearchEngines(cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Settings.settingsWebSearchEngines']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -26646,6 +27677,16 @@ export const SettingsFactory = function (configuration?: Configuration, basePath
         settingsUpdateSettings(settingsId: string, settingsIn: SettingsIn, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Settings> {
             return localVarFp.settingsUpdateSettings(settingsId, settingsIn, cookieName, options).then((request) => request(axios, basePath));
         },
+        /**
+         * List the web search engines a tenant can use on this deployment.
+         * @summary List available web search engines
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settingsWebSearchEngines(cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<Array<string | null>> {
+            return localVarFp.settingsWebSearchEngines(cookieName, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -26687,6 +27728,17 @@ export class Settings extends BaseAPI {
      */
     public settingsUpdateSettings(settingsId: string, settingsIn: SettingsIn, cookieName?: string | null, options?: RawAxiosRequestConfig) {
         return SettingsFp(this.configuration).settingsUpdateSettings(settingsId, settingsIn, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List the web search engines a tenant can use on this deployment.
+     * @summary List available web search engines
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public settingsWebSearchEngines(cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return SettingsFp(this.configuration).settingsWebSearchEngines(cookieName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -26852,7 +27904,7 @@ export const SharepointAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
+         * List the SharePoint sites the user can access, with imported document counts. Filtered to allowed sites by the tenant admin.
          * @summary List SharePoint sites
          * @param {string | null} [chatId] Scope imported counts to this chat.
          * @param {string | null} [libraryId] Scope imported counts to this library.
@@ -27109,7 +28161,7 @@ export const SharepointFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
+         * List the SharePoint sites the user can access, with imported document counts. Filtered to allowed sites by the tenant admin.
          * @summary List SharePoint sites
          * @param {string | null} [chatId] Scope imported counts to this chat.
          * @param {string | null} [libraryId] Scope imported counts to this library.
@@ -27209,7 +28261,7 @@ export const SharepointFactory = function (configuration?: Configuration, basePa
             return localVarFp.integrationsIsConnected(cookieName, options).then((request) => request(axios, basePath));
         },
         /**
-         * List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
+         * List the SharePoint sites the user can access, with imported document counts. Filtered to allowed sites by the tenant admin.
          * @summary List SharePoint sites
          * @param {string | null} [chatId] Scope imported counts to this chat.
          * @param {string | null} [libraryId] Scope imported counts to this library.
@@ -27301,7 +28353,7 @@ export class Sharepoint extends BaseAPI {
     }
 
     /**
-     * List the SharePoint sites the user can access, with imported document counts.  Filtered to allowed sites by the tenant admin.
+     * List the SharePoint sites the user can access, with imported document counts. Filtered to allowed sites by the tenant admin.
      * @summary List SharePoint sites
      * @param {string | null} [chatId] Scope imported counts to this chat.
      * @param {string | null} [libraryId] Scope imported counts to this library.
@@ -33311,10 +34363,154 @@ export class User extends BaseAPI {
 
 
 /**
+ * WellKnown - axios parameter creator
+ */
+export const WellKnownAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Public JWK Set for verifying our RS256 service tokens offline.
+         * @summary JSON Web Key Set
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        wellKnownJwks: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/.well-known/jwks.json`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * WellKnown - functional programming interface
+ */
+export const WellKnownFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WellKnownAxiosParamCreator(configuration)
+    return {
+        /**
+         * Public JWK Set for verifying our RS256 service tokens offline.
+         * @summary JSON Web Key Set
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async wellKnownJwks(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.wellKnownJwks(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WellKnown.wellKnownJwks']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * WellKnown - factory interface
+ */
+export const WellKnownFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WellKnownFp(configuration)
+    return {
+        /**
+         * Public JWK Set for verifying our RS256 service tokens offline.
+         * @summary JSON Web Key Set
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        wellKnownJwks(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: any; }> {
+            return localVarFp.wellKnownJwks(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * WellKnown - object-oriented interface
+ */
+export class WellKnown extends BaseAPI {
+    /**
+     * Public JWK Set for verifying our RS256 service tokens offline.
+     * @summary JSON Web Key Set
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public wellKnownJwks(options?: RawAxiosRequestConfig) {
+        return WellKnownFp(this.configuration).wellKnownJwks(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * Workflow - axios parameter creator
  */
 export const WorkflowAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Stop a pending or running run. Creator-only. Only this run stops: no further step starts, the step in progress is aborted, and what earlier steps produced stays. The run ends as ``cancelled`` — neither failed nor done, so the next run processes its items again — and a new run can start right away. A run that already ended is left as it is; ``status`` reports its end state either way.
+         * @summary Cancel Workflow Run
+         * @param {string} workflowId 
+         * @param {string} runId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workflowsCancelWorkflowRun: async (workflowId: string, runId: string, cookieName?: string | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workflowId' is not null or undefined
+            assertParamExists('workflowsCancelWorkflowRun', 'workflowId', workflowId)
+            // verify required parameter 'runId' is not null or undefined
+            assertParamExists('workflowsCancelWorkflowRun', 'runId', runId)
+            const localVarPath = `/workflows/{workflow_id}/runs/{run_id}/cancel`
+                .replace(`{${"workflow_id"}}`, encodeURIComponent(String(workflowId)))
+                .replace(`{${"run_id"}}`, encodeURIComponent(String(runId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "X-API-KEY", configuration)
+
+            // authentication OAuth2PasswordBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2PasswordBearer", [], configuration)
+
+            if (cookieName !== undefined) {
+                localVarQueryParameter['cookie_name'] = cookieName;
+            }
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
          * @summary Create Run
@@ -33658,6 +34854,21 @@ export const WorkflowFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = WorkflowAxiosParamCreator(configuration)
     return {
         /**
+         * Stop a pending or running run. Creator-only. Only this run stops: no further step starts, the step in progress is aborted, and what earlier steps produced stays. The run ends as ``cancelled`` — neither failed nor done, so the next run processes its items again — and a new run can start right away. A run that already ended is left as it is; ``status`` reports its end state either way.
+         * @summary Cancel Workflow Run
+         * @param {string} workflowId 
+         * @param {string} runId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async workflowsCancelWorkflowRun(workflowId: string, runId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunCancelOut>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workflowsCancelWorkflowRun(workflowId, runId, cookieName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['Workflow.workflowsCancelWorkflowRun']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
          * @summary Create Run
          * @param {string} workflowId 
@@ -33768,6 +34979,18 @@ export const WorkflowFactory = function (configuration?: Configuration, basePath
     const localVarFp = WorkflowFp(configuration)
     return {
         /**
+         * Stop a pending or running run. Creator-only. Only this run stops: no further step starts, the step in progress is aborted, and what earlier steps produced stays. The run ends as ``cancelled`` — neither failed nor done, so the next run processes its items again — and a new run can start right away. A run that already ended is left as it is; ``status`` reports its end state either way.
+         * @summary Cancel Workflow Run
+         * @param {string} workflowId 
+         * @param {string} runId 
+         * @param {string | null} [cookieName] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        workflowsCancelWorkflowRun(workflowId: string, runId: string, cookieName?: string | null, options?: RawAxiosRequestConfig): AxiosPromise<RunCancelOut> {
+            return localVarFp.workflowsCancelWorkflowRun(workflowId, runId, cookieName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
          * @summary Create Run
          * @param {string} workflowId 
@@ -33854,6 +35077,19 @@ export const WorkflowFactory = function (configuration?: Configuration, basePath
  * Workflow - object-oriented interface
  */
 export class Workflow extends BaseAPI {
+    /**
+     * Stop a pending or running run. Creator-only. Only this run stops: no further step starts, the step in progress is aborted, and what earlier steps produced stays. The run ends as ``cancelled`` — neither failed nor done, so the next run processes its items again — and a new run can start right away. A run that already ended is left as it is; ``status`` reports its end state either way.
+     * @summary Cancel Workflow Run
+     * @param {string} workflowId 
+     * @param {string} runId 
+     * @param {string | null} [cookieName] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public workflowsCancelWorkflowRun(workflowId: string, runId: string, cookieName?: string | null, options?: RawAxiosRequestConfig) {
+        return WorkflowFp(this.configuration).workflowsCancelWorkflowRun(workflowId, runId, cookieName, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Trigger a manual run. Creator-only. Inserts a pending run, mints a run-scoped stream token, and enqueues execution on the ``heavy`` queue.  Rejected with 409 while another run of the workflow is pending or running — the detail carries that run\'s id so the client can attach to it. Overlapping runs read the same window (a list cursor advances only once a run finishes), so a second run would process — and deliver — the same items again. The scheduler skips busy slots for the same reason.
      * @summary Create Run
