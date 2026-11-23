@@ -75,4 +75,6 @@ Ready-made recipes for the common cases are in
   `ArrayBuffer`.
 - **When is an uploaded document ready?** Upload returns before processing
   finishes. Poll `new Document(configuration).documentsGetText(documentId)`
-  until it returns text.
+  until it returns text. While the document is still processing, the Hub answers
+  `404` ("Document has no extracted text (yet)"), so the call rejects with
+  `error.response.status === 404`: catch it and try again a few seconds later.

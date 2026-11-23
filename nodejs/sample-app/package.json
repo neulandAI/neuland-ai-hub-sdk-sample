@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@neulandai/neuland-hub-sdk": "file:../sdk",
-    "express": "^4.21.2",
+    "express": "^4.22.3",
     "jsonwebtoken": "^9.0.2"
   }
 }
