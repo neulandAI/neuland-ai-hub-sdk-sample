@@ -1,0 +1,31 @@
+# LibraryGroupOut
+
+A group\'s access to a library, identifying library and group by public id.  `library_id`/`group_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `library_public_id`/`group_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**library_id** | **number** | Internal id of the library (deprecated; use library_public_id). | [default to undefined]
+**library_public_id** | **string** | Public id of the library. | [default to undefined]
+**group_id** | **number** | Internal id of the user group (deprecated; use group_public_id). | [default to undefined]
+**group_public_id** | **string** | Public id of the user group. | [default to undefined]
+**tenant_id** | **number** | Internal id of the tenant the grant belongs to. | [default to undefined]
+**created_at** | **string** | Timestamp when access was granted. | [default to undefined]
+
+## Example
+
+```typescript
+import { LibraryGroupOut } from '@neulandai/neuland-hub-sdk';
+
+const instance: LibraryGroupOut = {
+    library_id,
+    library_public_id,
+    group_id,
+    group_public_id,
+    tenant_id,
+    created_at,
+};
+```
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

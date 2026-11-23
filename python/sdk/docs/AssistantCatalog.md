@@ -23,6 +23,9 @@ Name | Type | Description | Notes
 **version** | **str** |  | [optional] 
 **state** | [**MarketplaceCatalogStateEnum**](MarketplaceCatalogStateEnum.md) |  | [optional] 
 **predefined_prompts** | **List[object]** |  | [optional] 
+**departments** | **List[str]** | Departments the agent is for; a marketplace filter. | [optional] 
+**industries** | **List[str]** | Industries the agent is for; a marketplace filter. | [optional] 
+**use_cases** | **List[str]** | Use cases the agent covers; a marketplace filter. | [optional] 
 
 ## Example
 

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**settings_current**](/sdk/python/reference/endpoints/Settings#settings_current) | **GET** /settings/current | Get current tenant settings
 [**settings_update_current_settings**](/sdk/python/reference/endpoints/Settings#settings_update_current_settings) | **PATCH** /settings/current | Update current tenant settings
 [**settings_update_settings**](/sdk/python/reference/endpoints/Settings#settings_update_settings) | **PATCH** /settings/&#123;settings_id&#125; | Update settings by id
+[**settings_web_search_engines**](/sdk/python/reference/endpoints/Settings#settings_web_search_engines) | **GET** /settings/web-search-engines | List available web search engines
 
 
 ## **settings_current**
@@ -275,4 +276,88 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | Tenant admin privileges required, or superadmin required to change protected fields. |  -  |
 **404** | No settings record exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **settings_web_search_engines**
+```python
+List[Optional[str]] settings_web_search_engines(cookie_name=cookie_name)
+```
+
+List available web search engines
+
+List the web search engines a tenant can use on this deployment.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.settings import Settings
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Settings(api_client)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # List available web search engines
+        api_response = api_instance.settings_web_search_engines(cookie_name=cookie_name)
+        print("The response of Settings->settings_web_search_engines:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Settings->settings_web_search_engines: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**List[Optional[str]]**
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
 **422** | Validation Error |  -  |

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **supports_transcription** | **boolean** | Whether the model can transcribe audio. | [optional] [default to false]
 **supports_reasoning_effort** | **boolean** | Whether the model accepts a &#x60;reasoning_effort&#x60; hint. Chats only offer the effort picker for models where this is true. | [optional] [default to false]
 **supports_clarification** | **boolean** | Whether the model reliably drives the ask_user_question clarification tool; when false it asks in plain text instead. | [optional] [default to true]
+**supports_google_grounding** | **boolean** | Whether the model may serve Google web search. | [optional] [default to false]
 **auto_seed** | **boolean** | Whether to auto-create default settings for this catalog entry on seed. | [optional] [default to false]
 **tier** | [**ModelTierEnum**](ModelTierEnum.md) |  | [optional] [default to undefined]
 **auto_routable** | **boolean** | Whether the router may pick this model on its own. Turn it off for preview or specialist models that should stay hand-selectable. | [optional] [default to true]
@@ -37,6 +38,7 @@ const instance: CatalogIn = {
     supports_transcription,
     supports_reasoning_effort,
     supports_clarification,
+    supports_google_grounding,
     auto_seed,
     tier,
     auto_routable,

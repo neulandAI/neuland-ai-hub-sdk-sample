@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **model** | **str** |  | [optional] 
 **provider** | **str** |  | [optional] 
 **assistant_id** | **int** |  | [optional] 
+**assistant_public_id** | **UUID** |  | [optional] 
 **project_id** | **int** |  | [optional] 
 **limit** | **int** |  | [optional] 
 **offset** | **int** | Row offset, for paginating rankings. | [optional] [default to 0]

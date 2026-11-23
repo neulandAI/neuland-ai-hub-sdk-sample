@@ -1,0 +1,42 @@
+# AgentUsageMetrics
+
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**cost** | **float** | Total cost. | 
+**total_tokens** | **int** | Total tokens. | 
+**prompt_tokens** | **int** | Prompt tokens. | 
+**completion_tokens** | **int** | Completion tokens. | 
+**requests** | **int** | Number of usage records. | 
+**cached_prompt_tokens** | **int** | Prompt tokens read from the provider cache. | [optional] [default to 0]
+**cache_creation_tokens** | **int** | Prompt tokens written to the provider cache. | [optional] [default to 0]
+**reasoning_tokens** | **int** | Reasoning tokens, already included in completion_tokens. | [optional] [default to 0]
+**sessions** | **int** | Distinct chats with usage in the window. | 
+**users** | **int** | Distinct users with usage in the window. | 
+**playground_sessions** | **int** | Of the sessions, those in an agent&#39;s playground (test chats). | 
+**playground_tokens** | **int** | Of the tokens, those spent in playground test chats. | 
+**playground_requests** | **int** | Of the requests, those made in playground test chats. | 
+**playground_cost** | **float** | Of the cost, the part spent in playground test chats. | 
+
+## Example
+
+```python
+from neuland_hub_sdk.models.agent_usage_metrics import AgentUsageMetrics
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of AgentUsageMetrics from a JSON string
+agent_usage_metrics_instance = AgentUsageMetrics.from_json(json)
+# print the JSON string representation of the object
+print(AgentUsageMetrics.to_json())
+
+# convert the object into a dict
+agent_usage_metrics_dict = agent_usage_metrics_instance.to_dict()
+# create an instance of AgentUsageMetrics from a dict
+agent_usage_metrics_from_dict = AgentUsageMetrics.from_dict(agent_usage_metrics_dict)
+```
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

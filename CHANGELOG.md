@@ -2,6 +2,42 @@
 
 Python (`neuland-hub-sdk`) and Node (`@neulandai/neuland-hub-sdk`) share one version.
 
+## 1.4.0
+
+Generated from Hub `v3.0.0-rc.101` (`release` branch). Tested against a Hub on that version.
+
+### Added
+
+- `assistantsMyMemberships` / `assistants_my_memberships`: assistants the caller is a member of.
+- `librariesUpdateLibraryGroups`, `projectsUpdateProjectGroups`, `promptsUpdatePromptGroups`
+  (Python: `libraries_update_library_groups`, ...): set the user groups that have access.
+- `workflowsCancelWorkflowRun` / `workflows_cancel_workflow_run`: stop a pending or running run.
+- `chatsConvertChat` / `chats_convert_chat`: export a chat as PDF. Python returns `bytes`;
+  Node callers pass `{ responseType: "arraybuffer" }`.
+- `llmAgentUsage` / `llm_agent_usage`: usage per agent for a date window.
+- `settingsWebSearchEngines` / `settings_web_search_engines`, and the settings fields
+  `web_search_engine`, `sharepoint_anonymous_links`, `sharepoint_external_invites`.
+- `authGetEntraGroup` / `auth_get_entra_group`: one Entra directory group.
+- `wellKnownJwks` / `well_known_jwks` (class `WellKnown`): the Hub's public JWK Set.
+- Marketplace applications and assistants: `departments`, `industries`, `use_cases`.
+- `supports_google_grounding` on LLM catalog entries, `admin_consent_available` on
+  connector status, `description` and `send_identity` on custom connectors,
+  `assistant_public_id` on `UsageQueryRequest`.
+
+### Changed
+
+- **Node: `documentsUnimportDocuments` has a new `libraryId` argument before `options`.**
+  A call that passes all seven earlier arguments plus `options` must add `undefined`
+  for `libraryId`.
+- `IdleAssistant.assistant_id` is replaced by `assistant_public_id` (Hub change).
+
+### Not included
+
+- The query parameters Hub added to `/auth/connectors/callback` (`admin_consent`,
+  `tenant`, `scope`) and `/auth/sso/{slug}/{provider}/init` (`email`, `force_login`).
+  Both are browser redirect targets, and the parameters would have shifted Node's
+  `options` argument.
+
 ## 1.3.1
 
 Generated from Hub `v3.0.0-rc.47` (`release` branch). Fixes regressions in 1.3.0.

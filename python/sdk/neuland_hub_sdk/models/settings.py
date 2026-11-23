@@ -38,6 +38,8 @@ class Settings(BaseModel):
     guardrails_enabled: Optional[StrictBool] = Field(default=False, description="Whether guardrails are enabled for the tenant.")
     sharepoint_enabled: Optional[StrictBool]
     sharepoint_allowed_sites: Optional[List[StrictStr]] = None
+    sharepoint_anonymous_links: Optional[StrictBool] = Field(default=True, description="Whether the AI may create SharePoint links anyone can open.")
+    sharepoint_external_invites: Optional[StrictBool] = Field(default=True, description="Whether the AI may share SharePoint items with people outside the tenant's own email domains.")
     inbound_guardrail: Optional[StrictStr] = None
     outbound_guardrail: Optional[StrictStr] = None
     system_prompt: Optional[StrictStr] = None
@@ -52,7 +54,8 @@ class Settings(BaseModel):
     user_level_analytics_enabled: Optional[StrictBool] = Field(default=False, description="Whether identifiable per-user / per-group analytics are shown to this tenant's admins. Off by default (GDPR data-minimization); the tenant admin opts in. Aggregated/anonymized analytics are unaffected.")
     user_analytics_reveal_names: Optional[StrictBool] = Field(default=False, description="When user-level analytics is on, whether the user dimension carries real user ids (so the UI can show names) or opaque per-request pseudonyms. Off by default (GDPR): pseudonymized. Only takes effect while user_level_analytics_enabled is on.")
     ai_image_label_enabled: Optional[StrictBool] = Field(default=False, description="Whether generated images get a visible EU 'AI' icon stamped into them. Off by default: stamping re-encodes the image, which drops the provider's C2PA Content Credentials.")
-    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "sharepoint_allowed_sites", "inbound_guardrail", "outbound_guardrail", "system_prompt", "system_prompt_extension", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "user_level_analytics_enabled", "user_analytics_reveal_names", "ai_image_label_enabled"]
+    web_search_engine: Optional[StrictStr] = Field(default='native', description="Engine behind the tenant's web search: native (Perplexity), google_search or google_enterprise.")
+    __properties: ClassVar[List[str]] = ["id", "public_id", "tenant_id", "default_llm_catalog_id", "created_at", "guardrails_enabled", "sharepoint_enabled", "sharepoint_allowed_sites", "sharepoint_anonymous_links", "sharepoint_external_invites", "inbound_guardrail", "outbound_guardrail", "system_prompt", "system_prompt_extension", "inserted_by", "errlog_webhook_url", "default_language", "require_email_confirmation", "budget_alert_enabled", "soft_limit_warning_enabled", "document_retention_days", "user_level_analytics_enabled", "user_analytics_reveal_names", "ai_image_label_enabled", "web_search_engine"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -168,6 +171,8 @@ class Settings(BaseModel):
             "guardrails_enabled": obj.get("guardrails_enabled") if obj.get("guardrails_enabled") is not None else False,
             "sharepoint_enabled": obj.get("sharepoint_enabled"),
             "sharepoint_allowed_sites": obj.get("sharepoint_allowed_sites"),
+            "sharepoint_anonymous_links": obj.get("sharepoint_anonymous_links") if obj.get("sharepoint_anonymous_links") is not None else True,
+            "sharepoint_external_invites": obj.get("sharepoint_external_invites") if obj.get("sharepoint_external_invites") is not None else True,
             "inbound_guardrail": obj.get("inbound_guardrail"),
             "outbound_guardrail": obj.get("outbound_guardrail"),
             "system_prompt": obj.get("system_prompt"),
@@ -181,7 +186,8 @@ class Settings(BaseModel):
             "document_retention_days": obj.get("document_retention_days"),
             "user_level_analytics_enabled": obj.get("user_level_analytics_enabled") if obj.get("user_level_analytics_enabled") is not None else False,
             "user_analytics_reveal_names": obj.get("user_analytics_reveal_names") if obj.get("user_analytics_reveal_names") is not None else False,
-            "ai_image_label_enabled": obj.get("ai_image_label_enabled") if obj.get("ai_image_label_enabled") is not None else False
+            "ai_image_label_enabled": obj.get("ai_image_label_enabled") if obj.get("ai_image_label_enabled") is not None else False,
+            "web_search_engine": obj.get("web_search_engine") if obj.get("web_search_engine") is not None else 'native'
         }.items() if k in _keep})
         return _obj
 

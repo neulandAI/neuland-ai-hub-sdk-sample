@@ -6,6 +6,7 @@ All URIs are relative to *https://api.your-domain.com*
 |------------- | ------------- | -------------|
 |[**authConfirmEmail**](#authconfirmemail) | **GET** /auth/confirm-email | Confirm an email address|
 |[**authExchangeToken**](#authexchangetoken) | **POST** /auth/exchange/token | Exchange for a service token|
+|[**authGetEntraGroup**](#authgetentragroup) | **GET** /auth/entra/groups/{group_id} | Get an Entra directory group|
 |[**authGetEntraGroups**](#authgetentragroups) | **GET** /auth/entra/groups | Get Entra group names|
 |[**authGetEntraScopes**](#authgetentrascopes) | **GET** /auth/entra/scopes | List Entra scopes|
 |[**authLogin**](#authlogin) | **POST** /auth/token | Log in|
@@ -126,6 +127,64 @@ const { status, data } = await apiInstance.authExchangeToken(
 |**401** | Missing or invalid authentication. |  -  |
 |**404** | No application exists with the given public id. |  -  |
 |**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authGetEntraGroup**
+> { [key: string]: any; } authGetEntraGroup()
+
+Resolve the Entra directory group a HUB group is bound to (delegated).
+
+### Example
+
+```typescript
+import {
+    Auth,
+    Configuration
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Auth(configuration);
+
+let groupId: string; // (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.authGetEntraGroup(
+    groupId,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **groupId** | [**string**] |  | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**{ [key: string]: any; }**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Administrator privileges required. |  -  |
+|**404** | The group no longer exists in the directory. |  -  |
+|**422** | Not an Azure Entra session, or its access token is missing. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -696,7 +755,7 @@ No authorization required
 |-------------|-------------|------------------|
 |**200** | Successful Response |  -  |
 |**400** | Unknown provider or provider does not support SSO login. |  -  |
-|**403** | Invalid, expired, or mismatched SSO state token. |  -  |
+|**403** | Invalid, expired, or mismatched SSO state token, or the identity provider returned a different account than the email entered. |  -  |
 |**404** | No tenant matches the slug, or the provider is not configured. |  -  |
 |**503** | Token exchange with the identity provider failed. |  -  |
 |**422** | Validation Error |  -  |

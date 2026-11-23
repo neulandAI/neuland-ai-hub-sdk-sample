@@ -4,6 +4,7 @@ All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**workflows_cancel_workflow_run**](Workflow.md#workflows_cancel_workflow_run) | **POST** /workflows/{workflow_id}/runs/{run_id}/cancel | Cancel Workflow Run
 [**workflows_create_run**](Workflow.md#workflows_create_run) | **POST** /workflows/{workflow_id}/runs | Create Run
 [**workflows_create_run_stream_token**](Workflow.md#workflows_create_run_stream_token) | **POST** /workflows/{workflow_id}/runs/{run_id}/stream-token | Create Run Stream Token
 [**workflows_create_workflow**](Workflow.md#workflows_create_workflow) | **POST** /workflows/ | Create Workflow
@@ -12,6 +13,99 @@ Method | HTTP request | Description
 [**workflows_stream_run_events**](Workflow.md#workflows_stream_run_events) | **POST** /workflows/{workflow_id}/runs/{run_id}/events | Stream Run Events
 [**workflows_update_workflow**](Workflow.md#workflows_update_workflow) | **PATCH** /workflows/{workflow_id} | Update Workflow
 
+
+# **workflows_cancel_workflow_run**
+> RunCancelOut workflows_cancel_workflow_run(workflow_id, run_id, cookie_name=cookie_name)
+
+Cancel Workflow Run
+
+Stop a pending or running run. Creator-only. Only this run stops: no
+further step starts, the step in progress is aborted, and what earlier
+steps produced stays. The run ends as ``cancelled`` — neither failed nor
+done, so the next run processes its items again — and a new run can start
+right away. A run that already ended is left as it is; ``status`` reports
+its end state either way.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.workflow import Workflow
+from neuland_hub_sdk.models.run_cancel_out import RunCancelOut
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Workflow(api_client)
+    workflow_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    run_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Cancel Workflow Run
+        api_response = api_instance.workflows_cancel_workflow_run(workflow_id, run_id, cookie_name=cookie_name)
+        print("The response of Workflow->workflows_cancel_workflow_run:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Workflow->workflows_cancel_workflow_run: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **workflow_id** | **UUID**|  | 
+ **run_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**RunCancelOut**](RunCancelOut.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **workflows_create_run**
 > RunCreateOut workflows_create_run(workflow_id, cookie_name=cookie_name)

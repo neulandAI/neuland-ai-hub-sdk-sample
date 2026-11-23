@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**libraries_remove_library_members**](/sdk/python/reference/endpoints/Library#libraries_remove_library_members) | **DELETE** /libraries/&#123;library_id&#125;/members | Remove library members
 [**libraries_remove_single_member**](/sdk/python/reference/endpoints/Library#libraries_remove_single_member) | **DELETE** /libraries/&#123;library_id&#125;/members/&#123;user_id&#125; | Remove a library member
 [**libraries_update_library**](/sdk/python/reference/endpoints/Library#libraries_update_library) | **PATCH** /libraries/&#123;library_id&#125; | Update a library
+[**libraries_update_library_groups**](/sdk/python/reference/endpoints/Library#libraries_update_library_groups) | **PUT** /libraries/&#123;library_id&#125;/groups | Set library group access
 
 
 ## **libraries_add_library_members**
@@ -276,7 +277,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Successful Response |  -  |
-**400** | Cannot leave while you are the sole owner of the library. |  -  |
+**400** | Cannot leave while you are the sole owner of the library, or access is granted through a group. |  -  |
 **401** | Missing or invalid authentication. |  -  |
 **403** | Caller is not a member of this library. |  -  |
 **404** | No library exists with the given id. |  -  |
@@ -642,4 +643,97 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | Caller is not a member of this library. |  -  |
 **404** | No library exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **libraries_update_library_groups**
+```python
+List[LibraryGroupOut] libraries_update_library_groups(library_id, library_groups_in, cookie_name=cookie_name)
+```
+
+Set library group access
+
+Grant or update library access for user groups (replaces the current set).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.library import Library
+from neuland_hub_sdk.models.library_group_out import LibraryGroupOut
+from neuland_hub_sdk.models.library_groups_in import LibraryGroupsIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Library(api_client)
+    library_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the library.
+    library_groups_in = neuland_hub_sdk.LibraryGroupsIn() # LibraryGroupsIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Set library group access
+        api_response = api_instance.libraries_update_library_groups(library_id, library_groups_in, cookie_name=cookie_name)
+        print("The response of Library->libraries_update_library_groups:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Library->libraries_update_library_groups: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **library_id** | **UUID**| Public id of the library. | 
+ **library_groups_in** | [**LibraryGroupsIn**](/sdk/python/reference/models/LibraryGroupsIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[LibraryGroupOut]**](/sdk/python/reference/models/LibraryGroupOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Caller is not an owner of this library. |  -  |
+**404** | Library does not exist, or one or more groups not found. |  -  |
 **422** | Validation Error |  -  |

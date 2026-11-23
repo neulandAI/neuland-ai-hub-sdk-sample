@@ -4,7 +4,7 @@ The Neuland AI Hub SDK plus runnable sample apps that demonstrate it end-to-end.
 
 Full documentation, API reference and SDK guides: **[https://docs.neuland-hub.ai](https://docs.neuland-hub.ai)**
 
-SDK 1.3.1 needs Hub `v3.0.0-rc.47` or later. Older Hubs lack endpoints the SDK calls (for example `/v1/models`) and reject the API key on `/auth/exchange/token`.
+SDK 1.4.0 needs Hub `v3.0.0-rc.101` or later. Older Hubs lack endpoints the SDK calls (for example `/assistants/my-memberships`).
 
 This README has two paths — pick the one that matches what you're doing:
 
@@ -42,7 +42,7 @@ with ApiClient(config) as client:
 
 `requirements.txt`:
 ```
-neuland-hub-sdk==1.3.1
+neuland-hub-sdk==1.4.0
 ```
 
 Requires Python 3.9+. On macOS with the python.org installer, run

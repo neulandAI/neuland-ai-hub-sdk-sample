@@ -4,6 +4,7 @@ All URIs are relative to *https://api.your-domain.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**llm_agent_usage**](Llm.md#llm_agent_usage) | **POST** /llm/usage/agents | Usage per agent with sessions, users and names
 [**llm_api_key_inventory**](Llm.md#llm_api_key_inventory) | **POST** /llm/usage/api/keys | API key inventory with idleness and expiry flags
 [**llm_cost_movers**](Llm.md#llm_cost_movers) | **POST** /llm/insights/movers | Biggest cost movers and the most-expensive model vs the prior period
 [**llm_get_cost**](Llm.md#llm_get_cost) | **POST** /llm/cost | [Deprecated] LLM cost metrics — superseded by POST /llm/usage
@@ -14,6 +15,94 @@ Method | HTTP request | Description
 [**llm_usage_query**](Llm.md#llm_usage_query) | **POST** /llm/usage | Unified usage aggregation (cost/tokens/requests by dimension)
 [**llm_utilization**](Llm.md#llm_utilization) | **POST** /llm/insights/utilization | Idle assistants and license utilization
 
+
+# **llm_agent_usage**
+> AgentUsageResponse llm_agent_usage(date_window_request, cookie_name=cookie_name)
+
+Usage per agent with sessions, users and names
+
+Per-agent usage, sessions and users for the tenant.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.llm import Llm
+from neuland_hub_sdk.models.agent_usage_response import AgentUsageResponse
+from neuland_hub_sdk.models.date_window_request import DateWindowRequest
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Llm(api_client)
+    date_window_request = neuland_hub_sdk.DateWindowRequest() # DateWindowRequest | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Usage per agent with sessions, users and names
+        api_response = api_instance.llm_agent_usage(date_window_request, cookie_name=cookie_name)
+        print("The response of Llm->llm_agent_usage:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Llm->llm_agent_usage: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **date_window_request** | [**DateWindowRequest**](DateWindowRequest.md)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**AgentUsageResponse**](AgentUsageResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Admin privileges required. |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **llm_api_key_inventory**
 > ApiKeyInventoryResponse llm_api_key_inventory(api_key_inventory_request, cookie_name=cookie_name)

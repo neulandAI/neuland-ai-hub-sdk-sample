@@ -18,8 +18,9 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -28,10 +29,10 @@ class IdleAssistant(BaseModel):
     """
     IdleAssistant
     """ # noqa: E501
-    assistant_id: StrictInt
-    name: StrictStr
+    assistant_public_id: UUID
+    name: Optional[StrictStr]
     last_used_at: Optional[datetime]
-    __properties: ClassVar[List[str]] = ["assistant_id", "name", "last_used_at"]
+    __properties: ClassVar[List[str]] = ["assistant_public_id", "name", "last_used_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -72,6 +73,11 @@ class IdleAssistant(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
         # set to None if last_used_at (nullable) is None
         # and model_fields_set contains the field
         if self.last_used_at is None and "last_used_at" in self.model_fields_set:
@@ -89,7 +95,7 @@ class IdleAssistant(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
-            "assistant_id": obj.get("assistant_id"),
+            "assistant_public_id": obj.get("assistant_public_id"),
             "name": obj.get("name"),
             "last_used_at": obj.get("last_used_at")
         }.items() if k in _keep})

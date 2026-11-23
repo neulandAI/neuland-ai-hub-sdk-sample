@@ -8,6 +8,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**chats_add_library_to_chat**](/sdk/python/reference/endpoints/Chat#chats_add_library_to_chat) | **POST** /chats/&#123;chat_id&#125;/libraries/&#123;library_id&#125; | Add a library to a chat
 [**chats_cancel_message**](/sdk/python/reference/endpoints/Chat#chats_cancel_message) | **POST** /chats/&#123;chat_id&#125;/cancel | Cancel in-progress generation
+[**chats_convert_chat**](/sdk/python/reference/endpoints/Chat#chats_convert_chat) | **GET** /chats/&#123;chat_id&#125;/convert | Export a whole chat as a document
 [**chats_deactivate_documents**](/sdk/python/reference/endpoints/Chat#chats_deactivate_documents) | **POST** /chats/&#123;chat_id&#125;/inactive-documents | Deactivate documents in a chat
 [**chats_list_chat_message_turns**](/sdk/python/reference/endpoints/Chat#chats_list_chat_message_turns) | **GET** /chats/&#123;chat_id&#125;/turns | List message turns for a chat
 [**chats_remove_chat**](/sdk/python/reference/endpoints/Chat#chats_remove_chat) | **DELETE** /chats/&#123;chat_id&#125; | Delete a chat
@@ -193,6 +194,104 @@ Name | Type | Description  | Notes
 **201** | Successful Response |  -  |
 **401** | Missing or invalid authentication. |  -  |
 **403** | No access to this chat. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **chats_convert_chat**
+```python
+bytes chats_convert_chat(chat_id, format=format, lang=lang, tz=tz, cookie_name=cookie_name)
+```
+
+Export a whole chat as a document
+
+Every message of the chat, oldest first, in one document: the same
+rendering as a single-message export, with the author and time of each.
+A long chat is rendered in chunks and merged, so it has no size limit.
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.chat import Chat
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Chat(api_client)
+    chat_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the chat.
+    format = 'format_example' # str | Output format. (optional)
+    lang = 'lang_example' # str | Language of the export's labels (`en`, `de`). Defaults to the caller's saved language, else `en`. (optional)
+    tz = 'tz_example' # str | IANA timezone for the timestamps. Defaults to the caller's saved timezone, else UTC. (optional)
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Export a whole chat as a document
+        api_response = api_instance.chats_convert_chat(chat_id, format=format, lang=lang, tz=tz, cookie_name=cookie_name)
+        print("The response of Chat->chats_convert_chat:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Chat->chats_convert_chat: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **chat_id** | **UUID**| Public id of the chat. | 
+ **format** | **str**| Output format. | [optional] 
+ **lang** | **str**| Language of the export&#39;s labels (&#x60;en&#x60;, &#x60;de&#x60;). Defaults to the caller&#39;s saved language, else &#x60;en&#x60;. | [optional] 
+ **tz** | **str**| IANA timezone for the timestamps. Defaults to the caller&#39;s saved timezone, else UTC. | [optional] 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**bytes**
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/octet-stream, application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The chat transcript. |  -  |
+**400** | The chat has no messages. |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | No access to this chat. |  -  |
+**404** | Chat does not exist. |  -  |
 **422** | Validation Error |  -  |
 
 

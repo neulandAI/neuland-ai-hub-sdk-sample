@@ -1,0 +1,31 @@
+---
+title: "ProjectGroupOut"
+---
+
+A group\'s access to a project, identifying project and group by public id.  `project_id`/`group_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `project_public_id`/`group_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**project_id** | **number** | Internal id of the project (deprecated; use project_public_id). | [default to undefined]
+**project_public_id** | **string** | Public id of the project. | [default to undefined]
+**group_id** | **number** | Internal id of the user group (deprecated; use group_public_id). | [default to undefined]
+**group_public_id** | **string** | Public id of the user group. | [default to undefined]
+**tenant_id** | **number** | Internal id of the tenant the grant belongs to. | [default to undefined]
+**created_at** | **string** | Timestamp when access was granted. | [default to undefined]
+
+## Example
+
+```typescript
+import { ProjectGroupOut } from '@neulandai/neuland-hub-sdk';
+
+const instance: ProjectGroupOut = {
+    project_id,
+    project_public_id,
+    group_id,
+    group_public_id,
+    tenant_id,
+    created_at,
+};
+```

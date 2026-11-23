@@ -6,6 +6,7 @@ All URIs are relative to *https://api.your-domain.com*
 |------------- | ------------- | -------------|
 |[**chatsAddLibraryToChat**](#chatsaddlibrarytochat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add a library to a chat|
 |[**chatsCancelMessage**](#chatscancelmessage) | **POST** /chats/{chat_id}/cancel | Cancel in-progress generation|
+|[**chatsConvertChat**](#chatsconvertchat) | **GET** /chats/{chat_id}/convert | Export a whole chat as a document|
 |[**chatsDeactivateDocuments**](#chatsdeactivatedocuments) | **POST** /chats/{chat_id}/inactive-documents | Deactivate documents in a chat|
 |[**chatsListChatMessageTurns**](#chatslistchatmessageturns) | **GET** /chats/{chat_id}/turns | List message turns for a chat|
 |[**chatsRemoveChat**](#chatsremovechat) | **DELETE** /chats/{chat_id} | Delete a chat|
@@ -127,6 +128,74 @@ const { status, data } = await apiInstance.chatsCancelMessage(
 |**201** | Successful Response |  -  |
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | No access to this chat. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **chatsConvertChat**
+> File chatsConvertChat()
+
+Every message of the chat, oldest first, in one document: the same rendering as a single-message export, with the author and time of each. A long chat is rendered in chunks and merged, so it has no size limit.
+
+### Example
+
+```typescript
+import {
+    Chat,
+    Configuration
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Chat(configuration);
+
+let chatId: string; //Public id of the chat. (default to undefined)
+let format: 'pdf'; //Output format. (optional) (default to undefined)
+let lang: string; //Language of the export\'s labels (`en`, `de`). Defaults to the caller\'s saved language, else `en`. (optional) (default to undefined)
+let tz: string; //IANA timezone for the timestamps. Defaults to the caller\'s saved timezone, else UTC. (optional) (default to undefined)
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.chatsConvertChat(
+    chatId,
+    format,
+    lang,
+    tz,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **chatId** | [**string**] | Public id of the chat. | defaults to undefined|
+| **format** | [**&#39;pdf&#39;**]**Array<&#39;pdf&#39;>** | Output format. | (optional) defaults to undefined|
+| **lang** | [**string**] | Language of the export\&#39;s labels (&#x60;en&#x60;, &#x60;de&#x60;). Defaults to the caller\&#39;s saved language, else &#x60;en&#x60;. | (optional) defaults to undefined|
+| **tz** | [**string**] | IANA timezone for the timestamps. Defaults to the caller\&#39;s saved timezone, else UTC. | (optional) defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**File**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/octet-stream, application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | The chat transcript. |  -  |
+|**400** | The chat has no messages. |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | No access to this chat. |  -  |
+|**404** | Chat does not exist. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

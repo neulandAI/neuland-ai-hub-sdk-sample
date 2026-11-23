@@ -11,8 +11,8 @@
 #    the value as-is. With the `$ref`, the Python generator types them `Any` and
 #    calls `.value`, which crashes on a plain string. Also unwraps
 #    anyOf:[<enum ref>, null].
-# 3. Endpoints that return files are declared `application/json` in the spec but
-#    serve binary. Their 200 response is set to `application/octet-stream` so the
+# 3. Endpoints that return files are declared `application/json` (or a media type
+#    with no schema) in the spec but serve binary. Their 200 response is set to `application/octet-stream` so the
 #    Python client returns `bytes` instead of decoding as text. Node callers pass
 #    `{ responseType: "arraybuffer" }`.
 # 4. The `File` API tag is renamed `Files`: in the Node SDK a class named `File`
@@ -32,6 +32,10 @@
 #    shift Node's positional `options` argument (DROPPED_PARAMETERS). A 1.2.1
 #    call `workflowsStreamRunEvents(wf, run, { headers })` would otherwise send
 #    the options object, stream token included, as `?after=` in the URL.
+# 9. Operation ids the generator cannot turn into a usable method name are
+#    replaced (OPERATION_ID_OVERRIDES), and duplicate tags on an operation are
+#    removed. The Hub emits `.wellknown_jwks`, which became the private-looking
+#    `_wellknown_jwks` in Python.
 #
 # Usage: python3 scripts/normalize-openapi.py <input.json> <output.json>
 
@@ -84,6 +88,8 @@ def normalize(node):
 # application/json; the generator must see them as binary.
 BINARY_RESPONSE_OPERATIONS = {
     ("get", "/messages/{message_id}/convert"),
+    # Declared `application/pdf` with no schema; Python returned None.
+    ("get", "/chats/{chat_id}/convert"),
 }
 
 # API tags to rename before generation: {spec tag: SDK class name}.
@@ -115,7 +121,14 @@ DROPPED_PARAMETERS = {
     # Added in Hub rc.47; would turn authExchangeToken(appId, options) into
     # (appId, cookieName, options). Browser-session only, not needed by SDK users.
     ("post", "/auth/exchange/token"): {"cookie_name"},
+    # Added after Hub rc.47. Both are browser redirect targets, not SDK calls;
+    # the new parameters would shift `options` in the Node methods.
+    ("get", "/auth/connectors/callback"): {"admin_consent", "tenant", "scope"},
+    ("get", "/auth/sso/{slug}/{provider}/init"): {"email", "force_login"},
 }
+
+# {spec operationId: SDK operationId} (rule 9).
+OPERATION_ID_OVERRIDES = {".wellknown_jwks": "well_known_jwks"}
 
 
 def _operations(spec):
@@ -249,6 +262,19 @@ def drop_parameters(spec):
     return count
 
 
+def fix_operation_ids(spec):
+    count = 0
+    for _method, _path, op in _operations(spec):
+        new_id = OPERATION_ID_OVERRIDES.get(op.get("operationId"))
+        if new_id:
+            op["operationId"] = new_id
+            count += 1
+        tags = op.get("tags")
+        if tags and len(set(tags)) != len(tags):
+            op["tags"] = list(dict.fromkeys(tags))
+    return count
+
+
 def main():
     if len(sys.argv) != 3:
         print("usage: normalize-openapi.py <input.json> <output.json>", file=sys.stderr)
@@ -267,6 +293,7 @@ def main():
         "enum unions merged": merge_enum_unions(normalized),
         "request bodies added": override_request_bodies(normalized),
         "parameters dropped": drop_parameters(normalized),
+        "operation ids fixed": fix_operation_ids(normalized),
     }
 
     with open(dst, "w") as f:

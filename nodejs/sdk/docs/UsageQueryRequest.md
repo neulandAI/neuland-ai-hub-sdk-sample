@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **model** | **string** |  | [optional] [default to undefined]
 **provider** | **string** |  | [optional] [default to undefined]
 **assistant_id** | **number** |  | [optional] [default to undefined]
+**assistant_public_id** | **string** |  | [optional] [default to undefined]
 **project_id** | **number** |  | [optional] [default to undefined]
 **limit** | **number** |  | [optional] [default to undefined]
 **offset** | **number** | Row offset, for paginating rankings. | [optional] [default to 0]
@@ -32,6 +33,7 @@ const instance: UsageQueryRequest = {
     model,
     provider,
     assistant_id,
+    assistant_public_id,
     project_id,
     limit,
     offset,

@@ -18,6 +18,9 @@ Name | Type | Description | Notes
 **app_url** | **string** | Canonical URL of the application; unique across the catalog. | [default to undefined]
 **version** | **string** |  | [optional] [default to undefined]
 **state** | [**MarketplaceCatalogStateEnum**](MarketplaceCatalogStateEnum.md) | Lifecycle state; DEPRECATED items are hidden from the marketplace and reject new installs. | [optional] [default to undefined]
+**departments** | **Array&lt;string&gt;** | Departments the application is for; a marketplace filter. | [optional] [default to undefined]
+**industries** | **Array&lt;string&gt;** | Industries the application is for; a marketplace filter. | [optional] [default to undefined]
+**use_cases** | **Array&lt;string&gt;** | Use cases the application covers; a marketplace filter. | [optional] [default to undefined]
 
 ## Example
 
@@ -37,6 +40,9 @@ const instance: ApplicationCatalog = {
     app_url,
     version,
     state,
+    departments,
+    industries,
+    use_cases,
 };
 ```
 

@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**prompts_delete_prompt**](/sdk/python/reference/endpoints/Prompt#prompts_delete_prompt) | **DELETE** /prompts/&#123;prompt_id&#125; | Delete a prompt
 [**prompts_optimize_prompt**](/sdk/python/reference/endpoints/Prompt#prompts_optimize_prompt) | **POST** /prompts/optimize | Optimize a prompt
 [**prompts_update_prompt**](/sdk/python/reference/endpoints/Prompt#prompts_update_prompt) | **PATCH** /prompts/&#123;prompt_id&#125; | Update a prompt
+[**prompts_update_prompt_groups**](/sdk/python/reference/endpoints/Prompt#prompts_update_prompt_groups) | **PUT** /prompts/&#123;prompt_id&#125;/groups | Set prompt group access
 
 
 ## **prompts_create_prompt**
@@ -368,4 +369,98 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **403** | Not the creator, or only admins may make a prompt public. |  -  |
 **404** | No prompt exists with the given id. |  -  |
+**422** | Validation Error |  -  |
+
+
+## **prompts_update_prompt_groups**
+```python
+List[PromptGroupOut] prompts_update_prompt_groups(prompt_id, prompt_groups_in, cookie_name=cookie_name)
+```
+
+Set prompt group access
+
+Grant or update prompt access for user groups (replaces the current set).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.prompt import Prompt
+from neuland_hub_sdk.models.prompt_group_out import PromptGroupOut
+from neuland_hub_sdk.models.prompt_groups_in import PromptGroupsIn
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Prompt(api_client)
+    prompt_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Public id of the prompt.
+    prompt_groups_in = neuland_hub_sdk.PromptGroupsIn() # PromptGroupsIn | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Set prompt group access
+        api_response = api_instance.prompts_update_prompt_groups(prompt_id, prompt_groups_in, cookie_name=cookie_name)
+        print("The response of Prompt->prompts_update_prompt_groups:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Prompt->prompts_update_prompt_groups: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **prompt_id** | **UUID**| Public id of the prompt. | 
+ **prompt_groups_in** | [**PromptGroupsIn**](/sdk/python/reference/models/PromptGroupsIn)|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+[**List[PromptGroupOut]**](/sdk/python/reference/models/PromptGroupOut)
+
+### Authorization
+
+[APIKeyHeader](/sdk/python/usage), [OAuth2PasswordBearer](/sdk/python/usage)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Not the creator of this prompt. |  -  |
+**404** | Prompt does not exist, or one or more groups not found. |  -  |
+**409** | The prompt is public; public prompts cannot be shared with groups. |  -  |
 **422** | Validation Error |  -  |

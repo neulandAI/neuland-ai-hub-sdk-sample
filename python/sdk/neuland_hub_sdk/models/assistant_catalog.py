@@ -48,7 +48,10 @@ class AssistantCatalog(BaseModel):
     version: Optional[StrictStr] = None
     state: Optional[MarketplaceCatalogStateEnum] = None
     predefined_prompts: Optional[List[Any]] = None
-    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "name", "description", "avatar", "instructions", "llm_catalog_id", "temperature", "reasoning_effort", "similarity_top_k", "version", "state", "predefined_prompts"]
+    departments: Optional[List[StrictStr]] = Field(default=None, description="Departments the agent is for; a marketplace filter.")
+    industries: Optional[List[StrictStr]] = Field(default=None, description="Industries the agent is for; a marketplace filter.")
+    use_cases: Optional[List[StrictStr]] = Field(default=None, description="Use cases the agent covers; a marketplace filter.")
+    __properties: ClassVar[List[str]] = ["created_at", "updated_at", "creator_user_id", "updater_user_id", "id", "public_id", "name", "description", "avatar", "instructions", "llm_catalog_id", "temperature", "reasoning_effort", "similarity_top_k", "version", "state", "predefined_prompts", "departments", "industries", "use_cases"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -177,7 +180,10 @@ class AssistantCatalog(BaseModel):
             "similarity_top_k": obj.get("similarity_top_k"),
             "version": obj.get("version"),
             "state": obj.get("state"),
-            "predefined_prompts": obj.get("predefined_prompts")
+            "predefined_prompts": obj.get("predefined_prompts"),
+            "departments": obj.get("departments"),
+            "industries": obj.get("industries"),
+            "use_cases": obj.get("use_cases")
         }.items() if k in _keep})
         return _obj
 

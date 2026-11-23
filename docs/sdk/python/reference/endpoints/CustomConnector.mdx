@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**customconnectors_list_custom_connectors**](/sdk/python/reference/endpoints/CustomConnector#customconnectors_list_custom_connectors) | **GET** /custom-connectors/ | List the custom MCPs I can use or manage
 [**customconnectors_sign_out_of_custom_connector**](/sdk/python/reference/endpoints/CustomConnector#customconnectors_sign_out_of_custom_connector) | **DELETE** /custom-connectors/&#123;public_id&#125;/oauth | Sign out of a custom MCP
 [**customconnectors_start_custom_connector_sign_in**](/sdk/python/reference/endpoints/CustomConnector#customconnectors_start_custom_connector_sign_in) | **POST** /custom-connectors/&#123;public_id&#125;/oauth/start | Start signing in to a custom MCP
-[**customconnectors_update_custom_connector**](/sdk/python/reference/endpoints/CustomConnector#customconnectors_update_custom_connector) | **PATCH** /custom-connectors/&#123;public_id&#125; | Rename or switch a custom MCP
+[**customconnectors_update_custom_connector**](/sdk/python/reference/endpoints/CustomConnector#customconnectors_update_custom_connector) | **PATCH** /custom-connectors/&#123;public_id&#125; | Rename, describe or switch a custom MCP, or tell it who signs in
 
 
 ## **customconnectors_create_custom_connectors**
@@ -699,7 +699,7 @@ Name | Type | Description  | Notes
 CustomConnectorOut customconnectors_update_custom_connector(public_id, custom_connector_update, cookie_name=cookie_name)
 ```
 
-Rename or switch a custom MCP
+Rename, describe or switch a custom MCP, or tell it who signs in
 
 `enabled` on an organisation MCP is the caller's own switch, so anyone
 who may use it may flip it. Everything else needs `_may_manage`. URL,
@@ -747,7 +747,7 @@ with neuland_hub_sdk.ApiClient(configuration) as api_client:
     cookie_name = 'cookie_name_example' # str |  (optional)
 
     try:
-        # Rename or switch a custom MCP
+        # Rename, describe or switch a custom MCP, or tell it who signs in
         api_response = api_instance.customconnectors_update_custom_connector(public_id, custom_connector_update, cookie_name=cookie_name)
         print("The response of CustomConnector->customconnectors_update_custom_connector:\n")
         pprint(api_response)

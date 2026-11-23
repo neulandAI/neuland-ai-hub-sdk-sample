@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **supports_transcription** | **bool** |  | [optional] 
 **supports_reasoning_effort** | **bool** |  | [optional] 
 **supports_clarification** | **bool** |  | [optional] 
+**supports_google_grounding** | **bool** |  | [optional] 
 **auto_seed** | **bool** |  | [optional] 
 **tier** | [**ModelTierEnum**](ModelTierEnum.md) |  | [optional] 
 **auto_routable** | **bool** |  | [optional] 

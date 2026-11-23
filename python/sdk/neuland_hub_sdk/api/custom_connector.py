@@ -2344,7 +2344,7 @@ class CustomConnector:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> CustomConnectorOut:
-        """Rename or switch a custom MCP
+        """Rename, describe or switch a custom MCP, or tell it who signs in
 
         `enabled` on an organisation MCP is the caller's own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
 
@@ -2420,7 +2420,7 @@ class CustomConnector:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[CustomConnectorOut]:
-        """Rename or switch a custom MCP
+        """Rename, describe or switch a custom MCP, or tell it who signs in
 
         `enabled` on an organisation MCP is the caller's own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
 
@@ -2496,7 +2496,7 @@ class CustomConnector:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Rename or switch a custom MCP
+        """Rename, describe or switch a custom MCP, or tell it who signs in
 
         `enabled` on an organisation MCP is the caller's own switch, so anyone who may use it may flip it. Everything else needs `_may_manage`. URL, headers and auth are not editable: re-add, so a changed endpoint is always re-validated.
 

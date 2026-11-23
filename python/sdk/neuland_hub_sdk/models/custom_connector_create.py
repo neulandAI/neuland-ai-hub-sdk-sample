@@ -30,6 +30,7 @@ class CustomConnectorCreate(BaseModel):
     Either `url` (with optional `name`/`headers` and auth settings), or `config` — a pasted `mcpServers` JSON blob of fixed-header servers. Never both.
     """ # noqa: E501
     name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
+    description: Optional[Annotated[str, Field(strict=True, max_length=500)]] = None
     url: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = None
     headers: Optional[Dict[str, StrictStr]] = None
     config: Optional[Annotated[str, Field(strict=True, max_length=16384)]] = None
@@ -38,9 +39,10 @@ class CustomConnectorCreate(BaseModel):
     oauth_client_id: Optional[Annotated[str, Field(strict=True, max_length=2048)]] = None
     oauth_client_secret: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = None
     organization: Optional[StrictBool] = Field(default=False, description="Add for the organisation instead of yourself (needs `MANAGE_CONNECTORS` and `MANAGE_CONNECTOR_ACCESS`).")
+    send_identity: Optional[StrictBool] = Field(default=False, description="Tell this server which Hub user is signing in, as a signed assertion on the authorize redirect. Only for a server you run that expects it: it puts the user's name, email and ids in that server's authorize URL. Organisation connectors with sign-in only.")
     all_users: Optional[StrictBool] = False
     role_ids: Optional[List[UUID]] = Field(default=None, description="Roles to grant an organisation MCP to (also needs `MANAGE_ROLES`); further roles and single users can be given it later in the role editor and the user access settings.")
-    __properties: ClassVar[List[str]] = ["name", "url", "headers", "config", "auth_mode", "oauth_client_mode", "oauth_client_id", "oauth_client_secret", "organization", "all_users", "role_ids"]
+    __properties: ClassVar[List[str]] = ["name", "description", "url", "headers", "config", "auth_mode", "oauth_client_mode", "oauth_client_id", "oauth_client_secret", "organization", "send_identity", "all_users", "role_ids"]
 
     @field_validator('auth_mode')
     def auth_mode_validate_enum(cls, value):
@@ -106,6 +108,11 @@ class CustomConnectorCreate(BaseModel):
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
 
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
         # set to None if url (nullable) is None
         # and model_fields_set contains the field
         if self.url is None and "url" in self.model_fields_set:
@@ -144,6 +151,7 @@ class CustomConnectorCreate(BaseModel):
 
         _obj = cls.model_validate({k: v for _keep in [set(obj) | {f.alias or n for n, f in cls.model_fields.items() if f.is_required()}] for k, v in {
             "name": obj.get("name"),
+            "description": obj.get("description"),
             "url": obj.get("url"),
             "headers": obj.get("headers"),
             "config": obj.get("config"),
@@ -152,6 +160,7 @@ class CustomConnectorCreate(BaseModel):
             "oauth_client_id": obj.get("oauth_client_id"),
             "oauth_client_secret": obj.get("oauth_client_secret"),
             "organization": obj.get("organization") if obj.get("organization") is not None else False,
+            "send_identity": obj.get("send_identity") if obj.get("send_identity") is not None else False,
             "all_users": obj.get("all_users") if obj.get("all_users") is not None else False,
             "role_ids": obj.get("role_ids")
         }.items() if k in _keep})

@@ -7,6 +7,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**settingsCurrent**](#settingscurrent) | **GET** /settings/current | Get current tenant settings|
 |[**settingsUpdateCurrentSettings**](#settingsupdatecurrentsettings) | **PATCH** /settings/current | Update current tenant settings|
 |[**settingsUpdateSettings**](#settingsupdatesettings) | **PATCH** /settings/{settings_id} | Update settings by id|
+|[**settingsWebSearchEngines**](#settingswebsearchengines) | **GET** /settings/web-search-engines | List available web search engines|
 
 # **settingsCurrent**
 > Settings settingsCurrent()
@@ -177,6 +178,59 @@ const { status, data } = await apiInstance.settingsUpdateSettings(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Tenant admin privileges required, or superadmin required to change protected fields. |  -  |
 |**404** | No settings record exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **settingsWebSearchEngines**
+> Array<string | null> settingsWebSearchEngines()
+
+List the web search engines a tenant can use on this deployment.
+
+### Example
+
+```typescript
+import {
+    Settings,
+    Configuration
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Settings(configuration);
+
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.settingsWebSearchEngines(
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array<string | null>**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

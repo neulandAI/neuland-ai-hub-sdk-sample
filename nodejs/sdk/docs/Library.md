@@ -11,6 +11,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**librariesRemoveLibraryMembers**](#librariesremovelibrarymembers) | **DELETE** /libraries/{library_id}/members | Remove library members|
 |[**librariesRemoveSingleMember**](#librariesremovesinglemember) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove a library member|
 |[**librariesUpdateLibrary**](#librariesupdatelibrary) | **PATCH** /libraries/{library_id} | Update a library|
+|[**librariesUpdateLibraryGroups**](#librariesupdatelibrarygroups) | **PUT** /libraries/{library_id}/groups | Set library group access|
 
 # **librariesAddLibraryMembers**
 > Array<LibraryMemberOut> librariesAddLibraryMembers(libraryMemberBulkIn)
@@ -183,7 +184,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 |**204** | Successful Response |  -  |
-|**400** | Cannot leave while you are the sole owner of the library. |  -  |
+|**400** | Cannot leave while you are the sole owner of the library, or access is granted through a group. |  -  |
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Caller is not a member of this library. |  -  |
 |**404** | No library exists with the given id. |  -  |
@@ -431,6 +432,68 @@ const { status, data } = await apiInstance.librariesUpdateLibrary(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Caller is not a member of this library. |  -  |
 |**404** | No library exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **librariesUpdateLibraryGroups**
+> Array<LibraryGroupOut> librariesUpdateLibraryGroups(libraryGroupsIn)
+
+Grant or update library access for user groups (replaces the current set).
+
+### Example
+
+```typescript
+import {
+    Library,
+    Configuration,
+    LibraryGroupsIn
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Library(configuration);
+
+let libraryId: string; //Public id of the library. (default to undefined)
+let libraryGroupsIn: LibraryGroupsIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.librariesUpdateLibraryGroups(
+    libraryId,
+    libraryGroupsIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **libraryGroupsIn** | **LibraryGroupsIn**|  | |
+| **libraryId** | [**string**] | Public id of the library. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array<LibraryGroupOut>**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Caller is not an owner of this library. |  -  |
+|**404** | Library does not exist, or one or more groups not found. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

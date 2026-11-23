@@ -1,0 +1,31 @@
+---
+title: "PromptGroupOut"
+---
+
+A group\'s access to a prompt, identifying prompt and group by public id.  `prompt_id`/`group_id` (int) are kept alongside the public ids (dual-key — both are returned permanently); external clients should reference `prompt_public_id`/`group_public_id`.
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**prompt_id** | **number** | Internal id of the prompt (deprecated; use prompt_public_id). | [default to undefined]
+**prompt_public_id** | **string** | Public id of the prompt. | [default to undefined]
+**group_id** | **number** | Internal id of the user group (deprecated; use group_public_id). | [default to undefined]
+**group_public_id** | **string** | Public id of the user group. | [default to undefined]
+**tenant_id** | **number** | Internal id of the tenant the grant belongs to. | [default to undefined]
+**created_at** | **string** | Timestamp when access was granted. | [default to undefined]
+
+## Example
+
+```typescript
+import { PromptGroupOut } from '@neulandai/neuland-hub-sdk';
+
+const instance: PromptGroupOut = {
+    prompt_id,
+    prompt_public_id,
+    group_id,
+    group_public_id,
+    tenant_id,
+    created_at,
+};
+```

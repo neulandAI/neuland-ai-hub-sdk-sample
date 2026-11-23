@@ -2,6 +2,9 @@
 README.md
 docs/AccessItemOut.md
 docs/AccessKind.md
+docs/AgentUsageMetrics.md
+docs/AgentUsageResponse.md
+docs/AgentUsageRow.md
 docs/Alert.md
 docs/ApiKey.md
 docs/ApiKeyCreateRequest.md
@@ -57,6 +60,7 @@ docs/CategoryOut.md
 docs/Cc.md
 docs/Chat.md
 docs/Chat.md
+docs/ChatExportFormat.md
 docs/ChatIn.md
 docs/ChatInactiveDocumentOut.md
 docs/ChatLibrary.md
@@ -136,6 +140,8 @@ docs/LLMSettingsIn.md
 docs/LLMSettingsUpdate.md
 docs/Library.md
 docs/Library.md
+docs/LibraryGroupOut.md
+docs/LibraryGroupsIn.md
 docs/LibraryIn.md
 docs/LibraryMemberBulkDelete.md
 docs/LibraryMemberBulkIn.md
@@ -162,6 +168,7 @@ docs/ModelList.md
 docs/ModelObject.md
 docs/ModelTierEnum.md
 docs/MoversResponse.md
+docs/MyAssistantMembershipOut.md
 docs/NeulandAssistantsTaggingOut.md
 docs/NeulandMarketplaceAssistantSchemasTaggingOut.md
 docs/Nextcloud.md
@@ -175,6 +182,8 @@ docs/PasswordResetRequestIn.md
 docs/PlanStatus.md
 docs/Project.md
 docs/Project.md
+docs/ProjectGroupOut.md
+docs/ProjectGroupsIn.md
 docs/ProjectIn.md
 docs/ProjectLibrary.md
 docs/ProjectMember.md
@@ -183,6 +192,8 @@ docs/ProjectMemberBulkIn.md
 docs/ProjectMemberIn.md
 docs/Prompt.md
 docs/Prompt.md
+docs/PromptGroupOut.md
+docs/PromptGroupsIn.md
 docs/PromptIn.md
 docs/PromptOptimizeIn.md
 docs/PromptOptimizeOut.md
@@ -209,6 +220,7 @@ docs/RoleIn.md
 docs/RoleReassignIn.md
 docs/RoleReassignOut.md
 docs/RoleUpdateIn.md
+docs/RunCancelOut.md
 docs/RunCreateOut.md
 docs/SecretUpdateIn.md
 docs/SendEmailRequest.md
@@ -308,6 +320,7 @@ docs/UtilizationRequest.md
 docs/UtilizationResponse.md
 docs/ValidationError.md
 docs/VariableSpec.md
+docs/WellKnown.md
 docs/Workflow.md
 docs/Workflow.md
 docs/WorkflowChatIn.md
@@ -362,6 +375,7 @@ neuland_hub_sdk/api/tool.py
 neuland_hub_sdk/api/tool_action.py
 neuland_hub_sdk/api/transcription.py
 neuland_hub_sdk/api/user.py
+neuland_hub_sdk/api/well_known.py
 neuland_hub_sdk/api/workflow.py
 neuland_hub_sdk/api_client.py
 neuland_hub_sdk/api_response.py
@@ -370,6 +384,9 @@ neuland_hub_sdk/exceptions.py
 neuland_hub_sdk/models/__init__.py
 neuland_hub_sdk/models/access_item_out.py
 neuland_hub_sdk/models/access_kind.py
+neuland_hub_sdk/models/agent_usage_metrics.py
+neuland_hub_sdk/models/agent_usage_response.py
+neuland_hub_sdk/models/agent_usage_row.py
 neuland_hub_sdk/models/api_key_create_request.py
 neuland_hub_sdk/models/api_key_create_response.py
 neuland_hub_sdk/models/api_key_inventory_request.py
@@ -414,6 +431,7 @@ neuland_hub_sdk/models/catalog_update.py
 neuland_hub_sdk/models/category_out.py
 neuland_hub_sdk/models/cc.py
 neuland_hub_sdk/models/chat.py
+neuland_hub_sdk/models/chat_export_format.py
 neuland_hub_sdk/models/chat_in.py
 neuland_hub_sdk/models/chat_inactive_document_out.py
 neuland_hub_sdk/models/chat_library.py
@@ -480,6 +498,8 @@ neuland_hub_sdk/models/idle_assistant.py
 neuland_hub_sdk/models/invitation_in.py
 neuland_hub_sdk/models/invitation_out.py
 neuland_hub_sdk/models/library.py
+neuland_hub_sdk/models/library_group_out.py
+neuland_hub_sdk/models/library_groups_in.py
 neuland_hub_sdk/models/library_in.py
 neuland_hub_sdk/models/library_member_bulk_delete.py
 neuland_hub_sdk/models/library_member_bulk_in.py
@@ -505,6 +525,7 @@ neuland_hub_sdk/models/model_list.py
 neuland_hub_sdk/models/model_object.py
 neuland_hub_sdk/models/model_tier_enum.py
 neuland_hub_sdk/models/movers_response.py
+neuland_hub_sdk/models/my_assistant_membership_out.py
 neuland_hub_sdk/models/neuland_assistants_tagging_out.py
 neuland_hub_sdk/models/neuland_marketplace_assistant_schemas_tagging_out.py
 neuland_hub_sdk/models/o_auth2_provider_enum.py
@@ -515,6 +536,8 @@ neuland_hub_sdk/models/password_reset_in.py
 neuland_hub_sdk/models/password_reset_request_in.py
 neuland_hub_sdk/models/plan_status.py
 neuland_hub_sdk/models/project.py
+neuland_hub_sdk/models/project_group_out.py
+neuland_hub_sdk/models/project_groups_in.py
 neuland_hub_sdk/models/project_in.py
 neuland_hub_sdk/models/project_library.py
 neuland_hub_sdk/models/project_member.py
@@ -522,6 +545,8 @@ neuland_hub_sdk/models/project_member_bulk_delete.py
 neuland_hub_sdk/models/project_member_bulk_in.py
 neuland_hub_sdk/models/project_member_in.py
 neuland_hub_sdk/models/prompt.py
+neuland_hub_sdk/models/prompt_group_out.py
+neuland_hub_sdk/models/prompt_groups_in.py
 neuland_hub_sdk/models/prompt_in.py
 neuland_hub_sdk/models/prompt_optimize_in.py
 neuland_hub_sdk/models/prompt_optimize_out.py
@@ -544,6 +569,7 @@ neuland_hub_sdk/models/role_in.py
 neuland_hub_sdk/models/role_reassign_in.py
 neuland_hub_sdk/models/role_reassign_out.py
 neuland_hub_sdk/models/role_update_in.py
+neuland_hub_sdk/models/run_cancel_out.py
 neuland_hub_sdk/models/run_create_out.py
 neuland_hub_sdk/models/secret_update_in.py
 neuland_hub_sdk/models/send_email_request.py

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assistant_id** | **int** |  | 
+**assistant_public_id** | **UUID** |  | 
 **name** | **str** |  | 
 **last_used_at** | **datetime** |  | 
 

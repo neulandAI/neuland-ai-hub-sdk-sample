@@ -6,7 +6,7 @@ an object's `public_id` (a UUID), never its integer `id`.
 
 Full guides, quickstart and API reference: https://docs.neuland-hub.ai
 
-## @neulandai/neuland-hub-sdk@1.3.1
+## @neulandai/neuland-hub-sdk@1.4.0
 
 This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
 
@@ -40,7 +40,7 @@ navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install @neulandai/neuland-hub-sdk@1.3.1 --save
+npm install @neulandai/neuland-hub-sdk@1.4.0 --save
 ```
 
 
@@ -82,6 +82,7 @@ Class | Method | HTTP request | Description
 *Assistant* | [**assistantsDeleteMembers**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Assistant.md#assistantsdeletemembers) | **DELETE** /assistants/{assistant_id}/members | Remove members from an assistant (agent)
 *Assistant* | [**assistantsJoinAssistant**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Assistant.md#assistantsjoinassistant) | **POST** /assistants/{assistant_id}/membership | Join a community assistant (agent)
 *Assistant* | [**assistantsLeaveAssitant**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Assistant.md#assistantsleaveassitant) | **DELETE** /assistants/{assistant_id}/remove/me | Leave an assistant (agent)
+*Assistant* | [**assistantsMyMemberships**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Assistant.md#assistantsmymemberships) | **GET** /assistants/my-memberships | The caller\&#39;s own assistant memberships
 *Assistant* | [**assistantsRemoveAssistantAsTool**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Assistant.md#assistantsremoveassistantastool) | **DELETE** /assistants/{assistant_id}/tool | Stop the assistant (agent) being consultable from your chats
 *Assistant* | [**assistantsRemoveLibraryFromAssistant**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Assistant.md#assistantsremovelibraryfromassistant) | **DELETE** /assistants/{assistant_id}/libraries/{library_id} | Remove a library from an assistant (agent)
 *Assistant* | [**assistantsRemoveMember**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Assistant.md#assistantsremovemember) | **DELETE** /assistants/{assistant_id}/members/{user_id} | Remove a single member from an assistant (agent)
@@ -106,6 +107,7 @@ Class | Method | HTTP request | Description
 *Atlassian* | [**integrationsSetAtlassianCloudId**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Atlassian.md#integrationssetatlassiancloudid) | **PUT** /integrations/atlassian/{connector_id}/cloudid | Set active Atlassian cloud_id
 *Auth* | [**authConfirmEmail**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Auth.md#authconfirmemail) | **GET** /auth/confirm-email | Confirm an email address
 *Auth* | [**authExchangeToken**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Auth.md#authexchangetoken) | **POST** /auth/exchange/token | Exchange for a service token
+*Auth* | [**authGetEntraGroup**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Auth.md#authgetentragroup) | **GET** /auth/entra/groups/{group_id} | Get an Entra directory group
 *Auth* | [**authGetEntraGroups**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Auth.md#authgetentragroups) | **GET** /auth/entra/groups | Get Entra group names
 *Auth* | [**authGetEntraScopes**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Auth.md#authgetentrascopes) | **GET** /auth/entra/scopes | List Entra scopes
 *Auth* | [**authLogin**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Auth.md#authlogin) | **POST** /auth/token | Log in
@@ -133,6 +135,7 @@ Class | Method | HTTP request | Description
 *Category* | [**categoriesListCategories**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Category.md#categorieslistcategories) | **GET** /categories/ | List categories
 *Chat* | [**chatsAddLibraryToChat**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Chat.md#chatsaddlibrarytochat) | **POST** /chats/{chat_id}/libraries/{library_id} | Add a library to a chat
 *Chat* | [**chatsCancelMessage**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Chat.md#chatscancelmessage) | **POST** /chats/{chat_id}/cancel | Cancel in-progress generation
+*Chat* | [**chatsConvertChat**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Chat.md#chatsconvertchat) | **GET** /chats/{chat_id}/convert | Export a whole chat as a document
 *Chat* | [**chatsDeactivateDocuments**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Chat.md#chatsdeactivatedocuments) | **POST** /chats/{chat_id}/inactive-documents | Deactivate documents in a chat
 *Chat* | [**chatsListChatMessageTurns**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Chat.md#chatslistchatmessageturns) | **GET** /chats/{chat_id}/turns | List message turns for a chat
 *Chat* | [**chatsRemoveChat**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Chat.md#chatsremovechat) | **DELETE** /chats/{chat_id} | Delete a chat
@@ -148,7 +151,7 @@ Class | Method | HTTP request | Description
 *CustomConnector* | [**customconnectorsListCustomConnectors**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/CustomConnector.md#customconnectorslistcustomconnectors) | **GET** /custom-connectors/ | List the custom MCPs I can use or manage
 *CustomConnector* | [**customconnectorsSignOutOfCustomConnector**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/CustomConnector.md#customconnectorssignoutofcustomconnector) | **DELETE** /custom-connectors/{public_id}/oauth | Sign out of a custom MCP
 *CustomConnector* | [**customconnectorsStartCustomConnectorSignIn**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/CustomConnector.md#customconnectorsstartcustomconnectorsignin) | **POST** /custom-connectors/{public_id}/oauth/start | Start signing in to a custom MCP
-*CustomConnector* | [**customconnectorsUpdateCustomConnector**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/CustomConnector.md#customconnectorsupdatecustomconnector) | **PATCH** /custom-connectors/{public_id} | Rename or switch a custom MCP
+*CustomConnector* | [**customconnectorsUpdateCustomConnector**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/CustomConnector.md#customconnectorsupdatecustomconnector) | **PATCH** /custom-connectors/{public_id} | Rename, describe or switch a custom MCP, or tell it who signs in
 *Default* | [**postPostCheck**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Default.md#postpostcheck) | **POST** /post | Post Check
 *Default* | [**rootRoot**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Default.md#rootroot) | **GET** / | Root
 *Default* | [**statStat**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Default.md#statstat) | **GET** /stat | Stat
@@ -193,6 +196,8 @@ Class | Method | HTTP request | Description
 *Library* | [**librariesRemoveLibraryMembers**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Library.md#librariesremovelibrarymembers) | **DELETE** /libraries/{library_id}/members | Remove library members
 *Library* | [**librariesRemoveSingleMember**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Library.md#librariesremovesinglemember) | **DELETE** /libraries/{library_id}/members/{user_id} | Remove a library member
 *Library* | [**librariesUpdateLibrary**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Library.md#librariesupdatelibrary) | **PATCH** /libraries/{library_id} | Update a library
+*Library* | [**librariesUpdateLibraryGroups**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Library.md#librariesupdatelibrarygroups) | **PUT** /libraries/{library_id}/groups | Set library group access
+*Llm* | [**llmAgentUsage**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Llm.md#llmagentusage) | **POST** /llm/usage/agents | Usage per agent with sessions, users and names
 *Llm* | [**llmApiKeyInventory**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Llm.md#llmapikeyinventory) | **POST** /llm/usage/api/keys | API key inventory with idleness and expiry flags
 *Llm* | [**llmCostMovers**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Llm.md#llmcostmovers) | **POST** /llm/insights/movers | Biggest cost movers and the most-expensive model vs the prior period
 *Llm* | [**llmGetCost**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Llm.md#llmgetcost) | **POST** /llm/cost | [Deprecated] LLM cost metrics — superseded by POST /llm/usage
@@ -245,10 +250,12 @@ Class | Method | HTTP request | Description
 *Project* | [**projectsLeaveProject**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Project.md#projectsleaveproject) | **DELETE** /projects/{project_id}/remove/me | Leave a project
 *Project* | [**projectsRemoveLibraryFromProject**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Project.md#projectsremovelibraryfromproject) | **DELETE** /projects/{project_id}/libraries/{library_id} | Remove a library from a project
 *Project* | [**projectsUpdateProject**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Project.md#projectsupdateproject) | **PATCH** /projects/{project_id} | Update a project
+*Project* | [**projectsUpdateProjectGroups**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Project.md#projectsupdateprojectgroups) | **PUT** /projects/{project_id}/groups | Set project group access
 *Prompt* | [**promptsCreatePrompt**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Prompt.md#promptscreateprompt) | **POST** /prompts/ | Create a prompt
 *Prompt* | [**promptsDeletePrompt**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Prompt.md#promptsdeleteprompt) | **DELETE** /prompts/{prompt_id} | Delete a prompt
 *Prompt* | [**promptsOptimizePrompt**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Prompt.md#promptsoptimizeprompt) | **POST** /prompts/optimize | Optimize a prompt
 *Prompt* | [**promptsUpdatePrompt**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Prompt.md#promptsupdateprompt) | **PATCH** /prompts/{prompt_id} | Update a prompt
+*Prompt* | [**promptsUpdatePromptGroups**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Prompt.md#promptsupdatepromptgroups) | **PUT** /prompts/{prompt_id}/groups | Set prompt group access
 *Query* | [**queryQuery**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Query.md#queryquery) | **GET** /query/{path} | Proxy a PostgREST query
 *Query* | [**queryQueryRpc**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Query.md#queryqueryrpc) | **GET** /query/rpc/{path} | Proxy a PostgREST RPC call
 *Rating* | [**ratingsRemove**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Rating.md#ratingsremove) | **DELETE** /ratings/{rateable_type}/{rateable_id} | Delete a rating
@@ -268,6 +275,7 @@ Class | Method | HTTP request | Description
 *Settings* | [**settingsCurrent**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Settings.md#settingscurrent) | **GET** /settings/current | Get current tenant settings
 *Settings* | [**settingsUpdateCurrentSettings**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Settings.md#settingsupdatecurrentsettings) | **PATCH** /settings/current | Update current tenant settings
 *Settings* | [**settingsUpdateSettings**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Settings.md#settingsupdatesettings) | **PATCH** /settings/{settings_id} | Update settings by id
+*Settings* | [**settingsWebSearchEngines**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Settings.md#settingswebsearchengines) | **GET** /settings/web-search-engines | List available web search engines
 *Sharepoint* | [**integrationsGetItemInfo**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Sharepoint.md#integrationsgetiteminfo) | **GET** /integrations/sharepoint/drives/{drive_id}/items/{drive_item_id} | Get a drive item
 *Sharepoint* | [**integrationsGetUserInfo**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Sharepoint.md#integrationsgetuserinfo) | **GET** /integrations/sharepoint/me | Get current SharePoint user
 *Sharepoint* | [**integrationsIsConnected**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Sharepoint.md#integrationsisconnected) | **GET** /integrations/sharepoint/connected | Check SharePoint connection
@@ -338,6 +346,8 @@ Class | Method | HTTP request | Description
 *User* | [**usersUpdateUser**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/User.md#usersupdateuser) | **PATCH** /users/{user_id} | Update a user
 *User* | [**usersUpsertMembers**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/User.md#usersupsertmembers) | **PUT** /users/members/{group_id} | Set user group members
 *User* | [**usersUpsertMyPreferences**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/User.md#usersupsertmypreferences) | **PATCH** /users/me/preferences | Update own preferences
+*WellKnown* | [**wellKnownJwks**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/WellKnown.md#wellknownjwks) | **GET** /.well-known/jwks.json | JSON Web Key Set
+*Workflow* | [**workflowsCancelWorkflowRun**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Workflow.md#workflowscancelworkflowrun) | **POST** /workflows/{workflow_id}/runs/{run_id}/cancel | Cancel Workflow Run
 *Workflow* | [**workflowsCreateRun**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Workflow.md#workflowscreaterun) | **POST** /workflows/{workflow_id}/runs | Create Run
 *Workflow* | [**workflowsCreateRunStreamToken**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Workflow.md#workflowscreaterunstreamtoken) | **POST** /workflows/{workflow_id}/runs/{run_id}/stream-token | Create Run Stream Token
 *Workflow* | [**workflowsCreateWorkflow**](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Workflow.md#workflowscreateworkflow) | **POST** /workflows/ | Create Workflow
@@ -351,6 +361,9 @@ Class | Method | HTTP request | Description
 
  - [AccessItemOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/AccessItemOut.md)
  - [AccessKind](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/AccessKind.md)
+ - [AgentUsageMetrics](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/AgentUsageMetrics.md)
+ - [AgentUsageResponse](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/AgentUsageResponse.md)
+ - [AgentUsageRow](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/AgentUsageRow.md)
  - [ApiKeyCreateRequest](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ApiKeyCreateRequest.md)
  - [ApiKeyCreateResponse](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ApiKeyCreateResponse.md)
  - [ApiKeyInventoryRequest](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ApiKeyInventoryRequest.md)
@@ -395,6 +408,7 @@ Class | Method | HTTP request | Description
  - [CategoryOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/CategoryOut.md)
  - [Cc](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Cc.md)
  - [Chat](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Chat.md)
+ - [ChatExportFormat](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ChatExportFormat.md)
  - [ChatIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ChatIn.md)
  - [ChatInactiveDocumentOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ChatInactiveDocumentOut.md)
  - [ChatLibrary](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ChatLibrary.md)
@@ -465,6 +479,8 @@ Class | Method | HTTP request | Description
  - [LLMSettingsIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/LLMSettingsIn.md)
  - [LLMSettingsUpdate](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/LLMSettingsUpdate.md)
  - [Library](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Library.md)
+ - [LibraryGroupOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/LibraryGroupOut.md)
+ - [LibraryGroupsIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/LibraryGroupsIn.md)
  - [LibraryIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/LibraryIn.md)
  - [LibraryMemberBulkDelete](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/LibraryMemberBulkDelete.md)
  - [LibraryMemberBulkIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/LibraryMemberBulkIn.md)
@@ -486,6 +502,7 @@ Class | Method | HTTP request | Description
  - [ModelObject](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ModelObject.md)
  - [ModelTierEnum](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ModelTierEnum.md)
  - [MoversResponse](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/MoversResponse.md)
+ - [MyAssistantMembershipOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/MyAssistantMembershipOut.md)
  - [NeulandAssistantsTaggingOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/NeulandAssistantsTaggingOut.md)
  - [NeulandMarketplaceAssistantSchemasTaggingOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/NeulandMarketplaceAssistantSchemasTaggingOut.md)
  - [OAuth2ProviderEnum](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/OAuth2ProviderEnum.md)
@@ -496,6 +513,8 @@ Class | Method | HTTP request | Description
  - [PasswordResetRequestIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/PasswordResetRequestIn.md)
  - [PlanStatus](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/PlanStatus.md)
  - [Project](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Project.md)
+ - [ProjectGroupOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ProjectGroupOut.md)
+ - [ProjectGroupsIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ProjectGroupsIn.md)
  - [ProjectIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ProjectIn.md)
  - [ProjectLibrary](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ProjectLibrary.md)
  - [ProjectMember](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ProjectMember.md)
@@ -503,6 +522,8 @@ Class | Method | HTTP request | Description
  - [ProjectMemberBulkIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ProjectMemberBulkIn.md)
  - [ProjectMemberIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/ProjectMemberIn.md)
  - [Prompt](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/Prompt.md)
+ - [PromptGroupOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/PromptGroupOut.md)
+ - [PromptGroupsIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/PromptGroupsIn.md)
  - [PromptIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/PromptIn.md)
  - [PromptOptimizeIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/PromptOptimizeIn.md)
  - [PromptOptimizeOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/PromptOptimizeOut.md)
@@ -525,6 +546,7 @@ Class | Method | HTTP request | Description
  - [RoleReassignIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RoleReassignIn.md)
  - [RoleReassignOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RoleReassignOut.md)
  - [RoleUpdateIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RoleUpdateIn.md)
+ - [RunCancelOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RunCancelOut.md)
  - [RunCreateOut](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/RunCreateOut.md)
  - [SecretUpdateIn](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/SecretUpdateIn.md)
  - [SendEmailRequest](https://github.com/neulandAI/neuland-ai-hub-sdk-sample/blob/dev/nodejs/sdk/docs/SendEmailRequest.md)

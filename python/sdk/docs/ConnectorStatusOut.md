@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **missing_caps** | **List[Optional[str]]** | Capabilities not yet granted; empty unless consent is needed. | 
 **granted_caps** | **List[Optional[str]]** | Capabilities the caller&#39;s consent covers; on a partial grant &#x60;connected&#x60; and &#x60;needs_consent&#x60; are both true and &#x60;missing_caps&#x60; lists the rest. | [optional] 
 **picker_available** | **bool** | The Google Drive file picker can open: an admin set the Picker API key and this consent covers &#x60;drive.file&#x60;. | [optional] [default to False]
+**admin_consent_available** | **bool** | The tenant has an admin consent URL for this connector&#39;s provider, so an admin can approve it for the whole organization. | [optional] [default to False]
 
 ## Example
 

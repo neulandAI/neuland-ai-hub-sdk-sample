@@ -34,13 +34,14 @@ class SystemSettingsUpdate(BaseModel):
     inbound_guardrail_llm_settings_id: Optional[UUID] = None
     outbound_guardrail_llm_settings_id: Optional[UUID] = None
     title_llm_settings_id: Optional[UUID] = None
+    web_search_llm_settings_id: Optional[UUID] = None
     embedding_llm_settings_id: Optional[UUID] = None
     transcription_llm_settings_id: Optional[UUID] = None
     maintenance_start_at: Optional[datetime] = None
     maintenance_end_at: Optional[datetime] = None
     maintenance_message: Optional[StrictStr] = None
     reason: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["maintenance_enabled", "tracing_enabled", "inbound_guardrail_llm_settings_id", "outbound_guardrail_llm_settings_id", "title_llm_settings_id", "embedding_llm_settings_id", "transcription_llm_settings_id", "maintenance_start_at", "maintenance_end_at", "maintenance_message", "reason"]
+    __properties: ClassVar[List[str]] = ["maintenance_enabled", "tracing_enabled", "inbound_guardrail_llm_settings_id", "outbound_guardrail_llm_settings_id", "title_llm_settings_id", "web_search_llm_settings_id", "embedding_llm_settings_id", "transcription_llm_settings_id", "maintenance_start_at", "maintenance_end_at", "maintenance_message", "reason"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -106,6 +107,11 @@ class SystemSettingsUpdate(BaseModel):
         if self.title_llm_settings_id is None and "title_llm_settings_id" in self.model_fields_set:
             _dict['title_llm_settings_id'] = None
 
+        # set to None if web_search_llm_settings_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.web_search_llm_settings_id is None and "web_search_llm_settings_id" in self.model_fields_set:
+            _dict['web_search_llm_settings_id'] = None
+
         # set to None if embedding_llm_settings_id (nullable) is None
         # and model_fields_set contains the field
         if self.embedding_llm_settings_id is None and "embedding_llm_settings_id" in self.model_fields_set:
@@ -153,6 +159,7 @@ class SystemSettingsUpdate(BaseModel):
             "inbound_guardrail_llm_settings_id": obj.get("inbound_guardrail_llm_settings_id"),
             "outbound_guardrail_llm_settings_id": obj.get("outbound_guardrail_llm_settings_id"),
             "title_llm_settings_id": obj.get("title_llm_settings_id"),
+            "web_search_llm_settings_id": obj.get("web_search_llm_settings_id"),
             "embedding_llm_settings_id": obj.get("embedding_llm_settings_id"),
             "transcription_llm_settings_id": obj.get("transcription_llm_settings_id"),
             "maintenance_start_at": obj.get("maintenance_start_at"),

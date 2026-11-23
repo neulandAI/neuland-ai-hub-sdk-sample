@@ -8,6 +8,7 @@ All URIs are relative to *https://api.your-domain.com*
 |[**promptsDeletePrompt**](#promptsdeleteprompt) | **DELETE** /prompts/{prompt_id} | Delete a prompt|
 |[**promptsOptimizePrompt**](#promptsoptimizeprompt) | **POST** /prompts/optimize | Optimize a prompt|
 |[**promptsUpdatePrompt**](#promptsupdateprompt) | **PATCH** /prompts/{prompt_id} | Update a prompt|
+|[**promptsUpdatePromptGroups**](#promptsupdatepromptgroups) | **PUT** /prompts/{prompt_id}/groups | Set prompt group access|
 
 # **promptsCreatePrompt**
 > Prompt promptsCreatePrompt(promptIn)
@@ -242,6 +243,69 @@ const { status, data } = await apiInstance.promptsUpdatePrompt(
 |**401** | Missing or invalid authentication. |  -  |
 |**403** | Not the creator, or only admins may make a prompt public. |  -  |
 |**404** | No prompt exists with the given id. |  -  |
+|**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **promptsUpdatePromptGroups**
+> Array<PromptGroupOut> promptsUpdatePromptGroups(promptGroupsIn)
+
+Grant or update prompt access for user groups (replaces the current set).
+
+### Example
+
+```typescript
+import {
+    Prompt,
+    Configuration,
+    PromptGroupsIn
+} from '@neulandai/neuland-hub-sdk';
+
+const configuration = new Configuration();
+const apiInstance = new Prompt(configuration);
+
+let promptId: string; //Public id of the prompt. (default to undefined)
+let promptGroupsIn: PromptGroupsIn; //
+let cookieName: string; // (optional) (default to undefined)
+
+const { status, data } = await apiInstance.promptsUpdatePromptGroups(
+    promptId,
+    promptGroupsIn,
+    cookieName
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **promptGroupsIn** | **PromptGroupsIn**|  | |
+| **promptId** | [**string**] | Public id of the prompt. | defaults to undefined|
+| **cookieName** | [**string**] |  | (optional) defaults to undefined|
+
+
+### Return type
+
+**Array<PromptGroupOut>**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | Successful Response |  -  |
+|**401** | Missing or invalid authentication. |  -  |
+|**403** | Not the creator of this prompt. |  -  |
+|**404** | Prompt does not exist, or one or more groups not found. |  -  |
+|**409** | The prompt is public; public prompts cannot be shared with groups. |  -  |
 |**422** | Validation Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

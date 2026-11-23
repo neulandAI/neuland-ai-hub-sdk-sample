@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **inbound_guardrail_llm_settings_id** | **int** |  | [optional] 
 **outbound_guardrail_llm_settings_id** | **int** |  | [optional] 
 **title_llm_settings_id** | **int** |  | [optional] 
+**web_search_llm_settings_id** | **int** |  | [optional] 
 **embedding_llm_settings_id** | **int** |  | [optional] 
 **transcription_llm_settings_id** | **int** |  | [optional] 
 **maintenance_start_at** | **datetime** |  | [optional] 

@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **avatar** | **str** |  | [optional] 
 **app_url** | **str** |  | [optional] 
 **version** | **str** |  | [optional] 
+**departments** | **List[str]** |  | [optional] 
+**industries** | **List[str]** |  | [optional] 
+**use_cases** | **List[str]** |  | [optional] 
 
 ## Example
 

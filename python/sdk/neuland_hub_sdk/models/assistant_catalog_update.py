@@ -40,7 +40,10 @@ class AssistantCatalogUpdate(BaseModel):
     similarity_top_k: Optional[StrictInt] = None
     version: Optional[StrictStr] = None
     predefined_prompts: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "avatar", "instructions", "llm_catalog_id", "temperature", "reasoning_effort", "similarity_top_k", "version", "predefined_prompts"]
+    departments: Optional[List[StrictStr]] = None
+    industries: Optional[List[StrictStr]] = None
+    use_cases: Optional[List[StrictStr]] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "avatar", "instructions", "llm_catalog_id", "temperature", "reasoning_effort", "similarity_top_k", "version", "predefined_prompts", "departments", "industries", "use_cases"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -131,6 +134,21 @@ class AssistantCatalogUpdate(BaseModel):
         if self.predefined_prompts is None and "predefined_prompts" in self.model_fields_set:
             _dict['predefined_prompts'] = None
 
+        # set to None if departments (nullable) is None
+        # and model_fields_set contains the field
+        if self.departments is None and "departments" in self.model_fields_set:
+            _dict['departments'] = None
+
+        # set to None if industries (nullable) is None
+        # and model_fields_set contains the field
+        if self.industries is None and "industries" in self.model_fields_set:
+            _dict['industries'] = None
+
+        # set to None if use_cases (nullable) is None
+        # and model_fields_set contains the field
+        if self.use_cases is None and "use_cases" in self.model_fields_set:
+            _dict['use_cases'] = None
+
         return _dict
 
     @classmethod
@@ -152,7 +170,10 @@ class AssistantCatalogUpdate(BaseModel):
             "reasoning_effort": obj.get("reasoning_effort"),
             "similarity_top_k": obj.get("similarity_top_k"),
             "version": obj.get("version"),
-            "predefined_prompts": obj.get("predefined_prompts")
+            "predefined_prompts": obj.get("predefined_prompts"),
+            "departments": obj.get("departments"),
+            "industries": obj.get("industries"),
+            "use_cases": obj.get("use_cases")
         }.items() if k in _keep})
         return _obj
 

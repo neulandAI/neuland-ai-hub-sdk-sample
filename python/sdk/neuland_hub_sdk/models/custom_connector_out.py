@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,15 +32,17 @@ class CustomConnectorOut(BaseModel):
     public_id: UUID
     connector_id: StrictStr
     name: StrictStr
+    description: Optional[StrictStr]
     url: StrictStr
     enabled: StrictBool = Field(description="Switched on for, and usable by, the caller.")
     header_names: List[StrictStr]
     owner: StrictStr
     auth_mode: StrictStr
+    send_identity: Optional[StrictBool] = None
     signed_in: StrictBool = Field(description="The caller has a stored sign-in.")
     usable: StrictBool = Field(description="The caller may use it in chat; false for an organisation MCP an admin manages but is outside the audience of.")
     can_manage: StrictBool
-    __properties: ClassVar[List[str]] = ["id", "public_id", "connector_id", "name", "url", "enabled", "header_names", "owner", "auth_mode", "signed_in", "usable", "can_manage"]
+    __properties: ClassVar[List[str]] = ["id", "public_id", "connector_id", "name", "description", "url", "enabled", "header_names", "owner", "auth_mode", "send_identity", "signed_in", "usable", "can_manage"]
 
     @field_validator('owner')
     def owner_validate_enum(cls, value):
@@ -95,6 +97,16 @@ class CustomConnectorOut(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if send_identity (nullable) is None
+        # and model_fields_set contains the field
+        if self.send_identity is None and "send_identity" in self.model_fields_set:
+            _dict['send_identity'] = None
+
         return _dict
 
     @classmethod
@@ -111,11 +123,13 @@ class CustomConnectorOut(BaseModel):
             "public_id": obj.get("public_id"),
             "connector_id": obj.get("connector_id"),
             "name": obj.get("name"),
+            "description": obj.get("description"),
             "url": obj.get("url"),
             "enabled": obj.get("enabled"),
             "header_names": obj.get("header_names"),
             "owner": obj.get("owner"),
             "auth_mode": obj.get("auth_mode"),
+            "send_identity": obj.get("send_identity"),
             "signed_in": obj.get("signed_in"),
             "usable": obj.get("usable"),
             "can_manage": obj.get("can_manage")

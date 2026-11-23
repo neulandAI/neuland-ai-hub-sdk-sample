@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**auth_confirm_email**](Auth.md#auth_confirm_email) | **GET** /auth/confirm-email | Confirm an email address
 [**auth_exchange_token**](Auth.md#auth_exchange_token) | **POST** /auth/exchange/token | Exchange for a service token
+[**auth_get_entra_group**](Auth.md#auth_get_entra_group) | **GET** /auth/entra/groups/{group_id} | Get an Entra directory group
 [**auth_get_entra_groups**](Auth.md#auth_get_entra_groups) | **GET** /auth/entra/groups | Get Entra group names
 [**auth_get_entra_scopes**](Auth.md#auth_get_entra_scopes) | **GET** /auth/entra/scopes | List Entra scopes
 [**auth_login**](Auth.md#auth_login) | **POST** /auth/token | Log in
@@ -174,6 +175,94 @@ Name | Type | Description  | Notes
 **401** | Missing or invalid authentication. |  -  |
 **404** | No application exists with the given public id. |  -  |
 **422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **auth_get_entra_group**
+> Dict[str, object] auth_get_entra_group(group_id, cookie_name=cookie_name)
+
+Get an Entra directory group
+
+Resolve the Entra directory group a HUB group is bound to (delegated).
+
+### Example
+
+* Api Key Authentication (APIKeyHeader):
+
+```python
+from uuid import UUID
+import os
+import neuland_hub_sdk
+from neuland_hub_sdk.api.auth import Auth
+from neuland_hub_sdk.rest import ApiException
+from pprint import pprint
+
+# Your Hub API URL
+# See configuration.py for a list of all supported configuration parameters.
+configuration = neuland_hub_sdk.Configuration(
+    host = "https://api.your-domain.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: APIKeyHeader
+configuration.api_key['APIKeyHeader'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['APIKeyHeader'] = 'Bearer'
+
+
+# Enter a context with an instance of the API client
+with neuland_hub_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = Auth(api_client)
+    group_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    cookie_name = 'cookie_name_example' # str |  (optional)
+
+    try:
+        # Get an Entra directory group
+        api_response = api_instance.auth_get_entra_group(group_id, cookie_name=cookie_name)
+        print("The response of Auth->auth_get_entra_group:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling Auth->auth_get_entra_group: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **group_id** | **UUID**|  | 
+ **cookie_name** | **str**|  | [optional] 
+
+### Return type
+
+**Dict[str, object]**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**401** | Missing or invalid authentication. |  -  |
+**403** | Administrator privileges required. |  -  |
+**404** | The group no longer exists in the directory. |  -  |
+**422** | Not an Azure Entra session, or its access token is missing. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -944,7 +1033,7 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | Successful Response |  -  |
 **400** | Unknown provider or provider does not support SSO login. |  -  |
-**403** | Invalid, expired, or mismatched SSO state token. |  -  |
+**403** | Invalid, expired, or mismatched SSO state token, or the identity provider returned a different account than the email entered. |  -  |
 **404** | No tenant matches the slug, or the provider is not configured. |  -  |
 **503** | Token exchange with the identity provider failed. |  -  |
 **422** | Validation Error |  -  |

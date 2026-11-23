@@ -33,7 +33,10 @@ class ApplicationCatalogUpdate(BaseModel):
     avatar: Optional[StrictStr] = None
     app_url: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     version: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "avatar", "app_url", "version"]
+    departments: Optional[List[StrictStr]] = None
+    industries: Optional[List[StrictStr]] = None
+    use_cases: Optional[List[StrictStr]] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "avatar", "app_url", "version", "departments", "industries", "use_cases"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -99,6 +102,21 @@ class ApplicationCatalogUpdate(BaseModel):
         if self.version is None and "version" in self.model_fields_set:
             _dict['version'] = None
 
+        # set to None if departments (nullable) is None
+        # and model_fields_set contains the field
+        if self.departments is None and "departments" in self.model_fields_set:
+            _dict['departments'] = None
+
+        # set to None if industries (nullable) is None
+        # and model_fields_set contains the field
+        if self.industries is None and "industries" in self.model_fields_set:
+            _dict['industries'] = None
+
+        # set to None if use_cases (nullable) is None
+        # and model_fields_set contains the field
+        if self.use_cases is None and "use_cases" in self.model_fields_set:
+            _dict['use_cases'] = None
+
         return _dict
 
     @classmethod
@@ -115,7 +133,10 @@ class ApplicationCatalogUpdate(BaseModel):
             "description": obj.get("description"),
             "avatar": obj.get("avatar"),
             "app_url": obj.get("app_url"),
-            "version": obj.get("version")
+            "version": obj.get("version"),
+            "departments": obj.get("departments"),
+            "industries": obj.get("industries"),
+            "use_cases": obj.get("use_cases")
         }.items() if k in _keep})
         return _obj
 
