@@ -41,7 +41,9 @@ Generated from Hub `v3.0.0-rc.101` (`release` branch). Tested against a Hub on t
 ## 1.3.1
 
 Generated from Hub `v3.0.0-rc.47` (`release` branch). Fixes regressions in 1.3.0.
-rc.47 also lets `authExchangeToken` / `auth_exchange_token` authenticate with the API key.
+(Correction: an earlier version of this entry said rc.47 lets `authExchangeToken` /
+`auth_exchange_token` authenticate with the API key. It does not: the exchange still needs a
+signed-in Hub session, and an API key alone gets `401 Token is invalid`.)
 Upgrade from 1.3.0 is recommended; code written for 1.2.1 works again unchanged.
 
 ### Fixed
